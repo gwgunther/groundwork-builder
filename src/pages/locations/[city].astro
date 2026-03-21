@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTABlock from '../../components/CTABlock.astro';
+import { site, doctor, address, localBusinessSchema } from '../../config/site';
+
+// TODO: Add cities near the practice
+// Each city generates a location page for local SEO
+const nearbyLocations = [
+  { city: 'Sample City', slug: 'sample-city', distance: '5 miles' },
+  // { city: 'Another City', slug: 'another-city', distance: '10 miles' },
+];
+
+export function getStaticPaths() {
+  return [
+    { params: { city: 'sample-city' }, props: { cityName: 'Sample City', distance: '5 miles' } },
+    // TODO: Add more cities
+  ];
+}
+
+const { cityName, distance } = Astro.props;
+---
+
+<BaseLayout
+  title={`Dentist Near ${cityName} — ${site.name}`}
+  description={`Looking for a dentist near ${cityName}? ${site.name} is just ${distance} away. Call ${site.phone} to schedule.`}
+  schema={localBusinessSchema}
+>
+  <section class="bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="max-w-3xl">
+        <h1 class="section-heading mb-6">Dentist Near {cityName}</h1>
+        <p class="text-lg text-neutral-mid leading-relaxed mb-8">
+          {site.name} proudly serves patients from {cityName} and surrounding areas. Our office in {address.city} is just {distance} away, offering comprehensive dental care with a patient-first approach.
+        </p>
+        <a href="/schedule" class="btn-primary text-base px-8 py-4">
+          Book Appointment
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-subheading mb-4">Why {cityName} Patients Choose Us</h2>
+      <ul class="space-y-3 text-neutral-mid">
+        <li>Conveniently located just {distance} from {cityName}</li>
+        <li>Comprehensive services from cleanings to implants</li>
+        <li>{doctor.name}, {doctor.credentials} — [X]+ years of experience</li>
+        <li>Most insurance plans accepted</li>
+        <li>Flexible scheduling including select evenings</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <CTABlock phone={site.phone} heading={`Ready to Visit From ${cityName}?`} />
+    </div>
+  </section>
+</BaseLayout>

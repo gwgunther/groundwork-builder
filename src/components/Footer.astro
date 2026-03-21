@@ -1,0 +1,107 @@
+---
+import { site, address as addr, hours } from '../config/site';
+
+const currentYear = new Date().getFullYear();
+const phone = site.phone;
+const email = site.email;
+const googleReviewLink = site.googleReviewLink;
+---
+
+<footer class="bg-white border-t border-border-light">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+      <!-- NAP Block -->
+      <div class="lg:col-span-1">
+        <div class="font-serif text-xl font-bold mb-4 text-charcoal">{site.name}</div>
+        <address class="not-italic text-mid-gray text-sm">
+          <div class="space-y-0.5">
+            <p>{addr.street}</p>
+            <p>{addr.city}, {addr.state} {addr.zip}</p>
+          </div>
+          <div class="mt-3 space-y-1">
+            <p>
+              <a href={`tel:${phone.replace(/\D/g, '')}`} class="hover:text-charcoal transition-colors font-medium">
+                {phone}
+              </a>
+            </p>
+            <p>
+              <a href={`mailto:${email}`} class="hover:text-charcoal transition-colors">
+                {email}
+              </a>
+            </p>
+          </div>
+          <div class="mt-4">
+            <p class="text-xs font-semibold text-charcoal uppercase tracking-wide mb-1.5">Hours</p>
+            <div class="text-xs space-y-0.5">
+              {hours.display.map(h => (
+                <p>{h.day}: {h.time}</p>
+              ))}
+            </div>
+          </div>
+        </address>
+        <div class="mt-4">
+          <a
+            href={googleReviewLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-brand-highlight text-sm font-medium hover:text-charcoal transition-colors"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            Leave a Google Review
+          </a>
+        </div>
+      </div>
+
+      <!-- Services — TODO: Customize for your practice -->
+      <div>
+        <h3 class="font-serif text-base font-semibold mb-3 text-charcoal">Services</h3>
+        <ul class="space-y-2 text-sm text-mid-gray">
+          <li><a href="/services/general-dentistry" class="hover:text-charcoal transition-colors">General Dentistry</a></li>
+          <li><a href="/services/cosmetic-dentistry" class="hover:text-charcoal transition-colors">Cosmetic Dentistry</a></li>
+          <li><a href="/services/dental-implants" class="hover:text-charcoal transition-colors">Dental Implants</a></li>
+          <li><a href="/services/restorative-dentistry" class="hover:text-charcoal transition-colors">Restorative Dentistry</a></li>
+          <li><a href="/services" class="hover:text-charcoal transition-colors">All Services</a></li>
+        </ul>
+      </div>
+
+      <!-- Resources -->
+      <div>
+        <h3 class="font-serif text-base font-semibold mb-3 text-charcoal">Resources</h3>
+        <ul class="space-y-2 text-sm text-mid-gray">
+          <li><a href="/about" class="hover:text-charcoal transition-colors">About Us</a></li>
+          <li><a href="/blog" class="hover:text-charcoal transition-colors">Patient Blog</a></li>
+          <li><a href="/gallery" class="hover:text-charcoal transition-colors">Before & After</a></li>
+          <li><a href="/faq" class="hover:text-charcoal transition-colors">FAQ</a></li>
+          <li><a href="/financing" class="hover:text-charcoal transition-colors">Insurance & Financing</a></li>
+        </ul>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="font-serif text-base font-semibold mb-4 text-charcoal">Quick Links</h3>
+        <ul class="space-y-2 text-sm text-mid-gray">
+          <li>
+            <a href="/schedule" class="font-medium text-charcoal hover:text-brand-primary transition-colors">
+              &rarr; Book Appointment
+            </a>
+          </li>
+          <li><a href={`tel:${phone.replace(/\D/g, '')}`} class="hover:text-charcoal transition-colors">Call Us: {phone}</a></li>
+          <li><a href="/faq" class="hover:text-charcoal transition-colors">Patient FAQ</a></li>
+          <li><a href="/gallery" class="hover:text-charcoal transition-colors">Before & After Gallery</a></li>
+          <li><a href="/about" class="hover:text-charcoal transition-colors">About Our Practice</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-border-light">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-mid-gray">
+        <p>&copy; {currentYear} {site.name}. All rights reserved.</p>
+        <p class="text-center md:text-right">
+          {site.name} is a dental practice. Results may vary.
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>

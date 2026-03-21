@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
+import CTABlock from '../components/CTABlock.astro';
+import { site, localBusinessSchema } from '../config/site';
+
+// TODO: Replace with actual before/after images
+const beforeAfterItems = [
+  // {
+  //   before: '/images/gallery/case1-before.webp',
+  //   after: '/images/gallery/case1-after.webp',
+  //   beforeAlt: 'Before treatment',
+  //   afterAlt: 'After treatment',
+  //   procedure: 'Dental Implants',
+  //   caption: 'Single tooth implant — 3 month result',
+  // },
+];
+
+// TODO: Replace with actual gallery images
+const galleryImages = [
+  // {
+  //   src: '/images/gallery/result-1.webp',
+  //   alt: 'Patient smile after treatment',
+  //   procedure: 'Veneers',
+  //   caption: 'Porcelain veneer transformation',
+  // },
+];
+---
+
+<BaseLayout
+  title={`Before & After Gallery — ${site.name}`}
+  description={`See real patient results from ${site.name}. Before and after photos of dental implants, veneers, and smile makeovers.`}
+  schema={localBusinessSchema}
+>
+  <section class="bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="section-heading mb-6">Before & After Gallery</h1>
+        <p class="text-lg text-neutral-mid">
+          Real results from real patients. See the difference quality dental care can make.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {beforeAfterItems.length > 0 && (
+    <section class="py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <BeforeAfter items={beforeAfterItems} />
+      </div>
+    </section>
+  )}
+
+  {galleryImages.length > 0 && (
+    <section class="py-16 bg-surface-2">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <GalleryGrid images={galleryImages} />
+      </div>
+    </section>
+  )}
+
+  {beforeAfterItems.length === 0 && galleryImages.length === 0 && (
+    <section class="py-16">
+      <div class="max-w-3xl mx-auto px-4 text-center">
+        <p class="text-mid-gray text-lg">Gallery photos coming soon. Contact us to see examples of our work.</p>
+      </div>
+    </section>
+  )}
+
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <CTABlock phone={site.phone} />
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTABlock from '../components/CTABlock.astro';
+import { site, doctor, address, localBusinessSchema } from '../config/site';
+---
+
+<BaseLayout
+  title={`About ${doctor.name} — ${site.name}`}
+  description={`Meet ${doctor.name}, ${doctor.credentials}. Learn about our practice, philosophy, and commitment to exceptional dental care in ${address.city}.`}
+  schema={localBusinessSchema}
+>
+  <!-- Hero -->
+  <section class="bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-highlight mb-4">About Our Practice</p>
+          <h1 class="section-heading mb-6">Meet {doctor.name}</h1>
+          <p class="text-lg text-neutral-mid leading-relaxed mb-4">
+            <!-- TODO: Write a compelling introduction about the doctor -->
+            With [X] years of experience, {doctor.name} has dedicated their career to providing exceptional dental care in {address.city}. Our practice combines advanced technology with a patient-first approach.
+          </p>
+          <p class="text-neutral-mid leading-relaxed">
+            {doctor.credentials} — [University Name], [Graduation Year]
+          </p>
+        </div>
+        <div class="bg-neutral-light rounded-2xl aspect-[4/5] flex items-center justify-center">
+          <!-- TODO: Replace with doctor headshot -->
+          <p class="text-mid-gray text-sm">Doctor Photo</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy -->
+  <section class="py-16">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-subheading text-center mb-8">Our Philosophy</h2>
+      <div class="prose-dental">
+        <p>
+          <!-- TODO: Write about the practice philosophy -->
+          We believe every patient deserves honest, transparent dental care without pressure. Our goal is to educate you about your options and help you make the best decision for your smile and your budget.
+        </p>
+        <p>
+          Whether you need a simple cleaning or a complex restoration, we treat every patient with the same attention to detail and commitment to excellence.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <CTABlock phone={site.phone} />
+    </div>
+  </section>
+</BaseLayout>

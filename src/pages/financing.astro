@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTABlock from '../components/CTABlock.astro';
+import { site, localBusinessSchema } from '../config/site';
+---
+
+<BaseLayout
+  title={`Insurance & Financing — ${site.name}`}
+  description={`Insurance and payment options at ${site.name}. We accept most major plans and offer flexible financing. Call ${site.phone}.`}
+  schema={localBusinessSchema}
+>
+  <section class="bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="section-heading mb-6">Insurance & Financing</h1>
+        <p class="text-lg text-neutral-mid">
+          We believe cost shouldn't be a barrier to quality dental care. We accept most insurance plans and offer flexible payment options.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="space-y-8">
+        <div>
+          <h2 class="section-subheading mb-4">Insurance</h2>
+          <p class="text-neutral-mid mb-4">We accept most major dental insurance plans. Our team will help you understand your benefits and file claims on your behalf.</p>
+          <!-- TODO: List accepted insurance plans -->
+          <p class="text-mid-gray text-sm">Contact us to verify your specific plan coverage.</p>
+        </div>
+        <div>
+          <h2 class="section-subheading mb-4">Payment Options</h2>
+          <ul class="space-y-3 text-neutral-mid">
+            <li>Cash, check, and all major credit cards</li>
+            <li>CareCredit financing (0% interest options available)</li>
+            <li>In-house payment plans for qualifying treatments</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <CTABlock phone={site.phone} heading="Questions About Cost?" subheading="Call us — we'll walk you through your options and help you find the most affordable path to the care you need." />
+    </div>
+  </section>
+</BaseLayout>

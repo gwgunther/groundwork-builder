@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTABlock from '../../components/CTABlock.astro';
+import FAQBlock from '../../components/FAQBlock.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalProcedure',
+  'name': 'Cosmetic Dentistry',
+  'description': 'Cosmetic dentistry services including veneers, teeth whitening, dental bonding, and complete smile makeovers.',
+  'provider': {
+    '@type': 'Dentist',
+    'name': site.name,
+    'url': site.url,
+  },
+};
+
+const faqs = [
+  {
+    question: 'How long do porcelain veneers last?',
+    answer: 'With proper care, porcelain veneers can last 10 to 15 years or longer. We use high-quality materials and precision placement to maximize the lifespan of your veneers.',
+  },
+  {
+    question: 'Is teeth whitening safe?',
+    answer: 'Yes, professional teeth whitening is safe and effective. We use controlled, dentist-grade whitening agents that minimize sensitivity while delivering dramatic results.',
+  },
+  {
+    question: 'What is a smile makeover?',
+    answer: 'A smile makeover combines multiple cosmetic procedures — such as veneers, whitening, and bonding — into a comprehensive plan tailored to achieve your ideal smile.',
+  },
+];
+---
+
+<BaseLayout
+  title={`Cosmetic Dentistry — ${site.name}`}
+  description={`Cosmetic dentistry services at ${site.name}. Veneers, teeth whitening, bonding, and smile makeovers. Call ${site.phone} to schedule a consultation.`}
+  schema={[localBusinessSchema, schema]}
+>
+  <!-- Hero -->
+  <section class="bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="max-w-3xl">
+        <h1 class="section-heading mb-6">Cosmetic Dentistry</h1>
+        <p class="text-lg text-neutral-mid leading-relaxed mb-8">
+          Your smile is the first thing people notice. Our cosmetic dentistry services help you achieve the confident, beautiful smile you've always wanted — from subtle enhancements to complete transformations.
+        </p>
+        <a href="/schedule" class="btn-primary text-base px-8 py-4">
+          Schedule a Consultation
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services List -->
+  <section class="py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-subheading text-center mb-12">What We Offer</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2">Porcelain Veneers</h3>
+          <p class="text-sm text-mid-gray">Custom-crafted shells that cover the front surface of teeth to correct shape, color, and alignment.</p>
+        </div>
+        <div class="card">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2">Teeth Whitening</h3>
+          <p class="text-sm text-mid-gray">Professional in-office and take-home whitening systems for a brighter, more radiant smile.</p>
+        </div>
+        <div class="card">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2">Dental Bonding</h3>
+          <p class="text-sm text-mid-gray">Tooth-colored composite resin to repair chips, gaps, and discoloration in a single visit.</p>
+        </div>
+        <div class="card">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2">Smile Makeover</h3>
+          <p class="text-sm text-mid-gray">A comprehensive treatment plan combining multiple cosmetic procedures for a complete smile transformation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <FAQBlock faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <CTABlock phone={site.phone} />
+    </div>
+  </section>
+</BaseLayout>

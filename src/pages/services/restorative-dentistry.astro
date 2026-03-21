@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTABlock from '../../components/CTABlock.astro';
+import FAQBlock from '../../components/FAQBlock.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalProcedure',
+  'name': 'Restorative Dentistry',
+  'description': 'Restorative dentistry services including crowns, bridges, dentures, and root canal therapy.',
+  'provider': {
+    '@type': 'Dentist',
+    'name': site.name,
+    'url': site.url,
+  },
+};
+
+const faqs = [
+  {
+    question: 'How long does a dental crown last?',
+    answer: 'A well-maintained dental crown typically lasts 10 to 15 years, and many last even longer. We use high-quality materials and precise fit to maximize the longevity of every restoration.',
+  },
+  {
+    question: 'Is a root canal painful?',
+    answer: 'Modern root canal therapy is comfortable and virtually painless. We use local anesthesia and advanced techniques to ensure you are relaxed throughout the procedure. Most patients compare it to getting a filling.',
+  },
+  {
+    question: 'What is the difference between a bridge and an implant?',
+    answer: 'A bridge uses adjacent teeth for support and replaces one or more missing teeth. An implant is a standalone replacement anchored directly in the jawbone. We can help you decide which option is best during your consultation.',
+  },
+];
+---
+
+<BaseLayout
+  title={`Restorative Dentistry — ${site.name}`}
+  description={`Restorative dentistry services at ${site.name}. Crowns, bridges, dentures, and root canal therapy. Call ${site.phone} to schedule.`}
+  schema={[localBusinessSchema, schema]}
+>
+  <!-- Hero -->
+  <section class="bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="max-w-3xl">
+        <h1 class="section-heading mb-6">Restorative Dentistry</h1>
+        <p class="text-lg text-neutral-mid leading-relaxed mb-8">
+          Damaged or missing teeth affect more than just your smile — they impact your ability to eat, speak, and feel confident. Our restorative treatments repair and rebuild your teeth so you can get back to living your life.
+        </p>
+        <a href="/schedule" class="btn-primary text-base px-8 py-4">
+          Schedule a Visit
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services List -->
+  <section class="py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-subheading text-center mb-12">What We Offer</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2">Dental Crowns</h3>
+          <p class="text-sm text-mid-gray">Custom-made caps that restore the shape, strength, and appearance of damaged or weakened teeth.</p>
+        </div>
+        <div class="card">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2">Bridges</h3>
+          <p class="text-sm text-mid-gray">Fixed prosthetics that bridge the gap left by one or more missing teeth, supported by adjacent teeth.</p>
+        </div>
+        <div class="card">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2">Dentures</h3>
+          <p class="text-sm text-mid-gray">Full and partial dentures crafted for comfort and a natural appearance, with implant-supported options available.</p>
+        </div>
+        <div class="card">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2">Root Canals</h3>
+          <p class="text-sm text-mid-gray">Save an infected or damaged tooth with gentle, modern root canal therapy that eliminates pain and preserves your natural tooth.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <FAQBlock faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <CTABlock phone={site.phone} />
+    </div>
+  </section>
+</BaseLayout>

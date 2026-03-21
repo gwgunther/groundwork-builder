@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTABlock from '../components/CTABlock.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import { site, doctor, localBusinessSchema } from '../config/site';
+
+const faqs = [
+  {
+    question: 'What insurance do you accept?',
+    answer: 'We accept most major dental insurance plans. Contact our office to verify your specific coverage.',
+  },
+  {
+    question: 'Are you accepting new patients?',
+    answer: 'Yes! We welcome new patients and make it easy to get started. Call us or book online.',
+  },
+  {
+    question: 'What are your office hours?',
+    answer: 'We are open Monday through Friday, 9am to 5pm. We also offer select weekend and evening appointments.',
+  },
+  {
+    question: 'Do you offer emergency dental care?',
+    answer: 'Yes, we accommodate dental emergencies. Call our office and we will get you in as soon as possible.',
+  },
+];
+---
+
+<BaseLayout
+  title={`${site.name} — ${doctor.name}, ${doctor.credentials} | [CITY] Dentist`}
+  description={`${site.name} provides comprehensive dental care in [CITY], [STATE]. From general dentistry to cosmetic treatments and dental implants. Call ${site.phone} to schedule.`}
+  schema={localBusinessSchema}
+>
+  <!-- Hero -->
+  <section class="bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="max-w-3xl">
+        <p class="text-sm font-semibold uppercase tracking-widest text-brand-highlight mb-4">
+          [CITY]'s Trusted Dental Practice
+        </p>
+        <h1 class="section-heading mb-6">
+          Your Smile Starts Here.
+        </h1>
+        <p class="text-lg text-neutral-mid leading-relaxed mb-8">
+          Comprehensive dental care from a team that puts your comfort first. Whether you need a routine cleaning, cosmetic makeover, or dental implants — we've got you covered.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="/schedule" class="btn-primary text-base px-8 py-4">
+            Book Appointment
+          </a>
+          <a href="/services" class="btn-secondary text-base px-8 py-4">
+            View Services
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div class="card">
+          <p class="text-4xl font-serif font-bold text-charcoal mb-1">[X]+</p>
+          <p class="text-sm text-mid-gray">Years Experience</p>
+        </div>
+        <div class="card">
+          <p class="text-4xl font-serif font-bold text-charcoal mb-1">[X]+</p>
+          <p class="text-sm text-mid-gray">Happy Patients</p>
+        </div>
+        <div class="card">
+          <p class="text-4xl font-serif font-bold text-charcoal mb-1">4.9</p>
+          <p class="text-sm text-mid-gray">Google Rating</p>
+        </div>
+        <div class="card">
+          <p class="text-4xl font-serif font-bold text-charcoal mb-1">[X]+</p>
+          <p class="text-sm text-mid-gray">5-Star Reviews</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Overview -->
+  <section class="py-16 bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-subheading text-center mb-4">Our Services</h2>
+      <p class="text-center text-mid-gray mb-12 max-w-2xl mx-auto">
+        From preventive care to advanced restorations, we offer a full range of dental services under one roof.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <a href="/services/general-dentistry" class="card hover:border-brand-primary/30 transition-colors group">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2 group-hover:text-brand-primary transition-colors">General Dentistry</h3>
+          <p class="text-sm text-mid-gray">Cleanings, exams, fillings, and preventive care to keep your smile healthy.</p>
+        </a>
+        <a href="/services/cosmetic-dentistry" class="card hover:border-brand-primary/30 transition-colors group">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2 group-hover:text-brand-primary transition-colors">Cosmetic Dentistry</h3>
+          <p class="text-sm text-mid-gray">Veneers, whitening, bonding, and smile makeovers for the look you want.</p>
+        </a>
+        <a href="/services/dental-implants" class="card hover:border-brand-primary/30 transition-colors group">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2 group-hover:text-brand-primary transition-colors">Dental Implants</h3>
+          <p class="text-sm text-mid-gray">Permanent tooth replacement that looks, feels, and functions like natural teeth.</p>
+        </a>
+        <a href="/services/restorative-dentistry" class="card hover:border-brand-primary/30 transition-colors group">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2 group-hover:text-brand-primary transition-colors">Restorative Dentistry</h3>
+          <p class="text-sm text-mid-gray">Crowns, bridges, and dentures to restore your bite and confidence.</p>
+        </a>
+        <a href="/services" class="card hover:border-brand-primary/30 transition-colors group">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2 group-hover:text-brand-primary transition-colors">All Services</h3>
+          <p class="text-sm text-mid-gray">View the complete list of treatments and procedures we offer.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <FAQBlock faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <CTABlock phone={site.phone} />
+    </div>
+  </section>
+</BaseLayout>

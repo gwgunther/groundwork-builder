@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans antialiased text-charcoal;
+  }
+
+  h1 {
+    @apply font-serif;
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-block bg-charcoal text-white font-semibold px-6 py-3 rounded-full transition-colors duration-200 text-center hover:bg-neutral-800;
+  }
+
+  .btn-secondary {
+    @apply inline-block bg-white text-charcoal font-semibold px-6 py-3 rounded-full transition-colors duration-200 text-center border border-charcoal hover:bg-charcoal hover:text-white;
+  }
+
+  .btn-accent {
+    @apply inline-block bg-brand-highlight text-white font-semibold px-6 py-3 rounded-full hover:opacity-90 transition-opacity duration-200 text-center;
+  }
+
+  .section-heading {
+    @apply text-4xl md:text-5xl font-bold leading-tight tracking-tight text-charcoal;
+  }
+
+  .section-subheading {
+    @apply text-2xl md:text-3xl font-semibold leading-tight tracking-tight text-charcoal;
+  }
+
+  .prose-dental {
+    @apply text-neutral-mid leading-relaxed;
+  }
+
+  .prose-dental p {
+    @apply mb-4;
+  }
+
+  .prose-dental h2 {
+    @apply text-2xl md:text-3xl font-semibold leading-tight tracking-tight text-charcoal mt-8 mb-4;
+  }
+
+  .prose-dental h3 {
+    @apply font-serif text-xl font-semibold mt-6 mb-3 text-charcoal;
+  }
+
+  .prose-dental ul {
+    @apply list-disc list-inside mb-4 space-y-2;
+  }
+
+  .prose-dental ol {
+    @apply list-decimal list-inside mb-4 space-y-2;
+  }
+
+  .card {
+    @apply rounded-xl p-6 border bg-surface-2 border-border-light;
+  }
+
+  .nav-link {
+    @apply font-medium transition-colors duration-200 text-charcoal hover:text-brand-primary;
+  }
+}

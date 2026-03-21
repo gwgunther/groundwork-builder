@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTABlock from '../../components/CTABlock.astro';
+import FAQBlock from '../../components/FAQBlock.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalProcedure',
+  'name': 'Dental Implants',
+  'description': 'Dental implant services including single tooth implants, All-on-4, bone grafting, and full arch restoration.',
+  'provider': {
+    '@type': 'Dentist',
+    'name': site.name,
+    'url': site.url,
+  },
+};
+
+const faqs = [
+  {
+    question: 'How long do dental implants last?',
+    answer: 'With proper care and maintenance, dental implants can last a lifetime. The implant post integrates with your jawbone permanently, and the crown on top typically lasts 10 to 15 years before needing replacement.',
+  },
+  {
+    question: 'Am I a candidate for dental implants?',
+    answer: 'Most adults with good general health are candidates for dental implants. We evaluate bone density, gum health, and overall health during a consultation. Bone grafting can often help patients who have experienced bone loss.',
+  },
+  {
+    question: 'What is the recovery time for dental implants?',
+    answer: 'Initial healing takes about 1 to 2 weeks. The implant fully integrates with the jawbone over 3 to 6 months. During this time, we provide a temporary restoration so you are never without teeth.',
+  },
+];
+---
+
+<BaseLayout
+  title={`Dental Implants — ${site.name}`}
+  description={`Dental implant services at ${site.name}. Single tooth implants, All-on-4, bone grafting, and full arch restoration. Call ${site.phone} to schedule a consultation.`}
+  schema={[localBusinessSchema, schema]}
+>
+  <!-- Hero -->
+  <section class="bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="max-w-3xl">
+        <h1 class="section-heading mb-6">Dental Implants</h1>
+        <p class="text-lg text-neutral-mid leading-relaxed mb-8">
+          Dental implants are the gold standard for replacing missing teeth. They look, feel, and function like natural teeth — giving you the confidence to eat, speak, and smile without worry.
+        </p>
+        <a href="/schedule" class="btn-primary text-base px-8 py-4">
+          Schedule a Consultation
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services List -->
+  <section class="py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-subheading text-center mb-12">What We Offer</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2">Single Tooth Implants</h3>
+          <p class="text-sm text-mid-gray">Replace one missing tooth with a permanent implant and custom crown that matches your natural teeth.</p>
+        </div>
+        <div class="card">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2">All-on-4 Implants</h3>
+          <p class="text-sm text-mid-gray">A full arch of teeth supported by just four strategically placed implants — often completed in a single day.</p>
+        </div>
+        <div class="card">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2">Bone Grafting</h3>
+          <p class="text-sm text-mid-gray">Rebuild jawbone density to create a strong foundation for implants, even after years of tooth loss.</p>
+        </div>
+        <div class="card">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2">Full Arch Restoration</h3>
+          <p class="text-sm text-mid-gray">Replace an entire arch of teeth with implant-supported bridges or dentures for a complete smile.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <FAQBlock faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <CTABlock phone={site.phone} />
+    </div>
+  </section>
+</BaseLayout>

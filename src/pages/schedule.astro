@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site, address, localBusinessSchema } from '../config/site';
+---
+
+<BaseLayout
+  title={`Schedule an Appointment — ${site.name}`}
+  description={`Book your dental appointment at ${site.name}. Call ${site.phone} or request an appointment online.`}
+  schema={localBusinessSchema}
+>
+  <section class="bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="section-heading mb-6">Schedule an Appointment</h1>
+        <p class="text-lg text-neutral-mid mb-8">
+          Ready to take the next step? Call us or use your preferred booking method below.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href={`tel:${site.phone.replace(/\D/g, '')}`} class="btn-primary text-base px-8 py-4">
+            Call {site.phone}
+          </a>
+          <!-- TODO: Add link to your online booking system (e.g. Dentrix, Open Dental, or third-party scheduler) -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="section-subheading mb-4">Visit Us</h2>
+      <address class="not-italic text-neutral-mid leading-relaxed">
+        <p class="font-semibold text-charcoal">{site.name}</p>
+        <p>{address.street}</p>
+        <p>{address.city}, {address.state} {address.zip}</p>
+        <p class="mt-2">
+          <a href={`tel:${site.phone.replace(/\D/g, '')}`} class="text-brand-primary font-medium">{site.phone}</a>
+        </p>
+        <p>
+          <a href={`mailto:${site.email}`} class="text-brand-primary">{site.email}</a>
+        </p>
+      </address>
+    </div>
+  </section>
+</BaseLayout>

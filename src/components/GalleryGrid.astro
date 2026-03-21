@@ -1,0 +1,245 @@
+---
+export interface GalleryImage {
+  src: string;
+  alt: string;
+  procedure?: string;
+  caption?: string;
+}
+
+interface Props {
+  images: GalleryImage[];
+  heading?: string;
+}
+
+const { images, heading = 'Our Work' } = Astro.props;
+
+const procedures = ['All', ...Array.from(new Set(images.map(i => i.procedure).filter(Boolean)))];
+---
+
+<section class="py-12">
+  {heading && (
+    <h2 class="section-subheading text-center mb-2">{heading}</h2>
+  )}
+  <p class="text-center text-neutral-mid mb-8 text-sm">
+    Individual results may vary. Photos shown with patient consent.
+  </p>
+
+  {procedures.length > 2 && (
+    <div class="flex flex-wrap justify-center gap-2 mb-8" id="gallery-filters">
+      {procedures.map(proc => (
+        <button
+          class="filter-btn px-4 py-2 rounded-full text-sm font-semibold border transition-colors duration-200"
+          data-filter={proc === 'All' ? 'all' : proc}
+          aria-pressed={proc === 'All' ? 'true' : 'false'}
+        >
+          {proc}
+        </button>
+      ))}
+    </div>
+  )}
+
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="gallery-grid">
+    {images.map((image, index) => (
+      <button
+        class="gallery-item group relative overflow-hidden rounded-xl aspect-square bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-brand-blue"
+        data-index={index}
+        data-procedure={image.procedure ?? ''}
+        aria-label={image.caption ?? image.alt}
+      >
+        <img
+          src={image.src}
+          alt={image.alt}
+          loading="lazy"
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        />
+        {image.procedure && (
+          <span class="absolute top-2 left-2 bg-brand-navy/80 text-white text-xs font-semibold px-2 py-1 rounded-full pointer-events-none">
+            {image.procedure}
+          </span>
+        )}
+        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-200 flex items-center justify-center pointer-events-none">
+          <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+          </svg>
+        </div>
+      </button>
+    ))}
+  </div>
+
+  <p class="text-center text-neutral-mid text-xs mt-6" id="gallery-empty" style="display:none;">
+    No photos in this category yet.
+  </p>
+</section>
+
+<!-- Lightbox overlay -->
+<div
+  id="gallery-lightbox"
+  class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
+  style="display:none;"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Image lightbox"
+>
+  <button
+    id="lb-close"
+    class="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors p-2"
+    aria-label="Close lightbox"
+  >
+    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+    </svg>
+  </button>
+
+  <button
+    id="lb-prev"
+    class="absolute left-2 md:left-6 text-white hover:text-gray-300 transition-colors p-2"
+    aria-label="Previous image"
+  >
+    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
+  </button>
+
+  <div class="max-w-4xl w-full mx-16 md:mx-24 flex flex-col items-center gap-4 px-4">
+    <img
+      id="lb-img"
+      src=""
+      alt=""
+      class="max-h-[80vh] max-w-full object-contain rounded-lg shadow-2xl"
+    />
+    <div class="text-center">
+      <p id="lb-caption" class="text-white text-sm md:text-base"></p>
+      <p id="lb-counter" class="text-gray-400 text-xs mt-1"></p>
+    </div>
+  </div>
+
+  <button
+    id="lb-next"
+    class="absolute right-2 md:right-6 text-white hover:text-gray-300 transition-colors p-2"
+    aria-label="Next image"
+  >
+    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+  (() => {
+    const grid = document.getElementById('gallery-grid');
+    const lightbox = document.getElementById('gallery-lightbox');
+    const lbImg = document.getElementById('lb-img') as HTMLImageElement;
+    const lbCaption = document.getElementById('lb-caption');
+    const lbCounter = document.getElementById('lb-counter');
+    const lbClose = document.getElementById('lb-close');
+    const lbPrev = document.getElementById('lb-prev');
+    const lbNext = document.getElementById('lb-next');
+    const emptyMsg = document.getElementById('gallery-empty');
+    const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+
+    if (!grid || !lightbox || !lbImg) return;
+
+    // Build image data from DOM
+    const allItems = Array.from(grid.querySelectorAll<HTMLButtonElement>('.gallery-item'));
+    const imageData = allItems.map(el => ({
+      src: el.querySelector('img')?.src ?? '',
+      alt: el.querySelector('img')?.alt ?? '',
+      caption: el.getAttribute('aria-label') ?? '',
+      procedure: el.dataset.procedure ?? '',
+    }));
+
+    let visibleIndices: number[] = allItems.map((_, i) => i);
+    let currentPos = 0; // position within visibleIndices
+
+    // --- Filtering ---
+    function applyFilter(filter: string) {
+      visibleIndices = [];
+      allItems.forEach((el, i) => {
+        const proc = el.dataset.procedure ?? '';
+        const visible = filter === 'all' || proc === filter;
+        el.style.display = visible ? '' : 'none';
+        if (visible) visibleIndices.push(i);
+      });
+      if (emptyMsg) emptyMsg.style.display = visibleIndices.length === 0 ? 'block' : 'none';
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => {
+          b.setAttribute('aria-pressed', 'false');
+          b.classList.remove('bg-brand-navy', 'text-white', 'border-brand-navy');
+          b.classList.add('border-gray-300', 'text-neutral-mid');
+        });
+        btn.setAttribute('aria-pressed', 'true');
+        btn.classList.add('bg-brand-navy', 'text-white', 'border-brand-navy');
+        btn.classList.remove('border-gray-300', 'text-neutral-mid');
+        applyFilter(btn.dataset.filter ?? 'all');
+      });
+    });
+
+    // Set initial active state on "All" button
+    const allBtn = document.querySelector<HTMLButtonElement>('[data-filter="all"]');
+    if (allBtn) {
+      allBtn.classList.add('bg-brand-navy', 'text-white', 'border-brand-navy');
+      allBtn.classList.remove('border-gray-300', 'text-neutral-mid');
+    }
+
+    // Style inactive filter buttons
+    filterBtns.forEach(btn => {
+      if (btn.dataset.filter !== 'all') {
+        btn.classList.add('border-gray-300', 'text-neutral-mid', 'hover:border-brand-navy', 'hover:text-brand-navy');
+      }
+    });
+
+    // --- Lightbox ---
+    function openLightbox(globalIndex: number) {
+      const pos = visibleIndices.indexOf(globalIndex);
+      if (pos === -1) return;
+      currentPos = pos;
+      showImage();
+      lightbox.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      lbClose?.focus();
+    }
+
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    function showImage() {
+      const globalIndex = visibleIndices[currentPos];
+      const data = imageData[globalIndex];
+      lbImg.src = data.src;
+      lbImg.alt = data.alt;
+      if (lbCaption) lbCaption.textContent = data.caption || '';
+      if (lbCounter) lbCounter.textContent = `${currentPos + 1} / ${visibleIndices.length}`;
+      if (lbPrev) (lbPrev as HTMLButtonElement).disabled = currentPos === 0;
+      if (lbNext) (lbNext as HTMLButtonElement).disabled = currentPos === visibleIndices.length - 1;
+    }
+
+    allItems.forEach((el, i) => {
+      el.addEventListener('click', () => openLightbox(i));
+      el.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(i); }
+      });
+    });
+
+    lbClose?.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+
+    lbPrev?.addEventListener('click', () => {
+      if (currentPos > 0) { currentPos--; showImage(); }
+    });
+    lbNext?.addEventListener('click', () => {
+      if (currentPos < visibleIndices.length - 1) { currentPos++; showImage(); }
+    });
+
+    document.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (lightbox.style.display === 'none') return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft' && currentPos > 0) { currentPos--; showImage(); }
+      if (e.key === 'ArrowRight' && currentPos < visibleIndices.length - 1) { currentPos++; showImage(); }
+    });
+  })();
+</script>

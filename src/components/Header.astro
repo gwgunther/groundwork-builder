@@ -1,0 +1,129 @@
+---
+import { site } from '../config/site';
+import { navLinks } from '../config/navigation';
+
+const phone = site.phone;
+---
+
+<header class="bg-white border-b border-border-light sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 md:h-20">
+      <!-- Logo — TODO: Replace with your practice's logo -->
+      <a href="/" class="flex-shrink-0 flex items-center gap-3">
+        <div>
+          <div class="font-serif text-base md:text-lg font-bold leading-tight text-charcoal">{site.name}</div>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex items-center space-x-6">
+        {navLinks.map((link) => (
+          <div class="relative group">
+            <a
+              href={link.href}
+              class={`nav-link text-sm py-1.5 flex items-center gap-1.5 ${link.avatar ? 'border border-charcoal/20 rounded-full px-3 hover:border-charcoal/40' : ''}`}
+            >
+              {link.avatar && (
+                <img src={link.avatar} alt="" class="w-6 h-6 rounded-full object-cover object-top ring-2 ring-white" />
+              )}
+              {link.label}
+              {link.dropdown && (
+                <svg class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              )}
+            </a>
+            {link.dropdown && (
+              <div class="absolute top-full left-0 mt-1 w-72 bg-white rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 border border-border-light">
+                {link.dropdown.map((item) => (
+                  <a
+                    href={item.href}
+                    class="block px-4 py-3 hover:bg-surface-2 first:rounded-t-xl last:rounded-b-xl"
+                  >
+                    <div class="text-sm font-medium text-charcoal">{item.label}</div>
+                    {item.desc && <div class="text-xs text-mid-gray mt-0.5">{item.desc}</div>}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </nav>
+
+      <!-- Desktop CTA + Phone -->
+      <div class="hidden lg:flex items-center gap-4">
+        <a href={`tel:${phone.replace(/\D/g, '')}`} class="text-mid-gray text-sm font-medium hover:text-charcoal transition-colors">
+          {phone}
+        </a>
+        <a href="/schedule" class="btn-primary text-sm px-5 py-2.5">
+          Book Appointment
+        </a>
+      </div>
+
+      <!-- Mobile: Phone + Hamburger -->
+      <div class="flex items-center gap-3 lg:hidden">
+        <a href={`tel:${phone.replace(/\D/g, '')}`} class="text-mid-gray font-medium text-sm">
+          Call Now
+        </a>
+        <button
+          id="mobile-menu-btn"
+          class="text-charcoal p-2 rounded-md hover:bg-surface-2 transition-colors"
+          aria-label="Toggle mobile menu"
+          aria-expanded="false"
+        >
+          <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-border-light">
+    <div class="px-4 py-4 space-y-1">
+      {navLinks.map((link) => (
+        <div>
+          <a href={link.href} class="block text-charcoal font-medium py-2 hover:text-brand-primary transition-colors">
+            {link.label}
+          </a>
+          {link.dropdown && (
+            <div class="pl-4 space-y-1 border-l border-border-light ml-2">
+              {link.dropdown.map((item) => (
+                <a href={item.href} class="block text-mid-gray text-sm py-1.5 hover:text-charcoal transition-colors">
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+      <div class="pt-4 border-t border-border-light space-y-3">
+        <a href={`tel:${phone.replace(/\D/g, '')}`} class="block text-center btn-secondary text-sm">
+          Call {phone}
+        </a>
+        <a href="/schedule" class="block text-center btn-primary text-sm">
+          Book Appointment
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const hamburger = document.getElementById('hamburger-icon');
+  const closeIcon = document.getElementById('close-icon');
+
+  btn?.addEventListener('click', () => {
+    const isOpen = !menu?.classList.contains('hidden');
+    menu?.classList.toggle('hidden');
+    hamburger?.classList.toggle('hidden');
+    closeIcon?.classList.toggle('hidden');
+    btn.setAttribute('aria-expanded', String(!isOpen));
+  });
+</script>

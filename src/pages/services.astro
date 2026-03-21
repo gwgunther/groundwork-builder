@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTABlock from '../components/CTABlock.astro';
+import { site, localBusinessSchema } from '../config/site';
+
+// TODO: Customize services for the practice
+const services = [
+  { name: 'General Dentistry', href: '/services/general-dentistry', desc: 'Cleanings, exams, fillings, and preventive care.' },
+  { name: 'Cosmetic Dentistry', href: '/services/cosmetic-dentistry', desc: 'Veneers, whitening, bonding, and smile design.' },
+  { name: 'Dental Implants', href: '/services/dental-implants', desc: 'Permanent tooth replacement with implants.' },
+  { name: 'Restorative Dentistry', href: '/services/restorative-dentistry', desc: 'Crowns, bridges, dentures, and more.' },
+];
+---
+
+<BaseLayout
+  title={`Services — ${site.name}`}
+  description={`Comprehensive dental services at ${site.name}. General dentistry, cosmetic treatments, dental implants, and restorations. Call ${site.phone}.`}
+  schema={localBusinessSchema}
+>
+  <section class="bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="section-heading mb-6">Our Services</h1>
+        <p class="text-lg text-neutral-mid leading-relaxed">
+          From routine checkups to advanced restorations, we provide a full range of dental services to keep your smile healthy and beautiful.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {services.map((service) => (
+          <a href={service.href} class="card hover:border-brand-primary/30 transition-colors group">
+            <h2 class="font-serif text-xl font-semibold text-charcoal mb-2 group-hover:text-brand-primary transition-colors">{service.name}</h2>
+            <p class="text-mid-gray">{service.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <CTABlock phone={site.phone} />
+    </div>
+  </section>
+</BaseLayout>

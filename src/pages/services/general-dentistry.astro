@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTABlock from '../../components/CTABlock.astro';
+import FAQBlock from '../../components/FAQBlock.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalProcedure',
+  'name': 'General Dentistry',
+  'description': 'Comprehensive general dentistry services including cleanings, exams, fillings, and preventive care.',
+  'provider': {
+    '@type': 'Dentist',
+    'name': site.name,
+    'url': site.url,
+  },
+};
+
+const faqs = [
+  {
+    question: 'How often should I visit the dentist?',
+    answer: 'We recommend visiting every 6 months for a routine cleaning and exam. Some patients may need more frequent visits depending on their oral health.',
+  },
+  {
+    question: 'What happens during a dental exam?',
+    answer: 'During your exam, we check for cavities, gum disease, oral cancer, and other conditions. We also take X-rays as needed and create a treatment plan if any issues are found.',
+  },
+  {
+    question: 'Do you accept dental insurance?',
+    answer: 'Yes, we accept most major dental insurance plans. Our team will help you understand your benefits and maximize your coverage.',
+  },
+];
+---
+
+<BaseLayout
+  title={`General Dentistry — ${site.name}`}
+  description={`General dentistry services at ${site.name}. Cleanings, exams, fillings, and preventive care. Call ${site.phone} to schedule.`}
+  schema={[localBusinessSchema, schema]}
+>
+  <!-- Hero -->
+  <section class="bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="max-w-3xl">
+        <h1 class="section-heading mb-6">General Dentistry</h1>
+        <p class="text-lg text-neutral-mid leading-relaxed mb-8">
+          Preventive care is the foundation of a healthy smile. Our general dentistry services help you maintain optimal oral health through regular checkups, professional cleanings, and early detection of problems.
+        </p>
+        <a href="/schedule" class="btn-primary text-base px-8 py-4">
+          Schedule a Visit
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services List -->
+  <section class="py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-subheading text-center mb-12">What We Offer</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2">Dental Exams & Cleanings</h3>
+          <p class="text-sm text-mid-gray">Thorough examinations and professional cleanings to prevent cavities and gum disease.</p>
+        </div>
+        <div class="card">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2">Digital X-Rays</h3>
+          <p class="text-sm text-mid-gray">Low-radiation digital imaging for accurate diagnosis and treatment planning.</p>
+        </div>
+        <div class="card">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2">Fillings</h3>
+          <p class="text-sm text-mid-gray">Tooth-colored composite fillings that blend naturally with your smile.</p>
+        </div>
+        <div class="card">
+          <h3 class="font-serif text-lg font-semibold text-charcoal mb-2">Gum Disease Treatment</h3>
+          <p class="text-sm text-mid-gray">Scaling, root planing, and ongoing periodontal maintenance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <FAQBlock faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <CTABlock phone={site.phone} />
+    </div>
+  </section>
+</BaseLayout>
