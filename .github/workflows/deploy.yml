@@ -1,20 +1,11 @@
-# Deploy to Cloudflare Pages
+# Deploy Studio to Railway
 #
-# This workflow builds the Astro site and deploys it to Cloudflare Pages
-# on every push to main.
+# Triggers a Railway deployment on every push to main.
 #
-# Required GitHub Secrets:
-#   CLOUDFLARE_API_TOKEN         - Cloudflare API token with Pages permissions
-#   CLOUDFLARE_ACCOUNT_ID        - Your Cloudflare account ID
-#   PUBLIC_GA4_MEASUREMENT_ID    - GA4 measurement ID (optional)
-#   PUBLIC_TURNSTILE_SITE_KEY    - Cloudflare Turnstile site key (optional)
-#   PUBLIC_TURNSTILE_SECRET_KEY  - Cloudflare Turnstile secret key (optional)
-#
-# Required updates:
-#   1. Replace [DOMAIN] with your site URL (e.g. https://example.com)
-#   2. Replace [PROJECT_NAME] with your Cloudflare Pages project name
+# Required GitHub Secret:
+#   RAILWAY_TOKEN  — from Railway dashboard → Account Settings → Tokens
 
-name: Deploy to Cloudflare Pages
+name: Deploy to Railway
 
 on:
   push:
@@ -23,35 +14,18 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-    name: Build & Deploy
+    name: Deploy Studio
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build site
-        run: npm run build
+      - name: Deploy
+        run: railway up --service studio --detach
         env:
-          # Add any public env vars needed at build time here
-          SITE_URL: https://[DOMAIN]
-          PUBLIC_GA4_MEASUREMENT_ID: ${{ secrets.PUBLIC_GA4_MEASUREMENT_ID }}
-          PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.PUBLIC_TURNSTILE_SITE_KEY }}
-          PUBLIC_TURNSTILE_SECRET_KEY: ${{ secrets.PUBLIC_TURNSTILE_SECRET_KEY }}
-
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=[PROJECT_NAME]
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}

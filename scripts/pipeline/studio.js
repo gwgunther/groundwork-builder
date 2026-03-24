@@ -24,7 +24,7 @@ import { fileURLToPath } from 'node:url';
 import { exec } from 'node:child_process';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const PORT = 4001;
+const PORT = process.env.PORT || 4001;
 
 // ---------------------------------------------------------------------------
 // Dynamic imports of pipeline modules
