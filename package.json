@@ -7,6 +7,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "start": "node scripts/pipeline/studio.js",
     "studio": "node scripts/pipeline/studio.js"
   },
   "dependencies": {
