@@ -16,7 +16,7 @@ import { JSDOM } from 'jsdom';
 
 const USER_AGENT  = 'GroundworkBuilder-Scraper/1.0 (+internal)';
 const CONCURRENCY = 5;
-const DEFAULT_LIMIT = 30;
+const DEFAULT_LIMIT = 100;
 
 /** Classes/IDs that suggest hero/banner text blocks worth surfacing. */
 const HERO_SELECTORS = [
