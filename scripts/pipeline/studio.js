@@ -1727,11 +1727,12 @@ function refreshRaw() {
 }
 
 function syntaxHighlight(str) {
-  return str.replace(/("(?:\\.|[^"\\])*")\s*:/g, '<span class="json-key">$1</span>:')
-    .replace(/:\s*("(?:\\.|[^"\\])*")/g, ': <span class="json-string">$1</span>')
-    .replace(/:\s*(\b\d+(?:\.\d+)?\b)/g, ': <span class="json-number">$1</span>')
-    .replace(/:\s*(\btrue\b|\bfalse\b)/g, ': <span class="json-bool">$1</span>')
-    .replace(/:\s*(\bnull\b)/g, ': <span class="json-null">$1</span>');
+  return str
+    .replace(new RegExp('("(?:\\\\.|[^"\\\\])*")\\s*:', 'g'), '<span class="json-key">$1</span>:')
+    .replace(new RegExp(':\\s*("(?:\\\\.|[^"\\\\])*")', 'g'), ': <span class="json-string">$1</span>')
+    .replace(new RegExp(':\\s*(\\b\\d+(?:\\.\\d+)?\\b)', 'g'), ': <span class="json-number">$1</span>')
+    .replace(new RegExp(':\\s*(\\btrue\\b|\\bfalse\\b)', 'g'), ': <span class="json-bool">$1</span>')
+    .replace(new RegExp(':\\s*(\\bnull\\b)', 'g'), ': <span class="json-null">$1</span>');
 }
 
 // ── Helpers ────────────────────────────────────────────────────────────────
