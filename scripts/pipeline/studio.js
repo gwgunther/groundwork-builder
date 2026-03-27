@@ -724,7 +724,7 @@ body { font-family: var(--font); background: var(--cream); color: var(--charcoal
 .inline-link:hover { text-decoration: underline; }
 
 /* ── Raw data viewer ── */
-.raw-tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 16px; flex-shrink: 0; }
+.raw-tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 0; flex-shrink: 0; }
 .raw-tab { padding: 8px 20px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; background: none; color: var(--text-dim); border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color 0.12s; }
 .raw-tab:hover { color: var(--charcoal); }
 .raw-tab.active { color: var(--terracotta); border-bottom-color: var(--terracotta); }
@@ -734,6 +734,41 @@ body { font-family: var(--font); background: var(--cream); color: var(--charcoal
 .json-number { color: #f8c555; }
 .json-bool   { color: #79b8ff; font-weight: 700; }
 .json-null   { color: #666; font-style: italic; }
+/* Bronze page browser */
+.bronze-layout { display: flex; flex: 1; min-height: 0; gap: 0; overflow: hidden; }
+.bronze-sidebar { width: 220px; flex-shrink: 0; border-right: 1px solid var(--border); overflow-y: auto; padding: 8px 0; }
+.bronze-page-item { padding: 8px 14px; cursor: pointer; border-left: 3px solid transparent; transition: background 0.1s; }
+.bronze-page-item:hover { background: #F5F2EE; }
+.bronze-page-item.active { border-left-color: var(--terracotta); background: #F5F2EE; }
+.bronze-page-path { font-family: var(--mono); font-size: 11px; color: var(--charcoal); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bronze-page-words { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+.bronze-detail { flex: 1; overflow-y: auto; padding: 20px 24px; }
+.bronze-section { margin-bottom: 20px; }
+.bronze-section-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 8px; }
+.bronze-field { display: flex; gap: 8px; margin-bottom: 6px; font-size: 12px; }
+.bronze-field-key { color: var(--text-dim); min-width: 110px; flex-shrink: 0; }
+.bronze-field-val { color: var(--charcoal); word-break: break-word; }
+.bronze-tag { display: inline-block; background: #F0EDE8; border-radius: 3px; padding: 2px 7px; font-size: 11px; font-family: var(--mono); margin: 2px 3px 2px 0; color: var(--charcoal); }
+.bronze-img-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.bronze-img-item { display: flex; flex-direction: column; gap: 4px; width: 100px; }
+.bronze-img-thumb { width: 100px; height: 70px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border); background: #F0EDE8; }
+.bronze-img-alt { font-size: 10px; color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bronze-body-text { font-size: 11px; font-family: var(--mono); background: #F5F2EE; padding: 10px 12px; border-radius: 4px; line-height: 1.6; color: #555; white-space: pre-wrap; word-break: break-word; max-height: 200px; overflow-y: auto; }
+/* Silver card view */
+.silver-layout { display: flex; flex: 1; min-height: 0; gap: 0; overflow: hidden; }
+.silver-sidebar { width: 180px; flex-shrink: 0; border-right: 1px solid var(--border); overflow-y: auto; padding: 8px 0; }
+.silver-section-item { padding: 8px 14px; cursor: pointer; border-left: 3px solid transparent; font-size: 12px; font-weight: 600; color: var(--text-dim); transition: background 0.1s; }
+.silver-section-item:hover { background: #F5F2EE; }
+.silver-section-item.active { border-left-color: var(--terracotta); background: #F5F2EE; color: var(--charcoal); }
+.silver-detail { flex: 1; overflow-y: auto; padding: 20px 24px; }
+.silver-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 16px; }
+.silver-card-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 12px; }
+.silver-img-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.silver-img-item { display: flex; flex-direction: column; gap: 4px; }
+.silver-img-thumb { width: 120px; height: 80px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border); background: #F0EDE8; }
+.silver-img-label { font-size: 10px; color: var(--text-dim); text-align: center; width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.color-swatch { display: inline-flex; align-items: center; gap: 6px; margin: 3px 6px 3px 0; font-size: 12px; font-family: var(--mono); }
+.color-dot { width: 16px; height: 16px; border-radius: 3px; border: 1px solid rgba(0,0,0,0.1); display: inline-block; flex-shrink: 0; }
 </style>
 </head>
 <body>
@@ -830,7 +865,10 @@ const STEP_META = {
 
 // ── Raw data cache ─────────────────────────────────────────────────────────
 let rawCache = { bronze: null, silver: null };
-let rawTab = 'silver'; // default to silver since it's more readable
+let rawTab = 'bronze';
+let rawJsonType = 'bronze';
+let activeBronzePage = '__assets__';
+let activeSilverSection = 'practice';
 
 // ── API ────────────────────────────────────────────────────────────────────
 async function api(method, path, body) {
@@ -880,6 +918,8 @@ async function runStep(step) {
 function resetAll() {
   if (!confirm('Reset the pipeline? All current state will be cleared.')) return;
   rawCache = { bronze: null, silver: null };
+  activeBronzePage = '__assets__';
+  activeSilverSection = 'practice';
   api('POST', '/api/reset').then(() => location.reload());
 }
 
@@ -1373,65 +1413,312 @@ function renderRaw(state, body) {
   body.style.overflow = 'hidden';
 
   body.innerHTML = \`
-    <div style="padding:16px 28px 0;flex-shrink:0">
+    <div style="padding:16px 28px 0;flex-shrink:0;border-bottom:1px solid var(--border)">
       <div class="raw-tabs">
-        <button class="raw-tab \${rawTab === 'silver' ? 'active' : ''}" onclick="switchRawTab('silver')">Silver (AI-extracted)</button>
-        <button class="raw-tab \${rawTab === 'bronze' ? 'active' : ''}" onclick="switchRawTab('bronze')">Bronze (raw crawl)</button>
+        <button class="raw-tab \${rawTab === 'bronze' ? 'active' : ''}" onclick="switchRawTab('bronze')">Bronze — Raw Crawl</button>
+        <button class="raw-tab \${rawTab === 'silver' ? 'active' : ''}" onclick="switchRawTab('silver')">Silver — AI Extracted</button>
+        <button class="raw-tab \${rawTab === 'json' ? 'active' : ''}" onclick="switchRawTab('json')">JSON</button>
       </div>
     </div>
-    <div style="flex:1;overflow:hidden;padding:0 28px 24px;display:flex;flex-direction:column">
-      <div id="rawViewerWrap" style="flex:1;overflow:hidden;display:flex;flex-direction:column">
-        <div id="rawLoading" class="idle-state" style="flex:1"><div class="big-icon">⟳</div><p>Loading…</p></div>
-        <pre id="rawViewer" class="raw-viewer" style="display:none"></pre>
-      </div>
-      <div style="margin-top:10px;font-size:11px;color:var(--text-dim)">
-        Also saved to <code style="font-family:var(--mono);background:#F0EDE8;padding:1px 5px;border-radius:3px">_pipeline/01-\${rawTab}-full.json</code> after each scrape run.
-      </div>
+    <div id="rawContent" style="flex:1;overflow:hidden;display:flex;flex-direction:column">
+      <div id="rawLoading" class="idle-state" style="flex:1"><div class="big-icon">⟳</div><p>Loading…</p></div>
     </div>
   \`;
 
-  loadRawData(rawTab);
+  loadAndRenderRaw(rawTab);
 }
 
-async function loadRawData(type) {
-  const viewer = document.getElementById('rawViewer');
+async function loadAndRenderRaw(type) {
+  const content = document.getElementById('rawContent');
   const loading = document.getElementById('rawLoading');
-  if (!viewer) return;
+  if (!content) return;
 
-  if (rawCache[type]) {
-    showRawData(rawCache[type]);
+  const dataType = (type === 'json') ? rawJsonType : type;
+
+  if (!rawCache[dataType]) {
+    if (loading) { loading.style.display = 'flex'; }
+    try {
+      rawCache[dataType] = await api('GET', \`/api/raw/\${dataType}\`);
+    } catch(e) {
+      content.innerHTML = \`<p style="padding:20px;color:var(--red)">Failed to load data.</p>\`;
+      return;
+    }
+  }
+
+  if (loading) loading.style.display = 'none';
+
+  const data = rawCache[dataType];
+
+  if (type === 'bronze') {
+    renderBronzeBrowser(data, content);
+  } else if (type === 'silver') {
+    renderSilverCards(data, content);
+  } else {
+    // JSON dump view
+    content.innerHTML = \`
+      <div style="padding:8px 28px 6px;flex-shrink:0;display:flex;gap:8px;align-items:center">
+        <span style="font-size:11px;color:var(--text-dim)">Viewing:</span>
+        <button onclick="rawJsonType='bronze';loadAndRenderRaw('json')" style="font-size:11px;padding:2px 10px;border-radius:3px;border:1px solid var(--border);background:\${rawJsonType==='bronze'?'var(--terracotta)':'#fff'};color:\${rawJsonType==='bronze'?'#fff':'var(--charcoal)'};cursor:pointer">bronze</button>
+        <button onclick="rawJsonType='silver';loadAndRenderRaw('json')" style="font-size:11px;padding:2px 10px;border-radius:3px;border:1px solid var(--border);background:\${rawJsonType==='silver'?'var(--terracotta)':'#fff'};color:\${rawJsonType==='silver'?'#fff':'var(--charcoal)'};cursor:pointer">silver</button>
+        <span style="margin-left:auto;font-size:11px;color:var(--text-dim)">Saved: <code style="font-family:var(--mono);background:#F0EDE8;padding:1px 5px;border-radius:3px">_pipeline/01-\${rawJsonType}-full.json</code></span>
+      </div>
+      <pre class="raw-viewer" style="margin:0 28px 24px;flex:1">\${syntaxHighlight(JSON.stringify(data, null, 2))}</pre>
+    \`;
+  }
+}
+
+function renderBronzeBrowser(bronze, container) {
+  if (!bronze || !bronze.pages) { container.innerHTML = '<p style="padding:20px;color:var(--text-dim)">No bronze data.</p>'; return; }
+  const pages = bronze.pages;
+  const assets = bronze.siteAssets || {};
+
+  // Build sidebar items (pages + site assets)
+  const sidebarItems = [
+    { id: '__assets__', label: 'Site Assets', sub: \`\${assets.cssColors?.length||0} colors\` },
+    ...pages.map((p, i) => ({ id: i, label: p.path || '/', sub: \`\${p.wordCount||0} words\` }))
+  ];
+
+  container.innerHTML = \`
+    <div class="bronze-layout">
+      <div class="bronze-sidebar">
+        \${sidebarItems.map(item => \`
+          <div class="bronze-page-item \${item.id === activeBronzePage ? 'active' : ''}"
+               onclick="selectBronzePage(\${JSON.stringify(item.id)})">
+            <div class="bronze-page-path">\${esc(item.label)}</div>
+            <div class="bronze-page-words">\${esc(item.sub)}</div>
+          </div>
+        \`).join('')}
+      </div>
+      <div class="bronze-detail" id="bronzeDetail"></div>
+    </div>
+  \`;
+
+  window._bronzeData = bronze;
+  showBronzeDetail(activeBronzePage);
+}
+
+function selectBronzePage(id) {
+  activeBronzePage = id;
+  document.querySelectorAll('.bronze-page-item').forEach((el, i) => {
+    const items = document.querySelectorAll('.bronze-page-item');
+    // match by position: first item is __assets__, rest are pages
+    el.classList.toggle('active', i === 0 ? id === '__assets__' : i - 1 === id);
+  });
+  showBronzeDetail(id);
+}
+
+function showBronzeDetail(id) {
+  const detail = document.getElementById('bronzeDetail');
+  if (!detail || !window._bronzeData) return;
+
+  if (id === '__assets__') {
+    const a = window._bronzeData.siteAssets || {};
+    detail.innerHTML = \`
+      <div class="bronze-section">
+        <div class="bronze-section-title">Site Assets</div>
+        \${bronzeField('Pages crawled', window._bronzeData.pageCount)}
+        \${bronzeField('Crawled at', window._bronzeData.crawledAt)}
+        \${bronzeField('Base URL', window._bronzeData.baseUrl)}
+        \${bronzeField('External CSS', a.externalCssUrl || 'none')}
+      </div>
+      \${a.navigation?.length ? \`<div class="bronze-section">
+        <div class="bronze-section-title">Navigation (\${a.navigation.length})</div>
+        \${a.navigation.map(n => \`<span class="bronze-tag">\${esc(n.text||n.href)}</span>\`).join('')}
+      </div>\` : ''}
+      \${a.socialLinks?.length ? \`<div class="bronze-section">
+        <div class="bronze-section-title">Social Links (\${a.socialLinks.length})</div>
+        \${a.socialLinks.map(s => \`<div class="bronze-field"><span class="bronze-field-val">\${esc(s)}</span></div>\`).join('')}
+      </div>\` : ''}
+      \${a.cssColors?.length ? \`<div class="bronze-section">
+        <div class="bronze-section-title">CSS Colors (\${a.cssColors.length})</div>
+        \${a.cssColors.map(c => \`<span class="color-swatch"><span class="color-dot" style="background:\${esc(c)}"></span>\${esc(c)}</span>\`).join('')}
+      </div>\` : ''}
+      \${a.allUrls?.length ? \`<div class="bronze-section">
+        <div class="bronze-section-title">All URLs (\${a.allUrls.length})</div>
+        \${a.allUrls.map(u => \`<div class="bronze-field"><span class="bronze-field-val" style="font-family:var(--mono);font-size:11px">\${esc(u)}</span></div>\`).join('')}
+      </div>\` : ''}
+    \`;
     return;
   }
 
-  loading && (loading.style.display = 'flex');
-  viewer.style.display = 'none';
+  const p = window._bronzeData.pages[id];
+  if (!p) return;
 
-  try {
-    const data = await api('GET', \`/api/raw/\${type}\`);
-    rawCache[type] = data;
-    showRawData(data);
-  } catch (e) {
-    if (loading) loading.innerHTML = \`<p style="color:var(--red)">Failed to load \${type} data.</p>\`;
-  }
+  detail.innerHTML = \`
+    <div class="bronze-section">
+      <div class="bronze-section-title">Page Info</div>
+      \${bronzeField('URL', p.url)}
+      \${bronzeField('Title', p.title)}
+      \${bronzeField('Meta description', p.metaDescription)}
+      \${bronzeField('Word count', p.wordCount)}
+      \${bronzeField('Canonical', p.canonicalUrl)}
+    </div>
+    \${p.headings?.length ? \`<div class="bronze-section">
+      <div class="bronze-section-title">Headings (\${p.headings.length})</div>
+      \${p.headings.map(h => \`<div class="bronze-field"><span class="bronze-field-key" style="font-family:var(--mono)">H\${h.level}</span><span class="bronze-field-val">\${esc(h.text)}</span></div>\`).join('')}
+    </div>\` : ''}
+    \${p.heroTexts?.length ? \`<div class="bronze-section">
+      <div class="bronze-section-title">Hero Text (\${p.heroTexts.length})</div>
+      \${p.heroTexts.map(t => \`<span class="bronze-tag">\${esc(t)}</span>\`).join('')}
+    </div>\` : ''}
+    \${p.paragraphs?.length ? \`<div class="bronze-section">
+      <div class="bronze-section-title">Paragraphs (\${p.paragraphs.length})</div>
+      \${p.paragraphs.map(t => \`<div class="bronze-field"><span class="bronze-field-val">\${esc(t)}</span></div>\`).join('')}
+    </div>\` : ''}
+    \${p.images?.length ? \`<div class="bronze-section">
+      <div class="bronze-section-title">Images (\${p.images.length})</div>
+      <div class="bronze-img-grid">
+        \${p.images.map(img => \`<div class="bronze-img-item">
+          <img class="bronze-img-thumb" src="\${esc(img.src)}" alt="\${esc(img.alt)}" loading="lazy" onerror="this.style.opacity=0.2">
+          <div class="bronze-img-alt">\${esc(img.alt||img.src.split('/').pop())}</div>
+        </div>\`).join('')}
+      </div>
+    </div>\` : ''}
+    \${p.structuredData?.length ? \`<div class="bronze-section">
+      <div class="bronze-section-title">JSON-LD Structured Data (\${p.structuredData.length})</div>
+      \${p.structuredData.map(s => \`<pre style="font-size:10px;font-family:var(--mono);background:#F5F2EE;padding:8px;border-radius:4px;overflow-x:auto;white-space:pre-wrap">\${esc(JSON.stringify(s,null,2))}</pre>\`).join('')}
+    </div>\` : ''}
+    \${p.internalLinks?.length ? \`<div class="bronze-section">
+      <div class="bronze-section-title">Internal Links (\${p.internalLinks.length})</div>
+      \${p.internalLinks.map(l => \`<span class="bronze-tag" style="font-size:10px">\${esc(l.text||l.href)}</span>\`).join('')}
+    </div>\` : ''}
+    <div class="bronze-section">
+      <div class="bronze-section-title">Full Body Text</div>
+      <div class="bronze-body-text">\${esc(p.bodyText||'')}</div>
+    </div>
+  \`;
 }
 
-function showRawData(data) {
-  const viewer = document.getElementById('rawViewer');
-  const loading = document.getElementById('rawLoading');
-  if (!viewer) return;
-  if (loading) loading.style.display = 'none';
-  viewer.style.display = 'block';
-  viewer.innerHTML = syntaxHighlight(JSON.stringify(data, null, 2));
+function bronzeField(key, val) {
+  if (!val && val !== 0) return '';
+  return \`<div class="bronze-field"><span class="bronze-field-key">\${esc(key)}</span><span class="bronze-field-val">\${esc(String(val))}</span></div>\`;
+}
+
+function renderSilverCards(silver, container) {
+  if (!silver || !silver.practice) { container.innerHTML = '<p style="padding:20px;color:var(--text-dim)">No silver data.</p>'; return; }
+
+  const sections = ['practice','doctor','additionalDoctors','address','hours','services','brand','content','images','migration'];
+  const labels = { practice:'Practice', doctor:'Primary Doctor', additionalDoctors:'Additional Doctors', address:'Address', hours:'Hours', services:'Services', brand:'Brand', content:'Content', images:'Images', migration:'Migration' };
+
+  container.innerHTML = \`
+    <div class="silver-layout">
+      <div class="silver-sidebar">
+        \${sections.map(s => \`<div class="silver-section-item \${s === activeSilverSection ? 'active' : ''}" onclick="selectSilverSection('\${s}')">\${labels[s]||s}</div>\`).join('')}
+      </div>
+      <div class="silver-detail" id="silverDetail"></div>
+    </div>
+  \`;
+
+  window._silverData = silver;
+  showSilverSection(activeSilverSection);
+}
+
+function selectSilverSection(section) {
+  activeSilverSection = section;
+  document.querySelectorAll('.silver-section-item').forEach(el => {
+    el.classList.toggle('active', el.textContent === ({'practice':'Practice','doctor':'Primary Doctor','additionalDoctors':'Additional Doctors','address':'Address','hours':'Hours','services':'Services','brand':'Brand','content':'Content','images':'Images','migration':'Migration'}[section]));
+  });
+  showSilverSection(section);
+}
+
+function showSilverSection(section) {
+  const detail = document.getElementById('silverDetail');
+  if (!detail || !window._silverData) return;
+  const s = window._silverData;
+
+  if (section === 'images') {
+    const imgs = s.images || {};
+    const cats = ['hero','team','office','gallery','beforeAfter'];
+    detail.innerHTML = cats.map(cat => {
+      const list = imgs[cat] || [];
+      if (!list.length && cat !== 'hero') return '';
+      return \`<div class="silver-card">
+        <div class="silver-card-title">\${cat} (\${list.length})</div>
+        \${list.length ? \`<div class="silver-img-grid">\${list.map(url => \`
+          <div class="silver-img-item">
+            <img class="silver-img-thumb" src="\${esc(url)}" loading="lazy" onerror="this.style.opacity=0.2">
+            <div class="silver-img-label">\${esc(url.split('/').pop())}</div>
+          </div>
+        \`).join('')}</div>\` : \`<span style="font-size:12px;color:var(--text-dim)">None found</span>\`}
+        \${cat === 'hero' && imgs.logo ? \`<div style="margin-top:12px"><div class="bronze-section-title">Logo</div><img src="\${esc(imgs.logo)}" style="max-height:60px;max-width:200px;border:1px solid var(--border);border-radius:4px;padding:4px;background:#fff"></div>\` : ''}
+      </div>\`;
+    }).join('');
+    return;
+  }
+
+  if (section === 'brand') {
+    const b = s.brand || {};
+    const colors = b.colors || {};
+    detail.innerHTML = \`<div class="silver-card">
+      <div class="silver-card-title">Colors</div>
+      \${Object.entries(colors).filter(([,v])=>v).map(([k,v])=>\`<div class="bronze-field" style="margin-bottom:10px">
+        <span class="bronze-field-key">\${esc(k)}</span>
+        <span class="color-swatch"><span class="color-dot" style="background:\${esc(v)}"></span><span style="font-family:var(--mono)">\${esc(v)}</span></span>
+      </div>\`).join('')}
+    </div>
+    \${b.logoPath ? \`<div class="silver-card">
+      <div class="silver-card-title">Logo</div>
+      <img src="\${esc(b.logoPath)}" style="max-height:80px;max-width:260px;border:1px solid var(--border);border-radius:4px;padding:6px;background:#fff">
+      <div style="font-size:11px;font-family:var(--mono);color:var(--text-dim);margin-top:6px">\${esc(b.logoPath)}</div>
+    </div>\` : ''}
+    \${b.fonts ? \`<div class="silver-card"><div class="silver-card-title">Fonts</div><pre style="font-size:11px;font-family:var(--mono)">\${esc(JSON.stringify(b.fonts,null,2))}</pre></div>\` : ''}
+    \`;
+    return;
+  }
+
+  if (section === 'services') {
+    const offered = s.services?.offered || [];
+    detail.innerHTML = \`<div class="silver-card">
+      <div class="silver-card-title">Services (\${offered.length})</div>
+      \${offered.map(svc => \`<div class="bronze-field">
+        <span class="bronze-field-key" style="font-family:var(--mono);font-size:11px">\${esc(svc.category||'—')}</span>
+        <span class="bronze-field-val">\${esc(svc.name)}</span>
+      </div>\`).join('')}
+    </div>\`;
+    return;
+  }
+
+  if (section === 'hours') {
+    const h = s.hours || {};
+    detail.innerHTML = \`<div class="silver-card">
+      <div class="silver-card-title">Hours</div>
+      \${bronzeField('Raw', h.raw)}
+      \${(h.display||[]).map(d => bronzeField(d.day, d.time)).join('')}
+    </div>\`;
+    return;
+  }
+
+  if (section === 'additionalDoctors') {
+    const docs = s.additionalDoctors || [];
+    if (!docs.length) { detail.innerHTML = \`<div class="silver-card"><div class="silver-card-title">Additional Doctors</div><span style="font-size:12px;color:var(--text-dim)">None found</span></div>\`; return; }
+    detail.innerHTML = docs.map(doc => \`<div class="silver-card">
+      <div class="silver-card-title">\${esc(doc.name||'Doctor')}</div>
+      \${doc.photoPath ? \`<img src="\${esc(doc.photoPath)}" style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:2px solid var(--border);margin-bottom:10px">\` : ''}
+      \${bronzeField('Credentials', doc.credentials)}
+      \${bronzeField('Specialties', (doc.specialties||[]).join(', '))}
+      \${doc.bio ? \`<div class="bronze-field"><span class="bronze-field-key">Bio</span><span class="bronze-field-val" style="font-size:11px;line-height:1.6">\${esc(doc.bio)}</span></div>\` : ''}
+    </div>\`).join('');
+    return;
+  }
+
+  // Default: render as key/value fields
+  const data = s[section] || {};
+  detail.innerHTML = \`<div class="silver-card">
+    <div class="silver-card-title">\${section}</div>
+    \${Object.entries(data).map(([k,v]) => {
+      if (v === null || v === undefined) return bronzeField(k, '—');
+      if (typeof v === 'object') return \`<div class="bronze-field"><span class="bronze-field-key">\${esc(k)}</span><pre style="font-size:10px;font-family:var(--mono);background:#F5F2EE;padding:6px 8px;border-radius:4px;white-space:pre-wrap;margin:0;flex:1">\${esc(JSON.stringify(v,null,2))}</pre></div>\`;
+      return bronzeField(k, String(v));
+    }).join('')}
+  </div>\`;
 }
 
 function switchRawTab(type) {
   rawTab = type;
-  document.querySelectorAll('.raw-tab').forEach(t => t.classList.toggle('active', t.textContent.startsWith(type === 'silver' ? 'Silver' : 'Bronze')));
-  const filePath = document.querySelector('[id="rawViewerWrap"] + div code');
-  if (filePath) filePath.textContent = \`_pipeline/01-\${type}-full.json\`;
-  const viewer = document.getElementById('rawViewer');
-  if (rawCache[type]) { showRawData(rawCache[type]); }
-  else { if (viewer) viewer.style.display = 'none'; loadRawData(type); }
+  document.querySelectorAll('.raw-tab').forEach(t => {
+    t.classList.toggle('active', t.textContent.includes(type === 'bronze' ? 'Bronze' : type === 'silver' ? 'Silver' : 'JSON'));
+  });
+  loadAndRenderRaw(type);
 }
 
 function refreshRaw() {
