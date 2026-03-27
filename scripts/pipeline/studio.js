@@ -736,7 +736,7 @@ body { font-family: var(--font); background: var(--cream); color: var(--charcoal
 .json-null   { color: #666; font-style: italic; }
 /* Bronze page browser */
 .bronze-layout { display: flex; flex: 1; min-height: 0; gap: 0; overflow: hidden; }
-.bronze-sidebar { width: 220px; flex-shrink: 0; border-right: 1px solid var(--border); overflow-y: auto; padding: 8px 0; }
+.bronze-sidebar { width: 140px; flex-shrink: 0; border-right: 1px solid var(--border); overflow-y: auto; padding: 8px 0; }
 .bronze-page-item { padding: 8px 14px; cursor: pointer; border-left: 3px solid transparent; transition: background 0.1s; }
 .bronze-page-item:hover { background: #F5F2EE; }
 .bronze-page-item.active { border-left-color: var(--terracotta); background: #F5F2EE; }
@@ -746,17 +746,17 @@ body { font-family: var(--font); background: var(--cream); color: var(--charcoal
 .bronze-section { margin-bottom: 20px; }
 .bronze-section-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 8px; }
 .bronze-field { display: flex; gap: 8px; margin-bottom: 6px; font-size: 12px; }
-.bronze-field-key { color: var(--text-dim); min-width: 110px; flex-shrink: 0; }
+.bronze-field-key { color: var(--text-dim); min-width: 70px; flex-shrink: 0; }
 .bronze-field-val { color: var(--charcoal); word-break: break-word; }
 .bronze-tag { display: inline-block; background: #F0EDE8; border-radius: 3px; padding: 2px 7px; font-size: 11px; font-family: var(--mono); margin: 2px 3px 2px 0; color: var(--charcoal); }
 .bronze-img-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
-.bronze-img-item { display: flex; flex-direction: column; gap: 4px; width: 100px; }
-.bronze-img-thumb { width: 100px; height: 70px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border); background: #F0EDE8; }
+.bronze-img-item { display: flex; flex-direction: column; gap: 4px; width: 72px; }
+.bronze-img-thumb { width: 72px; height: 52px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border); background: #F0EDE8; }
 .bronze-img-alt { font-size: 10px; color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .bronze-body-text { font-size: 11px; font-family: var(--mono); background: #F5F2EE; padding: 10px 12px; border-radius: 4px; line-height: 1.6; color: #555; white-space: pre-wrap; word-break: break-word; max-height: 200px; overflow-y: auto; }
 /* Silver card view */
 .silver-layout { display: flex; flex: 1; min-height: 0; gap: 0; overflow: hidden; }
-.silver-sidebar { width: 180px; flex-shrink: 0; border-right: 1px solid var(--border); overflow-y: auto; padding: 8px 0; }
+.silver-sidebar { width: 120px; flex-shrink: 0; border-right: 1px solid var(--border); overflow-y: auto; padding: 8px 0; }
 .silver-section-item { padding: 8px 14px; cursor: pointer; border-left: 3px solid transparent; font-size: 12px; font-weight: 600; color: var(--text-dim); transition: background 0.1s; }
 .silver-section-item:hover { background: #F5F2EE; }
 .silver-section-item.active { border-left-color: var(--terracotta); background: #F5F2EE; color: var(--charcoal); }
@@ -765,8 +765,8 @@ body { font-family: var(--font); background: var(--cream); color: var(--charcoal
 .silver-card-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 12px; }
 .silver-img-grid { display: flex; flex-wrap: wrap; gap: 8px; }
 .silver-img-item { display: flex; flex-direction: column; gap: 4px; }
-.silver-img-thumb { width: 120px; height: 80px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border); background: #F0EDE8; }
-.silver-img-label { font-size: 10px; color: var(--text-dim); text-align: center; width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.silver-img-thumb { width: 80px; height: 56px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border); background: #F0EDE8; }
+.silver-img-label { font-size: 10px; color: var(--text-dim); text-align: center; width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .color-swatch { display: inline-flex; align-items: center; gap: 6px; margin: 3px 6px 3px 0; font-size: 12px; font-family: var(--mono); }
 .color-dot { width: 16px; height: 16px; border-radius: 3px; border: 1px solid rgba(0,0,0,0.1); display: inline-block; flex-shrink: 0; }
 </style>
