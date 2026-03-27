@@ -103,6 +103,11 @@ function formatPage(page) {
     }
   }
 
+  // Always include body text for contact/about pages — phone, email, hours are often plain text
+  if (page.bodyText) {
+    lines.push(`Body text: ${page.bodyText.slice(0, 1500)}`);
+  }
+
   return lines.join('\n');
 }
 
