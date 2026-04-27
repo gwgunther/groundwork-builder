@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROMPT_PATH = resolve(__dirname, '..', 'prompts', 'site-audit.md');
+const POSITIONING_SKILL_PATH = resolve(__dirname, '..', 'skills', 'positioning.md');
 
 /**
  * Run the AI site audit on scraped + merged data.
@@ -43,7 +44,14 @@ export async function runSiteAudit(scraped, merged, preset, opts = {}) {
     return null;
   }
 
-  const prompt = interpolatePrompt(promptTemplate, scraped, merged, preset);
+  let positioningSkill = '';
+  try {
+    positioningSkill = await readFile(POSITIONING_SKILL_PATH, 'utf-8');
+  } catch {
+    console.warn('  Warning: Could not load positioning skill — proceeding without it.');
+  }
+
+  const prompt = interpolatePrompt(promptTemplate, scraped, merged, preset, positioningSkill);
 
   if (opts.verbose) {
     console.log('  [audit] Prompt length:', prompt.length, 'chars');
@@ -103,12 +111,13 @@ export async function runSiteAudit(scraped, merged, preset, opts = {}) {
 /**
  * Interpolate {{placeholders}} in the prompt template.
  */
-function interpolatePrompt(template, scraped, merged, preset) {
+function interpolatePrompt(template, scraped, merged, preset, positioningSkill = '') {
   const services = merged.services?.offered || [];
   const hubs = merged.services?.hubs || [];
   const taxonomy = preset?.taxonomy?.services || [];
 
   const replacements = {
+    positioningSkill: positioningSkill || '(No positioning skill file found — use best judgment.)',
     verticalName: preset?.schema?.verticalName || 'Practice',
     practiceName: merged.practice?.name || '[Unknown]',
     domain: merged.practice?.domain || '[Unknown]',
