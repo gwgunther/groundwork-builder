@@ -14,7 +14,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROMPT_PATH = resolve(__dirname, '..', 'prompts', 'content-map.md');
-const GUIDELINES_PATH = resolve(__dirname, '..', 'prompts', 'copywriting-guidelines.md');
+const COPYWRITING_SKILL_PATH = resolve(__dirname, '..', 'skills', 'copywriting.md');
 
 /**
  * Run AI content mapping.
@@ -46,14 +46,14 @@ export async function runContentMapping(scraped, merged, audit, preset, opts = {
     return null;
   }
 
-  let copywritingGuidelines = '';
+  let copywritingSkill = '';
   try {
-    copywritingGuidelines = await readFile(GUIDELINES_PATH, 'utf-8');
+    copywritingSkill = await readFile(COPYWRITING_SKILL_PATH, 'utf-8');
   } catch {
-    console.warn('  Warning: Could not load copywriting guidelines — proceeding without them.');
+    console.warn('  Warning: Could not load copywriting skill — proceeding without it.');
   }
 
-  const prompt = buildPrompt(promptTemplate, scraped, merged, audit, preset, copywritingGuidelines);
+  const prompt = buildPrompt(promptTemplate, scraped, merged, audit, preset, copywritingSkill);
 
   if (opts.verbose) {
     console.log('  [content] Prompt length:', prompt.length, 'chars');
@@ -103,7 +103,7 @@ export async function runContentMapping(scraped, merged, audit, preset, opts = {
 // Prompt builder
 // ---------------------------------------------------------------------------
 
-function buildPrompt(template, scraped, merged, audit, preset, copywritingGuidelines = '') {
+function buildPrompt(template, scraped, merged, audit, preset, copywritingSkill = '') {
   const practice = merged.practice || {};
   const doctor = merged.doctor || {};
   const services = merged.services || {};
@@ -144,7 +144,7 @@ function buildPrompt(template, scraped, merged, audit, preset, copywritingGuidel
   const primaryService = audit?.serviceEmphasis?.primary || hubSlugs.split(',')[0]?.trim() || 'general-dentistry';
 
   return template
-    .replace('{{copywritingGuidelines}}', copywritingGuidelines || '(No guidelines file found — use best judgment.)')
+    .replace('{{copywritingGuidelines}}', copywritingSkill || '(No copywriting skill file found — use best judgment.)')
     .replace('{{practiceName}}', practice.name || '[Practice Name]')
     .replace('{{domain}}', practice.domain || '[domain]')
     .replace('{{doctorName}}', doctor.name || '[Doctor Name]')

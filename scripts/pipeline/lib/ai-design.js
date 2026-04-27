@@ -17,6 +17,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROMPT_PATH = resolve(__dirname, '..', 'prompts', 'design-map.md');
+const DESIGN_SKILL_PATH = resolve(__dirname, '..', 'skills', 'design.md');
 
 /**
  * Run AI design mapping.
@@ -42,7 +43,14 @@ export async function runDesignMapping(scraped, merged, audit, opts = {}) {
     return null;
   }
 
-  const prompt = buildPrompt(promptTemplate, scraped, merged, audit);
+  let designSkill = '';
+  try {
+    designSkill = await readFile(DESIGN_SKILL_PATH, 'utf-8');
+  } catch {
+    console.warn('  Warning: Could not load design skill — proceeding without it.');
+  }
+
+  const prompt = buildPrompt(promptTemplate, scraped, merged, audit, designSkill);
 
   if (opts.verbose) {
     console.log('  [design] Prompt length:', prompt.length, 'chars');
@@ -109,7 +117,7 @@ export async function runDesignMapping(scraped, merged, audit, opts = {}) {
 // Prompt builder
 // ---------------------------------------------------------------------------
 
-function buildPrompt(template, scraped, merged, audit) {
+function buildPrompt(template, scraped, merged, audit, designSkill = '') {
   const practice = merged.practice || {};
   const address = merged.address || {};
   const brand = scraped?.brand || merged.brand || {};
@@ -129,6 +137,7 @@ function buildPrompt(template, scraped, merged, audit) {
     : 'No homepage data available.';
 
   return template
+    .replace('{{designSkill}}', designSkill || '(No design skill file found — use best judgment.)')
     .replace('{{practiceName}}', practice.name || '[Practice Name]')
     .replace('{{city}}', address.city || '[City]')
     .replace('{{state}}', address.state || '[State]')
