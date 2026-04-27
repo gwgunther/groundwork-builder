@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROMPT_PATH = resolve(__dirname, '..', 'prompts', 'site-audit.md');
+const POSITIONING_SKILL_PATH = resolve(__dirname, '..', 'skills', 'positioning.md');
 
 /**
  * Run the AI site audit on scraped + merged data.
@@ -43,14 +44,21 @@ export async function runSiteAudit(scraped, merged, preset, opts = {}) {
     return null;
   }
 
-  const prompt = interpolatePrompt(promptTemplate, scraped, merged, preset);
+  let positioningSkill = '';
+  try {
+    positioningSkill = await readFile(POSITIONING_SKILL_PATH, 'utf-8');
+  } catch {
+    console.warn('  Warning: Could not load positioning skill — proceeding without it.');
+  }
+
+  const prompt = interpolatePrompt(promptTemplate, scraped, merged, preset, positioningSkill);
 
   if (opts.verbose) {
     console.log('  [audit] Prompt length:', prompt.length, 'chars');
   }
 
   // Call Claude API
-  console.log('  Calling Claude API (claude-sonnet-4-20250514)...');
+  console.log('  Calling Claude API (claude-sonnet-4-6)...');
   const startTime = Date.now();
 
   try {
@@ -58,7 +66,7 @@ export async function runSiteAudit(scraped, merged, preset, opts = {}) {
     const client = new Anthropic({ apiKey });
 
     const response = await client.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-4-6',
       max_tokens: 2048,
       messages: [
         { role: 'user', content: prompt },
@@ -88,7 +96,7 @@ export async function runSiteAudit(scraped, merged, preset, opts = {}) {
     return {
       ...audit,
       _meta: {
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         duration_ms: Date.now() - startTime,
         input_tokens: response.usage?.input_tokens || null,
         output_tokens: response.usage?.output_tokens || null,
@@ -103,12 +111,13 @@ export async function runSiteAudit(scraped, merged, preset, opts = {}) {
 /**
  * Interpolate {{placeholders}} in the prompt template.
  */
-function interpolatePrompt(template, scraped, merged, preset) {
+function interpolatePrompt(template, scraped, merged, preset, positioningSkill = '') {
   const services = merged.services?.offered || [];
   const hubs = merged.services?.hubs || [];
   const taxonomy = preset?.taxonomy?.services || [];
 
   const replacements = {
+    positioningSkill: positioningSkill || '(No positioning skill file found — use best judgment.)',
     verticalName: preset?.schema?.verticalName || 'Practice',
     practiceName: merged.practice?.name || '[Unknown]',
     domain: merged.practice?.domain || '[Unknown]',
