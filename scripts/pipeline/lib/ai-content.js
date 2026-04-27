@@ -14,6 +14,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROMPT_PATH = resolve(__dirname, '..', 'prompts', 'content-map.md');
+const COPYWRITING_SKILL_PATH = resolve(__dirname, '..', 'skills', 'copywriting.md');
 
 /**
  * Run AI content mapping.
@@ -45,7 +46,14 @@ export async function runContentMapping(scraped, merged, audit, preset, opts = {
     return null;
   }
 
-  const prompt = buildPrompt(promptTemplate, scraped, merged, audit, preset);
+  let copywritingSkill = '';
+  try {
+    copywritingSkill = await readFile(COPYWRITING_SKILL_PATH, 'utf-8');
+  } catch {
+    console.warn('  Warning: Could not load copywriting skill — proceeding without it.');
+  }
+
+  const prompt = buildPrompt(promptTemplate, scraped, merged, audit, preset, copywritingSkill);
 
   if (opts.verbose) {
     console.log('  [content] Prompt length:', prompt.length, 'chars');
@@ -95,7 +103,7 @@ export async function runContentMapping(scraped, merged, audit, preset, opts = {
 // Prompt builder
 // ---------------------------------------------------------------------------
 
-function buildPrompt(template, scraped, merged, audit, preset) {
+function buildPrompt(template, scraped, merged, audit, preset, copywritingSkill = '') {
   const practice = merged.practice || {};
   const doctor = merged.doctor || {};
   const services = merged.services || {};
@@ -136,6 +144,7 @@ function buildPrompt(template, scraped, merged, audit, preset) {
   const primaryService = audit?.serviceEmphasis?.primary || hubSlugs.split(',')[0]?.trim() || 'general-dentistry';
 
   return template
+    .replace('{{copywritingGuidelines}}', copywritingSkill || '(No copywriting skill file found — use best judgment.)')
     .replace('{{practiceName}}', practice.name || '[Practice Name]')
     .replace('{{domain}}', practice.domain || '[domain]')
     .replace('{{doctorName}}', doctor.name || '[Doctor Name]')
