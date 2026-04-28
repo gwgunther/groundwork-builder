@@ -513,7 +513,7 @@ function buildBuildSection(scrapeOutput, mergeOutput, pagesOutput, buildOutput, 
         ${factRow('Service hubs', (mergeOutput.hubs || []).join(', ') || '—')}
         ${factRow('Services offered', mergeOutput.servicesOffered ?? '—')}
         ${factRow('Redirects mapped', mergeOutput.redirectCount ?? '—')}
-        ${factRow('Intake data', merge?.input?.hasIntake ? 'Yes' : 'No')}
+        ${factRow('Intake data', mergeOutput?.input?.hasIntake ? 'Yes' : 'No')}
       </div>
 
       <div class="card">

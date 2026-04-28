@@ -14,7 +14,7 @@ import { JSDOM } from 'jsdom';
 // Constants
 // ---------------------------------------------------------------------------
 
-const USER_AGENT  = 'GroundworkBuilder-Scraper/1.0 (+internal)';
+const USER_AGENT  = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
 const CONCURRENCY = 5;
 const DEFAULT_LIMIT = 500;
 
@@ -39,7 +39,13 @@ async function fetchPage(url) {
   const timeout = setTimeout(() => controller.abort(), 15_000);
   try {
     const res = await fetch(url, {
-      headers: { 'User-Agent': USER_AGENT },
+      headers: {
+        'User-Agent': USER_AGENT,
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Cache-Control': 'no-cache',
+      },
       redirect: 'follow',
       signal: controller.signal,
     });
@@ -176,7 +182,11 @@ function extractNavigation(doc, baseUrl) {
 async function extractCssColors(cssUrl) {
   try {
     const css = await fetch(cssUrl, {
-      headers: { 'User-Agent': USER_AGENT },
+      headers: {
+        'User-Agent': USER_AGENT,
+        'Accept': 'text/css,*/*;q=0.1',
+        'Accept-Language': 'en-US,en;q=0.9',
+      },
       signal: AbortSignal.timeout(8000),
     }).then(r => r.text());
 
