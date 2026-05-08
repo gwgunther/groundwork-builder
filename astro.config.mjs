@@ -1,10 +1,13 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 
 // TODO: Replace with your practice's domain
 export default defineConfig({
   site: 'https://example.com',
+  vite: {
+    plugins: [tailwindcss()],
+  },
   integrations: [
     sitemap({
       filter: (page) => !page.includes('/thank-you') && !page.includes('/referral'),
@@ -37,6 +40,5 @@ export default defineConfig({
         return { ...item, priority: 0.8, changefreq: 'monthly' };
       },
     }),
-    tailwind(),
   ],
 });

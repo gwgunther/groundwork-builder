@@ -18,6 +18,8 @@ export const doctor = {
   credentials: '[CREDENTIALS]', // e.g. 'DDS, MS' or 'DMD'
 };
 
+export const doctors = [doctor];
+
 export const address = {
   street: '[STREET_ADDRESS]',
   city: '[CITY]',
@@ -70,3 +72,11 @@ export const personSchema = {
   'jobTitle': doctor.credentials,
   'worksFor': { '@type': 'Dentist', 'name': site.name },
 };
+
+export const personSchemas = doctors.map((d) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  'name': d.name,
+  'jobTitle': d.credentials,
+  'worksFor': { '@type': 'Dentist', 'name': site.name },
+}));
