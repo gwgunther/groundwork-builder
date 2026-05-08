@@ -62,3 +62,11 @@ export const localBusinessSchema = {
     // TODO: Add Yelp, Healthgrades, ZocDoc links
   ],
 };
+
+export const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  'name': doctor.name,
+  'jobTitle': doctor.credentials,
+  'worksFor': { '@type': 'Dentist', 'name': site.name },
+};

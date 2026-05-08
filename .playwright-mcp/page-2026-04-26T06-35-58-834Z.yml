@@ -1,0 +1,107 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]: Spring St. Dentistry
+      - generic [ref=e5]:
+        - text: https://www.springstdentistry.com
+        - text: Audit generated April 25, 2026
+    - generic [ref=e6]:
+      - generic [ref=e7]: Groundwork
+      - generic [ref=e8]: groundwork.build
+  - generic [ref=e9]:
+    - generic [ref=e10]:
+      - generic [ref=e11]: Your Site Scores
+      - generic [ref=e12]:
+        - text: Scores measured by Google Lighthouse — an objective tool built into Google Chrome.
+        - link "Test it yourself →" [ref=e13] [cursor=pointer]:
+          - /url: https://pagespeed.web.dev
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - generic [ref=e17]: "62"
+          - generic [ref=e18]: Needs work
+        - generic [ref=e19]: Mobile Speed
+        - generic [ref=e20]: How fast your site loads on a phone
+      - generic [ref=e21]:
+        - generic [ref=e22]:
+          - generic [ref=e23]: "82"
+          - generic [ref=e24]: Needs work
+        - generic [ref=e25]: Google Visibility
+        - generic [ref=e26]: How easily patients can find you
+      - generic [ref=e27]:
+        - generic [ref=e28]:
+          - generic [ref=e29]: "74"
+          - generic [ref=e30]: Needs work
+        - generic [ref=e31]: Ease of Use
+        - generic [ref=e32]: Works for all patients, all devices
+      - generic [ref=e33]:
+        - generic [ref=e34]:
+          - generic [ref=e35]: "77"
+          - generic [ref=e36]: Needs work
+        - generic [ref=e37]: Technical Health
+        - generic [ref=e38]: Security & modern standards
+  - generic [ref=e39]:
+    - generic [ref=e40]: ✕ 5 critical issues
+    - generic [ref=e41]: "! 4 warnings"
+  - generic [ref=e42]:
+    - generic [ref=e43]:
+      - generic [ref=e44]: What We Found
+      - generic [ref=e45]:
+        - generic [ref=e46]: ✕
+        - generic [ref=e47]:
+          - generic [ref=e48]: Pages competing against each other in Google
+          - generic [ref=e49]: 4 titles appear on multiple pages.
+          - generic [ref=e50]: Unique titles help Google understand which page should rank for which query and prevent pages from competing against each other.
+      - generic [ref=e51]:
+        - generic [ref=e52]: ✕
+        - generic [ref=e53]:
+          - generic [ref=e54]: Confusing headline structure on multiple pages
+          - generic [ref=e55]: 15 pages have more than one H1 heading.
+          - generic [ref=e56]: Each page should have exactly one H1. Multiple H1s dilute the primary topic signal and can confuse search engine crawlers.
+      - generic [ref=e57]:
+        - generic [ref=e58]: ✕
+        - generic [ref=e59]:
+          - generic [ref=e60]: Search engines don't know which page to rank
+          - generic [ref=e61]: 54 of 54 pages are missing a canonical tag.
+          - generic [ref=e62]: Canonical tags prevent duplicate content issues and consolidate link equity to the preferred URL.
+      - generic [ref=e63]:
+        - generic [ref=e64]: ✕
+        - generic [ref=e65]:
+          - generic [ref=e66]: First impression loads too slowly
+          - generic [ref=e67]: "LCP is 13403ms (threshold: 2500ms good, 4000ms poor)."
+          - generic [ref=e68]: LCP measures how quickly the main content loads. Slow LCP is a top reason users bounce from pages and a direct ranking factor.
+      - generic [ref=e69]:
+        - generic [ref=e70]: ✕
+        - generic [ref=e71]:
+          - generic [ref=e72]: Images invisible to Google and visually impaired patients
+          - generic [ref=e73]: 60 images across the site are missing alt text.
+          - generic [ref=e74]: Alt text is essential for screen readers and is used by Google Image Search to understand image content.
+    - generic [ref=e75]:
+      - generic [ref=e76]: What We'd Change
+      - generic [ref=e77]:
+        - generic [ref=e78]: →
+        - generic [ref=e79]: Each page targets a different search term, so your pages work together instead of canceling each other out.
+      - generic [ref=e80]:
+        - generic [ref=e81]: →
+        - generic [ref=e82]: Search engines consolidate ranking power behind the right page version instead of splitting it across duplicates.
+      - generic [ref=e83]:
+        - generic [ref=e84]: →
+        - generic [ref=e85]: The first thing a patient sees loads in under 2.5 seconds, giving a strong first impression on any device.
+      - generic [ref=e86]:
+        - generic [ref=e87]: →
+        - generic [ref=e88]: Every image is described for Google Image Search and for patients using screen readers or low vision.
+      - generic [ref=e89]:
+        - generic [ref=e90]: →
+        - generic [ref=e91]: Patients and Google can immediately see what each page is about, making your content easier to navigate and rank.
+      - generic [ref=e92]:
+        - strong [ref=e93]: "New positioning:"
+        - text: Long Beach's trusted full-service family and cosmetic dental practice — where everyday dental care meets smile transform…
+  - generic [ref=e94]:
+    - generic [ref=e95]:
+      - heading "Ready for a new site?" [level=3] [ref=e96]
+      - paragraph [ref=e97]: Groundwork builds fully custom, SEO-optimized sites in under 24 hours.
+    - link "Get Started →" [ref=e98] [cursor=pointer]:
+      - /url: https://groundwork.build
+  - generic [ref=e99]:
+    - generic [ref=e100]: Generated by Groundwork Builder · groundwork.build
+    - generic [ref=e101]: April 25, 2026

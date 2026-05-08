@@ -1,0 +1,71 @@
+---
+/**
+ * Homepage dispatcher.
+ *
+ * Renders sections in the order specified by `designDNA.sectionOrder`.
+ * Every section maps to a component statically imported below. The pipeline
+ * (Phase 3.5) generates AI-driven content into `src/components/generated/*`,
+ * overwriting the stub placeholders that ship with the source repo.
+ *
+ * Adding a new section type requires:
+ *   1. A component at `src/components/generated/<X>.astro` (or an existing
+ *      shared component at `src/components/<X>.astro`)
+ *   2. A registration in COMPONENT_MAP below
+ *   3. A brief in `scripts/pipeline/skills/skill-generate.js` (optional —
+ *      sections without a brief render their stub default).
+ *
+ * No section-specific markup, copy, or fallback strings live in this file.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+// Distinctiveness pass: bold editorial broadsheet layout applied
+import SectionFallback from '../components/_SectionFallback.astro';
+import CTABlock from '../components/CTABlock.astro';
+import { site, doctor, address as addr, localBusinessSchema } from '../config/site';
+import { designDNA } from '../config/design-dna';
+
+import HeroSection      from '../components/generated/HeroSection.astro';
+import DoctorIntro      from '../components/generated/DoctorIntro.astro';
+import ServicesSection  from '../components/generated/ServicesSection.astro';
+import ReviewsSection   from '../components/generated/ReviewsSection.astro';
+import GallerySection   from '../components/generated/GallerySection.astro';
+import FaqSection       from '../components/generated/FaqSection.astro';
+import StatBar          from '../components/generated/StatBar.astro';
+
+const COMPONENT_MAP: Record<string, any> = {
+  'hero':         HeroSection,
+  'doctor-intro': DoctorIntro,
+  'services':     ServicesSection,
+  'reviews':      ReviewsSection,
+  'gallery':      GallerySection,
+  'faq':          FaqSection,
+  'stat-bar':     StatBar,
+};
+
+const sectionOrder: string[] = designDNA.sectionOrder || [];
+
+const cityState = [addr.city, addr.state].filter(Boolean).join(', ');
+const pageTitle = doctor?.name
+  ? `${site.name} — ${doctor.name}${doctor.credentials ? `, ${doctor.credentials}` : ''}${cityState ? ` | ${cityState} Dentist` : ''}`
+  : site.name;
+const pageDescription = `${site.name}${cityState ? ` in ${cityState}` : ''}.`;
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  schema={localBusinessSchema}
+>
+  {sectionOrder.map((section) => {
+    // Wrap every section in a marker div so the post-build integrity validator
+    // can verify each section in `designDNA.sectionOrder` actually rendered.
+    // `class="contents"` makes the wrapper layout-invisible (display:contents).
+    if (section === 'cta') {
+      return <div data-section={section} class="contents"><CTABlock phone={site.phone} /></div>;
+    }
+    const Component = COMPONENT_MAP[section];
+    if (!Component) {
+      return <div data-section={section} class="contents"><SectionFallback name={section} reason="No component registered in index.astro COMPONENT_MAP" /></div>;
+    }
+    return <div data-section={section} class="contents"><Component /></div>;
+  })}
+</BaseLayout>

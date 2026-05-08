@@ -57,20 +57,12 @@ export async function validate(outputDir) {
   // -----------------------------------------------------------------------
   console.log('  Scanning for leftover placeholders...');
 
+  // Catch-all: any [ALL_CAPS_TOKEN] or [Title Case Token] left in HTML
   const PLACEHOLDER_PATTERNS = [
-    /\[PRACTICE_NAME\]/,
-    /\[DOMAIN\]/,
-    /\[FIRST_NAME\]/,
-    /\[LAST_NAME\]/,
-    /\[CREDENTIALS\]/,
-    /\[STREET_ADDRESS\]/,
-    /\[CITY\]/,
-    /\[STATE\]/,
-    /\[ZIP\]/,
+    /\[[A-Z][A-Z0-9_\s]{2,}\]/,  // [PRACTICE_NAME], [CITY], [YOUR_GOOGLE_MAPS_URL], etc.
+    /\[University Name\]/i,
+    /\[Graduation Year\]/i,
     /\[X\]\+/,
-    /\[YOUR_GOOGLE/,
-    /\[University Name\]/,
-    /\[Graduation Year\]/,
   ];
 
   const htmlFiles = await glob(resolve(absDir, 'dist/**/*.html'));
@@ -89,6 +81,60 @@ export async function validate(outputDir) {
     console.log(`  Found ${results.placeholders.length} leftover placeholder(s).`);
   } else {
     console.log('  No leftover placeholders found.');
+  }
+
+  // -----------------------------------------------------------------------
+  // Step 4: Scan for internal links pointing to pages that don't exist (404s)
+  // -----------------------------------------------------------------------
+  console.log('  Scanning for broken internal links...');
+  results.brokenLinks = [];
+
+  // Build the set of valid paths from dist/**/*.html
+  const builtPaths = new Set(['/']);
+  for (const file of htmlFiles) {
+    // dist/about/index.html → /about/
+    let rel = file.replace(resolve(absDir, 'dist'), '').replace(/\\/g, '/');
+    if (rel.endsWith('/index.html')) rel = rel.slice(0, -'index.html'.length);
+    else rel = rel.slice(0, -'.html'.length);
+    builtPaths.add(rel);
+    // Also add without trailing slash
+    builtPaths.add(rel.replace(/\/$/, '') || '/');
+  }
+
+  // Scan all HTML files for internal hrefs that resolve to a missing path
+  const internalHrefRe = /href="(\/[^"#?]*)"/g;
+  const reportedLinks = new Set();
+  // Patterns that are valid file/asset references, not page routes
+  const ASSET_RE = /\.(css|js|svg|png|jpg|jpeg|webp|gif|ico|woff2?|ttf|eot|pdf|txt|xml|json)(\?.*)?$/i;
+  const ASTRO_ASSET_RE = /^\/_astro\//;
+
+  for (const file of htmlFiles) {
+    const html = await readFile(file, 'utf-8');
+    let m;
+    internalHrefRe.lastIndex = 0;
+    while ((m = internalHrefRe.exec(html)) !== null) {
+      const href = m[1].replace(/\/$/, '') || '/';
+      if (reportedLinks.has(href)) continue;
+      // Skip asset/file references — we only care about page routes
+      if (ASSET_RE.test(href) || ASTRO_ASSET_RE.test(href)) continue;
+      if (href.startsWith('//') || href.startsWith('tel:') || href.startsWith('mailto:')) continue;
+      // Dynamic routes (locations, blog slugs) are fine — skip if parent exists
+      const parentPath = '/' + href.split('/').filter(Boolean).slice(0, -1).join('/');
+      const isDynamic = builtPaths.has(parentPath + '/') || builtPaths.has(parentPath);
+      if (!builtPaths.has(href) && !builtPaths.has(href + '/') && !isDynamic) {
+        results.brokenLinks.push({ href, foundIn: file.replace(absDir + '/', '') });
+        reportedLinks.add(href);
+      }
+    }
+  }
+
+  if (results.brokenLinks.length > 0) {
+    console.log(`  ⚠  Found ${results.brokenLinks.length} broken internal link(s):`);
+    for (const { href, foundIn } of results.brokenLinks.slice(0, 10)) {
+      console.log(`     ${href}  (in ${foundIn})`);
+    }
+  } else {
+    console.log('  No broken internal links found.');
   }
 
   return results;

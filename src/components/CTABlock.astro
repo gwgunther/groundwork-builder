@@ -1,63 +1,95 @@
 ---
+import { site, address as addr } from '../config/site';
+import { designDNA } from '../config/design-dna';
+
 interface Props {
   heading?: string;
   subheading?: string;
   primaryCTA?: string;
   primaryHref?: string;
   phone?: string;
-  variant?: 'dark' | 'light' | 'white';
 }
 
 const {
-  heading = 'Ready to Get Started?',
-  subheading = 'Schedule a consultation with our team. We\'ll create a personalized treatment plan just for you.',
+  heading = `Ready for exceptional dental care in ${addr.city}?`,
+  subheading = `Schedule a consultation with our team. We'll create a personalized treatment plan just for you.`,
   primaryCTA = 'Book Appointment',
   primaryHref = '/schedule',
-  phone = '(555) 123-4567',
-  variant = 'light',
+  phone = site.phone,
 } = Astro.props;
 
-const bgClass = {
-  dark: 'bg-charcoal text-white',
-  light: 'bg-surface-2 text-charcoal',
-  white: 'bg-white text-charcoal border border-border-light',
-}[variant];
-
-const headingClass = {
-  dark: 'text-white',
-  light: 'text-charcoal',
-  white: 'text-charcoal',
-}[variant];
-
-const subClass = {
-  dark: 'text-neutral-400',
-  light: 'text-mid-gray',
-  white: 'text-mid-gray',
-}[variant];
-
-const phoneClass = {
-  dark: 'text-neutral-400 hover:text-white',
-  light: 'text-mid-gray hover:text-charcoal',
-  white: 'text-mid-gray hover:text-charcoal',
-}[variant];
+const variant = designDNA.ctaVariant;
 ---
 
-<section class={`${bgClass} rounded-2xl p-8 md:p-12 text-center`}>
-  <h2 class={`font-serif text-2xl md:text-3xl font-bold mb-4 ${headingClass}`}>
-    {heading}
-  </h2>
-  <p class={`max-w-2xl mx-auto mb-8 leading-relaxed ${subClass}`}>
-    {subheading}
-  </p>
-  <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-    <a href={primaryHref} class={`${variant === 'dark' ? 'btn-secondary border-white text-white hover:bg-white hover:text-charcoal' : 'btn-primary'} text-base px-8 py-4 font-semibold`}>
-      {primaryCTA}
-    </a>
-    <a
-      href={`tel:${phone.replace(/\D/g, '')}`}
-      class={`font-medium text-base transition-colors ${phoneClass}`}
-    >
-      Or Call: {phone}
-    </a>
-  </div>
-</section>
+{variant === 'full-width-dark' && (
+  <section class="bg-brand-primary text-white py-16 md:py-20">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+      <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4">
+        {heading}
+      </h2>
+      <p class="text-white/80 max-w-2xl mx-auto mb-8 leading-relaxed">
+        {subheading}
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <a href={primaryHref} class="bg-white text-brand-primary font-semibold rounded-full px-8 py-4 hover:bg-white/90 transition-colors text-base">
+          {primaryCTA}
+        </a>
+        <a
+          href={`tel:${phone.replace(/\D/g, '')}`}
+          class="text-white/80 hover:text-white font-medium text-base transition-colors"
+        >
+          Or Call: {phone}
+        </a>
+      </div>
+    </div>
+  </section>
+)}
+
+{variant === 'split-card' && (
+  <section class="py-12 md:py-16">
+    <div class="max-w-2xl mx-auto px-6 lg:px-8">
+      <div class="bg-white rounded-2xl shadow-lg border border-border-light p-8 md:p-10">
+        <div class="flex flex-col sm:flex-row gap-8 items-start sm:items-center justify-between">
+          <div class="flex-1">
+            <h2 class="font-serif text-2xl font-bold text-neutral-dark mb-2">
+              {heading}
+            </h2>
+            <p class="text-neutral-mid leading-relaxed text-sm">
+              {subheading}
+            </p>
+          </div>
+          <div class="flex flex-col gap-3 sm:items-end flex-shrink-0">
+            <a href={primaryHref} class="btn-primary text-sm px-6 py-3 whitespace-nowrap">
+              {primaryCTA}
+            </a>
+            <a
+              href={`tel:${phone.replace(/\D/g, '')}`}
+              class="text-neutral-mid hover:text-neutral-dark font-medium text-sm transition-colors text-center"
+            >
+              {phone}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+{variant === 'inline-minimal' && (
+  <section class="border-t border-b border-border-light py-6">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-center gap-4 text-center sm:text-left">
+      <p class="text-neutral-dark font-medium">
+        Accepting new patients in {addr.city}.
+      </p>
+      <a href={primaryHref} class="text-brand-primary font-semibold hover:underline whitespace-nowrap">
+        Book Now &rarr;
+      </a>
+      <a
+        href={`tel:${phone.replace(/\D/g, '')}`}
+        class="text-neutral-mid hover:text-neutral-dark text-sm transition-colors"
+      >
+        {phone}
+      </a>
+    </div>
+  </section>
+)}

@@ -231,14 +231,32 @@ async function crawlSite(baseUrl, limit) {
     const page = extractRawPage(doc, url, html);
     pages.push(page);
 
-    // Discover more same-origin links
+    // Discover more same-origin links. Use URL constructor so RELATIVE paths
+    // (e.g. `meet-dr-cortez.php`, `services/cosmetic`) resolve correctly against
+    // the current page URL — the previous string-concat approach only handled
+    // absolute paths starting with `/` and silently skipped all relative links.
+    const baseHost = new URL(baseUrl).hostname;
     const newLinks = [];
     for (const a of doc.querySelectorAll('a[href]')) {
-      let href = a.getAttribute('href') || '';
-      if (href.startsWith('/')) href = baseUrl + href;
-      if (!href.startsWith(baseUrl)) continue;
-      href = href.split('?')[0].split('#')[0];
-      if (href !== baseUrl + '/' && href.endsWith('/')) href = href.slice(0, -1);
+      const rawHref = a.getAttribute('href') || '';
+      if (!rawHref) continue;
+      if (rawHref.startsWith('#'))         continue;
+      if (rawHref.startsWith('javascript:')) continue;
+      if (rawHref.startsWith('mailto:'))    continue;
+      if (rawHref.startsWith('tel:'))       continue;
+
+      let abs;
+      try { abs = new URL(rawHref, url); } catch { continue; }
+      if (abs.hostname !== baseHost) continue;
+
+      // Skip non-HTML asset extensions — these are page links, not pages.
+      if (/\.(css|js|png|jpe?g|gif|svg|webp|ico|pdf|zip|mp4|webm|mp3|woff2?|ttf|eot|xml|json|rss|atom)(\?|$)/i.test(abs.pathname)) continue;
+
+      // Normalize: strip query/hash, strip trailing slash (except root)
+      let href = abs.origin + abs.pathname;
+      if (href !== baseUrl + '/' && href !== baseUrl && href.endsWith('/')) {
+        href = href.slice(0, -1);
+      }
       if (!visited.has(href) && !discovered.has(href)) {
         discovered.add(href);
         newLinks.push(href);
@@ -269,8 +287,19 @@ async function crawlSite(baseUrl, limit) {
  * @returns {Promise<BronzeData>}
  */
 export async function scrape(url, opts = {}) {
-  const baseUrl = url.replace(/\/+$/, '');
+  let baseUrl = url.replace(/\/+$/, '');
   const limit   = opts.limit || DEFAULT_LIMIT;
+
+  // Resolve any www/https redirect before crawling so link discovery uses
+  // the correct origin (e.g. springstdentistry.com → www.springstdentistry.com).
+  try {
+    const probe = await fetchPage(baseUrl + '/');
+    const finalOrigin = new URL(probe.finalUrl).origin;
+    if (finalOrigin !== new URL(baseUrl).origin) {
+      console.log(`[scraper] Redirect detected: ${baseUrl} → ${finalOrigin}`);
+      baseUrl = finalOrigin;
+    }
+  } catch { /* keep original baseUrl */ }
 
   console.log(`[scraper] Crawling ${baseUrl} (limit: ${limit} pages)...`);
 

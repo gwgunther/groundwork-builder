@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Palatal Expander",
+  "description": "Widening the upper arch during growth to create space and correct crossbite — a non-surgical intervention with lasting results.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Palatal Expander | ${site.name}`}
+  description="Widening the upper arch during growth to create space and correct crossbite — a non-surgical intervention with lasting results."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Palatal Expander
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Widening the upper arch during growth to create space and correct crossbite — a non-surgical intervention with lasting results.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">A palatal expander is an orthodontic appliance used to widen the upper jaw (maxilla) by gradually separating the two halves of the palate, which remain joined by a suture that is still growing in children and adolescents. Expansion creates additional arch space to accommodate crowded teeth, correct posterior crossbite, and improve the relationship between the upper and lower jaws — often reducing or eliminating the need for tooth extractions or jaw surgery later. The appliance is custom-fitted and either bonded to the upper molars or removable, depending on the clinical requirements of your case. At Chang Orthodontics, Dr. Chang or Dr. Chung monitors your expansion progress directly at every appointment, and both doctors bring USC-level academic expertise in craniofacial development to every case involving jaw orthopedics.</p>
+      <ul class="space-y-3 my-6">
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Widens the upper arch to address crowding and crossbite</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Non-surgical intervention most effective during active jaw growth</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Can reduce or eliminate the need for future extractions or jaw surgery</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Progress monitored by your orthodontist at every appointment</span></li>
+      </ul>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

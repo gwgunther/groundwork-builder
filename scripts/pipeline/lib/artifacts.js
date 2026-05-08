@@ -1,9 +1,12 @@
 /**
  * Pipeline artifact writer — breadcrumbs for each pipeline step.
  *
- * Each step writes a JSON file to _pipeline/ so you can review
- * what happened, what decisions were made, and what confidence levels
- * each extraction achieved.
+ * Each step writes a JSON file to _pipeline/ locally AND uploads to GCS
+ * when storage is configured (non-blocking).
+ *
+ * Usage:
+ *   const artifacts = createArtifactWriter(outputDir, runStorage);
+ *   await artifacts.writeStep('01-scrape', { input, output }, startTime);
  */
 
 import { writeFile, mkdir } from 'node:fs/promises';
@@ -12,10 +15,10 @@ import { resolve } from 'node:path';
 /**
  * Create an artifact writer bound to a specific output directory.
  *
- * @param {string} outputDir - Root of the generated project
- * @returns {object} Writer with writeStep() and writeSummary() methods
+ * @param {string} outputDir    - Root of the generated project
+ * @param {object} [runStorage] - Optional run storage from createRunStorage()
  */
-export function createArtifactWriter(outputDir) {
+export function createArtifactWriter(outputDir, runStorage = null) {
   const pipelineDir = resolve(outputDir, '_pipeline');
   let initialized = false;
 
@@ -28,10 +31,10 @@ export function createArtifactWriter(outputDir) {
 
   return {
     /**
-     * Write a pipeline step artifact.
+     * Write a pipeline step artifact locally + upload to GCS.
      *
-     * @param {string} id         - Step identifier (e.g. '01-scrape', '02-audit')
-     * @param {object} payload    - Step data to persist
+     * @param {string} id          - Step identifier (e.g. '01-scrape', '02-audit')
+     * @param {object} payload     - Step data to persist
      * @param {number} [startTime] - Date.now() when step started (for duration calc)
      */
     async writeStep(id, payload, startTime) {
@@ -45,11 +48,17 @@ export function createArtifactWriter(outputDir) {
       };
 
       const filePath = resolve(pipelineDir, `${id}.json`);
-      await writeFile(filePath, JSON.stringify(artifact, null, 2), 'utf-8');
+      const json = JSON.stringify(artifact, null, 2);
+      await writeFile(filePath, json, 'utf-8');
+
+      // GCS upload — non-blocking
+      if (runStorage) {
+        runStorage.writeArtifact(`${id}.json`, json, filePath).catch(() => {});
+      }
     },
 
     /**
-     * Write the final pipeline summary.
+     * Write the final pipeline summary locally + upload to GCS.
      *
      * @param {object} stats - Build summary stats
      */
@@ -63,7 +72,15 @@ export function createArtifactWriter(outputDir) {
       };
 
       const filePath = resolve(pipelineDir, 'summary.json');
-      await writeFile(filePath, JSON.stringify(summary, null, 2), 'utf-8');
+      const json = JSON.stringify(summary, null, 2);
+      await writeFile(filePath, json, 'utf-8');
+
+      if (runStorage) {
+        runStorage.writeArtifact('summary.json', json, filePath).catch(() => {});
+      }
     },
+
+    /** Expose the run storage for callers that need it (e.g. image uploader) */
+    runStorage,
   };
 }

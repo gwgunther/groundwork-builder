@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pages/service-page · Skill</title>
+<style>
+  :root {
+    --bg: #0f1115; --fg: #e7e8ea; --muted: #9098a3; --accent: #6ee7b7;
+    --card: #181b22; --border: #262a33; --code-bg: #0a0c10;
+    --stub: #6b7280; --working: #f59e0b; --polished: #10b981; --mature: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  .topbar { padding: 16px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .topbar a { color: var(--accent); text-decoration: none; font-size: 13px; }
+  .topbar a:hover { text-decoration: underline; }
+  .topbar-meta { color: var(--muted); font-size: 12px; }
+  .container { max-width: 880px; margin: 0 auto; padding: 32px 40px 80px; }
+  header.skill-head { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  header.skill-head h1 { margin: 0 0 4px; font-size: 28px; font-weight: 600; }
+  .skill-path { color: var(--muted); font-family: ui-monospace, SFMono-Regular, monospace; font-size: 13px; }
+  .badges { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+  .badge.tier { background: var(--border); font-family: ui-monospace, monospace; }
+  .badge.tier-L1 { background: rgba(110, 231, 183, .15); color: var(--accent); }
+  .badge.tier-L2 { background: rgba(245, 158, 11, .15); color: var(--working); }
+  .badge.tier-L3 { background: rgba(59, 130, 246, .15); color: #60a5fa; }
+  .badge.tier-L4 { background: rgba(168, 85, 247, .15); color: #c084fc; }
+  .badge.maturity { background: var(--border); }
+  .badge.phase { background: var(--card); border: 1px solid var(--border); color: var(--muted); }
+  .meta-table { font-size: 13px; color: var(--muted); margin-top: 12px; }
+  .meta-table strong { color: var(--fg); font-weight: 500; }
+  .meta-table code { background: var(--card); padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--accent); }
+  .doc h2 { margin: 32px 0 12px; font-size: 20px; font-weight: 600; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .doc h3 { margin: 24px 0 8px; font-size: 16px; font-weight: 600; color: var(--accent); }
+  .doc p { margin: 0 0 14px; }
+  .doc ul, .doc ol { margin: 0 0 14px; padding-left: 24px; }
+  .doc li { margin-bottom: 4px; }
+  .doc a { color: var(--accent); }
+  .doc strong { color: var(--fg); font-weight: 600; }
+  .doc code { background: var(--card); padding: 2px 6px; border-radius: 3px; font-size: 13px; color: var(--accent); font-family: ui-monospace, SFMono-Regular, monospace; }
+  .doc pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 0 0 16px; }
+  .doc pre code { background: transparent; padding: 0; color: var(--fg); font-size: 13px; line-height: 1.5; white-space: pre; }
+  .doc table { border-collapse: collapse; margin: 0 0 16px; font-size: 14px; width: 100%; }
+  .doc th, .doc td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+  .doc th { background: var(--card); font-weight: 600; }
+  .doc blockquote { border-left: 3px solid var(--accent); padding: 4px 16px; margin: 0 0 16px; color: var(--muted); }
+  .doc hr { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../PIPELINE.html">← Back to Pipeline Dashboard</a>
+  <span class="topbar-meta">Source: <code style="background:transparent">skills/pages/service-page.md</code></span>
+</div>
+
+<div class="container">
+  <header class="skill-head">
+    <div class="skill-path">skills/pages/service-page.md</div>
+    <h1>service page</h1>
+    <div class="badges">
+      <span class="badge tier tier-L1">L1</span>
+      <span class="badge maturity">🟡 working</span>
+      <span class="badge phase">Phase: Generate</span>
+      <span class="badge phase">Model: claude-sonnet-4-6</span>
+    </div>
+    
+    <div class="meta-table">
+      <div><strong>Source:</strong> <code>scripts/pipeline/lib/ai-service-page.js</code></div>
+      <div><strong>Function:</strong> <code>buildPrompt()</code></div>
+    </div>
+  </header>
+
+  <div class="doc">
+<h1>Skill: Structured Service Page Generation</h1>
+<h2>Responsibility</h2>
+<p>Restructures a single scraped service page (raw bodyText + headings) into a
+clean, multi-section service detail page: headline, subheadline, intro,
+3–6 typed sections (highlight / subsection / callout-list / process /
+benefits / faq), and a closing CTA section. This replaces the older
+paragraph-only <code>ai-service-rewrite.js</code> output with a richer schema the page
+generator can render with appropriate visual treatments.</p>
+<h2>Inputs</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Source</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>serviceName</code></td>
+<td>string</td>
+<td>service.name</td>
+<td>&quot;this service&quot; if missing</td>
+</tr>
+<tr>
+<td><code>practiceName</code></td>
+<td>string</td>
+<td>practice.name</td>
+<td></td>
+</tr>
+<tr>
+<td><code>city</code></td>
+<td>string</td>
+<td>practice.city</td>
+<td>&quot;(not specified)&quot; fallback</td>
+</tr>
+<tr>
+<td><code>doctor</code></td>
+<td>string</td>
+<td>practice.doctor</td>
+<td>&quot;(not specified)&quot; fallback</td>
+</tr>
+<tr>
+<td><code>phone</code></td>
+<td>string</td>
+<td>practice.phone</td>
+<td>&quot;(not specified)&quot; / &quot;[call us]&quot; fallback</td>
+</tr>
+<tr>
+<td><code>trimmed</code></td>
+<td>string</td>
+<td>bronze bodyText</td>
+<td>Source text, sliced to 9000 chars</td>
+</tr>
+<tr>
+<td><code>headingsContext</code></td>
+<td>string</td>
+<td>derived</td>
+<td>Pre-formatted headings block, or empty string</td>
+</tr>
+<tr>
+<td><code>additionalBlock</code></td>
+<td>string</td>
+<td>derived</td>
+<td>Pre-formatted &quot;Voice content from elsewhere&quot; block listing up to 4 <code>silver.content.additionalContent[]</code> items relevant to this service (matched by <code>source</code> path or by type: technology / specialty-deep-dive / treatment-detail / process / clinical). Used to enrich service pages with cross-page voice — e.g. an iTero scanner description from /about could appear as a callout on the /services/braces page.</td>
+</tr>
+</tbody></table>
+<h2>Output schema</h2>
+<pre><code class="language-json">{
+  &quot;headline&quot;:     &quot;string — H1, e.g. &#39;Invisalign in Long Beach&#39;&quot;,
+  &quot;subheadline&quot;:  &quot;string | null&quot;,
+  &quot;intro&quot;:        &quot;string — 1-2 paragraphs&quot;,
+  &quot;primaryCta&quot;:   &quot;string — verb + noun&quot;,
+  &quot;sections&quot;: [
+    { &quot;type&quot;: &quot;highlight&quot;,     &quot;label&quot;: &quot;string|null&quot;, &quot;headline&quot;: &quot;string&quot;, &quot;body&quot;: &quot;string&quot; },
+    { &quot;type&quot;: &quot;subsection&quot;,    &quot;heading&quot;: &quot;string&quot;, &quot;body&quot;: &quot;string&quot; },
+    { &quot;type&quot;: &quot;callout-list&quot;,  &quot;heading&quot;: &quot;string&quot;, &quot;items&quot;: [{ &quot;label&quot;: &quot;string&quot;, &quot;body&quot;: &quot;string&quot; }] },
+    { &quot;type&quot;: &quot;process&quot;,       &quot;heading&quot;: &quot;string&quot;, &quot;steps&quot;: [{ &quot;title&quot;: &quot;string&quot;, &quot;body&quot;: &quot;string&quot; }] },
+    { &quot;type&quot;: &quot;benefits&quot;,      &quot;heading&quot;: &quot;string&quot;, &quot;items&quot;: [&quot;string&quot;] },
+    { &quot;type&quot;: &quot;faq&quot;,           &quot;heading&quot;: &quot;string&quot;, &quot;items&quot;: [{ &quot;q&quot;: &quot;string&quot;, &quot;a&quot;: &quot;string&quot; }] }
+  ],
+  &quot;ctaSection&quot;: { &quot;headline&quot;: &quot;string&quot;, &quot;body&quot;: &quot;string&quot;, &quot;primaryCta&quot;: &quot;string&quot; }
+}
+</code></pre>
+<h2>Evaluation criteria</h2>
+<ul>
+<li><strong>No fabrication</strong> — facts not in source must not appear (no invented iTero, no invented years of experience)</li>
+<li><strong>Chrome stripped</strong> — nav, footer, &quot;Privacy Statement&quot;, &quot;Web Accessibility&quot;, &quot;© 2026&quot;, &quot;Website Design by …&quot; all dropped</li>
+<li><strong>Voice preserved</strong> — practice&#39;s terminology and tone retained (&quot;kiddo&quot; stays &quot;kiddo&quot;)</li>
+<li><strong>Mega-paragraphs split</strong> into a logical sequence of subsections</li>
+<li><strong>Original headings reused</strong> when the source provided clear ones</li>
+<li><strong>Reading flow</strong> — intro → why-this-matters → process → benefits → FAQ → CTA</li>
+<li><strong>3–6 sections</strong> — fewer if source is genuinely thin</li>
+<li><strong>Phone in ctaSection matches practice phone</strong> verbatim</li>
+<li><strong>Returns only JSON</strong>, no markdown or prose wrap</li>
+</ul>
+<h2>Known gaps</h2>
+<ul>
+<li>No semantic dedup between the homepage FAQ and the per-service FAQ section</li>
+<li>No automatic check that <code>headline</code> includes the city when natural (sometimes drops it)</li>
+<li><code>process</code> and <code>callout-list</code> can be over-used — model defaults to imposing structure even when source is plain prose</li>
+<li>9000-char source cap may truncate long evergreen service pages</li>
+</ul>
+<h2>Improvement levers</h2>
+<ol>
+<li><strong>Easy (L1):</strong> Tighten the rule about minimum-source-for-section to discourage forced section types</li>
+<li><strong>Medium:</strong> Per-section-type validators (process must have ≥3 steps, callout-list ≥3 items) — drop sections that don&#39;t meet minima</li>
+<li><strong>Medium:</strong> Pass the homepage FAQ items so this skill can de-duplicate</li>
+<li><strong>Hard:</strong> Two-pass extraction — first identify section boundaries, then classify each region</li>
+</ol>
+<h2>Test fixtures</h2>
+<p><em>None yet. Future: <code>skills/pages/service-page.fixtures/{thin,rich,chrome-heavy}/*</code></em></p>
+<hr>
+<h2>PROMPT</h2>
+<pre><code class="language-text">You are restructuring a scraped dental/orthodontic service page into a clean, multi-section service detail page. The source text below was scraped from the practice&#39;s existing site and includes nav/footer chrome — your job is to isolate the actual service content and decompose it into the section types listed.
+
+# Service &amp; practice context
+- Service:   {{serviceName}}
+- Practice:  {{practiceName}}
+- Doctor:    {{doctor}}
+- City:      {{city}}
+- Phone:     {{phone}}
+
+# Source scraped text (includes nav/footer noise — strip it)
+&quot;&quot;&quot;
+{{trimmed}}
+&quot;&quot;&quot;{{headingsContext}}{{additionalBlock}}
+
+# Section types you may emit (pick 3–6 based on what the source supports)
+
+1. **highlight** — A standout fact, quote, statistic, or &quot;Did you know…&quot; callout. Bold visual treatment.
+   { &quot;type&quot;: &quot;highlight&quot;, &quot;label&quot;: &quot;&lt;short eyebrow, e.g. &#39;Did you know…&#39; or null&gt;&quot;, &quot;headline&quot;: &quot;&lt;the standout claim&gt;&quot;, &quot;body&quot;: &quot;&lt;optional 1-sentence elaboration&gt;&quot; }
+
+2. **subsection** — A normal heading + 1-3 paragraph block. The bread-and-butter section type.
+   { &quot;type&quot;: &quot;subsection&quot;, &quot;heading&quot;: &quot;&lt;H2-style heading&gt;&quot;, &quot;body&quot;: &quot;&lt;paragraphs separated by \\n\\n&gt;&quot; }
+
+3. **callout-list** — A heading followed by 3-6 short labelled callout items (each is a label + a sentence).
+   { &quot;type&quot;: &quot;callout-list&quot;, &quot;heading&quot;: &quot;&lt;heading&gt;&quot;, &quot;items&quot;: [{ &quot;label&quot;: &quot;&lt;short label, ≤6 words&gt;&quot;, &quot;body&quot;: &quot;&lt;1 sentence&gt;&quot; }] }
+
+4. **process** — A numbered process / what-to-expect walkthrough. 3-5 steps each with title and short description.
+   { &quot;type&quot;: &quot;process&quot;, &quot;heading&quot;: &quot;&lt;e.g. &#39;What to Expect&#39; or &#39;How It Works&#39;&gt;&quot;, &quot;steps&quot;: [{ &quot;title&quot;: &quot;&lt;step name&gt;&quot;, &quot;body&quot;: &quot;&lt;1-2 sentences&gt;&quot; }] }
+
+5. **benefits** — A flat bullet list of 3-6 short benefits / features.
+   { &quot;type&quot;: &quot;benefits&quot;, &quot;heading&quot;: &quot;&lt;e.g. &#39;Why {{serviceName}}?&#39; or &#39;Benefits&#39;&gt;&quot;, &quot;items&quot;: [&quot;&lt;short benefit, ≤14 words&gt;&quot;] }
+
+6. **faq** — Service-specific FAQs (different from the homepage FAQ). 2-4 entries.
+   { &quot;type&quot;: &quot;faq&quot;, &quot;heading&quot;: &quot;&lt;optional, e.g. &#39;Common Questions&#39;&gt;&quot;, &quot;items&quot;: [{ &quot;q&quot;: &quot;&lt;question&gt;&quot;, &quot;a&quot;: &quot;&lt;2-3 sentence answer&gt;&quot; }] }
+
+# Rules
+
+1. **Do not fabricate facts.** If the source doesn&#39;t mention iTero scanners, don&#39;t add iTero. If it doesn&#39;t mention specific qualifications or years of experience, don&#39;t add them. Stay grounded in the source text.
+
+2. **Strip noise.** Nav menus, &quot;Book Appointment&quot; buttons, phone numbers in the body, &quot;© 2026 Practice&quot;, &quot;Privacy Statement&quot;, &quot;Web Accessibility&quot;, &quot;Website Design by …&quot;, repeated H1, breadcrumbs — all chrome, all dropped.
+
+3. **Preserve voice.** The practice&#39;s terminology and tone should carry through. Don&#39;t rewrite &quot;kiddo&quot; as &quot;child&quot;. Don&#39;t replace &quot;delighted&quot; with &quot;pleased&quot;.
+
+4. **Split mega-paragraphs.** If the source has one wall of text, break it into a logical sequence of subsections with appropriate headings.
+
+5. **Re-use original headings** when they exist (see Original page headings above). Don&#39;t invent new ones if the source provided clear ones.
+
+6. **Order sections by reading flow.** Typically: intro → why-this-matters → process/what-to-expect → benefits → FAQ → CTA.
+
+7. **The intro field** at the top is 1-2 paragraphs that introduce the service. It runs above all the sections. Don&#39;t repeat it inside a section.
+
+8. **CTA section at the end** uses the practice&#39;s actual phone ({{phone}}) — never invent a different one.
+
+9. If the source is genuinely thin (only an intro paragraph and nothing else), it&#39;s fine to return just `sections: [{ type: &#39;subsection&#39;, ...}]` with one subsection — don&#39;t pad with fabricated sections.
+
+# Return ONLY this JSON (no markdown, no prose):
+
+{
+  &quot;headline&quot;:     &quot;&lt;H1 — service name + city if natural, e.g. &#39;{{serviceName}} in {{city}}&#39;&gt;&quot;,
+  &quot;subheadline&quot;:  &quot;&lt;1 sentence subhead, or null&gt;&quot;,
+  &quot;intro&quot;:        &quot;&lt;1-2 paragraph intro, separated by \\n\\n&gt;&quot;,
+  &quot;primaryCta&quot;:   &quot;&lt;verb + noun, e.g. &#39;Schedule a Consultation&#39; or &#39;Book Your Visit&#39;&gt;&quot;,
+  &quot;sections&quot;: [
+    /* 3-6 sections from the types above */
+  ],
+  &quot;ctaSection&quot;: {
+    &quot;headline&quot;:   &quot;&lt;closing CTA headline, e.g. &#39;Ready to schedule?&#39;&gt;&quot;,
+    &quot;body&quot;:       &quot;&lt;optional 1-sentence call to action with phone or scheduling link&gt;&quot;,
+    &quot;primaryCta&quot;: &quot;&lt;verb + noun&gt;&quot;
+  }
+}
+</code></pre>
+
+  </div>
+</div>
+</body>
+</html>

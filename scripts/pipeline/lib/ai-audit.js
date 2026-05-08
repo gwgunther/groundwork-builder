@@ -5,12 +5,7 @@
  * Gracefully skips if ANTHROPIC_API_KEY is not set.
  */
 
-import { readFile } from 'node:fs/promises';
-import { resolve, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const PROMPT_PATH = resolve(__dirname, '..', 'prompts', 'site-audit.md');
+import { renderSkillPrompt } from './skill-loader.js';
 
 /**
  * Run the AI site audit on scraped + merged data.
@@ -34,61 +29,65 @@ export async function runSiteAudit(scraped, merged, preset, opts = {}) {
     return null;
   }
 
-  // Load and interpolate prompt template
-  let promptTemplate;
+  // Migrated to skill-loader: prompt now lives in skills/audit/site-audit.md
+  let prompt;
   try {
-    promptTemplate = await readFile(PROMPT_PATH, 'utf-8');
+    prompt = await interpolatePrompt(scraped, merged, preset);
   } catch (err) {
-    console.warn(`  Warning: Could not load audit prompt: ${err.message}`);
+    console.warn(`  Warning: Could not render audit prompt: ${err.message}`);
     return null;
   }
-
-  const prompt = interpolatePrompt(promptTemplate, scraped, merged, preset);
 
   if (opts.verbose) {
     console.log('  [audit] Prompt length:', prompt.length, 'chars');
   }
 
   // Call Claude API
-  console.log('  Calling Claude API (claude-sonnet-4-20250514)...');
+  console.log('  Calling Claude API (claude-sonnet-4-6)...');
   const startTime = Date.now();
 
   try {
-    const Anthropic = (await import('@anthropic-ai/sdk')).default;
-    const client = new Anthropic({ apiKey });
+    const { callAnthropic } = await import('./ai-call.js');
 
-    const response = await client.messages.create({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 2048,
-      messages: [
-        { role: 'user', content: prompt },
-      ],
+    const response = await callAnthropic({
+      phase:     'audit',
+      model:     'claude-sonnet-4-6',
+      maxTokens: 4096,
+      messages:  [{ role: 'user', content: prompt }],
     });
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
     console.log(`  AI audit complete (${elapsed}s).`);
 
-    // Extract text from response
-    const text = response.content
-      .filter(c => c.type === 'text')
-      .map(c => c.text)
-      .join('');
+    const text = response.text;
+    let audit = parseJsonResponse(text);
 
-    // Parse JSON from response (handles code fences)
-    const audit = parseJsonResponse(text);
-
+    // Retry once with a nudge if parse failed (semantic retry, not the
+    // transient-error retry that ai-call.js handles automatically).
     if (!audit) {
-      console.warn('  Warning: Could not parse AI audit response as JSON.');
-      if (opts.verbose) {
-        console.log('  Raw response:', text.substring(0, 500));
+      console.warn('  Warning: Could not parse AI audit response — retrying with a nudge...');
+      const retry = await callAnthropic({
+        phase:     'audit:retry-parse',
+        model:     'claude-sonnet-4-6',
+        maxTokens: 2048,
+        messages:  [
+          { role: 'user', content: prompt },
+          { role: 'assistant', content: text },
+          { role: 'user', content: 'Please return ONLY the raw JSON object with no prose or code fences.' },
+        ],
+      });
+      audit = parseJsonResponse(retry.text);
+      if (!audit) {
+        console.warn('  Warning: Retry also failed to parse. Skipping AI audit.');
+        return null;
       }
-      return null;
+      console.log('  Retry parse succeeded.');
     }
 
     return {
       ...audit,
       _meta: {
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         duration_ms: Date.now() - startTime,
         input_tokens: response.usage?.input_tokens || null,
         output_tokens: response.usage?.output_tokens || null,
@@ -103,12 +102,12 @@ export async function runSiteAudit(scraped, merged, preset, opts = {}) {
 /**
  * Interpolate {{placeholders}} in the prompt template.
  */
-function interpolatePrompt(template, scraped, merged, preset) {
+async function interpolatePrompt(scraped, merged, preset) {
   const services = merged.services?.offered || [];
   const hubs = merged.services?.hubs || [];
   const taxonomy = preset?.taxonomy?.services || [];
 
-  const replacements = {
+  return renderSkillPrompt('audit/site-audit', {
     verticalName: preset?.schema?.verticalName || 'Practice',
     practiceName: merged.practice?.name || '[Unknown]',
     domain: merged.practice?.domain || '[Unknown]',
@@ -138,14 +137,7 @@ function interpolatePrompt(template, scraped, merged, preset) {
       (merged.images?.gallery?.length || 0),
     ),
     confidenceFlags: (merged.meta?.confidenceFlags || []).join(', ') || '(none)',
-  };
-
-  let result = template;
-  for (const [key, value] of Object.entries(replacements)) {
-    result = result.replace(new RegExp(`\\{\\{${key}\\}\\}`, 'g'), value);
-  }
-
-  return result;
+  });
 }
 
 /**
@@ -161,8 +153,18 @@ function parseJsonResponse(text) {
     if (fenceMatch) {
       try {
         return JSON.parse(fenceMatch[1].trim());
-      } catch {
-        return null;
+      } catch {}
+    }
+    // Last-ditch: find outermost balanced braces
+    const first = text.indexOf('{');
+    if (first !== -1) {
+      let depth = 0, last = -1;
+      for (let i = first; i < text.length; i++) {
+        if (text[i] === '{') depth++;
+        else if (text[i] === '}') { depth--; if (depth === 0) { last = i; break; } }
+      }
+      if (last > first) {
+        try { return JSON.parse(text.slice(first, last + 1)); } catch {}
       }
     }
     return null;

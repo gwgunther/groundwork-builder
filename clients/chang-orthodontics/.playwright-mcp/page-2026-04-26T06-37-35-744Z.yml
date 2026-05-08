@@ -1,0 +1,62 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - heading "Spring St. Dentistry — Site Audit" [level=1] [ref=e4]
+      - generic [ref=e5]: https://www.springstdentistry.com · April 25, 2026
+    - generic [ref=e6]:
+      - generic [ref=e7]: Groundwork Builder
+      - generic [ref=e8]: groundwork.build
+  - navigation [ref=e9]:
+    - button "Scorecard" [ref=e10] [cursor=pointer]
+    - button "What We Found 5" [ref=e11] [cursor=pointer]
+    - button "Your Messaging" [ref=e12] [cursor=pointer]
+    - button "What We'd Fix" [active] [ref=e13] [cursor=pointer]
+  - main [ref=e14]:
+    - text: • • • • • • • • • • • • • • • • • • • •
+    - generic [ref=e324]:
+      - generic [ref=e325]:
+        - heading "What We'd Fix" [level=2] [ref=e326]
+        - generic [ref=e327]: Every item below is tied to a specific finding above
+      - generic [ref=e328]:
+        - heading "Your Redesign" [level=3] [ref=e329]
+        - paragraph [ref=e330]: Groundwork builds a custom, SEO-optimized site from your existing content in under 24 hours.
+        - link "Get Started →" [ref=e331] [cursor=pointer]:
+          - /url: https://groundwork.build
+      - generic [ref=e332]:
+        - generic [ref=e333]: Top 3 changes — before and after
+        - generic [ref=e334]:
+          - generic [ref=e335]: Pages competing against each other in Google
+          - generic [ref=e336]:
+            - generic [ref=e337]:
+              - generic [ref=e338]: Before
+              - generic [ref=e339]: Multiple pages have the same title — Google can't tell them apart, so none of them rank.
+            - generic [ref=e340]:
+              - generic [ref=e341]: After
+              - generic [ref=e342]: Every page targets a different search term and competes on its own terms.
+        - generic [ref=e343]:
+          - generic [ref=e344]: First impression loads too slowly
+          - generic [ref=e345]:
+            - generic [ref=e346]:
+              - generic [ref=e347]: Before
+              - generic [ref=e348]: The main content takes 4+ seconds to appear — a blank screen on the most important moment.
+            - generic [ref=e349]:
+              - generic [ref=e350]: After
+              - generic [ref=e351]: The hero image and headline load instantly, making a strong first impression.
+      - generic [ref=e352]:
+        - generic [ref=e353]: Additional improvements
+        - generic [ref=e354]:
+          - generic [ref=e355]:
+            - generic [ref=e356]: Critical fix — Images invisible to Google and visually impaired patients
+            - generic [ref=e357]: Every image is described for Google Image Search and for patients using screen readers or low vision.
+          - generic [ref=e358]:
+            - generic [ref=e359]: Improvement — Pages with no clear headline structure
+            - generic [ref=e360]: Patients and Google can immediately see what each page is about, making your content easier to navigate and rank.
+          - generic [ref=e361]:
+            - generic [ref=e362]: Improvement — Pages with too little information for Google
+            - generic [ref=e363]: Key service pages get the depth of information patients are searching for — and Google rewards.
+          - generic [ref=e364]:
+            - generic [ref=e365]: Improvement — Site is too slow on mobile phones
+            - generic [ref=e366]: Faster loading so phone visitors stay on your site — instead of leaving before they ever read your name.
+          - generic [ref=e367]:
+            - generic [ref=e368]: Improvement — No FAQ section to capture Google question searches
+            - generic [ref=e369]: A FAQ section captures patients asking questions in Google — and reduces repetitive phone calls to your front desk.

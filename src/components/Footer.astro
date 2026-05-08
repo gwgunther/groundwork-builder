@@ -1,50 +1,73 @@
 ---
 import { site, address as addr, hours } from '../config/site';
+import { designDNA } from '../config/design-dna';
 
 const currentYear = new Date().getFullYear();
 const phone = site.phone;
 const email = site.email;
 const googleReviewLink = site.googleReviewLink;
+const variant = designDNA.footerVariant;
 ---
 
-<footer class="bg-white border-t border-border-light">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-      <!-- NAP Block -->
-      <div class="lg:col-span-1">
-        <div class="font-serif text-xl font-bold mb-4 text-charcoal">{site.name}</div>
-        <address class="not-italic text-mid-gray text-sm">
-          <div class="space-y-0.5">
+{variant === 'minimal-dark' && (
+  <footer class="bg-neutral-dark text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+          <div class="font-serif text-2xl font-bold leading-tight">{site.name}</div>
+          <div class="text-white/60 text-sm mt-1">{addr.city}, {addr.state}</div>
+        </div>
+        <a
+          href={`tel:${phone.replace(/\D/g, '')}`}
+          class="font-serif text-2xl md:text-3xl font-bold text-white hover:text-brand-primary transition-colors"
+        >
+          {phone}
+        </a>
+        <a href="/schedule" class="btn-primary text-sm px-6 py-3 whitespace-nowrap">
+          Book Appointment
+        </a>
+      </div>
+      <div class="mt-8 pt-6 border-t border-white/10 text-center text-xs text-white/40">
+        &copy; {currentYear} {site.name}. All rights reserved.
+      </div>
+    </div>
+  </footer>
+)}
+
+{variant === 'editorial-split' && (
+  <footer class="bg-surface-2 border-t border-border-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+      <div class="grid md:grid-cols-5 gap-12 md:gap-16">
+        <!-- Left: NAP + reviews -->
+        <div class="md:col-span-3">
+          <div class="font-serif text-3xl md:text-4xl font-bold text-neutral-dark mb-6 leading-tight">{site.name}</div>
+          <address class="not-italic text-neutral-mid text-sm space-y-1 leading-relaxed">
             <p>{addr.street}</p>
             <p>{addr.city}, {addr.state} {addr.zip}</p>
-          </div>
-          <div class="mt-3 space-y-1">
-            <p>
-              <a href={`tel:${phone.replace(/\D/g, '')}`} class="hover:text-charcoal transition-colors font-medium">
+            <p class="pt-2">
+              <a href={`tel:${phone.replace(/\D/g, '')}`} class="hover:text-neutral-dark transition-colors font-medium">
                 {phone}
               </a>
             </p>
             <p>
-              <a href={`mailto:${email}`} class="hover:text-charcoal transition-colors">
+              <a href={`mailto:${email}`} class="hover:text-neutral-dark transition-colors">
                 {email}
               </a>
             </p>
-          </div>
-          <div class="mt-4">
-            <p class="text-xs font-semibold text-charcoal uppercase tracking-wide mb-1.5">Hours</p>
-            <div class="text-xs space-y-0.5">
+          </address>
+          <div class="mt-6 text-sm text-neutral-mid">
+            <p class="text-xs font-semibold uppercase tracking-widest text-neutral-dark mb-2">Hours</p>
+            <div class="space-y-0.5">
               {hours.display.map(h => (
                 <p>{h.day}: {h.time}</p>
               ))}
             </div>
           </div>
-        </address>
-        <div class="mt-4">
           <a
             href={googleReviewLink}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 text-brand-highlight text-sm font-medium hover:text-charcoal transition-colors"
+            class="inline-flex items-center gap-2 mt-6 text-brand-primary text-sm font-medium hover:text-neutral-dark transition-colors"
           >
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
@@ -52,56 +75,233 @@ const googleReviewLink = site.googleReviewLink;
             Leave a Google Review
           </a>
         </div>
+
+        <!-- Divider + right nav groups -->
+        <div class="md:col-span-2 flex gap-0">
+          <div class="hidden md:block w-px bg-border-light mr-12 flex-shrink-0"></div>
+          <div class="grid grid-cols-2 gap-8 w-full">
+            <div>
+              <h3 class="text-xs font-semibold uppercase tracking-widest text-neutral-dark mb-4">Services</h3>
+              <ul class="space-y-2 text-sm text-neutral-mid">
+                <li><a href="/services/general-dentistry" class="hover:text-neutral-dark transition-colors">General Dentistry</a></li>
+                <li><a href="/services/cosmetic-dentistry" class="hover:text-neutral-dark transition-colors">Cosmetic Dentistry</a></li>
+                <li><a href="/services/dental-implants" class="hover:text-neutral-dark transition-colors">Dental Implants</a></li>
+                <li><a href="/services/restorative-dentistry" class="hover:text-neutral-dark transition-colors">Restorative Dentistry</a></li>
+                <li><a href="/services" class="hover:text-neutral-dark transition-colors">All Services</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="text-xs font-semibold uppercase tracking-widest text-neutral-dark mb-4">Quick Links</h3>
+              <ul class="space-y-2 text-sm text-neutral-mid">
+                <li><a href="/schedule" class="font-medium text-neutral-dark hover:text-brand-primary transition-colors">&rarr; Book Appointment</a></li>
+                <li><a href="/about" class="hover:text-neutral-dark transition-colors">About Us</a></li>
+                <li><a href="/blog" class="hover:text-neutral-dark transition-colors">Patient Blog</a></li>
+                <li><a href="/faq" class="hover:text-neutral-dark transition-colors">FAQ</a></li>
+                <li><a href="/financing" class="hover:text-neutral-dark transition-colors">Insurance & Financing</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Services — TODO: Customize for your practice -->
-      <div>
-        <h3 class="font-serif text-base font-semibold mb-3 text-charcoal">Services</h3>
-        <ul class="space-y-2 text-sm text-mid-gray">
-          <li><a href="/services/general-dentistry" class="hover:text-charcoal transition-colors">General Dentistry</a></li>
-          <li><a href="/services/cosmetic-dentistry" class="hover:text-charcoal transition-colors">Cosmetic Dentistry</a></li>
-          <li><a href="/services/dental-implants" class="hover:text-charcoal transition-colors">Dental Implants</a></li>
-          <li><a href="/services/restorative-dentistry" class="hover:text-charcoal transition-colors">Restorative Dentistry</a></li>
-          <li><a href="/services" class="hover:text-charcoal transition-colors">All Services</a></li>
-        </ul>
-      </div>
-
-      <!-- Resources -->
-      <div>
-        <h3 class="font-serif text-base font-semibold mb-3 text-charcoal">Resources</h3>
-        <ul class="space-y-2 text-sm text-mid-gray">
-          <li><a href="/about" class="hover:text-charcoal transition-colors">About Us</a></li>
-          <li><a href="/blog" class="hover:text-charcoal transition-colors">Patient Blog</a></li>
-          <li><a href="/gallery" class="hover:text-charcoal transition-colors">Before & After</a></li>
-          <li><a href="/faq" class="hover:text-charcoal transition-colors">FAQ</a></li>
-          <li><a href="/financing" class="hover:text-charcoal transition-colors">Insurance & Financing</a></li>
-        </ul>
-      </div>
-
-      <!-- Quick Links -->
-      <div>
-        <h3 class="font-serif text-base font-semibold mb-4 text-charcoal">Quick Links</h3>
-        <ul class="space-y-2 text-sm text-mid-gray">
-          <li>
-            <a href="/schedule" class="font-medium text-charcoal hover:text-brand-primary transition-colors">
-              &rarr; Book Appointment
-            </a>
-          </li>
-          <li><a href={`tel:${phone.replace(/\D/g, '')}`} class="hover:text-charcoal transition-colors">Call Us: {phone}</a></li>
-          <li><a href="/faq" class="hover:text-charcoal transition-colors">Patient FAQ</a></li>
-          <li><a href="/gallery" class="hover:text-charcoal transition-colors">Before & After Gallery</a></li>
-          <li><a href="/about" class="hover:text-charcoal transition-colors">About Our Practice</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="mt-12 pt-8 border-t border-border-light">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-mid-gray">
+      <div class="mt-12 pt-6 border-t border-border-light text-xs text-neutral-mid">
         <p>&copy; {currentYear} {site.name}. All rights reserved.</p>
-        <p class="text-center md:text-right">
-          {site.name} is a dental practice. Results may vary.
-        </p>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
+)}
+
+{variant === 'classic-4col' && (
+  <footer class="bg-white border-t border-border-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <!-- NAP Block -->
+        <div class="lg:col-span-1">
+          <div class="font-serif text-xl font-bold mb-4 text-neutral-dark">{site.name}</div>
+          <address class="not-italic text-neutral-mid text-sm">
+            <div class="space-y-0.5">
+              <p>{addr.street}</p>
+              <p>{addr.city}, {addr.state} {addr.zip}</p>
+            </div>
+            <div class="mt-3 space-y-1">
+              <p>
+                <a href={`tel:${phone.replace(/\D/g, '')}`} class="hover:text-neutral-dark transition-colors font-medium">
+                  {phone}
+                </a>
+              </p>
+              <p>
+                <a href={`mailto:${email}`} class="hover:text-neutral-dark transition-colors">
+                  {email}
+                </a>
+              </p>
+            </div>
+            <div class="mt-4">
+              <p class="text-xs font-semibold text-neutral-dark uppercase tracking-wide mb-1.5">Hours</p>
+              <div class="text-xs space-y-0.5">
+                {hours.display.map(h => (
+                  <p>{h.day}: {h.time}</p>
+                ))}
+              </div>
+            </div>
+          </address>
+          <div class="mt-4">
+            <a
+              href={googleReviewLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-brand-primary text-sm font-medium hover:text-neutral-dark transition-colors"
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              Leave a Google Review
+            </a>
+          </div>
+        </div>
+
+        <!-- Services -->
+        <div>
+          <h3 class="font-serif text-base font-semibold mb-3 text-neutral-dark">Services</h3>
+          <ul class="space-y-2 text-sm text-neutral-mid">
+            <li><a href="/services/general-dentistry" class="hover:text-neutral-dark transition-colors">General Dentistry</a></li>
+            <li><a href="/services/cosmetic-dentistry" class="hover:text-neutral-dark transition-colors">Cosmetic Dentistry</a></li>
+            <li><a href="/services/dental-implants" class="hover:text-neutral-dark transition-colors">Dental Implants</a></li>
+            <li><a href="/services/restorative-dentistry" class="hover:text-neutral-dark transition-colors">Restorative Dentistry</a></li>
+            <li><a href="/services" class="hover:text-neutral-dark transition-colors">All Services</a></li>
+          </ul>
+        </div>
+
+        <!-- Resources -->
+        <div>
+          <h3 class="font-serif text-base font-semibold mb-3 text-neutral-dark">Resources</h3>
+          <ul class="space-y-2 text-sm text-neutral-mid">
+            <li><a href="/about" class="hover:text-neutral-dark transition-colors">About Us</a></li>
+            <li><a href="/blog" class="hover:text-neutral-dark transition-colors">Patient Blog</a></li>
+            <li><a href="/gallery" class="hover:text-neutral-dark transition-colors">Before & After</a></li>
+            <li><a href="/faq" class="hover:text-neutral-dark transition-colors">FAQ</a></li>
+            <li><a href="/financing" class="hover:text-neutral-dark transition-colors">Insurance & Financing</a></li>
+          </ul>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h3 class="font-serif text-base font-semibold mb-4 text-neutral-dark">Quick Links</h3>
+          <ul class="space-y-2 text-sm text-neutral-mid">
+            <li>
+              <a href="/schedule" class="font-medium text-neutral-dark hover:text-brand-primary transition-colors">
+                &rarr; Book Appointment
+              </a>
+            </li>
+            <li><a href={`tel:${phone.replace(/\D/g, '')}`} class="hover:text-neutral-dark transition-colors">Call Us: {phone}</a></li>
+            <li><a href="/faq" class="hover:text-neutral-dark transition-colors">Patient FAQ</a></li>
+            <li><a href="/gallery" class="hover:text-neutral-dark transition-colors">Before & After Gallery</a></li>
+            <li><a href="/about" class="hover:text-neutral-dark transition-colors">About Our Practice</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-border-light">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-neutral-mid">
+          <p>&copy; {currentYear} {site.name}. All rights reserved.</p>
+          <p class="text-center md:text-right">
+            {site.name} is a dental practice. Results may vary.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+)}
+
+{variant === 'compact-centered' && (
+  <footer class="bg-surface-2 border-t border-border-light">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+      <div class="font-serif text-2xl font-bold text-neutral-dark mb-3">{site.name}</div>
+      <p class="text-sm text-neutral-mid mb-4">
+        {addr.street}, {addr.city}, {addr.state} {addr.zip}
+        &nbsp;&middot;&nbsp;
+        <a href={`tel:${phone.replace(/\D/g, '')}`} class="hover:text-neutral-dark transition-colors font-medium">{phone}</a>
+        &nbsp;&middot;&nbsp;
+        {hours.display[0]?.time ? `${hours.display[0].day}: ${hours.display[0].time}` : 'Call for hours'}
+      </p>
+      <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-neutral-mid mb-8">
+        <a href="/services" class="hover:text-neutral-dark transition-colors">Services</a>
+        <a href="/about" class="hover:text-neutral-dark transition-colors">About</a>
+        <a href="/faq" class="hover:text-neutral-dark transition-colors">FAQ</a>
+        <a href="/blog" class="hover:text-neutral-dark transition-colors">Blog</a>
+        <a href="/financing" class="hover:text-neutral-dark transition-colors">Insurance</a>
+        <a href="/schedule" class="font-medium text-neutral-dark hover:text-brand-primary transition-colors">Book Appointment</a>
+      </nav>
+      <p class="text-xs text-neutral-mid">&copy; {currentYear} {site.name}. All rights reserved.</p>
+    </div>
+  </footer>
+)}
+
+{/* =========================================================================
+    bold-cta-footer: large CTA section at top + minimal 2-col info below
+    ========================================================================= */}
+{variant === 'bold-cta-footer' && (
+  <footer>
+    <!-- CTA band -->
+    <div class="bg-brand-primary">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+          <div>
+            <p class="text-white/70 text-sm font-semibold uppercase tracking-widest mb-2">{addr.city}, {addr.state}</p>
+            <div class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+              Ready to get started?
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row items-center gap-4 flex-shrink-0">
+            <a href="/schedule" class="bg-white text-brand-primary font-bold px-8 py-4 rounded-lg hover:bg-white/90 transition-colors text-sm whitespace-nowrap">
+              Book Appointment
+            </a>
+            <a href={`tel:${phone.replace(/\D/g, '')}`}
+               class="font-serif text-2xl font-bold text-white hover:text-white/80 transition-colors whitespace-nowrap">
+              {phone}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Info grid -->
+    <div class="bg-neutral-dark text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- NAP -->
+          <div>
+            <div class="font-serif text-lg font-bold mb-3">{site.name}</div>
+            <address class="not-italic text-white/50 text-sm space-y-0.5">
+              <p>{addr.street}</p>
+              <p>{addr.city}, {addr.state} {addr.zip}</p>
+              <p class="pt-1">
+                <a href={`mailto:${email}`} class="hover:text-white/80 transition-colors">{email}</a>
+              </p>
+            </address>
+          </div>
+          <!-- Hours -->
+          <div>
+            <div class="text-xs font-semibold uppercase tracking-widest text-white/40 mb-3">Hours</div>
+            <div class="text-sm text-white/50 space-y-0.5">
+              {hours.display.map(h => (
+                <p>{h.day}: {h.time}</p>
+              ))}
+            </div>
+          </div>
+          <!-- Quick links -->
+          <div>
+            <div class="text-xs font-semibold uppercase tracking-widest text-white/40 mb-3">Quick Links</div>
+            <ul class="space-y-1.5 text-sm text-white/50">
+              <li><a href="/services" class="hover:text-white transition-colors">Services</a></li>
+              <li><a href="/about" class="hover:text-white transition-colors">About Us</a></li>
+              <li><a href="/faq" class="hover:text-white transition-colors">FAQ</a></li>
+              <li><a href={googleReviewLink} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Leave a Review</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-8 pt-6 border-t border-white/10 text-xs text-white/30">
+          &copy; {currentYear} {site.name}. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+)}

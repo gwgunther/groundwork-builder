@@ -1,0 +1,93 @@
+---
+/**
+ * FAQ Split By Category — groups items by `category` field.
+ * Falls back to a single "Frequently Asked" group when no categories are present.
+ */
+import type { FaqContent } from '../types';
+import { designDNA } from '../../../config/design-dna';
+import { resolveTokens } from '../token-utils';
+
+const { content } = Astro.props;
+
+const tokens = (designDNA as any).designTokens ?? {};
+const t = resolveTokens(tokens);
+
+const eyebrow = content.eyebrow ?? 'Frequently Asked';
+const heading = content.heading ?? 'Common Questions';
+
+// Group items by category — fall back to "Frequently Asked" when missing
+const items = content.items ?? [];
+const hasCategories = items.some((it) => it.category && it.category.trim().length > 0);
+
+const groups = items.reduce((acc, it) => {
+  const key = (hasCategories && it.category && it.category.trim()) ? it.category.trim() : 'Frequently Asked';
+  if (!acc[key]) acc[key] = [];
+  acc[key].push(it);
+  return acc;
+}, {});
+
+const groupEntries = Object.entries(groups);
+
+function titleCase(s) {
+  return s
+    .split(/[\s_-]+/)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+    .join(' ');
+}
+
+const schemaJson = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": items.map((it) => ({
+    "@type": "Question",
+    "name": it.q,
+    "acceptedAnswer": { "@type": "Answer", "text": it.a }
+  }))
+});
+---
+
+{items.length > 0 && (
+  <section data-section="faq" class={`bg-surface-1 ${t.spacingClass}`}>
+    <div class={t.containerClass}>
+      <div class="max-w-3xl mx-auto">
+
+        <!-- Header -->
+        <div class="text-center mb-12 md:mb-16">
+          {eyebrow && <span class={t.eyebrowClass}>{eyebrow}</span>}
+          <h2 class="font-serif text-3xl md:text-4xl font-bold text-neutral-dark mb-4">
+            {heading}
+          </h2>
+          {content.subheading && (
+            <p class="font-sans text-lg text-neutral-mid leading-relaxed">
+              {content.subheading}
+            </p>
+          )}
+        </div>
+
+        <!-- Grouped items -->
+        {groupEntries.map(([category, faqs]) => (
+          <div>
+            <h3 class="font-serif text-2xl font-bold text-neutral-dark mb-4 mt-12 first:mt-0">
+              {titleCase(category)}
+            </h3>
+            <div>
+              {faqs.map((faq) => (
+                <div class="py-4 border-b border-border-light last:border-b-0">
+                  <h4 class="font-serif font-semibold text-neutral-dark mb-2">
+                    {faq.q}
+                  </h4>
+                  <p class="text-neutral-mid leading-relaxed">
+                    {faq.a}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+
+      </div>
+    </div>
+  </section>
+)}
+
+<script type="application/ld+json" set:html={schemaJson} />

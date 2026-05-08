@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Early Orthodontic Treatment",
+  "description": "The American Association of Orthodontists recommends an orthodontic evaluation by age seven — early intervention can simplify or eliminate future treatment.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Early Orthodontic Treatment | ${site.name}`}
+  description="The American Association of Orthodontists recommends an orthodontic evaluation by age seven — early intervention can simplify or eliminate future treatment."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Early Orthodontic Treatment
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      The American Association of Orthodontists recommends an orthodontic evaluation by age seven — early intervention can simplify or eliminate future treatment.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">The American Association of Orthodontists recommends that children see an orthodontist as early as age seven. By this age, most children have a mix of baby teeth and adult teeth, making it easier for the orthodontist to diagnose and correct tooth and jaw problems sooner and without surgery. Early treatment allows your orthodontist to correct and guide the growth of your child's jaw to help permanent teeth come in straight, regulate the width of the upper and lower arches, create more space for crowded teeth, and avoid the need for permanent tooth extractions later. At Chang Orthodontics, our doctors serve as USC Adjunct Assistant Professors of Postdoctoral Orthodontics and Pediatric Dentistry, and our practice has a deep commitment to caring for children with special needs. Treatment plans are customized to each individual child and family, and our facility is IQAir-certified for clean air. We offer a complimentary initial consultation — contact us to schedule your child's orthodontic evaluation.</p>
+      <ul class="space-y-3 my-6">
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>AAO recommends evaluation by age seven for early detection</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Guides jaw growth to allow permanent teeth to erupt properly</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Can eliminate or reduce the complexity of future treatment</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Customized treatment plans for each child and family</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Commitment to care for children with special needs</span></li>
+      </ul>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Complimentary Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

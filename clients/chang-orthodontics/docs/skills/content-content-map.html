@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>content/content-map · Skill</title>
+<style>
+  :root {
+    --bg: #0f1115; --fg: #e7e8ea; --muted: #9098a3; --accent: #6ee7b7;
+    --card: #181b22; --border: #262a33; --code-bg: #0a0c10;
+    --stub: #6b7280; --working: #f59e0b; --polished: #10b981; --mature: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  .topbar { padding: 16px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .topbar a { color: var(--accent); text-decoration: none; font-size: 13px; }
+  .topbar a:hover { text-decoration: underline; }
+  .topbar-meta { color: var(--muted); font-size: 12px; }
+  .container { max-width: 880px; margin: 0 auto; padding: 32px 40px 80px; }
+  header.skill-head { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  header.skill-head h1 { margin: 0 0 4px; font-size: 28px; font-weight: 600; }
+  .skill-path { color: var(--muted); font-family: ui-monospace, SFMono-Regular, monospace; font-size: 13px; }
+  .badges { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+  .badge.tier { background: var(--border); font-family: ui-monospace, monospace; }
+  .badge.tier-L1 { background: rgba(110, 231, 183, .15); color: var(--accent); }
+  .badge.tier-L2 { background: rgba(245, 158, 11, .15); color: var(--working); }
+  .badge.tier-L3 { background: rgba(59, 130, 246, .15); color: #60a5fa; }
+  .badge.tier-L4 { background: rgba(168, 85, 247, .15); color: #c084fc; }
+  .badge.maturity { background: var(--border); }
+  .badge.phase { background: var(--card); border: 1px solid var(--border); color: var(--muted); }
+  .meta-table { font-size: 13px; color: var(--muted); margin-top: 12px; }
+  .meta-table strong { color: var(--fg); font-weight: 500; }
+  .meta-table code { background: var(--card); padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--accent); }
+  .doc h2 { margin: 32px 0 12px; font-size: 20px; font-weight: 600; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .doc h3 { margin: 24px 0 8px; font-size: 16px; font-weight: 600; color: var(--accent); }
+  .doc p { margin: 0 0 14px; }
+  .doc ul, .doc ol { margin: 0 0 14px; padding-left: 24px; }
+  .doc li { margin-bottom: 4px; }
+  .doc a { color: var(--accent); }
+  .doc strong { color: var(--fg); font-weight: 600; }
+  .doc code { background: var(--card); padding: 2px 6px; border-radius: 3px; font-size: 13px; color: var(--accent); font-family: ui-monospace, SFMono-Regular, monospace; }
+  .doc pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 0 0 16px; }
+  .doc pre code { background: transparent; padding: 0; color: var(--fg); font-size: 13px; line-height: 1.5; white-space: pre; }
+  .doc table { border-collapse: collapse; margin: 0 0 16px; font-size: 14px; width: 100%; }
+  .doc th, .doc td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+  .doc th { background: var(--card); font-weight: 600; }
+  .doc blockquote { border-left: 3px solid var(--accent); padding: 4px 16px; margin: 0 0 16px; color: var(--muted); }
+  .doc hr { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../PIPELINE.html">← Back to Pipeline Dashboard</a>
+  <span class="topbar-meta">Source: <code style="background:transparent">skills/content/content-map.md</code></span>
+</div>
+
+<div class="container">
+  <header class="skill-head">
+    <div class="skill-path">skills/content/content-map.md</div>
+    <h1>content map</h1>
+    <div class="badges">
+      <span class="badge tier tier-L1">L1</span>
+      <span class="badge maturity">🟡 working</span>
+      <span class="badge phase">Phase: Generate</span>
+      <span class="badge phase">Model: claude-sonnet-4-6</span>
+    </div>
+    
+    <div class="meta-table">
+      <div><strong>Source:</strong> <code>scripts/pipeline/lib/ai-content.js</code></div>
+      <div><strong>Function:</strong> <code>runContentMapping()</code></div>
+    </div>
+  </header>
+
+  <div class="doc">
+<h1>Skill: Content Mapping</h1>
+<h2>Responsibility</h2>
+<p>Pre-generation pass that uses scraped pages + audit recommendations to produce a
+<strong>content map</strong> of elevated, practice-specific copy. Runs as Phase 2e (after
+audit, before director). The output is saved to <code>_pipeline/03-content.json</code> and
+merged into <code>merged.content.generated</code>, where downstream skills (page-generator,
+section briefs) consume it.</p>
+<p>This skill provides &quot;first-draft&quot; copy for each scraped page — the content
+briefs in Phase 6 then pull from these drafts when generating section JSON.
+It&#39;s the bridge between raw scraped text and structured per-section content.</p>
+<h2>Inputs</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Source</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>scraped</code></td>
+<td>object</td>
+<td>silver</td>
+<td>Includes pageInventory[] for per-page context</td>
+</tr>
+<tr>
+<td><code>merged</code></td>
+<td>object</td>
+<td>merge</td>
+<td>Practice/doctor/services for grounding</td>
+</tr>
+<tr>
+<td><code>audit</code></td>
+<td>object</td>
+<td>site-audit</td>
+<td>positioning, tone, differentiators recommendations</td>
+</tr>
+<tr>
+<td><code>preset</code></td>
+<td>object</td>
+<td>preset-loader</td>
+<td>Vertical-specific schema (currently dental only)</td>
+</tr>
+</tbody></table>
+<h2>Output schema</h2>
+<pre><code class="language-json">{
+  &quot;homepage&quot;: {
+    &quot;headline&quot;: &quot;string&quot;,
+    &quot;subheadline&quot;: &quot;string&quot;,
+    &quot;ctaPrimary&quot;: &quot;string&quot;,
+    &quot;ctaSecondary&quot;: &quot;string&quot;
+  },
+  &quot;about&quot;: {
+    &quot;headline&quot;: &quot;string&quot;,
+    &quot;intro&quot;: &quot;string&quot;,
+    &quot;philosophy&quot;: &quot;string&quot;
+  },
+  &quot;services&quot;: {
+    &quot;&lt;slug&gt;&quot;: {
+      &quot;headline&quot;: &quot;string&quot;,
+      &quot;subheadline&quot;: &quot;string&quot;,
+      &quot;intro&quot;: &quot;string&quot;,
+      &quot;benefits&quot;: [&quot;string&quot;, ...],
+      &quot;cta&quot;: &quot;string&quot;
+    }
+  },
+  &quot;rationale&quot;: &quot;string — 2-3 sentences on the editorial direction&quot;
+}
+</code></pre>
+<h2>Evaluation criteria</h2>
+<ul>
+<li><strong>Practice-grounded</strong> — every headline references practice name, doctor, city, or specialty (never generic dental copy)</li>
+<li><strong>Voice match</strong> — tone aligns with audit&#39;s <code>tone.recommended</code> recommendation</li>
+<li><strong>No fabrication</strong> — claims only what was in the source pages or audit</li>
+<li><strong>Service entries match scraped slugs</strong> — keys in <code>services</code> object map to silver <code>services.offered[].slug</code></li>
+<li><strong>CTA labels are verb + noun</strong> — &quot;Book Your Consultation&quot;, not &quot;Learn More&quot;</li>
+<li><strong>Returns only JSON</strong></li>
+</ul>
+<h2>Known gaps</h2>
+<ul>
+<li>Doesn&#39;t yet consume <code>silver.additionalContent[]</code> — could ground service intros in real practice voice</li>
+<li>No per-archetype tone calibration — same prompt regardless of warm/specialist</li>
+<li>Service map doesn&#39;t surface differentiators inline (technology, languages) into service intros</li>
+<li>Output is consumed by section briefs but not always — some briefs go straight to scraped data</li>
+</ul>
+<h2>Improvement levers</h2>
+<ol>
+<li><strong>Easy (L1):</strong> Add an <code>additionalContent[]</code> block to the prompt so service intros can pull voice from rescued pull-quotes / philosophy paragraphs</li>
+<li><strong>Medium:</strong> Cross-reference <code>differentiators[]</code> in service entries — if a service matches a technology/award differentiator, mention it inline</li>
+<li><strong>Medium:</strong> Per-archetype tone calibration via a <code>colorTempGuidance</code>-style block</li>
+</ol>
+<h2>Test fixtures</h2>
+<p><em>None yet. Future: <code>skills/content/content-map.fixtures/{warm-family,specialist}/*.json</code></em></p>
+<hr>
+<h2>PROMPT</h2>
+<pre><code class="language-text">You are a content editor helping redesign a **{{verticalName}}** practice website.
+
+Your job is to **preserve the existing content** as faithfully as possible and only fill genuine gaps where the original site was silent. You are NOT rewriting their copy — you are migrating it to a better-organized, better-designed site.
+
+## Core principle
+The practice&#39;s own words are more trustworthy than anything you could write. Prefer their exact phrasing. Only write new copy where a section is genuinely empty on the original site, and even then, keep it conservative and factual — never speculate about awards, patient counts, years of experience, or philosophy the practice didn&#39;t express themselves.
+
+## Practice Profile
+
+**Practice Name:** {{practiceName}}
+**Website:** {{domain}}
+**Doctor:** {{doctorName}} ({{credentials}})
+**Location:** {{city}}, {{state}}
+**Phone:** {{phone}}
+**Services Offered:** {{servicesList}}
+
+## Scraped Service Page Content
+
+The following is verbatim content from each service page on the original site. Use this as the source for service descriptions — copy it directly, do not rewrite.
+
+{{servicePageContent}}
+
+## Existing Content — Page Inventory
+
+{{pageInventory}}
+
+## Existing Testimonials
+
+{{testimonials}}
+
+## Existing FAQs
+
+{{existingFAQs}}
+
+## Existing Stats
+
+{{stats}}
+
+## Instructions
+
+1. **Hero copy**: Use the existing hero headline/tagline from the site if one exists. Only write a new one if the site has no hero text at all. Keep it grounded in what the practice actually says about itself.
+
+2. **About / doctor bio**: Copy the existing about text or doctor bio verbatim. Light editing for clarity is acceptable (fixing typos, splitting run-on sentences) but do NOT add claims the practice didn&#39;t make. If no about text exists, return null.
+
+3. **Service descriptions**: For each service, copy the existing content from &quot;Scraped Service Page Content&quot; above verbatim. Use the H1 as headline, meta description as subheadline, and first paragraph(s) as intro. If no scraped page exists for a service, return null for intro — do not invent copy.
+
+4. **FAQs**: Use existing FAQs verbatim. If none exist, you may write 3-4 FAQs only if they are answerable from information on the site (hours, location, services offered). Do not invent answers about insurance, pricing, or procedures.
+
+5. **Blog topics**: Suggest topics only based on services actually listed on the site + the practice&#39;s city.
+
+6. **Never fabricate**: No invented patient counts, no made-up awards, no guessed years of experience, no assumed philosophy statements. If data is missing, return null.
+
+Return a single JSON object with this exact structure:
+
+```json
+{
+  &quot;homepage&quot;: {
+    &quot;heroHeadline&quot;: &quot;Exact text from site hero if present, or a minimal factual alternative (null if unclear)&quot;,
+    &quot;heroSubheadline&quot;: &quot;Exact subtext from site if present, or null&quot;,
+    &quot;heroTagline&quot;: &quot;Short brand phrase from site if present, or null&quot;,
+    &quot;ctaText&quot;: &quot;Book Appointment&quot;,
+    &quot;ctaSecondaryText&quot;: &quot;View Services&quot;,
+    &quot;valueProp&quot;: &quot;One sentence describing what the practice does and where — use their own language where possible&quot;
+  },
+  &quot;about&quot;: {
+    &quot;headline&quot;: &quot;Meet the Team (or their actual heading if present)&quot;,
+    &quot;introParagraph&quot;: &quot;Verbatim about text from site, or null if absent&quot;,
+    &quot;philosophy&quot;: &quot;Verbatim philosophy/mission statement from site, or null if absent&quot;,
+    &quot;closingCTA&quot;: &quot;Ready to schedule? | Book an Appointment&quot;
+  },
+  &quot;services&quot;: {
+    &quot;EXACT-SERVICE-SLUG&quot;: {
+      &quot;headline&quot;: &quot;H1 from their service page (or service name if no page)&quot;,
+      &quot;subheadline&quot;: &quot;Meta description from their service page, or null&quot;,
+      &quot;intro&quot;: &quot;First paragraph(s) verbatim from their service page, or null if no page existed&quot;,
+      &quot;benefits&quot;: [],
+      &quot;cta&quot;: &quot;Schedule a Consultation&quot;
+    }
+  },
+  &quot;faqs&quot;: [
+    {
+      &quot;question&quot;: &quot;FAQ question (from site or answerable from site data only)&quot;,
+      &quot;answer&quot;: &quot;Answer drawn from site content only&quot;
+    }
+  ],
+  &quot;blogTopics&quot;: [
+    {
+      &quot;title&quot;: &quot;Blog post title based on actual services + location&quot;,
+      &quot;excerpt&quot;: &quot;1-2 sentence description&quot;
+    }
+  ],
+  &quot;locations&quot;: {
+    &quot;headline&quot;: &quot;Serving {{city}} and surrounding communities&quot;,
+    &quot;intro&quot;: &quot;Short factual sentence about the practice location&quot;
+  }
+}
+</code></pre>
+<p>For the <code>services</code> object: include one entry for <strong>each of these exact slugs</strong>: {{serviceSlugs}}</p>
+<p>Use the slug exactly as listed (e.g. <code>dental-crowns</code>, <code>exam-cleaning</code>) as the JSON key — this is how the site wires up descriptions to pages.</p>
+<p>For <code>faqs</code>: only include FAQs you can answer from the existing site content. 3-4 max if no existing FAQs found.</p>
+<p>For <code>blogTopics</code>: 4-5 topics max, relevant to their actual services and city.</p>
+<p>Return ONLY the JSON object. No markdown formatting, no explanation before or after.</p>
+<pre><code>
+</code></pre>
+
+  </div>
+</div>
+</body>
+</html>

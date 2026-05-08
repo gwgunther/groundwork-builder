@@ -1,0 +1,541 @@
+{
+  "contentAudit": {
+    "homepage.heroHeadline": {
+      "existing": "A sister-owned general & special care dental practice in Fountain Valley, CA",
+      "source": "/",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Communicates the core identity clearly but reads like a tagline or subhead rather than a punchy hero headline; needs reframing as a benefit-forward statement."
+    },
+    "homepage.heroSubheadline": {
+      "existing": "We are a patient-centered practice that specializes in general, family, and special care dentistry. You can count on us to provide you with the best care possible, using the best materials and technology, in a safe and friendly environment.",
+      "source": "/",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "On-brand and specific enough to be usable, but phrases like 'best care possible' and 'safe and friendly environment' are generic; light editing can sharpen without losing the practice's voice."
+    },
+    "homepage.heroTagline": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "No short punchy tagline exists anywhere on the site; this will need to be written from scratch using the practice's voice and differentiators."
+    },
+    "homepage.valueProp": {
+      "existing": "We use advanced technology & premium materials to deliver the best care for your oral health",
+      "source": "/services",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "This line is hollow and generic — nearly every dental practice could say the same; the value proposition should instead anchor on the sister-led, special-care-first identity that genuinely differentiates Elements."
+    },
+    "about.headline": {
+      "existing": "Committed To Dental Excellence",
+      "source": "/",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "A stock dental headline with no specificity to the Vo sisters or the practice's founding mission; needs a distinctive replacement."
+    },
+    "about.introParagraph": {
+      "existing": "Drs. Tiffany & Trisha Vo are sisters, who were born and raised in Fountain Valley, CA. They graduated from the prestigious University of the Pacific Arthur A. Dugoni School of Dentistry in San Francisco. With a combined 17 years of experience, Drs. Tiffany & Trisha Vo always prioritize patient comfort & autonomy!",
+      "source": "/",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "Specific, human, and distinctive — names the school, the hometown connection, and the years of experience in a single tight paragraph that is authentic to the practice's voice."
+    },
+    "about.philosophy": {
+      "existing": "Our Core Values\n\nPrevention: We prioritize preventing oral diseases & treat only when needed.\n\nEducation: We are committed to educating our patients throughout the entire treatment process.\n\nCollaboration: You can rest assured knowing that our dentists collaborate with each other & with you to achieve the best results.\n\nInnovation",
+      "source": "/",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The four pillars are genuinely reflective of the practice but 'Innovation' is listed without any supporting copy, and the phrasing is list-heavy; light expansion of the Innovation item and minor polish will make this section complete."
+    },
+    "services.special-care-dentistry.intro": {
+      "existing": "Special Care Dentistry is the branch of dentistry that provides oral care services for people with physical, medical, developmental, or cognitive conditions which limit their ability to receive routine dental care. At Elements Dentistry, we understand that as our loved ones age out of pediatric care or require geriatric care, it can be difficult to find a dental home where they feel comfortable and that avoids sending them directly to hospitals. Often, we find our patients have had to wait lengthy hospital enrollment periods and then wait again for space in the operating room, without any dental care in the transitional period. Our goal at Elements Dentistry is to create a space where our patients can do as much or as little treatment as they feel comfortable, progressing toward dental health at their pace.",
+      "source": "/services/special-care-dentistry",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "Unusually specific and empathetic — the detail about hospital wait times and the 'as much or as little as they feel comfortable' framing is authentic, distinctive, and immediately differentiates this practice from generic dental sites."
+    },
+    "services.sedation-dentistry.intro": {
+      "existing": "We are proud to provide different options for patients that require sedation for the completion of dental treatment. Sedation is a great option for patients who have extreme anxiety or are unable to tolerate traditional dental treatment. One of the most commonly used types of sedation is nitrous oxide, which is also known as laughing gas. This helps many patients relax during their procedure. We also work with medical and dental anesthesiologists to provide safe general anesthesia services for patients in our office. Dr. Trisha Vo is one of a select group of general dentists in Orange County that is credentialed with MobiSurg, a surgery center located in Laguna Hills, CA. This is a great option for patients with Kaiser Permanente Health Insurance Plans that require general anesthesia services for complete dental rehabilitation or for patients with more complex medical conditions.",
+      "source": "/services/sedation-dentistry",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "Contains two concrete differentiators — in-office anesthesiologist and MobiSurg credentialing — that make this intro genuinely distinctive rather than generic sedation boilerplate."
+    },
+    "services.orthosnap-clear-aligners.intro": {
+      "existing": "Orthosnap is a cost-effective and efficient clear aligner therapy that helps our patients straighten their teeth or correct their bite, without the unsightly appearance of traditional metal braces. By utilizing custom-made dental appliances, clear aligner therapy applies gentle pressure to the teeth to move them into a more ideal position.",
+      "source": "/services/orthosnap",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Solid foundational copy but does not yet mention the digital intraoral scanner or the 'all budgets' positioning that differentiates Orthosnap at this practice; minor additions will elevate it."
+    },
+    "services.k-r-whitening.intro": {
+      "existing": "Have you struggled with deep stains from years of coffee consumption or from tetracycline staining? Have you tried whitening strips to no avail and increased teeth sensitivity? Professional teeth whitening can help you achieve the bright, white smile you've always wanted. Elements Dentistry is proud to use the KöR Teeth Whitening System – a highly effective teeth bleaching system that does not cause as much teeth sensitivity as other systems or strips.",
+      "source": "/services/kor-whitening",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "Addresses real patient pain points (tetracycline staining, sensitivity from strips) and names the specific system with a concrete benefit — this is specific enough to stand as-is."
+    },
+    "services.gentlewave.intro": {
+      "existing": "Elements Dentistry is excited to provide the GentleWave procedure to our patients who have root canal infections. The GentleWave Procedure is a modern way to treat root canal infections that offers high-tech, effective cleaning designed to reach the most complex tooth anatomies where bacteria can hide. Root canal procedures don't have to be painful if patients choose to receive the GentleWave Procedure. The GentleWave Procedure promotes pain-free, fast healing.",
+      "source": "/services/gentlewave",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Conveys the key benefits but repeats 'GentleWave Procedure' four times in quick succession and the phrase 'Elements Dentistry is excited' is generic filler; a light edit will tighten without losing substance."
+    },
+    "services.cosmetic-dentistry.intro": {
+      "existing": "We are experts in veneers and crowns to achieve the smile of your dreams.",
+      "source": "/services",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "A single sentence pulled from a services overview tile — far too thin for a dedicated service intro; cosmetic dentistry needs its own full-paragraph treatment."
+    },
+    "services.orthosnap.intro": {
+      "existing": "Orthosnap is a cost-effective and efficient clear aligner therapy that helps our patients straighten their teeth or correct their bite, without the unsightly appearance of traditional metal braces. By utilizing custom-made dental appliances, clear aligner therapy applies gentle pressure to the teeth to move them into a more ideal position.",
+      "source": "/services/orthosnap",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Same source as orthosnap-clear-aligners; adequate base copy but missing digital scanner differentiator and budget-inclusive positioning that the practice explicitly highlights."
+    },
+    "services.comprehensive-dental-care.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "No dedicated page or substantive block exists for comprehensive dental care; this section must be written from scratch."
+    },
+    "services.emergency-dental-care.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "Emergency dental care is mentioned in the founding mission prose but no intro copy exists for this service; must be created."
+    },
+    "services.wisdom-teeth-extractions.intro": {
+      "existing": "Dr. Kalvyn is a board-certified oral and maxillofacial surgeon. Thanks to his expertise, we are able to offer: wisdom teeth extractions, biopsies, tongue tie releases, implant placements, All-On-4 or All-On-X smiles.",
+      "source": "/meet-our-doctors/kalvyn-ngo-dds",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "The only relevant text is a credential list from Dr. Kalvyn's bio page, not a service intro — it names the service but provides no patient-facing context, indications, or process detail."
+    },
+    "services.biopsies.intro": {
+      "existing": "Dr. Kalvyn is a board-certified oral and maxillofacial surgeon. Thanks to his expertise, we are able to offer: wisdom teeth extractions, biopsies, tongue tie releases, implant placements, All-On-4 or All-On-X smiles.",
+      "source": "/meet-our-doctors/kalvyn-ngo-dds",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Only reference is a credential list — no patient-facing explanation of what a biopsy is, why a patient would need one, or what the process looks like at Elements."
+    },
+    "services.tongue-tie-releases.intro": {
+      "existing": "Dr. Kalvyn is a board-certified oral and maxillofacial surgeon. Thanks to his expertise, we are able to offer: wisdom teeth extractions, biopsies, tongue tie releases, implant placements, All-On-4 or All-On-X smiles.",
+      "source": "/meet-our-doctors/kalvyn-ngo-dds",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Same credential list as biopsies — the service is named but no intro copy exists explaining indications, procedure, or why patients should choose Elements for this service."
+    },
+    "services.implant-placements.intro": {
+      "existing": "Dr. Kalvyn is a board-certified oral and maxillofacial surgeon. Thanks to his expertise, we are able to offer: wisdom teeth extractions, biopsies, tongue tie releases, implant placements, All-On-4 or All-On-X smiles.",
+      "source": "/meet-our-doctors/kalvyn-ngo-dds",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Implant placements are referenced only within Dr. Kalvyn's credential list; a proper intro requires patient-centered explanation of candidacy, process, and outcomes."
+    },
+    "services.all-on-4-or-all-on-x-smiles.intro": {
+      "existing": "Dr. Kalvyn is a board-certified oral and maxillofacial surgeon. Thanks to his expertise, we are able to offer: wisdom teeth extractions, biopsies, tongue tie releases, implant placements, All-On-4 or All-On-X smiles.",
+      "source": "/meet-our-doctors/kalvyn-ngo-dds",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "All-On-4/X is listed alongside other services in a bio credential list with no descriptive content — this high-value service deserves a full intro written from scratch."
+    },
+    "services.clear-aligner-treatment.intro": {
+      "existing": "Orthosnap is a cost-effective and efficient clear aligner therapy that helps our patients straighten their teeth or correct their bite, without the unsightly appearance of traditional metal braces. By utilizing custom-made dental appliances, clear aligner therapy applies gentle pressure to the teeth to move them into a more ideal position.",
+      "source": "/services/orthosnap",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The Orthosnap page copy is the closest available source; it covers the concept of clear aligner treatment but the intro should be differentiated from the Orthosnap-specific slug to avoid duplication."
+    },
+    "services.dentures.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "Dentures appear in the services list but there is no page, excerpt, or prose block addressing this service; must be created from scratch."
+    },
+    "services.veneers.intro": {
+      "existing": "We are experts in veneers and crowns to achieve the smile of your dreams.",
+      "source": "/services",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "A single tile-level sentence with no clinical detail, patient benefit depth, or voice; insufficient to stand as a service intro."
+    },
+    "services.full-mouth-reconstruction.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "Full mouth reconstruction is listed as a service but has no corresponding page, excerpt, or prose block anywhere in the scraped or additional content."
+    },
+    "services.periodontal-disease.intro": {
+      "existing": "Deep cleanings and improved oral hygiene can prevent severe bone loss.",
+      "source": "/services",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "A single tile-level sentence — clinically accurate but too thin to serve as a service intro without substantive expansion on symptoms, treatment approach, and patient outcomes."
+    },
+    "services.gentlewave-root-canals.intro": {
+      "existing": "Infections can be treated painlessly with root canal treatments using the GentleWave.",
+      "source": "/services",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "This one-liner is a services-page tile blurb — the full GentleWave intro (already assigned to services.gentlewave.intro) is the appropriate source, but this slug needs its own intro that frames it as a root canal service with GentleWave as the technology."
+    },
+    "services.extractions.intro": {
+      "existing": "Our doctors are experts in removing broken or infected teeth, as well as wisdom teeth.",
+      "source": "/services",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "A one-sentence tile blurb with no patient-facing context, detail on the types of extractions performed, or mention of Dr. Kalvyn's surgical credentials that would genuinely differentiate this service."
+    },
+    "services.teeth-whitening.intro": {
+      "existing": "We use the KoR Whitening System to achieve beautiful results.",
+      "source": "/services",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "A tile blurb — the KöR Whitening page has much richer copy already assigned to services.k-r-whitening.intro; this slug needs a distinct intro that frames teeth whitening broadly before introducing KöR as the method."
+    },
+    "services.implants.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "Dental implants appear in the service list but no dedicated page or substantive intro prose exists for a general implants service page; must be created."
+    },
+    "services.nitrous-oxide-laughing-gas.intro": {
+      "existing": "Nitrous Oxide (N2O), also known as inhalation sedation, provides a euphoric feeling to make dental treatments more pleasant. Nitrous oxide is a combination of two different gases: oxygen and nitrous oxide. We administer the gas through a small mask placed over your or your child's nose. The gas will",
+      "source": "/services/sedation-dentistry",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The sedation page provides a solid factual foundation for nitrous oxide but the text is truncated and does not yet stand alone as a self-contained service intro; light editing and completion needed."
+    },
+    "services.iv-sedation-general-anesthesia.intro": {
+      "existing": "Administered under the supervision of an anesthesiologist, IV sedation allows for completion of all dental treatment without patients having recollection of the experience.",
+      "source": "/services/sedation-dentistry",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Factually accurate and mentions the anesthesiologist supervision differentiator, but the text is truncated and lacks the MobiSurg and Kaiser credentialing details that make this offering unique."
+    },
+    "services.gentlewave-procedure.intro": {
+      "existing": "Elements Dentistry is excited to provide the GentleWave procedure to our patients who have root canal infections. The GentleWave Procedure is a modern way to treat root canal infections that offers high-tech, effective cleaning designed to reach the most complex tooth anatomies where bacteria can hide. Root canal procedures don't have to be painful if patients choose to receive the GentleWave Procedure. The GentleWave Procedure promotes pain-free, fast healing.",
+      "source": "/services/gentlewave",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Same source as services.gentlewave.intro — adequate content but repetitive phrasing needs tightening; if both slugs resolve to the same page the intro should be consistent."
+    },
+    "services.dental-implants.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "No dedicated dental implants page or intro prose exists; the ICOI fellowship and Dr. Kalvyn's surgical credentials are strong differentiator hooks the writer can use, but the copy itself must be created."
+    },
+    "services.clear-aligners.intro": {
+      "existing": "Orthosnap is a cost-effective and efficient clear aligner therapy that helps our patients straighten their teeth or correct their bite, without the unsightly appearance of traditional metal braces. By utilizing custom-made dental appliances, clear aligner therapy applies gentle pressure to the teeth to move them into a more ideal position.",
+      "source": "/services/orthosnap",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Third slug drawing on the same Orthosnap source; adequate as a base but must be differentiated from the orthosnap-specific and clear-aligner-treatment slugs to avoid duplicate content across the site."
+    }
+  },
+  "coverage": {
+    "totalSections": 36,
+    "byQuality": {
+      "strong": 5,
+      "adequate": 11,
+      "weak": 12,
+      "missing": 8
+    },
+    "byAction": {
+      "keep": 5,
+      "optimize": 11,
+      "create": 20
+    }
+  },
+  "differentiatorMatches": {
+    "special-care-dentistry": [
+      "Special Care Dentistry for patients with special needs",
+      "Specialized care for medically complex and special needs patients",
+      "Special care for patients with Alzheimer's, autism, Down Syndrome",
+      "Founder established practice to serve special needs patients",
+      "Low-pressure first visits including reception area only",
+      "Weighted Wallaby Blanket for patient relaxation",
+      "Yoga mats available for patients who prefer floor space",
+      "Tell-Show-Do desensitization technique for anxious patients",
+      "Modified treatment rooms for patients with physical limitations",
+      "Special care dentist with GPR at Rancho Los Amigos",
+      "Dr. Trisha trained at Stanford Hospital for dental oncology",
+      "Sister-owned dental practice with combined 17 years experience"
+    ],
+    "sedation-dentistry": [
+      "MobiSurg surgery center credentialed general dentist",
+      "Kaiser Permanente general anesthesia services available",
+      "In-office anesthesiologist for IV and general anesthesia",
+      "Sister-owned dental practice with combined 17 years experience"
+    ],
+    "gentlewave": [
+      "GentleWave advanced endodontic technology",
+      "GentleWave minimally invasive root canal treatment",
+      "GentleWave system for painless root canals"
+    ],
+    "orthosnap-clear-aligners": [
+      "Orthosnap clear aligners for all budgets",
+      "Orthosnap best-fitting clear aligner trays in industry",
+      "Fully digital intraoral scanner for impressions"
+    ],
+    "orthosnap": [
+      "Orthosnap clear aligners for all budgets",
+      "Orthosnap best-fitting clear aligner trays in industry",
+      "Fully digital intraoral scanner for impressions"
+    ],
+    "k-r-whitening": [
+      "KöR Whitening System for teeth whitening",
+      "KöR Whitening system whitens up to 16 shades",
+      "KöR tri-barrel system for stronger whitening results",
+      "KöR Whitening causes less sensitivity than other systems"
+    ],
+    "gentlewave-root-canals": [
+      "GentleWave system for painless root canals",
+      "GentleWave minimally invasive root canal treatment",
+      "GentleWave advanced endodontic technology"
+    ],
+    "gentlewave-procedure": [
+      "GentleWave advanced endodontic technology",
+      "GentleWave minimally invasive root canal treatment",
+      "GentleWave system for painless root canals"
+    ],
+    "wisdom-teeth-extractions": [
+      "Board-certified oral and maxillofacial surgeon on staff",
+      "Attending surgeon at LA General Medical Center"
+    ],
+    "biopsies": [
+      "Board-certified oral and maxillofacial surgeon on staff",
+      "Attending surgeon at LA General Medical Center"
+    ],
+    "tongue-tie-releases": [
+      "Board-certified oral and maxillofacial surgeon on staff",
+      "Attending surgeon at LA General Medical Center"
+    ],
+    "implant-placements": [
+      "Board-certified oral and maxillofacial surgeon on staff",
+      "Attending surgeon at LA General Medical Center",
+      "Working toward ICOI fellowship in oral implantology",
+      "Postgraduate training at California Implant Institute"
+    ],
+    "all-on-4-or-all-on-x-smiles": [
+      "Board-certified oral and maxillofacial surgeon on staff",
+      "Attending surgeon at LA General Medical Center",
+      "Working toward ICOI fellowship in oral implantology"
+    ],
+    "clear-aligner-treatment": [
+      "Orthosnap clear aligners for all budgets",
+      "Orthosnap best-fitting clear aligner trays in industry",
+      "Fully digital intraoral scanner for impressions"
+    ],
+    "clear-aligners": [
+      "Orthosnap clear aligners for all budgets",
+      "Orthosnap best-fitting clear aligner trays in industry",
+      "Fully digital intraoral scanner for impressions"
+    ],
+    "nitrous-oxide-laughing-gas": [
+      "In-office anesthesiologist for IV and general anesthesia",
+      "MobiSurg surgery center credentialed general dentist"
+    ],
+    "iv-sedation-general-anesthesia": [
+      "In-office anesthesiologist for IV and general anesthesia",
+      "MobiSurg surgery center credentialed general dentist",
+      "Kaiser Permanente general anesthesia services available"
+    ],
+    "implants": [
+      "Board-certified oral and maxillofacial surgeon on staff",
+      "Working toward ICOI fellowship in oral implantology",
+      "Postgraduate training at California Implant Institute"
+    ],
+    "dental-implants": [
+      "Board-certified oral and maxillofacial surgeon on staff",
+      "Attending surgeon at LA General Medical Center",
+      "Working toward ICOI fellowship in oral implantology",
+      "Postgraduate training at California Implant Institute"
+    ],
+    "teeth-whitening": [
+      "KöR Whitening System for teeth whitening",
+      "KöR Whitening system whitens up to 16 shades",
+      "KöR Whitening causes less sensitivity than other systems"
+    ],
+    "veneers": [
+      "Sister-owned dental practice with combined 17 years experience",
+      "Kois Center graduates — evidence-based postdoctoral training"
+    ],
+    "cosmetic-dentistry": [
+      "Sister-owned dental practice with combined 17 years experience",
+      "Kois Center graduates — evidence-based postdoctoral training",
+      "KöR Whitening System for teeth whitening"
+    ],
+    "full-mouth-reconstruction": [
+      "Board-certified oral and maxillofacial surgeon on staff",
+      "Kois Center graduates — evidence-based postdoctoral training",
+      "Working toward ICOI fellowship in oral implantology"
+    ],
+    "periodontal-disease": [
+      "Kois Center graduates — evidence-based postdoctoral training",
+      "Sister-owned dental practice with combined 17 years experience"
+    ],
+    "extractions": [
+      "Board-certified oral and maxillofacial surgeon on staff",
+      "Attending surgeon at LA General Medical Center"
+    ],
+    "dentures": [
+      "Sister-owned dental practice with combined 17 years experience",
+      "Variety of financing options to fit any budget"
+    ],
+    "comprehensive-dental-care": [
+      "Sister-owned dental practice with combined 17 years experience",
+      "Kois Center graduates — evidence-based postdoctoral training",
+      "Special Care Dentistry for patients with special needs"
+    ],
+    "emergency-dental-care": [
+      "Sister-owned dental practice with combined 17 years experience",
+      "State-of-the-art family and special care dentistry office"
+    ]
+  },
+  "rationale": "The practice has a genuinely distinctive voice — the sister-founded, special-care-first origin story and the empathetic framing around low-pressure first visits are standout assets that should anchor the hero and about sections. Service coverage is uneven: the four pages with dedicated scraped content (Special Care, Sedation, GentleWave, Orthosnap, KöR Whitening) yield strong or adequate intros, but the majority of services — particularly the surgical offerings enabled by Dr. Kalvyn and newer cosmetic services — exist only as one-line tile blurbs or credential lists, requiring full creation. The Write phase should prioritize building out the 20 create-flagged sections while using the practice's own prose (especially the special-care and team blocks) as voice and tone anchors.",
+  "_meta": {
+    "model": "claude-sonnet-4-6",
+    "input_tokens": 11799,
+    "output_tokens": 7108,
+    "duration_ms": 114799,
+    "cost": 0.142,
+    "schemaValidation": {
+      "expectedKeyCount": 35,
+      "missingKeys": [],
+      "extraKeys": [],
+      "backfilled": 0
+    },
+    "sourcePathValidation": {
+      "valid": [
+        {
+          "key": "homepage.heroHeadline",
+          "source": "/"
+        },
+        {
+          "key": "homepage.heroSubheadline",
+          "source": "/"
+        },
+        {
+          "key": "homepage.valueProp",
+          "source": "/services"
+        },
+        {
+          "key": "about.headline",
+          "source": "/"
+        },
+        {
+          "key": "about.introParagraph",
+          "source": "/"
+        },
+        {
+          "key": "about.philosophy",
+          "source": "/"
+        },
+        {
+          "key": "services.special-care-dentistry.intro",
+          "source": "/services/special-care-dentistry"
+        },
+        {
+          "key": "services.sedation-dentistry.intro",
+          "source": "/services/sedation-dentistry"
+        },
+        {
+          "key": "services.orthosnap-clear-aligners.intro",
+          "source": "/services/orthosnap"
+        },
+        {
+          "key": "services.k-r-whitening.intro",
+          "source": "/services/kor-whitening"
+        },
+        {
+          "key": "services.gentlewave.intro",
+          "source": "/services/gentlewave"
+        },
+        {
+          "key": "services.cosmetic-dentistry.intro",
+          "source": "/services"
+        },
+        {
+          "key": "services.orthosnap.intro",
+          "source": "/services/orthosnap"
+        },
+        {
+          "key": "services.wisdom-teeth-extractions.intro",
+          "source": "/meet-our-doctors/kalvyn-ngo-dds"
+        },
+        {
+          "key": "services.biopsies.intro",
+          "source": "/meet-our-doctors/kalvyn-ngo-dds"
+        },
+        {
+          "key": "services.tongue-tie-releases.intro",
+          "source": "/meet-our-doctors/kalvyn-ngo-dds"
+        },
+        {
+          "key": "services.implant-placements.intro",
+          "source": "/meet-our-doctors/kalvyn-ngo-dds"
+        },
+        {
+          "key": "services.all-on-4-or-all-on-x-smiles.intro",
+          "source": "/meet-our-doctors/kalvyn-ngo-dds"
+        },
+        {
+          "key": "services.clear-aligner-treatment.intro",
+          "source": "/services/orthosnap"
+        },
+        {
+          "key": "services.veneers.intro",
+          "source": "/services"
+        },
+        {
+          "key": "services.periodontal-disease.intro",
+          "source": "/services"
+        },
+        {
+          "key": "services.gentlewave-root-canals.intro",
+          "source": "/services"
+        },
+        {
+          "key": "services.extractions.intro",
+          "source": "/services"
+        },
+        {
+          "key": "services.teeth-whitening.intro",
+          "source": "/services"
+        },
+        {
+          "key": "services.nitrous-oxide-laughing-gas.intro",
+          "source": "/services/sedation-dentistry"
+        },
+        {
+          "key": "services.iv-sedation-general-anesthesia.intro",
+          "source": "/services/sedation-dentistry"
+        },
+        {
+          "key": "services.gentlewave-procedure.intro",
+          "source": "/services/gentlewave"
+        },
+        {
+          "key": "services.clear-aligners.intro",
+          "source": "/services/orthosnap"
+        }
+      ],
+      "invalid": [],
+      "knownPathCount": 20
+    }
+  }
+}

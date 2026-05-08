@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Orthodontics for Teens",
+  "description": "Modern orthodontic options built for teen lifestyles — from Invisalign to custom LightForce brackets and InBrace lingual braces.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Orthodontics for Teens | ${site.name}`}
+  description="Modern orthodontic options built for teen lifestyles — from Invisalign to custom LightForce brackets and InBrace lingual braces."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Orthodontics for Teens
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Modern orthodontic options built for teen lifestyles — from Invisalign to custom LightForce brackets and InBrace lingual braces.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Braces, retainers, and everything you want to know about orthodontics. You've just heard the three words that every teen dreads: &quot;YOU NEED BRACES!&quot; Don't worry — braces aren't nearly as scary as you may think. In fact, orthodontic treatment today comes in a variety of styles designed to work with teen lifestyles: Invisalign clear aligners (our practice is an Invisalign Diamond Provider), LightForce custom 3D-printed brackets tailored precisely to each tooth, and InBrace — a lingual system placed behind the teeth so it's completely hidden. Whatever your needs and preferences, we will build a treatment plan customized to you. At Chang Orthodontics, we treat every patient as an individual, not an assembly line.</p>
+      <ul class="space-y-3 my-6">
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Multiple treatment options including Invisalign, LightForce, and InBrace</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Invisalign Diamond Provider — proven expertise in clear aligner treatment</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>LightForce brackets custom 3D-printed for each individual tooth</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>InBrace lingual system — completely hidden behind the teeth</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Customized treatment plans designed around each teen's goals</span></li>
+      </ul>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

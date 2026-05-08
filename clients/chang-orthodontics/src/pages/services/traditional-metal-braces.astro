@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Traditional Metal Braces",
+  "description": "The most proven orthodontic appliance — more comfortable than ever, guided by a Board-Certified specialist at every appointment.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Traditional Metal Braces | ${site.name}`}
+  description="The most proven orthodontic appliance — more comfortable than ever, guided by a Board-Certified specialist at every appointment."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Traditional Metal Braces
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      The most proven orthodontic appliance — more comfortable than ever, guided by a Board-Certified specialist at every appointment.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Traditional metal braces are the most common type of braces and are more comfortable today than ever before. Made of high-grade stainless steel, metal braces straighten your teeth using metal brackets and archwires. Modern bracket design and wire materials have significantly reduced the discomfort associated with traditional braces, making them a reliable, cost-effective option for patients of all ages with mild to complex malocclusions. At Chang Orthodontics, Dr. Chang is a Board Certified Diplomate of the American Board of Orthodontics with over 40 years of quality care in Los Alamitos — and every patient is seen by their orthodontist, not a staff member, at every single appointment.</p>
+      <ul class="space-y-3 my-6">
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>High-grade stainless steel brackets — durable and reliable</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Effective for a broad range of malocclusion severity</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>More comfortable today than previous generations of metal braces</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Guided by a Board-Certified Diplomate at every appointment</span></li>
+      </ul>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

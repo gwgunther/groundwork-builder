@@ -1,0 +1,353 @@
+{
+  "contentAudit": {
+    "homepage.heroHeadline": {
+      "existing": "E komo mai Welcome",
+      "source": "/",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "Distinctively voices the practice's Hawaiian cultural identity and warmth — 'E Komo Mai' is a genuine brand signature that appears consistently across the site and differentiates Chang Orthodontics from any generic dental practice."
+    },
+    "homepage.heroSubheadline": {
+      "existing": "Over 40 years of Quality Care in Los Alamitos",
+      "source": "/",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "Specific, credible, and locally anchored — 40 years of tenure in Los Alamitos is a powerful trust signal that no competitor can replicate, and it appears verbatim in the practice's own voice block."
+    },
+    "homepage.heroTagline": {
+      "existing": "Changing Lives One Smile at a Time",
+      "source": "/",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "On-brand sentiment but is a widely used orthodontic tagline formula that reads as generic; light optimization should infuse more of the practice's Hawaiian/family voice or reference the 'Chang Smile' brand."
+    },
+    "homepage.valueProp": {
+      "existing": "Dr. Russell Chang and Dr. Christine Chung, USC Adjunct Assistant Professors of Postdoctoral Orthodontics and Pediatric Dentistry carefully create beautiful signature Chang Smiles utilizing the highest standards and newest technology in the most efficient and streamlined time of treatment. We look forward to welcoming you soon! With warmest Aloha, Dr. Chang, Dr. Chung & Team",
+      "source": "/",
+      "quality": "strong",
+      "action": "optimize",
+      "rationale": "Captures the practice's dual-doctor academic credentials, proprietary 'Chang Smile' brand language, and warm Aloha sign-off in one block; light editing needed to break the run-on sentence and sharpen the value hierarchy before use as a standalone value proposition."
+    },
+    "about.headline": {
+      "existing": "Tradition, Excellence, and Expertise ...",
+      "source": "/",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Signals the right brand pillars but trails off with an ellipsis and lacks specificity; the Write phase should complete and sharpen it into a declarative headline that can stand alone on the About section."
+    },
+    "about.introParagraph": {
+      "existing": "Dr. Russell Chang is well known in the Los Alamitos community and beyond as a warm and caring professional who delivers outstanding orthodontic results. He works closely with both general dentists and",
+      "source": "/meet-dr-russell-ek-chang",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Good opening framing with community recognition and professional warmth, but the excerpt is truncated mid-sentence in the page inventory and will need to be completed and merged with Dr. Chung's intro for a dual-doctor About paragraph."
+    },
+    "about.philosophy": {
+      "existing": "It is the Mission of Chang Orthodontics to deliver the most outstanding smiles and oral health to each and every patient every day in a warm, caring, compassionate, and comfortable environment.",
+      "source": "/what-sets-us-apart",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "This is the practice's explicit mission statement — specific, values-driven, and written in the practice's own voice; it is the most direct source for the philosophy section and should be used verbatim with minimal formatting adjustment."
+    },
+    "services.invisalign-treatment.intro": {
+      "existing": "There's never been a better time to straighten your teeth with the most advanced clear aligner in the world. Our office is proud to be a certified provider of Invisalign clear aligners, which give you a clear, convenient, and comfortable option to achieve the smile you've always wanted.",
+      "source": "/invisalign-treatment",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Serviceable intro that confirms certified provider status and leads with patient benefit, but the opening line is a common Invisalign template phrase; optimization should layer in the Diamond Provider credential and iTero scanning differentiators specific to this practice."
+    },
+    "services.early-orthodontic-treatment.intro": {
+      "existing": "What is the difference between early orthodontic treatment and regular orthodontic treatment, and why might my child need early treatment? How will early treatment benefit my child in the long run? These are just a few of the questions surrounding the topic of early orthodontic treatment for children. The American Association of Orthodontists recommends that children see an orthodontist as early as",
+      "source": "/early-orthodontic-treatment",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "The existing text opens with a list of patient questions rather than a declarative intro — it functions as a FAQ preamble, not a service intro, and reads as boilerplate; the Write phase should create a fresh intro grounded in the AAO age-7 recommendation and the practice's family-focused voice."
+    },
+    "services.digital-x-rays.intro": {
+      "existing": "Using the most advanced orthodontic technology possible is just as important as staying up-to-date on the latest treatment techniques. Because our practice is dedicated to providing you with the safest, most convenient, and most effective treatment options available, we utilize digital X-rays. Digital X-rays provide several advanced imaging options designed to save time, provide clearer dental photos, and expose patients to less radiation than traditional X-ray technology.",
+      "source": "/digital-x-rays",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Clear and benefit-led with a legitimate differentiator (less radiation, clearer images), but the opening sentence is a generic technology-adoption statement; light editing can tighten the lead and front-load the patient benefit."
+    },
+    "services.itero-digital-impression-system.intro": {
+      "existing": "No more goop, gagging, or discomfort. Using an iTero scanner, your orthodontist can take a highly accurate digital impression of your teeth and jaw. The new technology completely eliminates the tray and putty of conventional impressions.",
+      "source": "/itero-digital-impression-system",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "Opens with a visceral, patient-empathetic hook ('No more goop, gagging, or discomfort') that is immediately distinctive and benefit-driven; it captures the practice's voice and the core patient problem being solved without needing revision."
+    },
+    "services.surgical-orthodontics.intro": {
+      "existing": "Surgical orthodontics, also known as orthognathic surgery, is a type of orthodontic treatment used to correct severe cases that include bad bites, jaw bone abnormalities, and malocclusion. Oral and maxillofacial surgery is one of the nine recognized dental specialties, and it focuses on treating complex craniofacial cases that involve the mouth, jaw, face, and skull. If you need surgical orthodontics, your orthodontist will work with an oral and maxillofacial surgeon to ensure that you receive the best care possible.",
+      "source": "/surgical-orthodontics",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Accurate and complete definitional intro that covers scope and collaboration model, but it reads as category-generic educational content with no reference to the practice's specific expertise or board certification; optimization should add Dr. Chang's credentials and the multidisciplinary team angle."
+    },
+    "services.dentofacial-orthopedics.intro": {
+      "existing": "You may have noticed that our doctor specializes in 'orthodontics and dentofacial orthopedics.' While most people have heard of orthodontics, many are confused by the dentofacial orthopedics part of the specialty.",
+      "source": "/dentofacial-orthopedics",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Addresses the most common patient confusion point (what is dentofacial orthopedics?) in a conversational, accessible tone, but is truncated and needs expansion to explain the dual specialty and the practice's unique qualifications in both disciplines."
+    },
+    "services.craniofacial-orthodontics.intro": {
+      "existing": "Craniofacial orthodontics is a sub-specialty of orthodontics that focuses on the treatment of patients with birth defects such as cleft lip and palate. The orthodontist will work with a team comprised of speech pathologists, oral surgeons, and craniofacial plastic surgeons in planning treatment to correct cleft lip and palate, as well as other jaw and face abnormalities.",
+      "source": "/craniofacial-orthodontics",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Solid foundational definition with accurate multidisciplinary team description, but misses the significant practice-specific differentiator — Dr. Chang's long-term membership on the Cleft Lip and Palate Team at Miller Children's Hospital and the Stramsky Center connection — which must be woven in."
+    },
+    "services.damon-smile.intro": {
+      "existing": "Our office is pleased to offer our patients passive self-ligating Damon Smile braces. Damon braces use a slide mechanism to hold the archwire, reducing the amount of pressure exerted on the teeth and allowing the teeth to move more freely, quickly, and comfortably.",
+      "source": "/damon-smile",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Technically accurate and patient-benefit-oriented with the key mechanism explained, but the opening 'Our office is pleased to offer' phrasing is a common dental boilerplate opener that should be replaced with a stronger lead."
+    },
+    "services.suresmile.intro": {
+      "existing": "Through the use of SureSmile technology, your orthodontist can offer you a 'braces experience' that provides:",
+      "source": "/suresmile",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "The existing excerpt is a fragment that leads into a bullet list — it has no standalone introductory value and cannot function as a prose service intro; the Write phase should create a complete intro that leads with the 30%-faster treatment data point and SureSmile's precision wire technology."
+    },
+    "services.in-ovation.intro": {
+      "existing": "We happily offer our patients In-Ovation System braces. In-Ovation is a new and technically advanced system that can give you the radiant smile you have always wanted more quickly than traditional braces, and without the need for ugly, unsanitary, and uncomfortable elastic ties.",
+      "source": "/in-ovation",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Covers speed and comfort advantages with direct language ('ugly, unsanitary, and uncomfortable') that is more characterful than most service pages, but 'We happily offer' is a weak opener and the word 'new' is dated since In-Ovation is an established system."
+    },
+    "services.coconut-wireless.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "No page, excerpt, or content block for Coconut Wireless was found anywhere in the crawl or additionalContent; the Write phase must create this intro from scratch, likely describing the practice's patient communication or wireless connectivity service."
+    },
+    "services.emergency-care.intro": {
+      "existing": "True orthodontic emergencies are rare, but when they occur we are available to you! As a general rule, you should call our office if you experience severe pain or have a painful appliance problem you can't take care of yourself. We'll be able to schedule an appointment to resolve the problem.",
+      "source": "/emergency-care",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "Opens with a reassuring, patient-centered framing ('True orthodontic emergencies are rare, but when they occur we are available to you') that is warm and practice-specific in tone; it immediately addresses patient anxiety and communicates accessibility."
+    },
+    "services.elastics-rubber-bands.intro": {
+      "existing": "Wearing elastics (or rubber bands) improves the fit of your upper and lower teeth. Wear rubber bands as instructed, and remember that the rubber bands work far more efficiently if they're worn as prescribed.",
+      "source": "/types-of-appliances",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Accurate and concise but reads as patient-instruction copy rather than a service intro; the Write phase should reframe it as an explainer of what elastics do and why the practice uses them, then add compliance guidance."
+    },
+    "services.forsus-fatigue-resistant-device.intro": {
+      "existing": "The Forsus Fatigue Resistant Device is an alternative to headgear which promotes growth in adolescents, helping to eliminate excessive overbites, improve the fit of teeth, and possibly prevent the need for jaw surgery.",
+      "source": "/types-of-appliances",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Clearly states the device's purpose, target patient (adolescents), and key benefit (potential surgery avoidance) in one sentence — useful base content, but needs expansion to a full intro paragraph with context on how it works in treatment."
+    },
+    "services.headgear.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "While headgear is listed as a section heading on /types-of-appliances, no descriptive intro text for headgear was captured in any content excerpt or additionalContent block; the Write phase must create this from scratch."
+    },
+    "services.herbst-appliance.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "Herbst® Appliance is listed as an H2 on /types-of-appliances but no descriptive text was captured in any excerpt or additionalContent; the Write phase must create a new intro describing the appliance's function and patient candidacy."
+    },
+    "services.palatal-expander.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "Palatal Expander appears as an H2 heading on /types-of-appliances but no descriptive body text was surfaced in any content source; the Write phase must create a complete intro from scratch."
+    },
+    "services.positioners.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "Positioners is listed as an H2 on /types-of-appliances but no descriptive content was captured in any excerpt or additionalContent block; the Write phase must create a new intro."
+    },
+    "services.retainers.intro": {
+      "existing": "Retainers are custom-made and can be removable or fixed.",
+      "source": "/orthodontic-retention",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "A single fragment sentence provides almost no usable intro content — it is definitional at the most basic level with no patient context, treatment rationale, or practice-specific voice; the Write phase should create a full intro drawing on the retention page's fuller content."
+    },
+    "services.separators-or-spacers.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "Separators or Spacers appears as a named service but no descriptive text was captured from /types-of-appliances or any other page in the crawl; the Write phase must create this intro from scratch."
+    },
+    "services.twin-block-appliance.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "Twin Block Appliance is listed as a service offering but no page, excerpt, or additionalContent block for it was found in any source; the Write phase must create this intro from scratch."
+    },
+    "services.orthodontic-retention.intro": {
+      "existing": "Finally, your braces have been removed and your smile is beautiful, straight, and best of all, metal-free! However, your orthodontic journey isn't quite completed. To keep your smile looking its best,",
+      "source": "/orthodontic-retention",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The celebratory opening ('Finally, your braces have been removed') creates an emotionally resonant hook that fits the page's tone well, but the excerpt is truncated and the full sentence needs to be completed and the retention rationale made explicit in the intro."
+    },
+    "services.traditional-metal-braces.intro": {
+      "existing": "Traditional metal braces are the most common type of braces and are more comfortable today than ever before. Made of high-grade stainless steel, metal braces straighten your teeth using metal brackets and archwires.",
+      "source": "/types-of-braces",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Accurate, clear definition that correctly addresses the comfort concern most patients associate with metal braces, but it is generic boilerplate language found on most orthodontic sites; optimization should add a practice-specific angle such as patient volume or the range of customization options offered."
+    },
+    "services.self-ligating-braces.intro": {
+      "existing": "Self-ligating braces are made from the same materials as traditional braces. However, self-ligating braces do not require the use of elastics, meaning fewer appointments and less friction being placed on the tooth.",
+      "source": "/types-of-braces",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Correctly distinguishes self-ligating from traditional braces on the key patient-benefit axes (fewer appointments, less friction) but is brief and generic; optimization should expand on treatment efficiency and connect to the specific systems offered at this practice (Damon, In-Ovation)."
+    },
+    "services.clear-ceramic-braces.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "Clear (ceramic) braces are listed as a service and appear in the /types-of-braces page title context, but no descriptive intro text for ceramic braces was captured in any content excerpt; the Write phase must create this intro from scratch."
+    },
+    "services.clear-aligners.intro": {
+      "existing": "There's never been a better time to straighten your teeth with the most advanced clear aligner in the world. Our office is proud to be a certified provider of Invisalign clear aligners, which give you a clear, convenient, and comfortable option to achieve the smile you've always wanted.",
+      "source": "/invisalign-treatment",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The clear-aligners service is distinct from the Invisalign-branded service page and should not share identical intro copy; the Write phase should optimize this into a broader clear-aligner category intro that encompasses the practice's Diamond Provider status and multiple aligner options."
+    },
+    "services.in-ovation-braces.intro": {
+      "existing": "We happily offer our patients In-Ovation System braces. In-Ovation is a new and technically advanced system that can give you the radiant smile you have always wanted more quickly than traditional braces, and without the need for ugly, unsanitary, and uncomfortable elastic ties.",
+      "source": "/in-ovation",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Same source text as services.in-ovation.intro — since the two slugs map to the same page, content is duplicated in the audit; the Write phase should differentiate the two entries or consolidate, but the base text requires the same optimizations noted for in-ovation (weak opener, dated 'new' descriptor)."
+    }
+  },
+  "coverage": {
+    "totalSections": 42,
+    "byQuality": {
+      "strong": 8,
+      "adequate": 19,
+      "weak": 3,
+      "missing": 12
+    },
+    "byAction": {
+      "keep": 5,
+      "optimize": 25,
+      "create": 12
+    }
+  },
+  "differentiatorMatches": {
+    "invisalign-treatment": [
+      "Certified Invisalign provider with Diamond Provider status",
+      "iTero® digital scanning for precise 3D treatment planning",
+      "InBrace, LightForce, and Invisalign treatment options",
+      "American Board of Orthodontics certified practice",
+      "Invisalign Diamond Provider status"
+    ],
+    "early-orthodontic-treatment": [
+      "Member of American Association of Orthodontists",
+      "Member of California Dental Association",
+      "USC Adjunct Assistant Professors of Orthodontics"
+    ],
+    "digital-x-rays": [
+      "Digital X-rays with less radiation than traditional",
+      "iTero digital impression system used in practice"
+    ],
+    "itero-digital-impression-system": [
+      "iTero digital impressions — no goop or gagging — no radiation",
+      "Radiation-free laser scanning for impressions",
+      "iTero® Digital Impression System available"
+    ],
+    "surgical-orthodontics": [
+      "iTero Digital Impression System used in treatment",
+      "Clean air facility certified",
+      "Board Certified Diplomate of the American Board of Orthodontics"
+    ],
+    "dentofacial-orthopedics": [
+      "Dual specialty: orthodontics and dentofacial orthopedics",
+      "Certified clean air facility",
+      "USC Adjunct Assistant Professors of Orthodontics"
+    ],
+    "craniofacial-orthodontics": [
+      "Craniofacial orthodontics sub-specialty for cleft lip and palate",
+      "Long-term Cleft Lip and Palate Team member at Miller Children's Hospital",
+      "iTero® Digital Impression System available",
+      "Digital X-rays available for orthodontic diagnosis",
+      "IQAir clean air facility certification"
+    ],
+    "damon-smile": [
+      "Passive self-ligating Damon Smile braces offered",
+      "Tie-less braces require fewer adjustments",
+      "California Dental Association member"
+    ],
+    "suresmile": [
+      "SureSmile technology for faster orthodontic treatment",
+      "iTero® Digital Impression System offered"
+    ],
+    "in-ovation": [
+      "In-Ovation self-ligating braces system offered",
+      "No tightening appointments needed with In-Ovation",
+      "InBrace and LightForce braces offered",
+      "Invisalign Diamond Provider status"
+    ],
+    "in-ovation-braces": [
+      "In-Ovation self-ligating braces system offered",
+      "No tightening appointments needed with In-Ovation",
+      "InBrace and LightForce braces offered"
+    ],
+    "emergency-care": [
+      "Available for orthodontic emergencies when they occur",
+      "InBrace provider"
+    ],
+    "orthodontic-retention": [
+      "Clean air facility with IQAir filtration",
+      "American Board of Orthodontics certified",
+      "InBrace lingual braces available"
+    ],
+    "clear-aligners": [
+      "Invisalign Diamond Provider status",
+      "iTero® Digital Impression System available",
+      "InBrace, LightForce, and Invisalign treatment options"
+    ],
+    "traditional-metal-braces": [
+      "Over 40 years of orthodontic care in Los Alamitos",
+      "Orthodontist seen at every single appointment"
+    ],
+    "self-ligating-braces": [
+      "Tie-less braces require fewer adjustments",
+      "In-Ovation self-ligating braces system offered",
+      "Passive self-ligating Damon Smile braces offered"
+    ]
+  },
+  "rationale": "The practice has a genuinely distinctive voice anchored in Hawaiian cultural warmth ('Aloha,' 'E Komo Mai'), a proprietary brand asset ('Chang Smile'), and high-credibility differentiators (40-year tenure, Invisalign Diamond Provider, dual USC adjunct professors, ABO board certification, craniofacial sub-specialty at Miller Children's Hospital) that surface strongly in the hero and about sections but rarely penetrate the service pages. Service-level coverage is uneven — specialty services like Invisalign, iTero, surgical orthodontics, and craniofacial orthodontics have workable source text, while appliance and technology sub-services (headgear, Herbst, palatal expander, positioners, separators, twin block, coconut wireless, clear ceramic braces) have no existing content at all and will require full creation. The Write phase's primary mandate is twofold: elevate the 12 missing service intros from zero and systematically inject the practice's credential stack and Aloha voice into the 25 sections currently slated for optimization.",
+  "_meta": {
+    "model": "claude-sonnet-4-6",
+    "input_tokens": 15828,
+    "output_tokens": 6338,
+    "duration_ms": 114052,
+    "cost": 0.1426,
+    "schemaValidation": {
+      "expectedKeyCount": 34,
+      "missingKeys": [],
+      "extraKeys": [],
+      "backfilled": 0
+    }
+  }
+}

@@ -54,6 +54,18 @@ const breadcrumbSchema = pathSegments.length > 0 ? {
     })),
   ],
 } : null;
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.name,
+  url: site.url,
+  publisher: {
+    '@type': 'Organization',
+    name: site.name,
+    url: site.url,
+  },
+};
 ---
 
 <!DOCTYPE html>
@@ -89,15 +101,13 @@ const breadcrumbSchema = pathSegments.length > 0 ? {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/images/branding/logo.png" />
 
-    <!-- Google Fonts — TODO: Replace with your practice's fonts -->
+    <!-- Google Fonts — injected by pipeline from design phase -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="[GOOGLE_FONTS_URL]" rel="stylesheet" />
 
     <!-- JSON-LD Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
     {schemaArray.map((s) => (
       <script type="application/ld+json" set:html={JSON.stringify(s)} />
     ))}
@@ -117,6 +127,7 @@ const breadcrumbSchema = pathSegments.length > 0 ? {
         </script>
       </>
     )}
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
   <body class="bg-white">
     <Header />

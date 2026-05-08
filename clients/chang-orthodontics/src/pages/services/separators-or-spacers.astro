@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Separators or Spacers",
+  "description": "Small preparatory devices placed between the teeth before banding — a brief but important step in your treatment.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Separators or Spacers | ${site.name}`}
+  description="Small preparatory devices placed between the teeth before banding — a brief but important step in your treatment."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Separators or Spacers
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Small preparatory devices placed between the teeth before banding — a brief but important step in your treatment.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Separators, also called spacers, are small rubber rings or metal devices placed between specific teeth — typically the molars — to create a small amount of space before orthodontic bands are fitted. This brief preparatory step ensures that bands can be seated accurately and comfortably, without forcing them between teeth that are in tight contact. Separators are usually worn for one to two weeks and may cause mild pressure or soreness as they gently move the teeth apart. At Chang Orthodontics, your orthodontist reviews your separators and prepares you for the banding appointment directly — no step in your treatment is managed without specialist oversight.</p>
+      <ul class="space-y-3 my-6">
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Creates necessary space for accurate band placement</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Typically worn for only one to two weeks</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>A brief preparatory step that supports precise appliance fitting</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Reviewed directly by your orthodontist before proceeding to banding</span></li>
+      </ul>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

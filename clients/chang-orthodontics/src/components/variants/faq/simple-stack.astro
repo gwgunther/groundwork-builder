@@ -1,0 +1,65 @@
+---
+/**
+ * FAQ Simple Stack — Editorial vertical stack. No chrome, no accordion.
+ */
+import type { FaqContent } from '../types';
+import { designDNA } from '../../../config/design-dna';
+import { resolveTokens } from '../token-utils';
+
+const { content } = Astro.props;
+
+const tokens = (designDNA as any).designTokens ?? {};
+const t = resolveTokens(tokens);
+
+const eyebrow = content.eyebrow ?? 'Frequently Asked';
+const heading = content.heading ?? 'Common Questions';
+
+const schemaJson = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": (content.items ?? []).map((it) => ({
+    "@type": "Question",
+    "name": it.q,
+    "acceptedAnswer": { "@type": "Answer", "text": it.a }
+  }))
+});
+---
+
+{content.items && content.items.length > 0 && (
+  <section data-section="faq" class={`bg-surface-1 ${t.spacingClass}`}>
+    <div class={t.containerClass}>
+      <div class="max-w-3xl mx-auto">
+
+        <!-- Header -->
+        <div class="text-center mb-12 md:mb-16">
+          {eyebrow && <span class={t.eyebrowClass}>{eyebrow}</span>}
+          <h2 class="font-serif text-3xl md:text-4xl font-bold text-neutral-dark mb-4">
+            {heading}
+          </h2>
+          {content.subheading && (
+            <p class="font-sans text-lg text-neutral-mid leading-relaxed">
+              {content.subheading}
+            </p>
+          )}
+        </div>
+
+        <!-- Stacked Q/A items -->
+        <div>
+          {content.items.map((faq) => (
+            <div class="py-8 border-b border-border-light last:border-b-0">
+              <h3 class="font-serif text-xl md:text-2xl font-bold text-neutral-dark mb-3">
+                {faq.q}
+              </h3>
+              <p class="text-neutral-mid leading-relaxed text-base md:text-lg max-w-prose">
+                {faq.a}
+              </p>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </div>
+  </section>
+)}
+
+<script type="application/ld+json" set:html={schemaJson} />

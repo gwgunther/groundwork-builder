@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTABlock from '../components/CTABlock.astro';
+import { site, localBusinessSchema } from '../config/site';
+
+// TODO: Customize services for the practice
+const services = [
+  { name: 'Clear (Ceramic) Braces', slug: 'clear-ceramic-braces', href: '/services/clear-ceramic-braces', desc: 'Discreet, effective orthodontic correction using tooth-colored ceramic brackets — delivered by a Board-Certified Diplomate with over 40 years of exper' },
+  { name: 'Clear Aligners', slug: 'clear-aligners', href: '/services/clear-aligners', desc: 'Removable, nearly invisible aligner therapy for teens and adults — from an Invisalign Diamond Provider using iTero digital scanning technology.' },
+  { name: 'Coconut Wireless', slug: 'coconut-wireless', href: '/services/coconut-wireless', desc: 'Staying connected with your orthodontic care team at Chang Orthodontics.' },
+  { name: 'Craniofacial Orthodontics', slug: 'craniofacial-orthodontics', href: '/services/craniofacial-orthodontics', desc: 'Sub-specialty orthodontic care for patients with cleft lip, cleft palate, and other craniofacial conditions — delivered by a long-term member of the M' },
+  { name: 'Damon™ Smile', slug: 'damon-smile', href: '/services/damon-smile', desc: 'Passive self-ligating braces that move teeth more freely with fewer office visits — no elastic ties required.' },
+  { name: 'Dentofacial Orthopedics', slug: 'dentofacial-orthopedics', href: '/services/dentofacial-orthopedics', desc: 'Specialist-level guidance of jaw and facial bone development — performed by a Board-Certified Diplomate of the American Board of Orthodontics.' },
+  { name: 'Digital X-rays', slug: 'digital-x-rays', href: '/services/digital-x-rays', desc: 'Advanced diagnostic imaging that exposes patients to less radiation than traditional X-rays — with clearer results.' },
+  { name: 'Early Orthodontic Treatment', slug: 'early-orthodontic-treatment', href: '/services/early-orthodontic-treatment', desc: 'The American Association of Orthodontists recommends an orthodontic evaluation by age seven — early intervention can simplify or eliminate future trea' },
+  { name: 'Elastics (Rubber Bands)', slug: 'elastics-rubber-bands', href: '/services/elastics-rubber-bands', desc: 'An essential component of bite correction — improving the relationship between your upper and lower teeth.' },
+  { name: 'Emergency Care', slug: 'emergency-care', href: '/services/emergency-care', desc: 'True orthodontic emergencies are rare — but when they occur, we are available to you.' },
+  { name: 'Forsus™ Fatigue Resistant Device', slug: 'forsus-fatigue-resistant-device', href: '/services/forsus-fatigue-resistant-device', desc: 'A fixed functional appliance that corrects excessive overbites in adolescents — no compliance required.' },
+  { name: 'Headgear', slug: 'headgear', href: '/services/headgear', desc: 'Orthopedic appliance therapy for correcting overbite and underbite in growing patients.' },
+  { name: 'Herbst® Appliance', slug: 'herbst-appliance', href: '/services/herbst-appliance', desc: 'A fixed functional appliance for correcting class II malocclusion and excessive overbite in growing patients.' },
+  { name: 'In-Ovation® Braces', slug: 'in-ovation-braces', href: '/services/in-ovation-braces', desc: 'A self-ligating braces system designed for faster results, fewer office visits, and greater comfort — no tightening appointments required.' },
+  { name: 'Initial Orthodontic Consultation', slug: 'initial-orthodontic-consultation', href: '/services/initial-orthodontic-consultation', desc: 'Your complimentary first visit — meet the team, receive a complete exam, and find out which treatment is right for you.' },
+  { name: 'Invisalign® Treatment', slug: 'invisalign-treatment', href: '/services/invisalign-treatment', desc: 'The world\'s most advanced clear aligner system — delivered by a certified Invisalign Diamond Provider.' },
+  { name: 'iTero® Digital Impression System', slug: 'itero-digital-impression-system', href: '/services/itero-digital-impression-system', desc: 'Radiation-free, digital 3D impressions — no trays, no putty, no discomfort.' },
+  { name: 'Orthodontic Retention', slug: 'orthodontic-retention', href: '/services/orthodontic-retention', desc: 'Your treatment is complete — now keep your results for life.' },
+  { name: 'Orthodontics for Adults', slug: 'orthodontics-for-adults', href: '/services/orthodontics-for-adults', desc: 'It\'s never too late for a healthier bite and a more confident smile — delivered by a Board-Certified Diplomate with Invisalign Diamond Provider statu' },
+  { name: 'Orthodontics for Children', slug: 'orthodontics-for-children', href: '/services/orthodontics-for-children', desc: 'The American Association of Orthodontists recommends an orthodontic evaluation by age seven — early diagnosis leads to better outcomes.' },
+  { name: 'Orthodontics for Teens', slug: 'orthodontics-for-teens', href: '/services/orthodontics-for-teens', desc: 'Modern orthodontic options built for teen lifestyles — from Invisalign to custom LightForce brackets and InBrace lingual braces.' },
+  { name: 'Palatal Expander', slug: 'palatal-expander', href: '/services/palatal-expander', desc: 'Widening the upper arch during growth to create space and correct crossbite — a non-surgical intervention with lasting results.' },
+  { name: 'Positioners', slug: 'positioners', href: '/services/positioners', desc: 'A finishing appliance used at the end of orthodontic treatment to refine tooth position and settle the bite.' },
+  { name: 'Retainers', slug: 'retainers', href: '/services/retainers', desc: 'Custom-made appliances to hold your results — removable or fixed, fabricated with precision digital records.' },
+  { name: 'Self-Ligating Braces', slug: 'self-ligating-braces', href: '/services/self-ligating-braces', desc: 'Bracket technology that eliminates elastic ties — fewer appointments, less friction, and more efficient tooth movement.' },
+  { name: 'Separators or Spacers', slug: 'separators-or-spacers', href: '/services/separators-or-spacers', desc: 'Small preparatory devices placed between the teeth before banding — a brief but important step in your treatment.' },
+  { name: 'SureSmile®', slug: 'suresmile', href: '/services/suresmile', desc: 'Advanced robotic wire technology for shorter treatments, fewer office visits, and less discomfort.' },
+  { name: 'Surgical Orthodontics', slug: 'surgical-orthodontics', href: '/services/surgical-orthodontics', desc: 'Orthognathic surgery planning and orthodontic management for severe jaw discrepancies — from a Board-Certified craniofacial-trained specialist.' },
+  { name: 'Traditional Metal Braces', slug: 'traditional-metal-braces', href: '/services/traditional-metal-braces', desc: 'The most proven orthodontic appliance — more comfortable than ever, guided by a Board-Certified specialist at every appointment.' },
+  { name: 'Twin Block Appliance', slug: 'twin-block-appliance', href: '/services/twin-block-appliance', desc: 'A removable functional appliance for correcting class II malocclusion by repositioning the lower jaw during active growth.' },
+];
+---
+
+<BaseLayout
+  title={`Services — ${site.name}`}
+  description={`Comprehensive dental services at ${site.name}. General dentistry, cosmetic treatments, dental implants, and restorations. Call ${site.phone}.`}
+  schema={localBusinessSchema}
+>
+  <section class="bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="section-heading mb-6">Our Services</h1>
+        <p class="text-lg text-neutral-mid leading-relaxed">
+          From routine checkups to advanced restorations, we provide a full range of dental services to keep your smile healthy and beautiful.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {services.map((service) => (
+          <a href={service.href || `/services/${service.slug}`} class="card hover:border-brand-primary/30 transition-colors group">
+            <h2 class="font-serif text-xl font-semibold text-neutral-dark mb-2 group-hover:text-brand-primary transition-colors">{service.name}</h2>
+            <p class="text-neutral-mid">{service.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <CTABlock phone={site.phone} />
+    </div>
+  </section>
+</BaseLayout>

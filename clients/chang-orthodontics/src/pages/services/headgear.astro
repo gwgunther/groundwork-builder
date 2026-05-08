@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Headgear",
+  "description": "Orthopedic appliance therapy for correcting overbite and underbite in growing patients.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Headgear | ${site.name}`}
+  description="Orthopedic appliance therapy for correcting overbite and underbite in growing patients."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Headgear
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Orthopedic appliance therapy for correcting overbite and underbite in growing patients.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Headgear is an orthodontic appliance used to correct jaw position when the upper and lower jaws are significantly misaligned. If the upper jaw sits forward of the lower jaw, that's an overbite relationship; if the lower jaw sits forward of the upper jaw, that's an underbite. Headgear applies gentle, sustained orthopedic force to redirect how the jaw grows — something brackets and wires alone cannot accomplish. It remains one of the most reliable tools available for addressing skeletal discrepancies during the years when a patient's face is still developing.</p>
+      <p class="mb-4">At Russell EK Chang, DDS, MS, FACD, Inc. in Los Alamitos, Dr. Chang reviews each patient's headgear wear and progress at every appointment, adjusting the treatment plan as the jaw responds. That consistent oversight is what keeps this phase of treatment on track.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who Is a Candidate for Headgear</h2>
+      <p class="mb-4">Headgear is most commonly prescribed for growing patients — typically children and adolescents — because the jaw is still malleable and responsive to orthopedic guidance. When the skeletal bones are still forming, it's possible to influence their direction of growth rather than simply moving teeth within an existing bone structure.</p>
+      <p class="mb-4">Patients with a pronounced overbite, where the upper jaw protrudes forward, may be fitted with cervical-pull or high-pull headgear that applies backward force to slow or redirect upper jaw growth. Patients with an underbite, where the lower jaw sits too far forward or the upper jaw is underdeveloped, may need a different configuration that encourages forward development of the upper jaw. The specific type prescribed depends on the direction of correction needed and the individual's growth pattern.</p>
+      <p class="mb-4">Adults are rarely candidates, because skeletal growth has largely concluded by that point. For adults with significant jaw discrepancies, surgical options may be considered instead — a conversation Dr. Chang can have with patients if it becomes relevant.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">How Headgear Works</h2>
+      <p class="mb-4">Headgear connects to the teeth — usually to bands fitted around the back molars — and extends outside the mouth to a strap that wraps around the back of the head or neck. The external strap creates the anchor point that allows orthopedic force to act on the jaw bones themselves, not just the teeth.</p>
+      <p class="mb-4">That force is light but continuous. The goal is not to move a tooth a few millimeters over weeks; it's to redirect the trajectory of a growing jaw over months. Patients are typically instructed to wear headgear for a set number of hours per day, often including overnight wear when compliance is easiest to maintain. The prescribed wear schedule is specific to each patient's treatment goals, and Dr. Chang will discuss the target hours at the time of fitting.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect During Treatment</h2>
+      <p class="mb-4">The adjustment period during the first few days is the most noticeable. Some soreness around the molars and mild pressure in the jaw are common and typically ease within a week as the mouth adapts. Headgear does not hurt when worn correctly and adjusted at the appropriate intervals.</p>
+      <p class="mb-4">At each follow-up appointment, Dr. Chang examines how the jaw is responding and confirms that the appliance fits properly. If growth is progressing well, wear time may be gradually reduced. If adjustments are needed — to the fit, the force, or the treatment sequence — those changes happen at the chair, not weeks later.</p>
+      <p class="mb-4">Headgear is typically worn alongside braces as part of a coordinated treatment plan. The orthopedic correction from headgear sets the stage; braces then fine-tune the alignment of individual teeth within the improved jaw relationship.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Headgear at Chang Orthodontics in Los Alamitos</h2>
+      <p class="mb-4">Patients in Los Alamitos and the surrounding area who begin headgear treatment with Dr. Chang can expect that no appointment is a passive check-in. Every visit includes a direct review of wear compliance and jaw progress. That structure matters because headgear treatment depends heavily on consistent wear and timely adjustments — skipping either slows outcomes.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**How many hours a day does headgear need to be worn?** Wear time varies by case, but 10–14 hours per day is a common target range. Dr. Chang will give a specific prescription at the time of fitting based on the treatment goals.</p>
+      <p class="mb-4">**Does headgear hurt?** Most patients feel pressure and mild soreness for the first few days after an adjustment, which is normal. The appliance should not cause sharp pain. If it does, patients are encouraged to call the office rather than wait until the next scheduled visit.</p>
+      <p class="mb-4">**Can headgear be worn only at night?** Nighttime wear counts toward the daily total, but most treatment plans require additional daytime hours as well. Nighttime-only wear is generally not sufficient to achieve the orthopedic correction on schedule.</p>
+      <p class="mb-4">**How long does headgear treatment last?** Duration depends on the severity of the jaw discrepancy and how consistently the appliance is worn. Treatment typically spans several months to over a year. Compliance with the prescribed wear schedule is the single biggest factor in how quickly progress occurs.</p>
+      <p class="mb-4">**What happens if my child doesn't wear the headgear consistently?** Inconsistent wear slows or stalls jaw correction, which can extend overall treatment time and may limit how much improvement is achievable before growth concludes. Dr. Chang tracks compliance at every visit and can work with patients and families on strategies to build a consistent routine.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

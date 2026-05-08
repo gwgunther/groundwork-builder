@@ -8,7 +8,7 @@
   }
 
   body {
-    @apply font-sans antialiased text-charcoal;
+    @apply font-sans antialiased text-neutral-dark;
   }
 
   h1 {
@@ -22,11 +22,11 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-block bg-charcoal text-white font-semibold px-6 py-3 rounded-full transition-colors duration-200 text-center hover:bg-neutral-800;
+    @apply inline-block bg-neutral-dark text-white font-semibold px-6 py-3 rounded-full transition-colors duration-200 text-center hover:bg-neutral-800;
   }
 
   .btn-secondary {
-    @apply inline-block bg-white text-charcoal font-semibold px-6 py-3 rounded-full transition-colors duration-200 text-center border border-charcoal hover:bg-charcoal hover:text-white;
+    @apply inline-block bg-white text-neutral-dark font-semibold px-6 py-3 rounded-full transition-colors duration-200 text-center border border-neutral-dark hover:bg-neutral-dark hover:text-white;
   }
 
   .btn-accent {
@@ -34,11 +34,11 @@
   }
 
   .section-heading {
-    @apply text-4xl md:text-5xl font-bold leading-tight tracking-tight text-charcoal;
+    @apply text-4xl md:text-5xl font-bold leading-tight tracking-tight text-neutral-dark;
   }
 
   .section-subheading {
-    @apply text-2xl md:text-3xl font-semibold leading-tight tracking-tight text-charcoal;
+    @apply text-2xl md:text-3xl font-semibold leading-tight tracking-tight text-neutral-dark;
   }
 
   .prose-dental {
@@ -50,11 +50,11 @@
   }
 
   .prose-dental h2 {
-    @apply text-2xl md:text-3xl font-semibold leading-tight tracking-tight text-charcoal mt-8 mb-4;
+    @apply text-2xl md:text-3xl font-semibold leading-tight tracking-tight text-neutral-dark mt-8 mb-4;
   }
 
   .prose-dental h3 {
-    @apply font-serif text-xl font-semibold mt-6 mb-3 text-charcoal;
+    @apply font-serif text-xl font-semibold mt-6 mb-3 text-neutral-dark;
   }
 
   .prose-dental ul {
@@ -70,6 +70,6 @@
   }
 
   .nav-link {
-    @apply font-medium transition-colors duration-200 text-charcoal hover:text-brand-primary;
+    @apply font-medium transition-colors duration-200 text-neutral-dark hover:text-brand-primary;
   }
 }

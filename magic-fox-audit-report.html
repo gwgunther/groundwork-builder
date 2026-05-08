@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Audit — Magic Fox Orthodontics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&family=Space+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --fox-black: #1A1A2E;
+            --fox-cream: #FAF7F2;
+            --fox-copper: #C67D4A;
+            --fox-teal: #3A8F85;
+            --fox-muted: #9E958A;
+            --fox-white: #FFFFFF;
+            --fox-red: #D4574E;
+            --fox-green: #5BAF6E;
+            --fox-amber: #D4A03C;
+            --font-display: 'DM Serif Display', Georgia, serif;
+            --font-body: 'DM Sans', -apple-system, sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+        body { font-family: var(--font-body); background: var(--fox-cream); color: var(--fox-black); }
+        .progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--fox-copper); z-index: 100; transition: width 0.4s ease; }
+        .slide { min-height: 100vh; padding: clamp(3rem, 8vw, 6rem); scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+        .slide--dark { background: var(--fox-black); color: var(--fox-white); }
+        .slide--accent { background: var(--fox-copper); color: var(--fox-white); }
+        .snum { position: absolute; bottom: 2.5rem; right: 3rem; font-family: var(--font-mono); font-size: 0.75rem; opacity: 0.2; letter-spacing: 0.05em; }
+        .eyebrow { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fox-copper); margin-bottom: 1.5rem; }
+        .slide--dark .eyebrow { color: var(--fox-copper); }
+        .slide--accent .eyebrow { color: rgba(255,255,255,0.6); }
+        h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 5.5vw, 4.5rem); font-weight: 400; line-height: 1.1; max-width: 18ch; }
+        h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 400; line-height: 1.2; margin-bottom: 1.5rem; }
+        p { font-size: 1.05rem; line-height: 1.65; max-width: 58ch; }
+        .muted { color: var(--fox-muted); }
+        .slide--dark .muted { color: rgba(255,255,255,0.45); }
+        .slide--accent .muted { color: rgba(255,255,255,0.65); }
+        .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.55s ease, transform 0.55s ease; }
+        .slide.visible .reveal { opacity: 1; transform: translateY(0); }
+        .slide.visible .reveal:nth-child(2) { transition-delay: 0.1s; }
+        .slide.visible .reveal:nth-child(3) { transition-delay: 0.2s; }
+        .slide.visible .reveal:nth-child(4) { transition-delay: 0.3s; }
+        .slide.visible .reveal:nth-child(5) { transition-delay: 0.4s; }
+        .slide.visible .reveal:nth-child(6) { transition-delay: 0.5s; }
+        .slide.visible .reveal:nth-child(7) { transition-delay: 0.6s; }
+
+        .takeaways { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; max-width: 780px; }
+        .takeaway { display: flex; gap: 1.5rem; align-items: flex-start; }
+        .takeaway-num { font-family: var(--font-mono); font-size: 0.8rem; color: var(--fox-copper); padding-top: 0.2rem; min-width: 1.5rem; }
+        .takeaway-content { display: flex; flex-direction: column; gap: 0.4rem; }
+        .takeaway-text { font-size: 1.05rem; line-height: 1.5; }
+        .takeaway-data { font-family: var(--font-mono); font-size: 0.78rem; color: var(--fox-copper); }
+
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 2rem; margin-top: 2rem; max-width: 820px; }
+        .stat-card { display: flex; flex-direction: column; gap: 0.4rem; }
+        .stat-card .num { font-family: var(--font-mono); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: var(--fox-copper); line-height: 1; }
+        .stat-card .label { font-size: 0.85rem; color: var(--fox-muted); line-height: 1.4; }
+        .slide--dark .stat-card .label { color: rgba(255,255,255,0.45); }
+        .stat-card .sublabel { font-size: 0.75rem; color: var(--fox-muted); opacity: 0.7; }
+
+        .score-ring { width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 1.8rem; font-weight: 700; position: relative; }
+        .score-ring::before { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 4px solid rgba(0,0,0,0.06); }
+        .score-poor { background: rgba(212,87,78,0.12); color: var(--fox-red); }
+        .score-poor::before { border-color: rgba(212,87,78,0.3); }
+        .score-ok { background: rgba(212,160,60,0.12); color: var(--fox-amber); }
+        .score-ok::before { border-color: rgba(212,160,60,0.3); }
+        .score-good { background: rgba(91,175,110,0.12); color: var(--fox-green); }
+        .score-good::before { border-color: rgba(91,175,110,0.3); }
+        .slide--dark .score-poor { background: rgba(212,87,78,0.2); }
+        .slide--dark .score-ok { background: rgba(212,160,60,0.2); }
+        .slide--dark .score-good { background: rgba(91,175,110,0.2); }
+
+        .scores-row { display: flex; gap: 2.5rem; flex-wrap: wrap; margin-top: 2rem; }
+        .score-item { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+        .score-label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fox-muted); }
+        .slide--dark .score-label { color: rgba(255,255,255,0.45); }
+
+        .split { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 1.5rem; max-width: 900px; }
+        @media (max-width: 680px) { .split { grid-template-columns: 1fr; } }
+
+        .angle-block { background: rgba(198,125,74,0.08); border-radius: 10px; padding: 1.75rem; }
+        .slide--dark .angle-block { background: rgba(255,255,255,0.06); }
+        .angle-label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fox-copper); margin-bottom: 1rem; }
+        .angle-winner { display: inline-block; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; background: var(--fox-green); color: white; padding: 0.25rem 0.6rem; border-radius: 3px; margin-bottom: 1rem; }
+        .angle-block h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 400; margin-bottom: 0.75rem; }
+        .angle-row { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid rgba(198,125,74,0.12); font-size: 0.88rem; }
+        .slide--dark .angle-row { border-bottom-color: rgba(255,255,255,0.08); }
+        .angle-row:last-child { border-bottom: none; }
+        .angle-row .metric-name { color: var(--fox-muted); }
+        .slide--dark .angle-row .metric-name { color: rgba(255,255,255,0.45); }
+
+        .recs { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1.5rem; max-width: 740px; }
+        .rec { background: rgba(198,125,74,0.1); border-radius: 8px; padding: 1.25rem 1.5rem; border-left: 3px solid var(--fox-copper); }
+        .slide--dark .rec { background: rgba(255,255,255,0.06); border-left-color: var(--fox-copper); }
+        .rec-title { font-weight: 600; font-size: 1rem; margin-bottom: 0.4rem; }
+        .rec-data { font-size: 0.88rem; color: var(--fox-muted); line-height: 1.5; }
+        .slide--dark .rec-data { color: rgba(255,255,255,0.5); }
+
+        .verdict { background: rgba(91,175,110,0.12); border: 1px solid rgba(91,175,110,0.3); border-radius: 8px; padding: 1.25rem 1.5rem; margin-top: 1.5rem; max-width: 680px; }
+        .verdict-label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fox-green); margin-bottom: 0.5rem; }
+        .verdict p { font-size: 0.98rem; line-height: 1.6; max-width: none; }
+
+        .caveat { background: rgba(212,160,60,0.1); border: 1px solid rgba(212,160,60,0.25); border-radius: 8px; padding: 1rem 1.25rem; margin-top: 1rem; max-width: 680px; }
+        .caveat-label { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(200,160,60,0.9); margin-bottom: 0.4rem; }
+
+        .bar-chart { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; max-width: 700px; }
+        .bar-row { display: flex; align-items: center; gap: 1rem; }
+        .bar-label { width: 130px; font-size: 0.85rem; color: var(--fox-muted); text-align: right; flex-shrink: 0; }
+        .slide--dark .bar-label { color: rgba(255,255,255,0.45); }
+        .bar-track { flex: 1; background: rgba(0,0,0,0.06); border-radius: 4px; height: 32px; overflow: hidden; }
+        .slide--dark .bar-track { background: rgba(255,255,255,0.08); }
+        .bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.6rem; transition: width 0.8s ease; }
+        .bar-fill span { font-family: var(--font-mono); font-size: 0.75rem; color: white; }
+
+        .diff-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; max-width: 740px; }
+        .diff-item { display: flex; gap: 1rem; align-items: flex-start; }
+        .diff-badge { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.2rem 0.5rem; border-radius: 3px; flex-shrink: 0; margin-top: 0.15rem; }
+        .diff-high { background: rgba(91,175,110,0.15); color: var(--fox-green); }
+        .diff-v-high { background: var(--fox-green); color: white; }
+        .diff-med { background: rgba(198,125,74,0.15); color: var(--fox-copper); }
+        .diff-content { display: flex; flex-direction: column; gap: 0.2rem; }
+        .diff-title { font-weight: 600; font-size: 0.98rem; }
+        .diff-detail { font-size: 0.85rem; color: var(--fox-muted); line-height: 1.5; }
+        .slide--dark .diff-detail { color: rgba(255,255,255,0.45); }
+
+        .gap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; max-width: 860px; }
+        @media (max-width: 680px) { .gap-grid { grid-template-columns: 1fr; } }
+        .gap-card { background: rgba(0,0,0,0.03); border-radius: 8px; padding: 1.25rem; border-left: 3px solid transparent; }
+        .gap-card.gap-high { border-left-color: var(--fox-red); }
+        .gap-card.gap-med { border-left-color: var(--fox-amber); }
+        .gap-card.gap-low { border-left-color: var(--fox-muted); }
+        .gap-sev { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
+        .gap-sev-high { color: var(--fox-red); }
+        .gap-sev-med { color: var(--fox-amber); }
+        .gap-sev-low { color: var(--fox-muted); }
+        .gap-card h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.35rem; }
+        .gap-card p { font-size: 0.82rem; color: var(--fox-muted); line-height: 1.5; max-width: none; }
+
+        .sources-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+        .sources-list li { font-size: 0.95rem; display: flex; align-items: flex-start; gap: 0.75rem; }
+        .sources-list li::before { content: '—'; color: var(--fox-copper); font-family: var(--font-mono); }
+    </style>
+</head>
+<body>
+    <div class="progress" id="progress"></div>
+
+    <!-- SLIDE 01 — Title -->
+    <section class="slide slide--dark">
+        <p class="eyebrow reveal">Site Audit · March 2026</p>
+        <h1 class="reveal">Magic Fox Orthodontics.</h1>
+        <p class="reveal muted" style="margin-top: 1.25rem; font-size: 1rem;">Comprehensive website audit &amp; redesign roadmap.<br>magicfoxsmiles.com · Huntington Beach, CA</p>
+        <span class="snum">01</span>
+    </section>
+
+    <!-- SLIDE 02 — The Question -->
+    <section class="slide">
+        <p class="eyebrow reveal">The Question</p>
+        <h2 class="reveal">Where does the current site excel — and where is it leaving growth on the table?</h2>
+        <p class="reveal muted">We scraped the full site, ran Google PageSpeed Insights and the Rich Results Test, and analyzed positioning, content, and technical health against orthodontic industry benchmarks.</p>
+        <div style="margin-top: 1.75rem; display: flex; gap: 1rem; flex-wrap: wrap;" class="reveal">
+            <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(198,125,74,0.12);border:1px solid rgba(198,125,74,0.25);border-radius:4px;padding:0.3rem 0.7rem;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.08em;color:var(--fox-copper);">PageSpeed Insights · Mobile</div>
+            <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(198,125,74,0.12);border:1px solid rgba(198,125,74,0.25);border-radius:4px;padding:0.3rem 0.7rem;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.08em;color:var(--fox-copper);">Google Rich Results Test</div>
+            <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(198,125,74,0.12);border:1px solid rgba(198,125,74,0.25);border-radius:4px;padding:0.3rem 0.7rem;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.08em;color:var(--fox-copper);">Full Site Crawl · 25 URLs</div>
+        </div>
+        <span class="snum">02</span>
+    </section>
+
+    <!-- SLIDE 03 — Executive Summary -->
+    <section class="slide slide--dark">
+        <p class="eyebrow reveal">Executive Summary</p>
+        <h2 class="reveal">The foundation is strong. The performance isn't.</h2>
+        <div class="takeaways reveal">
+            <div class="takeaway">
+                <span class="takeaway-num">1</span>
+                <div class="takeaway-content">
+                    <span class="takeaway-text"><strong>SEO and structured data are excellent.</strong> The site scores 92/100 on SEO with 3 valid rich result entities and zero critical errors — well above the industry average for orthodontic practices.</span>
+                    <div class="takeaway-data">PageSpeed SEO: 92/100 · Rich Results: 3 valid items, 0 errors · Google Rich Results Test</div>
+                </div>
+            </div>
+            <div class="takeaway">
+                <span class="takeaway-num">2</span>
+                <div class="takeaway-content">
+                    <span class="takeaway-text"><strong>Performance is the critical weakness.</strong> A 42/100 mobile performance score means slow load times are actively hurting rankings and patient conversions — fixable by migrating off Webflow to a static build.</span>
+                    <div class="takeaway-data">Performance: 42/100 · TBT: 930ms · LCP: 3.5s · PageSpeed Insights (Mobile)</div>
+                </div>
+            </div>
+            <div class="takeaway">
+                <span class="takeaway-num">3</span>
+                <div class="takeaway-content">
+                    <span class="takeaway-text"><strong>The practice's real-world reputation is exceptional.</strong> A perfect 5.0 rating with 418 Google reviews gives Magic Fox a trust advantage that should be amplified far more aggressively in the web experience.</span>
+                    <div class="takeaway-data">Google: 5.0 ★ / 418 reviews · Yelp: 81 reviews, 37 photos · JSON-LD AggregateRating</div>
+                </div>
+            </div>
+        </div>
+        <span class="snum">03</span>
+    </section>
+
+    <!-- SLIDE 04 — PageSpeed Scorecard -->
+    <section class="slide">
+        <p class="eyebrow reveal">Technical Health · PageSpeed Insights</p>
+        <h2 class="reveal">Strong on SEO. Performance needs rescue.</h2>
+        <div class="scores-row reveal">
+            <div class="score-item">
+                <div class="score-ring score-poor">42</div>
+                <div class="score-label">Performance</div>
+            </div>
+            <div class="score-item">
+                <div class="score-ring score-ok">82</div>
+                <div class="score-label">Accessibility</div>
+            </div>
+            <div class="score-item">
+                <div class="score-ring score-ok">73</div>
+                <div class="score-label">Best Practices</div>
+            </div>
+            <div class="score-item">
+                <div class="score-ring score-good">92</div>
+                <div class="score-label">SEO</div>
+            </div>
+        </div>
+        <div class="bar-chart reveal" style="margin-top: 2.5rem;">
+            <p style="font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--fox-copper);margin-bottom:0.75rem;">Core Web Vitals</p>
+            <div class="bar-row">
+                <span class="bar-label">FCP</span>
+                <div class="bar-track"><div class="bar-fill" style="width:24%;background:var(--fox-green);"><span>1.2s</span></div></div>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">LCP</span>
+                <div class="bar-track"><div class="bar-fill" style="width:70%;background:var(--fox-red);"><span>3.5s</span></div></div>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">TBT</span>
+                <div class="bar-track"><div class="bar-fill" style="width:62%;background:var(--fox-red);"><span>930ms</span></div></div>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">CLS</span>
+                <div class="bar-track"><div class="bar-fill" style="width:2%;background:var(--fox-green);"><span>0.001</span></div></div>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Speed Index</span>
+                <div class="bar-track"><div class="bar-fill" style="width:60%;background:var(--fox-amber);"><span>3.0s</span></div></div>
+            </div>
+        </div>
+        <div class="caveat reveal">
+            <div class="caveat-label">Root Cause</div>
+            <p style="font-size:0.88rem;color:var(--fox-muted);max-width:none;">Webflow platform overhead, 10 font weights of Lato, and 6+ third-party scripts (GTM, Facebook Pixel, Call Tracking, reCAPTCHA, Swiper, Finsweet) combine to create 930ms of main-thread blocking.</p>
+        </div>
+        <span class="snum">04</span>
+    </section>
+
+    <!-- SLIDE 05 — Schema Strength -->
+    <section class="slide slide--dark">
+        <p class="eyebrow reveal">Structured Data · Rich Results Test</p>
+        <h2 class="reveal">The schema implementation is exceptional.</h2>
+        <p class="reveal muted">3 valid rich result entities with zero critical errors. This is among the most thorough JSON-LD implementations we've seen for an orthodontic practice.</p>
+        <div class="stat-grid reveal">
+            <div class="stat-card">
+                <div class="num">3</div>
+                <div class="label">Valid rich result items</div>
+                <div class="sublabel">Organization + 2 Doctors</div>
+            </div>
+            <div class="stat-card">
+                <div class="num">0</div>
+                <div class="label">Critical schema errors</div>
+                <div class="sublabel">Only 4 optional field warnings per doctor</div>
+            </div>
+            <div class="stat-card">
+                <div class="num">5.0★</div>
+                <div class="label">AggregateRating in schema</div>
+                <div class="sublabel">418 reviews indexed</div>
+            </div>
+        </div>
+        <div class="verdict reveal">
+            <div class="verdict-label">What's included</div>
+            <p>Full LocalBusiness with address, geo coordinates, opening hours, areas served (Huntington Beach + Fountain Valley), languages (EN/VI/ES), payment methods, social sameAs links. Both doctors have complete credential chains — degrees, residencies, board certifications, and professional memberships. This schema earns rich results eligibility across Google Search and Maps.</p>
+        </div>
+        <span class="snum">05</span>
+    </section>
+
+    <!-- SLIDE 06 — Differentiators -->
+    <section class="slide">
+        <p class="eyebrow reveal">Competitive Positioning</p>
+        <h2 class="reveal">Nine genuine differentiators — most competitors have two or three.</h2>
+        <div class="diff-list reveal">
+            <div class="diff-item">
+                <span class="diff-badge diff-v-high">★ Top</span>
+                <div class="diff-content">
+                    <span class="diff-title">Perfect 5.0 Google rating with 418 reviews</span>
+                    <span class="diff-detail">Exceptional social proof at volume. Very few practices maintain a perfect score past 100 reviews — this is nearly impossible to replicate.</span>
+                </div>
+            </div>
+            <div class="diff-item">
+                <span class="diff-badge diff-high">High</span>
+                <div class="diff-content">
+                    <span class="diff-title">Two board-certified orthodontists</span>
+                    <span class="diff-detail">Dr. Jeremy Chau (DDS, UCLA/NYU) and Dr. Melissa Ven Dange (DMD, Western U #1 in class/UNLV). Double the clinical expertise with elite credentials.</span>
+                </div>
+            </div>
+            <div class="diff-item">
+                <span class="diff-badge diff-high">High</span>
+                <div class="diff-content">
+                    <span class="diff-title">Speakeasy-style office design</span>
+                    <span class="diff-detail">Unique, memorable interior aesthetic. Patients call it "the most unique orthodontic office I've ever stepped into." No competitor can claim this.</span>
+                </div>
+            </div>
+            <div class="diff-item">
+                <span class="diff-badge diff-high">High</span>
+                <div class="diff-content">
+                    <span class="diff-title">Dual board-certified orthodontists</span>
+                    <span class="diff-detail">Only ~30% of orthodontists achieve board certification. Both doctors having it is a significant clinical trust signal.</span>
+                </div>
+            </div>
+            <div class="diff-item">
+                <span class="diff-badge diff-high">High</span>
+                <div class="diff-content">
+                    <span class="diff-title">Trilingual care — English, Vietnamese, Spanish</span>
+                    <span class="diff-detail">Serves diverse Huntington Beach/Fountain Valley demographics. Major advantage in OC's Vietnamese and Hispanic communities.</span>
+                </div>
+            </div>
+            <div class="diff-item">
+                <span class="diff-badge diff-med">Med</span>
+                <div class="diff-content">
+                    <span class="diff-title">Advanced tech: iTero, 3D imaging/printing, Spark + Invisalign certified</span>
+                    <span class="diff-detail">State-of-the-art digital workflow from scan to finish. Saturday hours (8am–1pm) add convenience most competitors don't offer.</span>
+                </div>
+            </div>
+        </div>
+        <span class="snum">06</span>
+    </section>
+
+    <!-- SLIDE 07 — Content Gaps -->
+    <section class="slide">
+        <p class="eyebrow reveal">Content Gaps</p>
+        <h2 class="reveal">Seven opportunities the current site leaves on the table.</h2>
+        <div class="gap-grid reveal">
+            <div class="gap-card gap-high">
+                <div class="gap-sev gap-sev-high">High Priority</div>
+                <h4>Before/After Gallery</h4>
+                <p>The #1 conversion driver for orthodontic practices. Yelp has 37 photos proving results exist — they need to be on the website with MedicalProcedure schema.</p>
+            </div>
+            <div class="gap-card gap-med">
+                <div class="gap-sev gap-sev-med">Medium Priority</div>
+                <h4>Insurance &amp; Financing Page</h4>
+                <p>"Does insurance cover braces" is a top search query. A dedicated page with accepted plans, zero-interest financing details, and FAQ schema would capture this traffic.</p>
+            </div>
+            <div class="gap-card gap-med">
+                <div class="gap-sev gap-sev-med">Medium Priority</div>
+                <h4>FAQ Sections on Service Pages</h4>
+                <p>FAQPage schema drives featured snippets. Each service hub (Invisalign, adult ortho, early interceptive) should have 5-8 FAQs with structured data.</p>
+            </div>
+            <div class="gap-card gap-med">
+                <div class="gap-sev gap-sev-med">Medium Priority</div>
+                <h4>Spanish &amp; Vietnamese Landing Pages</h4>
+                <p>Trilingual care is a top differentiator, but zero multilingual content exists. Even one page per language would capture underserved search intent.</p>
+            </div>
+            <div class="gap-card gap-med">
+                <div class="gap-sev gap-sev-med">Medium Priority</div>
+                <h4>Online Scheduling Integration</h4>
+                <p>Reduce friction from discovery to booking. The site uses Flatpickr for date picking — a proper scheduling widget would convert more visitors.</p>
+            </div>
+            <div class="gap-card gap-low">
+                <div class="gap-sev gap-sev-low">Lower Priority</div>
+                <h4>Team/Staff Page</h4>
+                <p>Patients mention the welcoming staff in reviews. Showcasing the full team beyond the doctors builds connection and trust.</p>
+            </div>
+        </div>
+        <span class="snum">07</span>
+    </section>
+
+    <!-- SLIDE 08 — SEO Opportunities -->
+    <section class="slide slide--dark">
+        <p class="eyebrow reveal">SEO Opportunities</p>
+        <h2 class="reveal">The 92 SEO score is a launchpad, not a ceiling.</h2>
+        <div class="recs reveal">
+            <div class="rec">
+                <p class="rec-title">1. Dominate the local pack for "orthodontist huntington beach"</p>
+                <p class="rec-data">418 reviews at 5.0 stars + comprehensive LocalBusiness schema = perfectly positioned. Ensure NAP consistency across all directories, add breadcrumb schema to inner pages, and build location-specific content for surrounding neighborhoods.</p>
+            </div>
+            <div class="rec">
+                <p class="rec-title">2. Build out the Invisalign page to 1,500+ words</p>
+                <p class="rec-data">The current page exists but needs depth — comprehensive treatment info, FAQ schema, before/after photos, and strong CTAs to compete for "invisalign huntington beach" (high-value keyword, ~$15+ CPC).</p>
+            </div>
+            <div class="rec">
+                <p class="rec-title">3. Add AggregateRating schema to every service page</p>
+                <p class="rec-data">The 5.0/418 rating currently lives only on the org schema. Extending it to service pages via review snippets could earn star ratings in SERPs for service-specific queries.</p>
+            </div>
+            <div class="rec">
+                <p class="rec-title">4. Expand geo-targeted content beyond Fountain Valley</p>
+                <p class="rec-data">The /fountain-valley-orthodontist page is smart. Replicate for Westminster, Garden Grove, Midway City, and Costa Mesa — each with unique local content and schema areaServed markup.</p>
+            </div>
+            <div class="rec">
+                <p class="rec-title">5. Capture multilingual search intent</p>
+                <p class="rec-data">"Ortodoncista huntington beach" and Vietnamese-language orthodontic queries have minimal competition. Even basic pages in each language could own these niches.</p>
+            </div>
+        </div>
+        <span class="snum">08</span>
+    </section>
+
+    <!-- SLIDE 09 — Recommendations -->
+    <section class="slide">
+        <p class="eyebrow reveal">Redesign Recommendations</p>
+        <h2 class="reveal">What the data says to prioritize.</h2>
+        <div class="recs reveal">
+            <div class="rec">
+                <p class="rec-title">1. Migrate from Webflow to Astro static build</p>
+                <p class="rec-data">This single change addresses the #1 problem. Eliminating Webflow runtime, reducing JS from 6+ scripts to essentials, and optimizing images should push Performance from 42 → 90+. Deploy on Cloudflare Pages for global edge delivery.</p>
+            </div>
+            <div class="rec">
+                <p class="rec-title">2. Replicate the existing schema — then extend it</p>
+                <p class="rec-data">The current JSON-LD is excellent. Carry it forward exactly, then add: FAQPage schema on service pages, BreadcrumbList on all inner pages, MedicalProcedure schema on before/after gallery, individual doctor image properties.</p>
+            </div>
+            <div class="rec">
+                <p class="rec-title">3. Build a before/after gallery as the top content addition</p>
+                <p class="rec-data">37 photos exist on Yelp. Curate the best into a dedicated gallery with treatment type filters. This is the highest-impact content gap for orthodontic conversion.</p>
+            </div>
+            <div class="rec">
+                <p class="rec-title">4. Amplify the 5.0 / 418 review story</p>
+                <p class="rec-data">This rating is the practice's single strongest asset. Feature it in the hero, on every service page, and in schema. The current site underplays it — the redesign should make it unmissable.</p>
+            </div>
+            <div class="rec">
+                <p class="rec-title">5. Preserve all tracking and verification</p>
+                <p class="rec-data">GTM (GTM-TG4XBTBN), Facebook Pixel (1911570572950976), Google Call Tracking, and site verification (thRNL5qDaI7D_p8YeQRXeq6unv1vQM5r71SIlKHw4z8) must migrate cleanly. 301 redirects for all 25 existing URLs.</p>
+            </div>
+        </div>
+        <span class="snum">09</span>
+    </section>
+
+    <!-- SLIDE 10 — Projected Impact -->
+    <section class="slide slide--accent">
+        <p class="eyebrow reveal">Projected Impact</p>
+        <h1 class="reveal">The redesign targets.</h1>
+        <div class="stat-grid reveal" style="margin-top: 3rem; max-width: 800px;">
+            <div class="stat-card">
+                <div class="num" style="color:white;">42 → 90+</div>
+                <div class="label" style="color:rgba(255,255,255,0.65);">Performance score</div>
+                <div class="sublabel" style="color:rgba(255,255,255,0.4);">Astro static + image optimization</div>
+            </div>
+            <div class="stat-card">
+                <div class="num" style="color:white;">82 → 95+</div>
+                <div class="label" style="color:rgba(255,255,255,0.65);">Accessibility score</div>
+                <div class="sublabel" style="color:rgba(255,255,255,0.4);">Semantic HTML + WCAG compliance</div>
+            </div>
+            <div class="stat-card">
+                <div class="num" style="color:white;">92 → 100</div>
+                <div class="label" style="color:rgba(255,255,255,0.65);">SEO score</div>
+                <div class="sublabel" style="color:rgba(255,255,255,0.4);">FAQ + breadcrumb schema</div>
+            </div>
+            <div class="stat-card">
+                <div class="num" style="color:white;">3.5s → &lt;1.5s</div>
+                <div class="label" style="color:rgba(255,255,255,0.65);">Largest Contentful Paint</div>
+                <div class="sublabel" style="color:rgba(255,255,255,0.4);">Optimized hero + deferred scripts</div>
+            </div>
+        </div>
+        <span class="snum">10</span>
+    </section>
+
+    <!-- SLIDE 11 — Bottom Line -->
+    <section class="slide slide--dark">
+        <p class="eyebrow reveal">Bottom Line</p>
+        <h1 class="reveal">The practice outperforms the website.</h1>
+        <p class="reveal muted" style="margin-top:1.5rem;">Magic Fox Orthodontics has a perfect 5.0 rating across 418 reviews, two board-certified doctors with elite credentials, a one-of-a-kind office experience, and a thorough SEO foundation. The website's 42/100 performance score is the bottleneck. A static rebuild will unlock the digital potential this practice has already earned in the real world.</p>
+        <div class="stat-grid reveal" style="margin-top: 3rem; max-width: 700px;">
+            <div class="stat-card">
+                <div class="num" style="font-size:clamp(1.5rem,3vw,2.2rem);">5.0 ★</div>
+                <div class="label">418 Google reviews</div>
+            </div>
+            <div class="stat-card">
+                <div class="num" style="font-size:clamp(1.5rem,3vw,2.2rem);">92 SEO</div>
+                <div class="label">Already strong foundation</div>
+            </div>
+            <div class="stat-card">
+                <div class="num" style="font-size:clamp(1.5rem,3vw,2.2rem);">42 Perf</div>
+                <div class="label">The one thing holding it back</div>
+            </div>
+        </div>
+        <span class="snum">11</span>
+    </section>
+
+    <!-- SLIDE 12 — Sources -->
+    <section class="slide">
+        <p class="eyebrow reveal">Sources</p>
+        <h2 class="reveal">Data collected from</h2>
+        <ul class="sources-list reveal">
+            <li>Google PageSpeed Insights — Mobile analysis, March 26, 2026</li>
+            <li>Google Rich Results Test — Schema validation, March 26, 2026</li>
+            <li>Full site crawl — 25 URLs across magicfoxsmiles.com (web search compilation)</li>
+            <li>Google Business Profile — AggregateRating 5.0 / 418 reviews (via JSON-LD)</li>
+            <li>Yelp — 81 reviews, 37 photos (Magic Fox Orthodontics, Huntington Beach)</li>
+            <li>Live HTML source — Webflow platform, GTM, Facebook Pixel, font loading analysis</li>
+            <li>Dental service taxonomy — Groundwork Builder orthodontic preset matching</li>
+        </ul>
+        <span class="snum">12</span>
+    </section>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const progress = document.getElementById('progress');
+        let current = 0;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    current = [...slides].indexOf(entry.target);
+                    progress.style.width = ((current + 1) / slides.length * 100) + '%';
+                }
+            });
+        }, { threshold: 0.5 });
+        slides.forEach(slide => observer.observe(slide));
+        document.addEventListener('keydown', (e) => {
+            if (['ArrowDown','ArrowRight',' '].includes(e.key)) { e.preventDefault(); current = Math.min(current+1,slides.length-1); slides[current].scrollIntoView({behavior:'smooth'}); }
+            if (['ArrowUp','ArrowLeft'].includes(e.key)) { e.preventDefault(); current = Math.max(current-1,0); slides[current].scrollIntoView({behavior:'smooth'}); }
+        });
+        slides[0].classList.add('visible');
+    </script>
+</body>
+</html>

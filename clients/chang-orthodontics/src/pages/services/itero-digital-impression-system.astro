@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "iTero® Digital Impression System",
+  "description": "Radiation-free, digital 3D impressions — no trays, no putty, no discomfort.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`iTero® Digital Impression System | ${site.name}`}
+  description="Radiation-free, digital 3D impressions — no trays, no putty, no discomfort."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      iTero® Digital Impression System
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Radiation-free, digital 3D impressions — no trays, no putty, no discomfort.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">No more goop, gagging, or discomfort. Using an iTero scanner, your orthodontist can take a highly accurate digital impression of your teeth and jaw. The new technology completely eliminates the tray and putty impressions of the past. The iTero scanner digitally captures the structure of the teeth and gums using the latest optical technology via a compact, hand-held wand. The process is fast — a radiation-free laser renders a 3D digital impression in as little as two to three minutes. As an Invisalign Diamond Provider, Chang Orthodontics uses the iTero system as an integral part of Invisalign treatment planning, producing the precise digital records needed for custom aligner fabrication.</p>
+      <ul class="space-y-3 my-6">
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Eliminates traditional impression trays and putty material</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Radiation-free laser scanning in as little as two to three minutes</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Highly accurate 3D digital capture of teeth and jaw structure</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Integral to Invisalign treatment planning as a Diamond Provider practice</span></li>
+      </ul>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

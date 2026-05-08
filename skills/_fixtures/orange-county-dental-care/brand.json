@@ -1,0 +1,84 @@
+{
+  "palette": {
+    "primary": "#2e6b3e",
+    "secondary": "#1a4828",
+    "light": "#f2faf4",
+    "accent": "#5aaa70",
+    "dark": "#0f1f14",
+    "muted": "#4a6554"
+  },
+  "typography": {
+    "heading": "Plus Jakarta Sans",
+    "body": "DM Sans",
+    "scale": {
+      "h1": "text-4xl md:text-6xl font-bold",
+      "h2": "text-3xl md:text-4xl font-semibold",
+      "h3": "text-xl md:text-2xl font-semibold",
+      "body": "text-base md:text-lg leading-relaxed",
+      "small": "text-sm"
+    },
+    "tracking": "tight for headings (-0.02em to -0.03em), normal for body (0em), 0.06em for all-caps labels and eyebrows"
+  },
+  "spatial": {
+    "sectionPadding": "py-16 md:py-24",
+    "containerWidth": "max-w-7xl",
+    "cardRadius": "rounded-xl",
+    "density": "balanced"
+  },
+  "motion": {
+    "transitions": "duration-200 ease-out",
+    "hoverElevation": "hover:-translate-y-1 hover:shadow-md",
+    "pageEntrance": "brief and functional — no animation for its own sake"
+  },
+  "voice": {
+    "headline_style": "Outcome-led and specific: headlines should name the concrete result or capability a patient gains — referencing the actual technology, breadth of in-house services, or multilingual access — never a generic aspiration. They should read as confident and direct, not salesy, and should feel like something only this practice could say.",
+    "cta_language": "Active, specific, and low-pressure: CTAs should name the exact next step rather than a vague commitment. Prefer language that frames the action as a starting point or a simple first move, respecting that many patients arrive with anxiety. Avoid imperative urgency language that pushes rather than invites.",
+    "tone_notes": "Copy should feel like a highly competent specialist who is also genuinely warm — authoritative enough that a fellow dentist would trust it, accessible enough that an anxious first-time patient feels welcomed. Multilingual warmth is part of the brand identity and should be reflected wherever patient-facing language choices are made."
+  },
+  "mood": "Specialist-Warm Precision",
+  "rationale": "The existing brand's scattered green palette contained one salvageable signal — a forest-green hue that can credibly carry specialist authority — so we anchored the new system in the bold-forest foundation and deepened it into a rich, cool forest green that reads as expert and premium rather than generic clinical. The red accent and near-black variants were discarded entirely; they added no meaning and undercut coherence. The primary (#2e6b3e) and secondary (#1a4828) create a purposeful depth hierarchy within a single hue family, while the green-tinted dark (#0f1f14) ensures body text surfaces feel cohesive rather than dropped in from a neutral system. This is not interchangeable with a family practice because the palette carries no warmth-earthy signals — it is precise, grounded, and quietly premium, which mirrors Dr. Etemadieh's positioning as an implant-and-cosmetic specialist trusted by fellow dentists since 2013. Plus Jakarta Sans brings the grotesque authority required for a specialist brand without the cold sterility of a pure geometric sans, and DM Sans pairs cleanly as a humanist body font that keeps multilingual and accessibility-sensitive copy highly legible across all viewport sizes.",
+  "paletteSource": "forest-bold (Bold forest green): the only curated option that could carry specialist-tier authority for a comprehensive care destination without reading as a spa, family clinic, or coastal lifestyle brand. The deep forest primary and near-black secondary give the system structural weight that supports full-mouth rehabilitation and implant content without visual softness. The existing brand's primary green (#008a2e) was too saturated and generic to preserve but confirmed a green brand direction was latent — forest-bold evolved that signal into a deliberate, premium system rather than a clinical default.",
+  "contrastCheck": "WCAG AA: 3/3 required pairs pass",
+  "wcagAudit": {
+    "ok": true,
+    "checks": [
+      {
+        "pair": "dark/light",
+        "ratio": 16.11,
+        "threshold": 4.5,
+        "passes": true
+      },
+      {
+        "pair": "primary/light",
+        "ratio": 6.01,
+        "threshold": 4.5,
+        "passes": true
+      },
+      {
+        "pair": "light/dark",
+        "ratio": 16.11,
+        "threshold": 4.5,
+        "passes": true
+      }
+    ],
+    "failures": [],
+    "summary": "WCAG AA: 3/3 required pairs pass"
+  },
+  "_meta": {
+    "model": "claude-sonnet-4-6",
+    "duration_ms": 25058,
+    "tokens": {
+      "input_tokens": 11174,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1238,
+      "service_tier": "standard",
+      "inference_geo": "global"
+    },
+    "impeccableRefsLoaded": true
+  }
+}

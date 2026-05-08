@@ -1,0 +1,145 @@
+{
+  "dna": {
+    "archetype": "card-heavy",
+    "heroVariant": "asymmetric-left",
+    "servicesVariant": "cards-3up",
+    "navVariant": "left-logo",
+    "footerVariant": "editorial-split",
+    "ctaVariant": "full-width-dark",
+    "doctorVariant": "portrait-right",
+    "galleryVariant": "editorial-2col",
+    "sectionOrder": [
+      "hero",
+      "stat-bar",
+      "services",
+      "doctor-intro",
+      "cta"
+    ],
+    "cardTreatment": "soft-shadow",
+    "density": "balanced",
+    "motion": "subtle",
+    "radius": "lg",
+    "borrowedFrom": null,
+    "borrowedTrait": "two-column rhythm with text-left / image-right alternation in the doctor-intro section",
+    "headingScale": "moderate",
+    "sectionDivider": "space",
+    "heroTextPosition": "bottom-left",
+    "divergenceRationale": "Both recent warm-family builds used warm-editorial with a split-image hero — repeating that combination here would produce a near-identical visual skeleton despite the different palette. Card-heavy with an asymmetric-left hero shifts the structural grammar entirely: the hero anchors copy in the bottom-left over a full-bleed warm image rather than halving the viewport, and the services section becomes a scannable card grid that foregrounds sedation and special-care positioning rather than editorial rows.",
+    "creativeDirection": "Warm terracotta cards on a cream field, grounded by Lora headings at a measured scale — the site should feel like a well-lit, unhurried reception space rather than a clinical brochure, letting the practice's genuine clinical depth surface through quiet layout confidence rather than credential density.",
+    "coverage": {
+      "filteredSections": []
+    },
+    "typographyScale": "serif (heading) / sans-serif (body) — scale 14/16/20/28/40/56px",
+    "colorPalette": {
+      "primary": "#005be2",
+      "secondary": "#00aff0",
+      "accent": "#ee4400",
+      "light": null,
+      "raw": [
+        "#ffff00",
+        "#005be2",
+        "#00aff0",
+        "#0274be",
+        "#994400",
+        "#770088",
+        "#ee4400",
+        "#0000ff"
+      ]
+    },
+    "spacingScale": "4/8/16/24/48/80px",
+    "writingTone": "Warm, clear, specific to Fountain Valley.",
+    "brandSummary": "Elements Dentistry, led by Dr. Tiffany Vo, serving Fountain Valley, — Warm terracotta cards on a cream field, grounded by Lora headings at a measured scale — the site should feel like a well-lit, unhurried reception space rather than a clinical brochure, letting the practice's genuine clinical depth surface through quiet layout confidence rather than credential density.",
+    "doRules": [
+      "Use the archetype's established card-heavy layout — don't mix incompatible grid styles mid-page.",
+      "Hero variant must be asymmetric-left — lock this choice.",
+      "Card treatment is soft-shadow — apply consistently across all card instances.",
+      "Phone number must be a tel: link in the mobile header, minimum 44px touch target.",
+      "Doctor name and credentials must appear without scrolling on the homepage.",
+      "Primary CTA copy must reference a specific action and ideally the doctor or city.",
+      "Body text ≥ 16px, line-height ≥ 1.5, measure 45–75 characters."
+    ],
+    "dontRules": [
+      "No gradient text (background-clip: text) — AI-slop tell #1.",
+      "No faux-glass / backdrop-filter cards unless archetype explicitly calls for it.",
+      "No centered-headline + two-CTA + microlinks hero — the most overused AI pattern.",
+      "No stat-bar section if yearsExperience/happyPatients data is missing — render empty = fail.",
+      "No stock photography of smiling model families.",
+      "No generic, boilerplate, or template-sounding copy. Every headline, tagline, and CTA must reference this specific practice, doctor, or city — never industry-generic phrasing that could appear on any competitor site.",
+      "No archetype+hero combo already used in recent own-builds.",
+      "No section that renders with dashes, nulls, or placeholder text visible to users."
+    ],
+    "designTokens": {
+      "cornerRadius": "rounded",
+      "buttonTreatment": "filled",
+      "labelStyle": "badge",
+      "sectionSpacing": "default",
+      "contentDensity": "default",
+      "layoutWidth": "standard",
+      "heroLayout": "centered",
+      "servicesLayout": "card-grid",
+      "aboutLayout": "split-photo",
+      "testimonialsLayout": "grid-mosaic",
+      "ctaLayout": "two-button",
+      "faqLayout": "cards-grid",
+      "navVariant": "left-logo",
+      "footerVariant": "bold-cta-footer",
+      "galleryVariant": "featured-grid",
+      "typePersonality": "humanist-serif",
+      "colorFamily": "warm"
+    },
+    "evalRationale": "Candidate 2's creative direction is the most specific and evocative — 'well-lit, unhurried reception space rather than a clinical brochure' is a concrete, unusual framing that distinguishes it from the generic credential-forward language in Candidates 0 and 1, and its divergence rationale most precisely articulates the structural grammar shift (full-bleed hero vs. halved viewport) rather than restating the same points less crisply."
+  },
+  "_meta": {
+    "model": "claude-sonnet-4-6",
+    "duration_ms": 13208,
+    "input_tokens": 18701,
+    "output_tokens": 1491,
+    "libraryUsed": {
+      "ownCount": 3,
+      "inspoCount": 0,
+      "antiCount": 0
+    },
+    "candidates": [
+      {
+        "archetype": "card-heavy",
+        "heroVariant": "asymmetric-left",
+        "sectionOrder": [
+          "hero",
+          "stat-bar",
+          "services",
+          "doctor-intro",
+          "cta"
+        ],
+        "divergenceRationale": "Both recent same-family builds used warm-editorial with a split-image hero — card-heavy with an asymmetric-left hero is a deliberate structural departure that foregrounds the sedation and advanced-car"
+      },
+      {
+        "archetype": "card-heavy",
+        "heroVariant": "asymmetric-left",
+        "sectionOrder": [
+          "hero",
+          "stat-bar",
+          "services",
+          "doctor-intro",
+          "cta"
+        ],
+        "divergenceRationale": "All three recent builds used either centered or split-image hero variants paired with warm-editorial or centered-classic archetypes — this build moves to card-heavy with an asymmetric-left hero to cre"
+      },
+      {
+        "archetype": "card-heavy",
+        "heroVariant": "asymmetric-left",
+        "sectionOrder": [
+          "hero",
+          "stat-bar",
+          "services",
+          "doctor-intro",
+          "cta"
+        ],
+        "divergenceRationale": "Both recent warm-family builds used warm-editorial with a split-image hero — repeating that combination here would produce a near-identical visual skeleton despite the different palette. Card-heavy wi"
+      }
+    ],
+    "selectedCandidate": 2,
+    "evaluationMethod": "llm-scored",
+    "evalRationale": "Candidate 2's creative direction is the most specific and evocative — 'well-lit, unhurried reception space rather than a clinical brochure' is a concrete, unusual framing that distinguishes it from the generic credential-forward language in Candidates 0 and 1, and its divergence rationale most precisely articulates the structural grammar shift (full-bleed hero vs. halved viewport) rather than restating the same points less crisply.",
+    "designContextPreview": "<!-- AGENT_MANAGED_START -->\n# Design Context — Elements Dentistry, Fountain Valley\n\n## Brand\nElements Dentistry, led by Dr. Tiffany Vo, serving Fountain Valley, — Warm terracotta cards on a cream field, grounded by Lora headings at a measured scale — the site should feel like a well-lit, unhurried reception space rather than a clinical brochure, letting the practice's genuine clinical depth surfa"
+  }
+}

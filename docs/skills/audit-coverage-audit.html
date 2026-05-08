@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>audit/coverage-audit · Skill</title>
+<style>
+  :root {
+    --bg: #0f1115; --fg: #e7e8ea; --muted: #9098a3; --accent: #6ee7b7;
+    --card: #181b22; --border: #262a33; --code-bg: #0a0c10;
+    --stub: #6b7280; --working: #f59e0b; --polished: #10b981; --mature: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  .topbar { padding: 16px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .topbar a { color: var(--accent); text-decoration: none; font-size: 13px; }
+  .topbar a:hover { text-decoration: underline; }
+  .topbar-meta { color: var(--muted); font-size: 12px; }
+  .container { max-width: 880px; margin: 0 auto; padding: 32px 40px 80px; }
+  header.skill-head { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  header.skill-head h1 { margin: 0 0 4px; font-size: 28px; font-weight: 600; }
+  .skill-path { color: var(--muted); font-family: ui-monospace, SFMono-Regular, monospace; font-size: 13px; }
+  .badges { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+  .badge.tier { background: var(--border); font-family: ui-monospace, monospace; }
+  .badge.tier-L1 { background: rgba(110, 231, 183, .15); color: var(--accent); }
+  .badge.tier-L2 { background: rgba(245, 158, 11, .15); color: var(--working); }
+  .badge.tier-L3 { background: rgba(59, 130, 246, .15); color: #60a5fa; }
+  .badge.tier-L4 { background: rgba(168, 85, 247, .15); color: #c084fc; }
+  .badge.maturity { background: var(--border); }
+  .badge.phase { background: var(--card); border: 1px solid var(--border); color: var(--muted); }
+  .meta-table { font-size: 13px; color: var(--muted); margin-top: 12px; }
+  .meta-table strong { color: var(--fg); font-weight: 500; }
+  .meta-table code { background: var(--card); padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--accent); }
+  .doc h2 { margin: 32px 0 12px; font-size: 20px; font-weight: 600; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .doc h3 { margin: 24px 0 8px; font-size: 16px; font-weight: 600; color: var(--accent); }
+  .doc p { margin: 0 0 14px; }
+  .doc ul, .doc ol { margin: 0 0 14px; padding-left: 24px; }
+  .doc li { margin-bottom: 4px; }
+  .doc a { color: var(--accent); }
+  .doc strong { color: var(--fg); font-weight: 600; }
+  .doc code { background: var(--card); padding: 2px 6px; border-radius: 3px; font-size: 13px; color: var(--accent); font-family: ui-monospace, SFMono-Regular, monospace; }
+  .doc pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 0 0 16px; }
+  .doc pre code { background: transparent; padding: 0; color: var(--fg); font-size: 13px; line-height: 1.5; white-space: pre; }
+  .doc table { border-collapse: collapse; margin: 0 0 16px; font-size: 14px; width: 100%; }
+  .doc th, .doc td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+  .doc th { background: var(--card); font-weight: 600; }
+  .doc blockquote { border-left: 3px solid var(--accent); padding: 4px 16px; margin: 0 0 16px; color: var(--muted); }
+  .doc hr { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../PIPELINE.html">← Back to Pipeline Dashboard</a>
+  <span class="topbar-meta">Source: <code style="background:transparent">skills/audit/coverage-audit.md</code></span>
+</div>
+
+<div class="container">
+  <header class="skill-head">
+    <div class="skill-path">skills/audit/coverage-audit.md</div>
+    <h1>coverage audit</h1>
+    <div class="badges">
+      <span class="badge tier tier-L4">L4</span>
+      <span class="badge maturity">🟡 working</span>
+      <span class="badge phase">Phase: Audit</span>
+      <span class="badge phase">Model: deterministic</span>
+    </div>
+    
+    <div class="meta-table">
+      <div><strong>Source:</strong> <code>scripts/pipeline/lib/coverage-audit.js</code></div>
+      <div><strong>Function:</strong> <code>runCoverageAudit()</code></div>
+    </div>
+  </header>
+
+  <div class="doc">
+<h1>Skill: Coverage Audit</h1>
+<h2>Responsibility</h2>
+<p>Whole-pipeline before/after audit. Compares the scraped/silver/bronze
+artifacts against the final rebuilt site (config files + built HTML) and
+flags content that the pipeline silently dropped or thinned. Catches the
+class of failures that the per-step skills can&#39;t see (e.g. a second doctor
+appears in bronze JSON-LD but never makes it through silver → merge → about
+page). Outputs <code>coverage-audit.json</code> and <code>coverage-audit.md</code>.</p>
+<h2>Inputs (read from disk)</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>_pipeline/01-bronze.json</code></td>
+<td>Source of truth — all scraped pages, JSON-LD, bodyText</td>
+</tr>
+<tr>
+<td><code>_pipeline/01-scrape.json</code></td>
+<td>Silver extraction (.output)</td>
+</tr>
+<tr>
+<td><code>_pipeline/06-merge.json</code></td>
+<td>Merged data</td>
+</tr>
+<tr>
+<td><code>public/images/image-roles.json</code></td>
+<td>Doctor↔photo pairing manifest</td>
+</tr>
+<tr>
+<td><code>dist/index.html</code></td>
+<td>Built homepage HTML</td>
+</tr>
+<tr>
+<td><code>dist/about/index.html</code></td>
+<td>Built about page HTML</td>
+</tr>
+<tr>
+<td><code>dist/services/&lt;slug&gt;/index.html</code></td>
+<td>Per-service rebuilt pages</td>
+</tr>
+<tr>
+<td><code>src/config/site.ts</code></td>
+<td>Final phone, NAP</td>
+</tr>
+</tbody></table>
+<h2>Output schema</h2>
+<pre><code class="language-json">{
+  &quot;findings&quot;: [
+    {
+      &quot;severity&quot;: &quot;CRITICAL | WARNING | NOTE&quot;,
+      &quot;check&quot;:    &quot;doctors-missing | doctors-not-on-about-page | doctor-photo-pairing-uncertain | secondary-doctor-no-photo | services-missing | service-page-thin | differentiators-missing | phone-missing | phone-mismatch | no-blog-index | additional-content-not-surfaced&quot;,
+      &quot;message&quot;:  &quot;string — human description&quot;,
+      &quot;detail&quot;:   { /* check-specific structured detail */ },
+      &quot;hint&quot;:     &quot;string — suggested fix path&quot;
+    }
+  ],
+  &quot;summary&quot;: { &quot;total&quot;, &quot;critical&quot;, &quot;warning&quot;, &quot;note&quot; },
+  &quot;markdown&quot;: &quot;string — rendered report&quot;
+}
+</code></pre>
+<h2>Evaluation criteria</h2>
+<ul>
+<li><strong>No false negatives on multi-doctor sites</strong> — if bronze JSON-LD has 3 Person/Dentist entries and rebuild has 1, must fire <code>doctors-missing</code> CRITICAL</li>
+<li><strong>No false positives on intentional content compression</strong> — service-page-thin uses 35% threshold, allowing for chrome-stripping and copy compression</li>
+<li><strong>Phone is normalized before comparison</strong> — digits-only comparison so format differences don&#39;t false-flag</li>
+<li><strong>Each finding includes a hint</strong> pointing at the likely upstream fix location (e.g. &quot;ai-silver.js may have truncated about-page bodyText&quot;)</li>
+<li><strong>Summary counts match findings array</strong> by severity</li>
+<li><strong>Markdown report groups by severity</strong> with appropriate icons</li>
+</ul>
+<h2>Known gaps</h2>
+<ul>
+<li><code>checkServicePageDepth</code> ratio is a single magic number (0.35) — doesn&#39;t account for legitimately short rewrites of long source pages</li>
+<li><code>checkDifferentiators</code> token-matching is heuristic — labels with stop-words (&quot;offers free consultation&quot;) can false-flag if the rebuild used different phrasing</li>
+<li><code>no-blog-index</code> always fires when /blog/ doesn&#39;t exist, even if the source site had no blog — should compare against bronze</li>
+<li>Doctor name comparison is case-insensitive trim only — punctuation/middle-name variants (<code>Dr. J. Smith</code> vs <code>Dr. John Smith</code>) miss</li>
+<li>No check that rebuild homepage actually mentions every service in <code>services.offered</code> by name</li>
+<li>No check on hours fidelity (display vs raw)</li>
+<li>Built HTML is read but only minimally analyzed (regex strip-tags) — can&#39;t detect visual issues</li>
+</ul>
+<h2>Improvement levers</h2>
+<ol>
+<li><strong>Easy (L4):</strong> Add <code>checkHomepageServiceCoverage</code> — every offered service should appear in homepage HTML at least once</li>
+<li><strong>Easy (L4):</strong> Skip <code>no-blog-index</code> when bronze had no blog pages</li>
+<li><strong>Medium:</strong> Per-finding severity calibration based on practice profile (single-doctor practice → demote <code>additional-doctor-no-photo</code> to NOTE)</li>
+<li><strong>Medium:</strong> Add fuzzy match on doctor names (Levenshtein) for the case-mismatch / middle-initial cases</li>
+<li><strong>Hard:</strong> Visual-coverage check — rendered screenshot diff against bronze hero image to detect &quot;site looks too generic&quot;</li>
+</ol>
+<h2>Test fixtures</h2>
+<p><em>None yet. Future: synthetic bronze→rebuild pairs that trigger each of the 7 checks.</em></p>
+<hr>
+<h2>Logic — the 7 checks</h2>
+<h3>1. <code>checkDoctors</code> — doctors-missing (CRITICAL) + doctors-not-on-about-page (WARNING)</h3>
+<pre><code>bronzeDoctors = collect names from bronze.pages[*].structuredData[*]
+                where @type matches /Person|Dentist|Orthodontist|Physician|MedicalProfessional/
+                AND name starts with /Dr\.?|Doctor/
+rebuildDoctors = silver.doctor.name + silver.additionalDoctors[*].name
+missing = bronzeDoctors - rebuildDoctors  (case-insensitive trim)
+→ if missing.length &gt; 0: CRITICAL doctors-missing
+
+aboutText = strip-tags(builtAboutHtml)
+missingFromAbout = rebuildDoctors where lastName not in aboutText (case-insensitive)
+→ if missingFromAbout.length &gt; 0: WARNING doctors-not-on-about-page
+</code></pre>
+<h3>2. <code>checkDoctorPhotoPairing</code> — doctor-photo-pairing-uncertain (WARNING) + additional-doctor-no-photo (NOTE)</h3>
+<pre><code>For primary doctor:
+  if no explicit pairing in imageRoles.doctorPortraits[primaryName]:
+    if doctorPortrait filename does NOT include lastName.toLowerCase():
+      → WARNING doctor-photo-pairing-uncertain
+
+For each additionalDoctor d:
+  if !imageRoles.doctorPortraits[d.name]:
+    → NOTE additional-doctor-no-photo
+</code></pre>
+<h3>3. <code>checkServiceCount</code> — services-missing (WARNING)</h3>
+<pre><code>bronzeServices = paths matching /^\/services\/([^/]+)\/?$/
+rebuildServices = silver.services.offered[*].slug (or slugified name)
+missing = bronzeServices - rebuildServices
+→ if missing.length &gt; 0: WARNING services-missing
+</code></pre>
+<h3>4. <code>checkServicePageDepth</code> — service-page-thin (WARNING)</h3>
+<pre><code>For each bronze /services/&lt;slug&gt;/ with bodyText.length &gt;= 1500:
+  builtText = strip-tags(&lt;main&gt; of dist/services/&lt;slug&gt;/index.html)
+  ratio = builtText.length / sourceText.length
+  → if ratio &lt; 0.35: WARNING service-page-thin
+</code></pre>
+<h3>5. <code>checkDifferentiators</code> — differentiators-missing (NOTE)</h3>
+<pre><code>For each silver/merged signal s:
+  tokens = s.label.split(/\s+/).filter(len&gt;=4 &amp;&amp; ![&#39;practice&#39;,&#39;offers&#39;,&#39;provides&#39;]).slice(0,2)
+  missing if NOT every token appears in builtHomeHtml + builtAboutHtml (lowercased, tags stripped)
+→ if missing.length &gt;= 2: NOTE differentiators-missing
+</code></pre>
+<h3>6. <code>checkContact</code> — phone-missing (CRITICAL) + phone-mismatch (CRITICAL)</h3>
+<pre><code>sourcePhone  = silver.practice.phone || merged.practice.phone
+rebuildPhone = phone field extracted from src/config/site.ts via regex
+→ if sourcePhone but no rebuildPhone:                            CRITICAL phone-missing
+→ if normalize(source) !== normalize(rebuild) (digits-only):     CRITICAL phone-mismatch
+</code></pre>
+<h3>7. <code>checkBlogPresence</code> — no-blog-index (NOTE)</h3>
+<pre><code>→ if dist/blog/index.html does not exist: NOTE no-blog-index
+</code></pre>
+<h3>8. <code>checkAdditionalContent</code> — additional-content-not-surfaced (NOTE / WARNING)</h3>
+<p>Validates that rescued content blocks from <code>silver.content.additionalContent[]</code>
+actually appear in the built site. If a rescued &quot;philosophy&quot; paragraph or
+doctor pull-quote isn&#39;t echoed anywhere in the rebuild, the catch-all
+mechanism captured the content but generate skills aren&#39;t using it.</p>
+<pre><code>1. items = silver.content.additionalContent || []
+2. For each item, take 3 candidate phrases (~8 words each) from item.content
+3. Concatenate all built HTML page text (homepage, /about, /services, every /services/&lt;slug&gt;)
+4. If NONE of the 3 phrases appear (case-insensitive) in the built text → mark as not-surfaced
+5. If 5+ items not surfaced → WARNING; otherwise NOTE
+</code></pre>
+
+  </div>
+</div>
+</body>
+</html>

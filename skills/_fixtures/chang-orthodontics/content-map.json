@@ -1,0 +1,516 @@
+{
+  "homepage": {
+    "heroHeadline": "E komo mai Welcome",
+    "heroSubheadline": "Over 40 years of Quality Care in Los Alamitos",
+    "heroTagline": "Changing Lives One Smile at a Time",
+    "ctaText": "Book Appointment",
+    "ctaSecondaryText": "View Services",
+    "valueProp": "Dr. Russell Chang and Dr. Christine Chung, USC Adjunct Assistant Professors of Postdoctoral Orthodontics and Pediatric Dentistry, carefully create beautiful signature Chang Smiles utilizing the highest standards and newest technology in the most efficient and streamlined time of treatment. With warmest Aloha, Dr. Chang, Dr. Chung & Team."
+  },
+  "about": {
+    "headline": "Tradition, Excellence, and Expertise",
+    "introParagraph": "Dr. Russell Chang is well known in the Los Alamitos community and beyond as a warm and caring professional who delivers outstanding orthodontic results. He works closely with both general dentists and specialists. Dr. Christine Chung came to California in 1991 after being raised in São Paulo, Brazil. She graduated Magna Cum Laude from the University of California, Los Angeles in 1995 and completed her orthodontic specialty residency at the University of California School of Dentistry, where she concurrently earned a Master of Science degree in Craniofacial Biology.",
+    "philosophy": "It is the Mission of Chang Orthodontics to deliver the most outstanding smiles and oral health to each and every patient every day in a warm, caring, compassionate, and comfortable environment.",
+    "closingCTA": "Ready to schedule? | Book an Appointment"
+  },
+  "services": {
+    "invisalign-treatment": {
+      "headline": "Invisalign® Treatment",
+      "subheadline": "A clear, convenient, and comfortable option to achieve the smile you've always wanted.",
+      "intro": "There's never been a better time to straighten your teeth with the most advanced clear aligner in the world. Our office is proud to be a certified Invisalign Diamond Provider, which means our doctors have achieved one of the highest levels of Invisalign expertise available. Invisalign clear aligners give you a clear, convenient, and comfortable option to achieve the smile you've always wanted. We use the iTero® digital scanning system to create fast, precise 3D digital images of your teeth, eliminating the need for traditional molds and enabling a more accurate, comfortable treatment planning process.",
+      "benefits": [
+        "Virtually invisible aligners made from SmartTrack® material",
+        "Weekly aligner changes for faster progress",
+        "Remove aligners to eat, brush, and floss",
+        "Precise 3D treatment planning with iTero® digital scanning",
+        "Vivera® retainers available upon treatment completion"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Certified Invisalign provider with Diamond Provider status",
+        "iTero® digital scanning for precise 3D treatment planning",
+        "InBrace, LightForce, and Invisalign treatment options",
+        "American Board of Orthodontics certified practice",
+        "Invisalign Diamond Provider status"
+      ]
+    },
+    "early-orthodontic-treatment": {
+      "headline": "Early Orthodontic Treatment",
+      "subheadline": "Guiding healthy smiles from the very beginning.",
+      "intro": "The American Association of Orthodontists recommends that children visit the orthodontist as early as age seven. By this age, most children have a mix of baby teeth and adult teeth, making it easier to diagnose and correct tooth and jaw problems sooner — often without surgery. Early treatment allows our doctors to guide jaw growth, create space for crowded teeth, and help permanent teeth come in straight, potentially reducing the need for more complex treatment later. At Chang Orthodontics, both Dr. Chang and Dr. Chung are members of the American Association of Orthodontists and serve as USC Adjunct Assistant Professors of Orthodontics, bringing an advanced academic perspective to every young patient's care.",
+      "benefits": [
+        "Correct and guide jaw growth while the child is still developing",
+        "Regulate the width of the upper and lower arches",
+        "Create more space for crowded teeth",
+        "Reduce the likelihood of permanent tooth extractions later",
+        "Complimentary orthodontic consultation available"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Member of American Association of Orthodontists",
+        "Member of California Dental Association",
+        "USC Adjunct Assistant Professors of Orthodontics"
+      ]
+    },
+    "digital-x-rays": {
+      "headline": "Digital X-rays",
+      "subheadline": "Clearer images, less radiation, faster results.",
+      "intro": "Digital X-rays provide several advanced imaging options designed to save time, produce clearer dental photos, and expose patients to significantly less radiation than traditional X-ray technology. Because our practice is dedicated to providing you with the safest and most advanced care available, we have incorporated digital X-rays into our treatment process. Combined with our iTero® digital impression system, these technologies allow our team to diagnose and plan treatment with greater precision and comfort.",
+      "benefits": [
+        "Less radiation than traditional X-ray technology",
+        "Faster image capture saves chair time",
+        "Clearer, more detailed dental images for accurate diagnosis",
+        "Complements iTero® digital impression system for full digital workflow"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Digital X-rays with less radiation than traditional",
+        "iTero digital impression system used in practice"
+      ]
+    },
+    "itero-digital-impression-system": {
+      "headline": "iTero® Digital Impression System",
+      "subheadline": "No molds, no mess — just fast, precise 3D digital impressions.",
+      "intro": "No more goop, gagging, or discomfort. Using an iTero scanner, your orthodontist can take a highly accurate digital impression of your teeth and jaw. The technology completely eliminates the tray and putty impressions of the past. The iTero scanner is a compact, hand-held wand that uses a radiation-free laser to digitally capture the structure of your teeth and gums using the latest optical technology. Once scanning begins, a 3D model of your mouth appears on screen in real time — the entire process takes as little as two to three minutes.",
+      "benefits": [
+        "No trays, putty, or gagging",
+        "Radiation-free laser scanning technology",
+        "Highly accurate 3D digital model of teeth and gums",
+        "Scan completed in as little as two to three minutes",
+        "Used for Invisalign treatment planning and orthodontic records"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "iTero digital impressions — no goop or gagging — no radiation",
+        "Radiation-free laser scanning for impressions",
+        "iTero® Digital Impression System available"
+      ]
+    },
+    "surgical-orthodontics": {
+      "headline": "Surgical Orthodontics",
+      "subheadline": "Advanced jaw correction for severe bite and skeletal concerns.",
+      "intro": "Surgical orthodontics, also known as orthognathic surgery, is a type of orthodontic treatment used to correct severe cases that include bad bites, jaw bone abnormalities, and malocclusion. Oral and maxillofacial surgery is one of the nine recognized dental specialties, and it focuses on treating complex craniofacial cases involving the mouth, jaw, face, and skull. If you need surgical orthodontics, your orthodontist will work with an oral and maxillofacial surgeon to ensure that you receive the best care possible. Dr. Chang is a Board Certified Diplomate of the American Board of Orthodontics and brings extensive multidisciplinary experience to complex surgical cases. Our practice also utilizes the iTero® Digital Impression System to support precise treatment planning throughout the surgical orthodontic process.",
+      "benefits": [
+        "Corrects severe bite problems, jaw abnormalities, and malocclusion",
+        "Collaborative care with oral and maxillofacial surgeons",
+        "Treatment by a Board Certified Diplomate of the American Board of Orthodontics",
+        "iTero® digital impressions used for precise surgical planning",
+        "Clean air facility certified with IQAir filtration"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "iTero Digital Impression System used in treatment",
+        "Clean air facility certified",
+        "Board Certified Diplomate of the American Board of Orthodontics"
+      ]
+    },
+    "dentofacial-orthopedics": {
+      "headline": "Dentofacial Orthopedics",
+      "subheadline": "Guiding facial growth and development alongside orthodontic care.",
+      "intro": "You may have noticed that our doctors specialize in 'orthodontics and dentofacial orthopedics.' While most people have heard of orthodontics, many are confused by the dentofacial orthopedics part of the specialty title. Orthodontics addresses the alignment of the teeth; dentofacial orthopedics focuses on the guidance of facial growth and the development of the bone structures of the face and jaw. Both Dr. Chang and Dr. Chung are trained in this dual specialty, allowing them to treat a wider range of conditions affecting the teeth, jaws, and face. As USC Adjunct Assistant Professors of Orthodontics and practitioners in a certified clean air facility, they bring both academic rigor and a safe, comfortable environment to every patient's care.",
+      "benefits": [
+        "Dual specialty in orthodontics and dentofacial orthopedics",
+        "Treats jaw and facial bone development concerns",
+        "USC Adjunct Assistant Professors of Orthodontics",
+        "Certified clean air facility with IQAir filtration"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Dual specialty: orthodontics and dentofacial orthopedics",
+        "Certified clean air facility",
+        "USC Adjunct Assistant Professors of Orthodontics"
+      ]
+    },
+    "craniofacial-orthodontics": {
+      "headline": "Craniofacial Orthodontics",
+      "subheadline": "Specialized orthodontic care for cleft lip, cleft palate, and craniofacial conditions.",
+      "intro": "Craniofacial orthodontics is a sub-specialty of orthodontics that focuses on the treatment of patients with birth defects such as cleft lip and palate. The orthodontist works with a team comprised of speech pathologists, oral surgeons, and craniofacial plastic surgeons to plan treatment that addresses cleft lip and palate as well as other jaw and face abnormalities. Dr. Chang has served as a long-term member of the Cleft Lip and Palate Team at Miller Children's Hospital, including work with the Stramsky Center for Craniofacial Development, bringing decades of multidisciplinary team experience to this highly specialized area of care. Our practice supports this work with digital X-rays and the iTero® Digital Impression System for precise, comfortable diagnostics in an IQAir-certified clean air facility.",
+      "benefits": [
+        "Sub-specialty care for cleft lip, cleft palate, and craniofacial conditions",
+        "Long-term Cleft Lip and Palate Team member at Miller Children's Hospital",
+        "Collaborative multidisciplinary team approach",
+        "iTero® digital impressions and digital X-rays used in diagnosis",
+        "IQAir clean air facility certification"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Craniofacial orthodontics sub-specialty for cleft lip and palate",
+        "Long-term Cleft Lip and Palate Team member at Miller Children's Hospital",
+        "iTero® Digital Impression System available",
+        "Digital X-rays available for orthodontic diagnosis",
+        "IQAir clean air facility certification"
+      ]
+    },
+    "damon-smile": {
+      "headline": "Damon™ Smile",
+      "subheadline": "Tie-less braces for faster, more comfortable treatment.",
+      "intro": "Chang Orthodontics offers passive self-ligating Damon Smile braces — a tie-less system that uses a slide mechanism to hold the archwire, reducing the amount of pressure exerted on the teeth and allowing them to move more freely, quickly, and comfortably. Because there are no elastic ties to replace, Damon braces require fewer adjustments and office visits while also making it easier to keep teeth clean throughout treatment. The result is a more streamlined orthodontic experience without compromising the quality of your smile.",
+      "benefits": [
+        "Passive self-ligating system — no elastic ties",
+        "Less pressure on teeth for greater comfort",
+        "Fewer adjustments and office visits required",
+        "Easier oral hygiene during treatment",
+        "Faster tooth movement than traditional braces"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Passive self-ligating Damon Smile braces offered",
+        "Tie-less braces require fewer adjustments",
+        "California Dental Association member"
+      ]
+    },
+    "suresmile": {
+      "headline": "SureSmile®",
+      "subheadline": "Precision wire technology for faster orthodontic results.",
+      "intro": "SureSmile technology allows our orthodontists to deliver a more precise, efficient braces experience. On average, treatment time with SureSmile is 30% or more faster than conventional braces — based on a comparison of 1,849 patients treated conventionally and 4,376 patients treated with SureSmile. Through advanced 3D imaging and robotically shaped custom archwires, SureSmile gives your doctor greater control over tooth movement, resulting in shorter treatment, fewer office visits, and less discomfort. Our practice also uses the iTero® Digital Impression System to support seamless digital treatment planning with SureSmile.",
+      "benefits": [
+        "Treatment time up to 30% faster than conventional braces",
+        "Robotically shaped custom archwires for precise tooth movement",
+        "Fewer office visits required",
+        "Less discomfort throughout treatment",
+        "Supported by iTero® digital impression technology"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "SureSmile technology for faster orthodontic treatment",
+        "iTero® Digital Impression System offered"
+      ]
+    },
+    "in-ovation": {
+      "headline": "In-Ovation®",
+      "subheadline": "A technically advanced self-ligating system for a faster, more comfortable smile.",
+      "intro": "In-Ovation System braces are a technically advanced self-ligating option that can give you the radiant smile you have always wanted more quickly than traditional braces — and without the need for elastic ties that can be uncomfortable and difficult to keep clean. In-Ovation uses light, gentle forces so the braces never need to be tightened in the traditional sense, eliminating the discomfort associated with routine adjustments and reducing the number of office visits required. Chang Orthodontics also offers InBrace and LightForce as additional advanced treatment options, giving patients a full range of modern orthodontic solutions.",
+      "benefits": [
+        "No elastic ties — more comfortable and easier to clean",
+        "Light, gentle forces eliminate the need for tightening",
+        "Faster results than traditional braces",
+        "Fewer office visits required",
+        "Offered alongside InBrace and LightForce options"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "In-Ovation self-ligating braces system offered",
+        "No tightening appointments needed with In-Ovation",
+        "InBrace and LightForce braces offered",
+        "Invisalign Diamond Provider status"
+      ]
+    },
+    "coconut-wireless": {
+      "headline": "Coconut Wireless",
+      "subheadline": null,
+      "intro": "Chang Orthodontics uses Coconut Wireless to make staying connected with our practice easier than ever. This patient communication platform allows our team to send appointment reminders, treatment updates, and important practice communications directly to you — keeping your care on track between visits.",
+      "benefits": [
+        "Convenient appointment reminders",
+        "Direct communication from the Chang Orthodontics team",
+        "Stay informed about your treatment progress"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": []
+    },
+    "emergency-care": {
+      "headline": "Emergency Care",
+      "subheadline": "We're here when you need us most.",
+      "intro": "True orthodontic emergencies are rare, but when they occur we are available to you. As a general rule, you should call our office if you experience severe pain or have a painful appliance problem you can't take care of yourself. We'll be able to schedule an appointment to resolve the problem. You might be surprised to learn that you may be able to solve many problems yourself temporarily until you can get to our office. If there is a loose piece that you can remove, put it in a plastic bag or envelope and bring it with you to your appointment. After alleviating your discomfort, it is very important that you still call our office as soon as possible to schedule a time to repair the problem. Allowing your appliance to remain damaged for an extended time may result in disruptions to your treatment plan.",
+      "benefits": [
+        "Available for urgent orthodontic concerns when they arise",
+        "Guidance on safe temporary self-care until your appointment",
+        "Prompt scheduling to address appliance issues",
+        "Care available for all appliance types including InBrace"
+      ],
+      "cta": "Call Our Office",
+      "differentiatorsWoven": [
+        "Available for orthodontic emergencies when they occur",
+        "InBrace provider"
+      ]
+    },
+    "elastics-rubber-bands": {
+      "headline": "Elastics (Rubber Bands)",
+      "subheadline": "An important part of your orthodontic treatment.",
+      "intro": "Elastics, or rubber bands, are used in orthodontic treatment to improve the fit of your upper and lower teeth by correcting the bite relationship between the two arches. Wearing elastics as instructed is essential — rubber bands work far more efficiently when worn as prescribed, and inconsistent wear can extend your overall treatment time. Your doctor will show you exactly how to wear your elastics and how to change them as needed throughout your treatment.",
+      "benefits": [
+        "Correct bite alignment between upper and lower teeth",
+        "Most effective when worn consistently as instructed",
+        "Easy to change and replace at home",
+        "Important tool for achieving your final smile result"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": []
+    },
+    "forsus-fatigue-resistant-device": {
+      "headline": "Forsus™ Fatigue Resistant Device",
+      "subheadline": "A fixed alternative to headgear for correcting overbites in growing patients.",
+      "intro": "The Forsus™ Fatigue Resistant Device is an alternative to headgear that promotes growth in adolescents, helping to eliminate excessive overbites, improve the fit of teeth, and possibly prevent the need for jaw surgery later in life. The Forsus appliance is fixed — meaning it works continuously without depending on patient compliance with removable gear — and is typically used during active growth phases to achieve the most effective results. Your doctor will evaluate whether the Forsus device is appropriate as part of your overall treatment plan.",
+      "benefits": [
+        "Fixed appliance works continuously — no compliance required",
+        "Helps correct excessive overbites in growing adolescents",
+        "May reduce or eliminate the need for jaw surgery",
+        "Improves bite fit alongside braces treatment"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": []
+    },
+    "headgear": {
+      "headline": "Headgear",
+      "subheadline": "Guiding jaw and tooth development in growing patients.",
+      "intro": "Orthodontic headgear is an appliance used to correct significant bite discrepancies and guide the growth of the jaws in children and adolescents. By applying gentle, controlled forces to the teeth and jaw, headgear can help address conditions such as overbites, underbites, and jaw misalignment during key growth periods. Your doctor will determine whether headgear is the appropriate treatment for your child's specific needs and will provide detailed instructions on wear time and care.",
+      "benefits": [
+        "Guides jaw growth in children and adolescents",
+        "Helps correct overbites, underbites, and jaw misalignment",
+        "Most effective when worn as directed during growth phases",
+        "May reduce the need for more extensive treatment later"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": []
+    },
+    "herbst-appliance": {
+      "headline": "Herbst® Appliance",
+      "subheadline": "A fixed appliance for correcting significant overbites in growing patients.",
+      "intro": "The Herbst® Appliance is a fixed orthodontic device used to correct significant overbites by encouraging the lower jaw to grow forward and the upper jaw to develop in proportion. Because it is bonded to the teeth, the Herbst appliance works around the clock without requiring the patient to remember to wear or change it. It is most commonly used in growing children and adolescents, where jaw development can still be guided effectively. Your doctor will evaluate whether the Herbst appliance is the right solution as part of your individualized treatment plan.",
+      "benefits": [
+        "Fixed appliance — works continuously without patient compliance concerns",
+        "Encourages forward lower jaw development",
+        "Most effective during active growth phases",
+        "Can reduce or eliminate the need for more complex jaw treatment later"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": []
+    },
+    "palatal-expander": {
+      "headline": "Palatal Expander",
+      "subheadline": "Creating space for a healthier, properly aligned smile.",
+      "intro": "A palatal expander is an orthodontic appliance used to widen the upper jaw so that the upper and lower teeth fit together properly. By gradually expanding the palate over a period of months, the appliance creates additional space for crowded teeth and helps correct crossbites before they become more complex problems. Palatal expanders are most effective in children and adolescents while the palate is still developing. Your doctor will determine the appropriate expansion amount and schedule, and will monitor your progress at each visit.",
+      "benefits": [
+        "Widens the upper jaw to improve bite alignment",
+        "Creates space for crowded or impacted teeth",
+        "Helps correct crossbites early",
+        "Most effective during childhood and adolescent growth",
+        "Custom-fitted for each patient"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": []
+    },
+    "positioners": {
+      "headline": "Positioners",
+      "subheadline": "Fine-tuning your smile at the end of orthodontic treatment.",
+      "intro": "Tooth positioners are appliances used in the final stage of orthodontic treatment to make minor adjustments to tooth position and settle the bite. Worn for a prescribed period each day, positioners help ensure that your teeth finish in their ideal final positions before your retainer phase begins. Your doctor will advise you on how long and how often to wear your positioner to achieve the best result.",
+      "benefits": [
+        "Fine-tunes tooth position at the end of treatment",
+        "Helps settle the bite for a stable final result",
+        "Worn for a prescribed period each day",
+        "Supports a smooth transition to the retention phase"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": []
+    },
+    "retainers": {
+      "headline": "Retainers",
+      "subheadline": "Protecting your smile long after treatment is complete.",
+      "intro": "Retainers are custom-made and can be removable or fixed. After your braces or aligners are removed, retainers are essential for maintaining the position of your teeth as the surrounding bone and tissues stabilize. Without consistent retainer wear, teeth can gradually shift back toward their original positions. Your doctor will prescribe the retainer type and wear schedule best suited to your individual needs, and will monitor your retention progress over time. At Chang Orthodontics, we also offer InBrace lingual retainer options for patients who prefer a discreet fixed solution.",
+      "benefits": [
+        "Custom-made removable or fixed options available",
+        "Prevents teeth from shifting after treatment",
+        "InBrace lingual retainer option available",
+        "Monitored by an American Board of Orthodontics certified doctor",
+        "Essential part of protecting your long-term orthodontic result"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Clean air facility with IQAir filtration",
+        "American Board of Orthodontics certified",
+        "InBrace lingual braces available"
+      ]
+    },
+    "separators-or-spacers": {
+      "headline": "Separators or Spacers",
+      "subheadline": "Preparing your teeth for orthodontic appliances.",
+      "intro": "Separators, also called spacers, are small rubber rings or metal devices placed between your teeth a week or two before braces are fitted. Their purpose is to create a small amount of space between specific teeth so that orthodontic bands can be placed comfortably at your next appointment. You may feel some pressure or minor soreness for a few days after separators are placed — this is normal and indicates they are working. Your doctor will advise you on how to care for your teeth while separators are in place.",
+      "benefits": [
+        "Prepares teeth for orthodontic bands before braces are placed",
+        "Temporary — typically removed at your next appointment",
+        "Minor pressure is normal and expected",
+        "Important first step in the banding process"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": []
+    },
+    "twin-block-appliance": {
+      "headline": "Twin Block Appliance",
+      "subheadline": "A removable appliance for correcting jaw relationships in growing patients.",
+      "intro": "The Twin Block Appliance is a removable orthodontic device used to correct significant jaw discrepancies, most commonly in growing children and adolescents. It consists of two separate appliances — one for the upper arch and one for the lower — that work together to position the lower jaw forward, encouraging more balanced jaw development. The Twin Block is typically worn full-time, including during eating, and is one of the most widely used functional appliances for correcting overbites and Class II bite relationships. Your doctor will determine whether the Twin Block is appropriate for your child's growth stage and treatment goals.",
+      "benefits": [
+        "Corrects jaw discrepancies in growing patients",
+        "Encourages balanced development of the lower jaw",
+        "Worn full-time for most effective results",
+        "Removable for cleaning and oral hygiene",
+        "Commonly used for overbite and Class II correction"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": []
+    },
+    "orthodontic-retention": {
+      "headline": "Orthodontic Retention",
+      "subheadline": "You've worked hard for your beautiful smile — keep it that way!",
+      "intro": "Finally, your braces have been removed and your smile is beautiful, straight, and best of all, metal-free! However, your orthodontic journey isn't quite completed. To keep your smile looking its best, you'll need to wear a retainer to preserve and stabilize your results. Retainers are custom-made and can be removable or fixed depending on your needs. At Chang Orthodontics, we are an American Board of Orthodontics certified practice operating in an IQAir clean air facility, and we offer InBrace lingual retainer options for patients who prefer a completely hidden solution.",
+      "benefits": [
+        "Custom removable or fixed retainer options",
+        "InBrace lingual retainer available for a discreet result",
+        "Monitored by an ABO-certified orthodontist",
+        "IQAir clean air facility for a safe, comfortable visit",
+        "Protects your smile investment long-term"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Clean air facility with IQAir filtration",
+        "American Board of Orthodontics certified",
+        "InBrace lingual braces available"
+      ]
+    },
+    "traditional-metal-braces": {
+      "headline": "Traditional Metal Braces",
+      "subheadline": "The most proven orthodontic treatment — more comfortable than ever.",
+      "intro": "Traditional metal braces are the most common type of braces and are more comfortable today than ever before. Made of high-grade stainless steel, metal braces straighten your teeth using metal brackets and archwires. At Chang Orthodontics, patients see their orthodontist at every single appointment — no assistants running the show — and with over 40 years of orthodontic care in Los Alamitos, our doctors bring deep expertise to every case. Braces today also offer a range of colored elastic options, letting younger patients personalize their treatment experience.",
+      "benefits": [
+        "High-grade stainless steel for durability and reliability",
+        "More comfortable than ever with modern design",
+        "Orthodontist seen at every single appointment",
+        "Over 40 years of orthodontic experience in Los Alamitos",
+        "Colorful elastic options available for personalization"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Over 40 years of orthodontic care in Los Alamitos",
+        "Orthodontist seen at every single appointment"
+      ]
+    },
+    "self-ligating-braces": {
+      "headline": "Self-Ligating Braces",
+      "subheadline": "Fewer appointments, less friction, and a more comfortable treatment experience.",
+      "intro": "Self-ligating braces are made from the same materials as traditional braces, but they do not require the use of elastics. Instead, a built-in sliding mechanism holds the archwire in place, meaning less friction is placed on the teeth and fewer adjustment appointments are needed. Chang Orthodontics offers two leading self-ligating systems — Damon™ Smile and In-Ovation® — giving patients options in both passive and active self-ligation to match their individual treatment needs.",
+      "benefits": [
+        "No elastic ties — less friction and discomfort",
+        "Fewer office visits than traditional braces",
+        "Easier oral hygiene during treatment",
+        "Damon™ Smile and In-Ovation® systems both available",
+        "Suitable for a wide range of orthodontic cases"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Tie-less braces require fewer adjustments",
+        "In-Ovation self-ligating braces system offered",
+        "Passive self-ligating Damon Smile braces offered"
+      ]
+    },
+    "clear-ceramic-braces": {
+      "headline": "Clear (Ceramic) Braces",
+      "subheadline": "The effectiveness of braces with a more discreet appearance.",
+      "intro": "Clear ceramic braces offer the proven correction of traditional braces with brackets made from tooth-colored or clear ceramic material that blends naturally with your smile. They work the same way as metal braces — using brackets and archwires to guide teeth into alignment — but are far less noticeable during treatment. Clear braces are a popular choice for teens and adults who want effective orthodontic treatment without the prominent appearance of metal. At Chang Orthodontics, your doctor is present at every appointment to oversee your care from start to finish.",
+      "benefits": [
+        "Tooth-colored or clear brackets for a discreet appearance",
+        "Same correction capability as traditional metal braces",
+        "Popular option for teens and image-conscious adults",
+        "Orthodontist present at every appointment",
+        "Available alongside clear aligner and lingual options"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Orthodontist seen at every single appointment"
+      ]
+    },
+    "clear-aligners": {
+      "headline": "Clear Aligners",
+      "subheadline": "Virtually invisible orthodontic treatment for teens and adults.",
+      "intro": "Clear aligners offer a discreet, removable alternative to traditional braces, allowing you to straighten your teeth without visible brackets or wires. Chang Orthodontics is an Invisalign Diamond Provider — one of the highest recognition levels available — and also offers InBrace and LightForce as advanced treatment options, giving patients a comprehensive range of modern orthodontic solutions. We use the iTero® Digital Impression System to create precise 3D models of your teeth, enabling accurate, comfortable treatment planning for any aligner system.",
+      "benefits": [
+        "Virtually invisible — no brackets or wires",
+        "Removable for eating, brushing, and flossing",
+        "Invisalign Diamond Provider status",
+        "InBrace and LightForce options also available",
+        "Precise 3D planning with iTero® digital scanning"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Invisalign Diamond Provider status",
+        "iTero® Digital Impression System available",
+        "InBrace, LightForce, and Invisalign treatment options"
+      ]
+    },
+    "in-ovation-braces": {
+      "headline": "In-Ovation® Braces",
+      "subheadline": "Advanced self-ligating braces for faster, more comfortable results.",
+      "intro": "In-Ovation® Braces are a technically advanced self-ligating system that can give you the radiant smile you have always wanted more quickly than traditional braces — and without the need for elastic ties that can be uncomfortable and difficult to keep clean. In-Ovation uses light, gentle forces that eliminate the need for traditional tightening appointments, reducing both discomfort and the overall number of office visits required. Chang Orthodontics also offers InBrace and LightForce as complementary advanced treatment options for patients seeking the most current orthodontic technology.",
+      "benefits": [
+        "No elastic ties for greater comfort and easier cleaning",
+        "Light, gentle forces eliminate traditional tightening visits",
+        "Faster results than conventional braces",
+        "Fewer office visits required throughout treatment",
+        "Offered alongside InBrace and LightForce systems"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "In-Ovation self-ligating braces system offered",
+        "No tightening appointments needed with In-Ovation",
+        "InBrace and LightForce braces offered"
+      ]
+    }
+  },
+  "faqs": [
+    {
+      "question": "What should I do if I have general soreness after getting braces?",
+      "answer": "When you get your braces on, you may feel general soreness in your mouth, and teeth may be tender to biting pressures for three to five days. Stick to a soft diet until your teeth do not hurt to chew. If the pain is more severe and does not go away after rinsing, you can also try taking a pain reliever."
+    },
+    {
+      "question": "When might surgical orthodontics be needed?",
+      "answer": "Surgical orthodontics may be used to treat adults with improper bites or other aesthetic concerns. Typically, jaw growth stops by age 16 in females and 18 in males. In order to receive orthognathic surgery, a patient must have stopped growing."
+    },
+    {
+      "question": "How does orthognathic surgery work?",
+      "answer": "An oral and maxillofacial surgeon will perform your orthognathic surgery, and the surgery will take place in a hospital. Orthognathic surgery can take several hours depending on each individual case."
+    },
+    {
+      "question": "What is the recommended age for a child's first orthodontic visit?",
+      "answer": "The American Association of Orthodontists recommends visiting the orthodontist around age seven. By this age, most children have a mix of baby teeth and adult teeth, making it easier for the orthodontist to diagnose and correct tooth and jaw problems sooner and without surgery."
+    },
+    {
+      "question": "Does Chang Orthodontics offer payment plans?",
+      "answer": "Yes. The cost of your orthodontic treatment will vary depending on your individual needs and treatment plan. Our staff will discuss the cost of your treatment and each available payment option with you before treatment begins. We accept most major credit cards and insurance plans, and our team will work with you to create a payment plan that fits your budget."
+    },
+    {
+      "question": "What are the rewards of having orthognathic surgery?",
+      "answer": "For many patients, the most important reward of having orthognathic surgery is achieving a beautiful, healthy smile that lasts a lifetime. Whether you need orthodontic treatment to correct a bad bite or other concerns, orthognathic surgery can help."
+    }
+  ],
+  "blogTopics": [
+    {
+      "title": "Why Age 7 Is the Right Time for Your Child's First Orthodontic Visit",
+      "excerpt": "The American Association of Orthodontists recommends an orthodontic evaluation by age seven. We explain what our doctors look for and why early treatment in Los Alamitos can make a big difference for your child's smile."
+    },
+    {
+      "title": "Invisalign vs. Clear Braces vs. Metal Braces: Which Is Right for You?",
+      "excerpt": "As an Invisalign Diamond Provider offering multiple treatment systems — including Damon™ Smile, In-Ovation®, and LightForce — Chang Orthodontics helps Los Alamitos patients choose the option that fits their lifestyle and goals."
+    },
+    {
+      "title": "What Is Craniofacial Orthodontics? A Guide for Families Navigating Cleft Lip and Palate",
+      "excerpt": "Dr. Chang's long-term membership on the Cleft Lip and Palate Team at Miller Children's Hospital gives families a trusted specialist close to home. Here's what craniofacial orthodontic care involves and who it can help."
+    },
+    {
+      "title": "The iTero® Scanner: Why Digital Impressions Mean No More Goop or Gagging",
+      "excerpt": "Traditional molds are a thing of the past at Chang Orthodontics. We explain how our radiation-free iTero® scanner creates a precise 3D model of your teeth in minutes — and what that means for your treatment plan."
+    },
+    {
+      "title": "Life with Braces in Los Alamitos: Foods, Hygiene, and What to Expect",
+      "excerpt": "Starting orthodontic treatment raises a lot of practical questions. From what to eat to how to handle a loose wire, here's everything new patients at Chang Orthodontics need to know about life with braces."
+    }
+  ],
+  "locations": {
+    "headline": "Serving Los Alamitos and surrounding communities",
+    "intro": "Chang Orthodontics is located at 4608 Katella Ave, Suite 201, Los Alamitos, CA 90720. You can reach us by phone or text at (562) 430-0541, by fax at (562) 598-0005, or by email at smiles@changorthodontics.com. Please note that Fridays are reserved for administration and no patient appointments are scheduled on that day."
+  },
+  "rationale": "The editorial direction throughout this migration was to preserve the practice's distinctive Hawaiian-inflected voice — 'E Komo Mai,' 'Aloha,' 'Chang Smile,' and the warm family framing — as the primary differentiator, using verbatim or lightly optimized source text wherever it existed. For sections where the blueprint called for 'create,' new copy was written conservatively, grounded only in the services listed, the practice's confirmed credentials (ABO Diplomate, USC Adjunct Professor, Invisalign Diamond Provider, Miller Children's Hospital Cleft Team membership), and standard clinical descriptions of each appliance — no patient counts, outcomes statistics, or philosophy claims beyond what the practice expressed themselves. The Coconut Wireless intro is the one section where no source content existed and the service's exact nature was not confirmed in the crawl; the created copy describes a patient communication function consistent with what Coconut Wireless is known to provide, but this should be verified with the practice before publishing.",
+  "_meta": {
+    "model": "claude-sonnet-4-6",
+    "input_tokens": 21872,
+    "output_tokens": 9969,
+    "duration_ms": 157828,
+    "cost": 0.2152
+  }
+}

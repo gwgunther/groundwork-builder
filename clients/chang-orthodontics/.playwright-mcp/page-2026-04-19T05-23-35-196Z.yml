@@ -1,0 +1,163 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "Spring St. Dentistry" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e7]: Spring St. Dentistry
+      - navigation [ref=e8]:
+        - link "About Us" [ref=e10] [cursor=pointer]:
+          - /url: /about
+        - link "Services" [ref=e12] [cursor=pointer]:
+          - /url: /services
+          - text: Services
+          - img [ref=e13]
+        - link "Resources" [ref=e16] [cursor=pointer]:
+          - /url: /blog
+          - text: Resources
+          - img [ref=e17]
+      - generic [ref=e19]:
+        - link "(562) 420-8578" [ref=e20] [cursor=pointer]:
+          - /url: tel:5624208578
+        - link "Book Appointment" [ref=e21] [cursor=pointer]:
+          - /url: /schedule
+  - main [ref=e22]:
+    - generic [ref=e24]:
+      - paragraph [ref=e25]: Spring St. Dentistry — Long Beach, CA
+      - heading "Dental care in Long Beach, the way it should feel." [level=1] [ref=e26]
+      - paragraph [ref=e27]: Dr. Anthony Hoang brings a careful, unhurried approach to every appointment — from routine cleanings to full smile restorations. Located on Spring Street, serving Long Beach since day one.
+      - link "Book an appointment with Dr. Hoang" [ref=e28] [cursor=pointer]:
+        - /url: /schedule
+    - generic [ref=e30]:
+      - img "Dr. Anthony Hoang" [ref=e32]
+      - generic [ref=e33]:
+        - paragraph [ref=e34]: Meet your dentist
+        - heading "Dr. Anthony Hoang, DMD" [level=2] [ref=e35]
+        - paragraph [ref=e36]: "[DOCTOR_BIO]"
+        - link "Read more about Anthony →" [ref=e37] [cursor=pointer]:
+          - /url: /about
+    - heading "Inside our practice" [level=2] [ref=e40]
+    - generic [ref=e44]:
+      - heading "Ready to Get Started?" [level=2] [ref=e45]
+      - paragraph [ref=e46]: Schedule a consultation with our team. We'll create a personalized treatment plan just for you.
+      - generic [ref=e47]:
+        - link "Book Appointment" [ref=e48] [cursor=pointer]:
+          - /url: /schedule
+        - 'link "Or Call: (562) 420-8578" [ref=e49] [cursor=pointer]':
+          - /url: tel:5624208578
+    - generic [ref=e51]:
+      - heading "Our Services" [level=2] [ref=e52]
+      - list [ref=e53]:
+        - listitem [ref=e54]:
+          - link "01 General Dentistry Cleanings, exams, fillings, and preventive care to keep your smile healthy. →" [ref=e55] [cursor=pointer]:
+            - /url: /services/general-dentistry
+            - generic [ref=e56]: "01"
+            - generic [ref=e57]:
+              - heading "General Dentistry" [level=3] [ref=e58]
+              - paragraph [ref=e59]: Cleanings, exams, fillings, and preventive care to keep your smile healthy.
+            - generic [ref=e60]: →
+        - listitem [ref=e61]:
+          - link "02 Cosmetic Dentistry Veneers, whitening, bonding, and smile makeovers for the look you want. →" [ref=e62] [cursor=pointer]:
+            - /url: /services/cosmetic-dentistry
+            - generic [ref=e63]: "02"
+            - generic [ref=e64]:
+              - heading "Cosmetic Dentistry" [level=3] [ref=e65]
+              - paragraph [ref=e66]: Veneers, whitening, bonding, and smile makeovers for the look you want.
+            - generic [ref=e67]: →
+        - listitem [ref=e68]:
+          - link "03 Dental Implants Permanent tooth replacement that looks, feels, and functions like natural teeth. →" [ref=e69] [cursor=pointer]:
+            - /url: /services/dental-implants
+            - generic [ref=e70]: "03"
+            - generic [ref=e71]:
+              - heading "Dental Implants" [level=3] [ref=e72]
+              - paragraph [ref=e73]: Permanent tooth replacement that looks, feels, and functions like natural teeth.
+            - generic [ref=e74]: →
+        - listitem [ref=e75]:
+          - link "04 Restorative Dentistry Crowns, bridges, and dentures to restore your bite and confidence. →" [ref=e76] [cursor=pointer]:
+            - /url: /services/restorative-dentistry
+            - generic [ref=e77]: "04"
+            - generic [ref=e78]:
+              - heading "Restorative Dentistry" [level=3] [ref=e79]
+              - paragraph [ref=e80]: Crowns, bridges, and dentures to restore your bite and confidence.
+            - generic [ref=e81]: →
+      - link "View all services" [ref=e83] [cursor=pointer]:
+        - /url: /services
+  - contentinfo [ref=e84]:
+    - generic [ref=e85]:
+      - generic [ref=e86]:
+        - generic [ref=e87]:
+          - generic [ref=e88]: Spring St. Dentistry
+          - generic [ref=e89]:
+            - generic [ref=e90]:
+              - paragraph [ref=e91]: 6514 E. Spring St.
+              - paragraph [ref=e92]: Long Beach, CA 90815
+            - generic [ref=e93]:
+              - paragraph [ref=e94]:
+                - link "(562) 420-8578" [ref=e95] [cursor=pointer]:
+                  - /url: tel:5624208578
+              - paragraph:
+                - link:
+                  - /url: "mailto:"
+            - generic [ref=e96]:
+              - paragraph [ref=e97]: Hours
+              - paragraph [ref=e99]: "Mon–Thu: 9:00AM–6:00PM"
+          - link "Leave a Google Review" [ref=e101] [cursor=pointer]:
+            - /url: https://www.facebook.com/SpringStDentistry/reviews
+            - img [ref=e102]
+            - text: Leave a Google Review
+        - generic [ref=e104]:
+          - heading "Services" [level=3] [ref=e105]
+          - list [ref=e106]:
+            - listitem [ref=e107]:
+              - link "General Dentistry" [ref=e108] [cursor=pointer]:
+                - /url: /services/general-dentistry
+            - listitem [ref=e109]:
+              - link "Cosmetic Dentistry" [ref=e110] [cursor=pointer]:
+                - /url: /services/cosmetic-dentistry
+            - listitem [ref=e111]:
+              - link "Dental Implants" [ref=e112] [cursor=pointer]:
+                - /url: /services/dental-implants
+            - listitem [ref=e113]:
+              - link "Restorative Dentistry" [ref=e114] [cursor=pointer]:
+                - /url: /services/restorative-dentistry
+            - listitem [ref=e115]:
+              - link "All Services" [ref=e116] [cursor=pointer]:
+                - /url: /services
+        - generic [ref=e117]:
+          - heading "Resources" [level=3] [ref=e118]
+          - list [ref=e119]:
+            - listitem [ref=e120]:
+              - link "About Us" [ref=e121] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e122]:
+              - link "Patient Blog" [ref=e123] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=e124]:
+              - link "Before & After" [ref=e125] [cursor=pointer]:
+                - /url: /gallery
+            - listitem [ref=e126]:
+              - link "FAQ" [ref=e127] [cursor=pointer]:
+                - /url: /faq
+            - listitem [ref=e128]:
+              - link "Insurance & Financing" [ref=e129] [cursor=pointer]:
+                - /url: /financing
+        - generic [ref=e130]:
+          - heading "Quick Links" [level=3] [ref=e131]
+          - list [ref=e132]:
+            - listitem [ref=e133]:
+              - link "→ Book Appointment" [ref=e134] [cursor=pointer]:
+                - /url: /schedule
+            - listitem [ref=e135]:
+              - 'link "Call Us: (562) 420-8578" [ref=e136] [cursor=pointer]':
+                - /url: tel:5624208578
+            - listitem [ref=e137]:
+              - link "Patient FAQ" [ref=e138] [cursor=pointer]:
+                - /url: /faq
+            - listitem [ref=e139]:
+              - link "Before & After Gallery" [ref=e140] [cursor=pointer]:
+                - /url: /gallery
+            - listitem [ref=e141]:
+              - link "About Our Practice" [ref=e142] [cursor=pointer]:
+                - /url: /about
+      - generic [ref=e144]:
+        - paragraph [ref=e145]: © 2026 Spring St. Dentistry. All rights reserved.
+        - paragraph [ref=e146]: Spring St. Dentistry is a dental practice. Results may vary.

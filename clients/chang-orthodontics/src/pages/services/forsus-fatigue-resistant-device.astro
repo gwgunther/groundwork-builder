@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Forsus™ Fatigue Resistant Device",
+  "description": "A fixed functional appliance that corrects excessive overbites in adolescents — no compliance required.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Forsus™ Fatigue Resistant Device | ${site.name}`}
+  description="A fixed functional appliance that corrects excessive overbites in adolescents — no compliance required."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Forsus™ Fatigue Resistant Device
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      A fixed functional appliance that corrects excessive overbites in adolescents — no compliance required.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">The Forsus™ Fatigue Resistant Device is a fixed orthodontic appliance used to correct class II malocclusion — the technical term for when the upper jaw and lower jaw don't align properly, often visible as an excessive overbite or a lower jaw that sits too far back. Unlike headgear, which requires a patient to wear a removable device for a set number of hours each day, the Forsus is attached directly to the braces and stays in place throughout the course of treatment. That means correction happens continuously, without depending on whether a teenager remembers to put something in at night.</p>
+      <p class="mb-4">At Chang Orthodontics in Los Alamitos, the Forsus device is one of several functional appliances used to guide jaw development during adolescence — a window when the bones are still growing and responding to gentle, consistent force.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who Is a Good Candidate for the Forsus Device</h2>
+      <p class="mb-4">The Forsus is designed for growing adolescents, typically in their early to mid-teen years, who are already in braces and have a measurable class II bite discrepancy. It works by applying a continuous spring-loaded force between the upper and lower jaws, encouraging the lower jaw to grow forward while the braces simultaneously align the teeth.</p>
+      <p class="mb-4">Patients who might benefit include those with:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>A pronounced overbite where the upper front teeth significantly overlap the lower front teeth</li>
+        <li>A lower jaw that appears recessed relative to the upper jaw</li>
+        <li>A bite pattern that, left untreated, could eventually require orthognathic (jaw) surgery</li>
+      </ul>
+      <p class="mb-4">The Forsus is not typically used in adults, whose jaw growth has already completed. For adult patients with significant jaw discrepancies, surgical options are usually evaluated separately.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">How the Forsus Device Works</h2>
+      <p class="mb-4">The Forsus system consists of a push-rod and spring assembly that connects from a band on the upper first molar down to the lower archwire. It operates on both jaws simultaneously — the spring is always gently active, meaning treatment progresses around the clock rather than only during wear hours.</p>
+      <p class="mb-4">Placement is done chairside by the orthodontist and is integrated into the existing braces. There's no separate appliance to take home and no insertion routine. Once it's in, it simply becomes part of the braces for the duration of its use, typically several months, depending on the degree of correction needed and how much growth remains.</p>
+      <p class="mb-4">Patients in Los Alamitos can expect some initial adjustment — the appliance limits how far the mouth opens and may cause soreness in the jaw muscles for the first week or two. Eating softer foods during that period is helpful. Most patients adapt to normal daily function within two to three weeks.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect During Treatment</h2>
+      <p class="mb-4">Progress with the Forsus device is assessed at every orthodontic appointment — not just periodically. Dr. Chang evaluates how the bite is responding to the appliance and makes any necessary adjustments to the braces at the same visit. This integrated approach means functional correction and tooth alignment are tracked together rather than in separate silos.</p>
+      <p class="mb-4">Both Dr. Chang and Dr. Chung hold appointments as USC Adjunct Assistant Professors of Postdoctoral Orthodontics, which means the clinical protocols used at this practice reflect what's being taught and refined at the graduate level. Functional appliance cases like Forsus treatment are an area where that academic depth is directly applicable.</p>
+      <p class="mb-4">After the Forsus is removed, patients typically continue in braces for the remaining alignment phase, followed by retainers to hold the corrected bite position.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**Does the Forsus device hurt?** There's usually soreness for the first one to two weeks after placement, particularly in the jaw muscles. Over-the-counter pain relievers and soft foods help during that adjustment window. Ongoing discomfort beyond that period should be reported at the next visit.</p>
+      <p class="mb-4">**Can the Forsus break?** The spring assembly is designed for durability — hence the name "fatigue resistant" — but it can occasionally detach or bend if a patient bites down very hard. If something feels loose or broken, contact the office promptly so it can be repaired before it affects treatment progress.</p>
+      <p class="mb-4">**Will my child need jaw surgery if we use the Forsus?** The Forsus is specifically intended to reduce or eliminate the need for orthognathic surgery in growing patients. Whether surgery can be fully avoided depends on the severity of the jaw discrepancy and how much growth remains at the time treatment starts. Dr. Chang discusses realistic outcomes during the initial consultation.</p>
+      <p class="mb-4">**How long does the Forsus stay in?** Treatment time varies, but most patients wear the Forsus for approximately six to twelve months. It is removed once the bite correction goals have been met, and braces continue afterward for final alignment.</p>
+      <p class="mb-4">**Is the Forsus device the same as headgear?** No. Headgear is a removable appliance worn externally, typically for 12–14 hours per day, and its effectiveness depends entirely on patient compliance. The Forsus is fixed to the braces and works continuously without any action required from the patient.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

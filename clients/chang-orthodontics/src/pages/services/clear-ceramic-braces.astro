@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Clear (Ceramic) Braces",
+  "description": "Discreet, effective orthodontic correction using tooth-colored ceramic brackets — delivered by a Board-Certified Diplomate with over 40 years of experience in Los Alamitos.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Clear (Ceramic) Braces | ${site.name}`}
+  description="Discreet, effective orthodontic correction using tooth-colored ceramic brackets — delivered by a Board-Certified Diplomate with over 40 years of experience in Los Alamitos."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Clear (Ceramic) Braces
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Discreet, effective orthodontic correction using tooth-colored ceramic brackets — delivered by a Board-Certified Diplomate with over 40 years of experience in Los Alamitos.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Clear ceramic braces use tooth-colored or translucent brackets bonded directly to the front of your teeth, connected by an archwire that guides teeth into alignment over time. They deliver the same mechanical force and clinical precision as traditional metal braces — the bracket is simply made from a ceramic or composite material that blends with your natural tooth shade rather than standing out against it. For patients in Los Alamitos who want the reliability of a fixed appliance without the visual impact of metal hardware, ceramic braces are a well-established option.</p>
+      <p class="mb-4">At Chang Orthodontics, Dr. Russell Chang also offers LightForce, a fully customized 3D-printed bracket system engineered to match each patient's individual tooth anatomy. Unlike conventional ceramic brackets manufactured to standard shapes, LightForce brackets are printed to fit your specific tooth surfaces, which allows for more efficient force delivery and a more precise, personalized fit from the start of treatment.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">How Ceramic Braces Work</h2>
+      <p class="mb-4">Once brackets are bonded to your teeth, an archwire is threaded through each bracket and secured with small elastic ties. During periodic adjustment appointments — typically scheduled every six to eight weeks — Dr. Chang changes or tightens the wire to continue moving teeth toward their target positions. Because the appliance is fixed, there is no daily compliance requirement: the braces work continuously, whether you're eating, sleeping, or talking.</p>
+      <p class="mb-4">Ceramic brackets are made to resist staining under normal circumstances, though the elastic ties that hold the wire in place can pick up color from coffee, tea, or certain foods between visits. The ties are replaced at each adjustment, so any discoloration resets regularly.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who Is a Good Candidate</h2>
+      <p class="mb-4">Ceramic braces work well for a wide range of alignment issues, including crowding, spacing, overbite, underbite, and crossbite. They are commonly chosen by older teenagers and adults who want effective orthodontic correction with less visible hardware than metal braces provide.</p>
+      <p class="mb-4">Patients who are considering clear aligners but have more complex tooth movements to accomplish, or who prefer not to manage a removable appliance, often find ceramic braces to be a practical middle ground. Dr. Chang will review your records — including photographs, X-rays, and digital scans — during your consultation to determine whether ceramic braces, LightForce custom brackets, or another appliance best fits your specific case.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect During Treatment</h2>
+      <p class="mb-4">A typical bonding appointment, when the brackets are placed, takes roughly 60 to 90 minutes. Your teeth are cleaned, a bonding agent is applied, and each bracket is positioned and light-cured into place. The archwire is then fitted and secured. Most patients notice some pressure and mild soreness in the first few days after bonding and after each subsequent adjustment; this is normal and usually resolves within two to three days.</p>
+      <p class="mb-4">Adjustment visits are shorter — generally 20 to 30 minutes — and happen on a regular schedule throughout treatment. Total treatment time varies depending on the complexity of your case, but most patients complete treatment within 18 to 24 months. Dr. Chang is a Board Certified Diplomate of the American Board of Orthodontics with over 40 years of orthodontic practice in Los Alamitos, and he monitors progress at every visit to make adjustments to the treatment plan as needed.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">After Braces: Retention</h2>
+      <p class="mb-4">When braces are removed, teeth need time to stabilize in their new positions. Retainers — either removable or fixed behind the teeth — are an essential part of maintaining your results long term. Dr. Chang will discuss the retention plan that fits your case before treatment concludes.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**Are ceramic braces more fragile than metal braces?** Ceramic brackets are harder than metal in some respects but can be more brittle under direct impact. They hold up well under normal chewing forces, though patients are generally advised to avoid very hard or crunchy foods that could chip any bracket, ceramic or metal.</p>
+      <p class="mb-4">**Will ceramic braces stain my teeth?** The brackets themselves are stain-resistant. The elastic ties can discolor between visits, but they're replaced at each adjustment appointment. Maintaining regular brushing and limiting staining beverages helps keep the overall appearance clean.</p>
+      <p class="mb-4">**How is LightForce different from standard ceramic braces?** Standard ceramic brackets come in preset shapes and sizes. LightForce brackets are 3D-printed to the exact contours of your individual teeth, which can improve how efficiently forces are applied and reduce the need for certain wire bends.</p>
+      <p class="mb-4">**Do ceramic braces cost more than metal braces?** Ceramic brackets typically carry a modest cost difference compared to metal. The exact fee depends on the complexity of your case and the bracket system selected. A consultation at Chang Orthodontics will include a full breakdown of costs and available payment arrangements.</p>
+      <p class="mb-4">**Can adults get ceramic braces?** Yes. There is no age ceiling for ceramic braces. Many adult patients in the Los Alamitos area specifically choose ceramic over metal for professional or personal reasons, and the clinical outcomes are the same.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

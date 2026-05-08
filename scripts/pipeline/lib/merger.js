@@ -154,11 +154,9 @@ export function mergeData(scrapeData, intakeData, preset = null) {
   ];
 
   data.services.offered = deduplicateServices(allServices);
-  data.services.hubs = determineServiceHubs(
-    data.services.offered,
-    preset?.hubs?.definitions || [],
-    preset?.taxonomy?.services || [],
-  );
+  // Hubs are disabled — we preserve the original site's service structure exactly.
+  // No auto-generated parent categories. Every service page mirrors what was on the original site.
+  data.services.hubs = [];
 
   if (data.services.offered.length === 0) {
     flags.push('services: none detected — keeping general-dentistry hub only');
@@ -234,6 +232,34 @@ export function mergeData(scrapeData, intakeData, preset = null) {
   data.meta.clientId = intakeData.meta?.clientId || scrapeData.meta?.clientId || null;
   data.meta.confidenceFlags = flags;
 
+  // ---- Pass-through fields (not in schema, added by silver/downstream steps) ----
+  // X1: silver now produces `differentiators` (was `signals`); accept both for back-compat
+  if (Array.isArray(scrapeData.differentiators)) data.differentiators = scrapeData.differentiators;
+  else if (Array.isArray(scrapeData.signals))    data.differentiators = scrapeData.signals;
+  // Keep `signals` alias so older consumers don't break
+  if (data.differentiators) data.signals = data.differentiators;
+
+  // X2: top-level additionalContent[] (silver promoted it from content.additionalContent)
+  if (Array.isArray(scrapeData.additionalContent)) {
+    data.additionalContent = scrapeData.additionalContent;
+  } else if (Array.isArray(scrapeData.content?.additionalContent)) {
+    // Legacy nested location
+    data.additionalContent = scrapeData.content.additionalContent;
+  }
+
+  // X3: doctors[] array (was doctor + additionalDoctors). If silver provided
+  // doctors[], use it; otherwise reconstruct from legacy fields.
+  if (Array.isArray(scrapeData.doctors)) {
+    data.doctors = scrapeData.doctors;
+  } else if (data.doctor || (data.additionalDoctors || []).length > 0) {
+    data.doctors = [
+      ...(data.doctor && data.doctor.name ? [data.doctor] : []),
+      ...((data.additionalDoctors || []).filter(d => d?.name)),
+    ];
+  }
+
+  if (scrapeData.pageInventory)          data.pageInventory = scrapeData.pageInventory;
+
   return data;
 }
 
@@ -250,38 +276,44 @@ export function mergeData(scrapeData, intakeData, preset = null) {
  * @returns {Array} Array of hub objects { slug, label, desc }.
  */
 export function determineServiceHubs(services, hubDefinitions = [], taxonomyServices = []) {
+  // Hubs are ONLY created when the original site explicitly had that service category
+  // by name — we never synthesize parent categories from individual sub-services.
+  // A hub must appear verbatim (or near-verbatim) in the scraped service list.
   const activeHubs = [];
 
   for (const hub of hubDefinitions) {
-    // Always keep general-dentistry
+    // alwaysKeep is disabled — no hub is forced. Every hub must be earned.
     if (hub.alwaysKeep) {
+      // Only keep if an exact slug or label match exists in scraped services
+      const hasExact = services.some(s => s.slug === hub.slug ||
+        s.name.toLowerCase() === hub.label.toLowerCase());
+      if (!hasExact) continue;
       activeHubs.push({ slug: hub.slug, label: hub.label, desc: hub.desc });
       continue;
     }
 
-    // Check if any service matches this hub
-    const hasMatch = services.some(svc => {
-      // If the hub defines specific matchSlugs, use those
-      if (hub.matchSlugs) {
-        return hub.matchSlugs.includes(svc.slug);
-      }
+    // Only create a hub if the practice explicitly offered it as a named category.
+    // Matching individual sub-services (e.g. "Dental Crown" → restorative hub) is
+    // NOT sufficient — that invents categories the practice never marketed.
+    // A hub requires: the hub slug itself, OR a service whose name closely matches
+    // the hub label, OR an explicit matchSlugs hit.
+    const hasExplicitMatch = services.some(svc => {
+      // Exact hub slug match (practice listed the category by name)
+      if (svc.slug === hub.slug) return true;
 
-      // Exclude certain slugs if specified (e.g. restorative excludes implant slugs)
-      if (hub.excludeSlugs && hub.excludeSlugs.includes(svc.slug)) {
-        return false;
-      }
+      // Explicit slug allowlist from hub definition
+      if (hub.matchSlugs?.includes(svc.slug)) return true;
 
-      // Match by taxonomy category
-      const taxonomyEntry = taxonomyServices.find(t => t.slug === svc.slug);
-      if (taxonomyEntry && hub.categories.includes(taxonomyEntry.category)) {
-        return true;
-      }
+      // Name similarity: service name contains hub label words (≥2 words matching)
+      const hubWords = hub.label.toLowerCase().split(/\s+/).filter(w => w.length > 3);
+      const svcName  = svc.name.toLowerCase();
+      const matchCount = hubWords.filter(w => svcName.includes(w)).length;
+      if (matchCount >= 2) return true;
 
-      // Fallback: match if the service slug starts with the hub slug
-      return svc.slug === hub.slug || svc.slug.startsWith(hub.slug + '-');
+      return false;
     });
 
-    if (hasMatch) {
+    if (hasExplicitMatch) {
       activeHubs.push({ slug: hub.slug, label: hub.label, desc: hub.desc });
     }
   }

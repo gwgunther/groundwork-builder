@@ -1,0 +1,84 @@
+{
+  "palette": {
+    "primary": "#1a4d6e",
+    "secondary": "#2e7da6",
+    "light": "#f2f7fa",
+    "accent": "#e8a840",
+    "dark": "#0f2635",
+    "muted": "#5a7a8c"
+  },
+  "typography": {
+    "heading": "Plus Jakarta Sans",
+    "body": "DM Sans",
+    "scale": {
+      "h1": "text-4xl md:text-6xl font-bold",
+      "h2": "text-3xl md:text-4xl font-semibold",
+      "h3": "text-xl md:text-2xl font-semibold",
+      "body": "text-base md:text-lg leading-relaxed",
+      "small": "text-sm"
+    },
+    "tracking": "tight for headings, normal for body"
+  },
+  "spatial": {
+    "sectionPadding": "py-16 md:py-24",
+    "containerWidth": "max-w-7xl",
+    "cardRadius": "rounded-2xl",
+    "density": "balanced"
+  },
+  "motion": {
+    "transitions": "duration-200 ease-out",
+    "hoverElevation": "hover:-translate-y-1 hover:shadow-md",
+    "pageEntrance": "brief and functional — no animation for its own sake"
+  },
+  "voice": {
+    "headline_style": "Outcome-led and confidence-forward — headlines should name the transformation or clinical advantage the patient walks away with, not the procedure name. Dr. Nguyen's breadth and credentials earn authority; headlines should project that authority without sounding clinical or cold. Conversational enough to invite, specific enough to differentiate.",
+    "cta_language": "Active, specific, and low-friction — CTAs should name the next step clearly and remove ambiguity about what happens after the click. Favor language that positions the action as a patient benefit rather than a practice request. Emergency and extended-hours availability should inform CTA urgency only where genuinely relevant.",
+    "tone_notes": "Copy should feel like a highly credentialed friend explaining your options — warm but never vague, thorough but never clinical. Dr. Nguyen's UCLA educator role, hospital privileges, and award wins are proof points to be woven into context, not broadcast as bullet points."
+  },
+  "mood": "Credentialed Coastal Confidence",
+  "rationale": "The existing brand's saturated orange-and-chaos palette was abandoned entirely — it read as a discount urgent-care walk-in, not an Invisalign Platinum Provider with hospital privileges and a UCLA faculty role. The new system is anchored in deep ocean navy (#1a4d6e), a color with zero competition in Costa Mesa dental, that communicates both the coastal Orange County context and the specialist-grade authority Dr. Nguyen has genuinely earned. The amber accent (#e8a840) is the one deliberate warm signal in an otherwise cool system — it references the practice's original orange energy without the chaos, and activates only at 10% weight on icons, hover states, and star ratings so it never dilutes the premium register. Plus Jakarta Sans as the heading face brings grotesque authority with enough optical warmth to avoid the sterile hospital read — the right call for a practice that is both clinically comprehensive and genuinely patient-welcoming. The light background (#f2f7fa) is not pure white but a navy-tinted near-white, creating subconscious palette cohesion across every surface per the tinted-neutrals principle.",
+  "paletteSource": "None of the curated warm palettes were appropriate — the Color Temperature Guidance explicitly flagged terracotta, amber, and coral as tonally wrong for a specialist/premium positioning. The forest-bold option was the closest candidate structurally (dark primary, strong contrast, non-generic) but its green hue read as health-food rather than clinical excellence. A bespoke cool navy system was derived instead, informed by the specialist-palette guidance and the practice's coastal Orange County geography, with the amber accent salvaged from the practice's original orange energy to provide the one thread of continuity from the existing brand.",
+  "contrastCheck": "WCAG AA: 3/3 required pairs pass",
+  "wcagAudit": {
+    "ok": true,
+    "checks": [
+      {
+        "pair": "dark/light",
+        "ratio": 14.43,
+        "threshold": 4.5,
+        "passes": true
+      },
+      {
+        "pair": "primary/light",
+        "ratio": 8.35,
+        "threshold": 4.5,
+        "passes": true
+      },
+      {
+        "pair": "light/dark",
+        "ratio": 14.43,
+        "threshold": 4.5,
+        "passes": true
+      }
+    ],
+    "failures": [],
+    "summary": "WCAG AA: 3/3 required pairs pass"
+  },
+  "_meta": {
+    "model": "claude-sonnet-4-6",
+    "duration_ms": 27717,
+    "tokens": {
+      "input_tokens": 11349,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1188,
+      "service_tier": "standard",
+      "inference_geo": "global"
+    },
+    "impeccableRefsLoaded": true
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "hero": "heroes/office-1-los-alamitos-office.jpg",
+  "doctorPortrait": "team/team-1-meet-dr-russell-ek-chang.jpg",
+  "doctorPortraits": {
+    "Dr. Russell EK Chang": "team/team-1-meet-dr-russell-ek-chang.jpg",
+    "Dr. Christine Chung": "team/team-2-meet-dr-christine-chung.jpg"
+  },
+  "team": [
+    "team/team-2-meet-dr-christine-chung.jpg",
+    "team/team-3-letty.jpg",
+    "team/team-4-erin.jpg",
+    "team/team-6-thelma.jpg",
+    "team/team-7-miriam.jpg",
+    "gallery/gallery-1-c1.jpg",
+    "gallery/gallery-14-surgical.jpg",
+    "gallery/gallery-5-c5.jpg",
+    "gallery/gallery-6-c6.jpg",
+    "heroes/office-1-los-alamitos-office.jpg",
+    "team/team-8-6fe498f8-3c66-83ed-2f783cb4c7c3.JPG",
+    "gallery/gallery-3-c3.jpg",
+    "gallery/gallery-36-dentofacial-orthopedics.jpg",
+    "gallery/gallery-2-c2.jpg",
+    "gallery/gallery-4-c4.jpg",
+    "team/team-5-sandra.jpg"
+  ],
+  "interior": [],
+  "gallery": [
+    "gallery/gallery-13-invisalign-profile.jpg",
+    "gallery/gallery-27-traditional-metal.jpg",
+    "gallery/gallery-28-self-ligating-braces.jpg",
+    "gallery/gallery-29-clear.jpg",
+    "gallery/gallery-30-invisalign.jpg",
+    "gallery/gallery-35-damon.png",
+    "gallery/gallery-34-girl.jpg"
+  ],
+  "beforeAfter": [],
+  "unused": [
+    "branding/logo.png",
+    "gallery/gallery-10-loose-bracket.jpg",
+    "gallery/gallery-11-loose-wire.jpg",
+    "gallery/gallery-12-poking-wire.jpg",
+    "gallery/gallery-15-craniofacial.jpg",
+    "gallery/gallery-16-rubber-bands.jpg",
+    "gallery/gallery-17-forsus.jpg",
+    "gallery/gallery-18-headgear.jpg",
+    "gallery/gallery-19-herbst.jpg",
+    "gallery/gallery-20-palatal-expander.jpg",
+    "gallery/gallery-21-positioner.jpg",
+    "gallery/gallery-22-retainers.jpg",
+    "gallery/gallery-23-separators.jpg",
+    "gallery/gallery-26-suresmile-logo-std.png",
+    "gallery/gallery-32-traditional-braces.jpg",
+    "gallery/gallery-33-in-ovation-braces.jpg",
+    "gallery/gallery-37-retainers.jpg",
+    "gallery/gallery-38-digital-xray.jpg",
+    "gallery/gallery-7-general-soreness.jpg",
+    "gallery/gallery-8-headgear.jpg",
+    "gallery/gallery-9-loose-appliance.jpg"
+  ]
+}

@@ -1,0 +1,88 @@
+---
+/**
+ * FAQ Accordion Expandable — Alpine-driven accordion. First item open by default.
+ */
+import type { FaqContent } from '../types';
+import { designDNA } from '../../../config/design-dna';
+import { resolveTokens } from '../token-utils';
+
+const { content } = Astro.props;
+
+const tokens = (designDNA as any).designTokens ?? {};
+const t = resolveTokens(tokens);
+
+const eyebrow = content.eyebrow ?? 'Frequently Asked';
+const heading = content.heading ?? 'Common Questions';
+
+const schemaJson = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": (content.items ?? []).map((it) => ({
+    "@type": "Question",
+    "name": it.q,
+    "acceptedAnswer": { "@type": "Answer", "text": it.a }
+  }))
+});
+---
+
+{content.items && content.items.length > 0 && (
+  <section data-section="faq" class={`bg-surface-2 ${t.spacingClass}`}>
+    <div class={t.containerClass}>
+      <div class="max-w-3xl mx-auto">
+
+        <!-- Header -->
+        <div class="text-center mb-12">
+          {eyebrow && <span class={t.eyebrowClass}>{eyebrow}</span>}
+          <h2 class="font-serif text-3xl md:text-4xl font-bold text-neutral-dark mt-2">
+            {heading}
+          </h2>
+          {content.subheading && (
+            <p class="font-sans text-lg text-neutral-mid leading-relaxed mt-4">
+              {content.subheading}
+            </p>
+          )}
+        </div>
+
+        <!-- Accordion list -->
+        <div class="space-y-3">
+          {content.items.map((faq, i) => (
+            <div
+              class={`bg-surface-1 border border-border-light overflow-hidden ${t.radiusClass}`}
+              x-data={`{ open: ${i === 0 ? 'true' : 'false'} }`}
+            >
+              <button
+                type="button"
+                @click="open = !open"
+                class="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-surface-2/50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-inset"
+                :aria-expanded="open"
+                aria-controls={`faq-body-${i}`}
+              >
+                <span class="font-serif text-base md:text-lg font-semibold text-neutral-dark">
+                  {faq.q}
+                </span>
+                <svg
+                  class="w-5 h-5 text-brand-primary flex-shrink-0 transition-transform duration-200"
+                  :class="{ 'rotate-180': open }"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div id={`faq-body-${i}`} x-show="open" x-transition.duration.200ms>
+                <div class="px-6 pb-5 text-neutral-mid text-sm md:text-base leading-relaxed">
+                  {faq.a}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </div>
+  </section>
+)}
+
+<script type="application/ld+json" set:html={schemaJson} />

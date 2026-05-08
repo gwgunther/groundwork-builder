@@ -1,0 +1,447 @@
+{
+  "contentAudit": {
+    "homepage.heroHeadline": {
+      "existing": "Welcome to Pediatric Dental Specialists",
+      "source": "/",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "The H1 is a plain welcome statement with no positioning, benefit language, or differentiation — it reads as a default template placeholder rather than a compelling headline."
+    },
+    "homepage.heroSubheadline": {
+      "existing": "Guiding the Way to",
+      "source": "/",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "The scraped text is an incomplete fragment ('Guiding the Way to' with no conclusion), making it unusable as a subheadline without fabricating the missing portion."
+    },
+    "homepage.heroTagline": {
+      "existing": "We consider dental health to be an integral part of overall good health.",
+      "source": "/",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The meta description provides a usable philosophical statement but is generic and could apply to any dental practice; it needs sharper pediatric-specific framing."
+    },
+    "homepage.valueProp": {
+      "existing": "We strive to make your child's first dental visit an enjoyable one. Young children receive a personalized storybook in which their name appears throughout the story.",
+      "source": "/",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "This is a distinctive, practice-specific patient perk with a concrete detail (personalized storybook) that immediately differentiates the practice from generic competitors."
+    },
+    "about.headline": {
+      "existing": "Meet Dr. Cortez",
+      "source": "/meet-dr-cortez.php",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "The H1 from the doctor page is purely functional navigation text, not a compelling about-section headline that communicates the practice's identity or positioning."
+    },
+    "about.introParagraph": {
+      "existing": "Our staff is a strong team of compassionate and highly trained individuals who are committed to lifelong good oral health for our patients. You will find each of them caring and knowledgeable. This team is made up of clerical and clinical staff. The clinical staff members are all registered dental assistants and are certified with coronal polishing and X-ray licenses by the Department of California – Department of Consumer Affairs. They take over 25 hours of continuing education to renew their licenses in a variety of areas, including CPR, dental emergencies and infection control. Many of our staff members, besides having the professional training, also possess the practical experience of being parents themselves.",
+      "source": "/meet-our-team.php",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "This block has genuine substance — specific credentials, CE hours, and the parent-experience differentiator — but reads as a team page description rather than a practice-level about intro; it needs reframing and tightening."
+    },
+    "about.philosophy": {
+      "existing": "My practice philosophy is to provide the best possible dental care for children in a friendly environment and to advocate for the children's welfare in any way that I can. I enjoy seeing children who perhaps have been afraid of what we do for them, then develop trust and a positive attitude toward dentistry. After more than 35 years of continuous private practice, I still enjoy working with families every day and helping keep children in good oral health.",
+      "source": "/meet-dr-cortez.php",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "This is a verbatim pull from Dr. Cortez's own voice that names a specific philosophy, emotional arc (fear to trust), and tenure — exactly the kind of authentic, practice-specific content that defines brand voice."
+    },
+    "services.first-dental-visit.intro": {
+      "existing": "The American Academy of Pediatrics and the American Academy of Pediatric Dentistry recommend that infants be seen shortly after the first tooth erupts or no later than their first birthday.",
+      "source": "/first-dental-visit.php",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The meta description provides a credible, authority-backed opening fact but is a single clinical sentence that needs expansion into a full service intro with practice context."
+    },
+    "services.silver-diamine-fluoride.intro": {
+      "existing": "Silver Diamine Fluoride may slow or stop tooth decay.",
+      "source": "/silver-diamine-fluoride.php",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "The meta description is a bare five-word clinical claim with no context, benefit framing, or patient-facing explanation — insufficient as a service intro."
+    },
+    "services.dental-care-for-your-baby.intro": {
+      "existing": "Starting your child off with good dental care can help protect their teeth for decades to come.",
+      "source": "/dental-care-for-your-baby.php",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The meta description is a serviceable benefit statement but generic enough to appear on any pediatric dental site; it needs practice-specific framing to earn its place as a section intro."
+    },
+    "services.digit-sucking-pacifier-use.intro": {
+      "existing": "Sucking is quite normal in babies and young children. Most babies and toddlers suck their thumbs, but they may also suck on their fingers, hands, or items such as pacifiers.",
+      "source": "/digit-sucking.php",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The meta description is clinically accurate and parent-friendly but reads as a generic educational opener with no connection to how this practice specifically addresses the issue."
+    },
+    "services.dental-exams-and-cleanings.intro": {
+      "existing": "The American Dental Association recommends that you visit your dentist every six months to ensure your teeth stay healthy and your smile stays beautiful.",
+      "source": "/dental-exams-and-cleanings.php",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Referencing the ADA recommendation is a solid authority anchor, but the copy is entirely generic and uses 'you' rather than child-patient framing appropriate to a pediatric practice."
+    },
+    "services.oral-cancer-screening.intro": {
+      "existing": "It is very important to visit our office to rule out the possibility of oral cancer.",
+      "source": "/oral-cancer-screening.php",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "The meta description is a single vague sentence that conveys urgency without any clinical detail, patient benefit, or explanation of how this fits into a pediatric preventive visit."
+    },
+    "services.preventive-care.intro": {
+      "existing": "Preventive dental care is important throughout your life, no matter your age.",
+      "source": "/preventive-care.php",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "The meta description is a textbook-level platitude with no specificity to pediatric patients, this practice, or what preventive care at this office actually includes."
+    },
+    "services.fluoride.intro": {
+      "existing": "Fluoride is effective in preventing cavities and tooth decay by coating your teeth and preventing plaque from building up and hardening on the tooth's surface.",
+      "source": "/fluoride.php",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The meta description is a clinically accurate mechanism statement that could anchor a service intro, but it needs child-specific context and a connection to the practice's SDF offering."
+    },
+    "services.sealants.intro": {
+      "existing": "Sometimes brushing is not enough, especially when it comes to those hard-to-reach spots in your mouth.",
+      "source": "/sealants.php",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "This is a relatable patient-friendly opener that sets up the problem sealants solve, but it requires expansion with what the practice offers and why it matters for children specifically."
+    },
+    "services.gum-disease.intro": {
+      "existing": "Gum disease, also known as periodontal disease, is an infection of the gums that surround your teeth. Gum disease is one of the primary causes of tooth loss in adults.",
+      "source": "/gum-disease.php",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The meta description is a clear clinical definition and states consequence, but the adult-loss framing needs to be reoriented toward pediatric prevention and early intervention."
+    },
+    "services.orthodontics.intro": {
+      "existing": "We offer pediatric dentistry and orthodontics for children, teens, and patients with special healthcare needs.",
+      "source": "/what-sets-us-apart.php",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "This line from the dental-services meta captures the dual-specialty and special-needs angle but is a single broad claim that needs elaboration for a dedicated orthodontics service intro."
+    },
+    "services.emergencies.intro": {
+      "existing": "Damaging your appliances can call for emergency care. Stay informed if problems occur & understand how to solve them until you return to the office.",
+      "source": "/emergencies.php",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The meta description is functional and parent-reassuring but scoped narrowly to appliance damage rather than the full range of pediatric emergencies (traumatic injuries, tooth pain, gum emergencies) covered on the page."
+    },
+    "services.retention.intro": {
+      "existing": "Because teeth can continue to move throughout life, we feel that individuals who have undergone orthodontic therapy should wear retainers indefinitely. A patient should wear retainers as prescribe",
+      "source": "/retention.php",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The scraped text contains a genuine clinical rationale with a distinctive indefinite-wear philosophy, but it is truncated mid-sentence and needs completion and light editing before use."
+    },
+    "services.orthodontic-emergency-care.intro": {
+      "existing": "We want our patients to be informed of problems that may occur, and understand how to solve them, at least temporarily, until it is possible to return to our office.",
+      "source": "/orthodontic-emergency-care.php",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The meta description conveys the patient-empowerment philosophy clearly and is appropriately reassuring, but it needs to name specific emergency types covered and reference the practice's availability."
+    },
+    "services.traumatic-dental-injuries.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "No scraped service page content was returned for this section, and the emergencies page meta/H2 references the topic but provides no intro-level prose specific to traumatic dental injuries."
+    },
+    "services.tooth-pain.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "No scraped service page content was returned and no source in pageInventory or additionalContent provides an intro-level paragraph for tooth pain as a standalone service section."
+    },
+    "services.gum-emergencies.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "Gum emergencies is listed as an H2 on the emergencies page but no intro prose was captured for it as an independent service section in any source."
+    },
+    "services.first-days-in-braces.intro": {
+      "existing": "For your first day in braces, the adhesive used for attaching the braces to your teeth cures rapidly. You can eat any time after leaving our office.",
+      "source": "/first-days-in-braces.php",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The meta description is practical and reassuring but focuses on a single narrow detail; a proper intro needs to frame the full first-days experience and set patient expectations more broadly."
+    },
+    "services.eating-with-braces.intro": {
+      "existing": "When eating with orthodontic appliances, avoid hard or sticky foods. These foods cause breakage of the brackets or wires. Avoid biting your nails.",
+      "source": "/eating-with-orthodontic-appliances.php",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The meta description provides the core patient-safety message but reads as a bulleted instruction rather than a welcoming, context-setting service intro paragraph."
+    },
+    "services.oral-hygiene-with-braces.intro": {
+      "existing": "Brushing after meals and flossing will help prevent plaque from forming and should become part of your daily schedule.",
+      "source": "/oral-hygiene-with-braces.php",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The meta description is a solid foundational statement but generic in tone and missing any practice-specific context, encouragement framing, or elaboration on what the page covers."
+    },
+    "services.silver-diamine-fluoride-sdf.intro": {
+      "existing": "Silver Diamine Fluoride may slow or stop tooth decay.",
+      "source": "/silver-diamine-fluoride.php",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "This section maps to the same source page as services.silver-diamine-fluoride.intro and suffers the same deficiency — the only captured meta text is a five-word clinical fragment insufficient for a service intro."
+    },
+    "services.dental-services.intro": {
+      "existing": "We offer a range of pediatric dental services for infants, children and adolescents including those with special medical needs along with orthodontic treatment for children and teens.",
+      "source": "/dental-services.php",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The meta description accurately covers the breadth of the practice's scope including special-needs patients, but it is a single broad sentence that functions as a navigation label rather than an engaging service intro."
+    },
+    "services.loose-band-or-bracket-repair.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "This service is listed as an H2 on the orthodontic emergency care page but no intro-level prose was captured for it as an independent service section in any source."
+    },
+    "services.broken-archwire-repair.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "This service is listed as an H2 on the orthodontic emergency care page but no intro-level prose was captured for it as an independent service section in any source."
+    },
+    "services.loose-wire-repair.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "This service is listed as an H2 on the orthodontic emergency care page but no intro-level prose was captured for it as an independent service section in any source."
+    },
+    "services.poking-wire-treatment.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "This service is listed as an H2 on the orthodontic emergency care page but no intro-level prose was captured for it as an independent service section in any source."
+    },
+    "services.lost-tie-wire-or-elastic-tie-replacement.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "This service is listed as an H2 on the orthodontic emergency care page but no intro-level prose was captured for it as an independent service section in any source."
+    },
+    "services.headgear-fitting.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "Headgear is listed as an H2 on the orthodontic emergency care page but no intro-level prose was captured for headgear fitting as a standalone service section in any source."
+    },
+    "services.pediatric-dentistry.intro": {
+      "existing": "We offer pediatric dentistry and orthodontics for children, teens, and patients with special healthcare needs.",
+      "source": "/what-sets-us-apart.php",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "The only available text is the dental-services meta — a single broad positioning line that does not describe what pediatric dentistry entails or what differentiates this practice's approach to it."
+    },
+    "services.traditional-silver-braces.intro": {
+      "existing": "Choose your look and find what look works best for you. Your choice from; Traditional Silver, Ceramic, Invisalign or Lingual Braces.",
+      "source": "/choose-your-look.php",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "The meta description is a page-navigation prompt listing brace types, not an intro for traditional silver braces specifically; it provides no clinical or patient benefit information."
+    },
+    "services.invisalign-teen.intro": {
+      "existing": "Choose your look and find what look works best for you. Your choice from; Traditional Silver, Ceramic, Invisalign or Lingual Braces.",
+      "source": "/choose-your-look.php",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Same source as traditional-silver-braces.intro — a generic choice-page meta that does not address Invisalign Teen specifically in terms of benefits, candidacy, or the teen patient experience."
+    },
+    "services.eating-with-braces-dietary-guidance.intro": {
+      "existing": "When eating with orthodontic appliances, avoid hard or sticky foods. These foods cause breakage of the brackets or wires. Avoid biting your nails.",
+      "source": "/eating-with-orthodontic-appliances.php",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "This maps to the same source as services.eating-with-braces.intro and has the same usable-but-instruction-style limitation; it needs reframing as an intro rather than a rule list."
+    },
+    "services.orthodontic-consultation.intro": {
+      "existing": "At your first visit, we will complete a comprehensive orthodontic evaluation.",
+      "source": "/your-first-visit.php",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The meta description states the core action clearly but is a single sparse sentence that needs expansion to describe what the evaluation includes and what patients and families can expect."
+    },
+    "services.braces.intro": {
+      "existing": "We offer pediatric dentistry and orthodontics for children, teens, and patients with special healthcare needs.",
+      "source": "/what-sets-us-apart.php",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "The only available candidate is the same broad dental-services meta used for multiple sections — it has no content specific to braces as a treatment category and must be written from scratch."
+    }
+  },
+  "coverage": {
+    "totalSections": 42,
+    "byQuality": {
+      "strong": 3,
+      "adequate": 20,
+      "weak": 10,
+      "missing": 9
+    },
+    "byAction": {
+      "keep": 3,
+      "optimize": 20,
+      "create": 19
+    }
+  },
+  "differentiatorMatches": {
+    "first-dental-visit": [
+      "Personalized storybook for young child patients",
+      "Many staff members are parents themselves",
+      "35+ years continuous private practice in pediatric dentistry"
+    ],
+    "silver-diamine-fluoride": [
+      "SDF treatment avoids local anesthesia and sedation",
+      "Silver Diamine Fluoride 70–90% effective in treated teeth",
+      "Silver Diamine Fluoride treatment offered for pediatric patients"
+    ],
+    "dental-care-for-your-baby": [
+      "Many staff members are parents themselves",
+      "Staff complete 25+ hours continuing education annually"
+    ],
+    "digit-sucking-pacifier-use": [
+      "Many staff members are parents themselves"
+    ],
+    "dental-exams-and-cleanings": [
+      "ADA-recommended biannual exams and cleanings offered",
+      "Paperless charts, digital x-rays, digital impressions",
+      "Staff complete 25+ hours continuing education annually"
+    ],
+    "oral-cancer-screening": [
+      "Holistic approach including oral cancer screening"
+    ],
+    "preventive-care": [
+      "Staff complete 25+ hours continuing education annually",
+      "Many staff members are parents themselves"
+    ],
+    "fluoride": [
+      "Silver Diamine Fluoride treatment offered for pediatric patients"
+    ],
+    "sealants": [
+      "Staff complete 25+ hours continuing education annually"
+    ],
+    "gum-disease": [
+      "Staff complete 25+ hours continuing education annually"
+    ],
+    "orthodontics": [
+      "Pediatric dentistry and orthodontics under one roof",
+      "Latest orthodontic techniques used for patient care",
+      "Three doctors with specialized training and experience",
+      "Board certified in Pediatric Dentistry since 2007",
+      "UCLA Omicron Kappa Upsilon Honor Society, top 5% of class"
+    ],
+    "emergencies": [
+      "Emergency dental care for children available",
+      "Orthodontic emergency care guidance provided to patients"
+    ],
+    "retention": [
+      "Indefinite retainer wear recommended post-orthodontics"
+    ],
+    "orthodontic-emergency-care": [
+      "Orthodontic emergency care guidance provided to patients",
+      "Emergency dental care for children available"
+    ],
+    "traumatic-dental-injuries": [
+      "Emergency dental care for children available"
+    ],
+    "tooth-pain": [
+      "Emergency dental care for children available"
+    ],
+    "gum-emergencies": [
+      "Emergency dental care for children available"
+    ],
+    "first-days-in-braces": [
+      "Latest orthodontic techniques used for patient care"
+    ],
+    "eating-with-braces": [],
+    "oral-hygiene-with-braces": [
+      "Paperless charts, digital x-rays, digital impressions"
+    ],
+    "silver-diamine-fluoride-sdf": [
+      "SDF treatment avoids local anesthesia and sedation",
+      "Silver Diamine Fluoride 70–90% effective in treated teeth",
+      "Silver Diamine Fluoride treatment offered for pediatric patients"
+    ],
+    "dental-services": [
+      "Pediatric dentistry and orthodontics under one roof",
+      "Care for patients with special healthcare needs",
+      "Three doctors with specialized training and experience"
+    ],
+    "loose-band-or-bracket-repair": [
+      "Orthodontic emergency care guidance provided to patients"
+    ],
+    "broken-archwire-repair": [
+      "Orthodontic emergency care guidance provided to patients"
+    ],
+    "loose-wire-repair": [
+      "Orthodontic emergency care guidance provided to patients"
+    ],
+    "poking-wire-treatment": [
+      "Orthodontic emergency care guidance provided to patients"
+    ],
+    "lost-tie-wire-or-elastic-tie-replacement": [
+      "Orthodontic emergency care guidance provided to patients"
+    ],
+    "headgear-fitting": [
+      "Latest orthodontic techniques used for patient care"
+    ],
+    "pediatric-dentistry": [
+      "Pediatric dentistry and orthodontics under one roof",
+      "Care for patients with special healthcare needs",
+      "35+ years continuous private practice in pediatric dentistry",
+      "Board certified in Pediatric Dentistry since 2007",
+      "Diplomat of the American Board of Pediatric Dentistry",
+      "Three doctors with specialized training and experience",
+      "Many staff members are parents themselves"
+    ],
+    "traditional-silver-braces": [
+      "Nickel-free high-grade steel traditional braces",
+      "Latest orthodontic techniques used for patient care"
+    ],
+    "invisalign-teen": [
+      "Invisalign Teen orthodontic option available",
+      "Latest orthodontic techniques used for patient care",
+      "Paperless charts, digital x-rays, digital impressions"
+    ],
+    "eating-with-braces-dietary-guidance": [],
+    "orthodontic-consultation": [
+      "Three doctors with specialized training and experience",
+      "Board certified in Pediatric Dentistry since 2007",
+      "Pediatric dentistry and orthodontics under one roof",
+      "Custom payment plans to fit your budget"
+    ],
+    "braces": [
+      "Nickel-free high-grade steel traditional braces",
+      "Invisalign Teen orthodontic option available",
+      "Latest orthodontic techniques used for patient care",
+      "Pediatric dentistry and orthodontics under one roof",
+      "Three doctors with specialized training and experience"
+    ]
+  },
+  "rationale": "The practice has a genuine and distinctive voice concentrated in the doctor philosophy statements and team bios — particularly Dr. Cortez's 35-year practice narrative, the personalized storybook patient perk, and the team's parent-experience differentiator — all of which are strong keep candidates for hero and about sections. Service page coverage is shallow across the board: the scraped service pages returned no body content, leaving only meta descriptions as source material, which means the majority of service intros will require new copy built from the differentiator library and clinical context. The Content Write phase should treat the three strong keep items as voice anchors and use them to calibrate tone — warm, credentialed, child-and-family-centered — across all 19 sections flagged for creation.",
+  "_meta": {
+    "model": "claude-sonnet-4-6",
+    "input_tokens": 12166,
+    "output_tokens": 6589,
+    "duration_ms": 108547,
+    "cost": 0.1353
+  }
+}

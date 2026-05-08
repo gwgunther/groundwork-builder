@@ -1,0 +1,147 @@
+{
+  "dna": {
+    "archetype": "magazine-split",
+    "heroVariant": "asymmetric-left",
+    "servicesVariant": "editorial-list",
+    "navVariant": "top-bar",
+    "footerVariant": "editorial-split",
+    "ctaVariant": "full-width-dark",
+    "doctorVariant": "portrait-right",
+    "galleryVariant": "featured-grid",
+    "sectionOrder": [
+      "hero",
+      "stat-bar",
+      "doctor-intro",
+      "services",
+      "reviews",
+      "gallery",
+      "cta"
+    ],
+    "cardTreatment": "soft-shadow",
+    "density": "balanced",
+    "motion": "subtle",
+    "radius": "lg",
+    "borrowedFrom": null,
+    "borrowedTrait": "none — no inspo references provided",
+    "headingScale": "moderate",
+    "sectionDivider": "color-shift",
+    "heroTextPosition": "bottom-left",
+    "divergenceRationale": "Both recent orthodontic builds used warm-editorial with a split-image hero, so magazine-split with an asymmetric-left hero creates immediate structural differentiation while staying squarely in the editorial/bold family appropriate for a credentialed specialist. Centered-classic and card-heavy were ruled out because the deep-navy palette and FACD-level positioning demand the cooler, higher-authority editorial register — not the warm community-practice warmth of the classic family.",
+    "creativeDirection": "The site reads like a respected specialist's monograph: deep navy grounds every section with quiet authority, the gold accent surfaces only at moments of distinction (credentials, primary CTA, section markers), and the asymmetric editorial layout gives credentials and outcomes room to breathe without ever feeling sparse or startup-ish.",
+    "coverage": {
+      "filteredSections": []
+    },
+    "typographyScale": "serif (heading) / sans-serif (body) — scale 14/16/20/28/40/56px",
+    "colorPalette": {
+      "primary": "#896634",
+      "secondary": "#c49451",
+      "accent": "#c49451",
+      "light": null,
+      "raw": [
+        "#c49451",
+        "#896634"
+      ]
+    },
+    "spacingScale": "4/8/16/24/48/80px",
+    "writingTone": "Warm, clear, specific to Los Alamitos.",
+    "brandSummary": "Russell EK Chang, DDS, MS, FACD, Inc., led by Dr. Russell EK Chang, serving Los Alamitos, — The site reads like a respected specialist's monograph: deep navy grounds every section with quiet authority, the gold accent surfaces only at moments of distinction (credentials, primary CTA, section markers), and the asymmetric editorial layout gives credentials and outcomes room to breathe without ever feeling sparse or startup-ish.",
+    "doRules": [
+      "Use the archetype's established magazine-split layout — don't mix incompatible grid styles mid-page.",
+      "Hero variant must be asymmetric-left — lock this choice.",
+      "Card treatment is soft-shadow — apply consistently across all card instances.",
+      "Phone number must be a tel: link in the mobile header, minimum 44px touch target.",
+      "Doctor name and credentials must appear without scrolling on the homepage.",
+      "Primary CTA copy must reference a specific action and ideally the doctor or city.",
+      "Body text ≥ 16px, line-height ≥ 1.5, measure 45–75 characters."
+    ],
+    "dontRules": [
+      "No gradient text (background-clip: text) — AI-slop tell #1.",
+      "No faux-glass / backdrop-filter cards unless archetype explicitly calls for it.",
+      "No centered-headline + two-CTA + microlinks hero — the most overused AI pattern.",
+      "No stat-bar section if yearsExperience/happyPatients data is missing — render empty = fail.",
+      "No stock photography of smiling model families.",
+      "No generic, boilerplate, or template-sounding copy. Every headline, tagline, and CTA must reference this specific practice, doctor, or city — never industry-generic phrasing that could appear on any competitor site.",
+      "No archetype+hero combo already used in recent own-builds.",
+      "No section that renders with dashes, nulls, or placeholder text visible to users."
+    ],
+    "designTokens": {
+      "cornerRadius": "rounded",
+      "buttonTreatment": "filled",
+      "labelStyle": "inline",
+      "sectionSpacing": "default",
+      "contentDensity": "default",
+      "layoutWidth": "standard",
+      "heroLayout": "split-offset",
+      "servicesLayout": "two-col-feature",
+      "aboutLayout": "editorial-full",
+      "testimonialsLayout": "single-featured",
+      "ctaLayout": "floating-card",
+      "faqLayout": "two-column",
+      "navVariant": "split-logo",
+      "footerVariant": "editorial-split",
+      "galleryVariant": "editorial-2col",
+      "typePersonality": "grotesque",
+      "colorFamily": "cool"
+    },
+    "evalRationale": "Candidate 1 earns the edge through its section order — placing doctor-intro before services front-loads the specialist's credentials and personal authority immediately after the stat bar, which is the most coherent narrative for an FACD-level practitioner where the person is the differentiator; the creative direction also most precisely articulates the gold-as-earned-distinction restraint rather than treating it as a general accent color."
+  },
+  "_meta": {
+    "model": "claude-sonnet-4-6",
+    "duration_ms": 13595,
+    "input_tokens": 18488,
+    "output_tokens": 1408,
+    "libraryUsed": {
+      "ownCount": 3,
+      "inspoCount": 0,
+      "antiCount": 0
+    },
+    "candidates": [
+      {
+        "archetype": "magazine-split",
+        "heroVariant": "asymmetric-left",
+        "sectionOrder": [
+          "hero",
+          "stat-bar",
+          "services",
+          "doctor-intro",
+          "reviews",
+          "gallery",
+          "cta"
+        ],
+        "divergenceRationale": "All three recent builds used either centered or split-image hero variants with warm-editorial or centered-classic archetypes — this build deliberately moves into magazine-split with an asymmetric-left"
+      },
+      {
+        "archetype": "magazine-split",
+        "heroVariant": "asymmetric-left",
+        "sectionOrder": [
+          "hero",
+          "stat-bar",
+          "doctor-intro",
+          "services",
+          "reviews",
+          "gallery",
+          "cta"
+        ],
+        "divergenceRationale": "Both recent orthodontic builds used warm-editorial with a split-image hero, so magazine-split with an asymmetric-left hero creates immediate structural differentiation while staying squarely in the ed"
+      },
+      {
+        "archetype": "magazine-split",
+        "heroVariant": "asymmetric-left",
+        "sectionOrder": [
+          "hero",
+          "stat-bar",
+          "services",
+          "doctor-intro",
+          "reviews",
+          "gallery",
+          "cta"
+        ],
+        "divergenceRationale": "All three recent builds used either centered or split-image hero variants with warm-editorial or centered-classic archetypes — this build deliberately moves into magazine-split with an asymmetric-left"
+      }
+    ],
+    "selectedCandidate": 1,
+    "evaluationMethod": "llm-scored",
+    "evalRationale": "Candidate 1 earns the edge through its section order — placing doctor-intro before services front-loads the specialist's credentials and personal authority immediately after the stat bar, which is the most coherent narrative for an FACD-level practitioner where the person is the differentiator; the creative direction also most precisely articulates the gold-as-earned-distinction restraint rather than treating it as a general accent color.",
+    "designContextPreview": "<!-- AGENT_MANAGED_START -->\n# Design Context — Russell EK Chang, DDS, MS, FACD, Inc., Los Alamitos\n\n## Brand\nRussell EK Chang, DDS, MS, FACD, Inc., led by Dr. Russell EK Chang, serving Los Alamitos, — The site reads like a respected specialist's monograph: deep navy grounds every section with quiet authority, the gold accent surfaces only at moments of distinction (credentials, primary CTA, secti"
+  }
+}

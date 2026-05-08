@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Retainers",
+  "description": "Custom-made appliances to hold your results — removable or fixed, fabricated with precision digital records.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Retainers | ${site.name}`}
+  description="Custom-made appliances to hold your results — removable or fixed, fabricated with precision digital records."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Retainers
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Custom-made appliances to hold your results — removable or fixed, fabricated with precision digital records.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Once active orthodontic treatment is complete, retainers are the critical next step in preserving the position of your teeth. Without consistent retainer wear, teeth can gradually shift back toward their original positions — a process called relapse. Retainers at Chang Orthodontics are custom-made and can be removable or fixed, depending on your case and preferences. Our practice uses the iTero Digital Impression System to capture precise digital records for retainer fabrication, and we offer InBrace lingual retainer options for patients who prefer a fixed, hidden solution. LightForce technology is also available as part of our broader suite of finishing and retention tools. You will see Dr. Chang or Dr. Chung directly at your retainer check appointments — consistent specialist oversight through every phase of your care.</p>
+      <ul class="space-y-3 my-6">
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Custom-made removable or fixed retainers</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>iTero digital impressions used for precise fabrication</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>InBrace lingual retainer option for hidden fixed retention</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Retainer progress reviewed by your orthodontist at every visit</span></li>
+      </ul>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>content/services · Skill</title>
+<style>
+  :root {
+    --bg: #0f1115; --fg: #e7e8ea; --muted: #9098a3; --accent: #6ee7b7;
+    --card: #181b22; --border: #262a33; --code-bg: #0a0c10;
+    --stub: #6b7280; --working: #f59e0b; --polished: #10b981; --mature: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  .topbar { padding: 16px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .topbar a { color: var(--accent); text-decoration: none; font-size: 13px; }
+  .topbar a:hover { text-decoration: underline; }
+  .topbar-meta { color: var(--muted); font-size: 12px; }
+  .container { max-width: 880px; margin: 0 auto; padding: 32px 40px 80px; }
+  header.skill-head { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  header.skill-head h1 { margin: 0 0 4px; font-size: 28px; font-weight: 600; }
+  .skill-path { color: var(--muted); font-family: ui-monospace, SFMono-Regular, monospace; font-size: 13px; }
+  .badges { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+  .badge.tier { background: var(--border); font-family: ui-monospace, monospace; }
+  .badge.tier-L1 { background: rgba(110, 231, 183, .15); color: var(--accent); }
+  .badge.tier-L2 { background: rgba(245, 158, 11, .15); color: var(--working); }
+  .badge.tier-L3 { background: rgba(59, 130, 246, .15); color: #60a5fa; }
+  .badge.tier-L4 { background: rgba(168, 85, 247, .15); color: #c084fc; }
+  .badge.maturity { background: var(--border); }
+  .badge.phase { background: var(--card); border: 1px solid var(--border); color: var(--muted); }
+  .meta-table { font-size: 13px; color: var(--muted); margin-top: 12px; }
+  .meta-table strong { color: var(--fg); font-weight: 500; }
+  .meta-table code { background: var(--card); padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--accent); }
+  .doc h2 { margin: 32px 0 12px; font-size: 20px; font-weight: 600; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .doc h3 { margin: 24px 0 8px; font-size: 16px; font-weight: 600; color: var(--accent); }
+  .doc p { margin: 0 0 14px; }
+  .doc ul, .doc ol { margin: 0 0 14px; padding-left: 24px; }
+  .doc li { margin-bottom: 4px; }
+  .doc a { color: var(--accent); }
+  .doc strong { color: var(--fg); font-weight: 600; }
+  .doc code { background: var(--card); padding: 2px 6px; border-radius: 3px; font-size: 13px; color: var(--accent); font-family: ui-monospace, SFMono-Regular, monospace; }
+  .doc pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 0 0 16px; }
+  .doc pre code { background: transparent; padding: 0; color: var(--fg); font-size: 13px; line-height: 1.5; white-space: pre; }
+  .doc table { border-collapse: collapse; margin: 0 0 16px; font-size: 14px; width: 100%; }
+  .doc th, .doc td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+  .doc th { background: var(--card); font-weight: 600; }
+  .doc blockquote { border-left: 3px solid var(--accent); padding: 4px 16px; margin: 0 0 16px; color: var(--muted); }
+  .doc hr { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../PIPELINE.html">← Back to Pipeline Dashboard</a>
+  <span class="topbar-meta">Source: <code style="background:transparent">skills/content/services.md</code></span>
+</div>
+
+<div class="container">
+  <header class="skill-head">
+    <div class="skill-path">skills/content/services.md</div>
+    <h1>services</h1>
+    <div class="badges">
+      <span class="badge tier tier-L1">L1</span>
+      <span class="badge maturity">🟡 working</span>
+      <span class="badge phase">Phase: Generate</span>
+      <span class="badge phase">Model: claude-sonnet-4-6</span>
+    </div>
+    
+    <div class="meta-table">
+      <div><strong>Source:</strong> <code>scripts/pipeline/skills/skill-generate.js</code></div>
+      <div><strong>Function:</strong> <code>servicesContentBrief()</code></div>
+    </div>
+  </header>
+
+  <div class="doc">
+<h1>Skill: Services Content Generation</h1>
+<h2>Responsibility</h2>
+<p>Produce content JSON for the homepage Services section: heading, optional
+eyebrow + subheading, and a per-service descriptions list. The service items
+themselves come pre-scraped — the AI&#39;s job is the wrapper copy (heading,
+subheading) and a one-sentence patient-benefit description for each item if
+not already present. Layout variant is locked from the archetype.</p>
+<h2>Inputs</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Source</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>recommended</code></td>
+<td>string</td>
+<td><code>dna.designTokens.servicesLayout</code></td>
+<td>Locked layout</td>
+</tr>
+<tr>
+<td><code>practice.name</code></td>
+<td>string</td>
+<td>merged</td>
+<td>Practice name</td>
+</tr>
+<tr>
+<td><code>servicesJson</code></td>
+<td>string (JSON)</td>
+<td>content.list</td>
+<td>Pre-formatted JSON array of <code>{name, slug, desc}</code> items, max 8</td>
+</tr>
+</tbody></table>
+<h2>Output schema</h2>
+<pre><code class="language-json">{
+  &quot;variant&quot;: &quot;card-grid | alternating-rows | accordion | two-col-feature | numbered-list&quot;,
+  &quot;eyebrow&quot;: &quot;string | null&quot;,
+  &quot;heading&quot;: &quot;string — specific, NOT &#39;Our Services&#39;&quot;,
+  &quot;subheading&quot;: &quot;string | null&quot;,
+  &quot;items&quot;: [{ &quot;name&quot;: &quot;string&quot;, &quot;slug&quot;: &quot;string&quot;, &quot;desc&quot;: &quot;string ≤20 words&quot; }],
+  &quot;ctaLabel&quot;: &quot;View All Services&quot;
+}
+</code></pre>
+<h2>Evaluation criteria</h2>
+<ul>
+<li><strong>Items used verbatim</strong> — no invented service names, no dropped items</li>
+<li><strong>Heading is specific</strong> — &quot;Our Services&quot; is rejected</li>
+<li><strong>Each desc ≤20 words</strong>, patient-benefit focused</li>
+<li><strong>Variant matches locked recommendation</strong></li>
+<li><strong>Returns only JSON</strong></li>
+</ul>
+<h2>Known gaps</h2>
+<ul>
+<li>No deduplication if the items array has near-synonyms (&quot;Whitening&quot; + &quot;Teeth Whitening&quot;)</li>
+<li>No category-aware ordering (cosmetic/general/orthodontic clusters not grouped)</li>
+<li>desc rewrites can drift from the source description</li>
+</ul>
+<h2>Improvement levers</h2>
+<ol>
+<li><strong>Easy (L1):</strong> Add &quot;preserve original desc when present and ≤20 words&quot; instruction</li>
+<li><strong>Medium:</strong> Pre-deduplicate the items array in the caller before injecting</li>
+<li><strong>Medium:</strong> Pass service categories so heading can reference them (&quot;Specialty Care&quot;, &quot;Family Dentistry&quot;)</li>
+</ol>
+<h2>Test fixtures</h2>
+<p><em>None yet.</em></p>
+<hr>
+<h2>PROMPT</h2>
+<pre><code class="language-text">Generate content JSON for the Services section of {{practice.name}}.
+
+Layout variant: &quot;{{recommended}}&quot; — locked from archetype, do NOT change it.
+Layout reference (for context only):
+- &quot;card-grid&quot;:        3-col cards with icon, name, description, link
+- &quot;alternating-rows&quot;: editorial list rows — large name + description + arrow link
+- &quot;accordion&quot;:        expandable list (Alpine.js); first item open by default
+- &quot;two-col-feature&quot;:  1 large featured service + 3-4 compact items in side list
+- &quot;numbered-list&quot;:    full-width 01/02/03 numbered rows, dramatic display numbers
+
+Return ONLY this JSON:
+{
+  &quot;variant&quot;: &quot;{{recommended}}&quot;,
+  &quot;eyebrow&quot;: &quot;&lt;short label, e.g. &#39;What We Offer&#39; or null&gt;&quot;,
+  &quot;heading&quot;: &quot;&lt;section heading — specific to {{practice.name}}&#39;s service focus&gt;&quot;,
+  &quot;subheading&quot;: &quot;&lt;1 sentence — optional, null if nothing adds meaning&gt;&quot;,
+  &quot;items&quot;: {{servicesJson}},
+  &quot;ctaLabel&quot;: &quot;View All Services&quot;
+}
+
+Rules:
+- Use the provided items array verbatim — do NOT invent services
+- heading must be specific, not generic (&quot;Our Services&quot; is not acceptable)
+- desc for each item: 1 sentence, patient-benefit focused, ≤20 words
+- Return ONLY the JSON object
+</code></pre>
+
+  </div>
+</div>
+</body>
+</html>

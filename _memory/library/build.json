@@ -1,0 +1,51 @@
+{
+  "palette": {
+    "primary": "#4a7c6f",
+    "secondary": "#2d5a50",
+    "accent": "#c4944a",
+    "background": "#f4faf7",
+    "mood": "calm, trustworthy"
+  },
+  "type": {
+    "display": "DM Serif Display",
+    "body": "Plus Jakarta Sans",
+    "scale": "editorial",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "warm-editorial",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "split-image",
+    "imageTreatment": "warm-documentary"
+  },
+  "sections": [
+    "hero",
+    "doctor-intro",
+    "services",
+    "before-after",
+    "gallery",
+    "reviews",
+    "faq",
+    "cta",
+    "footer"
+  ],
+  "cards": "soft-shadow",
+  "motion": "subtle",
+  "radius": "md",
+  "fontPair": "DM Serif Display / Plus Jakarta Sans",
+  "adjectives": [
+    "warm-professional",
+    "humanist-serif-led",
+    "sage-grounded",
+    "approachable-clinical",
+    "editorial-dental"
+  ],
+  "slug": "build",
+  "source": "/Users/garrettgunther/Projects/clients/springs-dental-v2",
+  "tag": "own",
+  "captured": "2026-04-27",
+  "note": "auto-distilled at build time"
+}

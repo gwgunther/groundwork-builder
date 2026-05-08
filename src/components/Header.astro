@@ -1,76 +1,397 @@
 ---
 import { site } from '../config/site';
 import { navLinks } from '../config/navigation';
+import { designDNA } from '../config/design-dna';
 
 const phone = site.phone;
+const variant = designDNA.navVariant;
 ---
 
-<header class="bg-white border-b border-border-light sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16 md:h-20">
-      <!-- Logo — TODO: Replace with your practice's logo -->
-      <a href="/" class="flex-shrink-0 flex items-center gap-3">
-        <div>
-          <div class="font-serif text-base md:text-lg font-bold leading-tight text-charcoal">{site.name}</div>
-        </div>
-      </a>
+{/* =========================================================================
+    left-logo (default): logo left, nav center/right, CTA right
+    ========================================================================= */}
+{variant === 'left-logo' && (
+  <header class="bg-white border-b border-border-light sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-20">
+        <!-- Logo -->
+        <a href="/" class="flex-shrink-0 flex items-center gap-3">
+          <div>
+            <div class="font-serif text-base md:text-lg font-bold leading-tight text-neutral-dark">{site.name}</div>
+          </div>
+        </a>
 
-      <!-- Desktop Nav -->
-      <nav class="hidden lg:flex items-center space-x-6">
-        {navLinks.map((link) => (
-          <div class="relative group">
-            <a
-              href={link.href}
-              class={`nav-link text-sm py-1.5 flex items-center gap-1.5 ${link.avatar ? 'border border-charcoal/20 rounded-full px-3 hover:border-charcoal/40' : ''}`}
-            >
-              {link.avatar && (
-                <img src={link.avatar} alt="" class="w-6 h-6 rounded-full object-cover object-top ring-2 ring-white" />
-              )}
-              {link.label}
+        <!-- Desktop Nav -->
+        <nav class="hidden lg:flex items-center space-x-6">
+          {navLinks.map((link) => (
+            <div class="relative group">
+              <a
+                href={link.href}
+                class={`nav-link text-sm py-1.5 flex items-center gap-1.5 ${link.avatar ? 'border border-neutral-dark/20 rounded-full px-3 hover:border-neutral-dark/40' : ''}`}
+              >
+                {link.avatar && (
+                  <img src={link.avatar} alt="" class="w-6 h-6 rounded-full object-cover object-top ring-2 ring-white" />
+                )}
+                {link.label}
+                {link.dropdown && (
+                  <svg class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                )}
+              </a>
               {link.dropdown && (
-                <svg class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
+                <div class="absolute top-full left-0 mt-1 w-72 bg-white rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 border border-border-light">
+                  {link.dropdown.map((item) => (
+                    <a
+                      href={item.href}
+                      class="block px-4 py-3 hover:bg-surface-2 first:rounded-t-xl last:rounded-b-xl"
+                    >
+                      <div class="text-sm font-medium text-neutral-dark">{item.label}</div>
+                      {item.desc && <div class="text-xs text-neutral-mid mt-0.5">{item.desc}</div>}
+                    </a>
+                  ))}
+                </div>
               )}
+            </div>
+          ))}
+        </nav>
+
+        <!-- Desktop CTA + Phone -->
+        <div class="hidden lg:flex items-center gap-4">
+          <a href={`tel:${phone.replace(/\D/g, '')}`} class="text-neutral-mid text-sm font-medium hover:text-neutral-dark transition-colors">
+            {phone}
+          </a>
+          <a href="/schedule" class="btn-primary text-sm px-5 py-2.5">
+            Book Appointment
+          </a>
+        </div>
+
+        <!-- Mobile: Phone + Hamburger -->
+        <div class="flex items-center gap-3 lg:hidden">
+          <a href={`tel:${phone.replace(/\D/g, '')}`} class="text-neutral-mid font-medium text-sm">
+            Call Now
+          </a>
+          <button
+            id="mobile-menu-btn"
+            class="text-neutral-dark p-2 rounded-md hover:bg-surface-2 transition-colors"
+            aria-label="Toggle mobile menu"
+            aria-expanded="false"
+          >
+            <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-border-light">
+      <div class="px-4 py-4 space-y-1">
+        {navLinks.map((link) => (
+          <div>
+            <a href={link.href} class="block text-neutral-dark font-medium py-2 hover:text-brand-primary transition-colors">
+              {link.label}
             </a>
             {link.dropdown && (
-              <div class="absolute top-full left-0 mt-1 w-72 bg-white rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 border border-border-light">
+              <div class="pl-4 space-y-1 border-l border-border-light ml-2">
                 {link.dropdown.map((item) => (
-                  <a
-                    href={item.href}
-                    class="block px-4 py-3 hover:bg-surface-2 first:rounded-t-xl last:rounded-b-xl"
-                  >
-                    <div class="text-sm font-medium text-charcoal">{item.label}</div>
-                    {item.desc && <div class="text-xs text-mid-gray mt-0.5">{item.desc}</div>}
+                  <a href={item.href} class="block text-neutral-mid text-sm py-1.5 hover:text-neutral-dark transition-colors">
+                    {item.label}
                   </a>
                 ))}
               </div>
             )}
           </div>
         ))}
-      </nav>
+        <div class="pt-4 border-t border-border-light space-y-3">
+          <a href={`tel:${phone.replace(/\D/g, '')}`} class="block text-center btn-secondary text-sm">
+            Call {phone}
+          </a>
+          <a href="/schedule" class="block text-center btn-primary text-sm">
+            Book Appointment
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+)}
 
-      <!-- Desktop CTA + Phone -->
-      <div class="hidden lg:flex items-center gap-4">
-        <a href={`tel:${phone.replace(/\D/g, '')}`} class="text-mid-gray text-sm font-medium hover:text-charcoal transition-colors">
-          {phone}
-        </a>
-        <a href="/schedule" class="btn-primary text-sm px-5 py-2.5">
-          Book Appointment
+{/* =========================================================================
+    centered-logo: logo centered top, nav links centered below — two-line editorial
+    ========================================================================= */}
+{variant === 'centered-logo' && (
+  <header class="bg-white border-b border-border-light sticky top-0 z-50">
+    <!-- Desktop: two-row layout -->
+    <div class="hidden lg:block">
+      <!-- Top row: logo centered -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-2 flex justify-center">
+        <a href="/" class="font-serif text-xl font-bold leading-tight text-neutral-dark text-center">
+          {site.name}
         </a>
       </div>
+      <!-- Bottom row: nav centered -->
+      <div class="border-t border-border-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav class="flex items-center justify-center space-x-6 h-11">
+            {navLinks.map((link) => (
+              <div class="relative group">
+                <a
+                  href={link.href}
+                  class="nav-link text-sm py-1.5 flex items-center gap-1.5"
+                >
+                  {link.label}
+                  {link.dropdown && (
+                    <svg class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  )}
+                </a>
+                {link.dropdown && (
+                  <div class="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-72 bg-white rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 border border-border-light">
+                    {link.dropdown.map((item) => (
+                      <a
+                        href={item.href}
+                        class="block px-4 py-3 hover:bg-surface-2 first:rounded-t-xl last:rounded-b-xl"
+                      >
+                        <div class="text-sm font-medium text-neutral-dark">{item.label}</div>
+                        {item.desc && <div class="text-xs text-neutral-mid mt-0.5">{item.desc}</div>}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+            <a href="/schedule" class="btn-primary text-xs px-4 py-2">Book Appointment</a>
+          </nav>
+        </div>
+      </div>
+    </div>
 
-      <!-- Mobile: Phone + Hamburger -->
-      <div class="flex items-center gap-3 lg:hidden">
-        <a href={`tel:${phone.replace(/\D/g, '')}`} class="text-mid-gray font-medium text-sm">
-          Call Now
+    <!-- Mobile: standard single-row -->
+    <div class="lg:hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="flex items-center justify-between h-16">
+          <a href="/" class="font-serif text-base font-bold text-neutral-dark">{site.name}</a>
+          <div class="flex items-center gap-3">
+            <a href={`tel:${phone.replace(/\D/g, '')}`} class="text-neutral-mid font-medium text-sm">
+              Call Now
+            </a>
+            <button
+              id="mobile-menu-btn"
+              class="text-neutral-dark p-2 rounded-md hover:bg-surface-2 transition-colors"
+              aria-label="Toggle mobile menu"
+              aria-expanded="false"
+            >
+              <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div id="mobile-menu" class="hidden bg-white border-t border-border-light">
+        <div class="px-4 py-4 space-y-1">
+          {navLinks.map((link) => (
+            <div>
+              <a href={link.href} class="block text-neutral-dark font-medium py-2 hover:text-brand-primary transition-colors">
+                {link.label}
+              </a>
+              {link.dropdown && (
+                <div class="pl-4 space-y-1 border-l border-border-light ml-2">
+                  {link.dropdown.map((item) => (
+                    <a href={item.href} class="block text-neutral-mid text-sm py-1.5 hover:text-neutral-dark transition-colors">
+                      {item.label}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+          <div class="pt-4 border-t border-border-light space-y-3">
+            <a href={`tel:${phone.replace(/\D/g, '')}`} class="block text-center btn-secondary text-sm">
+              Call {phone}
+            </a>
+            <a href="/schedule" class="block text-center btn-primary text-sm">
+              Book Appointment
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+)}
+
+{/* =========================================================================
+    split-logo: logo far left, CTA far right, nav links centered between
+    ========================================================================= */}
+{variant === 'split-logo' && (
+  <header class="bg-white border-b border-border-light sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="hidden lg:grid grid-cols-3 items-center h-16 md:h-20">
+        <!-- Left: Logo -->
+        <a href="/" class="flex items-center">
+          <div class="font-serif text-base md:text-lg font-bold leading-tight text-neutral-dark">{site.name}</div>
         </a>
-        <button
-          id="mobile-menu-btn"
-          class="text-charcoal p-2 rounded-md hover:bg-surface-2 transition-colors"
-          aria-label="Toggle mobile menu"
-          aria-expanded="false"
-        >
+
+        <!-- Center: Nav links -->
+        <nav class="flex items-center justify-center space-x-6">
+          {navLinks.map((link) => (
+            <div class="relative group">
+              <a
+                href={link.href}
+                class="nav-link text-sm py-1.5 flex items-center gap-1.5"
+              >
+                {link.label}
+                {link.dropdown && (
+                  <svg class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                )}
+              </a>
+              {link.dropdown && (
+                <div class="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-72 bg-white rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 border border-border-light">
+                  {link.dropdown.map((item) => (
+                    <a
+                      href={item.href}
+                      class="block px-4 py-3 hover:bg-surface-2 first:rounded-t-xl last:rounded-b-xl"
+                    >
+                      <div class="text-sm font-medium text-neutral-dark">{item.label}</div>
+                      {item.desc && <div class="text-xs text-neutral-mid mt-0.5">{item.desc}</div>}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </nav>
+
+        <!-- Right: Phone + CTA -->
+        <div class="flex items-center justify-end gap-4">
+          <a href={`tel:${phone.replace(/\D/g, '')}`} class="text-neutral-mid text-sm font-medium hover:text-neutral-dark transition-colors">
+            {phone}
+          </a>
+          <a href="/schedule" class="btn-primary text-sm px-5 py-2.5">
+            Book Appointment
+          </a>
+        </div>
+      </div>
+
+      <!-- Mobile row -->
+      <div class="flex items-center justify-between h-16 lg:hidden">
+        <a href="/" class="font-serif text-base font-bold text-neutral-dark">{site.name}</a>
+        <div class="flex items-center gap-3">
+          <a href={`tel:${phone.replace(/\D/g, '')}`} class="text-neutral-mid font-medium text-sm">
+            Call Now
+          </a>
+          <button
+            id="mobile-menu-btn"
+            class="text-neutral-dark p-2 rounded-md hover:bg-surface-2 transition-colors"
+            aria-label="Toggle mobile menu"
+            aria-expanded="false"
+          >
+            <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-border-light">
+      <div class="px-4 py-4 space-y-1">
+        {navLinks.map((link) => (
+          <div>
+            <a href={link.href} class="block text-neutral-dark font-medium py-2 hover:text-brand-primary transition-colors">
+              {link.label}
+            </a>
+            {link.dropdown && (
+              <div class="pl-4 space-y-1 border-l border-border-light ml-2">
+                {link.dropdown.map((item) => (
+                  <a href={item.href} class="block text-neutral-mid text-sm py-1.5 hover:text-neutral-dark transition-colors">
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+        <div class="pt-4 border-t border-border-light space-y-3">
+          <a href={`tel:${phone.replace(/\D/g, '')}`} class="block text-center btn-secondary text-sm">
+            Call {phone}
+          </a>
+          <a href="/schedule" class="block text-center btn-primary text-sm">
+            Book Appointment
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+)}
+
+{/* =========================================================================
+    top-bar: thin contact strip (phone/address) above main logo+nav row
+    ========================================================================= */}
+{variant === 'top-bar' && (
+  <header class="bg-white border-b border-border-light sticky top-0 z-50">
+    <!-- Top utility bar -->
+    <div class="bg-neutral-dark text-white text-xs">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-8 flex items-center justify-between">
+        <span class="hidden md:block text-white/60">
+          {site.name}
+        </span>
+        <div class="flex items-center gap-6">
+          <a href={`tel:${phone.replace(/\D/g, '')}`} class="text-white/80 hover:text-white transition-colors font-medium">
+            {phone}
+          </a>
+          <a href="/schedule" class="text-brand-primary hover:text-white transition-colors font-semibold">
+            Book Appointment →
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- Main nav row -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-14 md:h-16">
+        <a href="/" class="font-serif text-base md:text-lg font-bold text-neutral-dark">{site.name}</a>
+        <nav class="hidden lg:flex items-center space-x-6">
+          {navLinks.map((link) => (
+            <div class="relative group">
+              <a href={link.href} class="nav-link text-sm py-1.5 flex items-center gap-1.5">
+                {link.label}
+                {link.dropdown && (
+                  <svg class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                )}
+              </a>
+              {link.dropdown && (
+                <div class="absolute top-full left-0 pt-1 w-72">
+                  <div class="bg-white rounded-xl shadow-lg border border-border-light">
+                    {link.dropdown.map((item) => (
+                      <a href={item.href} class="block px-4 py-3 hover:bg-surface-2 first:rounded-t-xl last:rounded-b-xl">
+                        <div class="text-sm font-medium text-neutral-dark">{item.label}</div>
+                        {item.desc && <div class="text-xs text-neutral-mid mt-0.5">{item.desc}</div>}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </nav>
+        <!-- Mobile hamburger -->
+        <button id="mobile-menu-btn" class="lg:hidden text-neutral-dark p-2 rounded-md hover:bg-surface-2 transition-colors" aria-label="Toggle menu" aria-expanded="false">
           <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
@@ -80,38 +401,99 @@ const phone = site.phone;
         </button>
       </div>
     </div>
-  </div>
-
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-border-light">
-    <div class="px-4 py-4 space-y-1">
-      {navLinks.map((link) => (
-        <div>
-          <a href={link.href} class="block text-charcoal font-medium py-2 hover:text-brand-primary transition-colors">
-            {link.label}
-          </a>
-          {link.dropdown && (
-            <div class="pl-4 space-y-1 border-l border-border-light ml-2">
-              {link.dropdown.map((item) => (
-                <a href={item.href} class="block text-mid-gray text-sm py-1.5 hover:text-charcoal transition-colors">
-                  {item.label}
-                </a>
-              ))}
-            </div>
-          )}
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-border-light">
+      <div class="px-4 py-4 space-y-1">
+        {navLinks.map((link) => (
+          <a href={link.href} class="block text-neutral-dark font-medium py-2 hover:text-brand-primary transition-colors">{link.label}</a>
+        ))}
+        <div class="pt-4 border-t border-border-light space-y-3">
+          <a href={`tel:${phone.replace(/\D/g, '')}`} class="block text-center btn-secondary text-sm">Call {phone}</a>
+          <a href="/schedule" class="block text-center btn-primary text-sm">Book Appointment</a>
         </div>
-      ))}
-      <div class="pt-4 border-t border-border-light space-y-3">
-        <a href={`tel:${phone.replace(/\D/g, '')}`} class="block text-center btn-secondary text-sm">
-          Call {phone}
-        </a>
-        <a href="/schedule" class="block text-center btn-primary text-sm">
-          Book Appointment
-        </a>
       </div>
     </div>
-  </div>
-</header>
+  </header>
+)}
+
+{/* =========================================================================
+    transparent-overlay: starts transparent over hero, turns white on scroll
+    ========================================================================= */}
+{variant === 'transparent-overlay' && (
+  <header
+    id="transparent-nav"
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+    x-data="{ scrolled: false }"
+    x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 60 })"
+    :class="scrolled ? 'bg-white shadow-sm border-b border-border-light' : 'bg-transparent'"
+  >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-20">
+        <!-- Logo — inverts color based on scroll -->
+        <a href="/" class="font-serif text-base md:text-lg font-bold leading-tight transition-colors duration-300"
+           :class="scrolled ? 'text-neutral-dark' : 'text-white'">
+          {site.name}
+        </a>
+        <!-- Desktop nav -->
+        <nav class="hidden lg:flex items-center space-x-6">
+          {navLinks.map((link) => (
+            <div class="relative group">
+              <a href={link.href}
+                 class="text-sm py-1.5 flex items-center gap-1.5 transition-colors duration-300 hover:opacity-80"
+                 :class="scrolled ? 'text-neutral-dark hover:text-brand-primary' : 'text-white'">
+                {link.label}
+              </a>
+              {link.dropdown && (
+                <div class="absolute top-full left-0 pt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  <div class="bg-white rounded-xl shadow-lg border border-border-light">
+                    {link.dropdown.map((item) => (
+                      <a href={item.href} class="block px-4 py-3 hover:bg-surface-2 first:rounded-t-xl last:rounded-b-xl">
+                        <div class="text-sm font-medium text-neutral-dark">{item.label}</div>
+                        {item.desc && <div class="text-xs text-neutral-mid mt-0.5">{item.desc}</div>}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </nav>
+        <!-- CTA -->
+        <div class="hidden lg:flex items-center gap-4">
+          <a href={`tel:${phone.replace(/\D/g, '')}`}
+             class="text-sm font-medium transition-colors duration-300"
+             :class="scrolled ? 'text-neutral-mid hover:text-neutral-dark' : 'text-white/80 hover:text-white'">
+            {phone}
+          </a>
+          <a href="/schedule" class="btn-primary text-sm px-5 py-2.5">Book Appointment</a>
+        </div>
+        <!-- Mobile hamburger -->
+        <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-md transition-colors"
+                :class="scrolled ? 'text-neutral-dark hover:bg-surface-2' : 'text-white hover:bg-white/10'"
+                aria-label="Toggle menu" aria-expanded="false">
+          <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-border-light">
+      <div class="px-4 py-4 space-y-1">
+        {navLinks.map((link) => (
+          <a href={link.href} class="block text-neutral-dark font-medium py-2 hover:text-brand-primary transition-colors">{link.label}</a>
+        ))}
+        <div class="pt-4 border-t border-border-light space-y-3">
+          <a href={`tel:${phone.replace(/\D/g, '')}`} class="block text-center btn-secondary text-sm">Call {phone}</a>
+          <a href="/schedule" class="block text-center btn-primary text-sm">Book Appointment</a>
+        </div>
+      </div>
+    </div>
+  </header>
+)}
 
 <script>
   const btn = document.getElementById('mobile-menu-btn');

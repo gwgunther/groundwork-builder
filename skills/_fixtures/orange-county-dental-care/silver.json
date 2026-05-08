@@ -1,0 +1,1523 @@
+{
+  "practice": {
+    "name": "Orange County Dental Care",
+    "domain": "orangecounty-dentalcare.com",
+    "phone": "(714) 628-9910",
+    "email": "care@orangecounty-dentalcare.com",
+    "googleReviewLink": null,
+    "googleProfileLink": null,
+    "priceRange": "$$",
+    "medicalSpecialty": null,
+    "sameAs": []
+  },
+  "doctors": [
+    {
+      "name": "Dr. Ali-Reza Etemadieh",
+      "firstName": "Ali-Reza",
+      "lastName": "Etemadieh",
+      "credentials": null,
+      "bio": "Dr. Ali-Reza Etemadieh brings his extensive dental expertise to Orange County Dental Care, which he established in 2013. Born in Iran and raised in Germany, Dr. Etemadieh chose dentistry after a personal dental experience changed his career path from medicine to dentistry. He's committed to providing the highest quality dental care in a warm, welcoming environment where every patient is treated like family.",
+      "education": null,
+      "specialties": [
+        "Implants",
+        "Cosmetics"
+      ],
+      "photoPath": "https://cdn.sanity.io/images/b117mk59/production/b64fab20742663c08e68bac8030f67ec495853e6-1440x1635.jpg?auto=format&fit=max&q=75&w=640"
+    },
+    {
+      "name": "Dr. Etemadieh",
+      "firstName": "Etemadieh",
+      "lastName": "Etemadieh",
+      "credentials": null,
+      "bio": null,
+      "education": null,
+      "specialties": [
+        "Restorative Dentistry",
+        "Cosmetic Dentistry",
+        "Orthodontics",
+        "Clear Aligner Therapy",
+        "Invisalign",
+        "Emergency Dentistry",
+        "Dental Implants"
+      ],
+      "photoPath": null
+    }
+  ],
+  "doctor": {
+    "name": "Dr. Ali-Reza Etemadieh",
+    "firstName": "Ali-Reza",
+    "lastName": "Etemadieh",
+    "credentials": null,
+    "bio": "Dr. Ali-Reza Etemadieh brings his extensive dental expertise to Orange County Dental Care, which he established in 2013. Born in Iran and raised in Germany, Dr. Etemadieh chose dentistry after a personal dental experience changed his career path from medicine to dentistry. He's committed to providing the highest quality dental care in a warm, welcoming environment where every patient is treated like family.",
+    "education": null,
+    "specialties": [
+      "Implants",
+      "Cosmetics"
+    ],
+    "photoPath": "https://cdn.sanity.io/images/b117mk59/production/b64fab20742663c08e68bac8030f67ec495853e6-1440x1635.jpg?auto=format&fit=max&q=75&w=640"
+  },
+  "additionalDoctors": [
+    {
+      "name": "Dr. Etemadieh",
+      "firstName": "Etemadieh",
+      "lastName": "Etemadieh",
+      "credentials": null,
+      "bio": null,
+      "education": null,
+      "specialties": [
+        "Restorative Dentistry",
+        "Cosmetic Dentistry",
+        "Orthodontics",
+        "Clear Aligner Therapy",
+        "Invisalign",
+        "Emergency Dentistry",
+        "Dental Implants"
+      ],
+      "photoPath": null
+    }
+  ],
+  "address": {
+    "street": "665 N Tustin St suite w",
+    "city": "Orange",
+    "state": "CA",
+    "zip": "92867",
+    "country": "US",
+    "full": "665 N Tustin St suite w, Orange, CA 92867"
+  },
+  "hours": {
+    "display": [],
+    "raw": null
+  },
+  "services": {
+    "offered": [
+      {
+        "name": "Preventative Dentistry",
+        "slug": "preventative-dentistry",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Restorative Dentistry",
+        "slug": "restorative-dentistry",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Cosmetic Dentistry",
+        "slug": "cosmetic-dentistry",
+        "category": "cosmetic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Dental Implants",
+        "slug": "dental-implants",
+        "category": "implant",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Dentures",
+        "slug": "dentures",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Emergency Dentistry",
+        "slug": "emergency-dentistry",
+        "category": "emergency",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Sedation Dentistry",
+        "slug": "sedation-dentistry",
+        "category": "specialty",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Orthodontics",
+        "slug": "orthodontics",
+        "category": "orthodontic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Professional Cleanings",
+        "slug": "professional-cleanings",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Comprehensive Exams",
+        "slug": "comprehensive-exams",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Digital X-Rays",
+        "slug": "digital-x-rays",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Oral Cancer Screenings",
+        "slug": "oral-cancer-screenings",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Fluoride Treatments",
+        "slug": "fluoride-treatments",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Periodontal Care",
+        "slug": "periodontal-care",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Tooth-colored fillings",
+        "slug": "tooth-colored-fillings",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Crowns (zirconia or gold)",
+        "slug": "crowns-zirconia-or-gold",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Bridges",
+        "slug": "bridges",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Inlays and onlays",
+        "slug": "inlays-and-onlays",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Root canal therapy",
+        "slug": "root-canal-therapy",
+        "category": "specialty",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Full mouth rehabilitation",
+        "slug": "full-mouth-rehabilitation",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Professional Teeth Whitening",
+        "slug": "professional-teeth-whitening",
+        "category": "cosmetic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Porcelain Veneers",
+        "slug": "porcelain-veneers",
+        "category": "cosmetic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Chairside Composite Veneers",
+        "slug": "chairside-composite-veneers",
+        "category": "cosmetic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Dental Bonding and Contouring",
+        "slug": "dental-bonding-and-contouring",
+        "category": "cosmetic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Invisalign Clear Aligners",
+        "slug": "invisalign-clear-aligners",
+        "category": "orthodontic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Clear aligner therapy",
+        "slug": "clear-aligner-therapy",
+        "category": "orthodontic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "3D digital scanning for orthodontics",
+        "slug": "3d-digital-scanning-for-orthodontics",
+        "category": "orthodontic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Emergency Dental Care",
+        "slug": "emergency-dental-care",
+        "category": "emergency",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Severe Toothache Treatment",
+        "slug": "severe-toothache-treatment",
+        "category": "emergency",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Broken or Chipped Teeth Repair",
+        "slug": "broken-or-chipped-teeth-repair",
+        "category": "emergency",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Knocked-Out Teeth Treatment",
+        "slug": "knocked-out-teeth-treatment",
+        "category": "emergency",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Lost Fillings or Crowns Replacement",
+        "slug": "lost-fillings-or-crowns-replacement",
+        "category": "emergency",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Dental Abscess Treatment",
+        "slug": "dental-abscess-treatment",
+        "category": "emergency",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Soft Tissue Injuries Treatment",
+        "slug": "soft-tissue-injuries-treatment",
+        "category": "emergency",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Objects Caught Between Teeth Removal",
+        "slug": "objects-caught-between-teeth-removal",
+        "category": "emergency",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Single Tooth Implants",
+        "slug": "single-tooth-implants",
+        "category": "implant",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Multiple Tooth Replacement",
+        "slug": "multiple-tooth-replacement",
+        "category": "implant",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Implant-Supported Dentures",
+        "slug": "implant-supported-dentures",
+        "category": "implant",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Full Dentures",
+        "slug": "full-dentures",
+        "category": "specialty",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Partial Dentures",
+        "slug": "partial-dentures",
+        "category": "specialty",
+        "source": "scrape",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "brand": {
+    "colors": null,
+    "fonts": null,
+    "logoPath": "https://cdn.sanity.io/images/b117mk59/production/869421fade3635d8fb7cb4a121ff3cb98deb7808-1198x797.png?auto=format&fit=max&q=75&w=144"
+  },
+  "content": {
+    "heroTagline": "Transform Your Smile with Exceptional Care",
+    "heroHeadline": "Transform Your Smile with Exceptional Care",
+    "heroSubheadline": "Quality Dentistry for All Ages",
+    "ctaText": null,
+    "ctaSecondaryText": null,
+    "valueProp": null,
+    "aboutText": "Experience the difference at Orange County Dental Care where quality meets compassion. Our team provides personalized dental treatments using advanced technology in our two convenient locations in Ora",
+    "aboutHeadline": null,
+    "philosophy": null,
+    "closingCTA": null,
+    "testimonials": [
+      {
+        "text": "The comprehensive care I receive at Orange County Dental Care has kept my smile healthy for years. Their attention to detail during cleanings is outstanding!",
+        "author": null,
+        "stars": null
+      },
+      {
+        "text": "After years of dental problems, Dr. Etemadieh restored my smile completely. I can eat anything now, and my teeth look completely natural!",
+        "author": null,
+        "stars": null
+      },
+      {
+        "text": "I never used to smile in photos, but after my treatment with Dr. Etemadieh, I can't stop smiling! The results look so natural—just a better version of my own teeth.",
+        "author": null,
+        "stars": null
+      },
+      {
+        "text": "My orthodontic treatment with Dr. Etemadieh transformed not just my smile but my confidence. The process was so much easier than I expected, and the results are amazing!",
+        "author": null,
+        "stars": null
+      },
+      {
+        "text": "As someone who avoided the dentist for years due to anxiety, the sedation option Dr. Etemadieh coordinated completely changed my experience. I was able to get the dental care I needed without stress!",
+        "author": null,
+        "stars": null
+      },
+      {
+        "text": "When my crown fell off during dinner, Orange County Dental Care saw me first thing the next morning. Dr. Etemadieh fixed it quickly and painlessly—I couldn't be more grateful!",
+        "author": null,
+        "stars": null
+      },
+      {
+        "text": "My dental implant has completely changed my life. I can eat anything, and nobody can tell it's not my natural tooth. Dr. Etemadieh's work is truly exceptional.",
+        "author": null,
+        "stars": null
+      },
+      {
+        "text": "My new dentures from Dr. Etemadieh have completely transformed how I feel about myself. They're comfortable, look natural, and I can eat all my favorite foods again!",
+        "author": null,
+        "stars": null
+      }
+    ],
+    "faqs": [
+      {
+        "question": "How often should I have a dental cleaning?",
+        "answer": "Most patients benefit from cleanings every six months, but those with gum disease or certain health conditions may need more frequent visits. Dr. Etemadieh will recommend the optimal schedule for your needs."
+      },
+      {
+        "question": "How long do dental crowns last?",
+        "answer": "With proper care, high-quality crowns like those we provide at Orange County Dental Care can last 15 years or more. Regular check-ups help ensure their continued performance and fit."
+      },
+      {
+        "question": "How long does teeth whitening last?",
+        "answer": "Professional whitening results can last from several months to a year or more, depending on your habits. Avoiding staining foods and beverages and maintaining good oral hygiene can extend the results."
+      },
+      {
+        "question": "Am I too old for orthodontic treatment?",
+        "answer": "No, there's no age limit for orthodontic treatment. Many of our patients are adults who decide to improve their smile later in life. Modern options like clear aligners make treatment more appealing for adult professionals."
+      },
+      {
+        "question": "Is sedation dentistry safe?",
+        "answer": "Yes, when administered by qualified specialists, sedation dentistry is very safe. Prior to recommending any sedation option, we review your complete medical history to identify any potential risks or contraindications."
+      },
+      {
+        "question": "What should I do if my tooth gets knocked out?",
+        "answer": "Pick up the tooth by the crown (not the root), rinse it gently without scrubbing, and if possible, place it back in the socket. If that's not possible, keep it in milk or saliva and call us immediately. Time is criti"
+      },
+      {
+        "question": "Am I a candidate for dental implants?",
+        "answer": "Most adults with good general health are candidates for implants. Dr. Etemadieh will evaluate factors such as bone density, gum health, and medical history to determine if implants are right for you."
+      },
+      {
+        "question": "How long does it take to get used to new dentures?",
+        "answer": "Most patients adjust to new dentures within a few weeks. Initially, you may experience increased saliva flow, some soreness, and changes in speech, but these issues typically resolve as you adapt to your new teet"
+      }
+    ],
+    "generatedFAQs": [],
+    "stats": {
+      "yearsExperience": null,
+      "happyPatients": null,
+      "googleRating": 5,
+      "fiveStarReviews": null
+    },
+    "insurance": [],
+    "generated": null
+  },
+  "additionalContent": [
+    {
+      "type": "welcome",
+      "title": "New Patient Welcome",
+      "content": "Learn more about our new patient specials, discounts, and the excellent service we give our patients! Our goal is for your first visit to be one of comfort and acknowledgement of your personal dental needs. We will take the required time to properly diagnose your immediate dental concerns, review your past medical and dental history, and create a treatment plan that provides for your optimal dental health. With your cooperation, we will complete a thorough comprehensive dental evaluation.",
+      "source": "/"
+    },
+    {
+      "type": "team",
+      "title": "Meet the Doctor",
+      "content": "Dr. Ali-Reza Etemadieh has been providing exceptional dental care to Orange County residents since 2013. With extensive training in implants and cosmetics, he's dedicated to delivering high-quality dentistry in a comfortable environment where patients feel valued and understood.",
+      "source": "/"
+    },
+    {
+      "type": "philosophy",
+      "title": "Schedule Your Visit in Orange County",
+      "content": "Experience the difference at Orange County Dental Care where quality meets compassion. Our team provides personalized dental treatments using advanced technology in our two convenient locations in Ora",
+      "source": "/"
+    },
+    {
+      "type": "philosophy",
+      "title": "Why Choose Us?",
+      "content": "At Orange County Dental Care, we prioritize quality above all else. Dr. Etemadieh is the dentist that other dentists trust with their own care. We never compromise on integrity, materials, or service—ensuring that every patient receives the highest standard of dental treatment available.",
+      "source": "/about-us"
+    },
+    {
+      "type": "technology",
+      "title": "Serving Orange County with Excellence",
+      "content": "Visit us at our convenient Orange or Tustin location. Our modern practices feature the latest dental technology including digital x-rays and intraoral scanners to ensure accurate diagnoses and comfortable treatments. We welcome patients of all ages and proudly offer care in multiple languages.",
+      "source": "/about-us"
+    },
+    {
+      "type": "welcome",
+      "title": "Start Your Dental Journey Today",
+      "content": "Experience the Orange County Dental Care difference where quality meets compassion. Our dedicated team is ready to provide you with exceptional dental care tailored to your unique needs.",
+      "source": "/about-us"
+    },
+    {
+      "type": "office-tour",
+      "title": "Reach Us",
+      "content": "Orange Office\n665 N. Tustin Street Suite W, Orange CA 92867 (across from Ruby's Diner)\nTustin Office\n18410 Irvine",
+      "source": "/contact"
+    },
+    {
+      "type": "specialty-deep-dive",
+      "title": "Our Preventative Services",
+      "content": "Our preventative care includes professional cleanings, comprehensive exams, digital x-rays, oral cancer screenings, fluoride treatments, and periodontal care. These services work together to remove plaque and tartar, detect early signs of decay or disease, and strengthen your teeth against future damage. We customize your preventative care schedule based on your unique needs.",
+      "source": "/services/preventative-dentistry"
+    },
+    {
+      "type": "philosophy",
+      "title": "Benefits of Prevention",
+      "content": "Regular preventative care offers numerous benefits beyond just avoiding cavities. It helps maintain fresh breath, prevents gum disease, reduces the risk of tooth loss, saves money on extensive treatments, and contributes to better overall health. Research has shown connections between oral health and conditions like heart disease and diabetes.",
+      "source": "/services/preventative-dentistry"
+    },
+    {
+      "type": "patient-experience",
+      "title": "Protect Your Smile with Preventative Care",
+      "content": "During your preventative visit at Orange County Dental Care, our hygienist will thoroughly clean your teeth, removing plaque and tartar that can't be addressed with regular brushing and flossing. Dr. Etemadieh will conduct a comprehensive examination, checking for signs of decay, gum disease, oral cancer, and other concerns. Based on your examination, we'll develop a personalized preventative care plan that may include recommendations for at-home care, professional cleaning frequency, and any additional treatments to address your specific needs.",
+      "source": "/services/preventative-dentistry"
+    },
+    {
+      "type": "specialty-deep-dive",
+      "title": "Restore & Renew",
+      "content": "Damage to your teeth doesn't have to be permanent. At Orange County Dental Care, our restorative dental services rebuild, repair, and renew teeth that have been affected by decay, injury, or wear. Using premium materials and advanced techniques, Dr. Etemadieh provides restorative treatments that not only return function to your teeth but also enhance their appearance and longevity.",
+      "source": "/services/restorative-dentistry"
+    },
+    {
+      "type": "specialty-deep-dive",
+      "title": "Our Restorative Services",
+      "content": "We offer a comprehensive range of restorative treatments including tooth-colored fillings, crowns made of zirconia or gold, bridges, inlays and onlays, root canal therapy, and full mouth rehabilitation. For every procedure, we use only the highest quality materials—avoiding amalgam in favor of more aesthetic and biocompatible options. Each restoration is precisely crafted to match your natural teeth.",
+      "source": "/services/restorative-dentistry"
+    },
+    {
+      "type": "patient-experience",
+      "title": "Benefits of Restoration",
+      "content": "Restorative dentistry does more than just repair damage—it restores your ability to eat, speak, and smile with confidence. By addressing issues promptly, we can prevent further deterioration and more complex problems. Our restorative treatments are designed to be durable and natural-looking, preserving as much of your natural tooth structure as possible.",
+      "source": "/services/restorative-dentistry"
+    },
+    {
+      "type": "patient-experience",
+      "title": "Restore Your Smile's Health and Beauty",
+      "content": "The restorative process begins with a thorough examination to assess your dental needs. Dr. Etemadieh will discuss your treatment options, taking into account factors such as the extent of damage, your aesthetic goals, and your overall oral health. Most restorative procedures can be completed in just one or two visits, with every attention paid to your comfort throughout. For more extensive restorations, we'll create a comprehensive treatment plan.",
+      "source": "/services/restorative-dentistry"
+    },
+    {
+      "type": "welcome",
+      "title": "Smile Transformation",
+      "content": "Your smile creates lasting impressions. At Orange County Dental Care, our cosmetic dentistry services are designed to enhance the appearance of your teeth and create the smile you've always wanted. Dr. Etemadieh combines artistic vision with technical expertise to deliver beautiful, natural-looking results. From subtle improvements to dramatic transformations, we tailor our approach to your unique goals.",
+      "source": "/services/cosmetic-dentistry"
+    },
+    {
+      "type": "specialty-deep-dive",
+      "title": "Our Cosmetic Services",
+      "content": "We offer a comprehensive range of cosmetic treatments including professional teeth whitening, porcelain veneers, chairside composite veneers, dental bonding and contouring, and Invisalign clear aligners. Each service is customized to address your specific concerns—whether that's discoloration, chips, gaps, misalignment, or a complete smile makeover. Our focus is always on creating results that look naturally beautiful.",
+      "source": "/services/cosmetic-dentistry"
+    },
+    {
+      "type": "philosophy",
+      "title": "Benefits of Cosmetic Dentistry",
+      "content": "The benefits of cosmetic dentistry extend far beyond appearance. A beautiful smile can boost your self-confidence, create positive first impressions, and even improve your overall oral health. Many of our cosmetic procedures not only enhance aesthetics but also streng",
+      "source": "/services/cosmetic-dentistry"
+    },
+    {
+      "type": "patient-experience",
+      "title": "FAQ",
+      "content": "Your cosmetic journey begins with a consultation where we discuss your goals and concerns. Dr. Etemadieh will evaluate your dental health and facial features to recommend the most suitable treatments. Treatment timelines vary based on the procedures selected. Some treatments, like whitening or bonding, can be completed in a single visit, while others, such as Invisalign or multiple veneers, may tak",
+      "source": "/services/cosmetic-dentistry"
+    },
+    {
+      "type": "specialty-deep-dive",
+      "title": "Straight Smiles",
+      "content": "A properly aligned smile isn't just about aesthetics—it contributes to better oral health and function. At Orange County Dental Care, we offer comprehensive orthodontic solutions including Invisalign clear aligners to help patients of all ages achieve straighter, healthier smiles. Dr. Etemadieh combines advanced technology with personalized treatment plans to deliver excellent results with maximum comfort and convenience.",
+      "source": "/services/orthodontics"
+    },
+    {
+      "type": "specialty-deep-dive",
+      "title": "Our Orthodontic Services",
+      "content": "We provide a range of orthodontic treatment options with a focus on clear aligner therapy. Using advanced 3D digital scanning, Dr. Etemadieh creates precise treatment plans that map out the exact movements of your teeth, allowing you to see your virtual results before treatment begins. Our orthodontic solutions are designed to fit your lifestyle while effectively addressing alignment issues, spacing problems, and bite irregularities.",
+      "source": "/services/orthodontics"
+    },
+    {
+      "type": "specialty-deep-dive",
+      "title": "Benefits of Modern Orthodontics",
+      "content": "Today's orthodontic treatments offer significant advantages over traditional methods, with options that are more comfortable, convenient, and aesthetically pleasing. Properly aligned teeth are easier to clean, reducing the risk of decay and g …[truncated]",
+      "source": "/services/orthodontics"
+    },
+    {
+      "type": "patient-experience",
+      "title": "Start Your Smile Transformation",
+      "content": "Your orthodontic journey begins with a comprehensive evaluation where Dr. Etemadieh assesses your teeth, jaw, and overall oral health. Using our advanced intraoral scanner, we create precise digital m …[truncated]",
+      "source": "/services/orthodontics"
+    },
+    {
+      "type": "patient-experience",
+      "title": "Treatment Duration",
+      "content": "Treatment duration varies based on individual needs, with most patients completing their orthodontic therapy within 12-24 months. If you choose Invisalign, you'll receive a series of custom aligners t …[truncated]",
+      "source": "/services/orthodontics"
+    },
+    {
+      "type": "patient-experience",
+      "title": "Anxiety-Free Care",
+      "content": "Dental anxiety shouldn't prevent you from receiving the care your smile needs. At Orange County Dental Care, we understand that visiting the dentist can be stressful for many patients. That's why we offer referrals for sedation options to help you relax during your treatment. Our compassionate approach focuses on ensuring your comfort while providing the quality dental care you deserve in a stress-free environment.",
+      "source": "/services/sedation-dentistry"
+    },
+    {
+      "type": "specialty-deep-dive",
+      "title": "Our Sedation Approach",
+      "content": "While Orange County Dental Care doesn't offer direct sedation services, we work closely with trusted specialists who provide various sedation options for our patients who experience dental anxiety. We can coordinate referrals based on your specific needs and the complexity of your treatment. Our primary focus remains on creating a comfortable, supportive environment for all patients through compassionate care and clear communication about each procedure.",
+      "source": "/services/sedation-dentistry"
+    },
+    {
+      "type": "specialty-deep-dive",
+      "title": "Benefits of Sedation Dentistry",
+      "content": "For patients with dental anxiety, sedation dentistry through our specialist partners offers numerous benefits. It allows necessary dental work to be completed comfortably, often with no memory of the procedure. This approach is also",
+      "source": "/services/sedation-dentistry"
+    },
+    {
+      "type": "patient-experience",
+      "title": null,
+      "content": "If you experience dental anxiety, Dr. Etemadieh will discuss your concerns during your consultation and determine whether sedation might be beneficial for your treatment. Based on your medical history",
+      "source": "/services/sedation-dentistry"
+    },
+    {
+      "type": "patient-experience",
+      "title": null,
+      "content": "On the day of your procedure, the sedation will be administered by the specialist according to the predetermined plan. Throughout your treatment, your vital signs will be monitored to ensure your safe",
+      "source": "/services/sedation-dentistry"
+    },
+    {
+      "type": "specialty-deep-dive",
+      "title": "Urgent Relief",
+      "content": "Dental emergencies can happen at any time, often causing significant pain and anxiety. At Orange County Dental Care, we provide prompt, effective emergency dental services to address your urgent needs and relieve your discomfort. Dr. Etemadieh makes emergency patients a priority, offering same-day appointments whenever possible and after-hours care when needed for serious situations.",
+      "source": "/services/emergency-dentistry"
+    },
+    {
+      "type": "specialty-deep-dive",
+      "title": "Our Emergency Services",
+      "content": "We handle a full range of dental emergencies including severe toothaches, broken or chipped teeth, knocked-out teeth, lost fillings or crowns, dental abscesses, soft tissue injuries, and objects caught between teeth. Our focus is on relieving your pain quickly and addressing the underlying problem effectively. When you call with an emergency, our team will provide immediate guidance and arrange for you to be seen as soon as possible.",
+      "source": "/services/emergency-dentistry"
+    }
+  ],
+  "images": {
+    "logo": "https://cdn.sanity.io/images/b117mk59/production/869421fade3635d8fb7cb4a121ff3cb98deb7808-1198x797.png?auto=format&fit=max&q=75&w=144",
+    "hero": [
+      "https://cdn.sanity.io/images/b117mk59/production/1707fdc825dc345f2778dd46b9a5a6d3a895bedb-7934x5292.jpg?w=1920&fit=max&auto=format",
+      "https://cdn.sanity.io/images/b117mk59/production/80bf5ee931e0cd43a1e38acf1581f4eb6fb537c7-1440x730.png?w=1920&fit=max&auto=format",
+      "https://cdn.sanity.io/images/b117mk59/production/c241a405cccad80fccd0c04cbb9a75a43ddc2bed-4320x840.jpg?w=1920&fit=max&auto=format",
+      "https://cdn.sanity.io/images/b117mk59/production/ef1fd28a3c47475622f2a9b3bf14f74a8cdd5e5e-6539x4359.jpg?auto=format&fit=max&q=75&w=900",
+      "https://cdn.sanity.io/images/b117mk59/production/2232e0f3345c17b1d6158055f635420a4349f8e8-8256x5504.jpg?auto=format&fit=max&q=75&w=900",
+      "https://cdn.sanity.io/images/b117mk59/production/c5c2fa19d95be0e75e6f34a518386b052203ebad-4735x3157.jpg?auto=format&fit=max&q=75&w=900"
+    ],
+    "team": [
+      "https://cdn.sanity.io/images/b117mk59/production/b64fab20742663c08e68bac8030f67ec495853e6-1440x1635.jpg?auto=format&fit=max&q=75&w=640",
+      "https://cdn.sanity.io/images/b117mk59/production/40641095488d69b8404978e2d6c8e7526926ac3a-381x508.jpg?auto=format&fit=max&q=75&rect=56,132,325,376&w=325"
+    ],
+    "office": [
+      "https://cdn.sanity.io/images/b117mk59/production/4308924b28bd06edb2c813d547c7a955d7fdeba3-435x290.jpg?auto=format&fit=max&q=75&w=435",
+      "https://cdn.sanity.io/images/b117mk59/production/e42ba0eaa583ecb59cfa6a0cc423a23d83717a64-5393x3595.jpg?auto=format&fit=max&q=75&w=640",
+      "https://cdn.sanity.io/images/b117mk59/production/01cee3f16484c3fbfdb0761d76255d1cf93d1e8d-1000x667.jpg?auto=format&fit=max&q=75&w=640",
+      "https://cdn.sanity.io/images/b117mk59/production/493e1c61bbd6dfcd4094f1015b1c7474e217b632-7360x4912.jpg?auto=format&fit=max&q=75&w=640"
+    ],
+    "gallery": [
+      "https://cdn.sanity.io/images/b117mk59/production/5631b8fa1a64f314277cf6d76ba4a69565aea5b5-7200x4800.jpg?auto=format&fit=max&q=75&w=640",
+      "https://cdn.sanity.io/images/b117mk59/production/f6ac8dc40cf05d0ede25f450b6f3200fc16dd58c-3936x2624.jpg?auto=format&fit=max&q=75&w=640",
+      "https://cdn.sanity.io/images/b117mk59/production/4e56ffcda5b96ad201621180586b0316179dd7d7-9504x6336.jpg?auto=format&fit=max&q=75&w=640",
+      "https://cdn.sanity.io/images/b117mk59/production/26241fa70bbe9baacc23d2f123ee5a109bfc2521-5760x3840.jpg?auto=format&fit=max&q=75&w=640",
+      "https://cdn.sanity.io/images/b117mk59/production/92aa7bde5bde7b16d0b8f41e2c502cf786030abf-8192x5464.jpg?auto=format&fit=max&q=75&w=640",
+      "https://cdn.sanity.io/images/b117mk59/production/25ad9b648cf64a917133d2119f66f5febe88835a-7024x5464.jpg?auto=format&fit=max&q=75&w=640",
+      "https://cdn.sanity.io/images/b117mk59/production/eaec6ce5d210fd83d6359a0553c7d1d91c4c01ef-6192x4128.jpg?auto=format&fit=max&q=75&w=900",
+      "https://cdn.sanity.io/images/b117mk59/production/5cc5096c6f02ef59441ee37a888c25a1b277fdc7-6192x4128.jpg?auto=format&fit=max&q=75&w=640",
+      "https://cdn.sanity.io/images/b117mk59/production/c241a405cccad80fccd0c04cbb9a75a43ddc2bed-4320x840.jpg?w=1920&fit=max&auto=format",
+      "https://cdn.sanity.io/images/b117mk59/production/6631a4bf965d379244a53bf4c017784685c05ab6-5760x3840.jpg?auto=format&fit=max&q=75&w=640",
+      "https://cdn.sanity.io/images/b117mk59/production/8686c4fe8546b6852855e9f5f96f26e646a19e67-6192x4128.jpg?auto=format&fit=max&q=75&w=640",
+      "https://cdn.sanity.io/images/b117mk59/production/a56219f5c7e54509fc33e49b9e10f137cc91edc2-8192x5464.jpg?auto=format&fit=max&q=75&w=900",
+      "https://cdn.sanity.io/images/b117mk59/production/d3a55b04143430ada560c68d3dd19ec6357b7248-5472x3648.jpg?auto=format&fit=max&q=75&w=640",
+      "https://cdn.sanity.io/images/b117mk59/production/5a0023b7df026fa8c1e2cf55ff3cfe0c976c46ae-6048x4024.jpg?auto=format&fit=max&q=75&w=640",
+      "https://cdn.sanity.io/images/b117mk59/production/09679a3e668e1955f5a1cdaa85b0fba1d943e9ba-1000x667.jpg?auto=format&fit=max&q=75&rect=0,0,724,667&w=651",
+      "https://cdn.sanity.io/images/b117mk59/production/9ad451e01eebcc0c3414e2c8d83cce3a9284d5da-5616x3744.jpg?auto=format&fit=max&q=75&w=640",
+      "https://cdn.sanity.io/images/b117mk59/production/6ae030c8dcbe387f2a022000d73f5c2d547a3940-6016x4016.jpg?auto=format&fit=max&q=75&w=640",
+      "https://cdn.sanity.io/images/b117mk59/production/2ce48a5ceb86cc9694bca67ef8bf5c6a4f25564a-5760x3840.jpg?auto=format&fit=max&q=75&w=640",
+      "https://cdn.sanity.io/images/b117mk59/production/7e0d600e4761806b64bb6092fd38c9a6cfc9bcfd-6000x4000.jpg?auto=format&fit=max&q=75&w=640",
+      "https://cdn.sanity.io/images/b117mk59/production/a2304480e365c4d861d148505178ce6a8b0a020f-6720x4480.jpg?auto=format&fit=max&q=75&w=900",
+      "https://cdn.sanity.io/images/b117mk59/production/1e85c6f87568601dcb3fcf2f87a80ad494e58288-5888x3930.jpg?auto=format&fit=max&q=75&w=640",
+      "https://cdn.sanity.io/images/b117mk59/production/b14af1b0662771bb518cb7e88f33b6219735445c-6313x4209.jpg?auto=format&fit=max&q=75&w=900",
+      "https://cdn.sanity.io/images/b117mk59/production/2444e134e3ae330d1dc4be49d76519fc50045afc-6720x4480.jpg?auto=format&fit=max&q=75&w=640",
+      "https://cdn.sanity.io/images/b117mk59/production/9b9a90bf52b6ea938ef576554a3d2955e16c43fe-7360x4912.jpg?auto=format&fit=max&q=75&w=640"
+    ],
+    "beforeAfter": []
+  },
+  "migration": {
+    "oldUrls": [],
+    "redirectMap": []
+  },
+  "meta": {
+    "oldSiteUrl": "https://orangecounty-dentalcare.com",
+    "scrapedAt": "2026-05-06T17:32:26.453Z",
+    "intakeSource": "ai-silver",
+    "clientId": null,
+    "confidenceFlags": [],
+    "doctorAudit": {
+      "jsonLdNames": [
+        "Orange County Dental Care"
+      ],
+      "silverNames": [
+        "Dr. Ali-Reza Etemadieh",
+        "Dr. Etemadieh"
+      ],
+      "missing": [
+        "Orange County Dental Care"
+      ],
+      "extraInSilver": [
+        "Dr. Ali-Reza Etemadieh",
+        "Dr. Etemadieh"
+      ]
+    }
+  },
+  "differentiators": [
+    {
+      "type": "language",
+      "label": "Multilingual care available",
+      "detail": "Multilingual Care Available is listed as a distinguishing feature of the practice.",
+      "source": "/",
+      "confidence": 0.9
+    },
+    {
+      "type": "staff_note",
+      "label": "Trusted by fellow dentists",
+      "detail": "The practice highlights being trusted by fellow dentists as a key differentiator.",
+      "source": "/",
+      "confidence": 0.8
+    },
+    {
+      "type": "unique_feature",
+      "label": "Implant & cosmetic specialist on staff since 2013",
+      "detail": "Dr. Etemadieh has extensive training in implants and cosmetics and has been practicing since 2013.",
+      "source": "/",
+      "confidence": 0.95
+    },
+    {
+      "type": "technology",
+      "label": "Digital x-rays and intraoral scanners available",
+      "detail": "Modern practices feature digital x-rays and intraoral scanners for accurate diagnoses and comfortable treatments.",
+      "source": "/about-us",
+      "confidence": 0.95
+    },
+    {
+      "type": "language",
+      "label": "Multilingual team, care in multiple languages",
+      "detail": "The team proudly offers care in multiple languages.",
+      "source": "/about-us",
+      "confidence": 0.95
+    },
+    {
+      "type": "unique_feature",
+      "label": "Dentist trusted by other dentists for their own care",
+      "detail": "Dr. Etemadieh is the dentist that other dentists trust with their own care.",
+      "source": "/about-us",
+      "confidence": 0.9
+    },
+    {
+      "type": "unique_feature",
+      "label": "Practice established in 2013, serving Orange County",
+      "detail": "Dr. Etemadieh established Orange County Dental Care in 2013.",
+      "source": "/about-us",
+      "confidence": 0.95
+    },
+    {
+      "type": "language",
+      "label": "English, Spanish, Farsi, Vietnamese, and French spoken",
+      "detail": "Multilingual team to better serve the diverse community.",
+      "source": "/contact",
+      "confidence": 1
+    },
+    {
+      "type": "unique_feature",
+      "label": "Two convenient office locations in Orange County",
+      "detail": "Offices in Orange and Tustin.",
+      "source": "/contact",
+      "confidence": 0.95
+    },
+    {
+      "type": "technology",
+      "label": "Advanced technology for personalized dental care",
+      "detail": null,
+      "source": "/contact",
+      "confidence": 0.8
+    },
+    {
+      "type": "technology",
+      "label": "Digital x-rays for early issue detection",
+      "detail": "Digital x-rays are part of the comprehensive preventative services offered.",
+      "source": "/services/preventative-dentistry",
+      "confidence": 0.8
+    },
+    {
+      "type": "unique_feature",
+      "label": "Personalized preventative care plans for each patient",
+      "detail": "Care plans are customized based on each patient's unique needs and examination results.",
+      "source": "/services/preventative-dentistry",
+      "confidence": 0.75
+    },
+    {
+      "type": "technology",
+      "label": "Amalgam-free restorations using biocompatible materials",
+      "detail": "The practice avoids amalgam in favor of more aesthetic and biocompatible options for all restorations.",
+      "source": "/services/restorative-dentistry",
+      "confidence": 0.9
+    },
+    {
+      "type": "technology",
+      "label": "Zirconia and gold crown options available",
+      "detail": "Crowns are made of zirconia or gold using premium materials and advanced techniques.",
+      "source": "/services/restorative-dentistry",
+      "confidence": 0.85
+    },
+    {
+      "type": "staff_note",
+      "label": "Dr. Etemadieh combines artistic vision with technical expertise",
+      "detail": "Delivers beautiful, natural-looking cosmetic results tailored to individual goals.",
+      "source": "/services/cosmetic-dentistry",
+      "confidence": 0.8
+    },
+    {
+      "type": "unique_feature",
+      "label": "Same-day cosmetic treatments available including whitening and bonding",
+      "detail": "Some treatments like whitening or bonding can be completed in a single visit.",
+      "source": "/services/cosmetic-dentistry",
+      "confidence": 0.85
+    },
+    {
+      "type": "technology",
+      "label": "Advanced 3D digital scanning for precise treatment plans",
+      "detail": "Dr. Etemadieh uses advanced 3D digital scanning to create precise treatment plans that map out exact tooth movements, allowing patients to see virtual results before treatment begins.",
+      "source": "/services/orthodontics",
+      "confidence": 0.9
+    },
+    {
+      "type": "technology",
+      "label": "Advanced intraoral scanner for digital impressions",
+      "detail": "Intraoral scanner used during comprehensive evaluations to create precise digital models.",
+      "source": "/services/orthodontics",
+      "confidence": 0.85
+    },
+    {
+      "type": "unique_feature",
+      "label": "Sedation referrals coordinated with trusted specialists",
+      "detail": "Orange County Dental Care does not offer direct sedation but coordinates referrals to qualified sedation specialists based on patient needs.",
+      "source": "/services/sedation-dentistry",
+      "confidence": 0.85
+    },
+    {
+      "type": "emergency",
+      "label": "Same-day emergency appointments whenever possible",
+      "detail": "Dr. Etemadieh makes emergency patients a priority, offering same-day appointments whenever possible.",
+      "source": "/services/emergency-dentistry",
+      "confidence": 0.95
+    },
+    {
+      "type": "hours_note",
+      "label": "After-hours care available for serious emergencies",
+      "detail": "After-hours care is available when needed for serious situations.",
+      "source": "/services/emergency-dentistry",
+      "confidence": 0.95
+    },
+    {
+      "type": "technology",
+      "label": "American-made Straumann and Swiss-made Hoissen implants",
+      "detail": "Uses only high-quality American-made Straumann and Swiss-made Hoissen implants for premium results.",
+      "source": "/services/dental-implants",
+      "confidence": 0.95
+    },
+    {
+      "type": "technology",
+      "label": "Digital imaging for implant planning and bone assessment",
+      "detail": "Comprehensive evaluation including digital imaging to assess bone quality and determine optimal implant placement.",
+      "source": "/services/dental-implants",
+      "confidence": 0.85
+    },
+    {
+      "type": "unique_feature",
+      "label": "Custom-crafted dentures for optimal fit and natural appearance",
+      "detail": "Each prosthetic is custom-designed to complement your facial features and provide the most natural look possible using high-quality materials.",
+      "source": "/services/dentures",
+      "confidence": 0.8
+    }
+  ],
+  "signals": [
+    {
+      "type": "language",
+      "label": "Multilingual care available",
+      "detail": "Multilingual Care Available is listed as a distinguishing feature of the practice.",
+      "source": "/",
+      "confidence": 0.9
+    },
+    {
+      "type": "staff_note",
+      "label": "Trusted by fellow dentists",
+      "detail": "The practice highlights being trusted by fellow dentists as a key differentiator.",
+      "source": "/",
+      "confidence": 0.8
+    },
+    {
+      "type": "unique_feature",
+      "label": "Implant & cosmetic specialist on staff since 2013",
+      "detail": "Dr. Etemadieh has extensive training in implants and cosmetics and has been practicing since 2013.",
+      "source": "/",
+      "confidence": 0.95
+    },
+    {
+      "type": "technology",
+      "label": "Digital x-rays and intraoral scanners available",
+      "detail": "Modern practices feature digital x-rays and intraoral scanners for accurate diagnoses and comfortable treatments.",
+      "source": "/about-us",
+      "confidence": 0.95
+    },
+    {
+      "type": "language",
+      "label": "Multilingual team, care in multiple languages",
+      "detail": "The team proudly offers care in multiple languages.",
+      "source": "/about-us",
+      "confidence": 0.95
+    },
+    {
+      "type": "unique_feature",
+      "label": "Dentist trusted by other dentists for their own care",
+      "detail": "Dr. Etemadieh is the dentist that other dentists trust with their own care.",
+      "source": "/about-us",
+      "confidence": 0.9
+    },
+    {
+      "type": "unique_feature",
+      "label": "Practice established in 2013, serving Orange County",
+      "detail": "Dr. Etemadieh established Orange County Dental Care in 2013.",
+      "source": "/about-us",
+      "confidence": 0.95
+    },
+    {
+      "type": "language",
+      "label": "English, Spanish, Farsi, Vietnamese, and French spoken",
+      "detail": "Multilingual team to better serve the diverse community.",
+      "source": "/contact",
+      "confidence": 1
+    },
+    {
+      "type": "unique_feature",
+      "label": "Two convenient office locations in Orange County",
+      "detail": "Offices in Orange and Tustin.",
+      "source": "/contact",
+      "confidence": 0.95
+    },
+    {
+      "type": "technology",
+      "label": "Advanced technology for personalized dental care",
+      "detail": null,
+      "source": "/contact",
+      "confidence": 0.8
+    },
+    {
+      "type": "technology",
+      "label": "Digital x-rays for early issue detection",
+      "detail": "Digital x-rays are part of the comprehensive preventative services offered.",
+      "source": "/services/preventative-dentistry",
+      "confidence": 0.8
+    },
+    {
+      "type": "unique_feature",
+      "label": "Personalized preventative care plans for each patient",
+      "detail": "Care plans are customized based on each patient's unique needs and examination results.",
+      "source": "/services/preventative-dentistry",
+      "confidence": 0.75
+    },
+    {
+      "type": "technology",
+      "label": "Amalgam-free restorations using biocompatible materials",
+      "detail": "The practice avoids amalgam in favor of more aesthetic and biocompatible options for all restorations.",
+      "source": "/services/restorative-dentistry",
+      "confidence": 0.9
+    },
+    {
+      "type": "technology",
+      "label": "Zirconia and gold crown options available",
+      "detail": "Crowns are made of zirconia or gold using premium materials and advanced techniques.",
+      "source": "/services/restorative-dentistry",
+      "confidence": 0.85
+    },
+    {
+      "type": "staff_note",
+      "label": "Dr. Etemadieh combines artistic vision with technical expertise",
+      "detail": "Delivers beautiful, natural-looking cosmetic results tailored to individual goals.",
+      "source": "/services/cosmetic-dentistry",
+      "confidence": 0.8
+    },
+    {
+      "type": "unique_feature",
+      "label": "Same-day cosmetic treatments available including whitening and bonding",
+      "detail": "Some treatments like whitening or bonding can be completed in a single visit.",
+      "source": "/services/cosmetic-dentistry",
+      "confidence": 0.85
+    },
+    {
+      "type": "technology",
+      "label": "Advanced 3D digital scanning for precise treatment plans",
+      "detail": "Dr. Etemadieh uses advanced 3D digital scanning to create precise treatment plans that map out exact tooth movements, allowing patients to see virtual results before treatment begins.",
+      "source": "/services/orthodontics",
+      "confidence": 0.9
+    },
+    {
+      "type": "technology",
+      "label": "Advanced intraoral scanner for digital impressions",
+      "detail": "Intraoral scanner used during comprehensive evaluations to create precise digital models.",
+      "source": "/services/orthodontics",
+      "confidence": 0.85
+    },
+    {
+      "type": "unique_feature",
+      "label": "Sedation referrals coordinated with trusted specialists",
+      "detail": "Orange County Dental Care does not offer direct sedation but coordinates referrals to qualified sedation specialists based on patient needs.",
+      "source": "/services/sedation-dentistry",
+      "confidence": 0.85
+    },
+    {
+      "type": "emergency",
+      "label": "Same-day emergency appointments whenever possible",
+      "detail": "Dr. Etemadieh makes emergency patients a priority, offering same-day appointments whenever possible.",
+      "source": "/services/emergency-dentistry",
+      "confidence": 0.95
+    },
+    {
+      "type": "hours_note",
+      "label": "After-hours care available for serious emergencies",
+      "detail": "After-hours care is available when needed for serious situations.",
+      "source": "/services/emergency-dentistry",
+      "confidence": 0.95
+    },
+    {
+      "type": "technology",
+      "label": "American-made Straumann and Swiss-made Hoissen implants",
+      "detail": "Uses only high-quality American-made Straumann and Swiss-made Hoissen implants for premium results.",
+      "source": "/services/dental-implants",
+      "confidence": 0.95
+    },
+    {
+      "type": "technology",
+      "label": "Digital imaging for implant planning and bone assessment",
+      "detail": "Comprehensive evaluation including digital imaging to assess bone quality and determine optimal implant placement.",
+      "source": "/services/dental-implants",
+      "confidence": 0.85
+    },
+    {
+      "type": "unique_feature",
+      "label": "Custom-crafted dentures for optimal fit and natural appearance",
+      "detail": "Each prosthetic is custom-designed to complement your facial features and provide the most natural look possible using high-quality materials.",
+      "source": "/services/dentures",
+      "confidence": 0.8
+    }
+  ],
+  "pageInventory": [
+    {
+      "url": "https://orangecounty-dentalcare.com/",
+      "path": "/",
+      "title": "Dentist in Orange, CA | Orange County Dental Care - Orange County Dental Care",
+      "metaDesc": "Welcome to Orange County Dental Care in Orange, CA. We offer comprehensive dental care including cleanings, fillings, crowns, and implants. Book your appointment today!",
+      "h1": "Transform Your Smile with Exceptional Care",
+      "h2s": [
+        "Our Services Section",
+        "Meet the Doctor",
+        "Schedule Your Visit in Orange County"
+      ],
+      "h3s": [
+        "New Patient Welcome",
+        "Preventative Dentistry",
+        "Restorative Dentistry",
+        "Cosmetic Dentistry",
+        "Dental Implants",
+        "Dentures",
+        "Emergency Dentistry"
+      ],
+      "paragraphs": [
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "Quality Dentistry for All Ages",
+        "Learn more about our new patient specials, discounts, and the excellent service we give our patients! Our goal is for your first visit to be one of comfort and acknowledgement of your personal dental needs. We will take the required time to properly diagnose your immediate dental concerns, review your past medical and dental history, and create a treatment plan that provides for your optimal dental health. With your cooperation, we will complete a thorough comprehensive dental evaluation.",
+        "Dr. Ali-Reza Etemadieh has been providing exceptional dental care to Orange County residents since 2013. With extensive training in implants and cosmetics, he's dedicated to delivering high-quality dentistry in a comfortable environment where patients feel valued and understood."
+      ],
+      "wordCount": 274,
+      "bodyText": "665 N Tustin St suite w, Orange, CA 92867, United StatesAboutServices (714)628-9910 (714)628-9910 Call Us Now 5.0Contact UsPatient Resources 665 N Tustin St suite w, Orange, CA 92867, United States (714) 628-9910 (714) 628-9910 Call Us Now 5.0Open main menu Transform Your Smile with Exceptional Care Quality Dentistry for All Ages (714) 628-9910 Schedule Online (714) 628-9910 Schedule OnlineNew Patient WelcomeLearn more about our new patient specials, discounts, and the excellent service we give our patients! Our goal is for your first visit to be one of comfort and acknowledgement of your personal dental needs. We will take the required time to properly diagnose your immediate dental concerns, review your past medical and dental history, and create a treatment plan that provides for your optimal dental health. With your cooperation, we will complete a thorough comprehensive dental evaluation. Call NowOur Services SectionPreventative DentistryRestorative DentistryCosmetic DentistryDental ImplantsDenturesEmergency DentistryMeet the DoctorDr. Ali-Reza Etemadieh has been providing exceptional dental care to Orange County residents since 2013. With extensive training in implants and cosmetics, he's dedicated to delivering high-quality dentistry in a comfortable environment where patients feel valued and understood.Implant & Cosmetic SpecialistTrusted by Fellow DentistsMultilingual Care AvailableSchedule Your Visit in Orange CountyExperience the difference at Orange County Dental Care where quality meets compassion. Our team provides personalized dental treatments using advanced technology in our two convenient locations in Orange and Tustin. (714) 628-9910 Schedule Online About UsPhone 714-628-9910Email care@orangecounty-dentalcare.comAddress665 N. Tustin Street Suite W, Orange, CA 92867Links About Contact Us Patient Resources Services Preventative Dentistry Restorative Dentistry Cosmetic Dentistry Dental Implants Dentures Emergency Dentistry Sedation Dentistry Orthodont"
+    },
+    {
+      "url": "https://orangecounty-dentalcare.com/about-us",
+      "path": "/about-us",
+      "title": "About Our Dental Practice | Orange County Dental Care - Orange County Dental Care",
+      "metaDesc": "Serving Orange County since 2013, Dr. Ali-Reza Etemadieh leads our family-oriented practice with over a decade of experience. Meet our team and learn about our commitment to quality care.",
+      "h1": "About Orange County Dental Care",
+      "h2s": [
+        "Meet the Doctor",
+        "Why Choose Us?",
+        "Serving Orange County with Excellence",
+        "Start Your Dental Journey Today"
+      ],
+      "h3s": [
+        "Quality First",
+        "Personalized Care",
+        "Advanced Technology"
+      ],
+      "paragraphs": [
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "Dr. Ali-Reza Etemadieh brings his extensive dental expertise to Orange County Dental Care, which he established in 2013. Born in Iran and raised in Germany, Dr. Etemadieh chose dentistry after a personal dental experience changed his career path from medicine to dentistry. He's committed to providing the highest quality dental care in a warm, welcoming environment where every patient is treated like family.",
+        "Discover how Dr. Etemadieh and our multilingual team can transform your smile with personalized, quality-focused care. Book your visit today!",
+        "At Orange County Dental Care, we prioritize quality above all else. Dr. Etemadieh is the dentist that other dentists trust with their own care. We never compromise on integrity, materials, or service—ensuring that every patient receives the highest standard of dental treatment available."
+      ],
+      "wordCount": 302,
+      "bodyText": "665 N Tustin St suite w, Orange, CA 92867, United StatesAboutServices (714)628-9910 (714)628-9910 Call Us Now 5.0Contact UsPatient Resources 665 N Tustin St suite w, Orange, CA 92867, United States (714) 628-9910 (714) 628-9910 Call Us Now 5.0Open main menu About Orange County Dental Care 714-628-9910 Schedule OnlineMeet the DoctorDr. Ali-Reza Etemadieh brings his extensive dental expertise to Orange County Dental Care, which he established in 2013. Born in Iran and raised in Germany, Dr. Etemadieh chose dentistry after a personal dental experience changed his career path from medicine to dentistry. He's committed to providing the highest quality dental care in a warm, welcoming environment where every patient is treated like family.Discover how Dr. Etemadieh and our multilingual team can transform your smile with personalized, quality-focused care. Book your visit today!Why Choose Us?At Orange County Dental Care, we prioritize quality above all else. Dr. Etemadieh is the dentist that other dentists trust with their own care. We never compromise on integrity, materials, or service—ensuring that every patient receives the highest standard of dental treatment available.Quality FirstPersonalized CareAdvanced TechnologyServing Orange County with Excellence Visit us at our convenient Orange or Tustin location. Our modern practices feature the latest dental technology including digital x-rays and intraoral scanners to ensure accurate diagnoses and comfortable treatments. We welcome patients of all ages and proudly offer care in multiple languages.Start Your Dental Journey Today Experience the Orange County Dental Care difference where quality meets compassion. Our dedicated team is ready to provide you with exceptional dental care tailored to your unique needs. 714-628-9910 Schedule Online About UsPhone 714-628-9910Email care@orangecounty-dentalcare.comAddress665 N. Tustin Street Suite W, Orange, CA 92867Links About Contact Us Patient Resources Services Preventative Denti"
+    },
+    {
+      "url": "https://orangecounty-dentalcare.com/contact",
+      "path": "/contact",
+      "title": "Contact Us | Orange County Dental Care - Orange County Dental Care",
+      "metaDesc": "Contact Orange County Dental Care in Orange, CA to schedule your next appointment. Find our address, phone number, and office hours here.",
+      "h1": "Contact Orange County Dental Care",
+      "h2s": [
+        "Our Practice",
+        "Reach Us"
+      ],
+      "h3s": [],
+      "paragraphs": [
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "At Orange County Dental Care, we're dedicated to providing exceptional dental services in a comfortable, welcoming environment. Our experienced team offers personalized care using advanced technology to ensure the best possible outcomes for every patient. We speak English, Spanish, Farsi, Vietnamese, and French to better serve our diverse community.",
+        "Orange Office",
+        "665 N. Tustin Street Suite W, Orange CA 92867 (across from Ruby's Diner)"
+      ],
+      "wordCount": 162,
+      "bodyText": "665 N Tustin St suite w, Orange, CA 92867, United StatesAboutServices (714)628-9910 (714)628-9910 Call Us Now 5.0Contact UsPatient Resources 665 N Tustin St suite w, Orange, CA 92867, United States (714) 628-9910 (714) 628-9910 Call Us Now 5.0Open main menu Contact Orange County Dental Care 714-628-9910 Schedule OnlineOur Practice At Orange County Dental Care, we're dedicated to providing exceptional dental services in a comfortable, welcoming environment. Our experienced team offers personalized care using advanced technology to ensure the best possible outcomes for every patient. We speak English, Spanish, Farsi, Vietnamese, and French to better serve our diverse community.Quality-Focused CareMultilingual TeamAdvanced TechnologyTwo Convenient LocationsReach UsOrange Office665 N. Tustin Street Suite W, Orange CA 92867 (across from Ruby's Diner)Tustin Office18410 IrvinePhone 714-628-9910 About UsPhone 714-628-9910Email care@orangecounty-dentalcare.comAddress665 N. Tustin Street Suite W, Orange, CA 92867Links About Contact Us Patient Resources Services Preventative Dentistry Restorative Dentistry Cosmetic Dentistry Dental Implants Dentures Emergency Dentistry Sedation Dentistry OrthodonticsSocial Privacy Policy Terms & Conditions Cookie PolicyBuilt by Energize Group"
+    },
+    {
+      "url": "https://orangecounty-dentalcare.com/services/preventative-dentistry",
+      "path": "/services/preventative-dentistry",
+      "title": "Preventative Dental Care | Orange County Dental Care - Orange County Dental Care",
+      "metaDesc": "Maintain your oral health with preventative dentistry at Orange County Dental Care. We offer cleanings, exams, digital x-rays, and more to keep your smile healthy.",
+      "h1": "Preventative Dental Care in Orange County",
+      "h2s": [
+        "Prevention First",
+        "Our Preventative Services",
+        "Benefits of Prevention",
+        "Protect Your Smile with Preventative Care"
+      ],
+      "h3s": [
+        "FAQ"
+      ],
+      "paragraphs": [
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "At Orange County Dental Care, we believe that preventative care is the foundation of excellent oral health. Our comprehensive preventative services help you maintain a healthy smile and avoid costly treatments down the road. From thorough cleanings to early detection of potential issues, we focus on preserving your natural teeth and preventing problems before they start.",
+        "Our preventative care includes professional cleanings, comprehensive exams, digital x-rays, oral cancer screenings, fluoride treatments, and periodontal care. These services work together to remove plaque and tartar, detect early signs of decay or disease, and strengthen your teeth against future damage. We customize your preventative care schedule based on your unique needs.",
+        "Regular preventative care offers numerous benefits beyond just avoiding cavities. It helps maintain fresh breath, prevents gum disease, reduces the risk of tooth loss, saves money on extensive treatments, and contributes to better overall health. Research has shown connections between oral health and conditions like heart disease and diabetes."
+      ],
+      "wordCount": 601,
+      "bodyText": "665 N Tustin St suite w, Orange, CA 92867, United StatesAboutServices (714)628-9910 (714)628-9910 Call Us Now 5.0Contact UsPatient Resources 665 N Tustin St suite w, Orange, CA 92867, United States (714) 628-9910 (714) 628-9910 Call Us Now 5.0Open main menu Preventative Dental Care in Orange County 714-628-9910 Schedule OnlinePrevention FirstAt Orange County Dental Care, we believe that preventative care is the foundation of excellent oral health. Our comprehensive preventative services help you maintain a healthy smile and avoid costly treatments down the road. From thorough cleanings to early detection of potential issues, we focus on preserving your natural teeth and preventing problems before they start.Our Preventative Services Our preventative care includes professional cleanings, comprehensive exams, digital x-rays, oral cancer screenings, fluoride treatments, and periodontal care. These services work together to remove plaque and tartar, detect early signs of decay or disease, and strengthen your teeth against future damage. We customize your preventative care schedule based on your unique needs.Benefits of Prevention Regular preventative care offers numerous benefits beyond just avoiding cavities. It helps maintain fresh breath, prevents gum disease, reduces the risk of tooth loss, saves money on extensive treatments, and contributes to better overall health. Research has shown connections between oral health and conditions like heart disease and diabetes.Early Detection of Dental IssuesPrevention of Gum DiseaseReduction in Overall Dental CostsMaintenance of a Bright, Healthy SmileThe comprehensive care I receive at Orange County Dental Care has kept my smile healthy for years. Their attention to detail during cleanings is outstanding!During your preventative visit at Orange County Dental Care, our hygienist will thoroughly clean your teeth, removing plaque and tartar that can't be addressed with regular brushing and flossing. Dr. Etemadieh will then conduc"
+    },
+    {
+      "url": "https://orangecounty-dentalcare.com/services/restorative-dentistry",
+      "path": "/services/restorative-dentistry",
+      "title": "Restorative Dental Treatments | Orange County Dental Care - Orange County Dental Care",
+      "metaDesc": "Restore your smile with our comprehensive restorative dental treatments in Orange, CA. We offer fillings, crowns, bridges, and root canals.",
+      "h1": "Restorative Dental Care in Orange County",
+      "h2s": [
+        "Restore & Renew",
+        "Our Restorative Services",
+        "Benefits of Restoration",
+        "Restore Your Smile's Health and Beauty"
+      ],
+      "h3s": [
+        "FAQ"
+      ],
+      "paragraphs": [
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "Damage to your teeth doesn't have to be permanent. At Orange County Dental Care, our restorative dental services rebuild, repair, and renew teeth that have been affected by decay, injury, or wear. Using premium materials and advanced techniques, Dr. Etemadieh provides restorative treatments that not only return function to your teeth but also enhance their appearance and longevity.",
+        "We offer a comprehensive range of restorative treatments including tooth-colored fillings, crowns made of zirconia or gold, bridges, inlays and onlays, root canal therapy, and full mouth rehabilitation. For every procedure, we use only the highest quality materials—avoiding amalgam in favor of more aesthetic and biocompatible options. Each restoration is precisely crafted to match your natural teeth.",
+        "Restorative dentistry does more than just repair damage—it restores your ability to eat, speak, and smile with confidence. By addressing issues promptly, we can prevent further deterioration and more complex problems. Our restorative treatments are designed to be durable and natural-looking, preserving as much of your natural tooth structure as possible."
+      ],
+      "wordCount": 629,
+      "bodyText": "665 N Tustin St suite w, Orange, CA 92867, United StatesAboutServices (714)628-9910 (714)628-9910 Call Us Now 5.0Contact UsPatient Resources 665 N Tustin St suite w, Orange, CA 92867, United States (714) 628-9910 (714) 628-9910 Call Us Now 5.0Open main menu Restorative Dental Care in Orange County 714-628-9910 Schedule OnlineRestore & RenewDamage to your teeth doesn't have to be permanent. At Orange County Dental Care, our restorative dental services rebuild, repair, and renew teeth that have been affected by decay, injury, or wear. Using premium materials and advanced techniques, Dr. Etemadieh provides restorative treatments that not only return function to your teeth but also enhance their appearance and longevity.Our Restorative Services We offer a comprehensive range of restorative treatments including tooth-colored fillings, crowns made of zirconia or gold, bridges, inlays and onlays, root canal therapy, and full mouth rehabilitation. For every procedure, we use only the highest quality materials—avoiding amalgam in favor of more aesthetic and biocompatible options. Each restoration is precisely crafted to match your natural teeth.Benefits of Restoration Restorative dentistry does more than just repair damage—it restores your ability to eat, speak, and smile with confidence. By addressing issues promptly, we can prevent further deterioration and more complex problems. Our restorative treatments are designed to be durable and natural-looking, preserving as much of your natural tooth structure as possible.Relief from Dental Pain and DiscomfortRestoration of Proper Chewing FunctionPrevention of Further Tooth DamageImprovement in Overall Oral Health\"After years of dental problems, Dr. Etemadieh restored my smile completely. I can eat anything now, and my teeth look completely natural!\"The restorative process begins with a thorough examination to assess your dental needs. Dr. Etemadieh will discuss your treatment options, taking into account factors such as the exte"
+    },
+    {
+      "url": "https://orangecounty-dentalcare.com/services/cosmetic-dentistry",
+      "path": "/services/cosmetic-dentistry",
+      "title": "Cosmetic Dental Services | Orange County Dental Care - Orange County Dental Care",
+      "metaDesc": "Transform your smile with cosmetic dentistry at Orange County Dental Care. We offer teeth whitening, veneers, bonding, and Invisalign in Orange, CA.",
+      "h1": "Cosmetic Dental Treatments in Orange County",
+      "h2s": [
+        "Smile Transformation",
+        "Our Cosmetic Services",
+        "Benefits of Cosmetic Dentistry",
+        "Ready for a Smile Transformation?"
+      ],
+      "h3s": [
+        "FAQ"
+      ],
+      "paragraphs": [
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "Your smile creates lasting impressions. At Orange County Dental Care, our cosmetic dentistry services are designed to enhance the appearance of your teeth and create the smile you've always wanted. Dr. Etemadieh combines artistic vision with technical expertise to deliver beautiful, natural-looking results. From subtle improvements to dramatic transformations, we tailor our approach to your unique goals.",
+        "We offer a comprehensive range of cosmetic treatments including professional teeth whitening, porcelain veneers, chairside composite veneers, dental bonding and contouring, and Invisalign clear aligners. Each service is customized to address your specific concerns—whether that's discoloration, chips, gaps, misalignment, or a complete smile makeover. Our focus is always on creating results that look naturally beautiful.",
+        "The benefits of cosmetic dentistry extend far beyond appearance. A beautiful smile can boost your self-confidence, create positive first impressions, and even improve your overall oral health. Many of our cosmetic procedures not only enhance aesthetics but also strengthen teeth and improve function, offering both immediate and long-term advantages."
+      ],
+      "wordCount": 629,
+      "bodyText": "665 N Tustin St suite w, Orange, CA 92867, United StatesAboutServices (714)628-9910 (714)628-9910 Call Us Now 5.0Contact UsPatient Resources 665 N Tustin St suite w, Orange, CA 92867, United States (714) 628-9910 (714) 628-9910 Call Us Now 5.0Open main menu Cosmetic Dental Treatments in Orange County 714-628-9910 Schedule OnlineSmile TransformationYour smile creates lasting impressions. At Orange County Dental Care, our cosmetic dentistry services are designed to enhance the appearance of your teeth and create the smile you've always wanted. Dr. Etemadieh combines artistic vision with technical expertise to deliver beautiful, natural-looking results. From subtle improvements to dramatic transformations, we tailor our approach to your unique goals.Our Cosmetic Services We offer a comprehensive range of cosmetic treatments including professional teeth whitening, porcelain veneers, chairside composite veneers, dental bonding and contouring, and Invisalign clear aligners. Each service is customized to address your specific concerns—whether that's discoloration, chips, gaps, misalignment, or a complete smile makeover. Our focus is always on creating results that look naturally beautiful.Benefits of Cosmetic Dentistry The benefits of cosmetic dentistry extend far beyond appearance. A beautiful smile can boost your self-confidence, create positive first impressions, and even improve your overall oral health. Many of our cosmetic procedures not only enhance aesthetics but also strengthen teeth and improve function, offering both immediate and long-term advantages.Increased Confidence in Your SmileCorrection of Aesthetic ConcernsImproved Dental FunctionLong-lasting, Natural-looking Results\"I never used to smile in photos, but after my treatment with Dr. Etemadieh, I can't stop smiling! The results look so natural—just a better version of my own teeth.\"Your cosmetic journey begins with a consultation where we discuss your goals and concerns. Dr. Etemadieh will evaluate your d"
+    },
+    {
+      "url": "https://orangecounty-dentalcare.com/services/orthodontics",
+      "path": "/services/orthodontics",
+      "title": "Orthodontics | Orange County Dental Care  - Orange County Dental Care",
+      "metaDesc": "Overcome dental anxiety with sedation dentistry options at Orange County Dental Care in Orange, CA. We work with specialists to provide comfortable, stress-free dental experiences for anxious patients.",
+      "h1": "Orthodontic Solutions in Orange County",
+      "h2s": [
+        "Straight Smiles",
+        "Our Orthodontic Services",
+        "Benefits of Modern Orthodontics",
+        "Start Your Smile Transformation"
+      ],
+      "h3s": [
+        "FAQ"
+      ],
+      "paragraphs": [
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "A properly aligned smile isn't just about aesthetics—it contributes to better oral health and function. At Orange County Dental Care, we offer comprehensive orthodontic solutions including Invisalign clear aligners to help patients of all ages achieve straighter, healthier smiles. Dr. Etemadieh combines advanced technology with personalized treatment plans to deliver excellent results with maximum comfort and convenience.",
+        "We provide a range of orthodontic treatment options with a focus on clear aligner therapy. Using advanced 3D digital scanning, Dr. Etemadieh creates precise treatment plans that map out the exact movements of your teeth, allowing you to see your virtual results before treatment begins. Our orthodontic solutions are designed to fit your lifestyle while effectively addressing alignment issues, spacing problems, and bite irregularities.",
+        "Today's orthodontic treatments offer significant advantages over traditional methods, with options that are more comfortable, convenient, and aesthetically pleasing. Properly aligned teeth are easier to clean, reducing the risk of decay and gum disease. Correcting bite issues can also alleviate jaw pain, improve speech, and enhance overall dental function. Most importantly, a straight smile can boost your confidence in personal and professional settings."
+      ],
+      "wordCount": 707,
+      "bodyText": "665 N Tustin St suite w, Orange, CA 92867, United StatesAboutServices (714)628-9910 (714)628-9910 Call Us Now 5.0Contact UsPatient Resources 665 N Tustin St suite w, Orange, CA 92867, United States (714) 628-9910 (714) 628-9910 Call Us Now 5.0Open main menu Orthodontic Solutions in Orange County 714-628-9910 Schedule OnlineStraight SmilesA properly aligned smile isn't just about aesthetics—it contributes to better oral health and function. At Orange County Dental Care, we offer comprehensive orthodontic solutions including Invisalign clear aligners to help patients of all ages achieve straighter, healthier smiles. Dr. Etemadieh combines advanced technology with personalized treatment plans to deliver excellent results with maximum comfort and convenience.Our Orthodontic Services We provide a range of orthodontic treatment options with a focus on clear aligner therapy. Using advanced 3D digital scanning, Dr. Etemadieh creates precise treatment plans that map out the exact movements of your teeth, allowing you to see your virtual results before treatment begins. Our orthodontic solutions are designed to fit your lifestyle while effectively addressing alignment issues, spacing problems, and bite irregularities.Benefits of Modern OrthodonticsToday's orthodontic treatments offer significant advantages over traditional methods, with options that are more comfortable, convenient, and aesthetically pleasing. Properly aligned teeth are easier to clean, reducing the risk of decay and gum disease. Correcting bite issues can also alleviate jaw pain, improve speech, and enhance overall dental function. Most importantly, a straight smile can boost your confidence in personal and professional settings.Improved Oral Health and HygieneEnhanced Appearance and ConfidenceBetter Dental Function and ComfortPrevention of Future Dental Problems\"My orthodontic treatment with Dr. Etemadieh transformed not just my smile but my confidence. The process was so much easier than I expected, and th"
+    },
+    {
+      "url": "https://orangecounty-dentalcare.com/services/sedation-dentistry",
+      "path": "/services/sedation-dentistry",
+      "title": "Sedation Dentistry | Orange County Dental Care - Orange County Dental Care",
+      "metaDesc": "Transform your smile with orthodontic treatments at Orange County Dental Care in Orange, CA. We offer Invisalign and other orthodontic solutions for patients of all ages. Schedule a consultation today!",
+      "h1": "Sedation Dentistry in Orange County",
+      "h2s": [
+        "Anxiety-Free Care",
+        "Our Sedation Approach",
+        "Benefits of Sedation Dentistry",
+        "Experience Care from Dr. Etemadieh"
+      ],
+      "h3s": [
+        "FAQ"
+      ],
+      "paragraphs": [
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "Dental anxiety shouldn't prevent you from receiving the care your smile needs. At Orange County Dental Care, we understand that visiting the dentist can be stressful for many patients. That's why we offer referrals for sedation options to help you relax during your treatment. Our compassionate approach focuses on ensuring your comfort while providing the quality dental care you deserve in a stress-free environment.",
+        "While Orange County Dental Care doesn't offer direct sedation services, we work closely with trusted specialists who provide various sedation options for our patients who experience dental anxiety. We can coordinate referrals based on your specific needs and the complexity of your treatment. Our primary focus remains on creating a comfortable, supportive environment for all patients through compassionate care and clear communication about each procedure.",
+        "For patients with dental anxiety, sedation dentistry through our specialist partners offers numerous benefits. It allows necessary dental work to be completed comfortably, often with no memory of the procedure. This approach is also beneficial for patients requiring extensive treatment, those with a strong gag reflex, or individuals with special needs who may have difficulty remaining still during dental procedures."
+      ],
+      "wordCount": 713,
+      "bodyText": "665 N Tustin St suite w, Orange, CA 92867, United StatesAboutServices (714)628-9910 (714)628-9910 Call Us Now 5.0Contact UsPatient Resources 665 N Tustin St suite w, Orange, CA 92867, United States (714) 628-9910 (714) 628-9910 Call Us Now 5.0Open main menu Sedation Dentistry in Orange County 714-628-9910 Schedule OnlineAnxiety-Free CareDental anxiety shouldn't prevent you from receiving the care your smile needs. At Orange County Dental Care, we understand that visiting the dentist can be stressful for many patients. That's why we offer referrals for sedation options to help you relax during your treatment. Our compassionate approach focuses on ensuring your comfort while providing the quality dental care you deserve in a stress-free environment.Our Sedation Approach While Orange County Dental Care doesn't offer direct sedation services, we work closely with trusted specialists who provide various sedation options for our patients who experience dental anxiety. We can coordinate referrals based on your specific needs and the complexity of your treatment. Our primary focus remains on creating a comfortable, supportive environment for all patients through compassionate care and clear communication about each procedure.Benefits of Sedation Dentistry For patients with dental anxiety, sedation dentistry through our specialist partners offers numerous benefits. It allows necessary dental work to be completed comfortably, often with no memory of the procedure. This approach is also beneficial for patients requiring extensive treatment, those with a strong gag reflex, or individuals with special needs who may have difficulty remaining still during dental procedures.Reduced Anxiety and StressComfortable Experience for Lengthy ProceduresSolution for Strong Gag ReflexesIdeal for Patients with Special Needs\"As someone who avoided the dentist for years due to anxiety, the sedation option Dr. Etemadieh coordinated completely changed my experience. I was able to get the dental ca"
+    },
+    {
+      "url": "https://orangecounty-dentalcare.com/services/emergency-dentistry",
+      "path": "/services/emergency-dentistry",
+      "title": "Emergency Dental Care | Orange County Dental Care - Orange County Dental Care",
+      "metaDesc": "Need urgent dental care in Orange, CA? Orange County Dental Care offers emergency dental services. Call us immediately for prompt attention.",
+      "h1": "Emergency Dental Care in Orange County",
+      "h2s": [
+        "Urgent Relief",
+        "Our Emergency Services",
+        "Benefits of Professional Emergency Care",
+        "Don't Wait Through Dental Pain"
+      ],
+      "h3s": [
+        "FAQ"
+      ],
+      "paragraphs": [
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "Dental emergencies can happen at any time, often causing significant pain and anxiety. At Orange County Dental Care, we provide prompt, effective emergency dental services to address your urgent needs and relieve your discomfort. Dr. Etemadieh makes emergency patients a priority, offering same-day appointments whenever possible and after-hours care when needed for serious situations.",
+        "We handle a full range of dental emergencies including severe toothaches, broken or chipped teeth, knocked-out teeth, lost fillings or crowns, dental abscesses, soft tissue injuries, and objects caught between teeth. Our focus is on relieving your pain quickly and addressing the underlying problem effectively. When you call with an emergency, our team will provide immediate guidance and arrange for you to be seen as soon as possible.",
+        "Seeking prompt professional care for dental emergencies not only provides immediate pain relief but also helps prevent more serious complications. Quick intervention can often save damaged teeth, prevent infection, and reduce the need for more extensive treatment later. Our emergency care focuses on both addressing the immediate concern and developing a plan for long-term dental health."
+      ],
+      "wordCount": 730,
+      "bodyText": "665 N Tustin St suite w, Orange, CA 92867, United StatesAboutServices (714)628-9910 (714)628-9910 Call Us Now 5.0Contact UsPatient Resources 665 N Tustin St suite w, Orange, CA 92867, United States (714) 628-9910 (714) 628-9910 Call Us Now 5.0Open main menu Emergency Dental Care in Orange County 714-628-9910 Schedule OnlineUrgent ReliefDental emergencies can happen at any time, often causing significant pain and anxiety. At Orange County Dental Care, we provide prompt, effective emergency dental services to address your urgent needs and relieve your discomfort. Dr. Etemadieh makes emergency patients a priority, offering same-day appointments whenever possible and after-hours care when needed for serious situations.Our Emergency Services We handle a full range of dental emergencies including severe toothaches, broken or chipped teeth, knocked-out teeth, lost fillings or crowns, dental abscesses, soft tissue injuries, and objects caught between teeth. Our focus is on relieving your pain quickly and addressing the underlying problem effectively. When you call with an emergency, our team will provide immediate guidance and arrange for you to be seen as soon as possible.Benefits of Professional Emergency Care Seeking prompt professional care for dental emergencies not only provides immediate pain relief but also helps prevent more serious complications. Quick intervention can often save damaged teeth, prevent infection, and reduce the need for more extensive treatment later. Our emergency care focuses on both addressing the immediate concern and developing a plan for long-term dental health.Rapid Pain Relief and ComfortPrevention of Further DamageExpert Assessment of Underlying IssuesDevelopment of Long-term Treatment Plan\"When my crown fell off during dinner, Orange County Dental Care saw me first thing the next morning. Dr. Etemadieh fixed it quickly and painlessly—I couldn't be more grateful!\"When you arrive for an emergency appointment, our first priority is alleviat"
+    },
+    {
+      "url": "https://orangecounty-dentalcare.com/services/dental-implants",
+      "path": "/services/dental-implants",
+      "title": "Dental Implant Solutions | Orange County Dental Care - Orange County Dental Care",
+      "metaDesc": "Replace missing teeth with dental implants at Orange County Dental Care. We offer high-quality American and Swiss implants for a natural-looking smile.",
+      "h1": "Dental Implant Solutions in Orange County",
+      "h2s": [
+        "Permanent Restoration",
+        "Our Implant Solutions",
+        "Benefits of Dental Implants",
+        "Restore Your Complete Smile"
+      ],
+      "h3s": [
+        "FAQ"
+      ],
+      "paragraphs": [
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "Dental implants represent the gold standard in tooth replacement technology. At Orange County Dental Care, Dr. Etemadieh provides premium implant solutions that look, feel, and function just like natural teeth. Using only high-quality American-made Straumann and Swiss-made Hoissen implants, we deliver results that stand the test of time. Our extensive implant training and attention to detail ensure successful outcomes that restore both function and aesthetics.",
+        "We offer comprehensive implant services including single tooth implants, multiple tooth replacement, and implant-supported dentures. Each implant is carefully placed to integrate with your jaw bone, creating a stable foundation for your new tooth. We use only premium titanium implants and custom-designed crowns that blend seamlessly with your natural teeth, ensuring both functionality and natural appearance.",
+        "Unlike traditional tooth replacement options, dental implants replace both the root and crown of missing teeth. This complete replacement prevents bone loss, maintains facial structure, and provides unmatched stability and function. Implants don't require modification of adjacent teeth, are easy to maintain, and with proper care, can last a lifetime—making them a superior long-term investment in your oral health."
+      ],
+      "wordCount": 643,
+      "bodyText": "665 N Tustin St suite w, Orange, CA 92867, United StatesAboutServices (714)628-9910 (714)628-9910 Call Us Now 5.0Contact UsPatient Resources 665 N Tustin St suite w, Orange, CA 92867, United States (714) 628-9910 (714) 628-9910 Call Us Now 5.0Open main menu Dental Implant Solutions in Orange County 714-628-9910 Schedule OnlinePermanent RestorationDental implants represent the gold standard in tooth replacement technology. At Orange County Dental Care, Dr. Etemadieh provides premium implant solutions that look, feel, and function just like natural teeth. Using only high-quality American-made Straumann and Swiss-made Hoissen implants, we deliver results that stand the test of time. Our extensive implant training and attention to detail ensure successful outcomes that restore both function and aesthetics.Our Implant SolutionsWe offer comprehensive implant services including single tooth implants, multiple tooth replacement, and implant-supported dentures. Each implant is carefully placed to integrate with your jaw bone, creating a stable foundation for your new tooth. We use only premium titanium implants and custom-designed crowns that blend seamlessly with your natural teeth, ensuring both functionality and natural appearance.Benefits of Dental ImplantsUnlike traditional tooth replacement options, dental implants replace both the root and crown of missing teeth. This complete replacement prevents bone loss, maintains facial structure, and provides unmatched stability and function. Implants don't require modification of adjacent teeth, are easy to maintain, and with proper care, can last a lifetime—making them a superior long-term investment in your oral health.Preservation of Jawbone and Facial StructureNatural Look, Feel, and FunctionNo Impact on Adjacent Healthy TeethLong-lasting, Permanent Solution\"My dental implant has completely changed my life. I can eat anything, and nobody can tell it's not my natural tooth. Dr. Etemadieh's work is truly exceptional.\"The impl"
+    },
+    {
+      "url": "https://orangecounty-dentalcare.com/services/dentures",
+      "path": "/services/dentures",
+      "title": "Custom Denture Options | Orange County Dental Care - Orange County Dental Care",
+      "metaDesc": "Get custom dentures at Orange County Dental Care in Orange, CA. We create comfortable, natural-looking full and partial dentures to restore your smile.",
+      "h1": "Custom Denture Solutions in Orange County",
+      "h2s": [
+        "Smile Restoration",
+        "Our Denture Options",
+        "Benefits of Modern Dentures",
+        "Restore Your Complete Smile"
+      ],
+      "h3s": [
+        "FAQ"
+      ],
+      "paragraphs": [
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "Missing teeth can significantly impact your quality of life, affecting everything from your diet to your self-confidence. At Orange County Dental Care, we provide custom-crafted denture solutions that restore your ability to eat, speak, and smile with confidence. Our dentures are designed for optimal fit, function, and natural appearance, giving you back the complete smile you deserve.",
+        "We offer a variety of denture solutions including full dentures to replace all teeth, partial dentures to fill gaps while preserving healthy teeth, and implant-supported dentures for maximum stability. Each prosthetic is custom-designed to complement your facial features and provide the most natural look possible. We use high-quality materials that balance durability with comfort and aesthetics.",
+        "Today's dentures are far superior to those of the past, offering improved comfort, aesthetics, and function. Our custom-fitted dentures restore your ability to eat a varied diet, speak clearly, and smile confidently. They also help maintain facial structure, prevent shifting of remaining teeth, and provide a cost-effective solution for multiple missing teeth."
+      ],
+      "wordCount": 654,
+      "bodyText": "665 N Tustin St suite w, Orange, CA 92867, United StatesAboutServices (714)628-9910 (714)628-9910 Call Us Now 5.0Contact UsPatient Resources 665 N Tustin St suite w, Orange, CA 92867, United States (714) 628-9910 (714) 628-9910 Call Us Now 5.0Open main menu Custom Denture Solutions in Orange County 714-628-9910 Schedule OnlineSmile RestorationMissing teeth can significantly impact your quality of life, affecting everything from your diet to your self-confidence. At Orange County Dental Care, we provide custom-crafted denture solutions that restore your ability to eat, speak, and smile with confidence. Our dentures are designed for optimal fit, function, and natural appearance, giving you back the complete smile you deserve.Our Denture Options We offer a variety of denture solutions including full dentures to replace all teeth, partial dentures to fill gaps while preserving healthy teeth, and implant-supported dentures for maximum stability. Each prosthetic is custom-designed to complement your facial features and provide the most natural look possible. We use high-quality materials that balance durability with comfort and aesthetics.Benefits of Modern Dentures Today's dentures are far superior to those of the past, offering improved comfort, aesthetics, and function. Our custom-fitted dentures restore your ability to eat a varied diet, speak clearly, and smile confidently. They also help maintain facial structure, prevent shifting of remaining teeth, and provide a cost-effective solution for multiple missing teeth.Restored Chewing Function and SpeechNatural-Looking AppearancePrevention of Facial SaggingImproved Confidence in Social Situations\"My new dentures from Dr. Etemadieh have completely transformed how I feel about myself. They're comfortable, look natural, and I can eat all my favorite foods again!\"The denture process begins with a comprehensive evaluation of your oral health and discussion of your goals and preferences. We take precise measurements and impre"
+    },
+    {
+      "url": "https://orangecounty-dentalcare.com/cookie-policy",
+      "path": "/cookie-policy",
+      "title": "Cookie Policy - Orange County Dental Care",
+      "metaDesc": "",
+      "h1": "Cookie Policy",
+      "h2s": [
+        "1. What Are Cookies?",
+        "2. How We Use Cookies",
+        "3. Third-Party Cookies",
+        "4. Your Choices",
+        "5. Changes to This Cookie Policy",
+        "6. Contact Us",
+        "Disclaimer"
+      ],
+      "h3s": [],
+      "paragraphs": [
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "Last Updated: 09/04/2025",
+        "Welcome to Orange County Dental Care’s Cookie Policy. This policy explains how we use cookies and similar technologies on our website (orangecounty-dentalcare.com) to enhance your experience and improve our services. By using our website, you consent to the use of cookies as described in this policy. For more information about how we handle your personal information, please see our Privacy Policy.",
+        "Cookies are small text files placed on your device (e.g., computer, smartphone, or tablet) when you visit a website. They help websites recognize your device, remember your preferences, and collect information about how you use the site. We also use similar technologies, such as web beacons, pixels, and tracking scripts, to achieve these purposes."
+      ],
+      "wordCount": 672,
+      "bodyText": "665 N Tustin St suite w, Orange, CA 92867, United StatesAboutServices (714)628-9910 (714)628-9910 Call Us Now 5.0Contact UsPatient Resources 665 N Tustin St suite w, Orange, CA 92867, United States (714) 628-9910 (714) 628-9910 Call Us Now 5.0Open main menu Cookie PolicyLast Updated: 09/04/2025 Welcome to Orange County Dental Care’s Cookie Policy. This policy explains how we use cookies and similar technologies on our website (orangecounty-dentalcare.com) to enhance your experience and improve our services. By using our website, you consent to the use of cookies as described in this policy. For more information about how we handle your personal information, please see our Privacy Policy. 1. What Are Cookies? Cookies are small text files placed on your device (e.g., computer, smartphone, or tablet) when you visit a website. They help websites recognize your device, remember your preferences, and collect information about how you use the site. We also use similar technologies, such as web beacons, pixels, and tracking scripts, to achieve these purposes. 2. How We Use CookiesWe use cookies and similar technologies for the following purposes:Essential Cookies: These cookies are necessary for the website to function properly, such as maintaining your session or enabling basic navigation. You cannot disable these cookies if you wish to use our site. Analytics Cookies: We use tools like Google Analytics and Posthog to collect information about how visitors use our website (e.g., pages visited, time spent, clicks). This helps us analyze performance and improve user experience. Functional Cookies: These cookies allow us to remember your preferences (e.g., language settings) and enhance site functionality. Marketing Cookies: If applicable, we may use cookies to deliver personalized promotions or track the effectiveness of our marketing campaigns. These are only used if you opt in where required. Please note: We do not use cookies to collect Protected Health Information (PHI) "
+    },
+    {
+      "url": "https://orangecounty-dentalcare.com/terms-conditions",
+      "path": "/terms-conditions",
+      "title": "Terms of Service - Orange County Dental Care",
+      "metaDesc": "",
+      "h1": "Terms & Conditions",
+      "h2s": [
+        "1. Website Use & Content",
+        "2. No Collection of PHI",
+        "3. Intellectual Property Rights",
+        "4. Third-Party Links & Services",
+        "5. Disclaimers",
+        "6. Indemnification",
+        "7. Modifications & Termination",
+        "8. Governing Law & Dispute Resolution",
+        "9. Miscellaneous",
+        "10. Contact Us",
+        "Disclaimer"
+      ],
+      "h3s": [
+        "Informational Purposes Only",
+        "Eligibility",
+        "User Conduct",
+        "No HIPAA Compliance",
+        "Ownership of Content",
+        "Restrictions",
+        "External Websites",
+        "Third-Party Tools & Integrations",
+        "No Warranty",
+        "Not Medical Advice",
+        "Limitation of Liability",
+        "Changes to Terms",
+        "Termination of Access",
+        "Governing Law",
+        "Dispute Resolution",
+        "Severability",
+        "Entire Agreement",
+        "No Waiver",
+        "SMS"
+      ],
+      "paragraphs": [
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "Last Updated: 09/04/2025",
+        "Welcome to Orange County Dental Care’s website (“we,” “us,” “our,” or the “Practice”). By accessing or using our website (orangecounty-dentalcare.com), you agree to be bound by these Terms & Conditions (the “Terms”). If you do not agree with any part of these Terms, please do not use our website.",
+        "The content on our website, including any articles, newsletters, blog posts, or marketing materials, is provided for general informational purposes and should not be construed as professional dental or medical advice."
+      ],
+      "wordCount": 1132,
+      "bodyText": "665 N Tustin St suite w, Orange, CA 92867, United StatesAboutServices (714)628-9910 (714)628-9910 Call Us Now 5.0Contact UsPatient Resources 665 N Tustin St suite w, Orange, CA 92867, United States (714) 628-9910 (714) 628-9910 Call Us Now 5.0Open main menu Terms & ConditionsLast Updated: 09/04/2025 Welcome to Orange County Dental Care’s website (“we,” “us,” “our,” or the “Practice”). By accessing or using our website (orangecounty-dentalcare.com), you agree to be bound by these Terms & Conditions (the “Terms”). If you do not agree with any part of these Terms, please do not use our website. 1. Website Use & ContentInformational Purposes Only The content on our website, including any articles, newsletters, blog posts, or marketing materials, is provided for general informational purposes and should not be construed as professional dental or medical advice. Always seek the advice of a qualified healthcare professional for any questions regarding oral health or medical conditions. Do not disregard professional advice or delay seeking it because of information found on our website. Eligibility You must be at least 18 years old (or the age of majority in your jurisdiction) to use our website. By using our website, you represent that you meet this requirement. User Conduct You agree not to use our website in any way that violates any applicable local, state, national, or international law or regulation. You agree not to upload or transmit any harmful code, files, or software, or engage in any conduct that disrupts the normal operation of the website. 2. No Collection of PHINo HIPAA Compliance Our website is not intended for the collection of Protected Health Information (PHI) as defined by the Health Insurance Portability and Accountability Act (HIPAA). Please do not submit confidential or sensitive information such as medical records or detailed health histories through website forms or chat widgets. If you need to discuss private medical details, call our office direct"
+    },
+    {
+      "url": "https://orangecounty-dentalcare.com/privacy-policy",
+      "path": "/privacy-policy",
+      "title": "Privacy Policy - Orange County Dental Care",
+      "metaDesc": "",
+      "h1": "Privacy Policy",
+      "h2s": [
+        "1. No Collection of Protected Health Information (PHI)",
+        "2. Information We Collect",
+        "3. Session Replay & Analytics",
+        "4. Information Usage",
+        "5. Third-Party Services & Hosting",
+        "6. Data Sharing & Disclosure",
+        "7. Children’s Privacy",
+        "8. Security Measures",
+        "9. Your Choices",
+        "10. Changes to This Privacy Policy",
+        "11. Contact Us",
+        "Disclaimer"
+      ],
+      "h3s": [
+        "2.1 Personal Information You Provide",
+        "2.2 Automatically Collected Information",
+        "2.3 Call Tracking",
+        "4.1 SMS Marketing Consent and Data Usage",
+        "4.2 SMS Opt-Out Instructions"
+      ],
+      "paragraphs": [
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "665 N Tustin St suite w, Orange, CA 92867, United States",
+        "Last Updated: 09/04/2025",
+        "Thank you for visiting Orange County Dental Care (“we,” “us,” “our”). We are committed to respecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard personal information that you provide through our website (orangecounty-dentalcare.com). By using our website, you agree to the terms of this Privacy Policy. This does not cover text messaging terms.",
+        "Our website is not intended for the collection, transmission, or storage of Protected Health Information (PHI) as defined by the Health Insurance Portability and Accountability Act (HIPAA)."
+      ],
+      "wordCount": 1241,
+      "bodyText": "665 N Tustin St suite w, Orange, CA 92867, United StatesAboutServices (714)628-9910 (714)628-9910 Call Us Now 5.0Contact UsPatient Resources 665 N Tustin St suite w, Orange, CA 92867, United States (714) 628-9910 (714) 628-9910 Call Us Now 5.0Open main menu Privacy PolicyLast Updated: 09/04/2025 Thank you for visiting Orange County Dental Care (“we,” “us,” “our”). We are committed to respecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard personal information that you provide through our website (orangecounty-dentalcare.com). By using our website, you agree to the terms of this Privacy Policy. This does not cover text messaging terms. 1. No Collection of Protected Health Information (PHI) Our website is not intended for the collection, transmission, or storage of Protected Health Information (PHI) as defined by the Health Insurance Portability and Accountability Act (HIPAA). Do Not Submit Sensitive Medical Information: Please do not include any detailed health or treatment information in contact forms, chat messages, or other communications through our site. If you need to discuss private medical details, contact us by phone or visit our office, where we can ensure proper privacy and compliance measures. No HIPAA Compliance: We do not maintain the administrative, physical, or technical safeguards required for HIPAA compliance. Any information voluntarily submitted that could be considered PHI is done at your own risk, and we disclaim responsibility or liability for such submissions. 2. Information We Collect2.1 Personal Information You ProvideContact Details: Name, email address, phone number, and other details you provide when filling out forms or using our chat widget. Other Information: If you choose to provide additional details (e.g., reason for contact), please ensure it does not include sensitive health data. 2.2 Automatically Collected InformationIP Address & Device Details: Non-personal information such as your IP "
+    }
+  ],
+  "bronzeAssets": {
+    "cssColors": [
+      "#fff",
+      "#e5e7eb",
+      "#9ca3af",
+      "#374151",
+      "#111827",
+      "#4b5563",
+      "#6b7280",
+      "#d1d5db",
+      "#1f2937",
+      "#f3f4f6",
+      "#e5e9ea",
+      "#64ccc5",
+      "#053b50",
+      "#000",
+      "#333",
+      "#fcfcfc",
+      "#f8f8f8",
+      "#f3f3f3",
+      "#ededed",
+      "#e8e8e8",
+      "#e2e2e2",
+      "#dbdbdb",
+      "#c7c7c7",
+      "#8f8f8f",
+      "#858585",
+      "#6f6f6f",
+      "#171717",
+      "#ecfdf3",
+      "#d3fde5",
+      "#008a2e",
+      "#f0f8ff",
+      "#d3e0fd",
+      "#0973dc",
+      "#fffcf0",
+      "#fdf5d3",
+      "#dc7609",
+      "#fff0f0",
+      "#ffe0e1",
+      "#e60000",
+      "#001f0f",
+      "#003d1c",
+      "#59f3a6",
+      "#000d1f",
+      "#00113d",
+      "#5896f3",
+      "#1d1f00",
+      "#3d3d00",
+      "#f3cf58",
+      "#2d0607",
+      "#4d0408",
+      "#ff9ea1"
+    ],
+    "externalCssUrl": "https://orangecounty-dentalcare.com/_astro/_slug_.Bu7WP1yq.css"
+  }
+}

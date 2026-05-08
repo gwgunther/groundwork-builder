@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Digital X-rays",
+  "description": "Advanced diagnostic imaging that exposes patients to less radiation than traditional X-rays — with clearer results.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Digital X-rays | ${site.name}`}
+  description="Advanced diagnostic imaging that exposes patients to less radiation than traditional X-rays — with clearer results."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Digital X-rays
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Advanced diagnostic imaging that exposes patients to less radiation than traditional X-rays — with clearer results.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Digital X-rays are a diagnostic imaging technology that captures detailed images of your teeth, roots, jaw, and surrounding bone using a fraction of the radiation required by conventional film-based X-rays. At Chang Orthodontics in Los Alamitos, digital X-rays are used as a standard part of every orthodontic assessment — not an optional add-on — because the images they produce are sharper, faster to access, and safer for patients than older methods.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">How Digital X-rays Work</h2>
+      <p class="mb-4">Instead of exposing a piece of film and waiting for chemical development, digital X-ray sensors capture images electronically and display them on a monitor within seconds. The sensor is placed inside the mouth or positioned alongside the face depending on the type of image needed. Panoramic digital X-rays capture the full arc of the teeth and jaw in a single image, while bitewing or periapical images focus on specific teeth or sections. Because no film development is involved, the images are ready to review immediately — during the same appointment.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Why the Radiation Difference Matters</h2>
+      <p class="mb-4">Conventional dental X-rays require more radiation exposure to produce a usable image on film. Digital sensors are significantly more sensitive, so they require less radiation to generate an equivalent or clearer result. This is relevant for orthodontic patients in particular, because monitoring tooth movement and jaw development over the course of treatment typically means multiple imaging sessions across months or years. Reducing exposure at each session adds up over a full treatment timeline. This aligns with the practice's broader approach to patient safety, which also includes operating as an IQAir-certified clean air facility.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect During Your Appointment</h2>
+      <p class="mb-4">For most patients, taking digital X-rays is straightforward and takes only a few minutes. A sensor or imaging plate is positioned near the area being imaged — either placed gently inside the mouth or held alongside the jaw for panoramic views. You'll be asked to hold still briefly while the image is captured. There's no waiting for film to develop; Dr. Chang can review the images on-screen almost immediately and walk through findings with you during the same visit. For new patients, a full set of diagnostic images is typically taken as part of the initial records appointment before treatment planning begins.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Role in Orthodontic Treatment Planning</h2>
+      <p class="mb-4">Orthodontic work isn't only about the visible surfaces of teeth. The position of roots, the density and shape of the jaw, the presence of unerupted teeth, and the relationship between the upper and lower arches all affect treatment decisions. Digital X-rays give Dr. Chang a precise view of these underlying structures before any appliances are placed and at intervals throughout treatment to confirm that tooth movement is progressing as planned. Higher-resolution images mean less ambiguity when evaluating fine details like root angulation or bone levels — details that matter when making adjustments to treatment.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who Receives Digital X-rays at This Practice</h2>
+      <p class="mb-4">Digital X-rays are used for new patient evaluations, periodic monitoring during active orthodontic treatment, and end-of-treatment documentation. Patients of all ages — children being evaluated for early treatment, adolescents in full braces or clear aligner therapy, and adults pursuing orthodontic correction — may receive digital X-rays as part of their care. The frequency depends on individual treatment needs, not a fixed schedule applied to everyone.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**Are digital X-rays safe?** Yes. Digital X-rays expose patients to significantly less radiation than traditional film X-rays. Dental X-rays in general involve very low radiation levels, and digital technology reduces that exposure further.</p>
+      <p class="mb-4">**How long does it take to get X-rays at an appointment?** The imaging itself usually takes a few minutes. Because there's no film processing involved, images appear on screen almost immediately and can be reviewed the same day.</p>
+      <p class="mb-4">**Will I need X-rays more than once during orthodontic treatment?** Typically yes. An initial set of images is taken before treatment begins, and additional X-rays may be taken at specific checkpoints to monitor tooth movement and root health over the course of treatment.</p>
+      <p class="mb-4">**Do children need the same X-rays as adults?** The types and timing of X-rays are adjusted based on age, jaw development, and individual treatment needs. Children being evaluated for early orthodontic intervention may receive different imaging than a teenager or adult in active treatment.</p>
+      <p class="mb-4">**Does insurance cover digital X-rays?** Coverage varies by plan. Orthodontic and dental insurance policies often include some diagnostic imaging as part of initial records. The practice can help clarify what your specific plan covers before imaging is taken.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

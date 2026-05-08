@@ -39,6 +39,7 @@ async function loadModules() {
     { runSiteAudit },
     { runDesignMapping },
     { runContentMapping },
+    { runContentMap },
     { generateMissingPage },
     { injectTemplate },
     { generatePages },
@@ -56,6 +57,7 @@ async function loadModules() {
     import('./lib/ai-audit.js'),
     import('./lib/ai-design.js'),
     import('./lib/ai-content.js'),
+    import('./lib/ai-content-map.js'),
     import('./lib/missing-page.js'),
     import('./lib/injector.js'),
     import('./lib/page-generator.js'),
@@ -69,7 +71,7 @@ async function loadModules() {
 
   return {
     scrape, extractSilver, loadPreset, mergeData, runSiteAudit, runDesignMapping,
-    runContentMapping, generateMissingPage, injectTemplate, generatePages,
+    runContentMapping, runContentMap, generateMissingPage, injectTemplate, generatePages,
     generateBlogStubs, downloadImages, validate, slugify,
     createArtifactWriter, generateReport,
   };
@@ -231,7 +233,7 @@ async function doDesign() {
   if (!state.scraped || !state.merged) throw new Error('Run scrape first.');
   if (!mods) mods = await loadModules();
 
-  const design = await mods.runDesignMapping(state.scraped, state.merged, state.audit, { verbose: true });
+  const design = await mods.runDesignMapping(state.scraped, state.merged, state.audit, { verbose: true, preset: state.preset });
   state.design = design;
 
   if (design) {
@@ -247,7 +249,18 @@ async function doContent() {
   if (!state.scraped || !state.merged) throw new Error('Run scrape first.');
   if (!mods) mods = await loadModules();
 
-  const contentMap = await mods.runContentMapping(state.scraped, state.merged, state.audit, state.preset, { verbose: true });
+  // Phase 2e: Content Map (audit / blueprint)
+  const blueprint = await mods.runContentMap(state.scraped, state.merged, state.audit, state.preset, { verbose: true });
+  state.contentBlueprint = blueprint;
+  if (blueprint) {
+    await state.artifacts.writeStep('03-content-blueprint', {
+      input: { url: state.url },
+      output: blueprint,
+    });
+  }
+
+  // Phase 2f: Content Write (compose copy per blueprint)
+  const contentMap = await mods.runContentMapping(state.scraped, state.merged, state.audit, state.preset, { verbose: true }, blueprint);
   state.content = contentMap;
 
   if (contentMap) {
@@ -550,7 +563,7 @@ function frontendHTML() {
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --charcoal:   #1A1A1A;
+  --ink:   #1A1A1A;
   --terracotta: #C45D3E;
   --cream:      #FAF8F5;
   --sage:       #6B7F6E;
@@ -565,10 +578,10 @@ function frontendHTML() {
   --font:       -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --mono:       'SFMono-Regular', Consolas, monospace;
 }
-body { font-family: var(--font); background: var(--cream); color: var(--charcoal); font-size: 14px; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+body { font-family: var(--font); background: var(--cream); color: var(--ink); font-size: 14px; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
 /* ── Top bar ── */
-.topbar { background: var(--charcoal); color: white; padding: 0 20px; display: flex; align-items: center; gap: 16px; height: 56px; flex-shrink: 0; }
+.topbar { background: var(--ink); color: white; padding: 0 20px; display: flex; align-items: center; gap: 16px; height: 56px; flex-shrink: 0; }
 .topbar-logo { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; white-space: nowrap; }
 .topbar-logo span { color: var(--terracotta); }
 .url-form { display: flex; gap: 8px; flex: 1; max-width: 560px; }
@@ -603,7 +616,7 @@ body { font-family: var(--font); background: var(--cream); color: var(--charcoal
 .icon-done    { background: #D4EDD9; color: var(--green); }
 .icon-error   { background: #FDDCDC; color: var(--red); }
 @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.5; } }
-.step-nav-label { font-size: 13px; color: var(--charcoal); }
+.step-nav-label { font-size: 13px; color: var(--ink); }
 .sidebar-output { margin-top: auto; padding: 12px; border-top: 1px solid var(--border); }
 .sidebar-output p { font-size: 11px; color: var(--text-dim); line-height: 1.5; word-break: break-all; }
 .sidebar-output .open-btn { margin-top: 6px; width: 100%; font-size: 11px; padding: 5px 8px; }
@@ -617,7 +630,7 @@ body { font-family: var(--font); background: var(--cream); color: var(--charcoal
 .step-body { flex: 1; overflow-y: auto; padding: 24px 28px; display: flex; flex-direction: column; gap: 20px; }
 
 /* ── Log panel ── */
-.log-panel { background: var(--charcoal); border-radius: var(--radius); padding: 14px 16px; font-family: var(--mono); font-size: 12px; line-height: 1.7; color: #ccc; max-height: 220px; overflow-y: auto; }
+.log-panel { background: var(--ink); border-radius: var(--radius); padding: 14px 16px; font-family: var(--mono); font-size: 12px; line-height: 1.7; color: #ccc; max-height: 220px; overflow-y: auto; }
 .log-panel .log-line { color: #bbb; }
 .log-panel .log-line.warn { color: #F0C040; }
 .log-panel .log-line.error { color: #F08080; }
@@ -702,7 +715,7 @@ body { font-family: var(--font); background: var(--cream); color: var(--charcoal
 .tag-list { display: flex; flex-wrap: wrap; gap: 6px; }
 .tag { font-size: 12px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
 .tag-primary   { background: var(--terracotta); color: white; }
-.tag-secondary { background: #F0EDE8; color: var(--charcoal); }
+.tag-secondary { background: #F0EDE8; color: var(--ink); }
 .section-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim); }
 .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 5px; padding-left: 14px; }
 .bullet-list li { font-size: 13px; position: relative; }
@@ -710,7 +723,7 @@ body { font-family: var(--font); background: var(--cream); color: var(--charcoal
 .divider { height: 1px; background: var(--border); }
 .text-dim { color: var(--text-dim); font-size: 12px; }
 .bold { font-weight: 700; }
-.mood-badge { font-size: 18px; font-weight: 800; color: var(--charcoal); }
+.mood-badge { font-size: 18px; font-weight: 800; color: var(--ink); }
 .font-pair { display: flex; gap: 16px; flex-wrap: wrap; }
 .font-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px; flex: 1; min-width: 160px; }
 .font-role { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.5px; margin-bottom: 4px; }
@@ -726,9 +739,9 @@ body { font-family: var(--font); background: var(--cream); color: var(--charcoal
 /* ── Raw data viewer ── */
 .raw-tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 0; flex-shrink: 0; }
 .raw-tab { padding: 8px 20px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; background: none; color: var(--text-dim); border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color 0.12s; }
-.raw-tab:hover { color: var(--charcoal); }
+.raw-tab:hover { color: var(--ink); }
 .raw-tab.active { color: var(--terracotta); border-bottom-color: var(--terracotta); }
-.raw-viewer { background: var(--charcoal); border-radius: var(--radius); padding: 16px; font-family: var(--mono); font-size: 12px; line-height: 1.6; overflow: auto; flex: 1; min-height: 0; white-space: pre; }
+.raw-viewer { background: var(--ink); border-radius: var(--radius); padding: 16px; font-family: var(--mono); font-size: 12px; line-height: 1.6; overflow: auto; flex: 1; min-height: 0; white-space: pre; }
 .json-key    { color: #79b8ff; }
 .json-string { color: #9ecbff; }
 .json-number { color: #f8c555; }
@@ -740,15 +753,15 @@ body { font-family: var(--font); background: var(--cream); color: var(--charcoal
 .bronze-page-item { padding: 8px 14px; cursor: pointer; border-left: 3px solid transparent; transition: background 0.1s; }
 .bronze-page-item:hover { background: #F5F2EE; }
 .bronze-page-item.active { border-left-color: var(--terracotta); background: #F5F2EE; }
-.bronze-page-path { font-family: var(--mono); font-size: 11px; color: var(--charcoal); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bronze-page-path { font-family: var(--mono); font-size: 11px; color: var(--ink); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .bronze-page-words { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
 .bronze-detail { flex: 1; overflow-y: auto; padding: 20px 24px; }
 .bronze-section { margin-bottom: 20px; }
 .bronze-section-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 8px; }
 .bronze-field { display: flex; gap: 8px; margin-bottom: 6px; font-size: 12px; }
 .bronze-field-key { color: var(--text-dim); min-width: 70px; flex-shrink: 0; }
-.bronze-field-val { color: var(--charcoal); word-break: break-word; }
-.bronze-tag { display: inline-block; background: #F0EDE8; border-radius: 3px; padding: 2px 7px; font-size: 11px; font-family: var(--mono); margin: 2px 3px 2px 0; color: var(--charcoal); }
+.bronze-field-val { color: var(--ink); word-break: break-word; }
+.bronze-tag { display: inline-block; background: #F0EDE8; border-radius: 3px; padding: 2px 7px; font-size: 11px; font-family: var(--mono); margin: 2px 3px 2px 0; color: var(--ink); }
 .bronze-img-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
 .bronze-img-item { display: flex; flex-direction: column; gap: 4px; width: 72px; }
 .bronze-img-thumb { width: 72px; height: 52px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border); background: #F0EDE8; }
@@ -759,7 +772,7 @@ body { font-family: var(--font); background: var(--cream); color: var(--charcoal
 .silver-sidebar { width: 120px; flex-shrink: 0; border-right: 1px solid var(--border); overflow-y: auto; padding: 8px 0; }
 .silver-section-item { padding: 8px 14px; cursor: pointer; border-left: 3px solid transparent; font-size: 12px; font-weight: 600; color: var(--text-dim); transition: background 0.1s; }
 .silver-section-item:hover { background: #F5F2EE; }
-.silver-section-item.active { border-left-color: var(--terracotta); background: #F5F2EE; color: var(--charcoal); }
+.silver-section-item.active { border-left-color: var(--terracotta); background: #F5F2EE; color: var(--ink); }
 .silver-detail { flex: 1; overflow-y: auto; padding: 20px 24px; }
 .silver-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 16px; }
 .silver-card-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 12px; }
@@ -777,7 +790,7 @@ body { font-family: var(--font); background: var(--cream); color: var(--charcoal
 <div class="topbar">
   <div class="topbar-logo">Ground<span>work</span> Studio</div>
   <form class="url-form" onsubmit="startScrape(event)">
-    <input id="urlInput" class="url-input" type="text" placeholder="example-dental.com" required>
+    <input id="urlInput" class="url-input" type="text" placeholder="example-practice.com" required>
     <button type="submit" class="btn btn-primary" id="scrapeBtn">Scrape Site</button>
   </form>
   <button class="btn btn-reset" onclick="resetAll()">Reset</button>
@@ -832,7 +845,7 @@ body { font-family: var(--font); background: var(--cream); color: var(--charcoal
     <div class="step-header">
       <div>
         <h2 id="stepTitle">Enter a URL to begin</h2>
-        <div class="step-desc" id="stepDesc">Paste a dental practice website URL above and click Scrape Site to start the pipeline.</div>
+        <div class="step-desc" id="stepDesc">Paste the existing practice website URL above and click Scrape Site to start the pipeline.</div>
       </div>
       <div class="header-actions" id="headerActions"></div>
     </div>
@@ -1059,8 +1072,8 @@ function renderScrape(state, logHTML, body) {
         \${p.title ? \`<div class="detail-row"><span class="detail-key">Title</span><span class="detail-val">\${esc(p.title)}</span></div>\` : ''}
         \${p.metaDesc ? \`<div class="detail-row"><span class="detail-key">Meta</span><span class="detail-val">\${esc(p.metaDesc)}</span></div>\` : ''}
         \${p.h1 ? \`<div class="detail-row"><span class="detail-key">H1</span><span class="detail-val bold">\${esc(p.h1)}</span></div>\` : ''}
-        \${p.h2s?.length ? \`<div class="detail-row"><span class="detail-key">H2s</span><span class="detail-val">\${esc(p.h2s.slice(0,4).join(' · '))}</span></div>\` : ''}
-        \${p.paragraphs?.[0] ? \`<div class="detail-row"><span class="detail-key">Excerpt</span><span class="detail-val" style="font-style:italic;color:#555">\${esc(p.paragraphs[0].slice(0, 200))}\${p.paragraphs[0].length > 200 ? '…' : ''}</span></div>\` : ''}
+        \${p.h2s?.length ? \`<div class="detail-row"><span class="detail-key">H2s</span><span class="detail-val">\${esc(p.h2s.join(' · '))}</span></div>\` : ''}
+        \${p.paragraphs?.length ? \`<div class="detail-row"><span class="detail-key">Content</span><span class="detail-val" style="font-style:italic;color:#555">\${p.paragraphs.map(par => esc(par)).join('<br><br>')}</span></div>\` : ''}
       </div>
     </details>\`).join('');
 
@@ -1264,7 +1277,7 @@ function renderDesign(state, logHTML, body) {
         <div class="font-card">
           <div class="font-role">Heading</div>
           <div class="font-name">\${esc(d.fonts?.heading || 'Playfair Display')}</div>
-          <div class="font-sample">Aa Bb Cc — elegant dental branding</div>
+          <div class="font-sample">Aa Bb Cc — elegant practice branding</div>
         </div>
         <div class="font-card">
           <div class="font-role">Body</div>
@@ -1458,8 +1471,8 @@ async function loadAndRenderRaw(type) {
     content.innerHTML = \`
       <div style="padding:8px 28px 6px;flex-shrink:0;display:flex;gap:8px;align-items:center">
         <span style="font-size:11px;color:var(--text-dim)">Viewing:</span>
-        <button onclick="rawJsonType='bronze';loadAndRenderRaw('json')" style="font-size:11px;padding:2px 10px;border-radius:3px;border:1px solid var(--border);background:\${rawJsonType==='bronze'?'var(--terracotta)':'#fff'};color:\${rawJsonType==='bronze'?'#fff':'var(--charcoal)'};cursor:pointer">bronze</button>
-        <button onclick="rawJsonType='silver';loadAndRenderRaw('json')" style="font-size:11px;padding:2px 10px;border-radius:3px;border:1px solid var(--border);background:\${rawJsonType==='silver'?'var(--terracotta)':'#fff'};color:\${rawJsonType==='silver'?'#fff':'var(--charcoal)'};cursor:pointer">silver</button>
+        <button onclick="rawJsonType='bronze';loadAndRenderRaw('json')" style="font-size:11px;padding:2px 10px;border-radius:3px;border:1px solid var(--border);background:\${rawJsonType==='bronze'?'var(--terracotta)':'#fff'};color:\${rawJsonType==='bronze'?'#fff':'var(--ink)'};cursor:pointer">bronze</button>
+        <button onclick="rawJsonType='silver';loadAndRenderRaw('json')" style="font-size:11px;padding:2px 10px;border-radius:3px;border:1px solid var(--border);background:\${rawJsonType==='silver'?'var(--terracotta)':'#fff'};color:\${rawJsonType==='silver'?'#fff':'var(--ink)'};cursor:pointer">silver</button>
         <span style="margin-left:auto;font-size:11px;color:var(--text-dim)">Saved: <code style="font-family:var(--mono);background:#F0EDE8;padding:1px 5px;border-radius:3px">_pipeline/01-\${rawJsonType}-full.json</code></span>
       </div>
       <pre class="raw-viewer" style="margin:0 28px 24px;flex:1">\${syntaxHighlight(JSON.stringify(data, null, 2))}</pre>

@@ -1,0 +1,290 @@
+{
+  "branding/logo.png": {
+    "sourceUrl": "https://changorthodontics.com/assets/images/logo.png",
+    "alt": "",
+    "originalFilename": "logo.png",
+    "category": "logo"
+  },
+  "team/team-1-meet-dr-russell-ek-chang.jpg": {
+    "sourceUrl": "https://changorthodontics.com/assets/uploads/images/meet-dr-russell-ek-chang.jpg",
+    "alt": "",
+    "originalFilename": "meet-dr-russell-ek-chang.jpg",
+    "category": "team"
+  },
+  "team/team-2-meet-dr-christine-chung.jpg": {
+    "sourceUrl": "https://changorthodontics.com/assets/uploads/images/meet-dr-christine-chung.jpg",
+    "alt": "",
+    "originalFilename": "meet-dr-christine-chung.jpg",
+    "category": "team"
+  },
+  "team/team-3-letty.jpg": {
+    "sourceUrl": "https://changorthodontics.com/hub_sites/chang-russell/www/assets/uploads/images/staff/letty.jpg",
+    "alt": "",
+    "originalFilename": "letty.jpg",
+    "category": "team"
+  },
+  "team/team-4-erin.jpg": {
+    "sourceUrl": "https://changorthodontics.com/hub_sites/chang-russell/www/assets/uploads/images/staff/erin.jpg",
+    "alt": "",
+    "originalFilename": "erin.jpg",
+    "category": "team"
+  },
+  "team/team-5-sandra.jpg": {
+    "sourceUrl": "https://changorthodontics.com/hub_sites/chang-russell/www/assets/uploads/images/staff/sandra.jpg",
+    "alt": "",
+    "originalFilename": "sandra.jpg",
+    "category": "team"
+  },
+  "team/team-6-thelma.jpg": {
+    "sourceUrl": "https://changorthodontics.com/hub_sites/chang-russell/www/assets/uploads/images/staff/thelma.jpg",
+    "alt": "",
+    "originalFilename": "thelma.jpg",
+    "category": "team"
+  },
+  "team/team-7-miriam.jpg": {
+    "sourceUrl": "https://changorthodontics.com/hub_sites/chang-russell/www/assets/uploads/images/staff/miriam.jpg",
+    "alt": "",
+    "originalFilename": "miriam.jpg",
+    "category": "team"
+  },
+  "team/team-8-6fe498f8-3c66-83ed-2f783cb4c7c3.JPG": {
+    "sourceUrl": "https://changorthodontics.com/hub_sites/chang-russell/www/assets/uploads/images/6FE498F8-3C66-4425-83ED-2F783CB4C7C3.JPG",
+    "alt": "",
+    "originalFilename": "6FE498F8-3C66-4425-83ED-2F783CB4C7C3.JPG",
+    "category": "team"
+  },
+  "heroes/office-1-los-alamitos-office.jpg": {
+    "sourceUrl": "https://changorthodontics.com/assets/uploads/images/los-alamitos-office.jpg",
+    "alt": "",
+    "originalFilename": "los-alamitos-office.jpg",
+    "category": "hero"
+  },
+  "gallery/gallery-1-c1.jpg": {
+    "sourceUrl": "https://changorthodontics.com/assets/images/c1.jpg",
+    "alt": "",
+    "originalFilename": "c1.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-2-c2.jpg": {
+    "sourceUrl": "https://changorthodontics.com/assets/images/c2.jpg",
+    "alt": "",
+    "originalFilename": "c2.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-3-c3.jpg": {
+    "sourceUrl": "https://changorthodontics.com/assets/images/c3.jpg",
+    "alt": "",
+    "originalFilename": "c3.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-4-c4.jpg": {
+    "sourceUrl": "https://changorthodontics.com/assets/images/c4.jpg",
+    "alt": "",
+    "originalFilename": "c4.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-5-c5.jpg": {
+    "sourceUrl": "https://changorthodontics.com/assets/images/c5.jpg",
+    "alt": "",
+    "originalFilename": "c5.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-6-c6.jpg": {
+    "sourceUrl": "https://changorthodontics.com/assets/images/c6.jpg",
+    "alt": "",
+    "originalFilename": "c6.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-7-general-soreness.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/emergency-care/general-soreness.jpg",
+    "alt": "",
+    "originalFilename": "general-soreness.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-8-headgear.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/emergency-care/headgear.jpg",
+    "alt": "",
+    "originalFilename": "headgear.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-9-loose-appliance.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/emergency-care/loose-appliance.jpg",
+    "alt": "",
+    "originalFilename": "loose-appliance.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-10-loose-bracket.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/emergency-care/loose-bracket.jpg",
+    "alt": "",
+    "originalFilename": "loose-bracket.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-11-loose-wire.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/emergency-care/loose-wire.jpg",
+    "alt": "",
+    "originalFilename": "loose-wire.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-12-poking-wire.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/emergency-care/poking-wire.jpg",
+    "alt": "",
+    "originalFilename": "poking-wire.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-13-invisalign-profile.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/invisalign-pro-package/invisalign-profile.jpg",
+    "alt": "",
+    "originalFilename": "invisalign-profile.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-14-surgical.jpg": {
+    "sourceUrl": "https://changorthodontics.com/assets/uploads/images/surgical-orthodontics.jpg",
+    "alt": "",
+    "originalFilename": "surgical-orthodontics.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-15-craniofacial.jpg": {
+    "sourceUrl": "https://changorthodontics.com/assets/uploads/images/craniofacial-orthodontics.jpg",
+    "alt": "",
+    "originalFilename": "craniofacial-orthodontics.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-16-rubber-bands.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/types-of-appliances/rubber-bands.jpg",
+    "alt": "",
+    "originalFilename": "rubber-bands.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-17-forsus.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/types-of-appliances/forsus.jpg",
+    "alt": "",
+    "originalFilename": "forsus.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-18-headgear.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/types-of-appliances/headgear.jpg",
+    "alt": "",
+    "originalFilename": "headgear.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-19-herbst.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/types-of-appliances/herbst.jpg",
+    "alt": "",
+    "originalFilename": "herbst.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-20-palatal-expander.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/types-of-appliances/palatal-expander.jpg",
+    "alt": "",
+    "originalFilename": "palatal-expander.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-21-positioner.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/types-of-appliances/positioner.jpg",
+    "alt": "",
+    "originalFilename": "positioner.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-22-retainers.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/types-of-appliances/retainers.jpg",
+    "alt": "",
+    "originalFilename": "retainers.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-23-separators.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/types-of-appliances/separators.jpg",
+    "alt": "",
+    "originalFilename": "separators.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-24-brushing.gif": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/brushing.gif",
+    "alt": "",
+    "originalFilename": "brushing.gif",
+    "category": "gallery"
+  },
+  "gallery/gallery-25-flossing.gif": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/flossing.gif",
+    "alt": "",
+    "originalFilename": "flossing.gif",
+    "category": "gallery"
+  },
+  "gallery/gallery-26-suresmile-logo-std.png": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/logos/suresmile-logo-std.png",
+    "alt": "",
+    "originalFilename": "suresmile-logo-std.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-27-traditional-metal.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/types-of-braces/traditional-metal.jpg",
+    "alt": "",
+    "originalFilename": "traditional-metal.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-28-self-ligating-braces.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/types-of-braces/self-ligating-braces.jpg",
+    "alt": "",
+    "originalFilename": "self-ligating-braces.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-29-clear.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/types-of-braces/clear.jpg",
+    "alt": "",
+    "originalFilename": "clear.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-30-invisalign.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/types-of-braces/invisalign.jpg",
+    "alt": "",
+    "originalFilename": "invisalign.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-31-in-ovation-c.gif": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/in-ovation/in-ovation-c.gif",
+    "alt": "",
+    "originalFilename": "in-ovation-c.gif",
+    "category": "gallery"
+  },
+  "gallery/gallery-32-traditional-braces.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/in-ovation/traditional-braces.jpg",
+    "alt": "",
+    "originalFilename": "traditional-braces.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-33-in-ovation-braces.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/in-ovation/in-ovation-braces.jpg",
+    "alt": "",
+    "originalFilename": "in-ovation-braces.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-34-girl.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/in-ovation/girl.jpg",
+    "alt": "",
+    "originalFilename": "girl.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-35-damon.png": {
+    "sourceUrl": "https://sesamehub.com/sesame_media/images/the-damon-system/damon-3.png",
+    "alt": "",
+    "originalFilename": "damon-3.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-36-dentofacial-orthopedics.jpg": {
+    "sourceUrl": "https://changorthodontics.com/assets/uploads/images/dentofacial-orthopedics.jpg",
+    "alt": "",
+    "originalFilename": "dentofacial-orthopedics.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-37-retainers.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/retainers.jpg",
+    "alt": "",
+    "originalFilename": "retainers.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-38-digital-xray.jpg": {
+    "sourceUrl": "https://changorthodontics.com/sesame_media/images/digital-xray.jpg",
+    "alt": "",
+    "originalFilename": "digital-xray.jpg",
+    "category": "gallery"
+  }
+}

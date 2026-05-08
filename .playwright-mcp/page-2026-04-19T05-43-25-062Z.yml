@@ -1,0 +1,86 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e5]:
+      - link:
+        - /url: /
+      - generic [ref=e6]:
+        - link "Call Now" [ref=e7] [cursor=pointer]:
+          - /url: "tel:"
+        - button "Toggle mobile menu" [ref=e8] [cursor=pointer]:
+          - img [ref=e9]
+  - main [ref=e11]:
+    - generic [ref=e14]:
+      - paragraph [ref=e15]: "'s Trusted Dental Practice"
+      - heading "Your Smile Starts Here." [level=1] [ref=e16]
+      - paragraph [ref=e17]: Comprehensive dental care from a team that puts your comfort first. Whether you need a routine cleaning, cosmetic makeover, or dental implants — we've got you covered.
+      - generic [ref=e18]:
+        - link "Book Appointment" [ref=e19] [cursor=pointer]:
+          - /url: /schedule
+        - link "View Services" [ref=e20] [cursor=pointer]:
+          - /url: /services
+    - generic [ref=e22]:
+      - heading "Ready for exceptional dental care in ?" [level=2] [ref=e23]
+      - paragraph [ref=e24]: Schedule a consultation with our team. We'll create a personalized treatment plan just for you.
+      - generic [ref=e25]:
+        - link "Book Appointment" [ref=e26] [cursor=pointer]:
+          - /url: /schedule
+        - link "Or Call:" [ref=e27] [cursor=pointer]:
+          - /url: "tel:"
+    - generic [ref=e29]:
+      - heading "Our Services" [level=2] [ref=e30]
+      - list [ref=e31]:
+        - listitem [ref=e32]:
+          - link "01 General Dentistry Cleanings, exams, fillings, and preventive care to keep your smile healthy. →" [ref=e33] [cursor=pointer]:
+            - /url: /services/general-dentistry
+            - generic [ref=e34]: "01"
+            - generic [ref=e35]:
+              - heading "General Dentistry" [level=3] [ref=e36]
+              - paragraph [ref=e37]: Cleanings, exams, fillings, and preventive care to keep your smile healthy.
+            - generic [ref=e38]: →
+        - listitem [ref=e39]:
+          - link "02 Cosmetic Dentistry Veneers, whitening, bonding, and smile makeovers for the look you want. →" [ref=e40] [cursor=pointer]:
+            - /url: /services/cosmetic-dentistry
+            - generic [ref=e41]: "02"
+            - generic [ref=e42]:
+              - heading "Cosmetic Dentistry" [level=3] [ref=e43]
+              - paragraph [ref=e44]: Veneers, whitening, bonding, and smile makeovers for the look you want.
+            - generic [ref=e45]: →
+        - listitem [ref=e46]:
+          - link "03 Dental Implants Permanent tooth replacement that looks, feels, and functions like natural teeth. →" [ref=e47] [cursor=pointer]:
+            - /url: /services/dental-implants
+            - generic [ref=e48]: "03"
+            - generic [ref=e49]:
+              - heading "Dental Implants" [level=3] [ref=e50]
+              - paragraph [ref=e51]: Permanent tooth replacement that looks, feels, and functions like natural teeth.
+            - generic [ref=e52]: →
+        - listitem [ref=e53]:
+          - link "04 Restorative Dentistry Crowns, bridges, and dentures to restore your bite and confidence. →" [ref=e54] [cursor=pointer]:
+            - /url: /services/restorative-dentistry
+            - generic [ref=e55]: "04"
+            - generic [ref=e56]:
+              - heading "Restorative Dentistry" [level=3] [ref=e57]
+              - paragraph [ref=e58]: Crowns, bridges, and dentures to restore your bite and confidence.
+            - generic [ref=e59]: →
+      - link "View all services" [ref=e61] [cursor=pointer]:
+        - /url: /services
+  - contentinfo [ref=e62]:
+    - generic [ref=e63]:
+      - paragraph [ref=e64]:
+        - text: ", , ·"
+        - link:
+          - /url: "tel:"
+        - text: "· Mon: 9am – 5pm"
+      - navigation [ref=e65]:
+        - link "Services" [ref=e66] [cursor=pointer]:
+          - /url: /services
+        - link "About" [ref=e67] [cursor=pointer]:
+          - /url: /about
+        - link "FAQ" [ref=e68] [cursor=pointer]:
+          - /url: /faq
+        - link "Blog" [ref=e69] [cursor=pointer]:
+          - /url: /blog
+        - link "Insurance" [ref=e70] [cursor=pointer]:
+          - /url: /financing
+        - link "Book Appointment" [ref=e71] [cursor=pointer]:
+          - /url: /schedule
+      - paragraph [ref=e72]: © 2026. All rights reserved.

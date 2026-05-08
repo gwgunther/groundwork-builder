@@ -6,8 +6,189 @@
  * 3. Injects doctor bio into src/pages/about.astro if available.
  */
 
-import { unlink, readFile, writeFile } from 'node:fs/promises';
+import { unlink, readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { slugFromUrl } from './image-downloader.js';
+
+function escapeHtml(s) {
+  return String(s ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// For values interpolated INTO a JS template literal (Astro frontmatter exprs).
+// Doesn't HTML-escape; just escapes backticks/dollar/backslash.
+function escapeQuotes(s) {
+  return String(s ?? '').replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$').replace(/"/g, '\\"');
+}
+
+// ---------------------------------------------------------------------------
+// Render structured page sections from ai-service-page.js into Astro markup.
+// Each section type maps to a distinct visual treatment.
+// ---------------------------------------------------------------------------
+function renderStructuredSections(page, headline, subheadline, cta, practiceName) {
+  const sections = page.sections || [];
+  const intro = page.intro || '';
+  const ctaSection = page.ctaSection || { headline: 'Ready to schedule?', primaryCta: cta };
+
+  const introHtml = intro
+    ? intro.split(/\n\s*\n/).map(p => `      <p class="text-lg text-neutral-mid leading-relaxed mb-6">${escapeHtml(p.trim())}</p>`).join('\n')
+    : '';
+
+  const sectionBodies = sections.map(s => renderSection(s)).filter(Boolean).join('\n');
+
+  return `  <!-- Hero -->
+  <section class="border-b border-border-light">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+        <a href="/services" class="hover:underline">← All Services</a>
+      </p>
+      <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-dark mb-6 leading-tight">
+        ${escapeHtml(headline)}
+      </h1>
+      ${subheadline ? `<p class="text-xl md:text-2xl text-neutral-mid leading-relaxed mb-8 max-w-3xl">${escapeHtml(subheadline)}</p>` : ''}
+${introHtml}
+      <div class="mt-8 flex gap-4 flex-wrap">
+        <a href="/schedule" class="btn-primary">${escapeHtml(page.primaryCta || cta)}</a>
+        <a href={\`tel:\${site.phone.replace(/\\D/g, '')}\`} class="btn-secondary">Call {site.phone}</a>
+      </div>
+    </div>
+  </section>
+
+${sectionBodies}
+
+  <!-- Final CTA -->
+  <section class="bg-neutral-dark text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 text-center">
+      <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4">${escapeHtml(ctaSection.headline)}</h2>
+      ${ctaSection.body ? `<p class="text-white/70 text-lg mb-8 max-w-2xl mx-auto">${escapeHtml(ctaSection.body)}</p>` : ''}
+      <div class="flex gap-4 flex-wrap justify-center">
+        <a href="/schedule" class="bg-white text-neutral-dark px-8 py-4 rounded-lg font-bold hover:bg-white/90 transition-colors">${escapeHtml(ctaSection.primaryCta || cta)}</a>
+        <a href={\`tel:\${site.phone.replace(/\\D/g, '')}\`} class="border-2 border-white/30 text-white px-8 py-4 rounded-lg font-bold hover:bg-white/10 transition-colors">{site.phone}</a>
+      </div>
+    </div>
+  </section>
+`;
+}
+
+function renderSection(s) {
+  if (!s || !s.type) return '';
+  switch (s.type) {
+
+    case 'highlight': {
+      // Bold standout: small label above + large quote-style headline + optional body
+      const label = s.label ? `<p class="text-sm font-bold uppercase tracking-widest text-brand-primary mb-4">${escapeHtml(s.label)}</p>` : '';
+      const body = s.body ? `<p class="text-lg text-neutral-mid mt-6 max-w-2xl mx-auto leading-relaxed">${escapeHtml(s.body)}</p>` : '';
+      return `  <section class="bg-brand-light border-y border-border-light">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 text-center">
+      ${label}
+      <p class="font-serif text-2xl md:text-3xl lg:text-4xl font-bold text-neutral-dark leading-tight max-w-3xl mx-auto">
+        ${escapeHtml(s.headline)}
+      </p>
+      ${body}
+    </div>
+  </section>`;
+    }
+
+    case 'subsection': {
+      // Standard heading + paragraph block
+      const paragraphs = (s.body || '').split(/\n\s*\n/).map(p => `        <p class="mb-5">${escapeHtml(p.trim())}</p>`).join('\n');
+      return `  <section>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <h2 class="font-serif text-3xl md:text-4xl font-bold text-neutral-dark mb-6 leading-tight">
+        ${escapeHtml(s.heading)}
+      </h2>
+      <div class="text-neutral-mid text-base md:text-lg leading-relaxed">
+${paragraphs}
+      </div>
+    </div>
+  </section>`;
+    }
+
+    case 'callout-list': {
+      // Heading + grid of labelled callouts
+      const items = (s.items || []).map(it => `        <div class="border-l-2 border-brand-primary pl-5">
+          <h3 class="font-serif text-lg font-bold text-neutral-dark mb-2">${escapeHtml(it.label)}</h3>
+          <p class="text-neutral-mid text-sm leading-relaxed">${escapeHtml(it.body)}</p>
+        </div>`).join('\n');
+      return `  <section class="bg-surface-2">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+      <h2 class="font-serif text-3xl md:text-4xl font-bold text-neutral-dark mb-10 max-w-2xl">
+        ${escapeHtml(s.heading)}
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+${items}
+      </div>
+    </div>
+  </section>`;
+    }
+
+    case 'process': {
+      // Numbered process steps
+      const steps = (s.steps || []).map((st, i) => `        <div class="grid grid-cols-12 gap-4 py-6 border-b border-border-light last:border-b-0">
+          <div class="col-span-2 md:col-span-1">
+            <span class="font-serif text-3xl font-bold text-brand-primary">${String(i+1).padStart(2,'0')}</span>
+          </div>
+          <div class="col-span-10 md:col-span-11">
+            <h3 class="font-serif text-xl font-bold text-neutral-dark mb-2">${escapeHtml(st.title)}</h3>
+            <p class="text-neutral-mid text-base leading-relaxed">${escapeHtml(st.body)}</p>
+          </div>
+        </div>`).join('\n');
+      return `  <section>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <h2 class="font-serif text-3xl md:text-4xl font-bold text-neutral-dark mb-8">
+        ${escapeHtml(s.heading)}
+      </h2>
+      <div>
+${steps}
+      </div>
+    </div>
+  </section>`;
+    }
+
+    case 'benefits': {
+      // Simple bullet list
+      const items = (s.items || []).map(it => `        <li class="flex gap-3 items-start">
+          <span class="text-brand-primary font-bold mt-1 flex-shrink-0">→</span>
+          <span class="text-neutral-mid text-base md:text-lg leading-relaxed">${escapeHtml(it)}</span>
+        </li>`).join('\n');
+      return `  <section class="bg-brand-light">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <h2 class="font-serif text-3xl md:text-4xl font-bold text-neutral-dark mb-6">
+        ${escapeHtml(s.heading)}
+      </h2>
+      <ul class="space-y-4">
+${items}
+      </ul>
+    </div>
+  </section>`;
+    }
+
+    case 'faq': {
+      // Service-specific FAQs (simple stack, no accordion)
+      const items = (s.items || []).map(it => `        <div class="py-6 border-b border-border-light last:border-b-0">
+          <h3 class="font-serif text-lg md:text-xl font-bold text-neutral-dark mb-3">${escapeHtml(it.q)}</h3>
+          <p class="text-neutral-mid text-base leading-relaxed">${escapeHtml(it.a)}</p>
+        </div>`).join('\n');
+      const heading = s.heading || 'Common Questions';
+      return `  <section class="bg-surface-2 border-y border-border-light">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <h2 class="font-serif text-3xl md:text-4xl font-bold text-neutral-dark mb-8">
+        ${escapeHtml(heading)}
+      </h2>
+      <div>
+${items}
+      </div>
+    </div>
+  </section>`;
+    }
+
+    default:
+      return '';
+  }
+}
 
 /**
  * Generate / prune pages based on scraped + merged practice data.
@@ -17,33 +198,21 @@ import { resolve } from 'node:path';
  * @param {object} [preset]  - Loaded vertical preset (from preset-loader).
  */
 export async function generatePages(data, outputDir, preset = null) {
-  const serviceDescriptions = preset?.hubs?.descriptions || {};
-
-  // Normalize hubs — may be objects { slug, label, desc } or plain strings
-  const rawHubs = data.services.hubs || [];
-  const hubSlugs = rawHubs.map(h => typeof h === 'string' ? h : h.slug);
-  const allHubs = Object.keys(serviceDescriptions);
-
-  // Remove service pages the practice doesn't offer
+  // Hubs are disabled — delete all preset hub template pages from the template.
+  // Service pages are generated fresh from scraped data only.
+  const presetHubSlugs = Object.keys(preset?.hubs?.descriptions || {});
   let removed = 0;
-  for (const hub of allHubs) {
-    if (!hubSlugs.includes(hub)) {
-      try {
-        await unlink(resolve(outputDir, `src/pages/services/${hub}.astro`));
-        removed++;
-        console.log(`  Removed unused service page: services/${hub}.astro`);
-      } catch {
-        // File may not exist — that's fine
-      }
-    }
+  for (const hub of presetHubSlugs) {
+    try {
+      await unlink(resolve(outputDir, `src/pages/services/${hub}.astro`));
+      removed++;
+    } catch { /* already gone */ }
   }
 
-  // Update services.astro index to only list active services
-  const kept = hubSlugs.filter((h) => allHubs.includes(h));
-  if (kept.length > 0) {
-    await updateServicesIndex(kept, outputDir, serviceDescriptions);
-    console.log(`  Updated services.astro with ${kept.length} active service hub(s).`);
-  }
+  // Build services listing from all scraped services — no filtering, no hub suppression.
+  const allOfferedServices = (data.services?.offered || []).filter(s => s.slug);
+  await updateServicesIndex(outputDir, allOfferedServices, data);
+  console.log(`  Updated services.astro with ${allOfferedServices.length} service(s).`);
 
   // Inject about page with doctor bio if available
   if (data.doctor?.bio) {
@@ -51,14 +220,20 @@ export async function generatePages(data, outputDir, preset = null) {
     console.log('  Injected doctor bio into about.astro.');
   }
 
-  return { removed, kept: kept.length };
+  // Generate a page for every scraped service
+  const generatedServicePages = await generateIndividualServicePages(data, outputDir);
+  if (generatedServicePages > 0) {
+    console.log(`  Generated ${generatedServicePages} individual service page(s).`);
+  }
+
+  return { removed, kept: 0, generatedServicePages };
 }
 
 /**
- * Replace the services array in the frontmatter of src/pages/services.astro
- * so it only references active hubs.
+ * Write the services array in services.astro from scraped services.
+ * Uses real descriptions from the content map where available.
  */
-async function updateServicesIndex(activeHubs, outputDir, serviceDescriptions) {
+async function updateServicesIndex(outputDir, services = [], data = {}) {
   const filePath = resolve(outputDir, 'src/pages/services.astro');
   let content;
   try {
@@ -68,16 +243,23 @@ async function updateServicesIndex(activeHubs, outputDir, serviceDescriptions) {
     return;
   }
 
-  // Build the replacement array string
-  const entries = activeHubs
-    .filter((hub) => serviceDescriptions[hub])
-    .map((hub) => {
-      const { name, desc } = serviceDescriptions[hub];
-      return `  { name: '${name}', slug: '${hub}', desc: '${desc}' },`;
-    })
-    .join('\n');
+  // Pull descriptions from content map (keyed by service slug)
+  const contentMap = data?.content?.generated?.services || {};
+  const practiceName = data?.practice?.name || 'our practice';
 
-  const newArray = `const services = [\n${entries}\n];`;
+  const allEntries = services.length > 0
+    ? services.map(svc => {
+        const name = svc.name.replace(/'/g, "\\'");
+        const contentEntry = contentMap[svc.slug];
+        const rawDesc = contentEntry?.subheadline || contentEntry?.intro?.slice(0, 120) || svc.description || svc.blurb || null;
+        const desc = rawDesc
+          ? rawDesc.replace(/'/g, "\\'").replace(/\n/g, ' ').slice(0, 150)
+          : `${svc.name} at ${practiceName}.`;
+        return `  { name: '${name}', slug: '${svc.slug}', href: '/services/${svc.slug}', desc: '${desc}' },`;
+      }).join('\n')
+    : `  { name: 'Our Services', slug: '', desc: 'Contact us to learn about our services.' },`;
+
+  const newArray = `const services = [\n${allEntries}\n];`;
 
   // Match the existing services array declaration in frontmatter.
   // Handles both single-line and multi-line array definitions.
@@ -91,6 +273,227 @@ async function updateServicesIndex(activeHubs, outputDir, serviceDescriptions) {
   }
 
   await writeFile(filePath, content);
+}
+
+/**
+ * Generate individual Astro pages for each detected service.
+ * These sit at /services/[slug] and are separate from the 4 hub landing pages.
+ * If AI-written content exists for the service (from content phase), it's used.
+ * Otherwise a minimal page is generated using the service name and practice info.
+ */
+async function generateIndividualServicePages(data, outputDir) {
+  const services = data.services?.offered || [];
+  if (services.length === 0) return 0;
+
+  // The AI content map (Phase 2e) writes to `merged.content.generated.services`,
+  // not `merged.content.services`. Read both for safety; the generated path
+  // is the canonical source for AI-produced intros.
+  const contentServices = data.content?.generated?.services
+    || data.content?.services
+    || {};
+  const practiceName = data.practice?.name || '';
+  const city = data.address?.city || '';
+  const doctorName = data.doctor?.name || '';
+  const practiceCtx = { name: practiceName, doctor: doctorName, city };
+
+  // Map slug → bronze page content (for AI rewrite fallback).
+  const bronzePages = data.bronze?.pages || [];
+  const bronzeBySlug = {};
+  for (const pg of bronzePages) {
+    const path = pg.path || '';
+    if (path.startsWith('/services/')) {
+      const pgSlug = path.replace('/services/', '').replace(/\/$/, '');
+      if (pgSlug) bronzeBySlug[pgSlug] = pg;
+    }
+  }
+
+  const servicesDir = resolve(outputDir, 'src/pages/services');
+  await mkdir(servicesDir, { recursive: true });
+
+  // Decide content per service (AI content map > AI rewrite of bronze >
+  // hard skip), then run all rewrites in parallel before writing pages.
+  const decisions = services.map(svc => {
+    if (!svc.slug) return null;
+    const aiContent = contentServices[svc.slug];
+    if (aiContent?.intro) {
+      return { svc, source: 'ai-content', aiContent };
+    }
+    const bronze = bronzeBySlug[svc.slug] || bronzeBySlug[svc.name?.toLowerCase().replace(/\s+/g, '-')];
+    if (bronze) {
+      return { svc, source: 'ai-rewrite', aiContent, bronze };
+    }
+    // No AI content, no bronze — render header-only page (no body).
+    return { svc, source: 'minimal', aiContent };
+  }).filter(Boolean);
+
+  const rewritesNeeded = decisions.filter(d => d.source === 'ai-rewrite');
+  let rewriteResults = [];
+  if (rewritesNeeded.length > 0) {
+    // New structured-section generator (replaces ai-service-rewrite.js).
+    // Returns full multi-section page schema instead of one paragraph blob.
+    const { generateServicePage } = await import('./ai-service-page.js');
+
+    // Filter additionalContent for each specific service:
+    //   - items whose source path matches the service slug (came from THIS service's original page elsewhere)
+    //   - items of broadly service-relevant types (technology, specialty-deep-dive, treatment-detail)
+    // X2: read top-level; legacy nested location supported
+    const allAdditional = data.additionalContent || data.content?.additionalContent || [];
+    const additionalForService = (svcSlug) => {
+      const slugRe = new RegExp(`/services/${svcSlug.replace(/[-/]/g, '[-/]?')}\\b`, 'i');
+      return allAdditional.filter(item => {
+        const type = String(item.type || '').toLowerCase();
+        const src  = String(item.source || '').toLowerCase();
+        // Match by source path
+        if (src && slugRe.test(src)) return true;
+        // Match by relevant type (technology / specialty-deep-dive applies to many service pages)
+        if (/technology|specialty|treatment-detail|process|clinical/.test(type)) return true;
+        return false;
+      }).slice(0, 4);
+    };
+
+    rewriteResults = await Promise.allSettled(
+      rewritesNeeded.map(d => generateServicePage(
+        d.bronze,
+        d.svc,
+        { ...practiceCtx, phone: data.practice?.phone },
+        additionalForService(d.svc.slug),
+      ))
+    );
+  }
+
+  let count = 0;
+  let aiContentCount = 0;
+  let aiRewriteCount = 0;
+  let minimalCount = 0;
+  let rewriteIdx = 0;
+
+  for (const d of decisions) {
+    const slug = d.svc.slug;
+    const pagePath = resolve(servicesDir, `${slug}.astro`);
+    try { await readFile(pagePath); continue; } catch {} // don't overwrite
+
+    const content = d.aiContent;
+    const headline    = content?.headline    || d.bronze?.title?.split(' - ')[0] || d.svc.name;
+    const subheadline = content?.subheadline || d.svc.description || (city ? `${d.svc.name} in ${city}` : d.svc.name);
+    const cta         = content?.cta         || 'Schedule a Consultation';
+    const benefits    = content?.benefits    || [];
+
+    let intro = content?.intro || null;
+    let structuredPage = null;  // Full structured output from ai-service-page.js
+    if (d.source === 'ai-rewrite') {
+      const r = rewriteResults[rewriteIdx++];
+      if (r?.status === 'fulfilled' && r.value?.ok && r.value?.page) {
+        structuredPage = r.value.page;
+        // Also populate intro for backward compat with the prose block fallback
+        intro = structuredPage.intro || null;
+        aiRewriteCount++;
+      } else {
+        const reason = r?.status === 'rejected' ? r.reason?.message : r?.value?.error;
+        console.warn(`  [service-page] ${slug} — falling back to header-only (${reason || 'unknown'})`);
+        d.source = 'minimal';
+      }
+    }
+    if (d.source === 'ai-content') aiContentCount++;
+    if (d.source === 'minimal') minimalCount++;
+
+    const benefitsHtml = benefits.length > 0
+      ? `<ul class="space-y-3 my-6">\n${benefits.map(b => `        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>${b}</span></li>`).join('\n')}\n      </ul>`
+      : '';
+
+    // Render intro as one or more <p> tags (the AI rewriter returns multi-paragraph
+    // markdown separated by blank lines; preserve that).
+    const introHtml = intro
+      ? intro.split(/\n\s*\n/).map(p => `      <p class="mb-4">${escapeHtml(p.trim())}</p>`).join('\n')
+      : '';
+
+    // Build a MedicalProcedure schema for this service. Per the SEO
+    // guidelines doc, every service-detail page should emit a procedure-
+    // or service-typed schema in addition to the auto-emitted
+    // BreadcrumbList. The provider points back to the practice (LocalBusiness).
+    const procedureSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'MedicalProcedure',
+      'name': headline,
+      'description': subheadline,
+      'procedureType': 'https://schema.org/Therapeutic',
+      'provider': {
+        '@type': 'Dentist',
+        'name': practiceName,
+        ...(city ? { 'address': { '@type': 'PostalAddress', 'addressLocality': city } } : {}),
+      },
+    };
+
+    // If we have a fully structured page (from ai-service-page.js), render
+    // each section with its appropriate visual treatment. Otherwise fall back
+    // to the legacy single-prose-block layout.
+    const sectionsHtml = structuredPage
+      ? renderStructuredSections(structuredPage, headline, subheadline, cta, practiceName)
+      : null;
+
+    const pageContent = sectionsHtml
+      ? `---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = ${JSON.stringify(procedureSchema, null, 2)};
+---
+
+<BaseLayout
+  title={\`${escapeQuotes(headline)} | \${site.name}\`}
+  description="${escapeQuotes(subheadline)}"
+  schema={[localBusinessSchema, procedureSchema]}
+>
+${sectionsHtml}
+</BaseLayout>
+`
+      : `---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = ${JSON.stringify(procedureSchema, null, 2)};
+---
+
+<BaseLayout
+  title={\`${escapeQuotes(headline)} | \${site.name}\`}
+  description="${escapeQuotes(subheadline)}"
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      ${escapeHtml(headline)}
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      ${escapeHtml(subheadline)}
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+${introHtml}
+      ${benefitsHtml}
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">${escapeHtml(cta)}</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>
+`;
+
+    await writeFile(pagePath, pageContent, 'utf-8');
+    count++;
+  }
+
+  if (count > 0) {
+    const breakdown = [
+      aiContentCount > 0 && `${aiContentCount} from AI content map`,
+      aiRewriteCount > 0 && `${aiRewriteCount} via AI rewrite of scraped page`,
+      minimalCount > 0 && `${minimalCount} header-only (no source content)`,
+    ].filter(Boolean).join(', ');
+    console.log(`  Service pages: ${breakdown}`);
+  }
+
+  return count;
 }
 
 /**
@@ -113,21 +516,59 @@ async function injectAboutBio(data, outputDir) {
 
   const credentials = data.doctor.credentials ? `, ${data.doctor.credentials}` : '';
 
-  // Look for the TODO comment about doctor intro and replace the placeholder block
-  const todoPattern = /<!--\s*TODO:?\s*[Dd]octor\s+intro[\s\S]*?-->\s*\n?\s*<p[^>]*>[\s\S]*?<\/p>/;
+  // Replace the entire <p> block containing the doctor intro TODO comment + placeholder text
+  // Handles both "TODO: Doctor intro" and "TODO: Write a compelling introduction..." variants
+  const todoBlockPattern = /(<p[^>]*>)\s*<!--\s*TODO:[^>]*-->\s*[\s\S]*?(<\/p>)/;
 
-  const replacement = `<h2>${doctorName}${credentials}</h2>\n      <p>${data.doctor.bio}</p>`;
+  const bio = data.doctor?.bio || `${doctorName} is dedicated to providing exceptional dental care.`;
+  const replacement = `<p class="text-lg text-neutral-mid leading-relaxed mb-4">${bio}</p>`;
 
-  if (todoPattern.test(content)) {
-    content = content.replace(todoPattern, replacement);
+  if (todoBlockPattern.test(content)) {
+    content = content.replace(todoBlockPattern, replacement);
   } else {
-    // Fallback: look for just the TODO comment and replace it
-    const fallbackPattern = /<!--\s*TODO:?\s*[Dd]octor\s+intro[\s\S]*?-->/;
+    // Broader fallback: replace any paragraph containing [X] years or TODO comment
+    const fallbackPattern = /<!--\s*TODO[\s\S]*?-->\s*\n\s*With \[X\] years[\s\S]*?<\/p>/;
     if (fallbackPattern.test(content)) {
       content = content.replace(fallbackPattern, replacement);
     } else {
       console.warn('  Warning: Could not locate doctor intro placeholder in about.astro.');
       return;
+    }
+  }
+
+  // Also inject doctor / team photo if available.
+  // Image download runs AFTER this step, so we predict the local path. We must
+  // mirror image-downloader's naming exactly: `team-{idx}-{slug}.{ext}` if the
+  // URL yields a slug, else `team-{idx}.{ext}`.
+  const teamSourceUrls = data.images?.team || [];
+  let doctorPhoto = null;
+  if (teamSourceUrls.length > 0) {
+    const firstUrl = String(teamSourceUrls[0]);
+    const extMatch = firstUrl.match(/\.(jpe?g|png|webp)(?:\?|$)/i);
+    const ext = (extMatch?.[1] || 'jpg').toLowerCase();
+    const safeExt = ext === 'jpeg' ? 'jpg' : ext;
+    const slug = slugFromUrl(firstUrl);
+    const baseName = slug ? `team-1-${slug}` : 'team-1';
+    doctorPhoto = `/images/team/${baseName}.${safeExt}`;
+  }
+
+  if (doctorPhoto) {
+    const imgSrc = doctorPhoto;
+    // object-position: top — source photos vary in aspect ratio; faces are
+    // typically in the upper half. Forcing center-crop on a slightly-wide
+    // source pushes the face out of frame (forehead-only result). Top-anchor
+    // keeps the face visible for ANY portrait orientation.
+    const imgTag = `<img src="${imgSrc}" alt="${doctorName}" class="w-full h-full object-cover object-top rounded-2xl" loading="lazy" />`;
+    // Replace the placeholder div containing "Doctor Photo" text
+    const photoDivPattern = /<div[^>]*class="[^"]*rounded-2xl[^"]*aspect-\[4\/5\][^"]*"[^>]*>[\s\S]*?<\/div>/;
+    if (photoDivPattern.test(content)) {
+      content = content.replace(photoDivPattern, `<div class="rounded-2xl overflow-hidden aspect-[4/5]">${imgTag}</div>`);
+    } else {
+      // Narrow fallback: just swap the placeholder text node
+      content = content.replace(
+        /<p class="text-neutral-mid text-sm">Doctor Photo<\/p>/,
+        imgTag
+      );
     }
   }
 

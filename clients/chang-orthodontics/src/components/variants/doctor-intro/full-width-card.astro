@@ -1,0 +1,77 @@
+---
+/**
+ * Doctor Intro Full-Width Card — Large portrait fills the left half,
+ * bold floating content card sits on the right. Feels editorial and premium.
+ */
+import type { DoctorIntroContent } from '../types';
+import { designDNA } from '../../../config/design-dna';
+import { site } from '../../../config/site';
+import { imagePath } from '../../../config/design-dna';
+import { resolveTokens } from '../token-utils';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+interface Props { content: DoctorIntroContent }
+const { content } = Astro.props;
+
+const tokens = (designDNA as any).designTokens ?? {};
+const t = resolveTokens(tokens);
+
+let imageRoles: { doctorPortrait?: string | null } = {};
+try {
+  const p = `${process.cwd()}/public/images/image-roles.json`;
+  imageRoles = JSON.parse(readFileSync(p, 'utf8'));
+} catch {}
+const portraitImg = imagePath(imageRoles.doctorPortrait ?? null);
+---
+
+<section data-section="doctor-intro" class={`${t.spacingClass} bg-neutral-dark overflow-hidden`}>
+  <div class={t.containerClass}>
+    <div class="relative grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-12 items-center">
+
+      <!-- Large portrait — bleeds edge on desktop -->
+      <div class="relative order-2 md:order-1">
+        {portraitImg ? (
+          <div class={`aspect-[3/4] md:aspect-auto md:h-[600px] overflow-hidden ${t.radiusClass}`}>
+            <img
+              src={portraitImg}
+              alt={`${content.name}, ${content.credentials}`}
+              class="w-full h-full object-cover object-top"
+              loading="lazy"
+            />
+            <!-- Subtle gradient toward the card -->
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-neutral-dark/60 pointer-events-none hidden md:block"></div>
+          </div>
+        ) : (
+          <div class={`aspect-[3/4] md:h-[600px] bg-brand-primary/20 flex items-center justify-center ${t.radiusClass}`}>
+            <span class="font-serif text-9xl font-bold text-brand-primary/30 select-none" aria-hidden="true">
+              {content.name?.split(' ').pop()?.charAt(0) ?? 'D'}
+            </span>
+          </div>
+        )}
+      </div>
+
+      <!-- Content card — floats over the image on large screens -->
+      <div class={`order-1 md:order-2 bg-surface-1 p-8 md:p-12 ${t.radiusClass} md:-ml-16 relative z-10`}>
+        {content.eyebrow && (
+          <span class={t.eyebrowClass}>{content.eyebrow}</span>
+        )}
+        <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-dark mb-2">
+          {content.name}
+        </h2>
+        <p class="font-sans text-sm font-bold uppercase tracking-widest text-brand-primary mb-6 pb-6 border-b border-neutral-dark/10">
+          {content.credentials}
+        </p>
+        <div class="font-sans text-neutral-mid leading-relaxed space-y-3 mb-8 text-sm md:text-base">
+          {content.bio.split('\n\n').filter(Boolean).slice(0, 3).map((para) => (
+            <p>{para}</p>
+          ))}
+        </div>
+        <a href={content.ctaHref} class={t.btnPrimary}>
+          {content.ctaLabel}
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+---
+/**
+ * Universal missing-section indicator.
+ *
+ * Rendered in place of a section when the pipeline didn't produce a generated
+ * component for it. In dev, surfaces a loud warning so the omission is obvious.
+ * In production, renders nothing — never ship placeholder copy to users.
+ */
+interface Props {
+  name: string;
+  reason?: string;
+}
+
+const { name, reason } = Astro.props as Props;
+const isDev = import.meta.env.DEV;
+
+if (!isDev) {
+  console.warn(`[SectionFallback] No generated component for section: "${name}"${reason ? ` (${reason})` : ''}`);
+}
+---
+
+{isDev && (
+  <div class="bg-yellow-50 border-l-4 border-yellow-500 text-yellow-900 p-6 my-6 mx-auto max-w-4xl rounded">
+    <p class="font-semibold mb-1">[MISSING] Section "{name}" was not generated.</p>
+    {reason && <p class="text-sm opacity-80 mb-2">Reason: {reason}</p>}
+    <p class="text-sm opacity-80">Re-run the pipeline (<code>node scripts/pipeline/build-site.js</code>) or remove "{name}" from <code>designDNA.sectionOrder</code>.</p>
+  </div>
+)}

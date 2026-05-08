@@ -1,0 +1,103 @@
+---
+/**
+ * Reviews Pull Quotes — Editorial large-quote layout.
+ * One featured quote dominates; 2 supporting quotes sit below.
+ * Creates a completely different social-proof rhythm from card-row.
+ */
+import type { ReviewsContent } from '../types';
+import { designDNA } from '../../../config/design-dna';
+import { resolveTokens } from '../token-utils';
+
+interface Props { content: ReviewsContent }
+const { content } = Astro.props;
+
+const tokens = (designDNA as any).designTokens ?? {};
+const t = resolveTokens(tokens);
+
+const [featured, ...rest] = content.items;
+const supporting = rest.slice(0, 2);
+---
+
+<section data-section="reviews" class={`bg-surface-1 ${t.spacingClass}`}>
+  <div class={t.containerClass}>
+
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+      <div>
+        {content.eyebrow && (
+          <span class={t.eyebrowClass}>{content.eyebrow}</span>
+        )}
+        <h2 class="font-serif text-3xl md:text-4xl font-bold text-neutral-dark">
+          {content.heading}
+        </h2>
+      </div>
+      {content.aggregateRating && content.reviewCount && (
+        <p class="font-sans text-neutral-mid text-sm shrink-0">
+          <span class="text-brand-primary font-bold text-xl">{content.aggregateRating}</span>/5
+          {' '}· {content.reviewCount}+ reviews
+        </p>
+      )}
+    </div>
+
+    {featured && (
+      <!-- Featured pull quote -->
+      <figure class={`relative bg-brand-light p-8 md:p-12 lg:p-16 ${t.radiusClass} mb-8 overflow-hidden`}>
+        <!-- Decorative quotation mark -->
+        <span
+          class="absolute top-4 left-6 font-serif text-[8rem] leading-none text-brand-primary/10 select-none pointer-events-none"
+          aria-hidden="true"
+        >"</span>
+        <blockquote class="relative z-10 font-serif text-xl md:text-2xl lg:text-3xl text-neutral-dark leading-relaxed italic mb-6">
+          "{featured.quote}"
+        </blockquote>
+        <figcaption class="flex items-center gap-3">
+          <div>
+            <cite class="font-sans text-sm font-bold text-neutral-dark not-italic block">
+              {featured.author}
+            </cite>
+            <span class="text-brand-primary text-sm tracking-widest" aria-label={`${featured.rating ?? 5} out of 5 stars`}>
+              {'★'.repeat(featured.rating ?? 5)}
+            </span>
+          </div>
+        </figcaption>
+      </figure>
+    )}
+
+    <!-- Supporting quotes -->
+    {supporting.length > 0 && (
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {supporting.map((review) => (
+          <figure class={`border-l-4 border-brand-primary/30 pl-6 py-2`}>
+            <blockquote class="font-sans text-neutral-mid text-base leading-relaxed italic mb-3">
+              "{review.quote}"
+            </blockquote>
+            <figcaption class="font-sans text-sm font-semibold text-neutral-dark">
+              — {review.author}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    )}
+
+    <!-- Google link -->
+    {content.googleUrl && (
+      <div class="mt-10">
+        <a
+          href={content.googleUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 font-sans text-sm font-semibold text-neutral-mid hover:text-brand-primary transition-colors"
+          aria-label="Read more reviews on Google (opens in new tab)"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          Read all reviews on Google ↗
+        </a>
+      </div>
+    )}
+  </div>
+</section>

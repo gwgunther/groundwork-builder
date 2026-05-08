@@ -1,0 +1,445 @@
+{
+  "contentAudit": {
+    "homepage.heroHeadline": {
+      "existing": "Healthy Smiles",
+      "source": "/",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "The H1 'Healthy Smiles' is too generic and short to anchor a hero section — it communicates no differentiation, location, or practitioner identity."
+    },
+    "homepage.heroSubheadline": {
+      "existing": "Premier Cosmetic and General Dentistry",
+      "source": "/",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "A category label with no geographic anchor, no voice, and no specific claim — it reads as a placeholder rather than a compelling sub-headline."
+    },
+    "homepage.heroTagline": {
+      "existing": "OC Healthy Smiles Is An Invisalign Platinum Provider in Orange County, California",
+      "source": "/",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The Platinum Provider award claim is specific and credentialed, making it a stronger-than-average tagline candidate, but it positions only one service and needs softening into a tagline format."
+    },
+    "homepage.valueProp": {
+      "existing": "At OC Health Smiles, We Offer the Very Best, Innovative Treatment Options Using Advanced Technology. At OC Healthy Smiles, your oral health and comfort is our highest priority. Our friendly, dedicated Costa Mesa, CA, dentists and cosmetic dentists are ready to help you overcome a wide variety of dent",
+      "source": "/",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The block conveys priority on patient comfort and a broad service scope, but is truncated, contains a typo ('OC Health Smiles'), and relies on generic superlatives that need grounding in the practice's specific differentiators."
+    },
+    "about.headline": {
+      "existing": "Meet 5-Star Rated Costa Mesa, CA, Dentist, Dr. Mark Nguyen Of OC Healthy Smiles",
+      "source": "/dr-mark-nguyen",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The headline is serviceable and keyword-rich but reads as an SEO title rather than a warm editorial headline — the rating claim is a useful anchor but the phrasing needs humanizing."
+    },
+    "about.introParagraph": {
+      "existing": "As a top-rated Costa Mesa, CA, dentist, dentistry is Dr. Nguyen's passion. A native of Orange County, CA, Dr. Mark K. Nguyen earned his Doctorate of Dental Surgery at the world-renowned New York University College of Dentistry and is licensed to practice in both California and Nevada. After a general practice residency at the Loma Linda VA Hospital, Invisalign certification, and a clinical concentration program in cosmetic dentistry, Dr. Nguyen is uniquely qualified to create beautiful smiles.",
+      "source": "/dr-mark-nguyen",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Covers credentials, geography, and training with genuine specifics (NYU, Loma Linda VA), but the prose is dense and SEO-driven in places — light editing can sharpen the voice and integrate community and award facts."
+    },
+    "about.philosophy": {
+      "existing": "My team and I believe that all individuals should have the ability to preserve the health and wellness of their smile for a lifetime of improved function, comfort, and aesthetics. Our philosophy of giving back extends to our community outreach efforts.",
+      "source": "/our-mission",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "A first-person practice philosophy statement in the doctor's own voice with a clear values claim (lifetime health + community giving) — this is the most distinctive prose block available for this section."
+    },
+    "services.invisalign.intro": {
+      "existing": "At our all-in-one dental practice, we are thrilled to be the top provider of Invisalign among dentists in Orange County, CA. Our Invisalign-certified dental office offers Invisalign to patients who want to straighten their teeth without metal brackets. Invisalign straightens your teeth in much the same way braces would, except its state-of-the-art technology means you won't have any brackets semi-permanently glued to your teeth. Invisalign uses removable aligners.",
+      "source": "/invisalign",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "On-topic with a strong provider credential claim and good core explanation, but the prose is truncated and relies on generic phrasing — needs completion, Propel mention, and Platinum Provider detail woven in."
+    },
+    "services.teeth-whitening.intro": {
+      "existing": "A bright set of teeth can give you a great reason to smile a little wider. If you wish your teeth were a bit whiter for an upcoming event such as a wedding, graduation, or job interview, or if you simply want a brighter smile, teeth whitening with our Costa Mesa cosmetic dentists can help to remove years of stains caused by certain habits (like smoking) and the consumption of certain acidic foods and beverages (such as wine).",
+      "source": "/teeth-whitening",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Conversational, relatable, and on-topic with good use-case specificity (wedding, graduation), but the free custom whitening trays differentiator is absent and the phrasing is generic mid-2010s dental boilerplate."
+    },
+    "services.porcelain-veneers.intro": {
+      "existing": "If you are not comfortable with the shape, length, or overall look of your teeth, then dental veneers may be a great option for your smile. Porcelain veneers are thin layers that cover your existing teeth. Our 5-star-rated cosmetic dentists in Costa Mesa, CA, are able to offer porcelain veneers as one of our advanced dentistry options. You can feel confident knowing that your perfect smile is only a few visits away.",
+      "source": "/dental-veneers",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Covers the basic patient benefit and process but is thin — the practice has strong gallery case stories (8 minimal prep veneers, wedding-day smiles) and the Top Cosmetic Dentist award that should be integrated."
+    },
+    "services.root-canal.intro": {
+      "existing": "Unfortunately, the term 'root canal' has a terrible reputation, but you can feel assured that your root canal at OC Healthy Smiles will be pain-free. A root canal is a procedure used to salvage a tooth that has become severely infected or decayed. To learn more about root canal procedures with our oral surgeon in Costa Mesa, CA, schedule an appointment with our endodontic specialist today.",
+      "source": "/root-canal",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Opens with an effective anxiety-busting frame and references the in-house endodontist, but the excerpt is truncated and the USC-trained endodontist (Dr. Tavitian) credential is a differentiator that should be named."
+    },
+    "services.teeth-cleaning.intro": {
+      "existing": "At OC Healthy Smiles, our mission is to provide the finest dental care, including quality dental cleanings in Costa Mesa, CA. Brushing and flossing your teeth are key to maintaining a healthy smile, but they aren't the only steps you should take to improve the strength and longevity of your teeth and gums. Tartar is a hardened deposit on your tooth that results from a buildup of plaque along the gums.",
+      "source": "/teeth-cleaning",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Educationally sound with a clear rationale for professional cleanings, but 'finest dental care' is a hollow superlative and the free whitening trays new-patient perk — a natural fit for a cleaning page — is absent."
+    },
+    "services.dental-bridges.intro": {
+      "existing": "If you have a missing tooth or need to have a tooth pulled, our Costa Mesa dentists may be able to replace that tooth with a dental bridge. A dental bridge is used when a tooth can't be salvaged with another dental procedure.",
+      "source": "/dental-bridges",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "The excerpt is very short, ends abruptly, and provides only a bare procedural definition with no practice voice, credential, or patient benefit framing — insufficient as a service intro."
+    },
+    "services.dental-implants.intro": {
+      "existing": "At OC Healthy Smiles, our mission is to provide the finest dental care, including quality dental implants in Costa Mesa, CA. If some or all of your teeth are no longer salvageable or are missing altogether, dental implants may be right for you. Dental implants are comfortable and feel much like your normal teeth do in your mouth. Dental implants are fixed in place with an artificial root or roots, which your gum tissue and jaw will accept like a natural part of your body.",
+      "source": "/dental-implants",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Covers the core patient benefit of natural feel and fit, but the CT scan guided implant surgery differentiator — one of OC's few offices with that technology — is completely absent and must be integrated."
+    },
+    "services.oral-surgery.intro": {
+      "existing": "Our Orange County, CA, dental staff includes an expertly trained oral surgeon, endodontist, and dental anesthesiologist. Whether you are seeking wisdom tooth extraction, a root canal, or dental implants, our team is here to help.",
+      "source": "/oral-surgery",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The in-house specialist trio (oral surgeon, endodontist, anesthesiologist) is a strong differentiator but the excerpt is sparse — Dr. Burnett's UCLA faculty role and Resident of the Year award need incorporation."
+    },
+    "services.cavities-filling.intro": {
+      "existing": "Sometimes cavities happen, even if you are careful to maintain good oral hygiene practices such as brushing, flossing, and visiting your family dentist for regular dental cleanings. When tooth decay sets in, OC Healthy Smiles offers the latest in technological advances for treating cavities. If a cavity isn't treated quickly and properly, it can lead to further tooth decay that can affect other teeth and the health of your gums as well.",
+      "source": "/cavities",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Empathetic framing ('sometimes cavities happen') is a good patient-first opening, but 'latest in technological advances' is vague and the CEREC same-day crown adjacency and digital x-ray technology should be referenced."
+    },
+    "services.dental-crowns.intro": {
+      "existing": "Dental crowns help to strengthen and retain teeth that are suffering from tooth decay, extensive cavities, or extreme wear and tear from teeth grinding and other causes. At OC Healthy Smiles, we specialize in non-metallic Lava Crowns, which are made of high-quality medical ceramics. Our non-metallic dental crowns are able to be matched to the color of your other teeth.",
+      "source": "/dental-crowns",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "Specifically names the Lava Crown product and the ceramic color-matching benefit — this is product-specific practice voice that distinguishes OC Healthy Smiles from generic crown descriptions."
+    },
+    "services.dental-sealants.intro": {
+      "existing": "Your molars (the teeth in the back of your mouth) have lots of ridges that are great for chewing. Unfortunately, these ridges can get worn down, and they can get deeper and narrower over time. Happily, our OC Healthy Smiles dentists can provide you with a treatment called a dental sealant to help prevent food and bacteria from sneaking into those narrow spaces. Dental sealants are comprised of a special material that coats the surface of the tooth.",
+      "source": "/dental-sealants",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Good plain-language patient education but relies on generic 'happy' filler language and lacks any practice-specific credential, stat, or voice to distinguish it from a template dental site."
+    },
+    "services.dentures.intro": {
+      "existing": "If you are missing too many teeth for a dental bridge but don't feel confident about proceeding with dental implants, then dentures may be a good choice for you. Dentures are a set of removable artificial teeth that can restore the function and look of your natural teeth. Our expert dentists in Costa Mesa, CA, and the OC Healthy Smiles team will take careful impressions to ensure that your new dentures will fit comfortable and securely.",
+      "source": "/dentures",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Clear positioning within the tooth-replacement spectrum (bridge vs. implants vs. dentures) is useful, but 'comfortable and securely' is a typo, and the prose is generic — needs a patient-reassurance angle and the flexible payment differentiator."
+    },
+    "services.fluoride-treatment.intro": {
+      "existing": "Fluoride is a mineral that can help to prevent cavities by repairing damaged tooth enamel when the damage is still in its very early, microscopic stages. The benefits of fluoride have been known for decades. In-office fluoride treatment at our Costa Mesa dental office can also help you and your loved ones to protect the health and integrity of your teeth. The fluoride paste used at OC Healthy Smiles is a high-quality formulation.",
+      "source": "/fluoride-treatment",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Solid educational foundation with a reference to the in-office product quality, but 'high-quality formulation' is vague and the family/children angle implicit in fluoride treatment is underdeveloped."
+    },
+    "services.gum-treatment.intro": {
+      "existing": "Gum therapy, also sometimes called Scaling and Root Planing (SRP), treats the gum tissue around your teeth when they become inflamed or infected. Our dentists are highly experienced at providing painless gum therapy. Periodontal disease, aka gum disease, is what we call an infection that affects the tissue surrounding your teeth. When periodontal disease isn't treated promptly, it can lead to the loss of teeth and other serious health concerns.",
+      "source": "/gum-treatment",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Names the clinical procedure (SRP), uses the 'painless' patient-benefit angle, and links to systemic health consequences — adequate foundation but 'highly experienced' is unsubstantiated and should be replaced with specific credentials."
+    },
+    "services.oral-cancer-screening.intro": {
+      "existing": "Over 40,000 Americans are diagnosed with oral and throat cancers each year, and as with any type of cancer, the chance of recovery relies in part upon how early the cancer was first detected. As part of our comprehensive dental exam, OC Healthy Smiles includes oral cancer screening.",
+      "source": "/oral-cancer-screening",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The 40,000 statistic is an effective fear-of-missing hook and the 'included in comprehensive exam' framing is a practical differentiator, but the excerpt is very short and cut off — needs expansion and a reassurance close."
+    },
+    "services.tooth-extraction.intro": {
+      "existing": "Wisdom teeth are the third molars that begin to appear in late adulthood. When these teeth are in their proper place, all is well. For many people, however, wisdom teeth can become painful when they begin to emerge if the jaw doesn't have enough room for them. At OC Healthy Smiles, we never want you or your child to be in pain. We often recommend oral surgery for wisdom tooth extraction — both to alleviate the discomfort of impacted wisdom teeth and to ensure the long-term health of your teeth.",
+      "source": "/tooth-extraction",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Patient-empathy framing ('we never want you to be in pain') is on-brand and the wisdom tooth context is appropriate, but the page covers only wisdom teeth — the broader extraction scope and in-house oral surgeon credential should be added."
+    },
+    "services.night-guards.intro": {
+      "existing": "It may not be the prettiest thing to wear to bed, but dentists often recommend a night guard to protect teeth from grinding while you sleep. 'Grinding and clenching of teeth is a huge concern with aging teeth.'",
+      "source": "/blog/5-solutions-to-worn-and-aging-teeth",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "The only available text is a brief blog aside — not a service page intro — and lacks the depth, structure, and practice-specific framing needed to serve as a dedicated service section."
+    },
+    "services.bonding.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "No dedicated bonding page was found in the crawl, and no additionalContent or blog excerpt addresses bonding as a standalone service — must be written from scratch."
+    },
+    "services.gum-grafting.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "No dedicated gum grafting page or relevant prose block was found anywhere in the site crawl — must be written from scratch."
+    },
+    "services.dental-bonding.intro": {
+      "existing": null,
+      "source": null,
+      "quality": "missing",
+      "action": "create",
+      "rationale": "No dedicated dental bonding page or relevant content block exists in the crawl — this duplicates the bonding slug gap and requires full original creation."
+    },
+    "services.snore-guards-and-sleep-apnea-devices.intro": {
+      "existing": "In our Costa Mesa, CA, dentists' office, we believe strongly in taking a comprehensive approach to dentistry. After all, maintaining your good health involves a lot more than just your teeth. One major health concern that some people deal with is sleep apnea, and what many don't realize is that your Orange County, CA, dentist can help.",
+      "source": "/blog/sleep-apnea-and-your-orange-county-ca-dentist",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The 'comprehensive approach' philosophy frame and dentist-as-sleep-apnea-resource angle are differentiating, but the source is a blog post — not a service page — and the AADSM credential and specific device types need to be integrated."
+    }
+  },
+  "coverage": {
+    "totalSections": 28,
+    "byQuality": {
+      "strong": 2,
+      "adequate": 18,
+      "weak": 4,
+      "missing": 4
+    },
+    "byAction": {
+      "keep": 2,
+      "optimize": 18,
+      "create": 8
+    }
+  },
+  "differentiatorMatches": {
+    "invisalign": [
+      "Invisalign Platinum Provider in Orange County — Recognized as Platinum Provider for 2018, 2019, and 2020.",
+      "Propel technology to accelerate Invisalign treatment 50% faster",
+      "Top Cosmetic Dentist in Orange County two consecutive years",
+      "Extended hours Monday–Wednesday 7AM to 7PM",
+      "Free custom whitening trays for all new patients"
+    ],
+    "teeth-whitening": [
+      "Free custom whitening trays for all new patients",
+      "Top Cosmetic Dentist in Orange County two consecutive years",
+      "Extended hours Monday–Wednesday 7AM to 7PM"
+    ],
+    "porcelain-veneers": [
+      "Top Cosmetic Dentist in Orange County two consecutive years",
+      "All-in-one dental practice since 2005",
+      "Free custom whitening trays for all new patients"
+    ],
+    "root-canal": [
+      "Endodontist with USC specialty training and volunteer work abroad",
+      "Emergency appointments available",
+      "Extended hours Monday–Wednesday 7AM to 7PM"
+    ],
+    "teeth-cleaning": [
+      "Free custom whitening trays for all new patients",
+      "Digital x-rays instead of film x-rays",
+      "Complimentary dental insurance benefits check for patients",
+      "Premiere Provider with Delta Dental, in-network Aetna and Guardian PPO"
+    ],
+    "dental-bridges": [
+      "CT scan guided implant surgery technology",
+      "All-in-one dental practice since 2005",
+      "Flexible payment options available"
+    ],
+    "dental-implants": [
+      "CT scan guided implant surgery technology",
+      "All-in-one dental practice since 2005",
+      "Flexible payment options available",
+      "Active hospital privileges at Orange County Global Medical Center"
+    ],
+    "oral-surgery": [
+      "Resident of the Year award won twice during residency",
+      "Clinical Educator at UCLA School of Dentistry",
+      "Active hospital privileges at Orange County Global Medical Center",
+      "Emergency appointments available"
+    ],
+    "cavities-filling": [
+      "Digital x-rays instead of film x-rays",
+      "Emergency appointments available",
+      "All-in-one dental practice since 2005"
+    ],
+    "dental-crowns": [
+      "Emergency appointments available",
+      "All-in-one dental practice since 2005",
+      "Flexible payment options available"
+    ],
+    "dental-sealants": [
+      "All-in-one dental practice since 2005",
+      "Digital x-rays instead of film x-rays"
+    ],
+    "dentures": [
+      "Flexible payment options available",
+      "All-in-one dental practice since 2005",
+      "Complimentary dental insurance benefits check for patients"
+    ],
+    "fluoride-treatment": [
+      "All-in-one dental practice since 2005",
+      "Digital x-rays instead of film x-rays"
+    ],
+    "gum-treatment": [
+      "Endodontist with USC specialty training and volunteer work abroad",
+      "All-in-one dental practice since 2005",
+      "Emergency appointments available"
+    ],
+    "oral-cancer-screening": [
+      "All-in-one dental practice since 2005",
+      "5-star rated Costa Mesa dentist",
+      "Extended hours Monday–Wednesday 7AM to 7PM"
+    ],
+    "tooth-extraction": [
+      "Resident of the Year award won twice during residency",
+      "Active hospital privileges at Orange County Global Medical Center",
+      "Emergency appointments available",
+      "Extended hours Monday–Wednesday 7AM to 7PM"
+    ],
+    "night-guards": [
+      "Top Cosmetic Dentist in Orange County two consecutive years",
+      "All-in-one dental practice since 2005"
+    ],
+    "bonding": [
+      "Top Cosmetic Dentist in Orange County two consecutive years",
+      "All-in-one dental practice since 2005",
+      "Free custom whitening trays for all new patients"
+    ],
+    "gum-grafting": [
+      "Endodontist with USC specialty training and volunteer work abroad",
+      "All-in-one dental practice since 2005",
+      "Active hospital privileges at Orange County Global Medical Center"
+    ],
+    "dental-bonding": [
+      "Top Cosmetic Dentist in Orange County two consecutive years",
+      "All-in-one dental practice since 2005",
+      "Free custom whitening trays for all new patients"
+    ],
+    "snore-guards-and-sleep-apnea-devices": [
+      "Comprehensive approach to dentistry beyond teeth",
+      "American Association of Dental Sleep Medicine — Advanced Dental Sleep Medicine",
+      "All-in-one dental practice since 2005",
+      "Extended hours Monday–Wednesday 7AM to 7PM"
+    ]
+  },
+  "rationale": "The site has a genuine, recoverable editorial voice — anchored in Dr. Nguyen's first-person philosophy statement, the Platinum Invisalign Provider credential, and specific clinical differentiators like CT-guided implants and Lava Crowns — but that voice is inconsistently expressed across pages, with hero and homepage sections falling back on hollow superlatives. Service coverage is broad but shallow: 18 of 28 sections are adequate-but-generic excerpts that require optimization to integrate the practice's real differentiators rather than new creation. The four fully missing sections (bonding, gum grafting, dental bonding, and a standalone night-guards page) plus four weak sections represent the primary workload for the Content Write phase, which should anchor all new copy in the philosophy statement, the doctor credentials, and the community-outreach story as proof of character.",
+  "_meta": {
+    "model": "claude-sonnet-4-6",
+    "input_tokens": 33680,
+    "output_tokens": 6212,
+    "duration_ms": 116343,
+    "cost": 0.1942,
+    "schemaValidation": {
+      "expectedKeyCount": 28,
+      "missingKeys": [],
+      "extraKeys": [],
+      "backfilled": 0
+    },
+    "sourcePathValidation": {
+      "valid": [
+        {
+          "key": "homepage.heroHeadline",
+          "source": "/"
+        },
+        {
+          "key": "homepage.heroSubheadline",
+          "source": "/"
+        },
+        {
+          "key": "homepage.heroTagline",
+          "source": "/"
+        },
+        {
+          "key": "homepage.valueProp",
+          "source": "/"
+        },
+        {
+          "key": "about.headline",
+          "source": "/dr-mark-nguyen"
+        },
+        {
+          "key": "about.introParagraph",
+          "source": "/dr-mark-nguyen"
+        },
+        {
+          "key": "about.philosophy",
+          "source": "/our-mission"
+        },
+        {
+          "key": "services.invisalign.intro",
+          "source": "/invisalign"
+        },
+        {
+          "key": "services.teeth-whitening.intro",
+          "source": "/teeth-whitening"
+        },
+        {
+          "key": "services.porcelain-veneers.intro",
+          "source": "/dental-veneers"
+        },
+        {
+          "key": "services.root-canal.intro",
+          "source": "/root-canal"
+        },
+        {
+          "key": "services.teeth-cleaning.intro",
+          "source": "/teeth-cleaning"
+        },
+        {
+          "key": "services.dental-bridges.intro",
+          "source": "/dental-bridges"
+        },
+        {
+          "key": "services.dental-implants.intro",
+          "source": "/dental-implants"
+        },
+        {
+          "key": "services.oral-surgery.intro",
+          "source": "/oral-surgery"
+        },
+        {
+          "key": "services.cavities-filling.intro",
+          "source": "/cavities"
+        },
+        {
+          "key": "services.dental-crowns.intro",
+          "source": "/dental-crowns"
+        },
+        {
+          "key": "services.dental-sealants.intro",
+          "source": "/dental-sealants"
+        },
+        {
+          "key": "services.dentures.intro",
+          "source": "/dentures"
+        },
+        {
+          "key": "services.fluoride-treatment.intro",
+          "source": "/fluoride-treatment"
+        },
+        {
+          "key": "services.gum-treatment.intro",
+          "source": "/gum-treatment"
+        },
+        {
+          "key": "services.oral-cancer-screening.intro",
+          "source": "/oral-cancer-screening"
+        },
+        {
+          "key": "services.tooth-extraction.intro",
+          "source": "/tooth-extraction"
+        },
+        {
+          "key": "services.night-guards.intro",
+          "source": "/blog/5-solutions-to-worn-and-aging-teeth"
+        },
+        {
+          "key": "services.snore-guards-and-sleep-apnea-devices.intro",
+          "source": "/blog/sleep-apnea-and-your-orange-county-ca-dentist"
+        }
+      ],
+      "invalid": [],
+      "knownPathCount": 144
+    }
+  }
+}

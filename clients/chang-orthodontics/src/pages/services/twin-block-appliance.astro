@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Twin Block Appliance",
+  "description": "A removable functional appliance for correcting class II malocclusion by repositioning the lower jaw during active growth.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Twin Block Appliance | ${site.name}`}
+  description="A removable functional appliance for correcting class II malocclusion by repositioning the lower jaw during active growth."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Twin Block Appliance
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      A removable functional appliance for correcting class II malocclusion by repositioning the lower jaw during active growth.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">The Twin Block Appliance is a removable functional appliance used primarily in growing adolescents to correct class II malocclusion — a bite relationship in which the upper jaw and teeth are positioned significantly forward of the lower jaw. The appliance consists of two separate acrylic blocks — one for the upper arch and one for the lower — designed with complementary ramps that hold the lower jaw in a forward, corrected position when the teeth are brought together. Worn full-time, including during eating, the Twin Block encourages the lower jaw to reposition and develop, improving the bite relationship and facial profile without surgery. At Chang Orthodontics, your functional appliance therapy is reviewed by Dr. Chang or Dr. Chung at every appointment, supported by USC-level expertise in craniofacial development.</p>
+      <ul class="space-y-3 my-6">
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Removable functional appliance for class II malocclusion correction</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Encourages lower jaw repositioning during active growth</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Worn full-time including during meals for continuous correction</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Monitored by your orthodontist — not staff — at every visit</span></li>
+      </ul>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

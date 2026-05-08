@@ -1,0 +1,100 @@
+---
+/**
+ * Doctor Intro Two-Col Brief — Compact side-by-side.
+ * Left: circular avatar, name, credentials, city.
+ * Right: bio paragraphs + CTA.
+ */
+import type { DoctorIntroContent } from '../types';
+import { designDNA } from '../../../config/design-dna';
+import { site } from '../../../config/site';
+import { imagePath } from '../../../config/design-dna';
+import { resolveTokens } from '../token-utils';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+const { content } = Astro.props;
+
+const tokens = (designDNA as any).designTokens ?? {};
+const t = resolveTokens(tokens);
+
+// Load doctor portrait for circular avatar
+let imageRoles = {};
+try {
+  const p = `${process.cwd()}/public/images/image-roles.json`;
+  imageRoles = JSON.parse(readFileSync(p, 'utf8'));
+} catch {}
+const portraitImg = imagePath(imageRoles.doctorPortrait ?? null);
+
+const addr = (site as any).addr ?? {};
+const cityLine = addr.city ? `${addr.city}${addr.state ? ', ' + addr.state : ''}` : null;
+
+// Initial for placeholder circle
+const initial = content.name?.charAt(content.name.lastIndexOf(' ') + 1) || content.name?.charAt(0) || 'D';
+
+const bioParagraphs = content.bio ? content.bio.split('\n\n').filter(Boolean) : [];
+---
+
+<section
+  data-section="doctor-intro"
+  class={`bg-surface-1 ${t.spacingClass}`}
+>
+  <div class={t.containerClass}>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 items-start">
+
+      <!-- Left column: avatar + identity -->
+      <div class="md:col-span-1 flex flex-col items-start gap-4">
+        <!-- Circular avatar -->
+        {portraitImg ? (
+          <img
+            src={portraitImg}
+            alt={`${content.name}, ${content.credentials}`}
+            class="w-24 h-24 rounded-full object-cover object-top shrink-0"
+            loading="lazy"
+          />
+        ) : (
+          <div class="w-24 h-24 rounded-full bg-brand-primary/10 flex items-center justify-center shrink-0" aria-hidden="true">
+            <span class="font-serif text-3xl font-bold text-brand-primary select-none">
+              {initial}
+            </span>
+          </div>
+        )}
+
+        <!-- Name + credentials -->
+        <div>
+          {content.eyebrow && (
+            <span class={t.eyebrowClass}>{content.eyebrow}</span>
+          )}
+          <h2 class="font-serif text-xl font-bold text-neutral-dark leading-snug">
+            {content.name}
+          </h2>
+          <p class="text-brand-primary text-sm font-semibold mt-1">
+            {content.credentials}
+          </p>
+        </div>
+
+        <!-- Thin divider -->
+        <hr class="w-full border-border-light" />
+
+        <!-- City line -->
+        {cityLine && (
+          <p class="text-neutral-mid text-sm">{cityLine}</p>
+        )}
+      </div>
+
+      <!-- Right column: bio + CTA -->
+      <div class="md:col-span-2">
+        {bioParagraphs.length > 0 && (
+          <div class="font-sans text-neutral-mid text-base leading-relaxed space-y-4 mb-8">
+            {bioParagraphs.map((para) => (
+              <p>{para}</p>
+            ))}
+          </div>
+        )}
+        <a href={content.ctaHref} class={t.btnPrimary}>
+          {content.ctaLabel}
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>

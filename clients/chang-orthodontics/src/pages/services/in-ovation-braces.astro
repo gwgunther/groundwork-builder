@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "In-Ovation® Braces",
+  "description": "A self-ligating braces system designed for faster results, fewer office visits, and greater comfort — no tightening appointments required.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`In-Ovation® Braces | ${site.name}`}
+  description="A self-ligating braces system designed for faster results, fewer office visits, and greater comfort — no tightening appointments required."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      In-Ovation® Braces
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      A self-ligating braces system designed for faster results, fewer office visits, and greater comfort — no tightening appointments required.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">We happily offer our patients In-Ovation System braces. In-Ovation is a technically advanced self-ligating system that can give you the radiant smile you have always wanted more quickly than traditional braces. By eliminating elastic ties and using a built-in clip to engage the archwire, In-Ovation reduces friction and allows teeth to move more quickly, easily, and comfortably. Best of all, there's never a need to have your braces tightened — a significant advantage over conventional bracket systems. In-Ovation can achieve results faster, often months sooner than other braces depending on your treatment needs.</p>
+      <ul class="space-y-3 my-6">
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Self-ligating clip eliminates elastic ties and reduces friction</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>No tightening appointments — fewer required office visits</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Faster results — often months sooner than conventional braces</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Moves teeth more quickly, easily, and comfortably</span></li>
+      </ul>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

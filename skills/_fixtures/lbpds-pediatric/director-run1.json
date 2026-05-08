@@ -1,0 +1,140 @@
+{
+  "dna": {
+    "archetype": "editorial-asymmetric",
+    "heroVariant": "asymmetric-left",
+    "servicesVariant": "editorial-list",
+    "navVariant": "left-logo",
+    "footerVariant": "editorial-split",
+    "ctaVariant": "full-width-dark",
+    "doctorVariant": "portrait-right",
+    "galleryVariant": "featured-grid",
+    "sectionOrder": [
+      "hero",
+      "doctor-intro",
+      "services",
+      "reviews",
+      "gallery",
+      "cta"
+    ],
+    "cardTreatment": "ghost",
+    "density": "balanced",
+    "motion": "subtle",
+    "radius": "sm",
+    "borrowedFrom": null,
+    "borrowedTrait": "none available",
+    "headingScale": "dramatic",
+    "sectionDivider": "color-shift",
+    "heroTextPosition": "bottom-left",
+    "divergenceRationale": "All three recent builds used either centered or split-image heroes with warm-editorial or centered-classic archetypes — this build moves into the editorial/bold family with an asymmetric-left hero that anchors Dr. Cortez's specialist credentials in a high-contrast navy field, deliberately refusing the centered warmth of spring-st-dentistry and the split-image softness of magic-fox-orthodontics. The editorial-asymmetric archetype earns the dual-specialty, board-certified positioning that warm-editorial would undercut — a pediatric specialist with USC/UCLA affiliations should feel more like a children's hospital authority than a neighborhood family clinic.",
+    "creativeDirection": "Navy authority offset by a single teal gesture — the site reads like a specialist's letterhead brought to life: structured, credentialed, and precise, with just enough warmth in the typography and accent touches to signal that Dr. Cortez understands small patients and anxious parents, not just clinical outcomes.",
+    "coverage": {
+      "filteredSections": []
+    },
+    "typographyScale": "serif (heading) / sans-serif (body) — scale 14/16/20/28/40/56px",
+    "colorPalette": {
+      "primary": null,
+      "secondary": null,
+      "accent": null,
+      "light": null,
+      "raw": []
+    },
+    "spacingScale": "4/8/16/24/48/80px",
+    "writingTone": "Warm, clear, specific to Long Beach.",
+    "brandSummary": "Pediatric Dental Specialists, led by Dr. Cortez, serving Long Beach, — Navy authority offset by a single teal gesture — the site reads like a specialist's letterhead brought to life: structured, credentialed, and precise, with just enough warmth in the typography and accent touches to signal that Dr. Cortez understands small patients and anxious parents, not just clinical outcomes.",
+    "doRules": [
+      "Use the archetype's established editorial-asymmetric layout — don't mix incompatible grid styles mid-page.",
+      "Hero variant must be asymmetric-left — lock this choice.",
+      "Card treatment is ghost — apply consistently across all card instances.",
+      "Phone number must be a tel: link in the mobile header, minimum 44px touch target.",
+      "Doctor name and credentials must appear without scrolling on the homepage.",
+      "Primary CTA copy must reference a specific action and ideally the doctor or city.",
+      "Body text ≥ 16px, line-height ≥ 1.5, measure 45–75 characters."
+    ],
+    "dontRules": [
+      "No gradient text (background-clip: text) — AI-slop tell #1.",
+      "No faux-glass / backdrop-filter cards unless archetype explicitly calls for it.",
+      "No centered-headline + two-CTA + microlinks hero — the most overused AI pattern.",
+      "No stat-bar section if yearsExperience/happyPatients data is missing — render empty = fail.",
+      "No stock photography of smiling model families.",
+      "No generic, boilerplate, or template-sounding copy. Every headline, tagline, and CTA must reference this specific practice, doctor, or city — never industry-generic phrasing that could appear on any competitor site.",
+      "No archetype+hero combo already used in recent own-builds.",
+      "No section that renders with dashes, nulls, or placeholder text visible to users."
+    ],
+    "designTokens": {
+      "cornerRadius": "sharp",
+      "buttonTreatment": "soft-fill",
+      "labelStyle": "inline",
+      "sectionSpacing": "default",
+      "contentDensity": "default",
+      "layoutWidth": "standard",
+      "heroLayout": "split",
+      "servicesLayout": "alternating-rows",
+      "aboutLayout": "full-width-card",
+      "testimonialsLayout": "pull-quotes",
+      "ctaLayout": "split-image",
+      "faqLayout": "simple-stack",
+      "navVariant": "centered-logo",
+      "footerVariant": "minimal-dark",
+      "galleryVariant": "editorial-2col",
+      "typePersonality": "grotesque",
+      "colorFamily": "cool"
+    },
+    "evalRationale": "Candidate 2 earns the win by pairing the editorial-asymmetric archetype with ghost card treatment — a combination that creates the most visually distinct result from the recent own-builds while also being internally the most cohesive: ghost cards, sm radius, and subtle motion all reinforce the 'specialist's letterhead' precision of the creative direction without the softness that bordered-flat or soft-shadow would reintroduce. Candidates 0 and 1 share identical archetype, hero variant, and motion, differing only in card treatment, making them insufficiently differentiated from each other and only marginally divergent from the prior warm-editorial builds."
+  },
+  "_meta": {
+    "model": "claude-sonnet-4-6",
+    "duration_ms": 14813,
+    "input_tokens": 17188,
+    "output_tokens": 1518,
+    "libraryUsed": {
+      "ownCount": 3,
+      "inspoCount": 0,
+      "antiCount": 0
+    },
+    "candidates": [
+      {
+        "archetype": "magazine-split",
+        "heroVariant": "asymmetric-left",
+        "sectionOrder": [
+          "hero",
+          "doctor-intro",
+          "services",
+          "reviews",
+          "gallery",
+          "cta"
+        ],
+        "divergenceRationale": "All three prior builds used either centered-classic or warm-editorial with split-image or centered hero variants — this build deliberately steps into the editorial/bold family with magazine-split and "
+      },
+      {
+        "archetype": "magazine-split",
+        "heroVariant": "asymmetric-left",
+        "sectionOrder": [
+          "hero",
+          "doctor-intro",
+          "services",
+          "reviews",
+          "gallery",
+          "cta"
+        ],
+        "divergenceRationale": "All three recent builds used either centered-classic or warm-editorial with split-image or centered heroes — warm-family archetypes suited to general/family dentistry. This practice demands the editor"
+      },
+      {
+        "archetype": "editorial-asymmetric",
+        "heroVariant": "asymmetric-left",
+        "sectionOrder": [
+          "hero",
+          "doctor-intro",
+          "services",
+          "reviews",
+          "gallery",
+          "cta"
+        ],
+        "divergenceRationale": "All three recent builds used either centered or split-image heroes with warm-editorial or centered-classic archetypes — this build moves into the editorial/bold family with an asymmetric-left hero tha"
+      }
+    ],
+    "selectedCandidate": 2,
+    "evaluationMethod": "llm-scored",
+    "evalRationale": "Candidate 2 earns the win by pairing the editorial-asymmetric archetype with ghost card treatment — a combination that creates the most visually distinct result from the recent own-builds while also being internally the most cohesive: ghost cards, sm radius, and subtle motion all reinforce the 'specialist's letterhead' precision of the creative direction without the softness that bordered-flat or soft-shadow would reintroduce. Candidates 0 and 1 share identical archetype, hero variant, and motion, differing only in card treatment, making them insufficiently differentiated from each other and only marginally divergent from the prior warm-editorial builds.",
+    "designContextPreview": "<!-- AGENT_MANAGED_START -->\n# Design Context — Pediatric Dental Specialists, Long Beach\n\n## Brand\nPediatric Dental Specialists, led by Dr. Cortez, serving Long Beach, — Navy authority offset by a single teal gesture — the site reads like a specialist's letterhead brought to life: structured, credentialed, and precise, with just enough warmth in the typography and accent touches to signal that Dr."
+  }
+}

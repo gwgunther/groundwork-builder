@@ -1,0 +1,125 @@
+---
+/**
+ * Reviews Grid Mosaic — Mixed-size card mosaic. First card spans 2 columns.
+ * Editorial, interesting feel.
+ */
+import type { ReviewsContent } from '../types';
+import { designDNA } from '../../../config/design-dna';
+import { resolveTokens } from '../token-utils';
+
+const { content } = Astro.props;
+
+const tokens = (designDNA as any).designTokens ?? {};
+const t = resolveTokens(tokens);
+
+const items = content.items ?? [];
+const [featured, ...rest] = items;
+---
+
+<section
+  data-section="reviews"
+  class={`bg-brand-light ${t.spacingClass}`}
+>
+  <div class={t.containerClass}>
+
+    <!-- Header -->
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      {content.eyebrow && (
+        <span class={t.eyebrowClass}>{content.eyebrow}</span>
+      )}
+      <h2 class="font-serif text-3xl md:text-4xl font-bold text-neutral-dark mb-2">
+        {content.heading}
+      </h2>
+      {content.aggregateRating && content.reviewCount && (
+        <p class="font-sans text-neutral-mid text-sm mt-2">
+          <span class="text-brand-primary font-bold">{content.aggregateRating}/5</span>
+          {' '}from {content.reviewCount}+ reviews
+        </p>
+      )}
+    </div>
+
+    {items.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+        <!-- Featured card — spans 2 columns -->
+        {featured && (
+          <div class={`md:col-span-2 bg-surface-1 border border-border-light p-6 md:p-8 ${t.radiusClass} flex flex-col`}>
+            <!-- Stars -->
+            <div class="flex items-center gap-0.5 mb-4" aria-label={`${featured.rating ?? 5} out of 5 stars`}>
+              {Array.from({ length: 5 }, (_, i) => (
+                <svg
+                  class={`w-5 h-5 ${i < (featured.rating ?? 5) ? 'text-brand-primary' : 'text-neutral-dark/20'}`}
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  aria-hidden="true"
+                >
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+              ))}
+            </div>
+            <blockquote class="font-sans text-neutral-dark text-lg leading-relaxed italic flex-grow mb-6">
+              &ldquo;{featured.quote}&rdquo;
+            </blockquote>
+            <footer>
+              <cite class="font-sans text-sm font-semibold text-neutral-dark not-italic">
+                — {featured.author}
+              </cite>
+            </footer>
+          </div>
+        )}
+
+        <!-- Remaining normal cards -->
+        {rest.map((review) => (
+          <div class={`bg-surface-1 border border-border-light p-6 ${t.radiusClass} flex flex-col`}>
+            <!-- Stars -->
+            <div class="flex items-center gap-0.5 mb-3" aria-label={`${review.rating ?? 5} out of 5 stars`}>
+              {Array.from({ length: 5 }, (_, i) => (
+                <svg
+                  class={`w-4 h-4 ${i < (review.rating ?? 5) ? 'text-brand-primary' : 'text-neutral-dark/20'}`}
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  aria-hidden="true"
+                >
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+              ))}
+            </div>
+            <blockquote class="font-sans text-neutral-mid text-sm leading-relaxed italic flex-grow mb-4">
+              &ldquo;{review.quote}&rdquo;
+            </blockquote>
+            <footer>
+              <cite class="font-sans text-sm font-medium text-neutral-dark not-italic">
+                — {review.author}
+              </cite>
+            </footer>
+          </div>
+        ))}
+
+      </div>
+    ) : (
+      <p class="text-center text-neutral-mid">No reviews available yet.</p>
+    )}
+
+    <!-- Google link -->
+    {content.googleUrl && (
+      <div class="text-center mt-10">
+        <a
+          href={content.googleUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 font-sans text-sm font-semibold text-neutral-mid hover:text-brand-primary transition-colors"
+          aria-label="Read more reviews on Google (opens in new tab)"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          Read all reviews on Google ↗
+        </a>
+      </div>
+    )}
+
+  </div>
+</section>

@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>design/brand-direction · Skill</title>
+<style>
+  :root {
+    --bg: #0f1115; --fg: #e7e8ea; --muted: #9098a3; --accent: #6ee7b7;
+    --card: #181b22; --border: #262a33; --code-bg: #0a0c10;
+    --stub: #6b7280; --working: #f59e0b; --polished: #10b981; --mature: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  .topbar { padding: 16px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .topbar a { color: var(--accent); text-decoration: none; font-size: 13px; }
+  .topbar a:hover { text-decoration: underline; }
+  .topbar-meta { color: var(--muted); font-size: 12px; }
+  .container { max-width: 880px; margin: 0 auto; padding: 32px 40px 80px; }
+  header.skill-head { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  header.skill-head h1 { margin: 0 0 4px; font-size: 28px; font-weight: 600; }
+  .skill-path { color: var(--muted); font-family: ui-monospace, SFMono-Regular, monospace; font-size: 13px; }
+  .badges { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+  .badge.tier { background: var(--border); font-family: ui-monospace, monospace; }
+  .badge.tier-L1 { background: rgba(110, 231, 183, .15); color: var(--accent); }
+  .badge.tier-L2 { background: rgba(245, 158, 11, .15); color: var(--working); }
+  .badge.tier-L3 { background: rgba(59, 130, 246, .15); color: #60a5fa; }
+  .badge.tier-L4 { background: rgba(168, 85, 247, .15); color: #c084fc; }
+  .badge.maturity { background: var(--border); }
+  .badge.phase { background: var(--card); border: 1px solid var(--border); color: var(--muted); }
+  .meta-table { font-size: 13px; color: var(--muted); margin-top: 12px; }
+  .meta-table strong { color: var(--fg); font-weight: 500; }
+  .meta-table code { background: var(--card); padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--accent); }
+  .doc h2 { margin: 32px 0 12px; font-size: 20px; font-weight: 600; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .doc h3 { margin: 24px 0 8px; font-size: 16px; font-weight: 600; color: var(--accent); }
+  .doc p { margin: 0 0 14px; }
+  .doc ul, .doc ol { margin: 0 0 14px; padding-left: 24px; }
+  .doc li { margin-bottom: 4px; }
+  .doc a { color: var(--accent); }
+  .doc strong { color: var(--fg); font-weight: 600; }
+  .doc code { background: var(--card); padding: 2px 6px; border-radius: 3px; font-size: 13px; color: var(--accent); font-family: ui-monospace, SFMono-Regular, monospace; }
+  .doc pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 0 0 16px; }
+  .doc pre code { background: transparent; padding: 0; color: var(--fg); font-size: 13px; line-height: 1.5; white-space: pre; }
+  .doc table { border-collapse: collapse; margin: 0 0 16px; font-size: 14px; width: 100%; }
+  .doc th, .doc td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+  .doc th { background: var(--card); font-weight: 600; }
+  .doc blockquote { border-left: 3px solid var(--accent); padding: 4px 16px; margin: 0 0 16px; color: var(--muted); }
+  .doc hr { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../PIPELINE.html">← Back to Pipeline Dashboard</a>
+  <span class="topbar-meta">Source: <code style="background:transparent">skills/design/brand-direction.md</code></span>
+</div>
+
+<div class="container">
+  <header class="skill-head">
+    <div class="skill-path">skills/design/brand-direction.md</div>
+    <h1>brand direction</h1>
+    <div class="badges">
+      <span class="badge tier tier-L1">L1</span>
+      <span class="badge maturity">🟢 polished</span>
+      <span class="badge phase">Phase: Brand Direction</span>
+      <span class="badge phase">Model: claude-sonnet-4-6</span>
+    </div>
+    
+    <div class="meta-table">
+      <div><strong>Source:</strong> <code>scripts/pipeline/lib/ai-brand-direction.js</code></div>
+      <div><strong>Function:</strong> <code>runBrandDirection()</code></div>
+    </div>
+  </header>
+
+  <div class="doc">
+<h1>Skill: Brand Direction</h1>
+<h2>Responsibility</h2>
+<p>Produces deliberate brand guidelines (palette, typography, spatial, motion,
+voice, mood) for the NEW site. Takes the existing-site design extraction
+(colors, fonts, mood detected from the original) plus practice signals plus
+the AI audit output, and synthesizes a strategy: evolve the existing brand or
+start fresh. Output is the primary anchor consumed by the Creative Director —
+the director then orchestrates LAYOUT around this brand brief, not the other
+way around.</p>
+<p>Recently added: color-temperature signal (warm vs cool palette pre-bias) and
+typography personality signal (humanist serif for warm/family practices,
+grotesque/display for specialist/premium) both derived from the audit&#39;s
+positioning + tone fields. These prevent palette/font choices that are
+tonally wrong for the practice personality (e.g. cold navy on a community
+family practice).</p>
+<h2>Inputs</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Source</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>practice</code></td>
+<td>string</td>
+<td>merged.practice.name</td>
+<td></td>
+</tr>
+<tr>
+<td><code>doctor</code></td>
+<td>string</td>
+<td>merged.doctor.name</td>
+<td>&quot;(not specified)&quot; fallback</td>
+</tr>
+<tr>
+<td><code>city</code>, <code>state</code></td>
+<td>string</td>
+<td>merged.address</td>
+<td></td>
+</tr>
+<tr>
+<td><code>positioning</code></td>
+<td>string</td>
+<td>audit.positioning.recommended</td>
+<td>Drives color-temp + typography personality cues</td>
+</tr>
+<tr>
+<td><code>tone</code></td>
+<td>string</td>
+<td>audit.tone.recommended</td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>Two differentiator-related template vars (don&#39;t confuse them):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Template var</th>
+<th>Type</th>
+<th>Source</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>auditDifferentiators</code></td>
+<td>string</td>
+<td><code>audit.differentiators[]</code> (high-level audit positioning)</td>
+<td>Bulleted list — what makes them stand out vs. competitors per audit phase</td>
+</tr>
+<tr>
+<td><code>differentiatorBullets</code></td>
+<td>string</td>
+<td><code>merged.differentiators[]</code> (silver field — was <code>merged.signals</code>, both accepted)</td>
+<td>Bulleted list of <code>• type: label</code> — technology, awards, languages, financing</td>
+</tr>
+</tbody></table>
+<p><strong>Other inputs:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Template var</th>
+<th>Type</th>
+<th>JS source field</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>existingColors</code></td>
+<td>string</td>
+<td><code>design.existingPalette</code> (fallback: <code>design.palette</code>)</td>
+<td>Pre-formatted &quot;primary: #hex, secondary: #hex&quot; string</td>
+</tr>
+<tr>
+<td><code>existingFonts</code></td>
+<td>string</td>
+<td><code>design.existingFonts</code> (fallback: <code>design.fonts</code>)</td>
+<td>Pre-formatted &quot;heading: X, body: Y&quot; string</td>
+</tr>
+<tr>
+<td><code>currentMood</code></td>
+<td>string</td>
+<td><code>design.mood</code></td>
+<td>&quot;Generic Corporate Dental&quot; etc.</td>
+</tr>
+<tr>
+<td><code>brandStrength</code></td>
+<td>string</td>
+<td><code>design.brandStrength</code></td>
+<td>&quot;distinctive&quot; | &quot;competent&quot; | &quot;weak&quot; | &quot;inconsistent&quot;</td>
+</tr>
+<tr>
+<td><code>strategyInstruction</code></td>
+<td>string</td>
+<td>derived</td>
+<td>&quot;EVOLVE&quot; or &quot;START FRESH&quot; paragraph</td>
+</tr>
+<tr>
+<td><code>colorTempGuidance</code></td>
+<td>string</td>
+<td>derived</td>
+<td>Warm/cool/neutral block based on positioning regex</td>
+</tr>
+<tr>
+<td><code>typographyPersonalityLine</code></td>
+<td>string</td>
+<td>derived</td>
+<td>Specialist/family/neutral guidance</td>
+</tr>
+<tr>
+<td><code>paletteBlock</code></td>
+<td>string</td>
+<td>palette-library</td>
+<td>6 mood-matched palette options</td>
+</tr>
+<tr>
+<td><code>fontCands</code></td>
+<td>string</td>
+<td>google-fonts</td>
+<td>Mood-matched font candidates excluding recently-used pairs</td>
+</tr>
+<tr>
+<td><code>impeccableContext</code></td>
+<td>string</td>
+<td>impeccable.js</td>
+<td>Hero/CTA/services/doctor design principles</td>
+</tr>
+</tbody></table>
+<h2>Output schema</h2>
+<pre><code class="language-json">{
+  &quot;palette&quot;: { &quot;primary&quot;, &quot;secondary&quot;, &quot;light&quot;, &quot;accent&quot;, &quot;dark&quot;, &quot;muted&quot; },
+  &quot;typography&quot;: {
+    &quot;heading&quot;, &quot;body&quot;,
+    &quot;scale&quot;: { &quot;h1&quot;, &quot;h2&quot;, &quot;h3&quot;, &quot;body&quot;, &quot;small&quot; },
+    &quot;tracking&quot;
+  },
+  &quot;spatial&quot;:  { &quot;sectionPadding&quot;, &quot;containerWidth&quot;, &quot;cardRadius&quot;, &quot;density&quot;: &quot;airy|balanced|dense&quot; },
+  &quot;motion&quot;:   { &quot;transitions&quot;, &quot;hoverElevation&quot;, &quot;pageEntrance&quot; },
+  &quot;voice&quot;:    { &quot;headline_style&quot;, &quot;cta_language&quot;, &quot;tone_notes&quot; },
+  &quot;mood&quot;:     &quot;2-3 word label&quot;,
+  &quot;rationale&quot;: &quot;3-4 sentences&quot;,
+  &quot;paletteSource&quot;: &quot;string&quot;,
+  &quot;contrastCheck&quot;: &quot;string&quot;
+}
+</code></pre>
+<h2>Evaluation criteria</h2>
+<ul>
+<li><strong>WCAG AA contrast</strong> — primary/dark on light must pass; explicit <code>contrastCheck</code> field confirms it</li>
+<li><strong>Color temperature matches signal</strong> — warm palette for family/community practices; cool palette for specialist/premium; neutral when unclear</li>
+<li><strong>Typography personality matches signal</strong> — humanist serif for warm/family; grotesque/display for specialist; never Inter/Roboto/Open Sans/Lato/Montserrat default</li>
+<li><strong>Font diversity</strong> — does not repeat any pair in <code>usedFontPairs</code> (recently used by other practices in the library)</li>
+<li><strong>60/30/10 color application</strong> — primary/secondary/accent roles distinct, not three of the same hue</li>
+<li><strong>Voice fields describe approach, not copy</strong> — headline_style and cta_language describe the approach in their own words; do NOT include specific copy examples</li>
+<li><strong>Mood is a 2-3 word label</strong> — e.g. &quot;Warm Coastal Trust&quot;, &quot;Modern Clinical Confidence&quot;</li>
+<li><strong>Rationale references this specific practice</strong> — explains why these choices fit <em>this</em> practice, not just any dental site</li>
+<li><strong>Returns only JSON</strong></li>
+</ul>
+<h2>Known gaps</h2>
+<ul>
+<li>Color-temp signal is regex-based on positioning text — misses nuance (e.g. &quot;luxury family&quot; should be warm-but-elevated)</li>
+<li>No automatic contrast verification — relies on the model&#39;s <code>contrastCheck</code> self-attestation</li>
+<li>Typography personality is binary (warm/family vs specialist) — no third option for neutral/balanced practices</li>
+<li>Voice fields can still leak example copy despite the explicit &quot;describe approach&quot; instruction</li>
+<li>Strategy instruction (evolve vs start fresh) hinges on <code>brandStrength</code> from extraction, which is itself a soft AI judgment</li>
+<li>No regression testing across recently-built practices to detect drift toward generic palettes</li>
+</ul>
+<h2>Improvement levers</h2>
+<ol>
+<li><strong>Easy (L1):</strong> Add concrete contrast ratio numbers (WCAG AA 4.5:1) to the prompt instead of just &quot;WCAG AA&quot;</li>
+<li><strong>Easy (caller-side):</strong> Run a real WCAG calculator on the output palette and re-roll if it fails</li>
+<li><strong>Medium:</strong> Sharpen the color-temp signal — pass more context (services, doctor specialty) instead of just regex on positioning</li>
+<li><strong>Medium:</strong> Auto-reject voice fields that contain quoted phrases (heuristic: any string with <code>&quot;...&quot;</code> is example copy)</li>
+<li><strong>Hard:</strong> A/B history — track which mood/palette combos produced the best human-rated builds and bias toward winners</li>
+</ol>
+<h2>Test fixtures</h2>
+<p><em>None yet. Future: <code>skills/design/brand-direction.fixtures/{family,specialist,evolve,fresh}/*.json</code></em></p>
+<hr>
+<h2>PROMPT</h2>
+<pre><code class="language-text">You are a senior brand designer creating guidelines for a dental practice website redesign.
+
+Your decisions must be grounded in the design principles provided — not generic AI taste.
+Produce brand guidelines that feel SPECIFIC to this practice, not interchangeable with any other dental site.
+
+## Practice
+- Name: {{practice}}
+- Doctor: {{doctor}}
+- Location: {{city}}{{stateSuffix}}
+- Positioning: {{positioning}}
+- Tone: {{tone}}
+
+## Practice Differentiators (from audit positioning)
+{{auditDifferentiators}}
+
+## Silver-extracted Differentiators (technology, awards, languages, etc.)
+{{differentiatorBullets}}
+
+## Existing Brand Assessment (from extraction phase)
+- Colors found: {{existingColors}}
+- Fonts found: {{existingFonts}}
+- Current mood: {{currentMood}}
+- Brand strength: {{brandStrength}}
+
+## Your Strategy
+{{strategyInstruction}}
+
+{{colorTempGuidance}}
+
+## Curated Palette Options
+Select one of these as your foundation. Adapt it using the existing brand colors where appropriate.
+
+{{paletteBlock}}
+
+## Font Candidates
+{{fontCands}}
+
+Avoid any font pair already used recently by other practices in your library.
+Choose a pairing that fits the mood AND stands out — no Inter+Roboto defaults.
+
+Typography personality to match:
+{{typographyPersonalityLine}}
+
+{{impeccableContext}}
+
+## Your Task
+
+Produce brand guidelines for this practice&#39;s NEW website.
+Think like a senior designer who has read the Impeccable principles above.
+
+Apply them concretely:
+- WCAG AA contrast at minimum — check your palette choices
+- Typography scale with clear hierarchy (not just two font sizes)
+- Spatial rhythm that fits the density of a dental site (not too sparse, not cluttered)
+- Color application: 60/30/10 rule — which color is dominant, which is structural, which is accent?
+- Emotional direction: what should a patient FEEL in the first 3 seconds on this site?
+
+Return ONLY valid JSON:
+{
+  &quot;palette&quot;: {
+    &quot;primary&quot;:   &quot;#hex — dominant brand color (CTAs, headings, key UI elements)&quot;,
+    &quot;secondary&quot;: &quot;#hex — structural color (borders, secondary headings)&quot;,
+    &quot;light&quot;:     &quot;#hex — near-white background tint for alternating sections&quot;,
+    &quot;accent&quot;:    &quot;#hex — warm highlight (icons, small details, hover states)&quot;,
+    &quot;dark&quot;:      &quot;#hex — the darkest tone in the system, used for body text and dark surfaces (not pure #000000; tint toward the primary hue)&quot;,
+    &quot;muted&quot;:     &quot;#hex — a mid-tone neutral used for supporting/secondary text&quot;
+  },
+  &quot;typography&quot;: {
+    &quot;heading&quot;: &quot;Google Font name — match the personality guidance above (grotesque for specialist, humanist serif for warm/family)&quot;,
+    &quot;body&quot;:    &quot;Google Font name — highly readable sans-serif for body copy&quot;,
+    &quot;scale&quot;: {
+      &quot;h1&quot;: &quot;text-4xl md:text-6xl font-bold&quot;,
+      &quot;h2&quot;: &quot;text-3xl md:text-4xl font-semibold&quot;,
+      &quot;h3&quot;: &quot;text-xl md:text-2xl font-semibold&quot;,
+      &quot;body&quot;: &quot;text-base md:text-lg leading-relaxed&quot;,
+      &quot;small&quot;: &quot;text-sm&quot;
+    },
+    &quot;tracking&quot;: &quot;tight for headings, normal for body&quot;
+  },
+  &quot;spatial&quot;: {
+    &quot;sectionPadding&quot;: &quot;py-16 md:py-24&quot;,
+    &quot;containerWidth&quot;: &quot;max-w-7xl&quot;,
+    &quot;cardRadius&quot;: &quot;rounded-xl or rounded-2xl&quot;,
+    &quot;density&quot;: &quot;airy|balanced|dense&quot;
+  },
+  &quot;motion&quot;: {
+    &quot;transitions&quot;: &quot;duration-200 ease-out&quot;,
+    &quot;hoverElevation&quot;: &quot;hover:shadow-md or hover:-translate-y-1&quot;,
+    &quot;pageEntrance&quot;: &quot;brief and functional — no animation for its own sake&quot;
+  },
+  &quot;voice&quot;: {
+    &quot;headline_style&quot;: &quot;Describe the headline approach this brand should take (outcome-led vs feature-led, formal vs conversational, etc.) — describe the approach in your own words; do NOT include any specific copy examples.&quot;,
+    &quot;cta_language&quot;: &quot;Describe the CTA voice this brand should take (active vs passive, specific vs generic, etc.) — describe the approach; do NOT include any specific copy examples.&quot;,
+    &quot;tone_notes&quot;: &quot;1-2 sentences on how copy should read&quot;
+  },
+  &quot;mood&quot;: &quot;2-3 word label (e.g. &#39;Warm Coastal Trust&#39;, &#39;Modern Clinical Confidence&#39;)&quot;,
+  &quot;rationale&quot;: &quot;3-4 sentences explaining the brand direction: what we kept from existing brand, what we evolved, why these specific choices fit this practice and not just any dental site&quot;,
+  &quot;paletteSource&quot;: &quot;which curated palette you selected as foundation and why&quot;,
+  &quot;contrastCheck&quot;: &quot;brief note confirming primary/dark on light passes WCAG AA&quot;
+}
+</code></pre>
+
+  </div>
+</div>
+</body>
+</html>

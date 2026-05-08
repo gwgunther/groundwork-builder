@@ -1,0 +1,444 @@
+{
+  "homepage": {
+    "heroHeadline": "Expert Pediatric Dental Care for Long Beach Families",
+    "heroSubheadline": "Guiding the Way to Lifelong Healthy Smiles",
+    "heroTagline": "We consider dental health to be an integral part of overall good health.",
+    "ctaText": "Book Appointment",
+    "ctaSecondaryText": "View Services",
+    "valueProp": "We strive to make your child's first dental visit an enjoyable one. Young children receive a personalized storybook in which their name appears throughout the story."
+  },
+  "about": {
+    "headline": "Compassionate, Specialized Care for Every Child",
+    "introParagraph": "Our staff is a strong team of compassionate and highly trained individuals who are committed to lifelong good oral health for our patients. You will find each of them caring and knowledgeable. The clinical staff members are all registered dental assistants and are certified with coronal polishing and X-ray licenses by the Department of California – Department of Consumer Affairs. They take over 25 hours of continuing education to renew their licenses in a variety of areas, including CPR, dental emergencies, and infection control. Many of our staff members, besides having the professional training, also possess the practical experience of being parents themselves.",
+    "philosophy": "My practice philosophy is to provide the best possible dental care for children in a friendly environment and to advocate for the children's welfare in any way that I can. I enjoy seeing children who perhaps have been afraid of what we do for them, then develop trust and a positive attitude toward dentistry. After more than 35 years of continuous private practice, I still enjoy working with families every day and helping keep children in good oral health.",
+    "closingCTA": "Ready to schedule? | Book an Appointment"
+  },
+  "services": {
+    "first-dental-visit": {
+      "headline": "First Dental Visit",
+      "subheadline": "The American Academy of Pediatrics and the American Academy of Pediatric Dentistry recommend that infants be seen shortly after the first tooth erupts or no later than their first birthday.",
+      "intro": "The American Academy of Pediatrics and the American Academy of Pediatric Dentistry recommend that infants be seen shortly after the first tooth erupts or no later than their first birthday. At Pediatric Dental Specialists, we strive to make your child's first dental visit an enjoyable one. Young children receive a personalized storybook in which their name appears throughout the story. Our staff — many of whom are parents themselves — understand what it means to bring a child in for the very first time, and we're here to make that experience positive from the start.",
+      "benefits": [],
+      "cta": "Schedule Your Child's First Visit",
+      "differentiatorsWoven": [
+        "Personalized storybook for young child patients",
+        "Many staff members are parents themselves",
+        "35+ years continuous private practice in pediatric dentistry"
+      ]
+    },
+    "silver-diamine-fluoride": {
+      "headline": "Silver Diamine Fluoride (SDF)",
+      "subheadline": "Silver Diamine Fluoride may slow or stop tooth decay.",
+      "intro": "Silver diamine fluoride is an antimicrobial topical medicament used to slow down or arrest dental cavities in both primary and permanent teeth. SDF is a clear liquid applied directly on an exposed cavity with a microbrush. Limited clinical studies indicate that SDF is effective in 70% to 90% of treated teeth, and reapplication at predetermined intervals increases effectiveness. One of the key benefits of SDF for pediatric patients is that it avoids the need for local anesthesia, pharmacologic sedative management, and protective restraint — making it a gentler option for very young children and patients with special needs. The pediatric dentist will review the risks and benefits of SDF for your child.",
+      "benefits": [],
+      "cta": "Ask About SDF Treatment",
+      "differentiatorsWoven": [
+        "SDF treatment avoids local anesthesia and sedation",
+        "Silver Diamine Fluoride 70–90% effective in treated teeth",
+        "Silver Diamine Fluoride treatment offered for pediatric patients"
+      ]
+    },
+    "dental-care-for-your-baby": {
+      "headline": "Dental Care for Your Baby",
+      "subheadline": "Starting your child off with good dental care can help protect their teeth for decades to come.",
+      "intro": "Starting your child off with good dental care can help protect their teeth for decades to come. At Pediatric Dental Specialists, our team — including staff members who are parents themselves — is here to guide families through every stage of early oral development, from caring for baby's gums to brushing baby's first teeth. Our clinical staff complete over 25 hours of continuing education annually so they can provide the most current guidance for your growing child.",
+      "benefits": [],
+      "cta": "Schedule a Baby Dental Visit",
+      "differentiatorsWoven": [
+        "Many staff members are parents themselves",
+        "Staff complete 25+ hours continuing education annually"
+      ]
+    },
+    "digit-sucking-pacifier-use": {
+      "headline": "Digit Sucking/Pacifier Use",
+      "subheadline": "Sucking is quite normal in babies and young children. Most babies and toddlers suck their thumbs, but they may also suck on their fingers, hands, or items such as pacifiers.",
+      "intro": "Sucking is quite normal in babies and young children. Most babies and toddlers suck their thumbs, but they may also suck on their fingers, hands, or items such as pacifiers. While this habit is a natural part of development, prolonged digit sucking or pacifier use can affect the alignment of a child's teeth and jaw. Our team — many of whom are parents themselves — can help you understand when and how to address this habit in a supportive, child-friendly way.",
+      "benefits": [],
+      "cta": "Talk to Our Team",
+      "differentiatorsWoven": [
+        "Many staff members are parents themselves"
+      ]
+    },
+    "dental-exams-and-cleanings": {
+      "headline": "Dental Exams and Cleanings",
+      "subheadline": "The American Dental Association recommends that you visit your dentist every six months to ensure your teeth stay healthy and your smile stays beautiful.",
+      "intro": "The American Dental Association recommends visiting your dentist every six months to ensure your child's teeth stay healthy and their smile stays beautiful. At Pediatric Dental Specialists, we follow this recommendation and provide comprehensive exams and professional cleanings tailored to pediatric patients. Our office uses paperless charts, digital x-rays, and digital impressions to support efficient and thorough care. Our clinical staff complete over 25 hours of continuing education annually to stay current with the latest in pediatric dental health.",
+      "benefits": [],
+      "cta": "Book an Exam and Cleaning",
+      "differentiatorsWoven": [
+        "ADA-recommended biannual exams and cleanings offered",
+        "Paperless charts, digital x-rays, digital impressions",
+        "Staff complete 25+ hours continuing education annually"
+      ]
+    },
+    "oral-cancer-screening": {
+      "headline": "Oral Cancer Screening",
+      "subheadline": "It is very important to visit our office to rule out the possibility of oral cancer.",
+      "intro": "At Pediatric Dental Specialists, we take a holistic approach to dental care that includes oral cancer screening as part of our routine visits. While oral cancer is more commonly associated with adults, early screening builds lifelong habits of comprehensive oral health monitoring and ensures nothing is overlooked. We include this evaluation as part of our commitment to your child's overall wellbeing.",
+      "benefits": [],
+      "cta": "Schedule a Comprehensive Visit",
+      "differentiatorsWoven": [
+        "Holistic approach including oral cancer screening"
+      ]
+    },
+    "preventive-care": {
+      "headline": "Preventive Care",
+      "subheadline": "Preventive dental care is important throughout your life, no matter your age.",
+      "intro": "Preventive dental care is important throughout life, and the habits formed in childhood lay the foundation for lifelong oral health. At Pediatric Dental Specialists, our team — including staff members who are parents themselves — understands how to engage children in building good dental habits early. Our clinical staff complete over 25 hours of continuing education annually to provide families with the most current preventive guidance available.",
+      "benefits": [],
+      "cta": "Schedule a Preventive Visit",
+      "differentiatorsWoven": [
+        "Staff complete 25+ hours continuing education annually",
+        "Many staff members are parents themselves"
+      ]
+    },
+    "fluoride": {
+      "headline": "Fluoride",
+      "subheadline": "Fluoride is effective in preventing cavities and tooth decay by coating your teeth and preventing plaque from building up and hardening on the tooth's surface.",
+      "intro": "Fluoride is effective in preventing cavities and tooth decay by coating teeth and preventing plaque from building up and hardening on the tooth's surface. For pediatric patients, fluoride treatments play an important role in protecting developing teeth. At Pediatric Dental Specialists, we also offer Silver Diamine Fluoride (SDF) as an advanced fluoride-based option for treating and arresting decay in young patients.",
+      "benefits": [],
+      "cta": "Ask About Fluoride Treatments",
+      "differentiatorsWoven": [
+        "Silver Diamine Fluoride treatment offered for pediatric patients"
+      ]
+    },
+    "sealants": {
+      "headline": "Sealants",
+      "subheadline": "Sometimes brushing is not enough, especially when it comes to those hard-to-reach spots in your mouth.",
+      "intro": "Sometimes brushing is not enough, especially when it comes to those hard-to-reach spots in a child's mouth. Dental sealants provide a protective coating over the grooves and pits of back teeth — areas where cavities most commonly develop in children. Our clinical staff complete over 25 hours of continuing education annually, ensuring we apply the latest techniques and materials in sealant placement for our young patients.",
+      "benefits": [],
+      "cta": "Ask About Sealants",
+      "differentiatorsWoven": [
+        "Staff complete 25+ hours continuing education annually"
+      ]
+    },
+    "gum-disease": {
+      "headline": "Gum Disease",
+      "subheadline": "Gum disease, also known as periodontal disease, is an infection of the gums that surround your teeth. Gum disease is one of the primary causes of tooth loss in adults.",
+      "intro": "Gum disease, also known as periodontal disease, is an infection of the gums that surround the teeth. While it is one of the primary causes of tooth loss in adults, early intervention during childhood can prevent its progression. At Pediatric Dental Specialists, we monitor gum health as part of every exam and educate families on the habits that reduce risk. Our clinical staff complete over 25 hours of continuing education annually to provide up-to-date guidance on preventing and managing gum disease in children and teens.",
+      "benefits": [],
+      "cta": "Schedule a Gum Health Evaluation",
+      "differentiatorsWoven": [
+        "Staff complete 25+ hours continuing education annually"
+      ]
+    },
+    "orthodontics": {
+      "headline": "Orthodontics",
+      "subheadline": "We offer pediatric dentistry and orthodontics for children, teens, and patients with special healthcare needs.",
+      "intro": "At Pediatric Dental Specialists, we offer pediatric dentistry and orthodontics under one roof for children, teens, and patients with special healthcare needs. Our team includes three doctors with specialized training and experience in both pediatric dentistry and orthodontics. Dr. Planells received her combined Pediatric Dentistry and Orthodontic specialty training at UCLA, graduated in the top 5% of her class, was invited to join the Omicron Kappa Upsilon Honor Society, and became board certified in Pediatric Dentistry in 2007. We are committed to providing patients with the latest orthodontic techniques while delivering the utmost in personal care.",
+      "benefits": [],
+      "cta": "Request an Orthodontic Consultation",
+      "differentiatorsWoven": [
+        "Pediatric dentistry and orthodontics under one roof",
+        "Latest orthodontic techniques used for patient care",
+        "Three doctors with specialized training and experience",
+        "Board certified in Pediatric Dentistry since 2007",
+        "UCLA Omicron Kappa Upsilon Honor Society, top 5% of class"
+      ]
+    },
+    "emergencies": {
+      "headline": "Emergencies",
+      "subheadline": "Damaging your appliances can call for emergency care. Stay informed if problems occur and understand how to solve them until you return to the office.",
+      "intro": "When a dental emergency arises, knowing what to do — and where to turn — makes all the difference. At Pediatric Dental Specialists, we provide emergency dental care for children, including guidance for traumatic dental injuries, tooth pain, and gum emergencies. We also want our patients and families to be informed about orthodontic emergencies such as loose bands, broken archwires, or poking wires, and to understand how to manage them temporarily until they can return to our office.",
+      "benefits": [],
+      "cta": "Call Our Office for Emergency Care",
+      "differentiatorsWoven": [
+        "Emergency dental care for children available",
+        "Orthodontic emergency care guidance provided to patients"
+      ]
+    },
+    "retention": {
+      "headline": "Retention",
+      "subheadline": "It is imperative that the retainers are worn as instructed to maintain retention. Not doing so may result in undesirable movement of the teeth.",
+      "intro": "Because teeth can continue to move throughout life, we feel that individuals who have undergone orthodontic therapy should wear retainers indefinitely. A patient should wear retainers as prescribed to maintain the results achieved through treatment. It is imperative that retainers are worn as instructed — not doing so may result in undesirable movement of the teeth.",
+      "benefits": [],
+      "cta": "Ask About Retention Options",
+      "differentiatorsWoven": [
+        "Indefinite retainer wear recommended post-orthodontics"
+      ]
+    },
+    "orthodontic-emergency-care": {
+      "headline": "Orthodontic Emergency Care",
+      "subheadline": "We want our patients to be informed of problems that may occur, and understand how to solve them, at least temporarily, until it is possible to return to our office.",
+      "intro": "We want our patients to be informed of problems that may occur, and understand how to solve them, at least temporarily, until it is possible to return to our office. Orthodontic emergencies can include a loose band or bracket, broken archwire, loose or poking wire, or a lost tie-wire or elastic tie. Our team provides clear guidance on each of these situations so families feel confident handling minor issues at home. For anything more serious, emergency dental care for children is available — contact our office as soon as possible.",
+      "benefits": [],
+      "cta": "Contact Us for Orthodontic Emergencies",
+      "differentiatorsWoven": [
+        "Orthodontic emergency care guidance provided to patients",
+        "Emergency dental care for children available"
+      ]
+    },
+    "traumatic-dental-injuries": {
+      "headline": "Traumatic Dental Injuries",
+      "subheadline": null,
+      "intro": "Traumatic dental injuries — such as a knocked-out tooth, fractured tooth, or injury to the mouth — require prompt attention. At Pediatric Dental Specialists, we provide emergency dental care for children experiencing dental trauma. If your child has suffered a dental injury, contact our office as quickly as possible so we can guide you through the appropriate next steps and provide timely care.",
+      "benefits": [],
+      "cta": "Call Us for Emergency Care",
+      "differentiatorsWoven": [
+        "Emergency dental care for children available"
+      ]
+    },
+    "tooth-pain": {
+      "headline": "Tooth Pain",
+      "subheadline": null,
+      "intro": "Tooth pain in children should never be ignored. Whether the discomfort is mild or severe, it can signal an underlying issue that needs prompt evaluation. At Pediatric Dental Specialists, we provide emergency dental care for children experiencing tooth pain. Contact our office so we can assess your child's symptoms and recommend the appropriate course of care.",
+      "benefits": [],
+      "cta": "Call Us About Your Child's Tooth Pain",
+      "differentiatorsWoven": [
+        "Emergency dental care for children available"
+      ]
+    },
+    "gum-emergencies": {
+      "headline": "Gum Emergencies",
+      "subheadline": null,
+      "intro": "Gum emergencies — including swelling, bleeding, or pain in the gum tissue — can be signs of infection or injury that require prompt attention. At Pediatric Dental Specialists, we provide emergency dental care for children experiencing gum-related concerns. If your child is in discomfort, contact our office so we can evaluate the situation and provide timely guidance and care.",
+      "benefits": [],
+      "cta": "Contact Us for Gum Emergency Care",
+      "differentiatorsWoven": [
+        "Emergency dental care for children available"
+      ]
+    },
+    "first-days-in-braces": {
+      "headline": "First Days In Braces",
+      "subheadline": "For your first day in braces, the adhesive used for attaching the braces to your teeth cures rapidly. You can eat any time after leaving our office.",
+      "intro": "For your first day in braces, the adhesive used for attaching the braces to your teeth cures rapidly — you can eat any time after leaving our office. It is normal to experience some soreness in the first few days as your teeth and mouth adjust to the new appliances. Our team will walk you through what to expect and how to care for your braces during this adjustment period, applying the latest orthodontic techniques to make your experience as comfortable as possible.",
+      "benefits": [],
+      "cta": "Learn More About Starting Braces",
+      "differentiatorsWoven": [
+        "Latest orthodontic techniques used for patient care"
+      ]
+    },
+    "eating-with-braces": {
+      "headline": "Eating With Braces",
+      "subheadline": "When eating with orthodontic appliances, avoid hard or sticky foods. These foods cause breakage of the brackets or wires. Avoid biting your nails.",
+      "intro": "When eating with orthodontic appliances, it is important to avoid hard or sticky foods, as these can cause breakage of the brackets or wires. Avoiding habits like nail-biting also helps protect your appliances. Making smart food choices throughout treatment helps keep your braces working properly and reduces the need for unplanned repair visits. Our team will provide you with clear dietary guidance so you know exactly what to enjoy and what to avoid.",
+      "benefits": [],
+      "cta": "Ask Us About Eating With Braces",
+      "differentiatorsWoven": []
+    },
+    "oral-hygiene-with-braces": {
+      "headline": "Oral Hygiene With Braces",
+      "subheadline": "Brushing after meals and flossing will help prevent plaque from forming and should become part of your daily schedule.",
+      "intro": "Brushing after meals and flossing will help prevent plaque from forming and should become part of your daily schedule when wearing braces. Braces create additional surfaces where food and bacteria can accumulate, making consistent oral hygiene especially important throughout treatment. Our office uses digital x-rays and other modern tools to monitor your progress and catch any hygiene-related issues early. Our team will show you the most effective techniques for brushing and flossing around your appliances.",
+      "benefits": [],
+      "cta": "Get Oral Hygiene Tips for Braces",
+      "differentiatorsWoven": [
+        "Paperless charts, digital x-rays, digital impressions"
+      ]
+    },
+    "silver-diamine-fluoride-sdf": {
+      "headline": "Silver Diamine Fluoride (SDF)",
+      "subheadline": "Silver Diamine Fluoride may slow or stop tooth decay.",
+      "intro": "Silver diamine fluoride is an antimicrobial topical medicament used to slow down or arrest dental cavities in both primary and permanent teeth. SDF is a clear liquid applied directly on an exposed cavity with a microbrush. Limited clinical studies indicate that SDF is effective in 70% to 90% of treated teeth, and reapplication at predetermined intervals increases effectiveness. A key advantage of SDF for pediatric patients is that it avoids the need for local anesthesia, pharmacologic sedative management, and protective restraint — making it an especially valuable option for very young children and patients with special needs. The pediatric dentist will review the risks and benefits of SDF for your child.",
+      "benefits": [],
+      "cta": "Ask About SDF Treatment",
+      "differentiatorsWoven": [
+        "SDF treatment avoids local anesthesia and sedation",
+        "Silver Diamine Fluoride 70–90% effective in treated teeth",
+        "Silver Diamine Fluoride treatment offered for pediatric patients"
+      ]
+    },
+    "dental-services": {
+      "headline": "Dental Services",
+      "subheadline": "We offer a range of pediatric dental services for infants, children and adolescents including those with special medical needs along with orthodontic treatment for children and teens.",
+      "intro": "At Pediatric Dental Specialists, we offer a range of pediatric dental services for infants, children, and adolescents — including those with special medical needs — along with orthodontic treatment for children and teens. With pediatric dentistry and orthodontics under one roof, our three doctors bring specialized training and experience to every aspect of your child's oral health care, from the first dental visit through the completion of orthodontic treatment.",
+      "benefits": [],
+      "cta": "View Our Full Range of Services",
+      "differentiatorsWoven": [
+        "Pediatric dentistry and orthodontics under one roof",
+        "Care for patients with special healthcare needs",
+        "Three doctors with specialized training and experience"
+      ]
+    },
+    "loose-band-or-bracket-repair": {
+      "headline": "Loose Band or Bracket Repair",
+      "subheadline": null,
+      "intro": "A loose band or bracket is one of the more common orthodontic issues that can occur during treatment. If a band or bracket becomes detached, contact our office so we can advise you on next steps and schedule a repair visit. We want our patients to be informed about how to manage this issue temporarily until it is possible to return to our office.",
+      "benefits": [],
+      "cta": "Contact Us for Orthodontic Repair",
+      "differentiatorsWoven": [
+        "Orthodontic emergency care guidance provided to patients"
+      ]
+    },
+    "broken-archwire-repair": {
+      "headline": "Broken Archwire Repair",
+      "subheadline": null,
+      "intro": "A broken archwire can cause discomfort and should be addressed promptly. If the wire is poking or causing irritation, there are temporary steps you can take at home to manage discomfort until you can come in. We want our patients to be informed about how to handle a broken archwire, at least temporarily, until it is possible to return to our office for a proper repair.",
+      "benefits": [],
+      "cta": "Call Us About a Broken Archwire",
+      "differentiatorsWoven": [
+        "Orthodontic emergency care guidance provided to patients"
+      ]
+    },
+    "loose-wire-repair": {
+      "headline": "Loose Wire Repair",
+      "subheadline": null,
+      "intro": "A loose wire in your orthodontic appliance can shift out of place and cause irritation to the cheeks or gums. We want our patients to understand how to manage a loose wire temporarily until they can return to our office. Contact us as soon as you notice a loose wire so we can schedule a repair and keep your treatment on track.",
+      "benefits": [],
+      "cta": "Contact Us About a Loose Wire",
+      "differentiatorsWoven": [
+        "Orthodontic emergency care guidance provided to patients"
+      ]
+    },
+    "poking-wire-treatment": {
+      "headline": "Poking Wire Treatment",
+      "subheadline": null,
+      "intro": "A poking wire can cause irritation or injury to the soft tissues of the mouth. We want our patients to know how to address a poking wire temporarily — such as using orthodontic wax — until they can return to our office for care. If the irritation is significant, contact us so we can see you as soon as possible.",
+      "benefits": [],
+      "cta": "Get Help With a Poking Wire",
+      "differentiatorsWoven": [
+        "Orthodontic emergency care guidance provided to patients"
+      ]
+    },
+    "lost-tie-wire-or-elastic-tie-replacement": {
+      "headline": "Lost Tie-Wire or Elastic Tie Replacement",
+      "subheadline": null,
+      "intro": "Tie-wires and elastic ties hold the archwire to the brackets and play an important role in the movement of your teeth. If a tie-wire or elastic tie is lost, contact our office so we can schedule a replacement appointment. We want our patients to be informed about this type of issue and understand how to proceed until they can return to the office.",
+      "benefits": [],
+      "cta": "Schedule a Tie Replacement Visit",
+      "differentiatorsWoven": [
+        "Orthodontic emergency care guidance provided to patients"
+      ]
+    },
+    "headgear-fitting": {
+      "headline": "Headgear Fitting",
+      "subheadline": null,
+      "intro": "Headgear is an orthodontic appliance used to guide jaw growth and tooth movement in growing patients. At Pediatric Dental Specialists, our team is experienced in fitting and adjusting headgear as part of a comprehensive orthodontic treatment plan. We use the latest orthodontic techniques to ensure your child's appliance fits properly and that families understand how and when to wear it for the best results.",
+      "benefits": [],
+      "cta": "Ask About Headgear and Orthodontic Appliances",
+      "differentiatorsWoven": [
+        "Latest orthodontic techniques used for patient care"
+      ]
+    },
+    "pediatric-dentistry": {
+      "headline": "Pediatric Dentistry",
+      "subheadline": "We offer pediatric dentistry and orthodontics for children, teens, and patients with special healthcare needs.",
+      "intro": "At Pediatric Dental Specialists, we offer comprehensive pediatric dentistry for children, teens, and patients with special healthcare needs — all under one roof alongside our orthodontic services. Our practice has been providing continuous private practice pediatric dental care in Long Beach for more than 35 years. Our team includes three doctors with specialized training and experience, including board-certified pediatric dentists and a Diplomate of the American Board of Pediatric Dentistry. Many of our staff members are parents themselves, and our entire team is committed to making every child's visit as comfortable and positive as possible.",
+      "benefits": [],
+      "cta": "Schedule a Pediatric Dental Visit",
+      "differentiatorsWoven": [
+        "Pediatric dentistry and orthodontics under one roof",
+        "Care for patients with special healthcare needs",
+        "35+ years continuous private practice in pediatric dentistry",
+        "Board certified in Pediatric Dentistry since 2007",
+        "Diplomat of the American Board of Pediatric Dentistry",
+        "Three doctors with specialized training and experience",
+        "Many staff members are parents themselves"
+      ]
+    },
+    "traditional-silver-braces": {
+      "headline": "Traditional Silver Braces",
+      "subheadline": null,
+      "intro": "Traditional silver braces remain one of the most effective and time-tested approaches to straightening teeth for children and teens. At Pediatric Dental Specialists, our traditional braces are made of nickel-free high-grade steel and are designed to be smaller and more comfortable than older bracket styles. Our team is committed to providing patients with the latest orthodontic techniques to achieve the best possible outcomes.",
+      "benefits": [],
+      "cta": "Ask About Traditional Silver Braces",
+      "differentiatorsWoven": [
+        "Nickel-free high-grade steel traditional braces",
+        "Latest orthodontic techniques used for patient care"
+      ]
+    },
+    "invisalign-teen": {
+      "headline": "Invisalign Teen",
+      "subheadline": null,
+      "intro": "Invisalign Teen offers a clear, removable alternative to traditional braces for eligible teenage patients. At Pediatric Dental Specialists, we offer Invisalign Teen as part of our commitment to providing the latest orthodontic options. Our office uses digital impressions to support precise treatment planning, and our experienced team will help determine whether Invisalign Teen is the right fit for your child's orthodontic needs.",
+      "benefits": [],
+      "cta": "Ask About Invisalign Teen",
+      "differentiatorsWoven": [
+        "Invisalign Teen orthodontic option available",
+        "Latest orthodontic techniques used for patient care",
+        "Paperless charts, digital x-rays, digital impressions"
+      ]
+    },
+    "eating-with-braces-dietary-guidance": {
+      "headline": "Eating With Braces — Dietary Guidance",
+      "subheadline": "When eating with orthodontic appliances, avoid hard or sticky foods. These foods cause breakage of the brackets or wires. Avoid biting your nails.",
+      "intro": "When eating with orthodontic appliances, avoiding hard or sticky foods is essential — these foods can cause breakage of the brackets or wires and set back your treatment progress. Habits like nail-biting should also be avoided. Following the right dietary guidelines throughout treatment helps protect your appliances and keeps your orthodontic plan on schedule. Our team will provide you with specific food guidance so you feel confident at every meal.",
+      "benefits": [],
+      "cta": "Get Dietary Guidance for Braces",
+      "differentiatorsWoven": []
+    },
+    "orthodontic-consultation": {
+      "headline": "Orthodontic Consultation",
+      "subheadline": "At your first visit, we will complete a comprehensive orthodontic evaluation.",
+      "intro": "At your first visit to Pediatric Dental Specialists, we will complete a comprehensive orthodontic evaluation to assess your child's teeth, jaw, and bite. Our team includes three doctors with specialized training and experience in orthodontics and pediatric dentistry — all under one roof. We will discuss treatment options, expected outcomes, and financial arrangements, including custom payment plans to fit your budget.",
+      "benefits": [],
+      "cta": "Request an Orthodontic Consultation",
+      "differentiatorsWoven": [
+        "Three doctors with specialized training and experience",
+        "Board certified in Pediatric Dentistry since 2007",
+        "Pediatric dentistry and orthodontics under one roof",
+        "Custom payment plans to fit your budget"
+      ]
+    },
+    "braces": {
+      "headline": "Braces",
+      "subheadline": null,
+      "intro": "At Pediatric Dental Specialists, we offer braces for children and teens as part of our full-service orthodontic program — all under the same roof as our pediatric dental care. Our options include traditional silver braces made of nickel-free high-grade steel and Invisalign Teen for eligible patients. Our three doctors bring specialized training and experience to every orthodontic case, and we are committed to providing the latest orthodontic techniques while delivering personal, attentive care.",
+      "benefits": [],
+      "cta": "Explore Your Braces Options",
+      "differentiatorsWoven": [
+        "Nickel-free high-grade steel traditional braces",
+        "Invisalign Teen orthodontic option available",
+        "Latest orthodontic techniques used for patient care",
+        "Pediatric dentistry and orthodontics under one roof",
+        "Three doctors with specialized training and experience"
+      ]
+    }
+  },
+  "faqs": [
+    {
+      "question": "What is Silver Diamine Fluoride (SDF)?",
+      "answer": "Silver diamine fluoride is an antimicrobial topical medicament used to slow down or arrest dental cavities in both primary and permanent teeth. It is a clear liquid applied directly on an exposed cavity with a microbrush. Limited clinical studies indicate that SDF is effective in 70% to 90% of treated teeth, and reapplication at predetermined intervals increases effectiveness."
+    },
+    {
+      "question": "What are the benefits of SDF for young patients?",
+      "answer": "The benefits of SDF include its ease of application, effectiveness, and avoidance of intense interventions such as administration of local anesthesia, pharmacologic sedative management, and protective restraint in very young and special needs populations."
+    },
+    {
+      "question": "When should my child have their first dental visit?",
+      "answer": "The American Academy of Pediatrics and the American Academy of Pediatric Dentistry recommend that infants be seen shortly after the first tooth erupts or no later than their first birthday."
+    },
+    {
+      "question": "What should I use to clean my baby's teeth?",
+      "answer": "A toothbrush will remove plaque and bacteria that can lead to decay. Use any soft-bristled toothbrush with a small head, preferably one designed for infants or toddlers."
+    },
+    {
+      "question": "Does your office offer payment plans for orthodontic treatment?",
+      "answer": "Yes. The cost of orthodontic treatment varies depending on insurance and financial standing. We work with you to create a payment plan that fits your budget."
+    }
+  ],
+  "blogTopics": [
+    {
+      "title": "When Should Your Baby See a Dentist? What Long Beach Parents Need to Know",
+      "excerpt": "The American Academy of Pediatric Dentistry recommends a first visit by your child's first birthday. Here's what to expect at that appointment and why starting early matters."
+    },
+    {
+      "title": "What Is Silver Diamine Fluoride and Is It Right for My Child?",
+      "excerpt": "SDF is a minimally invasive treatment that can slow or stop tooth decay without drills or anesthesia. Learn how it works and who it's best suited for."
+    },
+    {
+      "title": "Braces for Teens in Long Beach: Traditional Silver vs. Invisalign Teen",
+      "excerpt": "Choosing between traditional braces and Invisalign Teen depends on your child's needs, lifestyle, and treatment goals. Here's a practical comparison to help your family decide."
+    },
+    {
+      "title": "Thumb Sucking and Pacifier Use: When to Be Concerned",
+      "excerpt": "Sucking habits are normal in infants and toddlers, but prolonged use can affect tooth alignment. Our pediatric dental team explains what to watch for and how to help."
+    },
+    {
+      "title": "How to Handle a Dental Emergency Before You Reach Our Office",
+      "excerpt": "From a knocked-out tooth to a poking orthodontic wire, knowing what to do in the first few minutes can make a real difference. A practical guide for Long Beach families."
+    }
+  ],
+  "locations": {
+    "headline": "Serving Long Beach and surrounding communities",
+    "intro": "Pediatric Dental Specialists is located at 3320 N Los Coyotes Diagonal, Suite 200, Long Beach, CA 90808. Call us at (562) 377-1375 to schedule an appointment."
+  },
+  "rationale": "The practice's own voice — particularly Dr. Cortez's philosophy statement, the team bio content, and the SDF FAQ answers — was preserved verbatim wherever the blueprint directed a 'keep' or 'optimize' action. For 'create' sections (traumatic dental injuries, gum emergencies, tooth pain, and the several missing orthodontic emergency sub-services), new copy was written conservatively using only facts confirmed by the differentiators block and service list, with no fabricated claims about outcomes, patient volume, or experience beyond what the site explicitly states. The hero headline was newly written to give the practice a clear geographic and specialty identity while staying grounded in language patterns already present on the site.",
+  "_meta": {
+    "model": "claude-sonnet-4-6",
+    "input_tokens": 18122,
+    "output_tokens": 8825,
+    "duration_ms": 125069,
+    "cost": 0.1867
+  }
+}

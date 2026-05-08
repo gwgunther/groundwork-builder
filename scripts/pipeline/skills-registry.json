@@ -1,0 +1,105 @@
+{
+  "purpose": "Which design skills the Designer Agent gets as tools, and which we drop. Keep this list tight — the agent makes better choices with 6 sharp tools than 18 fuzzy ones. Revisit after 20 agent runs based on actual usage data.",
+  "version": "1.0.0",
+  "tiers": {
+    "core": {
+      "note": "Always loaded. These are the skills the agent calls in every run. Headless-ify first.",
+      "skills": [
+        {
+          "id": "shape",
+          "role": "Produces the design brief (audience, use cases, voice) at the START of every run. Without this the agent designs blind.",
+          "when_agent_calls_it": "Always, exactly once, immediately after reading silver data.",
+          "headless_work": "Convert from interactive interview to: takes silver + preset + library as JSON, returns a structured brief JSON. No user questions.",
+          "linked_rubric_dims": ["information_hierarchy", "ux_writing", "distinctiveness"]
+        },
+        {
+          "id": "critique",
+          "role": "The scoring function. Takes a rendered page, returns rubric scores + gripes. This IS the agent's feedback loop.",
+          "when_agent_calls_it": "After every meaningful change, minimum every 2 actions.",
+          "headless_work": "Accept screenshot + HTML + rubric.json, return scores in scoring_output_schema format. Replace Nielsen's-10 with our 9 dimensions.",
+          "linked_rubric_dims": ["all"]
+        },
+        {
+          "id": "typeset",
+          "role": "Picks and tunes the typographic system — pairing, scale, measure, weight contrast.",
+          "when_agent_calls_it": "When typography scores below 7.",
+          "headless_work": "Accept design DNA + palette, edit tailwind.config fonts + sizing, return diff.",
+          "linked_rubric_dims": ["typography"]
+        },
+        {
+          "id": "colorize",
+          "role": "Tunes the palette — 60/30/10 distribution, accent usage, contrast fixes.",
+          "when_agent_calls_it": "When color_contrast < 7 OR distinctiveness < 7 and palette is flat.",
+          "headless_work": "Accept current palette + design DNA, edit tailwind colors, return diff.",
+          "linked_rubric_dims": ["color_contrast", "distinctiveness"]
+        },
+        {
+          "id": "layout",
+          "role": "Spatial rhythm — section padding, widths, grid choice. Fixes 'every section py-16' monotony.",
+          "when_agent_calls_it": "When spatial_layout < 7.",
+          "headless_work": "Accept index.astro + DNA, edit section padding/widths, return diff.",
+          "linked_rubric_dims": ["spatial_layout"]
+        },
+        {
+          "id": "polish",
+          "role": "Final pass — alignment, hover states, edge cases, mobile.",
+          "when_agent_calls_it": "Once craft ≥ 6 AND other dims ≥ 7, to push ship-ready to exceptional.",
+          "headless_work": "Accept project dir, emit a list of concrete fixes + apply them.",
+          "linked_rubric_dims": ["craft", "trust_signals"]
+        }
+      ]
+    },
+    "situational": {
+      "note": "Load only when the agent or rubric indicates they're needed. Not first-tier but retain.",
+      "skills": [
+        {
+          "id": "bolder",
+          "role": "Amplify when the design scores safe/bland. Pushes distinctiveness up at craft's expense.",
+          "when_agent_calls_it": "When distinctiveness < 6 AND palette has been tuned already.",
+          "caveat": "Risk of over-designing for local-practice audiences. Cap max invocations per run at 1."
+        },
+        {
+          "id": "quieter",
+          "role": "Inverse of bolder — tones down. Rarely needed for dental sites (they start safe), useful when cross-pollination from poster-bold inspo pushes too far.",
+          "when_agent_calls_it": "When the agent just ran 'bolder' and craft or trust_signals dropped."
+        },
+        {
+          "id": "clarify",
+          "role": "Copy sharpening. Headlines, CTAs, microcopy. Fights generic-AI-copy tell.",
+          "when_agent_calls_it": "When ux_writing < 7."
+        },
+        {
+          "id": "harden",
+          "role": "Edge cases, error states, a11y. Pure trust + craft work.",
+          "when_agent_calls_it": "Pre-ship, once."
+        }
+      ]
+    },
+    "rarely_used": {
+      "note": "Keep the SKILL.md files for occasional human use, but DO NOT expose to the Designer Agent. Noise > signal for this use case.",
+      "skills": [
+        { "id": "animate",  "reason": "Dental sites rarely need motion-forward design; polish handles the 1-2 beats we want." },
+        { "id": "delight",  "reason": "Easter eggs / micro-delights don't serve conversion on a local practice site." },
+        { "id": "adapt",    "reason": "Responsive is handled inline by our template; dedicated pass is redundant." },
+        { "id": "optimize", "reason": "Astro + Tailwind static build is already performant. Revisit only if Lighthouse < 90." },
+        { "id": "overdrive","reason": "Explicitly anti-goal — would destroy trust_signals for this vertical." },
+        { "id": "audit",    "reason": "We already have ai-audit.js in the pipeline. Keep the skill for human use; don't double-expose." }
+      ]
+    },
+    "meta": {
+      "note": "Not called by the agent directly — they're used BY the system.",
+      "skills": [
+        { "id": "impeccable", "reason": "Provides the vocabulary our rubric is built on. Skills reference it; agent does not invoke it." },
+        { "id": "distill",    "reason": "Library ingestion. Called by our pipeline's distill-design.js, not by the agent at runtime." },
+        { "id": "extract",    "reason": "Component extraction. Useful offline to grow the component library, not during a design run." }
+      ]
+    }
+  },
+  "headless_work_summary": {
+    "total_skills_to_convert": 10,
+    "core_to_convert_first": ["shape", "critique", "typeset", "colorize", "layout", "polish"],
+    "situational_next": ["bolder", "quieter", "clarify", "harden"],
+    "discarded_not_converted": ["animate", "delight", "adapt", "optimize", "overdrive", "audit"],
+    "estimated_effort": "2–3 days for the 6 core; +1 day for the 4 situational; total ~1 week."
+  }
+}

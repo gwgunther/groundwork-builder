@@ -1,0 +1,50 @@
+{
+  "palette": {
+    "primary": "#a55936",
+    "secondary": "#8a4830",
+    "accent": "#e0a484",
+    "background": "#fdf7f3",
+    "mood": "warm, approachable"
+  },
+  "type": {
+    "display": "DM Serif Display",
+    "body": "Plus Jakarta Sans",
+    "scale": "standard",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "centered-classic",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "centered",
+    "imageTreatment": "warm-documentary"
+  },
+  "sections": [
+    "hero",
+    "doctor-intro",
+    "services",
+    "reviews",
+    "gallery",
+    "faq",
+    "stat-bar",
+    "cta"
+  ],
+  "cards": "soft-shadow",
+  "motion": "subtle",
+  "radius": "sm",
+  "fontPair": "DM Serif Display / Plus Jakarta Sans",
+  "adjectives": [
+    "warm",
+    "professional",
+    "trustworthy",
+    "accessible",
+    "refined"
+  ],
+  "slug": "spring-st-dentistry",
+  "source": "/Users/garrettgunther/Projects/spring-st-test3",
+  "tag": "own",
+  "captured": "2026-05-03",
+  "note": "auto-distilled at build time"
+}

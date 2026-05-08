@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>content/reviews · Skill</title>
+<style>
+  :root {
+    --bg: #0f1115; --fg: #e7e8ea; --muted: #9098a3; --accent: #6ee7b7;
+    --card: #181b22; --border: #262a33; --code-bg: #0a0c10;
+    --stub: #6b7280; --working: #f59e0b; --polished: #10b981; --mature: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  .topbar { padding: 16px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .topbar a { color: var(--accent); text-decoration: none; font-size: 13px; }
+  .topbar a:hover { text-decoration: underline; }
+  .topbar-meta { color: var(--muted); font-size: 12px; }
+  .container { max-width: 880px; margin: 0 auto; padding: 32px 40px 80px; }
+  header.skill-head { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  header.skill-head h1 { margin: 0 0 4px; font-size: 28px; font-weight: 600; }
+  .skill-path { color: var(--muted); font-family: ui-monospace, SFMono-Regular, monospace; font-size: 13px; }
+  .badges { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+  .badge.tier { background: var(--border); font-family: ui-monospace, monospace; }
+  .badge.tier-L1 { background: rgba(110, 231, 183, .15); color: var(--accent); }
+  .badge.tier-L2 { background: rgba(245, 158, 11, .15); color: var(--working); }
+  .badge.tier-L3 { background: rgba(59, 130, 246, .15); color: #60a5fa; }
+  .badge.tier-L4 { background: rgba(168, 85, 247, .15); color: #c084fc; }
+  .badge.maturity { background: var(--border); }
+  .badge.phase { background: var(--card); border: 1px solid var(--border); color: var(--muted); }
+  .meta-table { font-size: 13px; color: var(--muted); margin-top: 12px; }
+  .meta-table strong { color: var(--fg); font-weight: 500; }
+  .meta-table code { background: var(--card); padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--accent); }
+  .doc h2 { margin: 32px 0 12px; font-size: 20px; font-weight: 600; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .doc h3 { margin: 24px 0 8px; font-size: 16px; font-weight: 600; color: var(--accent); }
+  .doc p { margin: 0 0 14px; }
+  .doc ul, .doc ol { margin: 0 0 14px; padding-left: 24px; }
+  .doc li { margin-bottom: 4px; }
+  .doc a { color: var(--accent); }
+  .doc strong { color: var(--fg); font-weight: 600; }
+  .doc code { background: var(--card); padding: 2px 6px; border-radius: 3px; font-size: 13px; color: var(--accent); font-family: ui-monospace, SFMono-Regular, monospace; }
+  .doc pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 0 0 16px; }
+  .doc pre code { background: transparent; padding: 0; color: var(--fg); font-size: 13px; line-height: 1.5; white-space: pre; }
+  .doc table { border-collapse: collapse; margin: 0 0 16px; font-size: 14px; width: 100%; }
+  .doc th, .doc td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+  .doc th { background: var(--card); font-weight: 600; }
+  .doc blockquote { border-left: 3px solid var(--accent); padding: 4px 16px; margin: 0 0 16px; color: var(--muted); }
+  .doc hr { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../PIPELINE.html">← Back to Pipeline Dashboard</a>
+  <span class="topbar-meta">Source: <code style="background:transparent">skills/content/reviews.md</code></span>
+</div>
+
+<div class="container">
+  <header class="skill-head">
+    <div class="skill-path">skills/content/reviews.md</div>
+    <h1>reviews</h1>
+    <div class="badges">
+      <span class="badge tier tier-L1">L1</span>
+      <span class="badge maturity">🟡 working</span>
+      <span class="badge phase">Phase: Generate</span>
+      <span class="badge phase">Model: claude-sonnet-4-6</span>
+    </div>
+    
+    <div class="meta-table">
+      <div><strong>Source:</strong> <code>scripts/pipeline/skills/skill-generate.js</code></div>
+      <div><strong>Function:</strong> <code>reviewsContentBrief()</code></div>
+    </div>
+  </header>
+
+  <div class="doc">
+<h1>Skill: Reviews Content Generation</h1>
+<h2>Responsibility</h2>
+<p>Produce content JSON for the homepage Reviews/Testimonials section. The
+testimonial items themselves come from real scraped reviews (or fall back to a
+generic placeholder when none exist) — the AI only writes the wrapper copy
+(eyebrow, heading) and assembles the structured object. Layout variant is
+locked from the archetype.</p>
+<h2>Inputs</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Source</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>recommended</code></td>
+<td>string</td>
+<td><code>dna.designTokens.testimonialsLayout</code></td>
+<td>Locked layout</td>
+</tr>
+<tr>
+<td><code>practice.name</code></td>
+<td>string</td>
+<td>merged</td>
+<td>Used in heading</td>
+</tr>
+<tr>
+<td><code>reviewsJson</code></td>
+<td>string (JSON)</td>
+<td>derived from content.testimonials</td>
+<td>Up to 3 items: <code>{quote, author, rating}</code></td>
+</tr>
+<tr>
+<td><code>aggregateRating</code></td>
+<td>number</td>
+<td>content.aggregateRating</td>
+<td>Defaults to 5</td>
+</tr>
+<tr>
+<td><code>reviewCount</code></td>
+<td>number | null</td>
+<td>content.reviewCount</td>
+<td>Optional review count</td>
+</tr>
+<tr>
+<td><code>googleUrl</code></td>
+<td>string | null</td>
+<td>derived</td>
+<td>`content.gmapsUrl</td>
+</tr>
+<tr>
+<td><code>reviewsGuidance</code></td>
+<td>string</td>
+<td>derived</td>
+<td>&quot;Use the provided review quotes verbatim...&quot; OR &quot;No real reviews available — note: use the placeholder above only.&quot;</td>
+</tr>
+</tbody></table>
+<h2>Output schema</h2>
+<pre><code class="language-json">{
+  &quot;variant&quot;: &quot;card-row | pull-quotes | single-featured | list-testimonials | grid-mosaic&quot;,
+  &quot;eyebrow&quot;: &quot;string | null&quot;,
+  &quot;heading&quot;: &quot;string — references practice name&quot;,
+  &quot;items&quot;: [{ &quot;quote&quot;: &quot;string verbatim&quot;, &quot;author&quot;: &quot;string&quot;, &quot;rating&quot;: 1-5 }],
+  &quot;aggregateRating&quot;: &quot;number&quot;,
+  &quot;reviewCount&quot;: &quot;number | null&quot;,
+  &quot;googleUrl&quot;: &quot;string | null&quot;
+}
+</code></pre>
+<h2>Evaluation criteria</h2>
+<ul>
+<li><strong>Quotes verbatim</strong> — never paraphrased or fabricated</li>
+<li><strong>No invented authors</strong> — if author missing in source, use &quot;Verified Patient&quot; or similar</li>
+<li><strong>Heading references practice name</strong> — not just &quot;What Our Patients Say&quot;</li>
+<li><strong>Variant matches locked recommendation</strong></li>
+<li><strong>Returns only JSON</strong></li>
+</ul>
+<h2>Known gaps</h2>
+<ul>
+<li>No verification that quote text actually appears in scraped data (trust-based)</li>
+<li>Placeholder review when no real reviews exist is generic — could be smarter (&quot;show fewer items&quot; vs. &quot;show one fake&quot;)</li>
+<li>No star-rating sanity check (real reviews often have varying ratings; placeholder defaults to 5)</li>
+<li>Doesn&#39;t surface aggregate rating sources separately from individual quotes</li>
+</ul>
+<h2>Improvement levers</h2>
+<ol>
+<li><strong>Easy (L1):</strong> Strengthen &quot;do not modify quote text&quot; instruction and add example of acceptable trim (ellipsis only)</li>
+<li><strong>Easy (caller-side):</strong> Validator that compares output quote substrings against scraped raw text</li>
+<li><strong>Medium:</strong> When no reviews exist, return <code>null</code> instead of a generic placeholder so the section can be omitted upstream</li>
+</ol>
+<h2>Test fixtures</h2>
+<p><em>None yet.</em></p>
+<hr>
+<h2>PROMPT</h2>
+<pre><code class="language-text">Generate content JSON for the Reviews/Testimonials section of {{practice.name}}.
+
+Layout variant: &quot;{{recommended}}&quot; — locked from archetype, do NOT change it.
+Layout reference (for context only):
+- &quot;card-row&quot;:          3 cards side by side, each with stars + quote + author
+- &quot;pull-quotes&quot;:       one large featured quote + 2 smaller supporting quotes
+- &quot;single-featured&quot;:   one big centered hero quote, dramatic with decorative quotation mark
+- &quot;list-testimonials&quot;: stacked review listings — avatar + name + stars + quote
+- &quot;grid-mosaic&quot;:       mixed-size cards, 1 large + small cards in mosaic grid
+
+Return ONLY this JSON:
+{
+  &quot;variant&quot;: &quot;{{recommended}}&quot;,
+  &quot;eyebrow&quot;: &quot;&lt;short label, e.g. &#39;Patient Stories&#39; or null&gt;&quot;,
+  &quot;heading&quot;: &quot;&lt;section heading — e.g. &#39;What Our Patients Say About {{practice.name}}&#39;&gt;&quot;,
+  &quot;items&quot;: {{reviewsJson}},
+  &quot;aggregateRating&quot;: {{aggregateRating}},
+  &quot;reviewCount&quot;: {{reviewCount}},
+  &quot;googleUrl&quot;: {{googleUrl}}
+}
+
+{{reviewsGuidance}}
+
+Return ONLY the JSON object
+</code></pre>
+
+  </div>
+</div>
+</body>
+</html>

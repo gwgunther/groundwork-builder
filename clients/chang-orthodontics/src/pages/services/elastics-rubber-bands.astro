@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Elastics (Rubber Bands)",
+  "description": "An essential component of bite correction — improving the relationship between your upper and lower teeth.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Elastics (Rubber Bands) | ${site.name}`}
+  description="An essential component of bite correction — improving the relationship between your upper and lower teeth."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Elastics (Rubber Bands)
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      An essential component of bite correction — improving the relationship between your upper and lower teeth.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Elastics — the small rubber bands your orthodontist asks you to hook between your upper and lower braces — are one of the most effective tools for correcting how your upper and lower teeth come together. Braces move individual teeth within a single arch, but they cannot, on their own, shift the relationship between your two jaws. Elastics supply that cross-arch force. If Dr. Chang has prescribed them for you, it means tooth alignment is progressing and jaw-to-jaw correction is the next priority.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What Elastics Actually Do</h2>
+      <p class="mb-4">Each rubber band creates a continuous, gentle pulling force along a specific vector — typically from a hook on an upper molar or canine bracket down to a corresponding point on the lower arch, or vice versa. Over weeks and months, that repeated tension gradually repositions the jaw relationship and improves how the teeth occlude, or bite together.</p>
+      <p class="mb-4">The two most common situations where elastics are prescribed:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>**Class II malocclusion (overbite):** The upper teeth sit too far forward relative to the lower. Elastics are typically worn from the upper canine region back toward the lower molar, encouraging the lower jaw forward and the upper back.</li>
+        <li>**Class III malocclusion (underbite):** The lower teeth protrude in front of the upper. Elastics run in the reverse direction to encourage the opposite correction.</li>
+      </ul>
+      <p class="mb-4">The size, strength, and configuration of the rubber bands are chosen based on your specific bite discrepancy. Dr. Chang selects these details at your appointments and adjusts them as your bite responds.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who Needs to Wear Elastics</h2>
+      <p class="mb-4">Not every orthodontic patient uses elastics, but they are common at a particular stage of treatment — usually after the initial crowding has been addressed and the arches are reasonably aligned. Patients who have some degree of overbite, underbite, or midline shift are the most likely candidates. Elastics are used with both traditional braces and certain clear aligner protocols, though the attachment points differ.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect Day to Day</h2>
+      <p class="mb-4">Elastics are worn almost all day — typically 20 to 22 hours — and removed only for eating and brushing. You will be given enough rubber bands to change them at least once daily, or more often if one breaks. Wearing them inconsistently is the single biggest factor that slows down this part of treatment, because the jaw-to-jaw correction reverses quickly when force is removed.</p>
+      <p class="mb-4">During the first few days, it is normal to notice mild soreness in the jaw joints and muscles as they adapt. This usually fades within a week. Some patients also find it awkward to open wide initially; that feeling resolves as wearing elastics becomes routine.</p>
+      <p class="mb-4">You will be shown exactly how to hook your elastics at the appointment when they are introduced. The configuration — which hooks, which direction — matters, so follow the specific diagram or instructions given to you rather than a general reference.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">How Dr. Chang Monitors Your Progress</h2>
+      <p class="mb-4">At Chang Orthodontics in Los Alamitos, patients see Dr. Chang or Dr. Chung at every single appointment. There is no handoff to an assistant for the clinical evaluation. This matters for elastic wear because bite correction is gradual and the configuration often needs to be refined — a change that requires an orthodontist to assess the current bite relationship before deciding on the next step. If your compliance has been strong but progress is slower than expected, the vector or force level can be adjusted at that same visit.</p>
+      <p class="mb-4">If you have questions between appointments — about a broken band, an unusual amount of soreness, or whether you are hooking them correctly — the practice can address those directly rather than leaving you to guess until the next scheduled visit.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**What happens if I forget to wear my elastics for a day?** One missed day will not derail your treatment, but habitual skipping will. The forces that move jaw position need to be sustained. Get back on track immediately rather than doubling up — wearing two bands at once can create excessive force and is not recommended unless specifically instructed.</p>
+      <p class="mb-4">**Can I eat with my elastics in?** Most patients remove them for meals. Chewing can break the bands, and the force vector changes when your mouth is in a chewing position. Remove them, eat, brush, and replace them right away.</p>
+      <p class="mb-4">**How long will I need to wear elastics?** It varies by case. Some patients wear them for a few months; others need them for the better part of a year. Your progress at each appointment in Los Alamitos will give a clearer picture of where you stand.</p>
+      <p class="mb-4">**Will I need elastics again after I finish braces?** Elastics are an active-treatment tool, not a retention tool. Once your bite correction is complete and braces are removed, retainers — not elastics — maintain the result.</p>
+      <p class="mb-4">**What if my elastic breaks or I run out?** Contact the practice. You will be given extra rubber bands to keep at home for exactly this reason, and replacements are easy to provide. Do not substitute a different size from a store — the diameter and force rating are specific to your prescription.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

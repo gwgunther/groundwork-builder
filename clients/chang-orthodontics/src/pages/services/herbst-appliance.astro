@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Herbst® Appliance",
+  "description": "A fixed functional appliance for correcting class II malocclusion and excessive overbite in growing patients.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Herbst® Appliance | ${site.name}`}
+  description="A fixed functional appliance for correcting class II malocclusion and excessive overbite in growing patients."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Herbst® Appliance
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      A fixed functional appliance for correcting class II malocclusion and excessive overbite in growing patients.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">The Herbst® Appliance is a fixed functional device used primarily in growing adolescents to correct class II malocclusion — a condition in which the upper jaw and teeth protrude significantly ahead of the lower jaw. By holding the lower jaw in a forward position continuously, the Herbst appliance encourages the lower jaw to develop and reposition, improving both the bite relationship and the overall facial profile. Because it is cemented to the teeth, it works around the clock without requiring daily patient compliance. At Chang Orthodontics, every patient is seen by their orthodontist at every appointment, ensuring that functional appliance therapy like the Herbst is carefully monitored and adjusted by specialist hands.</p>
+      <ul class="space-y-3 my-6">
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Fixed appliance — continuous correction without daily compliance</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Addresses class II malocclusion by encouraging lower jaw development</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Can reduce or eliminate the need for later jaw surgery</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Monitored directly by your orthodontist at every visit</span></li>
+      </ul>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

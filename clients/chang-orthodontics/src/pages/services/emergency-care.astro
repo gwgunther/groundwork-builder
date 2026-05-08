@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Emergency Care",
+  "description": "True orthodontic emergencies are rare — but when they occur, we are available to you.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Emergency Care | ${site.name}`}
+  description="True orthodontic emergencies are rare — but when they occur, we are available to you."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Emergency Care
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      True orthodontic emergencies are rare — but when they occur, we are available to you.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">True orthodontic emergencies are rare, but when they occur we are available to you! As a general rule, you should call our office if you experience severe pain or have a painful appliance problem you can't take care of yourself. We'll be able to schedule an appointment to resolve the problem. You might be surprised to learn that you may be able to solve many problems yourself temporarily until you can get to our office. If there is a loose piece that you can remove, put it in a plastic bag or envelope and bring it with you to your appointment. After alleviating your discomfort, it is very important that you still call our office as soon as possible to schedule a time to repair the problem. Allowing your appliance to remain damaged for an extended time may result in disruptions to your treatment plan. At Chang Orthodontics, every patient is seen by their orthodontist at every visit — so when urgent issues arise, you have direct access to specialist care.</p>
+      <ul class="space-y-3 my-6">
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Available to patients when orthodontic emergencies occur</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Guidance on temporary self-care until your appointment</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Prompt repair appointments to prevent treatment disruption</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Direct access to your orthodontist — not a rotation of staff</span></li>
+      </ul>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Call Our Office</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

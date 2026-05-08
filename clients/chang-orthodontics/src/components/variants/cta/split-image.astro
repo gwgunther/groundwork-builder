@@ -1,0 +1,91 @@
+---
+/**
+ * CTA Split Image — Brand-color left panel with CTA, real image right.
+ * More dynamic than centered banner. Pairs well with editorial archetypes.
+ */
+import type { CtaContent } from '../types';
+import { designDNA } from '../../../config/design-dna';
+import { site } from '../../../config/site';
+import { imagePath } from '../../../config/design-dna';
+import { resolveTokens } from '../token-utils';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+interface Props { content: CtaContent }
+const { content } = Astro.props;
+
+const tokens = (designDNA as any).designTokens ?? {};
+const t = resolveTokens(tokens);
+
+// Try to use an interior or team photo; fall back to hero image
+let imageRoles: { interior?: string[]; team?: string[]; hero?: string | null } = {};
+try {
+  const p = `${process.cwd()}/public/images/image-roles.json`;
+  imageRoles = JSON.parse(readFileSync(p, 'utf8'));
+} catch {}
+const ctaImg = imagePath(
+  (imageRoles.interior?.[0]) ??
+  (imageRoles.team?.[0]) ??
+  imageRoles.hero ??
+  null
+);
+
+const phone = content.phone || site.phone;
+---
+
+<section data-section="cta" class="overflow-hidden">
+  <div class="grid grid-cols-1 md:grid-cols-2 min-h-[400px]">
+
+    <!-- Text panel — brand primary bg -->
+    <div class={`flex flex-col justify-center bg-brand-primary ${t.spacingClass} px-8 md:px-12 lg:px-16`}>
+      <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
+        {content.headline}
+      </h2>
+      <p class="font-sans text-lg text-white/80 leading-relaxed mb-8">
+        {content.subheadline}
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4">
+        <!-- On brand-primary bg: use white filled button -->
+        <a
+          href={content.primaryCta.href}
+          class={`inline-flex items-center justify-center px-6 py-3 ${t.radiusClass} bg-white text-brand-primary font-semibold text-sm hover:bg-white/90 transition-all duration-200`}
+        >
+          {content.primaryCta.label}
+        </a>
+        {phone && (
+          <a
+            href={`tel:${phone}`}
+            class={`inline-flex items-center gap-2 px-6 py-3 ${t.radiusClass} font-semibold text-sm border-2 border-white/30 text-white hover:border-white hover:bg-white/10 transition-all duration-200 tabular-nums`}
+            aria-label={`Call us at ${phone}`}
+          >
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.95V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z"/>
+            </svg>
+            {phone}
+          </a>
+        )}
+      </div>
+    </div>
+
+    <!-- Image panel -->
+    <div class="relative min-h-[280px] md:min-h-0">
+      {ctaImg ? (
+        <img
+          src={ctaImg}
+          alt={`${site.name} — schedule your appointment`}
+          class="absolute inset-0 w-full h-full object-cover object-center"
+          loading="lazy"
+        />
+      ) : (
+        <div class="absolute inset-0 bg-brand-primary/20 flex items-center justify-center">
+          <span class="font-serif text-9xl font-bold text-brand-primary/15 select-none" aria-hidden="true">
+            {site.name?.charAt(0) ?? ''}
+          </span>
+        </div>
+      )}
+    </div>
+
+  </div>
+</section>

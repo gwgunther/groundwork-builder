@@ -1,0 +1,122 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - heading "Spring St. Dentistry — Site Audit" [level=1] [ref=e4]
+      - generic [ref=e5]: https://www.springstdentistry.com · April 25, 2026
+    - generic [ref=e6]:
+      - generic [ref=e7]: Groundwork Builder
+      - generic [ref=e8]: groundwork.build
+  - navigation [ref=e9]:
+    - button "Scorecard" [ref=e10] [cursor=pointer]
+    - button "What We Found 5" [ref=e11] [cursor=pointer]
+    - button "Your Messaging" [ref=e12] [cursor=pointer]
+    - button "What We'd Fix" [ref=e13] [cursor=pointer]
+  - main [ref=e14]:
+    - generic [ref=e15]:
+      - generic [ref=e16]:
+        - heading "Your Site Scores" [level=2] [ref=e17]
+        - generic [ref=e18]: Mobile scores shown · measured by Google
+      - generic [ref=e19]:
+        - strong [ref=e20]: "Where these scores come from:"
+        - text: These scores are measured by Google Lighthouse — the same tool Google uses to evaluate sites for search ranking. They are objective measurements, not our opinion. You can verify any score yourself at
+        - link "pagespeed.web.dev" [ref=e21] [cursor=pointer]:
+          - /url: https://pagespeed.web.dev
+        - text: .
+      - generic [ref=e22]:
+        - generic [ref=e23]:
+          - generic [ref=e24]:
+            - generic [ref=e25]: "62"
+            - generic [ref=e26]: Needs work
+          - generic [ref=e27]: Mobile Speed
+          - generic [ref=e28]: How fast your site loads on a phone
+        - generic [ref=e29]:
+          - generic [ref=e30]:
+            - generic [ref=e31]: "82"
+            - generic [ref=e32]: Needs work
+          - generic [ref=e33]: Google Visibility
+          - generic [ref=e34]: How easily patients can find you
+        - generic [ref=e35]:
+          - generic [ref=e36]:
+            - generic [ref=e37]: "74"
+            - generic [ref=e38]: Needs work
+          - generic [ref=e39]: Ease of Use
+          - generic [ref=e40]: Works for all patients, all devices
+        - generic [ref=e41]:
+          - generic [ref=e42]:
+            - generic [ref=e43]: "77"
+            - generic [ref=e44]: Needs work
+          - generic [ref=e45]: Technical Health
+          - generic [ref=e46]: Security & modern standards
+      - table [ref=e47]:
+        - rowgroup [ref=e48]:
+          - row "Score Mobile (primary) Desktop" [ref=e49]:
+            - columnheader "Score" [ref=e50]
+            - columnheader "Mobile (primary)" [ref=e51]
+            - columnheader "Desktop" [ref=e52]
+        - rowgroup [ref=e53]:
+          - row "Mobile Speed How fast your site loads on a phone 62 79" [ref=e54]:
+            - cell "Mobile Speed How fast your site loads on a phone" [ref=e55]:
+              - strong [ref=e56]: Mobile Speed
+              - text: How fast your site loads on a phone
+            - cell "62" [ref=e57]:
+              - generic [ref=e58]: "62"
+            - cell "79" [ref=e59]:
+              - generic [ref=e60]: "79"
+          - row "Google Visibility How easily patients can find you 82 82" [ref=e61]:
+            - cell "Google Visibility How easily patients can find you" [ref=e62]:
+              - strong [ref=e63]: Google Visibility
+              - text: How easily patients can find you
+            - cell "82" [ref=e64]:
+              - generic [ref=e65]: "82"
+            - cell "82" [ref=e66]:
+              - generic [ref=e67]: "82"
+          - row "Ease of Use Works for all patients, all devices 74 74" [ref=e68]:
+            - cell "Ease of Use Works for all patients, all devices" [ref=e69]:
+              - strong [ref=e70]: Ease of Use
+              - text: Works for all patients, all devices
+            - cell "74" [ref=e71]:
+              - generic [ref=e72]: "74"
+            - cell "74" [ref=e73]:
+              - generic [ref=e74]: "74"
+          - row "Technical Health Security & modern standards 77 77" [ref=e75]:
+            - cell "Technical Health Security & modern standards" [ref=e76]:
+              - strong [ref=e77]: Technical Health
+              - text: Security & modern standards
+            - cell "77" [ref=e78]:
+              - generic [ref=e79]: "77"
+            - cell "77" [ref=e80]:
+              - generic [ref=e81]: "77"
+      - generic [ref=e82]: Mobile speed breakdown — measured by Google Lighthouse on a simulated phone
+      - generic [ref=e83]:
+        - generic [ref=e84]:
+          - generic [ref=e85]: Time to See Your Page
+          - generic [ref=e86]: LCP
+          - generic [ref=e87]: 13,403ms
+          - generic [ref=e88]: "Goal: under 2.5 sec"
+        - generic [ref=e89]:
+          - generic [ref=e90]: Time to First Content
+          - generic [ref=e91]: FCP
+          - generic [ref=e92]: 2,560ms
+          - generic [ref=e93]: "Goal: under 1.8 sec"
+        - generic [ref=e94]:
+          - generic [ref=e95]: Page Responsiveness
+          - generic [ref=e96]: TBT
+          - generic [ref=e97]: 155ms
+          - generic [ref=e98]: "Goal: under 200ms"
+        - generic [ref=e99]:
+          - generic [ref=e100]: Visual Stability
+          - generic [ref=e101]: CLS — does content jump around
+          - generic [ref=e102]: "0.077"
+          - generic [ref=e103]: "Goal: under 0.1"
+        - generic [ref=e104]:
+          - generic [ref=e105]: How Fast It Looks Loaded
+          - generic [ref=e106]: SI
+          - generic [ref=e107]: 6,389ms
+          - generic [ref=e108]: "Goal: under 3.4 sec"
+        - generic [ref=e109]:
+          - generic [ref=e110]: Time Until Fully Interactive
+          - generic [ref=e111]: TTI
+          - generic [ref=e112]: 13,699ms
+          - generic [ref=e113]: "Goal: under 3.8 sec"
+      - paragraph [ref=e114]: All metrics sourced from Google PageSpeed Insights API v5. Mobile scores are the primary signal Google uses for search ranking.
+    - text: • • • • • • • • • • • • • • • • • • • •

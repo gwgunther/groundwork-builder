@@ -1,0 +1,63 @@
+---
+/**
+ * FAQ Two-Column — Q in left col, A in right col. Always visible. Best for short FAQs.
+ */
+import type { FaqContent } from '../types';
+import { designDNA } from '../../../config/design-dna';
+import { resolveTokens } from '../token-utils';
+
+const { content } = Astro.props;
+
+const tokens = (designDNA as any).designTokens ?? {};
+const t = resolveTokens(tokens);
+
+const eyebrow = content.eyebrow ?? 'Frequently Asked';
+const heading = content.heading ?? 'Common Questions';
+
+const schemaJson = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": (content.items ?? []).map((it) => ({
+    "@type": "Question",
+    "name": it.q,
+    "acceptedAnswer": { "@type": "Answer", "text": it.a }
+  }))
+});
+---
+
+{content.items && content.items.length > 0 && (
+  <section data-section="faq" class={`bg-surface-1 ${t.spacingClass}`}>
+    <div class={t.containerClass}>
+
+      <!-- Header -->
+      <div class="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+        {eyebrow && <span class={t.eyebrowClass}>{eyebrow}</span>}
+        <h2 class="font-serif text-3xl md:text-4xl font-bold text-neutral-dark mb-4">
+          {heading}
+        </h2>
+        {content.subheading && (
+          <p class="font-sans text-lg text-neutral-mid leading-relaxed">
+            {content.subheading}
+          </p>
+        )}
+      </div>
+
+      <!-- Q/A rows -->
+      <div class="max-w-5xl mx-auto border-t border-border-light">
+        {content.items.map((faq) => (
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 py-6 border-b border-border-light">
+            <div class="md:col-span-1 font-serif text-lg font-bold text-neutral-dark">
+              {faq.q}
+            </div>
+            <div class="md:col-span-2 text-neutral-mid leading-relaxed">
+              {faq.a}
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+)}
+
+<script type="application/ld+json" set:html={schemaJson} />

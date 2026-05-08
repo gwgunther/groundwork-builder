@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "SureSmile®",
+  "description": "Advanced robotic wire technology for shorter treatments, fewer office visits, and less discomfort.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`SureSmile® | ${site.name}`}
+  description="Advanced robotic wire technology for shorter treatments, fewer office visits, and less discomfort."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      SureSmile®
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Advanced robotic wire technology for shorter treatments, fewer office visits, and less discomfort.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Through the use of SureSmile technology, your orthodontist can offer you a &quot;braces experience&quot; that provides shorter treatments, fewer office visits, and less discomfort. SureSmile uses 3D imaging and computer-aided wire design to create precision archwires that are customized to the specific movements required for your case — moving teeth more directly toward their target positions than conventionally bent wires. In a study of 6,225 patients, average treatment time with SureSmile was 30% or more faster than with conventional braces. Chang Orthodontics has offered SureSmile technology as part of its commitment to delivering the most efficient and streamlined treatment possible — a commitment backed by over 40 years of quality care in Los Alamitos.</p>
+      <ul class="space-y-3 my-6">
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Treatment time up to 30% faster than conventional braces (6,225-patient study)</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Fewer office visits required during the active treatment phase</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Computer-designed archwires move teeth more precisely toward target positions</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Less discomfort due to more efficient, targeted wire forces</span></li>
+      </ul>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,56 @@
+{
+  "existingPalette": {
+    "primary": "#008a2e",
+    "secondary": "#003d1c",
+    "accent": "#e60000",
+    "light": "#ffe0e1",
+    "raw": [
+      "#008a2e",
+      "#ffe0e1",
+      "#e60000",
+      "#001f0f",
+      "#003d1c",
+      "#000d1f",
+      "#00113d",
+      "#1d1f00"
+    ]
+  },
+  "existingFonts": {
+    "heading": null,
+    "body": null,
+    "detected": []
+  },
+  "mood": "Generic Clinical Green",
+  "brandStrength": "weak",
+  "brandStrengthRationale": "The palette is a scattered collection of high-saturation, single-use colors with no evidence of a deliberate system — a green-dominant scheme collides with a red accent and multiple near-black variants that suggest utility or framework defaults rather than intentional brand choices. The messaging ('Transform Your Smile with Exceptional Care') is entirely interchangeable with thousands of other dental practices, and no typography signals were detectable, indicating minimal brand investment.",
+  "colorConsistency": "inconsistent",
+  "evolutionSignal": "rebuild — the color set shows no coherent palette logic, all eight colors appear exactly once suggesting they are incidental or framework-generated rather than applied brand colors, and the copy and naming are fully generic. There is no meaningful equity to preserve or evolve.",
+  "rationale": "Orange County Dental Care currently presents as a template-level brand with a disjointed green-and-red color set, boilerplate headline copy, and no detectable typography system. The site communicates nothing distinctive about the practice, its location in Orange, CA, or its patient experience. The Brand Direction step should treat this as a blank-slate opportunity rather than a refinement exercise.",
+  "_meta": {
+    "model": "claude-sonnet-4-6",
+    "input_tokens": 912,
+    "output_tokens": 441,
+    "duration_ms": 8641
+  },
+  "palette": {
+    "primary": "#008a2e",
+    "secondary": "#003d1c",
+    "accent": "#e60000",
+    "light": "#ffe0e1",
+    "raw": [
+      "#008a2e",
+      "#ffe0e1",
+      "#e60000",
+      "#001f0f",
+      "#003d1c",
+      "#000d1f",
+      "#00113d",
+      "#1d1f00"
+    ]
+  },
+  "fonts": {
+    "heading": null,
+    "body": null,
+    "detected": []
+  }
+}

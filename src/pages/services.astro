@@ -32,9 +32,9 @@ const services = [
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {services.map((service) => (
-          <a href={service.href} class="card hover:border-brand-primary/30 transition-colors group">
-            <h2 class="font-serif text-xl font-semibold text-charcoal mb-2 group-hover:text-brand-primary transition-colors">{service.name}</h2>
-            <p class="text-mid-gray">{service.desc}</p>
+          <a href={service.href || `/services/${service.slug}`} class="card hover:border-brand-primary/30 transition-colors group">
+            <h2 class="font-serif text-xl font-semibold text-neutral-dark mb-2 group-hover:text-brand-primary transition-colors">{service.name}</h2>
+            <p class="text-neutral-mid">{service.desc}</p>
           </a>
         ))}
       </div>

@@ -1,0 +1,50 @@
+{
+  "palette": {
+    "primary": "#174d8f",
+    "secondary": "#0b2d5e",
+    "accent": "#c49451",
+    "background": "#eef4fc",
+    "mood": "professional-warm"
+  },
+  "type": {
+    "display": "Space Grotesk",
+    "body": "Inter",
+    "scale": "standard",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "magazine-split",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "asymmetric-right",
+    "imageTreatment": "warm-documentary"
+  },
+  "sections": [
+    "hero",
+    "doctor-intro",
+    "services",
+    "gallery",
+    "reviews",
+    "stat-bar",
+    "faq",
+    "cta"
+  ],
+  "cards": "soft-shadow",
+  "motion": "subtle",
+  "radius": "md",
+  "fontPair": "Space Grotesk/Inter",
+  "adjectives": [
+    "clinical-approachable",
+    "heritage-focused",
+    "trust-driven",
+    "editorial-refined",
+    "credential-forward"
+  ],
+  "slug": "russell-ek-chang-dds-ms-facd-inc",
+  "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/chang-orthodontics",
+  "tag": "own",
+  "captured": "2026-05-07",
+  "note": "auto-distilled at build time"
+}

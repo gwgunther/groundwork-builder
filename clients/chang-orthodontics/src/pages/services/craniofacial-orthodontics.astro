@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Craniofacial Orthodontics",
+  "description": "Sub-specialty orthodontic care for patients with cleft lip, cleft palate, and other craniofacial conditions — delivered by a long-term member of the Miller Children's Hospital craniofacial team.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Craniofacial Orthodontics | ${site.name}`}
+  description="Sub-specialty orthodontic care for patients with cleft lip, cleft palate, and other craniofacial conditions — delivered by a long-term member of the Miller Children's Hospital craniofacial team."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Craniofacial Orthodontics
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Sub-specialty orthodontic care for patients with cleft lip, cleft palate, and other craniofacial conditions — delivered by a long-term member of the Miller Children's Hospital craniofacial team.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Craniofacial orthodontics is a sub-specialty of orthodontics that focuses on the treatment of patients with birth defects such as cleft lip and palate. The orthodontist will work with a team comprised of speech pathologists, oral surgeons, and craniofacial plastic surgeons in planning treatment to correct cleft lip and palate, as well as other jaw and face abnormalities. As a member of a craniofacial team, a craniofacial orthodontist evaluates tooth and jaw development and growth. Dr. Chang is a long-term member of the Cleft Lip and Palate Team at Miller Children's Hospital, working with the Stramsky Center for Craniofacial Development alongside oral surgeons, plastic surgeons, and speech pathologists. Dr. Christine Chung serves as USC Adjunct Assistant Professor and Director of Orthodontic Training for Postdoctoral Pediatric Residents at Miller's Children Memorial Hospital in Long Beach, and earned her Master of Science in Craniofacial Biology at the University of California School of Dentistry. Our facility is an IQAir-certified clean air practice.</p>
+      <ul class="space-y-3 my-6">
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Sub-specialty care for cleft lip, cleft palate, and jaw abnormalities</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Dr. Chang is an active member of Miller Children's Hospital craniofacial team</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Dr. Chung holds an MS in Craniofacial Biology from UC School of Dentistry</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Collaborative treatment with oral surgeons, plastic surgeons, and speech pathologists</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>IQAir-certified clean air facility</span></li>
+      </ul>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Request an Evaluation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

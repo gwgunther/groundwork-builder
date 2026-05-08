@@ -1,0 +1,50 @@
+{
+  "palette": {
+    "primary": "#b05636",
+    "secondary": "#8a3820",
+    "accent": "#d49070",
+    "background": "#fdf6f2",
+    "mood": "warm, professional"
+  },
+  "type": {
+    "display": "Playfair Display",
+    "body": "DM Sans",
+    "scale": "standard",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "warm-editorial",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "split-image",
+    "imageTreatment": "warm-documentary"
+  },
+  "sections": [
+    "hero",
+    "doctor-intro",
+    "services",
+    "reviews",
+    "gallery",
+    "faq",
+    "stat-bar",
+    "cta"
+  ],
+  "cards": "soft-shadow",
+  "motion": "subtle",
+  "radius": "sm",
+  "fontPair": "Playfair Display/DM Sans",
+  "adjectives": [
+    "warm",
+    "trustworthy",
+    "refined",
+    "approachable",
+    "professional"
+  ],
+  "slug": "magic-fox-orthodontics",
+  "source": "/Users/garrettgunther/Projects/magicfox-test3",
+  "tag": "own",
+  "captured": "2026-05-03",
+  "note": "auto-distilled at build time"
+}

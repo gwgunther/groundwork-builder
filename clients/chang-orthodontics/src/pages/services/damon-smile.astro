@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Damon™ Smile",
+  "description": "Passive self-ligating braces that move teeth more freely with fewer office visits — no elastic ties required.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Damon™ Smile | ${site.name}`}
+  description="Passive self-ligating braces that move teeth more freely with fewer office visits — no elastic ties required."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Damon™ Smile
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Passive self-ligating braces that move teeth more freely with fewer office visits — no elastic ties required.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Damon Smile braces are a passive self-ligating bracket system that replaces the elastic ties found on traditional braces with a built-in sliding door mechanism. That single change — removing the elastic ligature — reduces friction on the archwire, allowing teeth to move more freely and with less pressure than conventional braces require. For patients in Los Alamitos considering orthodontic treatment, Damon braces are worth understanding in detail before choosing a system.</p>
+      <p class="mb-4">Our office is pleased to offer passive self-ligating Damon Smile braces as part of our orthodontic options. Damon braces use a slide mechanism to hold the archwire, reducing the amount of pressure exerted on the teeth and allowing them to move more freely, quickly, and comfortably than conventional braces. Because Damon braces are tie-less — eliminating the elastic ligatures used with traditional brackets — they require fewer adjustments and make it easier to maintain oral hygiene during treatment. Fewer office visits for tightening means a more efficient experience, backed by over 40 years of quality orthodontic care in Los Alamitos.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">How the Damon System Works</h2>
+      <p class="mb-4">Traditional brackets hold the archwire in place using small elastic ties. Those ties create friction against the wire, which means more force is needed to move teeth and more frequent tightening appointments are required to maintain that force over time.</p>
+      <p class="mb-4">Damon brackets use a passive self-ligating mechanism — essentially a small sliding door built into each bracket. The archwire sits inside the bracket and can move through it with significantly less resistance. This low-friction environment allows the wire to express its shape gradually and consistently without needing to be tightened as often.</p>
+      <p class="mb-4">The result is a gentler, more continuous movement of the teeth rather than the periodic bursts of pressure associated with tightening traditional braces.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who Is a Good Candidate?</h2>
+      <p class="mb-4">Damon Smile braces can address a wide range of orthodontic concerns, including crowding, spacing, overbite, underbite, crossbite, and general alignment issues. They are available in both metal and clear options, which makes them suitable for patients who want a less visible appliance.</p>
+      <p class="mb-4">Good candidates are generally patients who:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>Have mild to severe crowding or spacing issues</li>
+        <li>Want to reduce the number of adjustment appointments during treatment</li>
+        <li>Are committed to consistent oral hygiene throughout the treatment period</li>
+        <li>Prefer a bracket system known for patient comfort</li>
+      </ul>
+      <p class="mb-4">Dr. Chang will evaluate your bite, tooth positions, and overall oral health at your consultation to determine whether Damon braces are the right fit for your specific case.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect During Treatment</h2>
+      <p class="mb-4">At your initial consultation, Dr. Chang will take records — typically including photographs, X-rays, and impressions or digital scans — to assess your current alignment and map out a treatment plan.</p>
+      <p class="mb-4">Once braces are placed, the typical appointment pattern looks like this:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>**Placement appointment:** The brackets are bonded to your teeth and the initial archwire is threaded and secured. This appointment usually takes about 60–90 minutes.</li>
+        <li>**Follow-up visits:** Because the passive self-ligating design requires less frequent intervention, follow-up appointments are generally scheduled every 8–10 weeks rather than the 4–6 week intervals common with traditional braces.</li>
+        <li>**Wire progressions:** Over the course of treatment, the archwire is changed to progressively stiffer wires that guide teeth into their final positions.</li>
+        <li>**Debond and retainer:** When treatment is complete, the brackets are removed and retainers are provided to hold the result.</li>
+      </ul>
+      <p class="mb-4">Total treatment time varies depending on the complexity of each case and is something Dr. Chang will outline specifically for you.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Keeping Your Teeth Clean with Damon Braces</h2>
+      <p class="mb-4">One practical advantage of the tie-less design is hygiene. Elastic ligatures on traditional braces are known to trap plaque and food debris around the bracket, which can increase the risk of decalcification — white spots on the enamel — if brushing is not thorough.</p>
+      <p class="mb-4">Without those ties, Damon brackets have fewer areas for debris to collect. Brushing and flossing are still essential and require care around the brackets and wires, but the absence of elastic ties simplifies the process somewhat.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**Do Damon braces hurt less than traditional braces?** Many patients report that Damon braces feel more comfortable, particularly in the days following an adjustment, because the passive mechanism exerts less pressure on the teeth. That said, some soreness after wire changes is normal with any fixed orthodontic appliance.</p>
+      <p class="mb-4">**How long does Damon Smile treatment take?** Treatment length depends on the complexity of your case. Dr. Chang will give you a specific estimate after reviewing your records. Generally speaking, the reduced friction of the system can support efficient tooth movement, but timelines vary from patient to patient.</p>
+      <p class="mb-4">**Are clear Damon brackets available?** Yes. Damon offers clear bracket options for patients who prefer a less visible appliance. Dr. Chang can discuss which bracket type is appropriate for your case during your consultation.</p>
+      <p class="mb-4">**How often will I need to come in for appointments?** Because Damon braces require fewer adjustments than traditional braces, follow-up visits are typically scheduled every 8–10 weeks. Fewer appointments is one of the system's practical advantages for patients managing busy schedules.</p>
+      <p class="mb-4">**Will I need to avoid certain foods?** Yes — the same general food restrictions that apply to all fixed braces apply here. Hard, sticky, and crunchy foods can damage brackets or dislodge wires. Dr. Chang's team will walk you through a specific list at your placement appointment.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

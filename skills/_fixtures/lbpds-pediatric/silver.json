@@ -1,0 +1,2139 @@
+{
+  "practice": {
+    "name": "Pediatric Dental Specialists",
+    "domain": "lbpds.net",
+    "phone": "(562) 377-1375",
+    "email": "info@lbpds.net",
+    "googleReviewLink": null,
+    "googleProfileLink": null,
+    "priceRange": "$$",
+    "medicalSpecialty": null,
+    "sameAs": []
+  },
+  "doctors": [
+    {
+      "name": "Dr. Cortez",
+      "firstName": "Cortez",
+      "lastName": "Cortez",
+      "credentials": "DDS",
+      "bio": "My practice philosophy is to provide the best possible dental care for children in a friendly environment and to advocate for the children's welfare in any way that I can. I enjoy seeing children who perhaps have been afraid of what we do for them, then develop trust and a positive attitude toward dentistry. After more than 35 years of continuous private practice, I still enjoy working with families every day and helping keep children in good oral health.\n\nAs a professional, there are a number of courses that I take each year in order to advance my skills in providing excellent care for my patients. It's about keeping abreast of the latest research and techniques in pediatric medicine and dentistry.\n\nI have been on the teaching staff of the University of Southern California School of Dentistry since 1980 and work with the Advanced Pediatric Dentistry Residency Program on a part-time basis. I have also participated on the medical staff at Miller Children's Hospital and Long Beach Memorial Medical Center. I have been on several committees there and have served on the governing board of directors for more than eight years.\n\nI enjoy working within communities, both locally and internationally. I work with Mission of Mercy-type dental clinics in California on behalf of the California Dental Association, and have participated in dental missions in many countries with the International Health Emissaries.\n\n\"I like to inspire and motivate my team members to enjoy what we do and to train them to help me deliver excellent care. I like the positive attitude and great energy that they bring to our team. They bring new ideas for discussion and are excited when we adopt and implement those ideas. I enjoy seeing them develop and grow personally and professionally. I encourage them to advance their skills through continuing education to develop their clinical skills as well as their customer service skills.\"",
+      "education": "Associate of Arts – Cerritos College, California State University-Long Beach; Doctorate of Dental Surgery – University of Southern California School of Dentistry; Certification in advanced pediatric dentistry – University of Southern California School of Dentistry; Certificate in hospital dentistry – Rancho Los Amigos Hospital-Downey, California; Certificate in cleft lip/palate rehabilitation – Rancho Los Amigos Hospital",
+      "specialties": [
+        "Pediatric Dentistry",
+        "Hospital Dentistry",
+        "Cleft Lip/Palate Rehabilitation",
+        "Orthodontics"
+      ],
+      "photoPath": "assets/images/img-dr-cortez.jpg"
+    },
+    {
+      "name": "Dr. Gloria",
+      "firstName": "Gloria",
+      "lastName": "Gloria",
+      "credentials": "DDS",
+      "bio": "As a pediatric dentist, I have the opportunity to provide quality dental experiences for children. I feel passionate about giving children personalized care so they can achieve their most beautiful oral health. Being a mother myself, I strive to create a comfortable and gentle environment for the families.\n\nDuring my free time, I love spending time with my husband and 2 daughters. My hobbies include traveling, anything Disney, food, and reading.",
+      "education": "Bachelor of Arts: New York University; Doctorate of Dental Surgery: Columbia University; Certification of Advanced Pediatric Dentistry: Yale-New Haven Hospital; Diplomat of the American Board of Pediatric Dentistry",
+      "specialties": [
+        "Pediatric Dentistry",
+        "Orthodontics"
+      ],
+      "photoPath": "assets/images/Dr_Gloria.jpg"
+    },
+    {
+      "name": "Dr. Planells",
+      "firstName": "Planells",
+      "lastName": "Planells",
+      "credentials": "DDS",
+      "bio": "Dr. Planells has been in dental practice since 2004 when she joined Pediatric Dental Specialists as a recent graduate from the UCLA Combined Pediatric Dentistry and Orthodontic Program. She received her Doctor of Dental Surgery from UCLA, where she graduated in the top 5% of her class and was invited to join the Omicron Kappa Upsilon Honor Society. She received her pediatric dentistry and orthodontic specialty training at UCLA, and went on to become board certified in Pediatric Dentistry in 2007. For several years Dr. Planells held a Lecturer Faculty position at UCLA where she worked with the pediatric dental residents. During her free time Dr. Planells enjoys spending time outdoors with her husband and two daughters, cycling, and volunteering with the Girl Scouts of Greater LA.",
+      "education": "Bachelor Science, Biology- UCLA; Doctor of Dental Surgery (DDS) - UCLA School of Dentistry, Omicron Kappa Upsilon Honor Society (top 5% of class); Combined Pediatric Dentistry and Orthodontic Residency - UCLA School of Dentistry; Diplomate, American Board of Pediatric Dentistry",
+      "specialties": [
+        "Pediatric Dentistry",
+        "Orthodontics"
+      ],
+      "photoPath": "assets/images/img-dr-planells.jpg"
+    }
+  ],
+  "doctor": {
+    "name": "Dr. Cortez",
+    "firstName": "Cortez",
+    "lastName": "Cortez",
+    "credentials": "DDS",
+    "bio": "My practice philosophy is to provide the best possible dental care for children in a friendly environment and to advocate for the children's welfare in any way that I can. I enjoy seeing children who perhaps have been afraid of what we do for them, then develop trust and a positive attitude toward dentistry. After more than 35 years of continuous private practice, I still enjoy working with families every day and helping keep children in good oral health.\n\nAs a professional, there are a number of courses that I take each year in order to advance my skills in providing excellent care for my patients. It's about keeping abreast of the latest research and techniques in pediatric medicine and dentistry.\n\nI have been on the teaching staff of the University of Southern California School of Dentistry since 1980 and work with the Advanced Pediatric Dentistry Residency Program on a part-time basis. I have also participated on the medical staff at Miller Children's Hospital and Long Beach Memorial Medical Center. I have been on several committees there and have served on the governing board of directors for more than eight years.\n\nI enjoy working within communities, both locally and internationally. I work with Mission of Mercy-type dental clinics in California on behalf of the California Dental Association, and have participated in dental missions in many countries with the International Health Emissaries.\n\n\"I like to inspire and motivate my team members to enjoy what we do and to train them to help me deliver excellent care. I like the positive attitude and great energy that they bring to our team. They bring new ideas for discussion and are excited when we adopt and implement those ideas. I enjoy seeing them develop and grow personally and professionally. I encourage them to advance their skills through continuing education to develop their clinical skills as well as their customer service skills.\"",
+    "education": "Associate of Arts – Cerritos College, California State University-Long Beach; Doctorate of Dental Surgery – University of Southern California School of Dentistry; Certification in advanced pediatric dentistry – University of Southern California School of Dentistry; Certificate in hospital dentistry – Rancho Los Amigos Hospital-Downey, California; Certificate in cleft lip/palate rehabilitation – Rancho Los Amigos Hospital",
+    "specialties": [
+      "Pediatric Dentistry",
+      "Hospital Dentistry",
+      "Cleft Lip/Palate Rehabilitation",
+      "Orthodontics"
+    ],
+    "photoPath": "assets/images/img-dr-cortez.jpg"
+  },
+  "additionalDoctors": [
+    {
+      "name": "Dr. Gloria",
+      "firstName": "Gloria",
+      "lastName": "Gloria",
+      "credentials": "DDS",
+      "bio": "As a pediatric dentist, I have the opportunity to provide quality dental experiences for children. I feel passionate about giving children personalized care so they can achieve their most beautiful oral health. Being a mother myself, I strive to create a comfortable and gentle environment for the families.\n\nDuring my free time, I love spending time with my husband and 2 daughters. My hobbies include traveling, anything Disney, food, and reading.",
+      "education": "Bachelor of Arts: New York University; Doctorate of Dental Surgery: Columbia University; Certification of Advanced Pediatric Dentistry: Yale-New Haven Hospital; Diplomat of the American Board of Pediatric Dentistry",
+      "specialties": [
+        "Pediatric Dentistry",
+        "Orthodontics"
+      ],
+      "photoPath": "assets/images/Dr_Gloria.jpg"
+    },
+    {
+      "name": "Dr. Planells",
+      "firstName": "Planells",
+      "lastName": "Planells",
+      "credentials": "DDS",
+      "bio": "Dr. Planells has been in dental practice since 2004 when she joined Pediatric Dental Specialists as a recent graduate from the UCLA Combined Pediatric Dentistry and Orthodontic Program. She received her Doctor of Dental Surgery from UCLA, where she graduated in the top 5% of her class and was invited to join the Omicron Kappa Upsilon Honor Society. She received her pediatric dentistry and orthodontic specialty training at UCLA, and went on to become board certified in Pediatric Dentistry in 2007. For several years Dr. Planells held a Lecturer Faculty position at UCLA where she worked with the pediatric dental residents. During her free time Dr. Planells enjoys spending time outdoors with her husband and two daughters, cycling, and volunteering with the Girl Scouts of Greater LA.",
+      "education": "Bachelor Science, Biology- UCLA; Doctor of Dental Surgery (DDS) - UCLA School of Dentistry, Omicron Kappa Upsilon Honor Society (top 5% of class); Combined Pediatric Dentistry and Orthodontic Residency - UCLA School of Dentistry; Diplomate, American Board of Pediatric Dentistry",
+      "specialties": [
+        "Pediatric Dentistry",
+        "Orthodontics"
+      ],
+      "photoPath": "assets/images/img-dr-planells.jpg"
+    }
+  ],
+  "address": {
+    "street": "3320 N Los Coyotes Diagonal, Ste 200",
+    "city": "Long Beach",
+    "state": "CA",
+    "zip": "90808",
+    "country": "US",
+    "full": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808"
+  },
+  "hours": {
+    "display": [],
+    "raw": null
+  },
+  "services": {
+    "offered": [
+      {
+        "name": "First Dental Visit",
+        "slug": "first-dental-visit",
+        "category": "pediatric",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Silver Diamine Fluoride",
+        "slug": "silver-diamine-fluoride",
+        "category": "pediatric",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Dental Care For Your Baby",
+        "slug": "dental-care-for-your-baby",
+        "category": "pediatric",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Digit Sucking/Pacifier Use",
+        "slug": "digit-sucking-pacifier-use",
+        "category": "pediatric",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Dental Exams and Cleanings",
+        "slug": "dental-exams-and-cleanings",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Oral Cancer Screening",
+        "slug": "oral-cancer-screening",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Preventive Care",
+        "slug": "preventive-care",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Fluoride",
+        "slug": "fluoride",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Sealants",
+        "slug": "sealants",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Gum Disease",
+        "slug": "gum-disease",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Orthodontics",
+        "slug": "orthodontics",
+        "category": "orthodontic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Emergencies",
+        "slug": "emergencies",
+        "category": "emergency",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Retention",
+        "slug": "retention",
+        "category": "orthodontic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Orthodontic Emergency Care",
+        "slug": "orthodontic-emergency-care",
+        "category": "emergency",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Traumatic Dental Injuries",
+        "slug": "traumatic-dental-injuries",
+        "category": "emergency",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Tooth Pain",
+        "slug": "tooth-pain",
+        "category": "emergency",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Gum Emergencies",
+        "slug": "gum-emergencies",
+        "category": "emergency",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "First Days In Braces",
+        "slug": "first-days-in-braces",
+        "category": "orthodontic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Eating With Braces",
+        "slug": "eating-with-braces",
+        "category": "orthodontic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Oral Hygiene With Braces",
+        "slug": "oral-hygiene-with-braces",
+        "category": "orthodontic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Silver Diamine Fluoride (SDF)",
+        "slug": "silver-diamine-fluoride-sdf",
+        "category": "pediatric",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Dental Services",
+        "slug": "dental-services",
+        "category": "general",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Loose band or bracket repair",
+        "slug": "loose-band-or-bracket-repair",
+        "category": "orthodontic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Broken archwire repair",
+        "slug": "broken-archwire-repair",
+        "category": "orthodontic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Loose wire repair",
+        "slug": "loose-wire-repair",
+        "category": "orthodontic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Poking wire treatment",
+        "slug": "poking-wire-treatment",
+        "category": "orthodontic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Lost tie-wire or elastic tie replacement",
+        "slug": "lost-tie-wire-or-elastic-tie-replacement",
+        "category": "orthodontic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Headgear fitting",
+        "slug": "headgear-fitting",
+        "category": "orthodontic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Pediatric Dentistry",
+        "slug": "pediatric-dentistry",
+        "category": "pediatric",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Traditional Silver Braces",
+        "slug": "traditional-silver-braces",
+        "category": "orthodontic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Invisalign Teen",
+        "slug": "invisalign-teen",
+        "category": "orthodontic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Eating With Braces (dietary guidance)",
+        "slug": "eating-with-braces-dietary-guidance",
+        "category": "orthodontic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Orthodontic Consultation",
+        "slug": "orthodontic-consultation",
+        "category": "orthodontic",
+        "source": "scrape",
+        "confidence": 0.85
+      },
+      {
+        "name": "Braces",
+        "slug": "braces",
+        "category": "orthodontic",
+        "source": "scrape",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "brand": {
+    "colors": null,
+    "fonts": null,
+    "logoPath": "assets/images/logo.png"
+  },
+  "content": {
+    "heroTagline": "Guiding the Way to Optimal Oral Health",
+    "heroHeadline": "Guiding the Way to Optimal Oral Health",
+    "heroSubheadline": null,
+    "ctaText": null,
+    "ctaSecondaryText": null,
+    "valueProp": null,
+    "aboutText": "We strive to make your child's first dental visit an enjoyable one. Young children receive a personalized storybook in which their name appears throughout the story.",
+    "aboutHeadline": null,
+    "philosophy": null,
+    "closingCTA": null,
+    "testimonials": [
+      {
+        "text": "Everyone at your office is very friendly and professional, caring and understanding. Your work to accommodate children with special needs is highly commendable and appreciated tremendously.",
+        "author": "Andrew K.",
+        "stars": null
+      },
+      {
+        "text": "Dr. Cortez is amazing! His gentle nature makes going to the dentist a joy for both of our kids! The dental hygienists are quick and efficient with cleanings, so the kids are finished before even thinking about it. The office staff is amazing as well!",
+        "author": "Isabella L.",
+        "stars": null
+      },
+      {
+        "text": "Dr. Sanchez is a superb dentist who took the time to explain to my child exactly what she needed to do to maintain acceptable oral health. Words from a caring professional work better than 'nagging' from mom! Thank you!",
+        "author": "Elena M.",
+        "stars": null
+      }
+    ],
+    "faqs": [
+      {
+        "question": "What Is Orthodontics?",
+        "answer": "Orthodontics is the branch of dentistry that specializes in the diagnosis, prevention, and treatment of dental and facial irregularities. The technical ter"
+      },
+      {
+        "question": "Fact 1 - NO INSURANCE PAYS 100% OF ALL PROCEDURES",
+        "answer": null
+      },
+      {
+        "question": "Fact 2 - BENEFITS ARE NOT DETERMINED BY OUR OFFICE",
+        "answer": null
+      },
+      {
+        "question": "Fact 3 - DEDUCTIBLES & CO-PAYMENTS MUST BE CONSIDERED",
+        "answer": null
+      },
+      {
+        "question": "What should I use to clean my baby's teeth?",
+        "answer": "A toothbrush will remove plaque and bacteria that can lead to decay. Any soft-bristled toothbrush with a small head, preferably one designed"
+      },
+      {
+        "question": "What is Silver Diamine Fluoride (SDF)?",
+        "answer": "Silver diamine fluoride is an antimicrobial topical medicament used to slow down or arrest dental cavities in both primary and permanent teeth."
+      },
+      {
+        "question": "How does it work?",
+        "answer": "SDF is a clear liquid applied directly on exposed cavity with a microbrush or other technique. Cavities may slow or may be stopped through the free silver ion inactivation of bacterial metabolism and remineralization occurs through topical fluoride release."
+      },
+      {
+        "question": "How effective is SDF?",
+        "answer": "Limited clinical studies indicate that SDF is effective in 70% - 90% of treated teeth and reapplication at predetermined intervals increase effectiveness. Since SDF is not effective in all teeth, in all circumstances, follow-up evaluation by the dentist is necessary to determine when other interventions are indicated."
+      },
+      {
+        "question": "What are the benefits?",
+        "answer": "The benefits of SDF include its ease of application, effectiveness, and avoidance of intense interventions such as administration of local anesthesia, pharmacologic sedative management, and protective restraint in very young and special needs populations."
+      },
+      {
+        "question": "What are the side effects, risks and other considerations?",
+        "answer": "SDF will turn carious dentinal lesions a dark black color. This may be a concern to patients or parents, especially in the anterior dentition. If SDF comes in contact with the skin or oral mucosa, it will leave a temporary superficial stain or \"tattoo\" which will resolve in 2 to 14 days with the exfoliation of the superficial cell layer. Definite contraindication is a silver allergy. Relative contraindications include significant desquamative gingivitis, mucositis, or open mucosal lesion. Of concern is the potential assumption by the patient or parent that SDF is definitive care. Treated areas must be actively monitored by a dentist following SDF application. The pediatric dentist will review the risks and benefits of the use of SDF for your child."
+      }
+    ],
+    "generatedFAQs": [],
+    "stats": {
+      "yearsExperience": null,
+      "happyPatients": null,
+      "googleRating": null,
+      "fiveStarReviews": null
+    },
+    "insurance": [],
+    "generated": null
+  },
+  "additionalContent": [
+    {
+      "type": "patient-experience",
+      "title": null,
+      "content": "We strive to make your child's first dental visit an enjoyable one. Young children receive a personalized storybook in which their name appears throughout the story.",
+      "source": "/"
+    },
+    {
+      "type": "team",
+      "title": "Meet Our Team",
+      "content": "Our staff is a strong team of compassionate and highly trained individuals who are committed to lifelong good oral health for our patients. You will find each of them caring and knowledgeable. This team is made up of clerical and clinical staff. The clinical staff members are all registered dental assistants and are certified with coronal polishing and X-ray licenses by the Department of California – Department of Consumer Affairs. They take over 25 hours of continuing education to renew their licenses in a variety of areas, including CPR, dental emergencies and infection control. Many of our staff members, besides having the professional training, also possess the practical experience of being parents themselves.",
+      "source": "/meet-our-team.php"
+    },
+    {
+      "type": "team",
+      "title": "Michelle, Registered Dental Hygienist",
+      "content": "I have been in the dental field since 2000, all of which have been with Pediatric Dental Specialists. I began as a dental assistant and received my Registered Dental Assisting license in 2003. After some time working with children, I realized I had a passion for educating and guiding children into a life of developing good oral health habits. That passion led me to pursue a degree in dental hygiene and I have been practicing as a licensed dental hygienist since 2013. Teaching the importance of oral hygiene and being able to watch one child after the other improve and transform has been a very rewarding experience. There are many activities that I enjoy outside of work, but spending time with my family and close friends is what I enjoy the most. Professional Organizations: American Dental Hygiene Association, California Dental Hygiene Association, Orange County Dental Hygiene Association.",
+      "source": "/meet-our-team.php"
+    },
+    {
+      "type": "team",
+      "title": "Julie, Treatment Coordinator",
+      "content": "I've been part of our team for over 35 years, and am still loving it! I started out as a Registered Dental Assistant with Dr. Cortez and moved on to a clerical position as a Treatment Plan Coordinator and most recently also as the Anesthesia Treatment Coordinator. I assist families with their treatment needs and review options in a helpful, and caring manner. Having worked in both areas of our practice has given me the ability to effectively communicate with our families and children. On a personal note, I love spending time with my husband Greg, my son David, my family, my friends and my church. I enjoy sports (especially football), spending time at the beach, being creative, and traveling when I can!",
+      "source": "/meet-our-team.php"
+    },
+    {
+      "type": "team",
+      "title": "Heather, Orthodontic Treatment Coordinator",
+      "content": "I have been in the dental field since 1995 and became a licensed registered dental assistant in 1996. Before discovering my love for working with children, I worked in adult dentistry. In October 1997, I was blessed to join the Pediatric Dental Specialists team. Throughout the years I've been given many opportunities to increase my knowledge of practice systems, dental management software, and technology platforms. My passion and enthusiasm has lead me to taking on challenges such as a self-taught knowledge of networking, computer skills, and ultimately heading the conversion of our office going into a digital environment. Currently, I am the Orthodontic Treatment Coordinator and continue to grow and learn day after day. My interests in my private life are centered around a creative nature and my two children. I love fashion, interior design, and photography. I'm also a huge music fan and love to go out dancing or catch a live music show.",
+      "source": "/meet-our-team.php"
+    },
+    {
+      "type": "team",
+      "title": "Liz, Registered Dental Assistant",
+      "content": "As a registered dental assistant in the orthodontic department, I have over 23 years of experience in the dental filed, 18 of those working with children. Throughout this time I have broadened my experience with sedation dentistry and orthodontics. I have enjoyed incorporating the technological upgrades our office has undertaken such as paperless charts, digital x-rays, digital impressions. I value professionalism and reliability and extend this to the families that we serve. Being sensitive to our patients' individual needs helps create a unique experience for each.",
+      "source": "/meet-our-team.php"
+    },
+    {
+      "type": "team",
+      "title": "Nancy, Financial Coordinator",
+      "content": "As a Treatment Coordinator in our office I have over 15 years experience in the dental field. When you come to our office you may see me as you check-out from your dental appointments or behind the front desk greeting you as you arrive. I am also able to help you with your orthodontic needs. I stay up to date with current dental trends and changes that may affect our patients by attending annual continuing dental educations classes or watching online webinars. I am passionate about the needs and goals of our patients and families. I enjoy greeting families and developing relationships with each person, especially the children. In my free time I enjoy s",
+      "source": "/meet-our-team.php"
+    },
+    {
+      "type": "philosophy",
+      "title": "Meet Dr. Cortez",
+      "content": "My practice philosophy is to provide the best possible dental care for children in a friendly environment and to advocate for the children's welfare in any way that I can. I enjoy seeing children who perhaps have been afraid of what we do for them, then develop trust and a positive attitude toward dentistry. After more than 35 years of continuous private practice, I still enjoy working with families every day and helping keep children in good oral health.",
+      "source": "/meet-dr-cortez.php"
+    },
+    {
+      "type": "community",
+      "title": null,
+      "content": "I enjoy working within communities, both locally and internationally. I work with Mission of Mercy-type dental clinics in California on behalf of the California Dental Association, and have participated in dental missions in many countries with the International Health Emissaries.",
+      "source": "/meet-dr-cortez.php"
+    },
+    {
+      "type": "team",
+      "title": null,
+      "content": "I have been on the teaching staff of the University of Southern California School of Dentistry since 1980 and work with the Advanced Pediatric Dentistry Residency Program on a part-time basis. I have also participated on the medical staff at Miller Children's Hospital and Long Beach Memorial Medical Center. I have been on several committees there and have served on the governing board of directors for more than eight years.",
+      "source": "/meet-dr-cortez.php"
+    },
+    {
+      "type": "pullquote",
+      "title": null,
+      "content": "\"I like to inspire and motivate my team members to enjoy what we do and to train them to help me deliver excellent care. I like the positive attitude and great energy that they bring to our team. They bring new ideas for discussion and are excited when we adopt and implement those ideas. I enjoy seeing them develop and grow personally and professionally. I encourage them to advance their skills through continuing education to develop their clinical skills as well as their customer service skills.\"",
+      "source": "/meet-dr-cortez.php"
+    },
+    {
+      "type": "patient-experience",
+      "title": "Share Your Experience with Us",
+      "content": "See our practice through the eyes of our patients! Share your experiences with Pediatric Dental Specialists using the hashtag #PDSLongBeach",
+      "source": "/meet-dr-cortez.php"
+    },
+    {
+      "type": "team",
+      "title": "Meet Dr. Planells",
+      "content": "Dr. Planells has been in dental practice since 2004 when she joined Pediatric Dental Specialists as a recent graduate from the UCLA Combined Pediatric Dentistry and Orthodontic Program. She received her Doctor of Dental Surgery from UCLA, where she graduated in the top 5% of her class and was invited to join the Omicron Kappa Upsilon Honor Society. She received her pediatric dentistry and orthodontic specialty training at UCLA, and went on to become board certified in Pediatric Dentistry in 2007. For several years Dr. Planells held a Lecturer Faculty position at UCLA where she worked with the pediatric dental residents. During her free time Dr. Planells enjoys spending time outdoors with her husband and two daughters, cycling, and volunteering with the Girl Scouts of Greater LA.",
+      "source": "/meet-dr-planells.php"
+    },
+    {
+      "type": "awards",
+      "title": "Education:",
+      "content": "Bachelor Science, Biology- UCLA\nDoctor of Dental Surgery (DDS) - UCLA School of Dentistry, Omicron Kappa Upsilon Honor Society (top 5% of class)\nCombined Pediatric Dentistry and Orthodontic Residency - UCLA School of Dentistry\nDiplomate, American Board of Pediatric Dentistry",
+      "source": "/meet-dr-planells.php"
+    },
+    {
+      "type": "membership",
+      "title": "Professional Organizations:",
+      "content": "American Association of Orthodontists\nAmerican Dental Association\nCalifornia Dental Association\nPacific Coast Society of Orthodontists\nHarbor Dental Society\nCalifornia Society of Pediatric Dentistry\nAmerican Academy of Pediatric Dentistry",
+      "source": "/meet-dr-planells.php"
+    },
+    {
+      "type": "team",
+      "title": "Meet Dr. Gloria",
+      "content": "As a pediatric dentist, I have the opportunity to provide quality dental experiences for children. I feel passionate about giving children personalized care so they can achieve their most beautiful oral health. Being a mother myself, I strive to create a comfortable and gentle environment for the families.\n\nDuring my free time, I love spending time with my husband and 2 daughters. My hobbies include traveling, anything Disney, food, and reading.",
+      "source": "/meet-dr-gloria.php"
+    },
+    {
+      "type": "team",
+      "title": "Education",
+      "content": "Bachelor of Arts: New York University\nDoctorate of Dental Surgery: Columbia University\nCertification of Advanced Pediatric Dentistry: Yale-New Haven Hospital\nDiplomat of the American Board of Pediatric Dentistry",
+      "source": "/meet-dr-gloria.php"
+    },
+    {
+      "type": "team",
+      "title": "Professional Organizations",
+      "content": "American Dental Association\nAmerican Academy of Pediatric Dentistry\nAmerican Board of Pediatric Dentistry\nCalifornia Dental Association\nCalifornia Society of Pediatric Dentistry\nHarbor Dental Society",
+      "source": "/meet-dr-gloria.php"
+    },
+    {
+      "type": "patient-experience",
+      "title": "Website Accessibility Statement",
+      "content": "We are continuously working to improve the accessibility of content on our website. Below, you'll find a few recommendations to help make your browsing experience more accessible.",
+      "source": "/website-accessibility-statement.php"
+    },
+    {
+      "type": "specialty-deep-dive",
+      "title": "Common Orthodontic Problems",
+      "content": "Class II problems represent an abnormal bite relation",
+      "source": "/common-orthodontic-problems.php"
+    },
+    {
+      "type": "specialty-deep-dive",
+      "title": "Common Orthodontic Questions",
+      "content": "What Is Orthodontics? Orthodontics is the branch of dentistry that specializes in the diagnosis, prevention, and treatment of dental and facial irregularities. The technical ter",
+      "source": "/common-orthodontic-questions.php"
+    },
+    {
+      "type": "patient-experience",
+      "title": "Introductory Information",
+      "content": "Introductory Information Child's First Name Child's Last Name * Middle Initial Nickname Gender Male Female Other If Other Home Address City State Zip Date of Birth Age Child resides with Relationship to child Preferred contact phone number (with area code) Type Work Home Cell By providing your cell phone number, you consent to being contacted at that number by our practice and our representatives regarding treatment and your account. Initials Are there any siblings in the Practice? Yes No Names Parent Information Parent 1/Legal Guardian: Date of Birth Residence Address (if different from child City State",
+      "source": "/form-introductory-english.php"
+    },
+    {
+      "type": "financing-detail",
+      "title": "Orthodontic Financial Arrangements",
+      "content": "Cost of orthodontic treatments varies depending on insurance & financial standing. We work with you to create a payment plan that fits your budget.",
+      "source": "/financial-information.php"
+    },
+    {
+      "type": "financing-detail",
+      "title": "Facts About Dental Insurance",
+      "content": "Fact 1 - NO INSURANCE PAYS 100% OF ALL PROCEDURES\nFact 2 - BENEFITS ARE NOT DETERMINED BY OUR OFFICE\nFact 3 - DEDUCTIBLES & CO-PAYMENTS MUST BE CONSIDERED",
+      "source": "/financial-information.php"
+    },
+    {
+      "type": "specialty-deep-dive",
+      "title": "Retention",
+      "content": "Because teeth can continue to move throughout life, we feel that individuals who have undergone orthodontic therapy should wear retainers indefinitely. A patient should wear retainers as prescribe",
+      "source": "/retention.php"
+    },
+    {
+      "type": "patient-experience",
+      "title": null,
+      "content": "It is imperative that the retainers are worn as instructed to maintain retention. Not doing so may result in undesirable movement of the teeth.",
+      "source": "/retention.php"
+    },
+    {
+      "type": "specialty-deep-dive",
+      "title": "Pediatric Dental FAQs",
+      "content": "What should I use to clean my baby's teeth? A toothbrush will remove plaque and bacteria that can lead to decay. Any soft-bristled toothbrush with a small head, preferably one designed",
+      "source": "/pediatric-dental-faqs.php"
+    }
+  ],
+  "images": {
+    "logo": "assets/images/logo.png",
+    "hero": [
+      "assets/images/banner01.jpg",
+      "assets/images/banner02.jpg",
+      "assets/images/banner03.jpg",
+      "assets/images/banner04.jpg",
+      "assets/images/banner05.jpg",
+      "assets/images/banner06.jpg",
+      "assets/images/banner07.jpg",
+      "assets/images/banner08.jpg",
+      "assets/images/banner09.jpg",
+      "https://www.lbpds.net/assets/images/banner01.jpg",
+      "https://www.lbpds.net/assets/images/banner02.jpg",
+      "https://www.lbpds.net/assets/images/banner03.jpg",
+      "https://www.lbpds.net/assets/images/banner04.jpg",
+      "https://www.lbpds.net/assets/images/banner05.jpg",
+      "https://www.lbpds.net/assets/images/banner06.jpg",
+      "https://www.lbpds.net/assets/images/banner07.jpg",
+      "https://www.lbpds.net/assets/images/banner08.jpg",
+      "https://www.lbpds.net/assets/images/banner09.jpg",
+      "https://www.lbpds.net/assets/images/pdf-header.jpg"
+    ],
+    "team": [
+      "assets/images/Dr_Sanchez-retire.jpg",
+      "assets/images/welcome-thumbnail.png",
+      "assets/images/michelle.jpg",
+      "assets/images/julie.jpg",
+      "assets/images/heather.jpg",
+      "assets/images/liz.jpg",
+      "assets/images/nancy.jpg",
+      "assets/images/img-dr-cortez.jpg",
+      "assets/images/img-dr-planells.jpg",
+      "assets/images/Dr_Gloria.jpg",
+      "assets/images/img-what-sets-us-apart.jpg",
+      "assets/images/img-appointment-request.jpg"
+    ],
+    "office": [
+      "assets/images/img-dental-exams-and-cleanings.jpg",
+      "assets/images/office-tour/image-01.jpg",
+      "assets/images/office-tour/image-02.jpg",
+      "assets/images/office-tour/image-03.jpg",
+      "assets/images/office-tour/image-04.jpg",
+      "assets/images/office-tour/image-05.jpg"
+    ],
+    "gallery": [
+      "assets/images/dentistry-thumbnail.png",
+      "assets/images/set-part-thumbnail.png",
+      "assets/images/care-thumbnail.png",
+      "assets/images/thumbnail-1.png",
+      "assets/images/thumbnail-2.png",
+      "assets/images/thumbnail-3.png",
+      "assets/images/thumbnail-4.png",
+      "assets/images/img-financial.jpg",
+      "https://sandbox2.solutionsbydesign.com/ortho-module/common-problems/common-classii.png",
+      "https://sandbox2.solutionsbydesign.com/ortho-module/common-problems/common-classiii.png",
+      "https://sandbox2.solutionsbydesign.com/ortho-module/common-problems/pseudo-class-iii.png",
+      "https://sandbox2.solutionsbydesign.com/ortho-module/common-problems/common-crowding.png",
+      "https://sandbox2.solutionsbydesign.com/ortho-module/common-problems/common-spacing.png",
+      "assets/images/thumb-jessica.jpg",
+      "assets/images/img-retention.jpg",
+      "assets/images/img-pediatric-dental-faqs.jpg",
+      "assets/images/img-dental-care-for-your-baby.jpg",
+      "assets/images/emergencies.jpg",
+      "assets/images/img-first-days-in-braces.jpg",
+      "assets/images/img-thumb-sucking.jpg",
+      "assets/images/img-preventative-care.jpg",
+      "https://sandbox2.solutionsbydesign.com/ortho-module/choose-your-look/traditional-metal.jpg",
+      "https://sandbox2.solutionsbydesign.com/ortho-module/choose-your-look/invisalign-teen.jpg",
+      "assets/images/img-choose-your-look.jpg",
+      "assets/images/img-teen-eating.jpg",
+      "assets/images/img-fluoride.jpg",
+      "assets/images/img-right-age.jpg"
+    ],
+    "beforeAfter": []
+  },
+  "migration": {
+    "oldUrls": [],
+    "redirectMap": []
+  },
+  "meta": {
+    "oldSiteUrl": "https://www.lbpds.net",
+    "scrapedAt": "2026-05-04T20:24:59.494Z",
+    "intakeSource": "ai-silver",
+    "clientId": null,
+    "confidenceFlags": []
+  },
+  "differentiators": [
+    {
+      "type": "patient_perk",
+      "label": "Personalized storybook for young child patients",
+      "detail": "Young children receive a personalized storybook in which their name appears throughout the story.",
+      "source": "/",
+      "confidence": 0.9
+    },
+    {
+      "type": "technology",
+      "label": "Paperless charts, digital x-rays, digital impressions",
+      "detail": "Office has undertaken technological upgrades including paperless charts, digital x-rays, and digital impressions.",
+      "source": "/meet-our-team.php",
+      "confidence": 0.9
+    },
+    {
+      "type": "staff_note",
+      "label": "Staff complete 25+ hours continuing education annually",
+      "detail": "Clinical staff take over 25 hours of continuing education in areas including CPR, dental emergencies, and infection control.",
+      "source": "/meet-our-team.php",
+      "confidence": 0.95
+    },
+    {
+      "type": "staff_note",
+      "label": "Many staff members are parents themselves",
+      "detail": "Many staff members possess the practical experience of being parents themselves, in addition to professional training.",
+      "source": "/meet-our-team.php",
+      "confidence": 0.85
+    },
+    {
+      "type": "staff_note",
+      "label": "USC School of Dentistry teaching staff since 1980",
+      "detail": "Dr. Cortez has been on the teaching staff of the University of Southern California School of Dentistry since 1980.",
+      "source": "/meet-dr-cortez.php",
+      "confidence": 0.95
+    },
+    {
+      "type": "staff_note",
+      "label": "35+ years continuous private practice in pediatric dentistry",
+      "detail": "Dr. Cortez has more than 35 years of continuous private practice in pediatric dentistry.",
+      "source": "/meet-dr-cortez.php",
+      "confidence": 0.95
+    },
+    {
+      "type": "unique_feature",
+      "label": "International dental missions with Health Emissaries",
+      "detail": "Dr. Cortez has participated in dental missions in many countries with the International Health Emissaries.",
+      "source": "/meet-dr-cortez.php",
+      "confidence": 0.85
+    },
+    {
+      "type": "membership",
+      "label": "Member of American Academy of Pediatric Dentistry",
+      "detail": "Professional organizations include ADA, AAPD, California Society of Pediatric Dentistry, California Dental Association, and Harbor Dental Society.",
+      "source": "/meet-dr-cortez.php",
+      "confidence": 0.9
+    },
+    {
+      "type": "staff_note",
+      "label": "Accommodates children with special needs",
+      "detail": "Patient testimonial highlights the practice's work accommodating children with special needs.",
+      "source": "/meet-dr-cortez.php",
+      "confidence": 0.8
+    },
+    {
+      "type": "award",
+      "label": "Board certified in Pediatric Dentistry since 2007",
+      "detail": "Dr. Planells became board certified in Pediatric Dentistry in 2007.",
+      "source": "/meet-dr-planells.php",
+      "confidence": 0.95
+    },
+    {
+      "type": "staff_note",
+      "label": "UCLA faculty lecturer in pediatric dental residency",
+      "detail": "Dr. Planells held a Lecturer Faculty position at UCLA working with pediatric dental residents.",
+      "source": "/meet-dr-planells.php",
+      "confidence": 0.9
+    },
+    {
+      "type": "award",
+      "label": "UCLA Omicron Kappa Upsilon Honor Society, top 5% of class",
+      "detail": "Dr. Planells graduated in the top 5% of her UCLA DDS class and was invited to join the Omicron Kappa Upsilon Honor Society.",
+      "source": "/meet-dr-planells.php",
+      "confidence": 0.95
+    },
+    {
+      "type": "unique_feature",
+      "label": "Accommodates children with special needs",
+      "detail": "Patient testimonial highlights the practice's work to accommodate children with special needs.",
+      "source": "/meet-dr-planells.php",
+      "confidence": 0.8
+    },
+    {
+      "type": "staff_note",
+      "label": "Diplomat of the American Board of Pediatric Dentistry",
+      "detail": "Dr. Gloria holds board certification from the American Board of Pediatric Dentistry.",
+      "source": "/meet-dr-gloria.php",
+      "confidence": 0.9
+    },
+    {
+      "type": "unique_feature",
+      "label": "Care for children with special needs",
+      "detail": "Patient testimonial highlights the practice's commendable work accommodating children with special needs.",
+      "source": "/meet-dr-gloria.php",
+      "confidence": 0.8
+    },
+    {
+      "type": "unique_feature",
+      "label": "WCAG 2.0 AA website accessibility compliance",
+      "detail": "The practice is actively working to meet WCAG 2.0 Levels A and AA accessibility standards on their website.",
+      "source": "/website-accessibility-statement.php",
+      "confidence": 0.75
+    },
+    {
+      "type": "language",
+      "label": "Introductory forms available in English",
+      "detail": "The practice provides an English-language introductory patient intake form.",
+      "source": "/form-introductory-english.php",
+      "confidence": 0.75
+    },
+    {
+      "type": "financing",
+      "label": "Custom payment plans to fit your budget",
+      "detail": "The practice works with patients to create payment plans based on insurance and financial standing.",
+      "source": "/financial-information.php",
+      "confidence": 0.85
+    },
+    {
+      "type": "unique_feature",
+      "label": "Indefinite retainer wear recommended post-orthodontics",
+      "detail": "Practice philosophy emphasizes lifelong retainer use because teeth can continue to move throughout life.",
+      "source": "/retention.php",
+      "confidence": 0.75
+    },
+    {
+      "type": "emergency",
+      "label": "Emergency dental care for children available",
+      "detail": "The practice provides guidance and care for traumatic dental injuries, tooth pain, and gum emergencies.",
+      "source": "/emergencies.php",
+      "confidence": 0.85
+    },
+    {
+      "type": "patient_perk",
+      "label": "SDF treatment avoids local anesthesia and sedation",
+      "detail": "Silver Diamine Fluoride allows conservative cavity treatment avoiding local anesthesia, pharmacologic sedative management, and protective restraint for young and special needs patients.",
+      "source": "/silver-diamine-fluoride.php",
+      "confidence": 0.85
+    },
+    {
+      "type": "unique_feature",
+      "label": "Silver Diamine Fluoride 70–90% effective in treated teeth",
+      "detail": "Limited clinical studies indicate that SDF is effective in 70% - 90% of treated teeth and reapplication at predetermined intervals increases effectiveness.",
+      "source": "/silver-diamine-fluoride.php",
+      "confidence": 0.8
+    },
+    {
+      "type": "emergency",
+      "label": "Orthodontic emergency care guidance provided to patients",
+      "detail": "Practice informs patients how to handle orthodontic emergencies temporarily until they can return to the office.",
+      "source": "/orthodontic-emergency-care.php",
+      "confidence": 0.8
+    },
+    {
+      "type": "unique_feature",
+      "label": "Pediatric dentistry and orthodontics under one roof",
+      "detail": "All child dental needs including orthodontics handled at one practice location.",
+      "source": "/what-sets-us-apart.php",
+      "confidence": 0.9
+    },
+    {
+      "type": "patient_perk",
+      "label": "Special visit experience for child patients",
+      "detail": "Practice emphasizes making each child's visit special.",
+      "source": "/what-sets-us-apart.php",
+      "confidence": 0.75
+    },
+    {
+      "type": "staff_note",
+      "label": "Three doctors with specialized training and experience",
+      "detail": "Multiple doctors with years of education, hands-on training, and experience in pediatric dentistry and orthodontics.",
+      "source": "/what-sets-us-apart.php",
+      "confidence": 0.8
+    },
+    {
+      "type": "unique_feature",
+      "label": "Care for patients with special healthcare needs",
+      "detail": "Practice serves children, teens, and patients with special healthcare needs.",
+      "source": "/what-sets-us-apart.php",
+      "confidence": 0.95
+    },
+    {
+      "type": "staff_note",
+      "label": "ADA-recommended biannual exams and cleanings offered",
+      "detail": "Practice follows American Dental Association recommendation of visits every six months.",
+      "source": "/dental-exams-and-cleanings.php",
+      "confidence": 0.75
+    },
+    {
+      "type": "technology",
+      "label": "Nickel-free high-grade steel traditional braces",
+      "detail": "Traditional silver braces are made of nickel-free high-grade steel, described as smaller and more comfortable.",
+      "source": "/choose-your-look.php",
+      "confidence": 0.75
+    },
+    {
+      "type": "unique_feature",
+      "label": "Invisalign Teen orthodontic option available",
+      "detail": "Practice offers Invisalign Teen as an alternative to traditional braces.",
+      "source": "/choose-your-look.php",
+      "confidence": 0.85
+    },
+    {
+      "type": "unique_feature",
+      "label": "Silver Diamine Fluoride treatment offered for pediatric patients",
+      "detail": "Silver Diamine Fluoride is listed as a distinct dental service for pediatric patients.",
+      "source": "/fluoride.php",
+      "confidence": 0.8
+    },
+    {
+      "type": "unique_feature",
+      "label": "Holistic approach including oral cancer screening",
+      "detail": "The practice takes a holistic approach to dental care that includes oral cancer screening as part of routine visits.",
+      "source": "/oral-cancer-screening.php",
+      "confidence": 0.8
+    },
+    {
+      "type": "technology",
+      "label": "Latest orthodontic techniques used for patient care",
+      "detail": "The practice is committed to providing patients with the latest orthodontic techniques while delivering the utmost in personal care.",
+      "source": "/office-tour.php",
+      "confidence": 0.75
+    }
+  ],
+  "signals": [
+    {
+      "type": "patient_perk",
+      "label": "Personalized storybook for young child patients",
+      "detail": "Young children receive a personalized storybook in which their name appears throughout the story.",
+      "source": "/",
+      "confidence": 0.9
+    },
+    {
+      "type": "technology",
+      "label": "Paperless charts, digital x-rays, digital impressions",
+      "detail": "Office has undertaken technological upgrades including paperless charts, digital x-rays, and digital impressions.",
+      "source": "/meet-our-team.php",
+      "confidence": 0.9
+    },
+    {
+      "type": "staff_note",
+      "label": "Staff complete 25+ hours continuing education annually",
+      "detail": "Clinical staff take over 25 hours of continuing education in areas including CPR, dental emergencies, and infection control.",
+      "source": "/meet-our-team.php",
+      "confidence": 0.95
+    },
+    {
+      "type": "staff_note",
+      "label": "Many staff members are parents themselves",
+      "detail": "Many staff members possess the practical experience of being parents themselves, in addition to professional training.",
+      "source": "/meet-our-team.php",
+      "confidence": 0.85
+    },
+    {
+      "type": "staff_note",
+      "label": "USC School of Dentistry teaching staff since 1980",
+      "detail": "Dr. Cortez has been on the teaching staff of the University of Southern California School of Dentistry since 1980.",
+      "source": "/meet-dr-cortez.php",
+      "confidence": 0.95
+    },
+    {
+      "type": "staff_note",
+      "label": "35+ years continuous private practice in pediatric dentistry",
+      "detail": "Dr. Cortez has more than 35 years of continuous private practice in pediatric dentistry.",
+      "source": "/meet-dr-cortez.php",
+      "confidence": 0.95
+    },
+    {
+      "type": "unique_feature",
+      "label": "International dental missions with Health Emissaries",
+      "detail": "Dr. Cortez has participated in dental missions in many countries with the International Health Emissaries.",
+      "source": "/meet-dr-cortez.php",
+      "confidence": 0.85
+    },
+    {
+      "type": "membership",
+      "label": "Member of American Academy of Pediatric Dentistry",
+      "detail": "Professional organizations include ADA, AAPD, California Society of Pediatric Dentistry, California Dental Association, and Harbor Dental Society.",
+      "source": "/meet-dr-cortez.php",
+      "confidence": 0.9
+    },
+    {
+      "type": "staff_note",
+      "label": "Accommodates children with special needs",
+      "detail": "Patient testimonial highlights the practice's work accommodating children with special needs.",
+      "source": "/meet-dr-cortez.php",
+      "confidence": 0.8
+    },
+    {
+      "type": "award",
+      "label": "Board certified in Pediatric Dentistry since 2007",
+      "detail": "Dr. Planells became board certified in Pediatric Dentistry in 2007.",
+      "source": "/meet-dr-planells.php",
+      "confidence": 0.95
+    },
+    {
+      "type": "staff_note",
+      "label": "UCLA faculty lecturer in pediatric dental residency",
+      "detail": "Dr. Planells held a Lecturer Faculty position at UCLA working with pediatric dental residents.",
+      "source": "/meet-dr-planells.php",
+      "confidence": 0.9
+    },
+    {
+      "type": "award",
+      "label": "UCLA Omicron Kappa Upsilon Honor Society, top 5% of class",
+      "detail": "Dr. Planells graduated in the top 5% of her UCLA DDS class and was invited to join the Omicron Kappa Upsilon Honor Society.",
+      "source": "/meet-dr-planells.php",
+      "confidence": 0.95
+    },
+    {
+      "type": "unique_feature",
+      "label": "Accommodates children with special needs",
+      "detail": "Patient testimonial highlights the practice's work to accommodate children with special needs.",
+      "source": "/meet-dr-planells.php",
+      "confidence": 0.8
+    },
+    {
+      "type": "staff_note",
+      "label": "Diplomat of the American Board of Pediatric Dentistry",
+      "detail": "Dr. Gloria holds board certification from the American Board of Pediatric Dentistry.",
+      "source": "/meet-dr-gloria.php",
+      "confidence": 0.9
+    },
+    {
+      "type": "unique_feature",
+      "label": "Care for children with special needs",
+      "detail": "Patient testimonial highlights the practice's commendable work accommodating children with special needs.",
+      "source": "/meet-dr-gloria.php",
+      "confidence": 0.8
+    },
+    {
+      "type": "unique_feature",
+      "label": "WCAG 2.0 AA website accessibility compliance",
+      "detail": "The practice is actively working to meet WCAG 2.0 Levels A and AA accessibility standards on their website.",
+      "source": "/website-accessibility-statement.php",
+      "confidence": 0.75
+    },
+    {
+      "type": "language",
+      "label": "Introductory forms available in English",
+      "detail": "The practice provides an English-language introductory patient intake form.",
+      "source": "/form-introductory-english.php",
+      "confidence": 0.75
+    },
+    {
+      "type": "financing",
+      "label": "Custom payment plans to fit your budget",
+      "detail": "The practice works with patients to create payment plans based on insurance and financial standing.",
+      "source": "/financial-information.php",
+      "confidence": 0.85
+    },
+    {
+      "type": "unique_feature",
+      "label": "Indefinite retainer wear recommended post-orthodontics",
+      "detail": "Practice philosophy emphasizes lifelong retainer use because teeth can continue to move throughout life.",
+      "source": "/retention.php",
+      "confidence": 0.75
+    },
+    {
+      "type": "emergency",
+      "label": "Emergency dental care for children available",
+      "detail": "The practice provides guidance and care for traumatic dental injuries, tooth pain, and gum emergencies.",
+      "source": "/emergencies.php",
+      "confidence": 0.85
+    },
+    {
+      "type": "patient_perk",
+      "label": "SDF treatment avoids local anesthesia and sedation",
+      "detail": "Silver Diamine Fluoride allows conservative cavity treatment avoiding local anesthesia, pharmacologic sedative management, and protective restraint for young and special needs patients.",
+      "source": "/silver-diamine-fluoride.php",
+      "confidence": 0.85
+    },
+    {
+      "type": "unique_feature",
+      "label": "Silver Diamine Fluoride 70–90% effective in treated teeth",
+      "detail": "Limited clinical studies indicate that SDF is effective in 70% - 90% of treated teeth and reapplication at predetermined intervals increases effectiveness.",
+      "source": "/silver-diamine-fluoride.php",
+      "confidence": 0.8
+    },
+    {
+      "type": "emergency",
+      "label": "Orthodontic emergency care guidance provided to patients",
+      "detail": "Practice informs patients how to handle orthodontic emergencies temporarily until they can return to the office.",
+      "source": "/orthodontic-emergency-care.php",
+      "confidence": 0.8
+    },
+    {
+      "type": "unique_feature",
+      "label": "Pediatric dentistry and orthodontics under one roof",
+      "detail": "All child dental needs including orthodontics handled at one practice location.",
+      "source": "/what-sets-us-apart.php",
+      "confidence": 0.9
+    },
+    {
+      "type": "patient_perk",
+      "label": "Special visit experience for child patients",
+      "detail": "Practice emphasizes making each child's visit special.",
+      "source": "/what-sets-us-apart.php",
+      "confidence": 0.75
+    },
+    {
+      "type": "staff_note",
+      "label": "Three doctors with specialized training and experience",
+      "detail": "Multiple doctors with years of education, hands-on training, and experience in pediatric dentistry and orthodontics.",
+      "source": "/what-sets-us-apart.php",
+      "confidence": 0.8
+    },
+    {
+      "type": "unique_feature",
+      "label": "Care for patients with special healthcare needs",
+      "detail": "Practice serves children, teens, and patients with special healthcare needs.",
+      "source": "/what-sets-us-apart.php",
+      "confidence": 0.95
+    },
+    {
+      "type": "staff_note",
+      "label": "ADA-recommended biannual exams and cleanings offered",
+      "detail": "Practice follows American Dental Association recommendation of visits every six months.",
+      "source": "/dental-exams-and-cleanings.php",
+      "confidence": 0.75
+    },
+    {
+      "type": "technology",
+      "label": "Nickel-free high-grade steel traditional braces",
+      "detail": "Traditional silver braces are made of nickel-free high-grade steel, described as smaller and more comfortable.",
+      "source": "/choose-your-look.php",
+      "confidence": 0.75
+    },
+    {
+      "type": "unique_feature",
+      "label": "Invisalign Teen orthodontic option available",
+      "detail": "Practice offers Invisalign Teen as an alternative to traditional braces.",
+      "source": "/choose-your-look.php",
+      "confidence": 0.85
+    },
+    {
+      "type": "unique_feature",
+      "label": "Silver Diamine Fluoride treatment offered for pediatric patients",
+      "detail": "Silver Diamine Fluoride is listed as a distinct dental service for pediatric patients.",
+      "source": "/fluoride.php",
+      "confidence": 0.8
+    },
+    {
+      "type": "unique_feature",
+      "label": "Holistic approach including oral cancer screening",
+      "detail": "The practice takes a holistic approach to dental care that includes oral cancer screening as part of routine visits.",
+      "source": "/oral-cancer-screening.php",
+      "confidence": 0.8
+    },
+    {
+      "type": "technology",
+      "label": "Latest orthodontic techniques used for patient care",
+      "detail": "The practice is committed to providing patients with the latest orthodontic techniques while delivering the utmost in personal care.",
+      "source": "/office-tour.php",
+      "confidence": 0.75
+    }
+  ],
+  "pageInventory": [
+    {
+      "url": "https://www.lbpds.net/",
+      "path": "/",
+      "title": "Home | Long Beach, CA 90808",
+      "metaDesc": "Welcome to Pediatric Dental Specialists located in Long Beach, California! We consider dental health to be an integral part of overall good health.",
+      "h1": "Welcome toPediatric Dental Specialists",
+      "h2s": [
+        "Get Started"
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 1073,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Pediatric Dentistry We strive to make your child’s first dental visit an enjoyable one. Young children receive a personalized storybook in which their name appears throughout the story. What Sets Us Apart Our qualified professional team is dedicated to guiding our patients to obtain optimal oral health in a nurturing and friendly environment. Orthodontic Care Orthodontists today can correct most problems regardless of the patient’s age. But that does not mean that the orthodontic treatment starting age does not matter. Welcome toPediatric Dental Specialists Welcome Dr. Gloria and Happy Retirement Dr. Sanchez! Dear Parents & Patients of Pediatric Dental Specialists, After 39 years in practice and 2"
+    },
+    {
+      "url": "https://www.lbpds.net/index.php",
+      "path": "/index.php",
+      "title": "Home | Long Beach, CA 90808",
+      "metaDesc": "Welcome to Pediatric Dental Specialists located in Long Beach, California! We consider dental health to be an integral part of overall good health.",
+      "h1": "Welcome toPediatric Dental Specialists",
+      "h2s": [
+        "Get Started"
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 1073,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Pediatric Dentistry We strive to make your child’s first dental visit an enjoyable one. Young children receive a personalized storybook in which their name appears throughout the story. What Sets Us Apart Our qualified professional team is dedicated to guiding our patients to obtain optimal oral health in a nurturing and friendly environment. Orthodontic Care Orthodontists today can correct most problems regardless of the patient’s age. But that does not mean that the orthodontic treatment starting age does not matter. Welcome toPediatric Dental Specialists Welcome Dr. Gloria and Happy Retirement Dr. Sanchez! Dear Parents & Patients of Pediatric Dental Specialists, After 39 years in practice and 2"
+    },
+    {
+      "url": "https://www.lbpds.net/what-sets-us-apart.php",
+      "path": "/what-sets-us-apart.php",
+      "title": "What Sets Us Apart | Long Beach, CA 90808",
+      "metaDesc": "We offer pediatric dentistry and orthodontics for children, teens, and patients  with special healthcare needs.",
+      "h1": "What Sets Us Apart",
+      "h2s": [
+        "Meeting all your child’s dental needs under one roof!",
+        "Make your child’s visit special!",
+        "Here when you need us!"
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 757,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health What Sets Us Apart We offer pediatric dentistry and orthodontics for children, teens, and patients with special healthcare needs. With years of education, hands-on training, and experience, our doctors and staff are uniquely able to meet the specific dental needs of our young patients. Meeting all your child’s dental needs under one roof! Patients who undergo orthodontic treatment are able to have their orthodontic wires removed for dental cleanings and then have their braces adjusted during the same visit by the orthodontist. This service enables you to make fewer visits to the dentist during your child’s orthodontic treatment by having all the care in one office. We utilize digital radiographs a"
+    },
+    {
+      "url": "https://www.lbpds.net/meet-dr-planells.php",
+      "path": "/meet-dr-planells.php",
+      "title": "Meet Dr. Planells | Long Beach, CA 90808",
+      "metaDesc": "Meet Dr. Planells and learn more about them!",
+      "h1": "Meet Dr. Planells",
+      "h2s": [
+        "Education:",
+        "Professional Organizations:"
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 585,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Meet Dr. Planells Dr. Planells has been in dental practice since 2004 when she joined Pediatric Dental Specialists as a recent graduate from the UCLA Combined Pediatric Dentistry and Orthodontic Program. She received her Doctor of Dental Surgery from UCLA, where she graduated in the top 5% of her class and was invited to join the Omicron Kappa Upsilon Honor Society. She received her pediatric dentistry and orthodontic specialty training at UCLA, and went on to become board certified in Pediatric Dentistry in 2007. For several years Dr. Planells held a Lecturer Faculty position at UCLA where she worked with the pediatric dental residents. During her free time Dr. Planells enjoys spending time outdo"
+    },
+    {
+      "url": "https://www.lbpds.net/meet-dr-gloria.php",
+      "path": "/meet-dr-gloria.php",
+      "title": "Meet Dr. Gloria | Long Beach, CA 90808",
+      "metaDesc": "Meet Dr. Gloria and learn more about them!",
+      "h1": "Meet Dr. Gloria",
+      "h2s": [],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 513,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Meet Dr. Gloria As a pediatric dentist, I have the opportunity to provide quality dental experiences for children. I feel passionate about giving children personalized care so they can achieve their most beautiful oral health. Being a mother myself, I strive to create a comfortable and gentle environment for the families. Education Bachelor of Arts: New York University Doctorate of Dental Surgery: Columbia University Certification of Advanced Pediatric Dentistry: Yale-New Haven Hospital Diplomat of the American Board of Pediatric Dentistry Professional Organizations American Dental Association American Academy of Pediatric Dentistry American Board of Pediatric Dentistry California Dental Associati"
+    },
+    {
+      "url": "https://www.lbpds.net/meet-dr-cortez.php",
+      "path": "/meet-dr-cortez.php",
+      "title": "Meet Dr. Cortez | Long Beach, CA 90808",
+      "metaDesc": "Meet Dr. Cortez and learn more about them!",
+      "h1": "Meet Dr. Cortez",
+      "h2s": [
+        "Education",
+        "Professional Organizations"
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 781,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Meet Dr. Cortez My practice philosophy is to provide the best possible dental care for children in a friendly environment and to advocate for the children's welfare in any way that I can. I enjoy seeing children who perhaps have been afraid of what we do for them, then develop trust and a positive attitude toward dentistry. After more than 35 years of continuous private practice, I still enjoy working with families every day and helping keep children in good oral health. Education Associate of Arts – Cerritos College, California State University-Long Beach Doctorate of Dental Surgery – University of Southern California School of Dentistry Certification in advanced pediatric dentistry – University "
+    },
+    {
+      "url": "https://www.lbpds.net/patient-testimonials.php",
+      "path": "/patient-testimonials.php",
+      "title": "Patient Testimonials | Long Beach, CA 90808",
+      "metaDesc": "Hearing all the nice things our patients have to say about us always puts a smile on our face.",
+      "h1": "Patient Testimonials",
+      "h2s": [],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 469,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Patient Testimonials Hearing all the nice things our patients have to say about us always puts a smile on our face. And there’s no greater compliment than a patient referring their friends or family members to our practice. Thank you for being such amazing patients! We’d love to hear about your experience! If you’d like to share some kind words and smiles, please take a moment click on the Google +, Facebook or Yelp icons at the bottom of the page and write a review. Share Your Experience with Us See our practice through the eyes of our patients! Share your experiences withPediatric Dental Specialists using the hashtag #PDSLongBeach Patient Testimonials Everyone at your office is very friendly and"
+    },
+    {
+      "url": "https://www.lbpds.net/contests-promotions.php",
+      "path": "/contests-promotions.php",
+      "title": "Contests & Promotions | Long Beach, CA 90808",
+      "metaDesc": "It’s that time again! Another Office contest & event!",
+      "h1": "Contests & Promotions",
+      "h2s": [
+        "No Cavities Club Program"
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 422,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Contests & Promotions It's about that time again! Keep up with our Pediatric Dental Specialists contest winners! Get a chance to WIN at your next appointment ask our front desk about this month’s Contest! No Cavities Club Program Share Your Experience with Us See our practice through the eyes of our patients! Share your experiences withPediatric Dental Specialists using the hashtag #PDSLongBeach Patient Testimonials Everyone at your office is very friendly and professional, caring and understanding. Your work to accommodate children with special needs is highly commendable and appreciated tremendously. Andrew K. Dr. Cortez is amazing! His gentle nature makes going to the dentist a joy for both of "
+    },
+    {
+      "url": "https://www.lbpds.net/patient-forms.php",
+      "path": "/patient-forms.php",
+      "title": "Patient Forms | Long Beach, CA 90808",
+      "metaDesc": "New patient forms",
+      "h1": "Patient Forms",
+      "h2s": [
+        "Submit Online",
+        "New Patient Information Forms",
+        "6 Month Checkup Form",
+        "Print and Bring In",
+        "New Patient Information Forms",
+        "Authorization Forms",
+        "Accessibility Statement"
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 487,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Patient Forms Submit Online New Patient Information Forms [English - Online Submission] | [Spanish - Online Submission] 6 Month Checkup Form Online Submission Print and Bring In New Patient Information Forms New Patient Introductory Sheet [English - Print] | [Spanish - Print] Health History - Print Our Three Commitments / Financial Arrangements [English] | [Spanish] Facts About Dental Insurance Notice of Privacy Practices Authorization Forms 6 Month Checkup Form Sealant Authorization Form Medical / Dental Release Form Photo / Web Release Form Caregiver Authorization Accessibility Statement Website Accessibility Statement If you’re unable to open PDF files, you can get Adobe Reader® for free. Share"
+    },
+    {
+      "url": "https://www.lbpds.net/office-tour.php",
+      "path": "/office-tour.php",
+      "title": "Office Tour | Long Beach, CA 90808",
+      "metaDesc": "Take our office tour to see the Difference.",
+      "h1": "Office Tour",
+      "h2s": [],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 616,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Office Tour Pediatric Dental Specialists Orthodontics and staff are committed to providing patients with the latest orthodontic techniques while delivering the utmost in personal care. The primary focus of the practice is to work with our patients to obtain a healthy and beautiful smile, taking oral and facial harmony into consideration. As a specialty practice in orthodontics and dental-facial orthopedics, our Doctors goal is to provide consistently excellent orthodontic treatment to children, adolescents and adults in a gentle and caring environment. We utilize the most modern and technologically advanced materials and methods available and offer contemporary braces and appliance systems. Our pr"
+    },
+    {
+      "url": "https://www.lbpds.net/meet-our-team.php",
+      "path": "/meet-our-team.php",
+      "title": "Meet Our Team | Long Beach, CA 90808",
+      "metaDesc": "When you meet our team, you will see that we pride ourselves on our professional service.",
+      "h1": "Meet Our Team",
+      "h2s": [
+        "Michelle, Registered Dental Hygienist",
+        "Julie, Treatment Coordinator",
+        "Heather, Orthodontic Treatment Coordinator",
+        "Liz, Registered Dental Assistant",
+        "Nancy, Financial Coordinator",
+        "Antonia, Registered Dental Assistant",
+        "Sara, Treatment Coordinator",
+        "Tracey, Receptionist",
+        "Candice, Registered Dental Assistant",
+        "Jesus, Registered Dental Assistant",
+        "Angela, Registered Dental Assistant",
+        "Jessica, Registered Dental Assistant",
+        "Kendall, Registered Dental Assistant"
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 1773,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Meet Our Team Our staff is a strong team of compassionate and highly trained individuals who are committed to lifelong good oral health for our patients. You will find each of them caring and knowledgeable. This team is made up of clerical and clinical staff. The clinical staff members are all registered dental assistants and are certified with coronal polishing and X-ray licenses by the Department of California – Department of Consumer Affairs. They take over 25 hours of continuing education to renew their licenses in a variety of areas, including CPR, dental emergencies and infection control. Many of our staff members, besides having the professional training, also possess the practical experien"
+    },
+    {
+      "url": "https://www.lbpds.net/financial-information.php",
+      "path": "/financial-information.php",
+      "title": "Financial Information | Long Beach, CA 90808",
+      "metaDesc": "Cost of orthodontic treatments varies depending on insurance & financial standing. We work with you to create a payment plan that fits your budget.",
+      "h1": "Financial Information",
+      "h2s": [
+        "Orthodontic Financial Arrangements",
+        "Convenient Online Services",
+        "Insurance",
+        "Facts About Dental Insurance"
+      ],
+      "h3s": [
+        "Fact 1 - NO INSURANCE PAYS 100% OF ALL PROCEDURES",
+        "Fact 2 - BENEFITS ARE NOT DETERMINED BY OUR OFFICE",
+        "Fact 3 - DEDUCTIBLES & CO-PAYMENTS MUST BE CONSIDERED",
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 1326,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Financial Information For your information, our financial policies are here for your review. We are dedicated to providing you the best possible care and service. Understanding of your financial responsibilities is an essential element of your treatment. If you have questions about the policies, please discuss them with our front office team. Payment is due at the time of service, unless other arrangements have been made with our office. We accept cash, check, Care Credit, MasterCard®, Visa®, Discover®, and American Express®. If you have dental and/or medical insurance, as a courtesy, we will file the claim for you. Keep in mind that your insurance policy is a contract between you and your insuran"
+    },
+    {
+      "url": "https://www.lbpds.net/appointment-scheduling.php",
+      "path": "/appointment-scheduling.php",
+      "title": "Appointment Scheduling | Long Beach, CA 90808",
+      "metaDesc": "Our goal is to make appointments as stress-free as possible, Call today to start scheduling appointments.",
+      "h1": "Appointment Scheduling",
+      "h2s": [],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 498,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Appointment Scheduling Our office makes every effort to accommodate your schedule. However, we strongly recommend that preschool and young children be seen in the morning because they are usually more rested, cooperative, and attentive. School-aged children that require extensive dental treatment should also be seen in the morning, for the same reasons. Please be advised that a dental appointment is an excused absence (California Education Code: 48205(a)(3). When possible, we will schedule older children and teens first thing in the morning or after school. We realize that as parents, you do not want your children to miss an excessive amount of school so we have appointments during most school hol"
+    },
+    {
+      "url": "https://www.lbpds.net/dental-services.php",
+      "path": "/dental-services.php",
+      "title": "Dental Services | Long Beach, CA 90808",
+      "metaDesc": "We offer a range of pediatric dental services for infants, children and adolescents including those with special medical needs along with orthodontic treatment for children and teens.",
+      "h1": "Dental Services",
+      "h2s": [],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 452,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Dental Services We offer a range of pediatric dental services for infants, children and adolescents including those with special medical needs along with orthodontic treatment for children and teens. Dental examinations, x-rays, dental cleanings Dental restorations (fillings, crowns) Silver Diamine Fluoride Treatment Sealants to prevent cavities Sports guards Sedation Nitrous-Oxide (laughing gas) sedation Oral-Conscious sedation I.V. Anesthesia (with an anesthesiologist) Early orthodontic treatment, Invisalign Teen, adolescent orthodontic treatment Share Your Experience with Us See our practice through the eyes of our patients! Share your experiences withPediatric Dental Specialists using the hash"
+    },
+    {
+      "url": "https://www.lbpds.net/silver-diamine-fluoride.php",
+      "path": "/silver-diamine-fluoride.php",
+      "title": "Silver Diamine Fluoride | Long Beach, CA 90808",
+      "metaDesc": "Silver Diamine Fluoride may slow or stop tooth decay.",
+      "h1": "Silver Diamine Fluoride (SDF)",
+      "h2s": [],
+      "h3s": [
+        "Frequently Asked Questions",
+        "What is Silver Diamine Fluoride (SDF)? Silver diamine fluoride is an antimicrobial topical medicament used to slow down or arrest dental cavities in both primary and permanent teeth. How does it work? SDF is a clear liquid applied directly on exposed cavity with a microbrush or other technique. Cavities may slow or may be stopped through the free silver ion inactivation of bacterial metabolism and remineralization occurs through topical fluoride release. How effective is SDF? Limited clinical studies indicate that SDF is effective in 70% - 90% of treated teeth and reapplication at predetermined intervals increase effectiveness. Since SDF is not effective in all teeth, in all circumstances, follow-up evaluation by the dentist is necessary to determine when other interventions are indicated. What are the benefits? The benefits of SDF include its ease of application, effectiveness, and avoidance of intense interventions such as administration of local anesthesia, pharmacologic sedative management, and protective restraint in very young and special needs populations. What are the side effects, risks and other considerations? SDF will turn carious dentinal lesions a dark black color. This may be a concern to patients or parents, especially in the anterior dentition. If SDF comes in contact with the skin or oral mucosa, it will leave a temporary superficial stain or “tattoo” which will resolve in 2 to 14 days with the exfoliation of the superficial cell layer. Definite contraindication is a silver allergy. Relative contraindications include significant desquamative gingivitis, mucositis, or open mucosal lesion. Of concern is the potential assumption by the patient or parent that SDF is definitive care. Treated areas must be actively monitored by a dentist following SDF application. The pediatric dentist will review the risks and benefits of the use of SDF for your child.",
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 768,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Silver Diamine Fluoride (SDF) Great News! Silver Diamine Fluoride may slow or stop tooth decay. This medication is another tool that can be used by dentists to conservatively treat teeth that have cavities. It is typically used for patients that may not be able to have dental treatment right away. The recommendation for the use of SDF is made after a thorough discussion by the dentist with the parent. It is FDA approved and is safe for children with the exception of those patients that may have a silver allergy. Frequently Asked Questions What is Silver Diamine Fluoride (SDF)? Silver diamine fluoride is an antimicrobial topical medicament used to slow down or arrest dental cavities in both primary"
+    },
+    {
+      "url": "https://www.lbpds.net/first-dental-visit.php",
+      "path": "/first-dental-visit.php",
+      "title": "First Dental Visit | Long Beach, CA 90808",
+      "metaDesc": "The American Academy of Pediatrics and the American Academy of Pediatric Dentistry recommend that infants be seen shortly after the first tooth erupts or no later than their first birthday.",
+      "h1": "First Dental Visit",
+      "h2s": [
+        "When should your child’s first dental visit be?"
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 609,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health First Dental Visit We strive to make your child’s first dental visit an enjoyable one. Young children receive a personalized storybook in which their name appears throughout the story. Our intention in providing this book is to familiarize your child with our dental office. The storybook contains the doctor’s as well as staff members’ names. Knowing who they will meet and what to expect allows your child to feel more at ease and somewhat curious for this new experience. Perhaps the most exciting part of this book is the back page that has a place for our signatures, stickers, and the picture of your child’s first visit with us. This is a keepsake for our new patients. When should your child’s firs"
+    },
+    {
+      "url": "https://www.lbpds.net/right-age.php",
+      "path": "/right-age.php",
+      "title": "Right Age | Long Beach, CA 90808",
+      "metaDesc": "The right age may play a significant role in the total time and expenses required for the completion of the orthodontic treatment.",
+      "h1": "Right Age",
+      "h2s": [],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 632,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Right Age Orthodontists today can successfully correct most problems regardless of the patient’s age. But that does not mean that the orthodontic treatment starting age does not matter. In fact it may play a significant role in the total time and expenses required for the completion of the orthodontic treatment. Early intervention can make a dramatic impact on establishing the proper occlusal foundation. The American Association of Orthodontists (AAO) recommends that all children have a check-up with an orthodontist by the time they reach age 7, for early detection of any potential problems. By the age 7, some of the permanent teeth have erupted, so that most children have a mix of adult and baby "
+    },
+    {
+      "url": "https://www.lbpds.net/emergencies.php",
+      "path": "/emergencies.php",
+      "title": "Emergencies | Long Beach, CA 90808",
+      "metaDesc": "Damaging your appliances can call for emergency care. Stay informed if problems occur & understand how to solve them until you return to the office.",
+      "h1": "Emergencies",
+      "h2s": [
+        "Traumatic Dental Injuries",
+        "Tooth Pain",
+        "Gum Emergencies"
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 905,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Emergencies When your child has a dental emergency, whether it's caused by a sudden accident or infection from chronic disease, your child’s teeth and/or the tissues of the mouth that surround them need to receive proper care right away. As with any type of medical emergency, it's important to be aware of what you can do to ensure the best outcome. Traumatic Dental Injuries A knocked-out adult tooth requires quick thinking and immediate action. You'll increase the chances that the tooth can be saved if you pick it up without touching the root, gently rinse it off with running water and put it back in its socket. Hold it in place with gentle pressure as you rush to the dental office or emergency ro"
+    },
+    {
+      "url": "https://www.lbpds.net/pediatric-dental-faqs.php",
+      "path": "/pediatric-dental-faqs.php",
+      "title": "Pediatric Dental FAQs | Long Beach, CA 90808",
+      "metaDesc": "Frequently Asked Questions.",
+      "h1": "Pediatric Dental FAQs",
+      "h2s": [],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 1024,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Pediatric Dental FAQs What should I use to clean my baby's teeth? A toothbrush will remove plaque and bacteria that can lead to decay. Any soft-bristled toothbrush with a small head, preferably one designed specifically for infants, should be used at least once a day and for sure at bedtime. When should I take my child to the dentist for the first check-up? In order to prevent dental problems, your child should see a pediatric dentist when the first tooth appears, or no later than his/her first birthday. What is the difference between a pediatric dentist and a family dentist? Pediatric dentists are the pediatricians of dentistry. A pediatric dentist has two to three years of specialty training fol"
+    },
+    {
+      "url": "https://www.lbpds.net/digit-sucking.php",
+      "path": "/digit-sucking.php",
+      "title": "Digit Sucking | Long Beach, CA 90808",
+      "metaDesc": "Sucking is quite normal in babies and young children. Most babies and toddlers suck their thumbs, but they may also suck on their fingers, hands, or items such as pacifiers.",
+      "h1": "Digit Sucking/Pacifier Use",
+      "h2s": [],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 606,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Digit Sucking/Pacifier Use Sucking is quite normal in babies and young children. Most babies and toddlers suck their thumbs, but they may also suck on their fingers, hands, or items such as pacifiers. Little by little, most children stop on their own. Sucking can become a habit in babies and young children who use it to comfort themselves when they feel hungry, afraid, restless, quiet, sleepy, or bored. The intensity of the sucking habit and the duration are the determining factors on whether a child may develop dental consequences. Changes can be seen in the alignment of teeth, growth of the mouth and also in the roof of the mouth with aggressive sucking. If you notice changes in the alignment of"
+    },
+    {
+      "url": "https://www.lbpds.net/dental-care-for-your-baby.php",
+      "path": "/dental-care-for-your-baby.php",
+      "title": "Dental Care For Your Baby | Long Beach, CA 90808",
+      "metaDesc": "Starting your child off with good dental care can help protect their teeth for decades to come.",
+      "h1": "Dental Care for Your Baby",
+      "h2s": [
+        "Caring for Baby's Gums",
+        "Brushing Baby's Teeth",
+        "Tips For Parents"
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 914,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Dental Care for Your Baby Starting your child off with good dental care can help protect their teeth for decades to come. A baby’s 20 primary teeth are already present in the jaws at birth. Those baby teeth that begin coming through the gums around 6 months help set the stage for future smiles by keeping space in the jaw for adult teeth. Baby teeth may be small, but they're important. They act as placeholders for adult teeth. Without a healthy set of baby teeth, your child will have trouble chewing and speaking clearly. That's why caring for baby teeth and keeping them decay-free is so important. Caring for Baby's Gums You can start caring for baby's gums right away. But at first, the care won't i"
+    },
+    {
+      "url": "https://www.lbpds.net/your-first-visit.php",
+      "path": "/your-first-visit.php",
+      "title": "Your First Visit | Long Beach, CA 90808",
+      "metaDesc": "At your first visit, we will complete a comprehensive orthodontic evaluation.",
+      "h1": "Your First Visit",
+      "h2s": [],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 586,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Your First Visit At your first visit, we will complete a comprehensive orthodontic evaluation. We will evaluate the growth and development of the dentition, take measurements of the bite and size of the teeth in relation the jaw, evaluate the TMJ for symptoms, and review any oral habits that can affect treatment. From this initial visit, we will determine the need and timing of any orthodontic treatment. If a patient is still developing and is not yet ready for treatment, we will recommend that the patient be placed into an observation phase where we will follow growth and development, every 6-12 months, to determine the appropriate time for treatment. If a patient is ready for treatment, prior to"
+    },
+    {
+      "url": "https://www.lbpds.net/first-days-in-braces.php",
+      "path": "/first-days-in-braces.php",
+      "title": "First Day In Braces | Long Beach, CA 90808",
+      "metaDesc": "For your first day in braces, the adhesive used for attaching the braces to your teeth cures rapidly. You can eat any time after leaving our office.",
+      "h1": "First Days In Braces",
+      "h2s": [
+        "Before Leaving the Office"
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 807,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health First Days In Braces The adhesive used to attach the braces to your teeth cures rapidly, but takes several hours to completely cure. You can eat any time after leaving our office, however, we ask that you remember the list of foods that may be harmful to your braces. Until you become accustomed to eating with your new braces, you may find it beneficial to follow a diet consisting of all soft foods. Initially, the braces feel like they stick out. This is normal. As you become accustomed to your braces and tooth alignment improves, this sensation will cease to be a concern. Although the brackets have been rounded and smoothed, until the cheek tissues have toughened, you may find it helpful to use a "
+    },
+    {
+      "url": "https://www.lbpds.net/eating-with-orthodontic-appliances.php",
+      "path": "/eating-with-orthodontic-appliances.php",
+      "title": "Eating With Orthodontic Appliances | Long Beach, CA 90808",
+      "metaDesc": "When eating with orthodontic appliances, avoid hard or sticky foods. These foods cause breakage of the brackets or wires. Avoid biting your nails.",
+      "h1": "Eating With Braces",
+      "h2s": [
+        "Diet and Oral Hygiene",
+        "Potential Harm to Your Teeth and Gums"
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 707,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Eating With Braces Diet and Oral Hygiene There are certain dietary habits that are known to cause breakage of orthodontic appliances, as well as increase the risk of dental disease. Our aim is to achieve the treatment goals with as few disturbances as possible due to appliance breakage, and to minimize the side affects of poor diet choices. Remember, teeth move best in a healthy environment and in individuals with excellent overall health. Be sure you have a well-balanced diet. Potential Harm to Your Teeth and Gums Foods and drinks that may cause dental caries (cavities) should be restricted while wearing braces. Sticky food is to be avoided because of the increased risk of dental decay and applia"
+    },
+    {
+      "url": "https://www.lbpds.net/choose-your-look.php",
+      "path": "/choose-your-look.php",
+      "title": "Choose Your Look | Long Beach, CA 90808",
+      "metaDesc": "Choose your look and find what look works best for you. Your choice from; Traditional Silver, Ceramic, Invisalign or Lingual Braces.",
+      "h1": "Choose Your Look",
+      "h2s": [],
+      "h3s": [
+        "Traditional Silver",
+        "Invisalign Teen",
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 718,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Choose Your Look Traditional Silver Invisalign Teen Traditional Silver These are the most common type of braces. Made of nickel-free high-grade steel, they are much smaller and more comfortable than those in the past. We offer a variety of colored elastics which are changed at every appointment. Invisalign Teen Invisalign TeenÂ® is the clear way for teens to have their teeth straightened without metal braces, using aligners. Aligners are removable and virtually invisible, which means that your teeth can be straightened without anyone knowing. You can still eat and drink what you want. Also, you can brush and floss normally to maintain healthy gums and teeth, and there are no wires, metal, or brack"
+    },
+    {
+      "url": "https://www.lbpds.net/common-orthodontic-problems.php",
+      "path": "/common-orthodontic-problems.php",
+      "title": "Common Orthodontic Problems | Long Beach, CA 90808",
+      "metaDesc": "Here is a comprehensive list of common orthodontic problems and a detailed summary for each.",
+      "h1": "Common Orthodontic Problems",
+      "h2s": [],
+      "h3s": [
+        "Class II",
+        "Class III",
+        "Pseudo Class III",
+        "Crowding",
+        "Spacing",
+        "Openbite",
+        "Incisor Overbite",
+        "Excessive Gingival Display",
+        "Crossbite",
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 1681,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Common Orthodontic Problems Class II Class III Pseudo Class III Crowding Spacing Openbite Incisor Overbite Excessive Gingival Display Crossbite Class II Class II problems represent an abnormal bite relationship in which the upper jaw and teeth are located in front of the lower jaw and teeth. Class II patients usually exhibit a convex facial profile with a recessed chin. In most cases, this relationship is due to inherited characteristics. A skeletal Class II problem occurs when the upper back molars are forward of the lower back molars. This gives the patient the appearance of having a recessed lower jaw, a protruding upper jaw, or both. Class III Class III problems are also primarily genetic in o"
+    },
+    {
+      "url": "https://www.lbpds.net/orthodontic-emergency-care.php",
+      "path": "/orthodontic-emergency-care.php",
+      "title": "Orthodontic Emergency | Long Beach, CA 90808",
+      "metaDesc": "We want our patients to be informed of problems that may occur, and understand how to solve them, at least temporarily, until it is possible to return to our office.",
+      "h1": "Orthodontic Emergency Care",
+      "h2s": [
+        "Loose band or bracket",
+        "Broken archwire",
+        "Loose wire",
+        "Poking wire",
+        "Lost tie-wire or elastic tie",
+        "Soreness",
+        "Headgear does not fit",
+        "Accidents involving teeth"
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 768,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Orthodontic Emergency Care Even though you are careful, you may occasionally damage your appliances. We want our patients to be informed of problems that may occur, and understand how to solve them, at least temporarily, until it is possible to return to our office. Loose band or bracket Loose band or bracket- Every day when you brush your teeth, check to make sure you do not have any loose braces by gently trying to slide each one. If a wire or band comes loose, do not be alarmed, call our office for an appointment. While a tight band or bracket actually protects a tooth from decay, a loose band or bracket is extremely dangerous and decay can occur under it very rapidly. If the band or bracket is"
+    },
+    {
+      "url": "https://www.lbpds.net/oral-hygiene-with-braces.php",
+      "path": "/oral-hygiene-with-braces.php",
+      "title": "Oral Hygiene With Braces | Long Beach, CA 90808",
+      "metaDesc": "Brushing after meals and flossing will help prevent plaque from forming and should become part of your daily schedule.",
+      "h1": "Oral Hygiene With Braces",
+      "h2s": [
+        "Brushing",
+        "Flossing"
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 683,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Oral Hygiene With Braces Brushing You will notice that it is much harder to keep your teeth clean with braces. Food becomes caught in the brackets and between your teeth. Brushing after meals and flossing will help prevent plaque from forming and should become part of your daily schedule. Use a soft toothbrush and brush at a 45-degree angle to the tooth in small circles above and below the brackets. Your toothbrush will wear out faster because of your appliances, so be sure to replace it whenever the bristles start to fray. If plaque remains on the teeth for any length of time, it can leave a white scar on the surface. A waterpik or an electric toothbrush can be a useful addition, however, please "
+    },
+    {
+      "url": "https://www.lbpds.net/ortho-reviews.php",
+      "path": "/ortho-reviews.php",
+      "title": "Ortho Reviews | Long Beach, CA 90808",
+      "metaDesc": "Take some time to scroll through the following patient testimonials of real patients of our practice.",
+      "h1": "Orthodontic Reviews",
+      "h2s": [],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 388,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Orthodontic Reviews Coming Soon Share Your Experience with Us See our practice through the eyes of our patients! Share your experiences withPediatric Dental Specialists using the hashtag #PDSLongBeach Patient Testimonials Everyone at your office is very friendly and professional, caring and understanding. Your work to accommodate children with special needs is highly commendable and appreciated tremendously. Andrew K. Dr. Cortez is amazing! His gentle nature makes going to the dentist a joy for both of our kids! The dental hygienists are quick and efficient with cleanings, so the kids are finished before even thinking about it. The office staff is amazing as well! Isabella L. Dr. Sanchez is a supe"
+    },
+    {
+      "url": "https://www.lbpds.net/retention.php",
+      "path": "/retention.php",
+      "title": "Retention | Long Beach, CA 90808",
+      "metaDesc": "It is imperative that the retainers are worn as instructed to maintain retention. Not doing so may result in undesirable movement of the teeth.",
+      "h1": "Retention",
+      "h2s": [],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 1166,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Retention Because teeth can continue to move throughout life, we feel that individuals who have undergone orthodontic therapy should wear retainers indefinitely. A patient should wear retainers as prescribed by our practice. Failure to wear the retainers may result in undesirable movement of the teeth, which could necessitate re-treatment. Once the active orthodontic appliances are removed, a patient will receive retainers to stabilize the dental correction. Because the bone and soft tissues surrounding the teeth are stabilizing for several months after braces are removed, it is imperative that the retainers are worn as instructed. Retainers are made from wires, clasps and plastic and are construc"
+    },
+    {
+      "url": "https://www.lbpds.net/common-orthodontic-questions.php",
+      "path": "/common-orthodontic-questions.php",
+      "title": "Common Orthodontic Questions | Long Beach, CA 90808",
+      "metaDesc": "Everybody has questions about Orthodontics. Here are some of the most common questions and answers.",
+      "h1": "Common Orthodontic Questions",
+      "h2s": [],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 1478,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Common Orthodontic Questions What Is Orthodontics? Orthodontics is the branch of dentistry that specializes in the diagnosis, prevention, and treatment of dental and facial irregularities. The technical term for these problems is “malocclusion,” which means bad bite. The practice of orthodontics requires professional skill in the design, application, and control of corrective appliances, such as braces, to bring teeth, lips and jaws into proper alignment to achieve facial balance. What Is An Orthodontist? An orthodontist is a dental specialist in the diagnosis, prevention and treatment of dental and facial irregularities. Orthodontists must first attend college, followed by a four-year graduate de"
+    },
+    {
+      "url": "https://www.lbpds.net/dental-exams-and-cleanings.php",
+      "path": "/dental-exams-and-cleanings.php",
+      "title": "Dental Exams and Cleanings | Long Beach, CA 90808",
+      "metaDesc": "The American Dental Association recommends that you visit your dentist every six months to ensure your teeth stay healthy and your smile stays beautiful.",
+      "h1": "Dental Exams and Cleanings",
+      "h2s": [
+        "Exams",
+        "Professional Cleanings"
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 757,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Dental Exams and Cleanings The health of your teeth and mouth is very important to the well-being of your entire body. While routine brushing and flossing at home is necessary to keep your smile looking its best, visiting your dentist for a comprehensive exam and cleaning is essential. The American Dental Association recommends that you visit your dentist every six months to ensure your teeth stay healthy and your smile stays beautiful. By routinely seeing your dentist for exams and cleanings, you can: Prevent tooth decay, gum disease, and bad breath Save money by avoiding costly and extensive dental procedures Keep your teeth white by reducing staining from food and drinks Shorten the time spent "
+    },
+    {
+      "url": "https://www.lbpds.net/oral-cancer-screening.php",
+      "path": "/oral-cancer-screening.php",
+      "title": "Oral Cancer Sreening | Long Beach, CA 90808",
+      "metaDesc": "It is very important to visit our office to rule out the possibility of oral cancer.",
+      "h1": "Oral Cancer Screening",
+      "h2s": [],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 654,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Oral Cancer Screening Our office is not only dedicated to your smile; we’re also dedicated to your overall wellness. We take a holistic approach to your dental care, which includes an oral cancer screening as a part of your regular exam. Like many kinds of cancer, oral cancer can be life-threatening if not diagnosed and treated early. While these symptoms may be caused by other, less serious problems, it is very important to visit our office to rule out the possibility of oral cancer. The most common symptoms of oral cancer include: Red or white spots or sores anywhere in the oral cavity A sore that bleeds easily or does not heal A lump, thickening, or rough spot Pain, tenderness, or numbness anyw"
+    },
+    {
+      "url": "https://www.lbpds.net/fluoride.php",
+      "path": "/fluoride.php",
+      "title": "Fluoride | Long Beach, CA 90808",
+      "metaDesc": "Fluoride is effective in preventing cavities and tooth decay by coating your teeth and preventing plaque from building up and hardening on the tooth’s surface.",
+      "h1": "Fluoride",
+      "h2s": [
+        "Using Fluoride to Protect Your Teeth",
+        "How to choose the right fluoride treatment"
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 667,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Fluoride Using Fluoride to Protect Your Teeth You brush your teeth twice a day, floss regularly and visit the dentist every six months, but did you know that rinsing with fluoride, a mineral that helps prevent cavities and tooth decay, also helps keep your teeth healthy and strong? Fluoride is effective in preventing cavities and tooth decay by coating your teeth and preventing plaque from building up and hardening on the tooth’s surface. Fluoride comes in two varieties, systemic and topical: Systemic fluoride is ingested, usually through a public water supply. While teeth are forming under the gums, the fluoride strengthens tooth enamel, which makes it stronger and more resistant to cavities. Flu"
+    },
+    {
+      "url": "https://www.lbpds.net/preventive-care.php",
+      "path": "/preventive-care.php",
+      "title": "Preventive Care | Long Beach, CA 90808",
+      "metaDesc": "Preventive dental care is important throughout your life, no matter your age.",
+      "h1": "Preventive Care",
+      "h2s": [],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 657,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Preventive Care Preventive dental care is important throughout your life, no matter your age. By practicing good oral hygiene at home and scheduling regular checkups with your dentist, you can help keep your smile bright and healthy for many years to come. Here are a few simple ways you can prevent the build-up of plaque and cavities: Brush your teeth at least twice a day with a soft-bristled toothbrush. Use a fluoridated toothpaste to remove food particles and plaque from the tooth surfaces. Also be sure to brush the top surface of your tongue; this will remove any extra plaque-causing food particles, and help keep your breath fresh! Clean between your teeth by flossing at least once a day. You c"
+    },
+    {
+      "url": "https://www.lbpds.net/before-after.php",
+      "path": "/before-after.php",
+      "title": "Before and after treatment pictures of our patients.",
+      "metaDesc": "Before and after images of our patients beautiful smiles. See what a difference a beautiful smile makes",
+      "h1": "Before and After",
+      "h2s": [
+        "Early Treatment-Phase I",
+        "Phase II-Adolescent Treatment"
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 471,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Before and After One of the best things about our job is removing a patient’s brace to reveal their confident new smile. Whether you’re looking for a subtle change or a dramatic difference, braces are an effective way to straighten teeth without hiding them behind veneers or crowns. If you’re wondering if braces are right for you, why not find out? Come and see us for a free no-obligation consultation and we’ll go through all your options and their associated costs. Early Treatment-Phase I Phase II-Adolescent Treatment Share Your Experience with Us See our practice through the eyes of our patients! Share your experiences withPediatric Dental Specialists using the hashtag #PDSLongBeach Patient Test"
+    },
+    {
+      "url": "https://www.lbpds.net/gum-disease.php",
+      "path": "/gum-disease.php",
+      "title": "Gum Disease | Long Beach, CA 90808",
+      "metaDesc": "Gum disease, also known as periodontal disease, is an infection of the gums that surround your teeth. Gum disease is one of the primary causes of tooth loss in adults.",
+      "h1": "Gum Disease",
+      "h2s": [
+        "What causes gum disease?",
+        "Gingivitis",
+        "Periodontitis",
+        "Preventing Gum Disease"
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 753,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Gum Disease Gum disease, also known as periodontal disease, is an infection of the gums that surround your teeth. Gum disease is one of the primary causes of tooth loss in adults. Because it is virtually pain-free, many patients do not know they have the disease. During each regular checkup, your dentist will check for signs of periodontal disease by measuring the space between your teeth and gums. What causes gum disease? Gum disease is caused by a buildup of plaque, a sticky form of bacteria that forms on the teeth. If the plaque is not removed by flossing, brushing, and regular dental checkups, it will continue to build up and create toxins that can damage the gums. Periodontal disease forms ju"
+    },
+    {
+      "url": "https://www.lbpds.net/helpful-links.php",
+      "path": "/helpful-links.php",
+      "title": "Helpful Links | Long Beach, CA 90808",
+      "metaDesc": "Check out the following dental websites for additional tips on caring for your children’s teeth.",
+      "h1": "Helpful Links",
+      "h2s": [
+        "Check out the following dental websites for additional tips on caring for your children’s teeth."
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 424,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Helpful Links Check out the following dental websites for additional tips on caring for your children’s teeth. American Association of Orthodontists American Academy of Pediatric Dentistry American Dental Association California Dental Association California Society of Pediatric Dentistry Harbor Dental Society Share Your Experience with Us See our practice through the eyes of our patients! Share your experiences withPediatric Dental Specialists using the hashtag #PDSLongBeach Patient Testimonials Everyone at your office is very friendly and professional, caring and understanding. Your work to accommodate children with special needs is highly commendable and appreciated tremendously. Andrew K. Dr. C"
+    },
+    {
+      "url": "https://www.lbpds.net/sealants.php",
+      "path": "/sealants.php",
+      "title": "Sealants | Long Beach, CA 90808",
+      "metaDesc": "Sometimes brushing is not enough, especially when it comes to those hard-to-reach spots in your mouth.",
+      "h1": "Sealants",
+      "h2s": [],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 594,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Sealants Sometimes brushing is not enough, especially when it comes to those hard-to-reach spots in your mouth. It is difficult for your toothbrush to get between the small cracks and grooves on your teeth. If left alone, those tiny areas can develop tooth decay. Sealants give your teeth extra protection against decay and help prevent cavities. Dental sealants are plastic resins that bond and harden in the deep grooves on your tooth’s surface. When a tooth is sealed, the tiny grooves become smooth and are less likely to harbor plaque. With sealants, brushing your teeth becomes easier and more effective. Sealants are typically applied to children’s teeth after their permanent teeth have erupted as "
+    },
+    {
+      "url": "https://www.lbpds.net/request-an-appointment.php",
+      "path": "/request-an-appointment.php",
+      "title": "Request An Appointment | Long Beach, CA 90808",
+      "metaDesc": "Request an appointment for your Orthodontic Consultation with us by filling out our contact form below.",
+      "h1": null,
+      "h2s": [],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 637,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Request an Appointment Are you a new patient at Pediatric Dental Specialists Orthodontics? You may or may not be excited about wearing your braces, but regardless we know you will be thrilled with the result of your new smile. As with any change, adjusting to something new can be a little confusing and overwhelming sometimes, so we decided to help you out with a few tips on adjusting to your braces. The first tip is to give yourself some time. Your braces may not be what you expected or wanted, but after a while when your teeth start shifting you will notice how incredible your teeth and smile alignment look. Pain may occur after your appointments, just give it a few days after each adjustment and"
+    },
+    {
+      "url": "https://www.lbpds.net/map-directions.php",
+      "path": "/map-directions.php",
+      "title": "Map & Directions | Long Beach, CA 90808",
+      "metaDesc": "We invite you to take the next step towards a beautiful, straight smile by contacting us using the informational map & directions on this page.",
+      "h1": "Map & Directions",
+      "h2s": [],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 519,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Map & Directions Thank you for visiting our practice online! We hope our website has been helpful and informative. Pediatric Dental Specialists team and Doctors are pleased to be your family’s comprehensive resource for effective orthodontic services. We invite you to take the next step towards a beautiful, straight smile by contacting us using the information on this page. We are happy to help you learn more about us and schedule an appointment with our caring orthodontist. See you in our office soon! We are happy to address your questions, concerns, and inquiries. Please contact our office through one of the following methods of communication: Pediatric Dental Specialists 3320 N. Los Coyotes Dia"
+    },
+    {
+      "url": "https://www.lbpds.net/form-introductory-english.php",
+      "path": "/form-introductory-english.php",
+      "title": "Pediatric Dental Specialists - Introductory Information",
+      "metaDesc": "",
+      "h1": null,
+      "h2s": [],
+      "h3s": [],
+      "paragraphs": [],
+      "wordCount": 1402,
+      "bodyText": "Introductory Information Child's First Name Child's Last Name * Middle Initial Nickname Gender Male Female Other If Other Home Address City State Select your option Alabama Alaska Arizona Arkansas California Colorado Connecticut Delaware District Of Columbia Florida Georgia Hawaii Idaho Illinois Indiana Iowa Kansas Kentucky Louisiana Maine Maryland Massachusetts Michigan Minnesota Mississippi Missouri Montana Nebraska Nevada New Hampshire New Jersey New Mexico New York North Carolina North Dakota Ohio Oklahoma Oregon Pennsylvania Rhode Island South Carolina South Dakota Tennessee Texas Utah Vermont Virginia Washington West Virginia Wisconsin Wyoming Zip Date of Birth Age Child resides with Relationship to child Preferred contact phone number (with area code) Type Work Home Cell By providing your cell phone number, you consent to being contacted at that number by our practice and our representatives regarding treatment and your account. Initials Are there any siblings in the Practice? Yes No Names Parent Information Parent 1/Legal Guardian: Date of Birth Residence Address (if different from child City State Select your option Alabama Alaska Arizona Arkansas California Colorado Connecticut Delaware District Of Columbia Florida Georgia Hawaii Idaho Illinois Indiana Iowa Kansas Kentucky Louisiana Maine Maryland Massachusetts Michigan Minnesota Mississippi Missouri Montana Nebraska Nevada New Hampshire New Jersey New Mexico New York North Carolina North Dakota Ohio Oklahoma Oregon Pennsylvania Rhode Island South Carolina South Dakota Tennessee Texas Utah Vermont Virginia Washington West Virginia Wisconsin Wyoming Zip Home Phone # (with area code) Mobile Phone # (with area code) Drivers Lic. # Email Address Employed by Position SSN # (Required if you'd like us to bill your insurance company) Dental Insurance Carrier Group # Address Phone Parent 2/Legal Guardian: Date of Birth Residence Address (if different from child City State Select your option Alabama Alaska Arizona A"
+    },
+    {
+      "url": "https://www.lbpds.net/form-patient-update.php",
+      "path": "/form-patient-update.php",
+      "title": "Pediatric Dental Specialists - Patient Update",
+      "metaDesc": "",
+      "h1": null,
+      "h2s": [],
+      "h3s": [],
+      "paragraphs": [],
+      "wordCount": 481,
+      "bodyText": "Pediatric Dental Specialists - Patient Update Patient's Name X-rays may be taken as part of today’s dental examination. I UNDERSTAND that the doctor’s recommendation for x-rays is based on my child’s individual needs and NOT on what the insurance company determines they will cover. I assume financial responsibility for the cost of x-rays should my insurance company deny payment. Yes No ****If there is any reason why your child should not have x-rays taken today, please notify us.**** Has there been any change in your child’s health since your last visit? Yes No If so, please explain Is your child currently under the care of a physician and/or taking any medication(s)? Yes No If so, please explain/list all medications: Has there been any injury to your child’s teeth, head, or neck since his/her last visit? Yes No If so, please explain: Are there any questions or concerns you wish to bring to the doctor’s attention at this visit? Yes No If so, please explain: Has your child been seen by an orthodontist and if so, have recent x-rays been taken? Yes No Orthodontist’s name and city FAMILY RECORD UPDATE Pediatric Dental Specialists may use my cell phone number to call or text regarding appointments, treatment, insurance, and my account. I understand that I can withdraw my consent upon written request. I consent to this statement. Yes No Initials: My cell phone number, e-mail, address and home phone numbers on file are all current and do not need to be updated. Yes No Updated cell: Updated email: Updated mailing address: INSURANCE INFORMATION There have been no changes to my insurance since our last visit here Yes No I have new insurance Yes No Subscriber’s Name Insurance Company Name Date of Birth Insurance Phone # Social Security or ID # Group # Employer This is dual insurance coverage Yes No SECONDARY INSURANCE INFORMATION Subscriber’s Name Insurance Company Name Date of Birth Insurance Phone # Social Security or ID # Group # Employer FINANCIAL AGREEMENT All accounts ar"
+    },
+    {
+      "url": "https://www.lbpds.net/form-introductory-spanish.php",
+      "path": "/form-introductory-spanish.php",
+      "title": "Pediatric Dental Specialists - Introductory Information",
+      "metaDesc": "",
+      "h1": null,
+      "h2s": [],
+      "h3s": [],
+      "paragraphs": [],
+      "wordCount": 387,
+      "bodyText": "Introductory Information PRIMER NOMBRE del Niño(a) APELLIDO * SEGUNDO NOMBRE Sexo F M Otro Si otro Domicilio - CALLE CIUDAD ESTADO Select your option Alabama Alaska Arizona Arkansas California Colorado Connecticut Delaware District Of Columbia Florida Georgia Hawaii Idaho Illinois Indiana Iowa Kansas Kentucky Louisiana Maine Maryland Massachusetts Michigan Minnesota Mississippi Missouri Montana Nebraska Nevada New Hampshire New Jersey New Mexico New York North Carolina North Dakota Ohio Oklahoma Oregon Pennsylvania Rhode Island South Carolina South Dakota Tennessee Texas Utah Vermont Virginia Washington West Virginia Wisconsin Wyoming CODIGO POSTAL Fecha de Nacimiento Edad Nino(a) vive con Relacion con el nino(a) # Contacto para citas Nombre de la Escuela ¿Hay hermanos en la práctica? Si No Nombres Informacion Para Padres Padre 1 / Tutor legal: Fecha Nac. Domicillio (Si es diferente del Nino(a)) Ciudad Estado Select your option Alabama Alaska Arizona Arkansas California Colorado Connecticut Delaware District Of Columbia Florida Georgia Hawaii Idaho Illinois Indiana Iowa Kansas Kentucky Louisiana Maine Maryland Massachusetts Michigan Minnesota Mississippi Missouri Montana Nebraska Nevada New Hampshire New Jersey New Mexico New York North Carolina North Dakota Ohio Oklahoma Oregon Pennsylvania Rhode Island South Carolina South Dakota Tennessee Texas Utah Vermont Virginia Washington West Virginia Wisconsin Wyoming Codigo Posta Casa # Celular # Lic. de Conducir # Correo Electronico Seguro Soc. # Emplead por Posicion Actual Nombre de Aseguranza Dental Grupo # Direccion Telefono Padre 2 / Tutor legal Fecha Nac. Domicillio (Si es diferente del Nino(a)) Ciudad Estado Select your option Alabama Alaska Arizona Arkansas California Colorado Connecticut Delaware District Of Columbia Florida Georgia Hawaii Idaho Illinois Indiana Iowa Kansas Kentucky Louisiana Maine Maryland Massachusetts Michigan Minnesota Mississippi Missouri Montana Nebraska Nevada New Hampshire New Jersey New"
+    },
+    {
+      "url": "https://www.lbpds.net/website-accessibility-statement.php",
+      "path": "/website-accessibility-statement.php",
+      "title": "Website Accessibility Statement | Long Beach, CA 90808",
+      "metaDesc": "We are continuously working to improve the accessibility of content on our website. Below, youíll find a few recommendations to help make your browsing experience more accessible.",
+      "h1": "Website Accessibility Statement",
+      "h2s": [
+        "WCAG 2.0 Levels A and AA",
+        "Closed Captioning",
+        "Volume Controls"
+      ],
+      "h3s": [
+        "Share Your Experience with Us"
+      ],
+      "paragraphs": [
+        "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to",
+        "Guiding the Way to"
+      ],
+      "wordCount": 1696,
+      "bodyText": "3320 N Los Coyotes Diagonal, Ste 200, Long Beach, CA 90808 (562) 377-1375 PediatricPatient Login Toggle navigation About Us What Sets Us Apart Meet Dr. Cortez Meet Dr. Gloria Meet Dr. Planells Meet Our Team Office Tour Patient Testimonials Contests & Promotions Our Blog New Patients Patient Forms Financial Information Appointment Scheduling Pediatric Dentistry First Dental Visit Dental Services Silver Diamine Fluoride Emergencies Dental Care For Your Baby Digit Sucking/Pacifier Use Pediatric Dental FAQs Orthodontics Right Age Common Orthodontic Problems Your First Visit Choose Your Look First Days In Braces Eating With Braces Oral Hygiene With Braces Retention Orthodontic Emergency Care Common Orthodontic Questions Orthodontic Reviews Before & After Hygiene Dental Exams and Cleanings Oral Cancer Screening Preventive Care Fluoride Sealants Gum Disease Patient Resources Helpful Links Contact Map & Directions Request An Appointment Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Guiding the Way to Optimal Oral Health Website Accessibility Statement WCAG 2.0 Levels A and AA We are continuously working to improve the accessibility of content on our website. Below, youíll find a few recommendations to help make your browsing experience more accessible: If you have trouble seeing web pages, the US Social Security Administration offers these tips for optimizing your computer and browser to improve your online experience. Use your computer to read web pages out loud You can use a free browser plug-in called BrowseAloud to listen to the web pages. This plug-in is provided to you at no cost. BrowseAloud helps people who may find it difficult to read text online, those who may have literacy problems, or those with lear"
+    }
+  ]
+}

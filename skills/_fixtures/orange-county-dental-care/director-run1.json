@@ -1,0 +1,150 @@
+{
+  "dna": {
+    "archetype": "magazine-split",
+    "heroVariant": "asymmetric-left",
+    "servicesVariant": "editorial-list",
+    "navVariant": "left-logo",
+    "footerVariant": "editorial-split",
+    "ctaVariant": "full-width-dark",
+    "doctorVariant": "portrait-right",
+    "galleryVariant": "featured-grid",
+    "sectionOrder": [
+      "hero",
+      "services",
+      "doctor-intro",
+      "reviews",
+      "gallery",
+      "cta"
+    ],
+    "cardTreatment": "soft-shadow",
+    "density": "balanced",
+    "motion": "subtle",
+    "radius": "lg",
+    "borrowedFrom": null,
+    "borrowedTrait": "two-column alternating-row rhythm for service entries with a thin vertical rule separating index number from descriptor",
+    "headingScale": "moderate",
+    "sectionDivider": "space",
+    "heroTextPosition": "bottom-left",
+    "divergenceRationale": "All three recent own-builds used either centered-classic or warm-editorial archetypes with split-image or centered hero variants — magazine-split with an asymmetric-left hero is a deliberate structural departure that stays within the editorial/bold family appropriate for an implant-and-cosmetic specialist. Warm-editorial was explicitly ruled out because it telegraphs a community family practice personality that would undercut Dr. Etemadieh's specialist-premium positioning.",
+    "creativeDirection": "Cool forest-green authority anchored in a magazine-style split grid — the left column carries editorial type at unhurried scale, the right column holds the hero image in a contained frame with a slight bottom-left caption treatment, producing the sense of a specialist's portfolio rather than a clinical brochure. Every section breathes through generous white space and thin spatial dividers, letting the deep #2e6b3e palette surface as a confident accent rather than a wallpaper.",
+    "coverage": {
+      "filteredSections": []
+    },
+    "typographyScale": "serif (heading) / sans-serif (body) — scale 14/16/20/28/40/56px",
+    "colorPalette": {
+      "primary": "#008a2e",
+      "secondary": "#003d1c",
+      "accent": "#e60000",
+      "light": "#ffe0e1",
+      "raw": [
+        "#008a2e",
+        "#ffe0e1",
+        "#e60000",
+        "#001f0f",
+        "#003d1c",
+        "#000d1f",
+        "#00113d",
+        "#1d1f00"
+      ]
+    },
+    "spacingScale": "4/8/16/24/48/80px",
+    "writingTone": "Warm, clear, specific to Orange.",
+    "brandSummary": "Orange County Dental Care, led by Dr. Ali-Reza Etemadieh, serving Orange, — Cool forest-green authority anchored in a magazine-style split grid — the left column carries editorial type at unhurried scale, the right column holds the hero image in a contained frame with a slight bottom-left caption treatment, producing the sense of a specialist's portfolio rather than a clinical brochure. Every section breathes through generous white space and thin spatial dividers, letting the deep #2e6b3e palette surface as a confident accent rather than a wallpaper.",
+    "doRules": [
+      "Use the archetype's established magazine-split layout — don't mix incompatible grid styles mid-page.",
+      "Hero variant must be asymmetric-left — lock this choice.",
+      "Card treatment is soft-shadow — apply consistently across all card instances.",
+      "Phone number must be a tel: link in the mobile header, minimum 44px touch target.",
+      "Doctor name and credentials must appear without scrolling on the homepage.",
+      "Primary CTA copy must reference a specific action and ideally the doctor or city.",
+      "Body text ≥ 16px, line-height ≥ 1.5, measure 45–75 characters."
+    ],
+    "dontRules": [
+      "No gradient text (background-clip: text) — AI-slop tell #1.",
+      "No faux-glass / backdrop-filter cards unless archetype explicitly calls for it.",
+      "No centered-headline + two-CTA + microlinks hero — the most overused AI pattern.",
+      "No stat-bar section if yearsExperience/happyPatients data is missing — render empty = fail.",
+      "No stock photography of smiling model families.",
+      "No generic, boilerplate, or template-sounding copy. Every headline, tagline, and CTA must reference this specific practice, doctor, or city — never industry-generic phrasing that could appear on any competitor site.",
+      "No archetype+hero combo already used in recent own-builds.",
+      "No section that renders with dashes, nulls, or placeholder text visible to users."
+    ],
+    "designTokens": {
+      "cornerRadius": "rounded",
+      "buttonTreatment": "filled",
+      "labelStyle": "badge",
+      "sectionSpacing": "default",
+      "contentDensity": "default",
+      "layoutWidth": "standard",
+      "heroLayout": "split-offset",
+      "servicesLayout": "two-col-feature",
+      "aboutLayout": "editorial-full",
+      "testimonialsLayout": "single-featured",
+      "ctaLayout": "floating-card",
+      "faqLayout": "two-column",
+      "navVariant": "split-logo",
+      "footerVariant": "editorial-split",
+      "galleryVariant": "editorial-2col",
+      "typePersonality": "grotesque",
+      "colorFamily": "cool"
+    },
+    "evalRationale": "Candidate 2 edges ahead with the most specific and evocative creative direction — the caption treatment detail, 'contained frame,' and 'confident accent rather than wallpaper' palette description signal a genuinely considered visual system rather than a generic editorial template. Its section order also places reviews before gallery, creating a more natural trust-building narrative flow given that reviews are available and gallery is a supporting asset rather than the lead proof point."
+  },
+  "_meta": {
+    "model": "claude-sonnet-4-6",
+    "duration_ms": 14759,
+    "input_tokens": 18557,
+    "output_tokens": 1513,
+    "libraryUsed": {
+      "ownCount": 3,
+      "inspoCount": 0,
+      "antiCount": 0
+    },
+    "candidates": [
+      {
+        "archetype": "magazine-split",
+        "heroVariant": "asymmetric-left",
+        "sectionOrder": [
+          "hero",
+          "services",
+          "doctor-intro",
+          "gallery",
+          "reviews",
+          "faq",
+          "cta"
+        ],
+        "divergenceRationale": "All three prior builds used either centered or split-image hero variants within warm-editorial or centered-classic archetypes — this build moves into magazine-split with an asymmetric-left hero to cre"
+      },
+      {
+        "archetype": "magazine-split",
+        "heroVariant": "asymmetric-left",
+        "sectionOrder": [
+          "hero",
+          "services",
+          "doctor-intro",
+          "gallery",
+          "reviews",
+          "cta"
+        ],
+        "divergenceRationale": "All three recent own-builds used either centered-classic or warm-editorial with a split-image or centered hero — magazine-split with an asymmetric-left hero is a distinct editorial combination not yet"
+      },
+      {
+        "archetype": "magazine-split",
+        "heroVariant": "asymmetric-left",
+        "sectionOrder": [
+          "hero",
+          "services",
+          "doctor-intro",
+          "reviews",
+          "gallery",
+          "cta"
+        ],
+        "divergenceRationale": "All three recent own-builds used either centered-classic or warm-editorial archetypes with split-image or centered hero variants — magazine-split with an asymmetric-left hero is a deliberate structura"
+      }
+    ],
+    "selectedCandidate": 2,
+    "evaluationMethod": "llm-scored",
+    "evalRationale": "Candidate 2 edges ahead with the most specific and evocative creative direction — the caption treatment detail, 'contained frame,' and 'confident accent rather than wallpaper' palette description signal a genuinely considered visual system rather than a generic editorial template. Its section order also places reviews before gallery, creating a more natural trust-building narrative flow given that reviews are available and gallery is a supporting asset rather than the lead proof point.",
+    "designContextPreview": "<!-- AGENT_MANAGED_START -->\n# Design Context — Orange County Dental Care, Orange\n\n## Brand\nOrange County Dental Care, led by Dr. Ali-Reza Etemadieh, serving Orange, — Cool forest-green authority anchored in a magazine-style split grid — the left column carries editorial type at unhurried scale, the right column holds the hero image in a contained frame with a slight bottom-left caption treatment,"
+  }
+}

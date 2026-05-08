@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Surgical Orthodontics",
+  "description": "Orthognathic surgery planning and orthodontic management for severe jaw discrepancies — from a Board-Certified craniofacial-trained specialist.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Surgical Orthodontics | ${site.name}`}
+  description="Orthognathic surgery planning and orthodontic management for severe jaw discrepancies — from a Board-Certified craniofacial-trained specialist."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Surgical Orthodontics
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Orthognathic surgery planning and orthodontic management for severe jaw discrepancies — from a Board-Certified craniofacial-trained specialist.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Surgical orthodontics, also known as orthognathic surgery, is a type of orthodontic treatment used to correct severe cases that include bad bites, jaw bone abnormalities, and malocclusion. Oral and maxillofacial surgery is one of the nine recognized dental specialties, and it focuses on treating complex craniofacial cases that involve the mouth, jaw, face, and skull. If you need surgical orthodontics, your orthodontist will work with an oral and maxillofacial surgeon to ensure that you receive the best care possible. Dr. Chang's clinical background is particularly well-suited to surgical orthodontic cases: he is a Board Certified Diplomate of the American Board of Orthodontics, a long-term member of the Cleft Lip and Palate Team at Miller Children's Hospital, and a USC Assistant Adjunct Professor of Postdoctoral Orthodontics with advanced training in craniofacial biology. Dr. Chung holds an MS in Craniofacial Biology and also serves on the Miller's Children Memorial Hospital craniofacial team. Our facility is a certified clean air practice.</p>
+      <ul class="space-y-3 my-6">
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Corrects severe jaw discrepancies not addressable with braces alone</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Coordinated care with oral and maxillofacial surgery specialists</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Dr. Chang is a Board-Certified Diplomate with craniofacial training</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Active membership on the Miller Children's Hospital craniofacial team</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Clean air facility certification</span></li>
+      </ul>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Request an Evaluation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,84 @@
+{
+  "palette": {
+    "primary": "#1B3A5C",
+    "secondary": "#2E5F8A",
+    "light": "#F2F6FA",
+    "accent": "#C49A3C",
+    "dark": "#0F1E2E",
+    "muted": "#5A7A96"
+  },
+  "typography": {
+    "heading": "Plus Jakarta Sans",
+    "body": "Inter",
+    "scale": {
+      "h1": "text-4xl md:text-6xl font-bold",
+      "h2": "text-3xl md:text-4xl font-semibold",
+      "h3": "text-xl md:text-2xl font-semibold",
+      "body": "text-base md:text-lg leading-relaxed",
+      "small": "text-sm"
+    },
+    "tracking": "tight for headings (tracking-tight), normal for body (tracking-normal)"
+  },
+  "spatial": {
+    "sectionPadding": "py-16 md:py-24",
+    "containerWidth": "max-w-7xl",
+    "cardRadius": "rounded-xl",
+    "density": "balanced"
+  },
+  "motion": {
+    "transitions": "duration-200 ease-out",
+    "hoverElevation": "hover:-translate-y-1 hover:shadow-md",
+    "pageEntrance": "brief and functional — no animation for its own sake"
+  },
+  "voice": {
+    "headline_style": "Outcome-led and credential-anchored — headlines should communicate the specific result or reassurance a patient gains, then earn authority through precision rather than superlatives. Avoid vague claims; instead name the specific capability or distinction that proves it. Tone sits closer to a confident conversation than an academic abstract — the kind of clarity a specialist uses when they are so secure in their expertise they do not need to shout it.",
+    "cta_language": "Active, specific, and low-pressure — CTAs should name what happens next rather than demanding commitment. Favor language that frames the next step as a service to the patient rather than a conversion event for the practice. Avoid generic imperatives; tie the action to a concrete benefit the patient receives by taking it.",
+    "tone_notes": "Copy should read like a trusted specialist who has already answered this question a hundred times and takes genuine pleasure in making it clear — authoritative without condescension, warm without being folksy. Every sentence should either reduce anxiety, build justified confidence, or move the patient forward; eliminate any sentence that does neither."
+  },
+  "mood": "Precision Meets Reassurance",
+  "rationale": "The existing brand's warm gold palette was the only recoverable signal, and its single-note amber-on-white execution read as generic and indistinct — insufficient for a practice whose credentials (FACD fellowship, dual DDS+MS, craniofacial subspecialty, 40-year tenure) genuinely place it in a different category from competitors. The new direction grounds the identity in deep navy — a color that communicates specialist-level authority, clinical precision, and calm competence without reading as cold or impersonal. The gold accent is the one deliberate continuity from the existing brand: retained because it carries the warmth the practice has earned through four decades of community presence, but disciplined to a supporting role (10% accent function) so it reads as distinction rather than decoration. The cool-tinted light background and muted slate mid-tone create the breathing room a credential-heavy site needs without tipping into the over-sparse aesthetic that signals a startup rather than a long-established specialist. Plus Jakarta Sans was chosen for headings because its grotesque geometry projects the kind of confident technical authority appropriate to a board-certified orthodontist, while avoiding the overused modernist defaults that have become invisible through ubiquity — its slightly humanist stroke variation keeps it from feeling sterile when parents are bringing in anxious children.",
+  "paletteSource": "None of the curated warm palettes were appropriate for this positioning — terracotta, sage, fig, and blush all read as community/family practice registers that would actively undermine the specialist signal. The palette was constructed from scratch following the Color Temperature Guidance directive for specialist/premium brands, using deep navy as the primary anchor (hue ~220, high lightness contrast, tinted neutrals pulled toward the navy hue for subconscious cohesion), with the existing brand's gold preserved as the accent to maintain the one thread of visual continuity worth keeping.",
+  "contrastCheck": "WCAG AA: 3/3 required pairs pass",
+  "wcagAudit": {
+    "ok": true,
+    "checks": [
+      {
+        "pair": "dark/light",
+        "ratio": 15.53,
+        "threshold": 4.5,
+        "passes": true
+      },
+      {
+        "pair": "primary/light",
+        "ratio": 10.71,
+        "threshold": 4.5,
+        "passes": true
+      },
+      {
+        "pair": "light/dark",
+        "ratio": 15.53,
+        "threshold": 4.5,
+        "passes": true
+      }
+    ],
+    "failures": [],
+    "summary": "WCAG AA: 3/3 required pairs pass"
+  },
+  "_meta": {
+    "model": "claude-sonnet-4-6",
+    "duration_ms": 24817,
+    "tokens": {
+      "input_tokens": 12081,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1245,
+      "service_tier": "standard",
+      "inference_geo": "global"
+    },
+    "impeccableRefsLoaded": true
+  }
+}

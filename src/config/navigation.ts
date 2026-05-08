@@ -31,6 +31,7 @@ export const navLinks: NavLink[] = [
     label: 'Resources',
     href: '/blog',
     dropdown: [
+      { label: 'Schedule', href: '/schedule', desc: 'Request an appointment' },
       { label: 'Patient Blog', href: '/blog', desc: 'Education & treatment guides' },
       { label: 'Before & After', href: '/gallery', desc: 'Real patient results' },
       { label: 'FAQ', href: '/faq', desc: 'Common questions answered' },

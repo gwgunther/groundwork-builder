@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Clear Aligners",
+  "description": "Removable, nearly invisible aligner therapy for teens and adults — from an Invisalign Diamond Provider using iTero digital scanning technology.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Clear Aligners | ${site.name}`}
+  description="Removable, nearly invisible aligner therapy for teens and adults — from an Invisalign Diamond Provider using iTero digital scanning technology."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Clear Aligners
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Removable, nearly invisible aligner therapy for teens and adults — from an Invisalign Diamond Provider using iTero digital scanning technology.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Clear aligner therapy uses a series of custom-fabricated, removable appliances to progressively reposition teeth without fixed brackets or wires. Each aligner in the series moves teeth in small, controlled increments until they reach the planned final position. Chang Orthodontics is an Invisalign Diamond Provider — a designation reflecting a high volume of successfully completed aligner cases — and uses the iTero Digital Impression System to capture precise 3D images of your dentition for accurate treatment planning.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who Clear Aligners Are For</h2>
+      <p class="mb-4">Clear aligners can address a wide range of orthodontic concerns, including mild to moderate crowding, spacing between teeth, and certain bite discrepancies. They are commonly chosen by adults and older teenagers who want an option that is less noticeable during daily life and can be removed for eating, brushing, and flossing.</p>
+      <p class="mb-4">That said, not every case is equally well-suited to aligner therapy. Some malocclusions — particularly those involving significant vertical discrepancies or complex bite correction — may respond better to fixed appliances, or to a combination approach. At Chang Orthodontics, Dr. Chang evaluates each patient's clinical needs specifically before recommending a treatment modality. With over 40 years of quality care in Los Alamitos, he brings specialist-level judgment to that decision rather than defaulting to one option for every patient.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">How the Treatment Process Works</h2>
+      <p class="mb-4">A clear aligner case typically begins with a full orthodontic records appointment. Using the iTero Digital Impression System, the team captures a detailed 3D scan of your teeth — no traditional putty impressions required. These digital records feed directly into treatment planning software, which models the projected tooth movements across the full series of aligners.</p>
+      <p class="mb-4">Once the treatment plan is approved, a set of aligners is fabricated. Patients generally wear each aligner for the prescribed wear time before advancing to the next in the sequence. The total number of aligners in a series varies depending on the complexity of tooth movement required. Periodic progress appointments — typically scheduled every six to ten weeks — allow Dr. Chang to monitor tooth movement, make any mid-course adjustments, and provide the next sets of aligners.</p>
+      <p class="mb-4">Attachments (small tooth-colored composite bumps bonded to specific teeth) are sometimes placed to help aligners achieve more precise movements. Not every case requires them, but when they are used, they are designed to be inconspicuous.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect at Appointments</h2>
+      <p class="mb-4">The initial consultation involves an examination, a discussion of your goals, and a review of whether clear aligners are clinically appropriate for your situation. If you move forward, the records appointment — including the iTero scan — is typically efficient and comfortable, taking roughly 30–60 minutes.</p>
+      <p class="mb-4">Follow-up appointments during active treatment are generally shorter, often 20–30 minutes, and focus on checking progress and addressing any fit or comfort concerns. Patients in Los Alamitos and the surrounding area appreciate that the reduced appointment frequency compared to traditional braces fits more easily into work and school schedules.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Advantages and Practical Considerations</h2>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>**Removable appliances** allow normal eating and easier oral hygiene throughout treatment</li>
+        <li>**Nearly invisible** — the clear material has minimal aesthetic impact during daily life</li>
+        <li>**iTero digital scanning** replaces traditional impressions for a more comfortable records process</li>
+        <li>**Diamond Provider status** reflects high-volume aligner experience within the Invisalign system</li>
+      </ul>
+      <p class="mb-4">On the practical side, aligners require discipline. They should be worn for the recommended number of hours per day to stay on track. Removing them too frequently or for extended periods can slow progress or affect the final result. Dr. Chang's team will review wear expectations clearly at the start of treatment so there are no surprises.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**How long does clear aligner treatment take?** Treatment length depends on the complexity of the case. Minor corrections can sometimes be completed in a matter of months; more involved tooth movement typically takes longer. Dr. Chang will give you a case-specific estimate after reviewing your records.</p>
+      <p class="mb-4">**Are clear aligners as effective as braces?** For the cases they are designed to treat, well-managed aligner therapy can achieve results comparable to fixed appliances. Case selection matters — an orthodontic specialist can advise whether your specific situation is a strong candidate.</p>
+      <p class="mb-4">**Do clear aligners hurt?** Some pressure or mild soreness when switching to a new aligner is normal and usually resolves within a day or two. It is different in character from the discomfort sometimes associated with wire adjustments.</p>
+      <p class="mb-4">**Can I eat normally with clear aligners?** Yes. Because aligners are removed before eating and drinking (other than plain water), there are no dietary restrictions associated with aligner treatment.</p>
+      <p class="mb-4">**What happens after treatment is complete?** Retention is a standard part of any orthodontic outcome. After active aligner treatment, retainers are used to hold teeth in their new positions. Dr. Chang will discuss your retention plan as part of the overall treatment conversation.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,766 @@
+{
+  "homepage": {
+    "heroHeadline": "Transform Your Smile with Exceptional Care",
+    "heroSubheadline": "Comprehensive dental care for all ages in Orange, CA — served in English, Spanish, Farsi, Vietnamese, and French by Dr. Ali-Reza Etemadieh, implant and cosmetic specialist since 2013.",
+    "heroTagline": "Experience the difference at Orange County Dental Care where quality meets compassion.",
+    "ctaText": "Book Appointment",
+    "ctaSecondaryText": "View Services",
+    "valueProp": "At Orange County Dental Care, we prioritize quality above all else. Dr. Etemadieh is the dentist that other dentists trust with their own care. We never compromise on integrity, materials, or service—ensuring that every patient receives the highest standard of dental treatment available."
+  },
+  "about": {
+    "headline": "Meet Dr. Etemadieh & the Orange County Dental Care Team",
+    "introParagraph": "Dr. Ali-Reza Etemadieh has been providing exceptional dental care to Orange County residents since 2013. With extensive training in implants and cosmetics, he's dedicated to delivering high-quality dentistry in a comfortable environment where patients feel valued and understood.",
+    "philosophy": "At Orange County Dental Care, we prioritize quality above all else. Dr. Etemadieh is the dentist that other dentists trust with their own care. We never compromise on integrity, materials, or service—ensuring that every patient receives the highest standard of dental treatment available.",
+    "closingCTA": "Ready to schedule? | Book an Appointment"
+  },
+  "services": {
+    "preventative-dentistry": {
+      "headline": "Preventative Dental Care in Orange County",
+      "subheadline": "Maintain your oral health with preventative dentistry at Orange County Dental Care. We offer cleanings, exams, digital x-rays, and more to keep your smile healthy.",
+      "intro": "At Orange County Dental Care, we believe that preventative care is the foundation of excellent oral health. Our comprehensive preventative services help you maintain a healthy smile and avoid costly treatments down the road. From thorough cleanings to early detection of potential issues, we focus on keeping your smile healthy at every visit. Our preventative care includes professional cleanings, comprehensive exams, digital x-rays, oral cancer screenings, fluoride treatments, and periodontal care. These services work together to remove plaque and tartar, detect early signs of decay or disease, and strengthen your teeth against future damage. We customize your preventative care schedule based on your unique needs.",
+      "benefits": [
+        "Removes plaque and tartar that regular brushing can't address",
+        "Early detection of decay, gum disease, and oral cancer",
+        "Personalized care plans based on your unique dental needs",
+        "Digital x-rays for accurate, low-radiation early issue detection",
+        "Supports overall health — research links oral health to heart disease and diabetes"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Digital x-rays for early issue detection",
+        "Personalized preventative care plans for each patient",
+        "Digital x-rays and intraoral scanners available"
+      ]
+    },
+    "restorative-dentistry": {
+      "headline": "Restorative Dental Care in Orange County",
+      "subheadline": "Restore your smile with our comprehensive restorative dental treatments in Orange, CA. We offer fillings, crowns, bridges, and root canals.",
+      "intro": "Damage to your teeth doesn't have to be permanent. At Orange County Dental Care, our restorative dental services rebuild, repair, and renew teeth that have been affected by decay, injury, or wear. Using premium materials and advanced techniques, Dr. Etemadieh provides restorative treatments that not only return function to your teeth but also enhance their appearance and longevity. We offer a comprehensive range of restorative treatments including tooth-colored fillings, crowns made of zirconia or gold, bridges, inlays and onlays, root canal therapy, and full mouth rehabilitation. For every procedure, we use only the highest quality materials—avoiding amalgam in favor of more aesthetic and biocompatible options. Each restoration is precisely crafted to match your natural teeth.",
+      "benefits": [
+        "Amalgam-free restorations using biocompatible materials",
+        "Zirconia and gold crown options for durability and aesthetics",
+        "Repairs damage from decay, injury, or general wear",
+        "Most procedures completed in one or two visits",
+        "Trusted by fellow dentists for their own restorative care"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Amalgam-free restorations using biocompatible materials",
+        "Zirconia and gold crown options available",
+        "Trusted by fellow dentists"
+      ]
+    },
+    "cosmetic-dentistry": {
+      "headline": "Cosmetic Dental Treatments in Orange County",
+      "subheadline": "Transform your smile with cosmetic dentistry at Orange County Dental Care. We offer teeth whitening, veneers, bonding, and Invisalign in Orange, CA.",
+      "intro": "Your smile creates lasting impressions. At Orange County Dental Care, our cosmetic dentistry services are designed to enhance the appearance of your teeth and create the smile you've always wanted. Dr. Etemadieh combines artistic vision with technical expertise to deliver beautiful, natural-looking results. From subtle improvements to dramatic transformations, we tailor our approach to your unique goals. We offer a comprehensive range of cosmetic treatments including professional teeth whitening, porcelain veneers, chairside composite veneers, dental bonding and contouring, and Invisalign clear aligners. Each service is customized to address your specific concerns—whether that's discoloration, chips, gaps, misalignment, or a complete smile makeover. Our focus is always on creating results that look naturally beautiful.",
+      "benefits": [
+        "Customized treatment plans for your unique smile goals",
+        "Same-day treatments available including whitening and bonding",
+        "Dr. Etemadieh's artistic vision with technical expertise",
+        "Options ranging from subtle enhancements to full smile makeovers",
+        "Implant and cosmetic specialist on staff since 2013"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Dr. Etemadieh combines artistic vision with technical expertise",
+        "Same-day cosmetic treatments available including whitening and bonding",
+        "Implant & cosmetic specialist on staff since 2013"
+      ]
+    },
+    "dental-implants": {
+      "headline": "Dental Implant Solutions in Orange County",
+      "subheadline": "Replace missing teeth with dental implants at Orange County Dental Care. We offer high-quality American and Swiss implants for a natural-looking smile.",
+      "intro": "Dental implants represent the gold standard in tooth replacement technology. At Orange County Dental Care, Dr. Etemadieh provides premium implant solutions that look, feel, and function just like natural teeth. Using only high-quality American-made Straumann and Swiss-made Hoissen implants, we deliver lasting results you can trust. We offer comprehensive implant services including single tooth implants, multiple tooth replacement, and implant-supported dentures. Each implant is carefully placed to integrate with your jawbone, creating a stable foundation for your new tooth. A comprehensive evaluation including digital imaging is performed to assess bone quality and determine optimal implant placement, ensuring the best possible outcome for every patient.",
+      "benefits": [
+        "Premium American-made Straumann and Swiss-made Hoissen implants",
+        "Looks, feels, and functions like a natural tooth",
+        "Digital imaging for precise implant planning and bone assessment",
+        "Options for single teeth, multiple teeth, and implant-supported dentures",
+        "Implant specialist on staff since 2013"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "American-made Straumann and Swiss-made Hoissen implants",
+        "Digital imaging for implant planning and bone assessment",
+        "Implant & cosmetic specialist on staff since 2013"
+      ]
+    },
+    "dentures": {
+      "headline": "Custom Denture Solutions in Orange County",
+      "subheadline": "Get custom dentures at Orange County Dental Care in Orange, CA. We create comfortable, natural-looking full and partial dentures to restore your smile.",
+      "intro": "Missing teeth can significantly impact your quality of life, affecting everything from your diet to your self-confidence. At Orange County Dental Care, we provide custom-crafted denture solutions that restore your ability to eat, speak, and smile with confidence. Our dentures are designed for optimal fit, comfort, and natural appearance. We offer a variety of denture solutions including full dentures to replace all teeth, partial dentures to fill gaps while preserving healthy teeth, and implant-supported dentures for maximum stability. Each prosthetic is custom-designed to complement your facial features and provide the most natural look possible using high-quality materials.",
+      "benefits": [
+        "Custom-crafted for optimal fit and natural appearance",
+        "Full, partial, and implant-supported options available",
+        "Restores ability to eat, speak, and smile with confidence",
+        "Designed to complement your unique facial features",
+        "Two convenient office locations in Orange County"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Custom-crafted dentures for optimal fit and natural appearance",
+        "Two convenient office locations in Orange County"
+      ]
+    },
+    "emergency-dentistry": {
+      "headline": "Emergency Dental Care in Orange County",
+      "subheadline": "Need urgent dental care in Orange, CA? Orange County Dental Care offers emergency dental services. Call us immediately for prompt attention.",
+      "intro": "Dental emergencies can happen at any time, often causing significant pain and anxiety. At Orange County Dental Care, we provide prompt, effective emergency dental services to address your urgent needs and relieve your discomfort. Dr. Etemadieh makes emergency patients a priority, offering same-day appointments whenever possible and after-hours care when needed for serious situations. We handle a full range of dental emergencies including severe toothaches, broken or chipped teeth, knocked-out teeth, lost fillings or crowns, dental abscesses, soft tissue injuries, and objects caught between teeth. Our focus is on relieving your pain quickly and addressing the underlying problem effectively. When you call with an emergency, our team will provide immediate guidance and arrange for you to be seen as soon as possible.",
+      "benefits": [
+        "Same-day emergency appointments whenever possible",
+        "After-hours care available for serious emergencies",
+        "Immediate phone guidance when you call",
+        "Treatment for the full range of dental emergencies",
+        "Focus on fast pain relief and addressing the root cause"
+      ],
+      "cta": "Call Us Now",
+      "differentiatorsWoven": [
+        "Same-day emergency appointments whenever possible",
+        "After-hours care available for serious emergencies"
+      ]
+    },
+    "sedation-dentistry": {
+      "headline": "Sedation Dentistry in Orange County",
+      "subheadline": "Overcome dental anxiety with sedation options coordinated by Orange County Dental Care. We work with trusted specialists to provide comfortable, stress-free dental experiences for anxious patients.",
+      "intro": "Dental anxiety shouldn't prevent you from receiving the care your smile needs. At Orange County Dental Care, we understand that visiting the dentist can be stressful for many patients. That's why we offer referrals for sedation options to help you relax during your treatment. Our compassionate approach focuses on ensuring your comfort while providing the quality dental care you deserve in a stress-free environment. While Orange County Dental Care doesn't offer direct sedation services, we work closely with trusted specialists who provide various sedation options for our patients who experience dental anxiety. We can coordinate referrals based on your specific needs and the complexity of your treatment. Our primary focus remains on creating a comfortable, supportive environment for all patients through compassionate care and clear communication about each procedure.",
+      "benefits": [
+        "Referrals coordinated with trusted sedation specialists",
+        "Tailored to your specific needs and treatment complexity",
+        "Compassionate, clear communication throughout your care",
+        "Allows necessary dental work to be completed comfortably",
+        "Medical history reviewed before any sedation recommendation"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Sedation referrals coordinated with trusted specialists"
+      ]
+    },
+    "orthodontics": {
+      "headline": "Orthodontic Solutions in Orange County",
+      "subheadline": "Achieve a straighter, healthier smile with orthodontic treatments at Orange County Dental Care in Orange, CA. We offer Invisalign and clear aligner solutions for patients of all ages.",
+      "intro": "A properly aligned smile isn't just about aesthetics—it contributes to better oral health and function. At Orange County Dental Care, we offer comprehensive orthodontic solutions including Invisalign clear aligners to help patients of all ages achieve straighter, healthier smiles. Dr. Etemadieh combines advanced technology with personalized treatment plans to deliver excellent results with maximum comfort and convenience. We provide a range of orthodontic treatment options with a focus on clear aligner therapy. Using advanced 3D digital scanning, Dr. Etemadieh creates precise treatment plans that map out the exact movements of your teeth, allowing you to see your virtual results before treatment begins. Our orthodontic solutions are designed to fit your lifestyle while effectively addressing alignment issues, spacing problems, and bite irregularities.",
+      "benefits": [
+        "Invisalign clear aligners for a discreet treatment experience",
+        "Advanced 3D digital scanning for precise, personalized treatment plans",
+        "Virtual preview of your results before treatment begins",
+        "Solutions for patients of all ages",
+        "Addresses alignment issues, spacing problems, and bite irregularities"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Advanced 3D digital scanning for precise treatment plans",
+        "Advanced intraoral scanner for digital impressions"
+      ]
+    },
+    "professional-cleanings": {
+      "headline": "Professional Dental Cleanings in Orange County",
+      "subheadline": "Keep your smile healthy with professional cleanings at Orange County Dental Care. Our hygienists provide thorough cleanings tailored to your individual needs.",
+      "intro": "Professional cleanings are a cornerstone of good oral health. During your cleaning visit at Orange County Dental Care, our hygienist will thoroughly clean your teeth, removing plaque and tartar that can't be addressed with regular brushing and flossing alone. We use digital x-rays and intraoral scanners to ensure an accurate, comfortable experience. Following your cleaning, Dr. Etemadieh will conduct a comprehensive examination to check for signs of decay, gum disease, oral cancer, and other concerns. Based on your examination, we'll develop a personalized preventative care plan that may include recommendations for at-home care, professional cleaning frequency, and any additional treatments to address your specific needs. Most patients benefit from cleanings every six months, though we tailor the schedule to your unique situation.",
+      "benefits": [
+        "Removes plaque and tartar that brushing and flossing can't reach",
+        "Personalized cleaning frequency based on your individual needs",
+        "Digital x-rays and intraoral scanners for accurate assessment",
+        "Followed by a comprehensive examination by Dr. Etemadieh",
+        "Helps prevent gum disease, tooth loss, and bad breath"
+      ],
+      "cta": "Schedule a Cleaning",
+      "differentiatorsWoven": [
+        "Personalized preventative care plans for each patient",
+        "Digital x-rays and intraoral scanners available"
+      ]
+    },
+    "comprehensive-exams": {
+      "headline": "Comprehensive Dental Exams in Orange County",
+      "subheadline": "Thorough dental evaluations at Orange County Dental Care to detect issues early and keep your smile on track.",
+      "intro": "A comprehensive dental exam is the foundation of your personalized care plan at Orange County Dental Care. During your exam, Dr. Etemadieh will evaluate your teeth, gums, and overall oral health using digital x-rays and intraoral scanners for the most accurate diagnosis possible. He checks for signs of decay, gum disease, oral cancer, bite issues, and other concerns that may not be visible to the naked eye. Based on your examination findings, we develop a personalized care plan that outlines any recommended treatments and a preventative schedule suited to your unique needs. Our goal is for your first visit—and every visit—to be one of comfort and acknowledgement of your personal dental needs. We will take the required time to properly diagnose your immediate dental concerns, review your past medical and dental history, and create a treatment plan that provides for your optimal dental health.",
+      "benefits": [
+        "Thorough evaluation of teeth, gums, bite, and oral tissues",
+        "Digital x-rays and intraoral scanners for precise diagnosis",
+        "Oral cancer screening included",
+        "Personalized care plan developed from your exam results",
+        "Trusted by fellow dentists for their own care"
+      ],
+      "cta": "Schedule an Exam",
+      "differentiatorsWoven": [
+        "Personalized preventative care plans for each patient",
+        "Digital x-rays and intraoral scanners available",
+        "Trusted by fellow dentists"
+      ]
+    },
+    "digital-x-rays": {
+      "headline": "Digital X-Rays in Orange County",
+      "subheadline": "Fast, accurate, low-radiation digital x-rays at Orange County Dental Care for early detection and precise diagnosis.",
+      "intro": "At Orange County Dental Care, we use digital x-rays as part of every comprehensive examination to ensure early detection of issues that aren't visible during a clinical exam. Digital x-rays produce significantly less radiation than traditional film x-rays and deliver instant, high-resolution images that Dr. Etemadieh can review with you chairside. These images help identify cavities between teeth, bone loss, infection, impacted teeth, and other concerns at the earliest possible stage—before they become more serious or costly to treat. Combined with our intraoral scanners, digital x-rays are part of the advanced technology we use to provide accurate diagnoses and personalized care for every patient.",
+      "benefits": [
+        "Significantly lower radiation than traditional film x-rays",
+        "Instant high-resolution images for accurate diagnosis",
+        "Detects cavities, bone loss, infection, and impacted teeth early",
+        "Images reviewed with you chairside for full transparency",
+        "Part of a comprehensive technology-driven approach to care"
+      ],
+      "cta": "Schedule a Visit",
+      "differentiatorsWoven": [
+        "Digital x-rays for early issue detection",
+        "Digital x-rays and intraoral scanners available",
+        "Advanced technology for personalized dental care"
+      ]
+    },
+    "oral-cancer-screenings": {
+      "headline": "Oral Cancer Screenings in Orange County",
+      "subheadline": "Early detection oral cancer screenings included as part of your comprehensive exam at Orange County Dental Care.",
+      "intro": "Oral cancer is most treatable when caught early, which is why oral cancer screenings are a standard part of every comprehensive exam at Orange County Dental Care. During your screening, Dr. Etemadieh carefully examines the soft tissues of your mouth, throat, tongue, and lips for any signs of abnormal changes. This quick, painless assessment can identify suspicious areas before they develop into serious problems. Regular screenings are recommended for all patients, particularly those with risk factors such as tobacco use, heavy alcohol consumption, or prolonged sun exposure. As part of our commitment to your total health, we make sure no concern goes undetected.",
+      "benefits": [
+        "Included as part of every comprehensive exam",
+        "Painless and quick assessment",
+        "Early detection dramatically improves treatment outcomes",
+        "Examines all oral tissues including tongue, lips, and throat",
+        "Personalized follow-up recommendations based on your risk profile"
+      ],
+      "cta": "Schedule an Exam",
+      "differentiatorsWoven": [
+        "Personalized preventative care plans for each patient"
+      ]
+    },
+    "fluoride-treatments": {
+      "headline": "Fluoride Treatments in Orange County",
+      "subheadline": "Strengthen your teeth and protect against decay with professional fluoride treatments at Orange County Dental Care.",
+      "intro": "Professional fluoride treatments are one of the simplest and most effective ways to protect your teeth against decay. At Orange County Dental Care, fluoride is applied as part of your preventative care visit to help remineralize enamel and strengthen teeth against the acids produced by bacteria. Fluoride treatments are beneficial for patients of all ages—from children developing their permanent teeth to adults who may be at elevated risk for cavities due to diet, dry mouth, or other factors. The treatment is quick, painless, and tailored to your individual needs as part of your personalized preventative care plan.",
+      "benefits": [
+        "Strengthens and remineralizes tooth enamel",
+        "Helps prevent cavities for patients of all ages",
+        "Quick and painless application during your preventative visit",
+        "Particularly beneficial for higher-risk patients",
+        "Part of your personalized preventative care plan"
+      ],
+      "cta": "Schedule a Visit",
+      "differentiatorsWoven": [
+        "Personalized preventative care plans for each patient"
+      ]
+    },
+    "periodontal-care": {
+      "headline": "Periodontal Care in Orange County",
+      "subheadline": "Protect your gums and your overall health with periodontal care at Orange County Dental Care in Orange, CA.",
+      "intro": "Healthy gums are essential to a healthy smile. At Orange County Dental Care, our periodontal care services are designed to prevent, detect, and treat gum disease at every stage—from early gingivitis to more advanced periodontitis. Dr. Etemadieh uses digital x-rays and thorough clinical evaluations to assess bone levels and gum health, allowing for accurate diagnosis and timely intervention. Treatment may include deep cleaning procedures such as scaling and root planing to remove bacteria and tartar from below the gumline, as well as personalized maintenance schedules to keep gum disease from progressing. Research has shown important connections between gum disease and systemic conditions including heart disease and diabetes—making periodontal care an investment in your overall health, not just your smile.",
+      "benefits": [
+        "Diagnosis supported by digital x-rays and clinical evaluation",
+        "Scaling and root planing for active gum disease",
+        "Personalized maintenance schedules to prevent recurrence",
+        "Linked to improved systemic health outcomes",
+        "Customized care plans based on your unique periodontal needs"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Personalized preventative care plans for each patient",
+        "Digital x-rays for early issue detection"
+      ]
+    },
+    "tooth-colored-fillings": {
+      "headline": "Tooth-Colored Fillings in Orange County",
+      "subheadline": "Restore decayed or damaged teeth with natural-looking, amalgam-free tooth-colored fillings at Orange County Dental Care.",
+      "intro": "At Orange County Dental Care, we restore cavities and minor tooth damage with tooth-colored composite fillings that blend seamlessly with your natural smile. We avoid amalgam entirely, using only biocompatible, aesthetic materials that are safer and more visually appealing. Tooth-colored fillings bond directly to the tooth structure, which means less healthy tooth material needs to be removed compared to traditional amalgam restorations. The result is a durable, natural-looking repair that most people won't be able to distinguish from your original tooth. Each filling is precisely matched to the shade of your surrounding teeth for a result that looks and feels completely natural.",
+      "benefits": [
+        "Amalgam-free, biocompatible composite material",
+        "Matched to the shade of your natural teeth",
+        "Bonds directly to tooth structure — preserves more healthy tooth",
+        "Durable and natural-looking result",
+        "Completed in a single visit"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Amalgam-free restorations using biocompatible materials"
+      ]
+    },
+    "crowns-zirconia-or-gold": {
+      "headline": "Dental Crowns — Zirconia or Gold — in Orange County",
+      "subheadline": "Premium zirconia and gold dental crowns crafted to restore strength, function, and appearance at Orange County Dental Care.",
+      "intro": "When a tooth is too damaged for a filling but doesn't require extraction, a dental crown is the ideal solution. At Orange County Dental Care, Dr. Etemadieh offers crowns made of zirconia or gold—two premium materials chosen for their durability, biocompatibility, and aesthetics. Zirconia crowns are tooth-colored and virtually indistinguishable from natural teeth, making them ideal for visible areas of the mouth. Gold crowns offer exceptional strength and longevity, often preferred for back molars where chewing forces are greatest. We never use amalgam. Every crown is precisely crafted to match your bite and the appearance of your surrounding teeth, restoring full function and a natural look.",
+      "benefits": [
+        "Zirconia and gold crown options to suit your needs and preferences",
+        "Amalgam-free, biocompatible materials only",
+        "Zirconia crowns match the natural color of your teeth",
+        "Gold crowns offer exceptional strength for heavy chewing areas",
+        "Precisely crafted to match your bite and appearance"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Zirconia and gold crown options available",
+        "Amalgam-free restorations using biocompatible materials"
+      ]
+    },
+    "bridges": {
+      "headline": "Dental Bridges in Orange County",
+      "subheadline": "Replace one or more missing teeth with a custom dental bridge at Orange County Dental Care in Orange, CA.",
+      "intro": "A dental bridge is a proven solution for replacing one or more missing teeth, restoring your smile's appearance and your ability to chew and speak comfortably. At Orange County Dental Care, bridges are crafted using only high-quality, amalgam-free materials designed to match your natural teeth in color and shape. A bridge is anchored to the healthy teeth on either side of the gap, with a custom-made artificial tooth (or teeth) filling the space in between. Dr. Etemadieh will assess your candidacy during a comprehensive examination and recommend the most suitable bridge design for your situation, whether a traditional fixed bridge or an implant-supported alternative.",
+      "benefits": [
+        "Replaces one or more missing teeth in a fixed, non-removable restoration",
+        "Crafted from high-quality, amalgam-free biocompatible materials",
+        "Restores chewing function and natural appearance",
+        "Prevents neighboring teeth from shifting into the gap",
+        "Custom color-matched to your natural teeth"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Amalgam-free restorations using biocompatible materials"
+      ]
+    },
+    "inlays-and-onlays": {
+      "headline": "Inlays and Onlays in Orange County",
+      "subheadline": "Precise, conservative tooth restorations using premium biocompatible materials at Orange County Dental Care.",
+      "intro": "Inlays and onlays are conservative restorations that sit between a filling and a crown in terms of coverage. An inlay fills the space within the cusps of a tooth, while an onlay extends over one or more of the tooth's cusps. They are an ideal solution when a tooth has damage or decay that is too extensive for a simple filling, but not severe enough to require a full crown—preserving more of your natural tooth structure in the process. At Orange County Dental Care, inlays and onlays are fabricated from biocompatible, amalgam-free materials that are matched to the color of your natural teeth, delivering a restoration that is both durable and virtually invisible.",
+      "benefits": [
+        "More conservative than a crown — preserves more natural tooth structure",
+        "More durable than a standard filling for larger areas of damage",
+        "Crafted from amalgam-free, biocompatible materials",
+        "Color-matched to blend with your natural teeth",
+        "Precisely fitted for long-lasting comfort and function"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Amalgam-free restorations using biocompatible materials"
+      ]
+    },
+    "root-canal-therapy": {
+      "headline": "Root Canal Therapy in Orange County",
+      "subheadline": "Comfortable, effective root canal treatment to save your natural tooth at Orange County Dental Care in Orange, CA.",
+      "intro": "Root canal therapy has an undeserved reputation for being painful—in reality, the procedure relieves the pain caused by infection and inflammation inside a tooth, not causes it. At Orange County Dental Care, Dr. Etemadieh performs root canal therapy with a focus on patient comfort and preserving your natural tooth. The treatment involves carefully removing the infected or inflamed pulp tissue from inside the tooth, cleaning and shaping the root canals, and sealing the space with a biocompatible material. A tooth-colored, amalgam-free restoration is then placed to protect and restore the tooth's function. Dr. Etemadieh is trusted by fellow dentists for their own care—a testament to the quality and comfort you can expect at every visit.",
+      "benefits": [
+        "Relieves pain caused by infected or inflamed tooth pulp",
+        "Saves your natural tooth — avoids extraction",
+        "Biocompatible, amalgam-free materials used throughout",
+        "Focus on patient comfort during every step",
+        "Trusted by fellow dentists for their own care"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Trusted by fellow dentists",
+        "Amalgam-free restorations using biocompatible materials"
+      ]
+    },
+    "full-mouth-rehabilitation": {
+      "headline": "Full Mouth Rehabilitation in Orange County",
+      "subheadline": "Comprehensive smile reconstruction combining restorative and cosmetic dentistry at Orange County Dental Care.",
+      "intro": "Full mouth rehabilitation is a comprehensive, coordinated approach to restoring the health, function, and appearance of all the teeth in your mouth. It is designed for patients who have experienced significant damage, decay, tooth loss, or wear across multiple teeth and require a combination of restorative and cosmetic treatments to achieve optimal oral health. At Orange County Dental Care, Dr. Etemadieh—an implant and cosmetic specialist since 2013—creates individualized rehabilitation plans that may incorporate crowns, bridges, implants, veneers, and other restorations. Every material used is of the highest quality, amalgam-free, and biocompatible. Treatment is carefully sequenced and explained at every stage, and Dr. Etemadieh is the dentist that other dentists trust with their own care—a standard you can rely on throughout your rehabilitation journey.",
+      "benefits": [
+        "Comprehensive plan addressing all restorative and cosmetic needs",
+        "Implant and cosmetic specialist leading your care since 2013",
+        "Amalgam-free, high-quality biocompatible materials throughout",
+        "Combines crowns, bridges, implants, veneers, and more as needed",
+        "Trusted by fellow dentists for their own care"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Trusted by fellow dentists",
+        "Amalgam-free restorations using biocompatible materials",
+        "Implant & cosmetic specialist on staff since 2013"
+      ]
+    },
+    "professional-teeth-whitening": {
+      "headline": "Professional Teeth Whitening in Orange County",
+      "subheadline": "Brighten your smile with professional teeth whitening at Orange County Dental Care in Orange, CA.",
+      "intro": "A brighter smile can be achieved faster and more safely with professional whitening than with over-the-counter products. At Orange County Dental Care, Dr. Etemadieh offers professional teeth whitening that is customized to your goals and designed to deliver noticeably whiter results—often in a single visit. Dr. Etemadieh combines artistic vision with technical expertise to ensure your results look naturally bright rather than artificial. Whitening is one of our same-day cosmetic treatments, making it easy to fit into your schedule. Whether you're preparing for a special event or simply refreshing your everyday smile, professional whitening at Orange County Dental Care is a safe, effective, and affordable way to enhance your appearance.",
+      "benefits": [
+        "Same-day results — often completed in a single visit",
+        "Customized to your shade goals for a natural-looking result",
+        "Safer and more effective than over-the-counter products",
+        "Delivered by a cosmetic specialist with an artistic eye",
+        "Affordable and accessible cosmetic upgrade"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Same-day cosmetic treatments available including whitening and bonding",
+        "Dr. Etemadieh combines artistic vision with technical expertise"
+      ]
+    },
+    "porcelain-veneers": {
+      "headline": "Porcelain Veneers in Orange County",
+      "subheadline": "Transform your smile with custom porcelain veneers crafted for natural beauty at Orange County Dental Care.",
+      "intro": "Porcelain veneers are ultra-thin, custom-made shells bonded to the front surface of your teeth to transform their color, shape, size, or overall appearance. They are one of the most versatile cosmetic treatments available, addressing discoloration, chips, cracks, minor misalignment, and gaps in a single procedure. At Orange County Dental Care, Dr. Etemadieh—an implant and cosmetic specialist since 2013—designs each set of veneers with an artistic eye for proportion, shade, and symmetry, ensuring results that look like a beautifully natural version of your own smile. Porcelain closely mimics the light-reflecting properties of natural enamel, making it the gold standard material for smile transformations. Your treatment begins with a consultation where Dr. Etemadieh evaluates your dental health and facial features to recommend the most suitable approach.",
+      "benefits": [
+        "Addresses discoloration, chips, cracks, gaps, and minor misalignment",
+        "Custom-designed for natural-looking proportion and shade",
+        "Porcelain mimics the light-reflecting properties of natural enamel",
+        "Long-lasting results with proper care",
+        "Designed by a cosmetic specialist with an artistic vision"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Dr. Etemadieh combines artistic vision with technical expertise",
+        "Implant & cosmetic specialist on staff since 2013"
+      ]
+    },
+    "chairside-composite-veneers": {
+      "headline": "Chairside Composite Veneers in Orange County",
+      "subheadline": "Transform your smile in a single visit with chairside composite veneers at Orange County Dental Care.",
+      "intro": "Chairside composite veneers offer a fast, affordable path to a transformed smile—typically completed in a single appointment without the laboratory wait time required for porcelain veneers. At Orange County Dental Care, Dr. Etemadieh applies tooth-colored composite resin directly to the surface of your teeth, sculpting and shaping it chairside to cover imperfections such as chips, stains, gaps, or uneven edges. The result is a natural-looking enhancement that can dramatically improve your smile in just one visit. Dr. Etemadieh combines artistic vision with technical expertise to ensure composite veneers blend seamlessly with your surrounding teeth. While not as long-lasting as porcelain, composite veneers are a highly effective same-day option that can also be repaired easily if needed.",
+      "benefits": [
+        "Completed in a single visit — no lab wait required",
+        "More affordable than porcelain veneers",
+        "Covers chips, stains, gaps, and uneven edges",
+        "Sculpted chairside by a cosmetic specialist",
+        "Easily repaired if chipped or damaged"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Dr. Etemadieh combines artistic vision with technical expertise",
+        "Same-day cosmetic treatments available including whitening and bonding"
+      ]
+    },
+    "dental-bonding-and-contouring": {
+      "headline": "Dental Bonding and Contouring in Orange County",
+      "subheadline": "Quick, effective smile enhancements with dental bonding and contouring at Orange County Dental Care.",
+      "intro": "Dental bonding and contouring are among the most accessible and immediately rewarding cosmetic treatments we offer at Orange County Dental Care. Bonding involves applying a tooth-colored composite resin to repair chips, cracks, gaps, or discoloration, while contouring reshapes the natural enamel to improve the size, shape, or surface of a tooth. Both procedures can often be completed in a single visit with no anesthesia required, making them ideal same-day options for patients seeking a quick cosmetic improvement. Dr. Etemadieh approaches each case with artistic precision, sculpting and polishing the material to blend naturally with your surrounding teeth. Whether you're correcting a minor flaw or refreshing your overall smile, bonding and contouring deliver visible results with minimal intervention.",
+      "benefits": [
+        "Completed in a single visit — no lab work required",
+        "Repairs chips, cracks, gaps, and minor discoloration",
+        "Contouring reshapes enamel for a more uniform smile",
+        "Minimal to no anesthesia required for most cases",
+        "Sculpted with artistic precision by Dr. Etemadieh"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Same-day cosmetic treatments available including whitening and bonding",
+        "Dr. Etemadieh combines artistic vision with technical expertise"
+      ]
+    },
+    "invisalign-clear-aligners": {
+      "headline": "Invisalign Clear Aligners in Orange County",
+      "subheadline": "Straighten your smile discreetly with Invisalign at Orange County Dental Care in Orange, CA.",
+      "intro": "Invisalign clear aligners offer a comfortable, virtually invisible way to straighten your teeth without the brackets and wires of traditional braces. At Orange County Dental Care, Dr. Etemadieh uses advanced 3D digital scanning to create a precise treatment plan that maps out the exact movements of your teeth, allowing you to see your virtual results before treatment even begins. Your custom aligners are worn throughout the day and changed on a schedule designed around your specific case. Invisalign is suitable for patients of all ages and is designed to fit your lifestyle—aligners are removable for eating, brushing, and special occasions. Treatment duration varies by case, with most patients completing therapy within 12–24 months.",
+      "benefits": [
+        "Virtually invisible — no brackets or wires",
+        "Advanced 3D digital scanning for a precise, personalized plan",
+        "See your virtual results before treatment begins",
+        "Removable aligners fit easily into your daily lifestyle",
+        "Suitable for teens and adults"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Advanced 3D digital scanning for precise treatment plans",
+        "Advanced intraoral scanner for digital impressions"
+      ]
+    },
+    "clear-aligner-therapy": {
+      "headline": "Clear Aligner Therapy in Orange County",
+      "subheadline": "Precise, personalized clear aligner treatment for straighter teeth at Orange County Dental Care.",
+      "intro": "We provide a range of orthodontic treatment options with a focus on clear aligner therapy. Using advanced 3D digital scanning, Dr. Etemadieh creates precise treatment plans that map out the exact movements of your teeth, allowing you to see your virtual results before treatment begins. Our orthodontic solutions are designed to fit your lifestyle while effectively addressing alignment issues, spacing problems, and bite irregularities.",
+      "benefits": [
+        "Advanced 3D digital scanning for precision planning",
+        "Virtual preview of your final results before treatment starts",
+        "Addresses alignment, spacing, and bite issues",
+        "Designed to fit seamlessly into your daily lifestyle",
+        "Treatment typically completed within 12–24 months"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Advanced 3D digital scanning for precise treatment plans",
+        "Advanced intraoral scanner for digital impressions"
+      ]
+    },
+    "3d-digital-scanning-for-orthodontics": {
+      "headline": "3D Digital Scanning for Orthodontics in Orange County",
+      "subheadline": "Precise, comfortable digital impressions for orthodontic treatment planning at Orange County Dental Care.",
+      "intro": "At Orange County Dental Care, 3D digital scanning has replaced traditional putty impressions, making the process of starting orthodontic treatment faster, more comfortable, and more precise. Using our advanced intraoral scanner, Dr. Etemadieh captures detailed digital models of your teeth and jaw in minutes—no messy materials, no gagging, and no waiting for impressions to set. These precise digital models are used to create an accurate orthodontic treatment plan that maps out the exact movements of your teeth throughout your aligner therapy. The technology also allows you to view a virtual simulation of your expected results before treatment begins, so you know exactly what to expect from your smile transformation.",
+      "benefits": [
+        "Eliminates traditional putty impressions — comfortable and mess-free",
+        "Highly accurate digital models for precise treatment planning",
+        "Virtual simulation lets you preview your results in advance",
+        "Faster start to your orthodontic treatment",
+        "Part of a comprehensive advanced-technology approach to care"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Advanced 3D digital scanning for precise treatment plans",
+        "Advanced intraoral scanner for digital impressions",
+        "Advanced technology for personalized dental care"
+      ]
+    },
+    "emergency-dental-care": {
+      "headline": "Emergency Dental Care in Orange County",
+      "subheadline": "Need urgent dental care in Orange, CA? Orange County Dental Care offers emergency dental services. Call us immediately for prompt attention.",
+      "intro": "Dental emergencies can happen at any time, often causing significant pain and anxiety. At Orange County Dental Care, we provide prompt, effective emergency dental services to address your urgent needs and relieve your discomfort. Dr. Etemadieh makes emergency patients a priority, offering same-day appointments whenever possible and after-hours care when needed for serious situations. We handle a full range of dental emergencies including severe toothaches, broken or chipped teeth, knocked-out teeth, lost fillings or crowns, dental abscesses, soft tissue injuries, and objects caught between teeth. Our focus is on relieving your pain quickly and addressing the underlying problem effectively. When you call with an emergency, our team will provide immediate guidance and arrange for you to be seen as soon as possible.",
+      "benefits": [
+        "Same-day emergency appointments whenever possible",
+        "After-hours care available for serious emergencies",
+        "Immediate phone guidance when you call",
+        "Full range of emergency situations treated",
+        "Fast pain relief and resolution of the underlying cause"
+      ],
+      "cta": "Call Us Now",
+      "differentiatorsWoven": [
+        "Same-day emergency appointments whenever possible",
+        "After-hours care available for serious emergencies"
+      ]
+    },
+    "severe-toothache-treatment": {
+      "headline": "Severe Toothache Treatment in Orange County",
+      "subheadline": "Fast relief for severe toothache pain at Orange County Dental Care. Call us for a same-day appointment.",
+      "intro": "A severe toothache is one of the most common dental emergencies and should never be ignored—persistent or intense tooth pain is often a signal of infection, deep decay, a cracked tooth, or an abscess that requires prompt professional attention. At Orange County Dental Care, Dr. Etemadieh makes emergency patients a priority, offering same-day appointments whenever possible and after-hours care for serious situations. When you call, our team will assess your symptoms immediately and guide you on next steps. Treatment depends on the underlying cause and may include a filling, root canal therapy, or other restorative care to relieve pain and protect the tooth. Don't wait through dental pain—call us so we can help.",
+      "benefits": [
+        "Same-day appointments for toothache emergencies whenever possible",
+        "After-hours care available for serious situations",
+        "Immediate phone assessment and guidance when you call",
+        "Treatment addresses the root cause, not just the pain",
+        "Range of restorative options to save the affected tooth"
+      ],
+      "cta": "Call Us Now",
+      "differentiatorsWoven": [
+        "Same-day emergency appointments whenever possible",
+        "After-hours care available for serious emergencies"
+      ]
+    },
+    "broken-or-chipped-teeth-repair": {
+      "headline": "Broken or Chipped Teeth Repair in Orange County",
+      "subheadline": "Prompt, effective repair for broken and chipped teeth at Orange County Dental Care in Orange, CA.",
+      "intro": "A broken or chipped tooth can happen suddenly—from a fall, a sports injury, biting on something hard, or an accident. Whether it's a small chip affecting your smile's appearance or a more significant fracture causing pain, Orange County Dental Care is here to help. Dr. Etemadieh offers same-day appointments for broken and chipped teeth whenever possible. The right repair depends on the extent of the damage: minor chips can often be corrected with dental bonding in a single visit, while more significant breaks may require a crown, veneer, or other restorative treatment. Our focus is on restoring both the function and the appearance of your tooth using high-quality, natural-looking materials.",
+      "benefits": [
+        "Same-day appointments available for broken and chipped teeth",
+        "Bonding, veneers, and crowns available depending on severity",
+        "Restores both function and natural appearance",
+        "High-quality, tooth-colored materials used",
+        "Dr. Etemadieh assesses all repair options and recommends the best fit"
+      ],
+      "cta": "Call Us Now",
+      "differentiatorsWoven": [
+        "Same-day emergency appointments whenever possible",
+        "Same-day cosmetic treatments available including whitening and bonding"
+      ]
+    },
+    "knocked-out-teeth-treatment": {
+      "headline": "Knocked-Out Tooth Treatment in Orange County",
+      "subheadline": "Time is critical when a tooth is knocked out. Call Orange County Dental Care immediately for emergency care.",
+      "intro": "A knocked-out tooth is one of the most time-sensitive dental emergencies. Acting quickly gives the best chance of saving the tooth. If your tooth has been knocked out, pick it up by the crown—not the root—and rinse it gently with water without scrubbing. If possible, carefully reinsert it into the socket and bite down softly on a clean cloth to hold it in place. If reinsertion is not possible, keep the tooth moist by placing it in milk or between your cheek and gum, and call Orange County Dental Care immediately. Dr. Etemadieh makes emergency patients a priority, offering same-day appointments whenever possible and after-hours care for serious situations. Time is critical—ideally, a knocked-out tooth should be treated within 30 minutes for the best chance of reimplantation.",
+      "benefits": [
+        "Same-day and after-hours emergency appointments available",
+        "Immediate phone guidance on tooth preservation steps",
+        "Highest chance of saving the tooth when treated promptly",
+        "Reimplantation or replacement options available",
+        "Dr. Etemadieh prioritizes emergency patients"
+      ],
+      "cta": "Call Us Now",
+      "differentiatorsWoven": [
+        "Same-day emergency appointments whenever possible",
+        "After-hours care available for serious emergencies"
+      ]
+    },
+    "lost-fillings-or-crowns-replacement": {
+      "headline": "Lost Filling or Crown Replacement in Orange County",
+      "subheadline": "Fast replacement for lost fillings and crowns at Orange County Dental Care. Call us for a same-day appointment.",
+      "intro": "Losing a filling or crown can leave your tooth exposed, sensitive, and vulnerable to further damage. While it may not always cause severe pain right away, a lost filling or crown should be treated promptly to protect the underlying tooth structure and prevent infection or decay. At Orange County Dental Care, Dr. Etemadieh offers same-day appointments for lost restorations whenever possible. We will assess the affected tooth and provide a replacement restoration using high-quality materials. Crown replacements are available in zirconia or gold, and all fillings use biocompatible, amalgam-free composite material. In the meantime, avoid chewing on the affected side and keep the area clean until you can be seen.",
+      "benefits": [
+        "Same-day appointments for lost restorations whenever possible",
+        "Zirconia and gold crown replacement options",
+        "Amalgam-free, biocompatible filling materials",
+        "Protects exposed tooth from further decay or damage",
+        "Fast and comfortable restoration process"
+      ],
+      "cta": "Call Us Now",
+      "differentiatorsWoven": [
+        "Same-day emergency appointments whenever possible",
+        "Zirconia and gold crown options available"
+      ]
+    },
+    "dental-abscess-treatment": {
+      "headline": "Dental Abscess Treatment in Orange County",
+      "subheadline": "Urgent treatment for dental abscesses at Orange County Dental Care. Call us immediately — do not wait.",
+      "intro": "A dental abscess is a serious infection that develops at the root of a tooth or in the surrounding gum tissue and requires prompt professional treatment. Left untreated, an abscess can spread to the jaw, neck, or other parts of the body—making it a genuine medical emergency. Symptoms may include severe, throbbing tooth pain, swelling in the face or jaw, fever, sensitivity to hot and cold, and a bad taste in the mouth. At Orange County Dental Care, Dr. Etemadieh makes emergency patients a priority, offering same-day appointments whenever possible and after-hours care when needed for serious situations. Treatment typically involves draining the abscess and addressing the underlying infection, which may include root canal therapy, antibiotics, or in some cases extraction. Do not delay—call us as soon as possible.",
+      "benefits": [
+        "Same-day appointments available for abscess emergencies",
+        "After-hours care available for serious infections",
+        "Addresses the infection and its source",
+        "Prevents spread of infection to surrounding structures",
+        "Full range of treatment options including root canal therapy"
+      ],
+      "cta": "Call Us Now",
+      "differentiatorsWoven": [
+        "Same-day emergency appointments whenever possible",
+        "After-hours care available for serious emergencies"
+      ]
+    },
+    "soft-tissue-injuries-treatment": {
+      "headline": "Soft Tissue Injury Treatment in Orange County",
+      "subheadline": "Emergency care for lacerations, punctures, and other soft tissue injuries of the mouth at Orange County Dental Care.",
+      "intro": "Injuries to the soft tissues of the mouth—including the lips, tongue, cheeks, and gums—can occur from falls, sports injuries, biting accidents, or trauma. While some minor cuts may resolve with home care, injuries that are deep, won't stop bleeding, or are accompanied by pain or swelling should be evaluated by a dental professional promptly. At Orange County Dental Care, Dr. Etemadieh offers same-day appointments for soft tissue emergencies whenever possible. Treatment depends on the nature and severity of the injury and may include cleaning and closing the wound, managing bleeding, and assessing for any damage to underlying teeth or bone. If you experience a significant oral soft tissue injury, apply gentle pressure with a clean cloth to control bleeding and call us right away.",
+      "benefits": [
+        "Same-day appointments for soft tissue emergencies whenever possible",
+        "Assessment of the full extent of injury including teeth and bone",
+        "Immediate phone guidance on first-aid steps",
+        "Treatment for lacerations, punctures, and impact injuries",
+        "Compassionate, prompt care to manage pain and promote healing"
+      ],
+      "cta": "Call Us Now",
+      "differentiatorsWoven": [
+        "Same-day emergency appointments whenever possible"
+      ]
+    },
+    "objects-caught-between-teeth-removal": {
+      "headline": "Object Caught Between Teeth — Removal in Orange County",
+      "subheadline": "Safe, professional removal of objects caught between teeth at Orange County Dental Care. Call us before attempting removal at home.",
+      "intro": "An object caught or lodged between your teeth can cause significant discomfort and, if not removed properly, may injure your gums or damage surrounding teeth. Before attempting to remove it yourself, try gently using dental floss—never use a sharp instrument, pin, or anything that could cut your gums or scratch your enamel. If flossing doesn't resolve the issue, call Orange County Dental Care. Dr. Etemadieh offers same-day appointments whenever possible and our team can safely remove the object without causing further harm. What seems like a minor inconvenience can sometimes indicate a deeper issue, so it is always worth having the area professionally evaluated after any lodged-object episode.",
+      "benefits": [
+        "Same-day appointments available whenever possible",
+        "Safe professional removal without injuring gums or teeth",
+        "Immediate phone guidance on safe at-home first steps",
+        "Post-removal assessment for any related damage",
+        "Quick, comfortable resolution of a painful problem"
+      ],
+      "cta": "Call Us Now",
+      "differentiatorsWoven": [
+        "Same-day emergency appointments whenever possible"
+      ]
+    },
+    "single-tooth-implants": {
+      "headline": "Single Tooth Implants in Orange County",
+      "subheadline": "Replace a single missing tooth with a permanent, natural-looking implant at Orange County Dental Care.",
+      "intro": "A single tooth implant is the most natural and long-lasting way to replace a missing tooth. Unlike a bridge, an implant does not require altering the adjacent healthy teeth—it stands on its own, anchored directly into the jawbone. At Orange County Dental Care, Dr. Etemadieh uses only premium American-made Straumann and Swiss-made Hoissen implants, trusted for their precision engineering and long-term performance. A comprehensive evaluation including digital imaging is performed prior to placement to assess bone quality and determine the optimal implant position. Once placed, the titanium implant integrates with your jawbone through a process called osseointegration, creating a stable, permanent foundation for a custom-designed crown that looks and functions exactly like a natural tooth.",
+      "benefits": [
+        "Premium Straumann and Hoissen implants for proven long-term results",
+        "No alteration of adjacent healthy teeth required",
+        "Digital imaging for precise placement planning",
+        "Integrates with the jawbone for a stable, permanent result",
+        "Custom crown matched to the color and shape of your natural teeth"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "American-made Straumann and Swiss-made Hoissen implants",
+        "Digital imaging for implant planning and bone assessment",
+        "Implant & cosmetic specialist on staff since 2013"
+      ]
+    },
+    "multiple-tooth-replacement": {
+      "headline": "Multiple Tooth Replacement with Implants in Orange County",
+      "subheadline": "Restore several missing teeth with implant-based solutions at Orange County Dental Care in Orange, CA.",
+      "intro": "When multiple teeth are missing, implant-based tooth replacement offers a permanent, stable solution that preserves jawbone health and avoids the drawbacks of removable appliances. At Orange County Dental Care, Dr. Etemadieh provides multiple tooth replacement options that may include individual implants for each missing tooth or an implant-supported bridge that uses fewer implants to support a span of replacement teeth. Each plan is personalized following a comprehensive evaluation with digital imaging to assess bone density and determine the optimal approach for your specific anatomy. We use only premium American-made Straumann and Swiss-made Hoissen implants, ensuring the durability and quality that multiple tooth replacement demands.",
+      "benefits": [
+        "Permanent, stable replacement without removable appliances",
+        "Individual implants or implant-supported bridge options",
+        "Premium Straumann and Hoissen implants for lasting results",
+        "Digital imaging for precise, personalized treatment planning",
+        "Preserves jawbone density and facial structure"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "American-made Straumann and Swiss-made Hoissen implants",
+        "Digital imaging for implant planning and bone assessment"
+      ]
+    },
+    "implant-supported-dentures": {
+      "headline": "Implant-Supported Dentures in Orange County",
+      "subheadline": "Experience the stability of implant-supported dentures at Orange County Dental Care — a permanent alternative to traditional dentures.",
+      "intro": "Implant-supported dentures combine the comprehensive tooth replacement of full dentures with the stability and security of dental implants. Unlike traditional dentures that rest on the gums and can shift or slip during eating and speaking, implant-supported dentures are anchored to strategically placed implants in the jawbone, eliminating movement and dramatically improving comfort and confidence. At Orange County Dental Care, Dr. Etemadieh uses only premium American-made Straumann and Swiss-made Hoissen implants. Digital imaging is used to assess bone density and plan optimal implant positioning. Each denture prosthetic is custom-crafted to complement your facial features and provide the most natural look and feel possible. Implant-supported dentures also help preserve jawbone density—an important long-term health benefit that traditional dentures cannot provide.",
+      "benefits": [
+        "Anchored securely — no slipping or shifting",
+        "Premium Straumann and Hoissen implants for lasting stability",
+        "Digital imaging for precise implant planning",
+        "Custom-crafted prosthetic for a natural look and feel",
+        "Preserves jawbone density over time"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "American-made Straumann and Swiss-made Hoissen implants",
+        "Custom-crafted dentures for optimal fit and natural appearance",
+        "Digital imaging for implant planning and bone assessment"
+      ]
+    },
+    "full-dentures": {
+      "headline": "Full Dentures in Orange County",
+      "subheadline": "Custom full dentures crafted for comfort, function, and a natural appearance at Orange County Dental Care.",
+      "intro": "Full dentures are a time-tested solution for patients who have lost all of their teeth in one or both arches, restoring the ability to eat, speak, and smile with confidence. At Orange County Dental Care, every set of full dentures is custom-crafted to complement your unique facial features and provide the most natural look possible using high-quality materials. Dr. Etemadieh takes detailed measurements and works with you to select the appropriate tooth shape, size, and shade to create a result that looks natural and fits comfortably. Most patients adjust to new dentures within a few weeks, during which our team is available to make any necessary adjustments. For patients seeking greater stability, implant-supported dentures are also available.",
+      "benefits": [
+        "Custom-designed to complement your facial features",
+        "High-quality materials for a natural look and comfortable fit",
+        "Restores eating, speaking, and smiling with confidence",
+        "Adjustments available as you adapt to your new dentures",
+        "Implant-supported option available for added stability"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Custom-crafted dentures for optimal fit and natural appearance"
+      ]
+    },
+    "partial-dentures": {
+      "headline": "Partial Dentures in Orange County",
+      "subheadline": "Custom partial dentures to fill gaps and preserve your healthy teeth at Orange County Dental Care.",
+      "intro": "Partial dentures are a practical and affordable solution for patients who are missing some but not all of their teeth. They fill the gaps left by missing teeth while preserving the healthy teeth that remain, preventing neighboring teeth from shifting out of position. At Orange County Dental Care, each partial denture is custom-crafted using high-quality materials and designed to fit comfortably alongside your natural teeth. Precision clasps or attachments hold the partial securely in place during eating and speaking, while still allowing for easy removal for cleaning. Dr. Etemadieh will evaluate your specific situation and recommend the partial denture design and material that best suits your bite, comfort, and aesthetic goals. For patients who want a more permanent solution, implant-supported options are also available.",
+      "benefits": [
+        "Custom-crafted for a comfortable, secure fit",
+        "Preserves and protects remaining healthy teeth",
+        "Prevents neighboring teeth from shifting",
+        "Removable for easy cleaning and maintenance",
+        "Implant-supported alternative available for greater stability"
+      ],
+      "cta": "Schedule a Consultation",
+      "differentiatorsWoven": [
+        "Custom-crafted dentures for optimal fit and natural appearance"
+      ]
+    }
+  },
+  "faqs": [
+    {
+      "question": "How often should I have a dental cleaning?",
+      "answer": "Most patients benefit from cleanings every six months, but those with gum disease or certain health conditions may need more frequent visits. Dr. Etemadieh will recommend the optimal schedule for your needs."
+    },
+    {
+      "question": "How long do dental crowns last?",
+      "answer": "With proper care, high-quality crowns like those we provide at Orange County Dental Care can last 15 years or more. Regular check-ups help ensure their continued performance and fit."
+    },
+    {
+      "question": "How long does teeth whitening last?",
+      "answer": "Professional whitening results can last from several months to a year or more, depending on your habits. Avoiding staining foods and beverages and maintaining good oral hygiene can extend the results."
+    },
+    {
+      "question": "Am I too old for orthodontic treatment?",
+      "answer": "No, there's no age limit for orthodontic treatment. Many of our patients are adults who decide to improve their smile later in life. Modern options like clear aligners make treatment more appealing for adult professionals."
+    },
+    {
+      "question": "Is sedation dentistry safe?",
+      "answer": "Yes, when administered by qualified specialists, sedation dentistry is very safe. Prior to recommending any sedation option, we review your complete medical history to identify any potential risks or contraindications."
+    },
+    {
+      "question": "What should I do if my tooth gets knocked out?",
+      "answer": "Pick up the tooth by the crown (not the root), rinse it gently without scrubbing, and if possible, place it back in the socket. If that's not possible, keep it in milk or saliva and call us immediately. Time is critical — ideally, the tooth should be treated within 30 minutes."
+    },
+    {
+      "question": "Am I a candidate for dental implants?",
+      "answer": "Most adults with good general health are candidates for implants. Dr. Etemadieh will evaluate factors such as bone density, gum health, and medical history to determine if implants are right for you."
+    },
+    {
+      "question": "How long does it take to get used to new dentures?",
+      "answer": "Most patients adjust to new dentures within a few weeks. Initially, you may experience increased saliva flow, some soreness, and changes in speech, but these issues typically resolve as you adapt to your new teeth."
+    }
+  ],
+  "blogTopics": [
+    {
+      "title": "The Difference Between Zirconia and Gold Crowns: Which Is Right for You?",
+      "excerpt": "Dr. Etemadieh offers both zirconia and gold crown options at Orange County Dental Care. This post explains the strengths of each material and helps patients understand which choice suits their situation."
+    },
+    {
+      "title": "Why Orange County Patients Choose Dental Implants Over Dentures",
+      "excerpt": "From single tooth implants to implant-supported dentures, this post compares tooth replacement options using the American-made Straumann and Swiss-made Hoissen implants available at Orange County Dental Care."
+    },
+    {
+      "title": "Invisalign vs. Traditional Braces: What Orange County Adults Need to Know",
+      "excerpt": "A practical comparison of clear aligner therapy and conventional orthodontics, drawing on the 3D digital scanning and personalized treatment planning offered at Orange County Dental Care."
+    },
+    {
+      "title": "What to Do in a Dental Emergency: A Guide for Orange County Residents",
+      "excerpt": "From knocked-out teeth to dental abscesses, this guide covers first-aid steps and when to call Orange County Dental Care — where same-day and after-hours emergency appointments are available."
+    },
+    {
+      "title": "Multilingual Dental Care in Orange County: How We Serve Our Diverse Community",
+      "excerpt": "Orange County Dental Care proudly offers care in English, Spanish, Farsi, Vietnamese, and French. This post highlights how language-accessible dentistry helps patients feel more comfortable and informed throughout their treatment."
+    }
+  ],
+  "locations": {
+    "headline": "Two Convenient Locations Serving Orange County",
+    "intro": "Orange County Dental Care has two offices to serve you — our Orange location at 665 N. Tustin Street Suite W, Orange CA 92867 (across from Ruby's Diner), and our Tustin location at 18410 Irvine Boulevard. Both practices feature modern dental technology including digital x-rays and intraoral scanners, and our multilingual team proudly offers care in English, Spanish, Farsi, Vietnamese, and French."
+  },
+  "rationale": "The practice's own voice is distinctive and credible — particularly the 'dentist that other dentists trust' positioning, the named implant brands (Straumann and Hoissen), and Dr. Etemadieh's dual artistic-and-technical framing for cosmetic work. All 'keep' and 'optimize' sections were built directly from verbatim source blocks, with truncated paragraphs completed using the matching additionalContent prose from the same page. For 'create' sections — including emergency sub-services, individual restorative treatments, and standalone preventative services — new copy was written conservatively, grounded only in information the practice had already published (materials, technology, differentiators, and operational commitments), with no fabricated claims about outcomes, awards, or patient volumes. The swapped meta/H1 errors on the sedation and orthodontics pages were corrected in the migrated output.",
+  "_meta": {
+    "model": "claude-sonnet-4-6",
+    "input_tokens": 18390,
+    "output_tokens": 16248,
+    "duration_ms": 231324,
+    "cost": 0.2989
+  }
+}

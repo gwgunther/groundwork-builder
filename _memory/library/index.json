@@ -1,0 +1,68 @@
+{
+  "entries": [
+    {
+      "slug": "spring-st-dentistry",
+      "tag": "own",
+      "source": "/Users/garrettgunther/Projects/spring-st-test3",
+      "captured": "2026-05-03",
+      "archetype": "centered-classic",
+      "mood": "warm, approachable",
+      "fontPair": "DM Serif Display / Plus Jakarta Sans",
+      "adjectives": [
+        "warm",
+        "professional",
+        "trustworthy",
+        "accessible",
+        "refined"
+      ]
+    },
+    {
+      "slug": "build",
+      "tag": "own",
+      "source": "/Users/garrettgunther/Projects/clients/springs-dental-v2",
+      "captured": "2026-04-27",
+      "archetype": "warm-editorial",
+      "mood": "calm, trustworthy",
+      "fontPair": "DM Serif Display / Plus Jakarta Sans",
+      "adjectives": [
+        "warm-professional",
+        "humanist-serif-led",
+        "sage-grounded",
+        "approachable-clinical",
+        "editorial-dental"
+      ]
+    },
+    {
+      "slug": "magic-fox-orthodontics",
+      "tag": "own",
+      "source": "/Users/garrettgunther/Projects/magicfox-test3",
+      "captured": "2026-05-03",
+      "archetype": "warm-editorial",
+      "mood": "warm, professional",
+      "fontPair": "Playfair Display/DM Sans",
+      "adjectives": [
+        "warm",
+        "trustworthy",
+        "refined",
+        "approachable",
+        "professional"
+      ]
+    },
+    {
+      "slug": "russell-ek-chang-dds-ms-facd-inc",
+      "tag": "own",
+      "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/chang-orthodontics",
+      "captured": "2026-05-07",
+      "archetype": "magazine-split",
+      "mood": "professional-warm",
+      "fontPair": "Space Grotesk/Inter",
+      "adjectives": [
+        "clinical-approachable",
+        "heritage-focused",
+        "trust-driven",
+        "editorial-refined",
+        "credential-forward"
+      ]
+    }
+  ]
+}

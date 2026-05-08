@@ -1,0 +1,254 @@
+{
+  "$schema": "./rubric.schema.json",
+  "name": "Groundwork Quality Rubric",
+  "version": "1.0.0",
+  "purpose": "Scoring function for the Designer Agent. Every score must be justified by at least one concrete, quotable observation from the artifact under review. Scores are integers 1-10.",
+  "calibration": {
+    "anchors": {
+      "1-3": "Failing. Multiple disqualifying problems. Would embarrass the practice if shipped.",
+      "4-6": "Adequate. Functional but indistinguishable from a generic template. Passes no one's taste test.",
+      "7-8": "Strong. Clearly considered, would hold up in a portfolio, still has refinable edges.",
+      "9-10": "Exceptional. Hard to improve without starting over. Distinctive and intentional at every level."
+    },
+    "instructions_to_scorer": [
+      "NEVER give a score without at least one concrete observation (e.g., 'hero headline is 32px, should be 56px+ given the editorial archetype').",
+      "If you cannot cite evidence, score 5 by default and flag 'insufficient-evidence'.",
+      "Do not grade on a curve. An 8 means the work is genuinely strong, not 'the best of three weak options'.",
+      "Penalize template-fill output — if the result looks like every other AI-generated site, distinctiveness caps at 4.",
+      "For local service business (dental, medical, legal) practices: trust and clarity outrank novelty. A striking site that loses the practice's audience is a failure, not a win."
+    ]
+  },
+  "gate_criteria": {
+    "agent_gate": "typography ≥ 7 AND color_contrast ≥ 7 AND spatial_layout ≥ 7 AND information_hierarchy ≥ 7 AND craft ≥ 7 AND ux_writing ≥ 7",
+    "agent_gate_description": "Dimensions the agent can fix through code changes. Build ships when these all pass.",
+    "human_gate": "imagery ≥ 7 AND distinctiveness ≥ 7 AND trust_signals ≥ 7",
+    "human_gate_description": "Dimensions requiring real photos, creative judgment, or client data. Failures surface as named action items, not build blockers.",
+    "must_pass": "agent_gate (all agent dimensions ≥ 7)",
+    "ship_threshold": "All agent dimensions ≥ 7. Human dimensions reported as action items if below 7.",
+    "stop_iterating_when": [
+      "All agent dimensions ≥ 7 (agent_gate passed)",
+      "iteration budget exhausted (default: 6 critique-then-revise loops)",
+      "scores have not improved for 2 consecutive iterations — declare local max, ship best checkpoint"
+    ]
+  },
+  "dimensions": [
+    {
+      "id": "distinctiveness",
+      "name": "Distinctiveness / Anti-AI-slop",
+      "weight": 1.5,
+      "why_it_matters": "A dental practice's site must feel like THIS practice, not generic AI dental site #482. This is the dimension most often failed by template systems.",
+      "evidence_to_cite": [
+        "archetype choice vs. recent own-builds (divergence memory)",
+        "hero variant choice",
+        "presence/absence of AI-slop tells: gradient text, faux-glass cards, identical 3-up stat bars with dashes, centered-headline-with-two-CTAs-and-microlinks pattern",
+        "whether the homepage could be swapped onto a different practice's brand without editing"
+      ],
+      "bands": {
+        "1-3": "Indistinguishable from the template baseline. Reads as 'AI made this' at a glance.",
+        "4-6": "Palette swapped, one or two sections rearranged, but compositionally identical to at least one recent own-build.",
+        "7-8": "Archetype + hero variant diverge from all recent own-builds. Borrows a specific trait from an inspo reference.",
+        "9-10": "Unmistakably this practice. Could not be re-skinned onto another brand without losing its identity."
+      },
+      "linked_skills": ["bolder", "critique", "extract"]
+    },
+    {
+      "id": "typography",
+      "name": "Typography",
+      "weight": 1.2,
+      "why_it_matters": "Most AI sites fail here first: wrong font pairings, flat hierarchy, body-copy sizes, no tabular-nums for data.",
+      "evidence_to_cite": [
+        "display/body pairing (genre-appropriate?)",
+        "hierarchy: headline → subhead → body size ratios",
+        "line-height and measure (45-75 char measure for body)",
+        "tabular figures on numeric data",
+        "microcopy voice consistency"
+      ],
+      "bands": {
+        "1-3": "Single font, flat hierarchy, body too small, line-height wrong, or visibly default fonts (Arial/Times).",
+        "4-6": "Two-font pairing but scale is compressed; headline/body feel close in weight or size.",
+        "7-8": "Clear scale, appropriate pairing for the archetype, readable measure, deliberate weight contrast.",
+        "9-10": "Typography does storytelling work: scale, weight, and spacing reinforce the hierarchy without color or chrome."
+      },
+      "linked_skills": ["typeset", "polish"]
+    },
+    {
+      "id": "color_contrast",
+      "name": "Color & Contrast",
+      "weight": 1.0,
+      "why_it_matters": "Local-practice sites lean heavily on 2-3 colors. Getting the ratio right (surface-to-accent) and contrast right (WCAG AA minimum) is non-negotiable.",
+      "evidence_to_cite": [
+        "palette count and role distribution (dominant/support/accent — 60/30/10)",
+        "WCAG contrast on body text (≥ 4.5), large text (≥ 3.0), UI elements (≥ 3.0)",
+        "accent color usage frequency (overuse dulls it)",
+        "dark-on-dark or light-on-light mistakes",
+        "color choice matches the design-mapping mood",
+        "full-bleed hero overlay legibility — light text over photographic backgrounds must remain readable at the brightest pixel under it. A weak gradient (e.g. 40% opacity) over a sky/light-storefront photo means the text is partially illegible — flag this even if the rest of the page passes contrast",
+        "text colors that pass at large display sizes but fail at small body sizes (10–14px) — score these against the body-size threshold, not the headline threshold"
+      ],
+      "bands": {
+        "1-3": "Contrast failures on body copy OR accent color used on >30% of page surface OR clashing combinations.",
+        "4-6": "Passes contrast, but palette feels generic (default Tailwind blue/slate) or accent used flatly.",
+        "7-8": "Intentional 60/30/10, accent reserved for action moments, contrast comfortable in both light and dark environments.",
+        "9-10": "Palette does emotional work — calm, authoritative, or warm per the brief. Accent deployed scalpel-precisely."
+      },
+      "linked_skills": ["colorize", "quieter"]
+    },
+    {
+      "id": "spatial_layout",
+      "name": "Spatial / Layout",
+      "weight": 1.2,
+      "why_it_matters": "Section rhythm, whitespace, and grid choices carry more of the 'custom design' feeling than almost anything else.",
+      "evidence_to_cite": [
+        "section-to-section vertical rhythm (consistent or deliberately varied?)",
+        "whitespace around hero, CTAs, section headings",
+        "grid choice: centered-max-width vs. asymmetric vs. broken — matches archetype?",
+        "density choice (airy/balanced/dense) reflects the mood",
+        "mobile: does anything collapse poorly at 375px?",
+        "sections rendering with conspicuously empty regions (e.g. an empty grid column, a paragraph slot with no text, a decorative blockquote area with placeholder content) — usually a sign the layout assumed data that wasn't provided. The fix is to collapse the layout, not leave the whitespace",
+        "side-by-side columns of dramatically unequal height/density when the design implies balance (e.g. text column has only a heading and button, image column is full — feels lopsided)"
+      ],
+      "bands": {
+        "1-3": "Sections stacked with identical py-16 throughout. No spatial voice. Mobile breaks.",
+        "4-6": "Consistent but monotonous rhythm. Centered max-w-7xl everywhere.",
+        "7-8": "Deliberate variation in section padding, widths, alignment. Clear airy/balanced/dense choice.",
+        "9-10": "Layout itself communicates hierarchy — the viewer knows what matters before reading a word."
+      },
+      "linked_skills": ["layout", "arrange"]
+    },
+    {
+      "id": "information_hierarchy",
+      "name": "Information Hierarchy",
+      "weight": 1.3,
+      "why_it_matters": "A practice site has one job on first view: communicate 'trustworthy dentist in my city, easy to book.' If the visitor can't infer that in 3 seconds, the design fails.",
+      "evidence_to_cite": [
+        "what the eye lands on first (headline? CTA? image?) — does it match the most important message?",
+        "primary CTA (Book/Call) reachable above the fold",
+        "practice name, location, and core service visible before scroll",
+        "secondary info (reviews, team, hours) progressively disclosed",
+        "no more than 1 primary CTA on any screen"
+      ],
+      "bands": {
+        "1-3": "Visitor confused about what this site is selling or how to act.",
+        "4-6": "Hierarchy exists but flat: 3+ elements competing for attention above the fold.",
+        "7-8": "Clear first-glance message + one primary action. Secondary info waits its turn.",
+        "9-10": "Structure is the message. A stranger understands the practice and books an appointment without effort."
+      },
+      "linked_skills": ["shape", "critique", "clarify"]
+    },
+    {
+      "id": "ux_writing",
+      "name": "UX Writing / Copy",
+      "weight": 1.0,
+      "why_it_matters": "Generic, template-sounding copy is the #1 tell of an AI-generated site. Copy must reference the specific practice, specific city, and specific doctor — never industry-generic phrasing that could appear on any competitor site.",
+      "evidence_to_cite": [
+        "headline specificity (does it name the city? the doctor? a real differentiator?)",
+        "subheadline makes a concrete promise, not a category statement",
+        "CTA verbs are action-oriented and specific to this practice (reference the doctor or a particular action), not abstract or generic",
+        "error/empty states written in the practice's voice",
+        "absence of stock industry phrases that could appear on any competitor site",
+        "no doubled honorifics — a doctor name like 'Dr. Dr. Anthony Hoang' rendering anywhere on the page is a hard error. Also flag inconsistent doctor name formatting across the page (sometimes 'Dr. Anthony Hoang', sometimes 'Anthony Hoang')",
+        "eyebrow/kicker text earns its place. An eyebrow that just repeats bare metadata (city + state, business type, year founded) without adding meaning is filler — penalize. Eyebrows should add a thematic hook, audience callout, philosophy, or differentiator that the headline doesn't already carry",
+        "headline content not duplicated verbatim in the subheadline (different words for the same idea is also penalized)",
+        "no abstract CTA labels: 'Learn More', 'Click Here', 'Get Started', 'Submit' — penalize when seen",
+        "section-level repetition: if multiple eyebrows on the same page all say the city name, or multiple H2s all describe the practice the same way, the page is overusing one rhetorical move"
+      ],
+      "bands": {
+        "1-3": "Entirely generic, template-sounding copy that could appear on any competitor site.",
+        "4-6": "Practice name interpolated into otherwise boilerplate phrases.",
+        "7-8": "Copy references real specifics: doctor's roots, city neighborhoods, actual service focus.",
+        "9-10": "Reads like a human who knows the practice wrote it. Voice is particular; claims are verifiable."
+      },
+      "linked_skills": ["clarify", "polish"]
+    },
+    {
+      "id": "imagery",
+      "name": "Imagery & Asset Fit",
+      "weight": 1.1,
+      "why_it_matters": "Wrong photo in wrong slot screams AI. Hero that's actually a waiting-room corner. Doctor portrait that's actually a team group shot. This is why we built image-roles classification.",
+      "evidence_to_cite": [
+        "hero image is wide and anchors the composition",
+        "doctor portrait is single-subject, shoulders-up",
+        "gallery images are consistent in treatment (all clinical, or all warm documentary — not mixed)",
+        "no stock photography (smiling model families) unless clearly labelled",
+        "alt text specific and useful",
+        "no broken image artifacts visible in the screenshot — alt text rendering as plain text (because the image failed to load), browser broken-image icons, or image elements at 0×0 / impossibly squashed aspect ratios. These are hard errors and indicate a 404 image src — flag and score 1–3 for that section",
+        "if a section reserves space for an image but the image is absent and no fallback was rendered (just empty whitespace where the image should be), call out the layout-when-missing problem"
+      ],
+      "bands": {
+        "1-3": "Placeholder grey boxes OR visibly wrong images in named roles (interior → hero mismatch).",
+        "4-6": "Images present but generic stock or mixed-treatment.",
+        "7-8": "Real practice photos in correct roles, consistent treatment, good crops.",
+        "9-10": "Imagery does brand work: a specific warmth, clinical precision, or editorial mood that reinforces the palette."
+      },
+      "linked_skills": ["polish", "adapt"]
+    },
+    {
+      "id": "trust_signals",
+      "name": "Trust Signals (Conversion)",
+      "weight": 1.4,
+      "why_it_matters": "For local service businesses this is the conversion dimension. No testimonials, no doctor credentials visible, no phone prominently displayed = visitor bounces. This dimension must NEVER score below 7 on a ship-ready site.",
+      "evidence_to_cite": [
+        "phone number clickable in header on mobile",
+        "doctor name, credentials, photo visible without scroll on about and homepage",
+        "real testimonials OR explicit 'new practice, no reviews yet' honesty (never fake reviews)",
+        "address + hours surfaced near footer at minimum",
+        "insurance/payment info present if data available",
+        "NPI or professional licensing surfaced when real"
+      ],
+      "bands": {
+        "1-3": "Missing phone, missing address, no doctor name surfaced, no reviews.",
+        "4-6": "Has the basics but buried. Phone in footer only. Reviews section empty.",
+        "7-8": "Phone click-to-call in header, doctor card on homepage, at least 3 real reviews or explicit substitute.",
+        "9-10": "Trust is structural — every section reinforces credibility (credentials, real photos, specific service breakdowns, years, reviews integrated not walled off)."
+      },
+      "linked_skills": ["harden", "polish"]
+    },
+    {
+      "id": "craft",
+      "name": "Craft / Polish",
+      "weight": 1.0,
+      "why_it_matters": "The small things that separate a 'good layout' from a shippable product: hover states, focus rings, motion, empty states, loading states, responsive fidelity.",
+      "evidence_to_cite": [
+        "hover and focus states on every interactive element",
+        "at least one considered motion moment (not just page-load fade)",
+        "mobile ≤ 375px: no horizontal scroll, touch targets ≥ 44px",
+        "edge/empty states handled (no sections rendering with dashes or nulls)",
+        "no console errors, no broken images, no misaligned pixel cracks"
+      ],
+      "bands": {
+        "1-3": "Broken elements visible. No hover states. Mobile breaks.",
+        "4-6": "Default Tailwind focus rings, no intentional motion, edge states leak placeholder text.",
+        "7-8": "Considered interactions, clean mobile, edge states respected.",
+        "9-10": "Craft is the silent differentiator — every interaction feels hand-tuned."
+      },
+      "linked_skills": ["polish", "harden", "animate"]
+    }
+  ],
+  "scoring_output_schema": {
+    "type": "object",
+    "required": ["dimensions", "overall", "gate_pass", "next_action"],
+    "properties": {
+      "dimensions": {
+        "type": "object",
+        "description": "Map of dimension id → { score: 1-10, evidence: [...strings], gripes: [...strings], candidate_fix_skill: string }"
+      },
+      "overall": {
+        "type": "number",
+        "description": "Weighted average of dimension scores, rounded to 1 decimal."
+      },
+      "gate_pass": {
+        "type": "boolean",
+        "description": "True if gate_criteria.ship_threshold satisfied."
+      },
+      "next_action": {
+        "type": "object",
+        "required": ["skill", "target", "reason"],
+        "description": "If gate_pass is false, the lowest-scoring dimension's linked_skill applied to the relevant file. If true, 'none'."
+      }
+    }
+  },
+  "agent_loop_contract": {
+    "summary": "The Designer Agent optimizes overall score under budget. Each iteration: observe → critique → act → observe → critique. Stop when gate_pass OR no improvement across 2 iterations OR budget exhausted.",
+    "minimum_trace_fields": ["iteration", "action_taken", "scores_before", "scores_after", "delta"]
+  }
+}

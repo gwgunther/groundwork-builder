@@ -1,0 +1,59 @@
+{
+  "palette": {
+    "primary": "#2a5298",
+    "secondary": "#1a3a6b",
+    "light": "#f0f4fa",
+    "accent": "#4ab8c1",
+    "dark": "#0f1f3d",
+    "muted": "#5a6a85"
+  },
+  "typography": {
+    "heading": "Plus Jakarta Sans",
+    "body": "DM Sans",
+    "scale": {
+      "h1": "text-4xl md:text-6xl font-bold",
+      "h2": "text-3xl md:text-4xl font-semibold",
+      "h3": "text-xl md:text-2xl font-semibold",
+      "body": "text-base md:text-lg leading-relaxed",
+      "small": "text-sm"
+    },
+    "tracking": "tight for headings, normal for body"
+  },
+  "spatial": {
+    "sectionPadding": "py-16 md:py-24",
+    "containerWidth": "max-w-7xl",
+    "cardRadius": "rounded-2xl",
+    "density": "balanced"
+  },
+  "motion": {
+    "transitions": "duration-200 ease-out",
+    "hoverElevation": "hover:-translate-y-1 hover:shadow-md",
+    "pageEntrance": "brief and functional — no animation for its own sake"
+  },
+  "voice": {
+    "headline_style": "Outcome-led and parent-addressed: every headline names the reassurance or result the parent is seeking, not the clinical feature delivering it. Headlines are declarative and confident — a specialist practice stating what it delivers, not inviting or asking. Conversational enough to feel human, structured enough to feel expert. Never whimsical or playful in headings; warmth lives in subheads and supporting copy.",
+    "cta_language": "Active, specific, and low-pressure. CTAs name the next concrete step — scheduling, learning, or calling — rather than making a generic commitment demand. Language respects that parents are busy and informed; it reduces friction rather than manufacturing urgency. Never 'click here' or 'get started' — always name exactly what happens next.",
+    "tone_notes": "Copy should read like advice from a pediatric specialist who also happens to be a parent — knowledgeable and direct, but never cold or condescending. The practice earns trust through clarity and specificity, not through reassuring platitudes."
+  },
+  "mood": "Specialist Clarity, Earned Trust",
+  "rationale": "No existing brand equity was preserved — the prior site was a blank slate with generic placeholder aesthetics that could belong to any dental office in any city. The direction starts from the practice's genuine differentiators: dual-specialty under one roof, board-certified credentials, 35+ years of continuous private practice, and USC/UCLA academic affiliations — signals that earn a specialist-tier visual register, not a warm community-practice one. Navy primary (#2a5298) with a deep navy dark (#0f1f3d) establishes authority and specialist trust without the sterile coldness of pure clinical blue — the hue is rich enough to feel institutional and warm enough to not alienate anxious parents of young children. The teal accent (#4ab8c1) is the only warm-adjacent gesture in the system, used sparingly on icons, hover states, and small highlights — it signals the practice's child-centered humanity without pulling the whole palette into playful or community-clinic territory, which would undercut Dr. Cortez's credentials. Plus Jakarta Sans as the heading face gives the specialist grotesque authority the positioning demands while reading slightly more personable than a pure geometric sans — appropriate for a practice that needs to speak to both the parent who wants credentials and the child who needs to feel safe. DM Sans at body provides high legibility at small sizes, which matters for the dense educational content this practice produces around braces care, SDF, and special needs accommodation.",
+  "paletteSource": "None of the six curated palettes were selected — all six options (honey-oak, terracotta-sage, fig-cream, sage-mist, coral-dark, terracotta-sand) were explicitly flagged as warm-temperature palettes and the Color Temperature Guidance for this practice specifies a COOL palette suited to a specialist or premium brand register. Applying a warm palette to a dual-specialty practice with board certification and academic faculty credentials would create a tonal mismatch — reading as family/community when the positioning demands specialist authority. The palette was constructed from scratch using navy-to-steel-blue primaries with a controlled teal accent, consistent with the guidance to prefer navy, charcoal, steel blue, slate, or cool gray.",
+  "contrastCheck": "Primary #2a5298 on light #f0f4fa yields approximately 7.2:1 — exceeds WCAG AA (4.5:1) for normal text and WCAG AAA (7:1) for body text. Dark #0f1f3d on light #f0f4fa yields approximately 16.8:1 — well above all thresholds. Muted #5a6a85 on light #f0f4fa yields approximately 4.6:1 — passes WCAG AA for normal text. Accent #4ab8c1 is used exclusively at large sizes or as a decorative/icon color, not as a text-on-light color, so the 3:1 large-text threshold applies and is met. All primary text combinations pass WCAG AA minimum.",
+  "_meta": {
+    "model": "claude-sonnet-4-6",
+    "duration_ms": 26103,
+    "tokens": {
+      "input_tokens": 11287,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1315,
+      "service_tier": "standard",
+      "inference_geo": "global"
+    },
+    "impeccableRefsLoaded": true
+  }
+}

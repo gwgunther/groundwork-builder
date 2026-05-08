@@ -1,0 +1,31 @@
+# Deploy Studio to Railway
+#
+# Triggers a Railway deployment on every push to main.
+#
+# Required GitHub Secret:
+#   RAILWAY_TOKEN  — from Railway dashboard → Account Settings → Tokens
+
+name: Deploy to Railway
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy Studio
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+
+      - name: Deploy
+        run: railway up --service studio --detach
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}

@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Initial Orthodontic Consultation",
+  "description": "Your complimentary first visit — meet the team, receive a complete exam, and find out which treatment is right for you.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Initial Orthodontic Consultation | ${site.name}`}
+  description="Your complimentary first visit — meet the team, receive a complete exam, and find out which treatment is right for you."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Initial Orthodontic Consultation
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Your complimentary first visit — meet the team, receive a complete exam, and find out which treatment is right for you.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Your initial consultation will give you the opportunity to meet our team, learn more about orthodontics, receive a complete initial exam, and find out which treatment options will best meet your needs. Your consultation at Chang Orthodontics is complimentary. At your visit, you will see Dr. Chang or Dr. Chung directly — every patient is examined by their orthodontist, not a staff rotation. Our team will discuss all available treatment options, provide a customized treatment plan tailored to your individual goals, and outline flexible payment plan options before treatment begins. Our staff will be glad to answer any questions you may have, and we will provide all of the information that you need to determine which treatment is right for you.</p>
+      <ul class="space-y-3 my-6">
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Complimentary initial consultation — no cost to get started</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Complete orthodontic exam performed by your orthodontist</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Customized treatment plan tailored to your individual needs</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Flexible payment plans discussed before treatment begins</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Full review of all applicable treatment options</span></li>
+      </ul>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule Your Complimentary Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

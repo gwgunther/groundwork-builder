@@ -1,0 +1,717 @@
+{
+  "contentAudit": {
+    "homepage.heroHeadline": {
+      "existing": "Transform Your Smile with Exceptional Care",
+      "source": "/",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Functional and on-brand but generic — could apply to any dental practice; needs specificity tying it to Orange County or Dr. Etemadieh's distinctive credentials."
+    },
+    "homepage.heroSubheadline": {
+      "existing": "Quality Dentistry for All Ages",
+      "source": "/",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Extremely thin and generic; does not reference location, doctor, multilingual care, or any practice differentiator that would distinguish this site from competitors."
+    },
+    "homepage.heroTagline": {
+      "existing": "Experience the difference at Orange County Dental Care where quality meets compassion.",
+      "source": "/",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Captured verbatim from the practice's own voice block; serviceable but the phrase 'quality meets compassion' is a common dental cliché that light editing could sharpen."
+    },
+    "homepage.valueProp": {
+      "existing": "At Orange County Dental Care, we prioritize quality above all else. Dr. Etemadieh is the dentist that other dentists trust with their own care. We never compromise on integrity, materials, or service—ensuring that every patient receives the highest standard of dental treatment available.",
+      "source": "/about-us",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "The 'dentist that other dentists trust' line is highly specific and distinctive peer-credibility proof that is rare in dental copy and directly speaks to quality positioning."
+    },
+    "about.headline": {
+      "existing": "About Orange County Dental Care",
+      "source": "/about-us",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Purely functional label with no voice, no hook, and no differentiation; the Write phase should craft a headline that reflects the doctor's background or philosophy."
+    },
+    "about.introParagraph": {
+      "existing": "Dr. Ali-Reza Etemadieh has been providing exceptional dental care to Orange County residents since 2013. With extensive training in implants and cosmetics, he's dedicated to delivering high-quality dentistry in a comfortable environment where patients feel valued and understood.",
+      "source": "/",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "Verbatim practice voice; specific credentials, tenure since 2013, specialty training, and patient-centered philosophy are all present in two tight sentences."
+    },
+    "about.philosophy": {
+      "existing": "At Orange County Dental Care, we prioritize quality above all else. Dr. Etemadieh is the dentist that other dentists trust with their own care. We never compromise on integrity, materials, or service—ensuring that every patient receives the highest standard of dental treatment available.",
+      "source": "/about-us",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "The peer-trust claim combined with the explicit no-compromise stance on materials and integrity gives this block genuine philosophical weight; keep verbatim."
+    },
+    "services.preventative-dentistry.intro": {
+      "existing": "At Orange County Dental Care, we believe that preventative care is the foundation of excellent oral health. Our comprehensive preventative services help you maintain a healthy smile and avoid costly treatments down the road. From thorough cleanings to early detection of potential issues, we focus on",
+      "source": "/services/preventative-dentistry",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "On-topic and practice-specific but the scraped text is truncated mid-sentence; the Write phase should complete the thought using the fuller additionalContent block from the same page."
+    },
+    "services.restorative-dentistry.intro": {
+      "existing": "Damage to your teeth doesn't have to be permanent. At Orange County Dental Care, our restorative dental services rebuild, repair, and renew teeth that have been affected by decay, injury, or wear. Using premium materials and advanced techniques, Dr. Etemadieh provides restorative treatments that not only return function to your teeth but also enhance their appearance and longevity.",
+      "source": "/services/restorative-dentistry",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "Full, untruncated verbatim block from the practice's own page; the opening hook is punchy, Dr. Etemadieh is named, and premium-materials messaging aligns with the practice's core differentiator."
+    },
+    "services.cosmetic-dentistry.intro": {
+      "existing": "Your smile creates lasting impressions. At Orange County Dental Care, our cosmetic dentistry services are designed to enhance the appearance of your teeth and create the smile you've always wanted. Dr. Etemadieh combines artistic vision with technical expertise to deliver beautiful, natural-looking results. From subtle improvements to dramatic transformations, we tailor our approach to your unique goals.",
+      "source": "/services/cosmetic-dentistry",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "Distinctive voice captured verbatim; the 'artistic vision with technical expertise' framing is specific to Dr. Etemadieh and not generic boilerplate."
+    },
+    "services.dental-implants.intro": {
+      "existing": "Dental implants represent the gold standard in tooth replacement technology. At Orange County Dental Care, Dr. Etemadieh provides premium implant solutions that look, feel, and function just like natural teeth. Using only high-quality American-made Straumann and Swiss-made Hoissen implants, we deliv",
+      "source": "/services/dental-implants",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Brand-name implant specificity (Straumann, Hoissen) is a strong differentiator but the scraped text is truncated; Write phase must complete using the full page content."
+    },
+    "services.dentures.intro": {
+      "existing": "Missing teeth can significantly impact your quality of life, affecting everything from your diet to your self-confidence. At Orange County Dental Care, we provide custom-crafted denture solutions that restore your ability to eat, speak, and smile with confidence. Our dentures are designed for optima",
+      "source": "/services/dentures",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Opens with genuine patient-impact framing and names the practice, but is truncated mid-sentence; the full block from the same page should be used to complete it."
+    },
+    "services.emergency-dentistry.intro": {
+      "existing": "Dental emergencies can happen at any time, often causing significant pain and anxiety. At Orange County Dental Care, we provide prompt, effective emergency dental services to address your urgent needs and relieve your discomfort. Dr. Etemadieh makes emergency patients a priority, offering same-day appointments whenever possible and after-hours care when needed for serious situations.",
+      "source": "/services/emergency-dentistry",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "Full untruncated block naming Dr. Etemadieh with specific operational commitments (same-day, after-hours) that are concrete differentiators rather than generic claims."
+    },
+    "services.sedation-dentistry.intro": {
+      "existing": "Dental anxiety shouldn't prevent you from receiving the care your smile needs. At Orange County Dental Care, we understand that visiting the dentist can be stressful for many patients. That's why we offer referrals for sedation options to help you relax during your treatment. Our compassionate approach focuses on ensuring your comfort while providing the quality dental care you deserve in a stress-free environment.",
+      "source": "/services/sedation-dentistry",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Honest and accurate about the referral-only model but the meta/H1 on the sedation page are swapped with orthodontics — a critical error the Write phase must not replicate; content itself is usable with light cleanup."
+    },
+    "services.orthodontics.intro": {
+      "existing": "A properly aligned smile isn't just about aesthetics—it contributes to better oral health and function. At Orange County Dental Care, we offer comprehensive orthodontic solutions including Invisalign clear aligners to help patients of all ages achieve straighter, healthier smiles. Dr. Etemadieh combines advanced technology with personalized treatment plans to deliver excellent results with maximum comfort and convenience.",
+      "source": "/services/orthodontics",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "Full untruncated block with the health-and-function framing, Invisalign named, and Dr. Etemadieh's technology + personalization positioning clearly stated."
+    },
+    "services.professional-cleanings.intro": {
+      "existing": "Our preventative care includes professional cleanings, comprehensive exams, digital x-rays, oral cancer screenings, fluoride treatments, and periodontal care. These services work together to remove plaque and tartar, detect early signs of decay or disease, and strengthen your teeth against future damage. We customize your preventative care schedule based on your unique needs.",
+      "source": "/services/preventative-dentistry",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Relevant and accurate but written as a category overview rather than a focused intro for professional cleanings specifically; Write phase should isolate and expand on cleanings."
+    },
+    "services.comprehensive-exams.intro": {
+      "existing": "Our preventative care includes professional cleanings, comprehensive exams, digital x-rays, oral cancer screenings, fluoride treatments, and periodontal care. These services work together to remove plaque and tartar, detect early signs of decay or disease, and strengthen your teeth against future damage. We customize your preventative care schedule based on your unique needs.",
+      "source": "/services/preventative-dentistry",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Same category-level block used as proxy; comprehensive exams are mentioned but not given dedicated focus — Write phase needs a targeted intro for this service."
+    },
+    "services.digital-x-rays.intro": {
+      "existing": "Our preventative care includes professional cleanings, comprehensive exams, digital x-rays, oral cancer screenings, fluoride treatments, and periodontal care. These services work together to remove plaque and tartar, detect early signs of decay or disease, and strengthen your teeth against future damage. We customize your preventative care schedule based on your unique needs.",
+      "source": "/services/preventative-dentistry",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Digital x-rays appear only as a list item within a category paragraph; no dedicated voice, benefit framing, or technology differentiator copy exists for this service."
+    },
+    "services.oral-cancer-screenings.intro": {
+      "existing": "Our preventative care includes professional cleanings, comprehensive exams, digital x-rays, oral cancer screenings, fluoride treatments, and periodontal care. These services work together to remove plaque and tartar, detect early signs of decay or disease, and strengthen your teeth against future damage.",
+      "source": "/services/preventative-dentistry",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Oral cancer screening is only listed in a service roster with no dedicated rationale, urgency framing, or procedure description — requires original copy."
+    },
+    "services.fluoride-treatments.intro": {
+      "existing": "Our preventative care includes professional cleanings, comprehensive exams, digital x-rays, oral cancer screenings, fluoride treatments, and periodontal care. These services work together to remove plaque and tartar, detect early signs of decay or disease, and strengthen your teeth against future damage.",
+      "source": "/services/preventative-dentistry",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Fluoride treatments appear only as a list item with no age-appropriateness, process, or benefit language — dedicated intro must be written from scratch."
+    },
+    "services.periodontal-care.intro": {
+      "existing": "Our preventative care includes professional cleanings, comprehensive exams, digital x-rays, oral cancer screenings, fluoride treatments, and periodontal care. These services work together to remove plaque and tartar, detect early signs of decay or disease, and strengthen your teeth against future damage.",
+      "source": "/services/preventative-dentistry",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Periodontal care merits its own intro covering gum disease staging, scaling/root planing, and systemic health connections — none of which exist in current copy."
+    },
+    "services.tooth-colored-fillings.intro": {
+      "existing": "We offer a comprehensive range of restorative treatments including tooth-colored fillings, crowns made of zirconia or gold, bridges, inlays and onlays, root canal therapy, and full mouth rehabilitation. For every procedure, we use only the highest quality materials—avoiding amalgam in favor of more aesthetic and biocompatible options. Each restoration is precisely crafted to match your natural teeth.",
+      "source": "/services/restorative-dentistry",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The amalgam-free and biocompatible materials differentiator is present and relevant, but this is a category overview; Write phase should create a focused tooth-colored fillings intro drawing on this language."
+    },
+    "services.crowns-zirconia-or-gold.intro": {
+      "existing": "We offer a comprehensive range of restorative treatments including tooth-colored fillings, crowns made of zirconia or gold, bridges, inlays and onlays, root canal therapy, and full mouth rehabilitation. For every procedure, we use only the highest quality materials—avoiding amalgam in favor of more aesthetic and biocompatible options. Each restoration is precisely crafted to match your natural teeth.",
+      "source": "/services/restorative-dentistry",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Zirconia and gold crown options are explicitly named, which is a concrete differentiator, but the text is a category list — Write phase should expand into a crown-specific intro."
+    },
+    "services.bridges.intro": {
+      "existing": "We offer a comprehensive range of restorative treatments including tooth-colored fillings, crowns made of zirconia or gold, bridges, inlays and onlays, root canal therapy, and full mouth rehabilitation. For every procedure, we use only the highest quality materials—avoiding amalgam in favor of more aesthetic and biocompatible options.",
+      "source": "/services/restorative-dentistry",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Bridges receive no dedicated description, candidacy criteria, or process language; the existing text only lists them alongside other services."
+    },
+    "services.inlays-and-onlays.intro": {
+      "existing": "We offer a comprehensive range of restorative treatments including tooth-colored fillings, crowns made of zirconia or gold, bridges, inlays and onlays, root canal therapy, and full mouth rehabilitation. For every procedure, we use only the highest quality materials—avoiding amalgam in favor of more aesthetic and biocompatible options.",
+      "source": "/services/restorative-dentistry",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Inlays and onlays are only named in a list with no explanation of how they differ from fillings or crowns — a key patient education gap that requires original copy."
+    },
+    "services.root-canal-therapy.intro": {
+      "existing": "We offer a comprehensive range of restorative treatments including tooth-colored fillings, crowns made of zirconia or gold, bridges, inlays and onlays, root canal therapy, and full mouth rehabilitation. For every procedure, we use only the highest quality materials—avoiding amalgam in favor of more aesthetic and biocompatible options.",
+      "source": "/services/restorative-dentistry",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Root canal therapy has significant patient anxiety associations that require reassurance-focused copy; the current mention is a bare list item with no comfort or process framing."
+    },
+    "services.full-mouth-rehabilitation.intro": {
+      "existing": "We offer a comprehensive range of restorative treatments including tooth-colored fillings, crowns made of zirconia or gold, bridges, inlays and onlays, root canal therapy, and full mouth rehabilitation. For every procedure, we use only the highest quality materials—avoiding amalgam in favor of more aesthetic and biocompatible options.",
+      "source": "/services/restorative-dentistry",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Full mouth rehabilitation is a high-value, complex service requiring dedicated intro copy covering candidacy, process, and outcomes — none of which exist currently."
+    },
+    "services.professional-teeth-whitening.intro": {
+      "existing": "We offer a comprehensive range of cosmetic treatments including professional teeth whitening, porcelain veneers, chairside composite veneers, dental bonding and contouring, and Invisalign clear aligners. Each service is customized to address your specific concerns—whether that's discoloration, chips, gaps, misalignment, or a complete smile makeover. Our focus is always on creating results that look naturally beautiful.",
+      "source": "/services/cosmetic-dentistry",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Whitening is named and the customization angle is present, but this is a category paragraph; Write phase should extract and expand into a whitening-specific intro highlighting same-day availability."
+    },
+    "services.porcelain-veneers.intro": {
+      "existing": "We offer a comprehensive range of cosmetic treatments including professional teeth whitening, porcelain veneers, chairside composite veneers, dental bonding and contouring, and Invisalign clear aligners. Each service is customized to address your specific concerns—whether that's discoloration, chips, gaps, misalignment, or a complete smile makeover.",
+      "source": "/services/cosmetic-dentistry",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Porcelain veneers are listed but not described; no material, process, longevity, or candidacy information exists — requires original intro copy."
+    },
+    "services.chairside-composite-veneers.intro": {
+      "existing": "We offer a comprehensive range of cosmetic treatments including professional teeth whitening, porcelain veneers, chairside composite veneers, dental bonding and contouring, and Invisalign clear aligners. Each service is customized to address your specific concerns—whether that's discoloration, chips, gaps, misalignment, or a complete smile makeover.",
+      "source": "/services/cosmetic-dentistry",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Chairside composite veneers are a distinct service from porcelain veneers requiring its own intro covering the single-visit advantage and material differences — no such copy exists."
+    },
+    "services.dental-bonding-and-contouring.intro": {
+      "existing": "We offer a comprehensive range of cosmetic treatments including professional teeth whitening, porcelain veneers, chairside composite veneers, dental bonding and contouring, and Invisalign clear aligners. Each service is customized to address your specific concerns—whether that's discoloration, chips, gaps, misalignment, or a complete smile makeover.",
+      "source": "/services/cosmetic-dentistry",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Dental bonding and contouring appear as list items only; no procedure description, ideal candidacy, or before/after framing exists to support a standalone service page intro."
+    },
+    "services.invisalign-clear-aligners.intro": {
+      "existing": "We offer a comprehensive range of cosmetic treatments including professional teeth whitening, porcelain veneers, chairside composite veneers, dental bonding and contouring, and Invisalign clear aligners. Each service is customized to address your specific concerns—whether that's discoloration, chips, gaps, misalignment, or a complete smile makeover. Our focus is always on creating results that look naturally beautiful.",
+      "source": "/services/cosmetic-dentistry",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Invisalign is named in the cosmetic services list, but the richer Invisalign-specific copy lives on the orthodontics page — Write phase should pull from the orthodontics additionalContent for a fuller intro."
+    },
+    "services.clear-aligner-therapy.intro": {
+      "existing": "We provide a range of orthodontic treatment options with a focus on clear aligner therapy. Using advanced 3D digital scanning, Dr. Etemadieh creates precise treatment plans that map out the exact movements of your teeth, allowing you to see your virtual results before treatment begins. Our orthodontic solutions are designed to fit your lifestyle while effectively addressing alignment issues, spacing problems, and bite irregularities.",
+      "source": "/services/orthodontics",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "Full untruncated block from the practice's own orthodontics page; 3D scanning, virtual preview, and lifestyle-fit framing are specific and compelling differentiators for this service."
+    },
+    "services.3d-digital-scanning-for-orthodontics.intro": {
+      "existing": "Using advanced 3D digital scanning, Dr. Etemadieh creates precise treatment plans that map out the exact movements of your teeth, allowing you to see your virtual results before treatment begins.",
+      "source": "/services/orthodontics",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "The virtual-preview and precision-mapping angle is genuinely differentiating, but this is a sentence fragment extracted from a larger block — Write phase needs to expand it into a full service intro."
+    },
+    "services.emergency-dental-care.intro": {
+      "existing": "Dental emergencies can happen at any time, often causing significant pain and anxiety. At Orange County Dental Care, we provide prompt, effective emergency dental services to address your urgent needs and relieve your discomfort. Dr. Etemadieh makes emergency patients a priority, offering same-day appointments whenever possible and after-hours care when needed for serious situations.",
+      "source": "/services/emergency-dentistry",
+      "quality": "strong",
+      "action": "keep",
+      "rationale": "Same strong block as the emergency-dentistry category intro; same-day and after-hours commitments are concrete operational differentiators that serve this sub-page equally well."
+    },
+    "services.severe-toothache-treatment.intro": {
+      "existing": "We handle a full range of dental emergencies including severe toothaches, broken or chipped teeth, knocked-out teeth, lost fillings or crowns, dental abscesses, soft tissue injuries, and objects caught between teeth. Our focus is on relieving your pain quickly and addressing the underlying problem effectively. When you call with an emergency, our team will provide immediate guidance and arrange for you to be seen as soon as possible.",
+      "source": "/services/emergency-dentistry",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Severe toothache is named and the pain-relief urgency tone is appropriate, but this is a category-level emergency list — Write phase needs a focused intro specific to toothache causes and treatment."
+    },
+    "services.broken-or-chipped-teeth-repair.intro": {
+      "existing": "We handle a full range of dental emergencies including severe toothaches, broken or chipped teeth, knocked-out teeth, lost fillings or crowns, dental abscesses, soft tissue injuries, and objects caught between teeth. Our focus is on relieving your pain quickly and addressing the underlying problem effectively.",
+      "source": "/services/emergency-dentistry",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Broken/chipped teeth are only listed; no description of repair options (bonding, crown, veneer), triage guidance, or aesthetic restoration angle exists for a standalone intro."
+    },
+    "services.knocked-out-teeth-treatment.intro": {
+      "existing": "We handle a full range of dental emergencies including severe toothaches, broken or chipped teeth, knocked-out teeth, lost fillings or crowns, dental abscesses, soft tissue injuries, and objects caught between teeth. Our focus is on relieving your pain quickly and addressing the underlying problem effectively.",
+      "source": "/services/emergency-dentistry",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Knocked-out teeth require time-critical patient guidance (milk storage, 30-minute window) that is entirely absent from the current copy — high-priority create."
+    },
+    "services.lost-fillings-or-crowns-replacement.intro": {
+      "existing": "We handle a full range of dental emergencies including severe toothaches, broken or chipped teeth, knocked-out teeth, lost fillings or crowns, dental abscesses, soft tissue injuries, and objects caught between teeth. Our focus is on relieving your pain quickly and addressing the underlying problem effectively.",
+      "source": "/services/emergency-dentistry",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Lost fillings/crowns are listed with no interim care guidance, replacement process, or material options — requires dedicated intro copy."
+    },
+    "services.dental-abscess-treatment.intro": {
+      "existing": "We handle a full range of dental emergencies including severe toothaches, broken or chipped teeth, knocked-out teeth, lost fillings or crowns, dental abscesses, soft tissue injuries, and objects caught between teeth. Our focus is on relieving your pain quickly and addressing the underlying problem effectively.",
+      "source": "/services/emergency-dentistry",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Dental abscess is a serious infection requiring urgent-care messaging about systemic risk — none of this context exists in current copy beyond a list mention."
+    },
+    "services.soft-tissue-injuries-treatment.intro": {
+      "existing": "We handle a full range of dental emergencies including severe toothaches, broken or chipped teeth, knocked-out teeth, lost fillings or crowns, dental abscesses, soft tissue injuries, and objects caught between teeth. Our focus is on relieving your pain quickly and addressing the underlying problem effectively.",
+      "source": "/services/emergency-dentistry",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Soft tissue injuries are listed with no description of types (lacerations, punctures, burns), first-aid guidance, or when to seek emergency vs. urgent care — create required."
+    },
+    "services.objects-caught-between-teeth-removal.intro": {
+      "existing": "We handle a full range of dental emergencies including severe toothaches, broken or chipped teeth, knocked-out teeth, lost fillings or crowns, dental abscesses, soft tissue injuries, and objects caught between teeth. Our focus is on relieving your pain quickly and addressing the underlying problem effectively.",
+      "source": "/services/emergency-dentistry",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Objects caught between teeth appear only as a list item; no safe-removal guidance, when-to-call framing, or treatment description exists — needs original intro."
+    },
+    "services.single-tooth-implants.intro": {
+      "existing": "We offer comprehensive implant services including single tooth implants, multiple tooth replacement, and implant-supported dentures. Each implant is carefully placed to integrate with your jaw bone, creating a stable foundation for your new tooth. We use only premium titanium implants and custom-des",
+      "source": "/services/dental-implants",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Single tooth implants are named and osseointegration is mentioned, but the text is truncated and is a category overview — Write phase should expand into a focused single-implant intro citing Straumann/Hoissen brand differentiator."
+    },
+    "services.multiple-tooth-replacement.intro": {
+      "existing": "We offer comprehensive implant services including single tooth implants, multiple tooth replacement, and implant-supported dentures. Each implant is carefully placed to integrate with your jaw bone, creating a stable foundation for your new tooth. We use only premium titanium implants and custom-des",
+      "source": "/services/dental-implants",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Multiple tooth replacement is listed without explaining options (implant bridges vs. individual implants), candidacy, or the process differences from single-tooth — requires dedicated copy."
+    },
+    "services.implant-supported-dentures.intro": {
+      "existing": "We offer comprehensive implant services including single tooth implants, multiple tooth replacement, and implant-supported dentures. Each implant is carefully placed to integrate with your jaw bone, creating a stable foundation for your new tooth.",
+      "source": "/services/dental-implants",
+      "quality": "weak",
+      "action": "create",
+      "rationale": "Implant-supported dentures bridge two service categories (implants + dentures) and require copy explaining the stability advantage over conventional dentures — no such framing exists."
+    },
+    "services.full-dentures.intro": {
+      "existing": "We offer a variety of denture solutions including full dentures to replace all teeth, partial dentures to fill gaps while preserving healthy teeth, and implant-supported dentures for maximum stability. Each prosthetic is custom-designed to complement your facial features and provide the most natural",
+      "source": "/services/dentures",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Full dentures are named with a custom-design angle and facial-feature framing, but text is truncated and is a category overview — Write phase should complete and focus on full denture candidacy and process."
+    },
+    "services.partial-dentures.intro": {
+      "existing": "We offer a variety of denture solutions including full dentures to replace all teeth, partial dentures to fill gaps while preserving healthy teeth, and implant-supported dentures for maximum stability. Each prosthetic is custom-designed to complement your facial features and provide the most natural",
+      "source": "/services/dentures",
+      "quality": "adequate",
+      "action": "optimize",
+      "rationale": "Partial dentures are named with the 'preserving healthy teeth' benefit noted, but the truncated category block needs a focused intro covering clasps, materials, and fit adjustment — optimize and expand."
+    }
+  },
+  "coverage": {
+    "totalSections": 49,
+    "byQuality": {
+      "strong": 11,
+      "adequate": 18,
+      "weak": 18,
+      "missing": 2
+    },
+    "byAction": {
+      "keep": 11,
+      "optimize": 18,
+      "create": 20
+    }
+  },
+  "differentiatorMatches": {
+    "preventative-dentistry": [
+      "Digital x-rays for early issue detection",
+      "Personalized preventative care plans for each patient",
+      "Digital x-rays and intraoral scanners available"
+    ],
+    "restorative-dentistry": [
+      "Amalgam-free restorations using biocompatible materials",
+      "Zirconia and gold crown options available",
+      "Trusted by fellow dentists"
+    ],
+    "cosmetic-dentistry": [
+      "Dr. Etemadieh combines artistic vision with technical expertise",
+      "Same-day cosmetic treatments available including whitening and bonding",
+      "Implant & cosmetic specialist on staff since 2013"
+    ],
+    "dental-implants": [
+      "American-made Straumann and Swiss-made Hoissen implants",
+      "Digital imaging for implant planning and bone assessment",
+      "Implant & cosmetic specialist on staff since 2013"
+    ],
+    "dentures": [
+      "Custom-crafted dentures for optimal fit and natural appearance",
+      "Two convenient office locations in Orange County"
+    ],
+    "emergency-dentistry": [
+      "Same-day emergency appointments whenever possible",
+      "After-hours care available for serious emergencies"
+    ],
+    "sedation-dentistry": [
+      "Sedation referrals coordinated with trusted specialists"
+    ],
+    "orthodontics": [
+      "Advanced 3D digital scanning for precise treatment plans",
+      "Advanced intraoral scanner for digital impressions"
+    ],
+    "professional-cleanings": [
+      "Personalized preventative care plans for each patient",
+      "Digital x-rays and intraoral scanners available"
+    ],
+    "comprehensive-exams": [
+      "Personalized preventative care plans for each patient",
+      "Digital x-rays and intraoral scanners available",
+      "Trusted by fellow dentists"
+    ],
+    "digital-x-rays": [
+      "Digital x-rays for early issue detection",
+      "Digital x-rays and intraoral scanners available",
+      "Advanced technology for personalized dental care"
+    ],
+    "oral-cancer-screenings": [
+      "Personalized preventative care plans for each patient"
+    ],
+    "fluoride-treatments": [
+      "Personalized preventative care plans for each patient"
+    ],
+    "periodontal-care": [
+      "Personalized preventative care plans for each patient",
+      "Digital x-rays for early issue detection"
+    ],
+    "tooth-colored-fillings": [
+      "Amalgam-free restorations using biocompatible materials"
+    ],
+    "crowns-zirconia-or-gold": [
+      "Zirconia and gold crown options available",
+      "Amalgam-free restorations using biocompatible materials"
+    ],
+    "bridges": [
+      "Amalgam-free restorations using biocompatible materials"
+    ],
+    "inlays-and-onlays": [
+      "Amalgam-free restorations using biocompatible materials"
+    ],
+    "root-canal-therapy": [
+      "Trusted by fellow dentists",
+      "Amalgam-free restorations using biocompatible materials"
+    ],
+    "full-mouth-rehabilitation": [
+      "Trusted by fellow dentists",
+      "Amalgam-free restorations using biocompatible materials",
+      "Implant & cosmetic specialist on staff since 2013"
+    ],
+    "professional-teeth-whitening": [
+      "Same-day cosmetic treatments available including whitening and bonding",
+      "Dr. Etemadieh combines artistic vision with technical expertise"
+    ],
+    "porcelain-veneers": [
+      "Dr. Etemadieh combines artistic vision with technical expertise",
+      "Implant & cosmetic specialist on staff since 2013"
+    ],
+    "chairside-composite-veneers": [
+      "Dr. Etemadieh combines artistic vision with technical expertise",
+      "Same-day cosmetic treatments available including whitening and bonding"
+    ],
+    "dental-bonding-and-contouring": [
+      "Same-day cosmetic treatments available including whitening and bonding",
+      "Dr. Etemadieh combines artistic vision with technical expertise"
+    ],
+    "invisalign-clear-aligners": [
+      "Advanced 3D digital scanning for precise treatment plans",
+      "Advanced intraoral scanner for digital impressions"
+    ],
+    "clear-aligner-therapy": [
+      "Advanced 3D digital scanning for precise treatment plans",
+      "Advanced intraoral scanner for digital impressions"
+    ],
+    "3d-digital-scanning-for-orthodontics": [
+      "Advanced 3D digital scanning for precise treatment plans",
+      "Advanced intraoral scanner for digital impressions",
+      "Advanced technology for personalized dental care"
+    ],
+    "emergency-dental-care": [
+      "Same-day emergency appointments whenever possible",
+      "After-hours care available for serious emergencies"
+    ],
+    "severe-toothache-treatment": [
+      "Same-day emergency appointments whenever possible",
+      "After-hours care available for serious emergencies"
+    ],
+    "broken-or-chipped-teeth-repair": [
+      "Same-day emergency appointments whenever possible",
+      "Same-day cosmetic treatments available including whitening and bonding"
+    ],
+    "knocked-out-teeth-treatment": [
+      "Same-day emergency appointments whenever possible",
+      "After-hours care available for serious emergencies"
+    ],
+    "lost-fillings-or-crowns-replacement": [
+      "Same-day emergency appointments whenever possible",
+      "Zirconia and gold crown options available"
+    ],
+    "dental-abscess-treatment": [
+      "Same-day emergency appointments whenever possible",
+      "After-hours care available for serious emergencies"
+    ],
+    "soft-tissue-injuries-treatment": [
+      "Same-day emergency appointments whenever possible"
+    ],
+    "objects-caught-between-teeth-removal": [
+      "Same-day emergency appointments whenever possible"
+    ],
+    "single-tooth-implants": [
+      "American-made Straumann and Swiss-made Hoissen implants",
+      "Digital imaging for implant planning and bone assessment",
+      "Implant & cosmetic specialist on staff since 2013"
+    ],
+    "multiple-tooth-replacement": [
+      "American-made Straumann and Swiss-made Hoissen implants",
+      "Digital imaging for implant planning and bone assessment"
+    ],
+    "implant-supported-dentures": [
+      "American-made Straumann and Swiss-made Hoissen implants",
+      "Custom-crafted dentures for optimal fit and natural appearance",
+      "Digital imaging for implant planning and bone assessment"
+    ],
+    "full-dentures": [
+      "Custom-crafted dentures for optimal fit and natural appearance"
+    ],
+    "partial-dentures": [
+      "Custom-crafted dentures for optimal fit and natural appearance"
+    ]
+  },
+  "rationale": "The practice has a distinctive and credible voice — particularly the 'dentist other dentists trust' positioning, Dr. Etemadieh's named expertise, and the concrete operational commitments (same-day emergencies, amalgam-free materials, named implant brands) — which gives the Write phase strong raw material for hero, about, and the eight category-level service pages. Coverage collapses significantly at the sub-service level: all 25+ sub-service intros exist only as list items within parent category paragraphs, meaning the Write phase must create focused intros from scratch for most of them, informed by the differentiator matches provided. The site also contains two confirmed metadata swaps (sedation and orthodontics pages have each other's meta titles) that must not be carried forward into new copy.",
+  "_meta": {
+    "model": "claude-sonnet-4-6",
+    "input_tokens": 10607,
+    "output_tokens": 9575,
+    "duration_ms": 357157,
+    "cost": 0.1754,
+    "schemaValidation": {
+      "expectedKeyCount": 47,
+      "missingKeys": [],
+      "extraKeys": [],
+      "backfilled": 0
+    },
+    "sourcePathValidation": {
+      "valid": [
+        {
+          "key": "homepage.heroHeadline",
+          "source": "/"
+        },
+        {
+          "key": "homepage.heroSubheadline",
+          "source": "/"
+        },
+        {
+          "key": "homepage.heroTagline",
+          "source": "/"
+        },
+        {
+          "key": "homepage.valueProp",
+          "source": "/about-us"
+        },
+        {
+          "key": "about.headline",
+          "source": "/about-us"
+        },
+        {
+          "key": "about.introParagraph",
+          "source": "/"
+        },
+        {
+          "key": "about.philosophy",
+          "source": "/about-us"
+        },
+        {
+          "key": "services.preventative-dentistry.intro",
+          "source": "/services/preventative-dentistry"
+        },
+        {
+          "key": "services.restorative-dentistry.intro",
+          "source": "/services/restorative-dentistry"
+        },
+        {
+          "key": "services.cosmetic-dentistry.intro",
+          "source": "/services/cosmetic-dentistry"
+        },
+        {
+          "key": "services.dental-implants.intro",
+          "source": "/services/dental-implants"
+        },
+        {
+          "key": "services.dentures.intro",
+          "source": "/services/dentures"
+        },
+        {
+          "key": "services.emergency-dentistry.intro",
+          "source": "/services/emergency-dentistry"
+        },
+        {
+          "key": "services.sedation-dentistry.intro",
+          "source": "/services/sedation-dentistry"
+        },
+        {
+          "key": "services.orthodontics.intro",
+          "source": "/services/orthodontics"
+        },
+        {
+          "key": "services.professional-cleanings.intro",
+          "source": "/services/preventative-dentistry"
+        },
+        {
+          "key": "services.comprehensive-exams.intro",
+          "source": "/services/preventative-dentistry"
+        },
+        {
+          "key": "services.digital-x-rays.intro",
+          "source": "/services/preventative-dentistry"
+        },
+        {
+          "key": "services.oral-cancer-screenings.intro",
+          "source": "/services/preventative-dentistry"
+        },
+        {
+          "key": "services.fluoride-treatments.intro",
+          "source": "/services/preventative-dentistry"
+        },
+        {
+          "key": "services.periodontal-care.intro",
+          "source": "/services/preventative-dentistry"
+        },
+        {
+          "key": "services.tooth-colored-fillings.intro",
+          "source": "/services/restorative-dentistry"
+        },
+        {
+          "key": "services.crowns-zirconia-or-gold.intro",
+          "source": "/services/restorative-dentistry"
+        },
+        {
+          "key": "services.bridges.intro",
+          "source": "/services/restorative-dentistry"
+        },
+        {
+          "key": "services.inlays-and-onlays.intro",
+          "source": "/services/restorative-dentistry"
+        },
+        {
+          "key": "services.root-canal-therapy.intro",
+          "source": "/services/restorative-dentistry"
+        },
+        {
+          "key": "services.full-mouth-rehabilitation.intro",
+          "source": "/services/restorative-dentistry"
+        },
+        {
+          "key": "services.professional-teeth-whitening.intro",
+          "source": "/services/cosmetic-dentistry"
+        },
+        {
+          "key": "services.porcelain-veneers.intro",
+          "source": "/services/cosmetic-dentistry"
+        },
+        {
+          "key": "services.chairside-composite-veneers.intro",
+          "source": "/services/cosmetic-dentistry"
+        },
+        {
+          "key": "services.dental-bonding-and-contouring.intro",
+          "source": "/services/cosmetic-dentistry"
+        },
+        {
+          "key": "services.invisalign-clear-aligners.intro",
+          "source": "/services/cosmetic-dentistry"
+        },
+        {
+          "key": "services.clear-aligner-therapy.intro",
+          "source": "/services/orthodontics"
+        },
+        {
+          "key": "services.3d-digital-scanning-for-orthodontics.intro",
+          "source": "/services/orthodontics"
+        },
+        {
+          "key": "services.emergency-dental-care.intro",
+          "source": "/services/emergency-dentistry"
+        },
+        {
+          "key": "services.severe-toothache-treatment.intro",
+          "source": "/services/emergency-dentistry"
+        },
+        {
+          "key": "services.broken-or-chipped-teeth-repair.intro",
+          "source": "/services/emergency-dentistry"
+        },
+        {
+          "key": "services.knocked-out-teeth-treatment.intro",
+          "source": "/services/emergency-dentistry"
+        },
+        {
+          "key": "services.lost-fillings-or-crowns-replacement.intro",
+          "source": "/services/emergency-dentistry"
+        },
+        {
+          "key": "services.dental-abscess-treatment.intro",
+          "source": "/services/emergency-dentistry"
+        },
+        {
+          "key": "services.soft-tissue-injuries-treatment.intro",
+          "source": "/services/emergency-dentistry"
+        },
+        {
+          "key": "services.objects-caught-between-teeth-removal.intro",
+          "source": "/services/emergency-dentistry"
+        },
+        {
+          "key": "services.single-tooth-implants.intro",
+          "source": "/services/dental-implants"
+        },
+        {
+          "key": "services.multiple-tooth-replacement.intro",
+          "source": "/services/dental-implants"
+        },
+        {
+          "key": "services.implant-supported-dentures.intro",
+          "source": "/services/dental-implants"
+        },
+        {
+          "key": "services.full-dentures.intro",
+          "source": "/services/dentures"
+        },
+        {
+          "key": "services.partial-dentures.intro",
+          "source": "/services/dentures"
+        }
+      ],
+      "invalid": [],
+      "knownPathCount": 15
+    }
+  }
+}

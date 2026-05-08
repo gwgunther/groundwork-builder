@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Coconut Wireless",
+  "description": "Staying connected with your orthodontic care team at Chang Orthodontics.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Coconut Wireless | ${site.name}`}
+  description="Staying connected with your orthodontic care team at Chang Orthodontics."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Coconut Wireless
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Staying connected with your orthodontic care team at Chang Orthodontics.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Coconut Wireless is a patient communication platform integrated into the workflow at Russell EK Chang, DDS, MS, FACD, Inc., in Los Alamitos. It gives patients a direct, convenient channel to reach the office between appointments — without needing to call during business hours or wait until your next visit. If you have a question about your treatment, need to report a broken bracket, or want a quick clarification on your home-care instructions, Coconut Wireless is the tool that makes that conversation easy.</p>
+      <p class="mb-4">At Chang Orthodontics, communication is treated as part of the treatment itself. Orthodontic care unfolds over months or years, and questions come up in the spaces between scheduled appointments. Coconut Wireless is designed to fill those gaps.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What Coconut Wireless Actually Does</h2>
+      <p class="mb-4">Coconut Wireless is a messaging and communication platform built specifically for healthcare practices. It allows patients to send and receive messages through a text-based interface — typically via SMS or a web link — so the exchange feels familiar rather than requiring you to log into a separate patient portal or download a new app.</p>
+      <p class="mb-4">From the practice side, the team can send appointment reminders, treatment updates, and follow-up instructions. From the patient side, you can ask questions and get responses without tying up phone lines or waiting on hold.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who It's For</h2>
+      <p class="mb-4">Coconut Wireless is available to patients of the practice — which means it's relevant whether you're an adult in active aligner treatment, a teenager in braces, or a parent coordinating care for a child. It's particularly useful during the early weeks of treatment, when questions about discomfort, eating restrictions, or appliance care tend to come up frequently.</p>
+      <p class="mb-4">Patients in Los Alamitos who have busy schedules — work, school, after-school activities — often find asynchronous messaging more practical than a phone call. You can send a message when it's convenient for you, and the team can respond during office hours without the back-and-forth of missed calls.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">How It Typically Works</h2>
+      <p class="mb-4">When you become a patient at the practice, you'll receive information about how to connect through Coconut Wireless. Most interactions are initiated via a text message link or a direct message thread. No dedicated app installation is required.</p>
+      <p class="mb-4">Typical uses include:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>Asking whether a mild soreness after a wire change is normal</li>
+        <li>Letting the office know about a loose wire or popped bracket before deciding whether to come in</li>
+        <li>Confirming what to do if you've lost an aligner</li>
+        <li>Getting clarification on post-adjustment care instructions</li>
+        <li>Receiving reminders about upcoming appointments</li>
+      </ul>
+      <p class="mb-4">Responses come from the practice team during regular office hours. This is not an emergency line — if you're experiencing significant pain or a dental emergency, calling the office directly or seeking urgent care is the appropriate step.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect as a Patient</h2>
+      <p class="mb-4">Using Coconut Wireless doesn't require a dedicated visit or setup appointment. Once you're connected, the interface is straightforward. You send a message; the team receives it and responds. Conversations are typically short and practical.</p>
+      <p class="mb-4">The platform also supports outbound communication from the practice, so you may receive appointment reminders or brief check-in messages as part of normal treatment follow-up. These are meant to reduce the administrative friction that can make orthodontic treatment feel more complicated than it needs to be.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**Do I need to download an app to use Coconut Wireless?** No. Coconut Wireless typically works through SMS or a browser-based link, so you can use it from any phone or computer without installing anything.</p>
+      <p class="mb-4">**Can I use Coconut Wireless to reschedule an appointment?** You can reach out through the platform to initiate a scheduling request. The team will confirm any changes directly.</p>
+      <p class="mb-4">**Is Coconut Wireless monitored after hours?** Messages are typically reviewed and responded to during regular office hours. It is not monitored as an emergency channel. For urgent issues — like significant pain or a swallowed appliance — contact the office by phone or seek appropriate care.</p>
+      <p class="mb-4">**What kinds of questions are a good fit for Coconut Wireless?** Routine questions about your treatment, instructions, appliance issues, or appointment logistics are all appropriate. Detailed clinical questions may still be best addressed at a scheduled visit.</p>
+      <p class="mb-4">**Is this available to all patients at Chang Orthodontics?** Coconut Wireless is part of how the practice manages patient communication. If you're unsure whether you're set up to use it, ask a team member at your next appointment or when you call the office.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Contact Our Office</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

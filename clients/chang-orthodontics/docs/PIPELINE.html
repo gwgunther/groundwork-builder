@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pipeline · Skills Dashboard</title>
+<style>
+  :root {
+    --bg: #0f1115; --fg: #e7e8ea; --muted: #9098a3; --accent: #6ee7b7;
+    --card: #181b22; --border: #262a33;
+    --stub: #6b7280; --working: #f59e0b; --polished: #10b981; --mature: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  header.top { padding: 32px 40px 16px; border-bottom: 1px solid var(--border); }
+  header.top h1 { margin: 0; font-size: 24px; font-weight: 600; }
+  header.top p { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+  .stats { display: flex; gap: 24px; padding: 16px 40px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  .stat { display: flex; flex-direction: column; }
+  .stat-num { font-size: 28px; font-weight: 600; }
+  .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-top: 2px; }
+  .stat .stub { color: var(--stub); }
+  .stat .working { color: var(--working); }
+  .stat .polished { color: var(--polished); }
+  .stat .mature { color: var(--mature); }
+  .filters { padding: 12px 40px; border-bottom: 1px solid var(--border); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .filters label { font-size: 12px; color: var(--muted); margin-right: 8px; }
+  .filter-btn { background: transparent; color: var(--fg); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; font-size: 12px; cursor: pointer; }
+  .filter-btn.active { background: var(--fg); color: var(--bg); }
+  main { padding: 24px 40px 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(440px, 1fr)); gap: 20px; }
+  .phase { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .phase header { display: flex; align-items: center; gap: 10px; margin: 0; }
+  .phase-num { width: 28px; height: 28px; border-radius: 50%; background: var(--border); display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: var(--muted); flex-shrink: 0; }
+  .phase h2 { margin: 0; font-size: 18px; font-weight: 600; }
+  .phase-summary { margin: 0; font-size: 13px; line-height: 1.55; color: #c9ccd1; }
+  .phase-io { background: rgba(255,255,255,.025); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 12px; display: flex; flex-direction: column; gap: 4px; }
+  .phase-io > div { display: flex; align-items: flex-start; gap: 10px; }
+  .phase-io .io-label { color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; font-size: 10px; padding-top: 1px; min-width: 28px; }
+  .phase-io .io-val { color: var(--fg); font-family: ui-monospace, SFMono-Regular, monospace; font-size: 11px; line-height: 1.5; }
+  .phase-io .io-arrow { color: var(--muted); justify-content: center; padding: 1px 0; }
+  .output-detail { margin-top: 6px; font-size: 11px; }
+  .output-detail summary { cursor: pointer; color: var(--accent); padding: 2px 0; user-select: none; font-size: 11px; }
+  .output-detail summary:hover { text-decoration: underline; }
+  .output-detail dl { margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .output-detail dt { color: var(--fg); font-weight: 600; font-size: 11px; }
+  .output-detail dd { margin: 2px 0 0; padding-left: 0; color: var(--muted); font-family: ui-monospace, SFMono-Regular, monospace; font-size: 11px; line-height: 1.6; }
+  .phase-detail { font-size: 12px; }
+  .phase-detail summary { cursor: pointer; color: var(--muted); padding: 4px 0; user-select: none; }
+  .phase-detail summary:hover { color: var(--fg); }
+  .phase-detail dl { margin: 6px 0 0; padding: 8px 12px; background: rgba(255,255,255,.025); border: 1px solid var(--border); border-radius: 6px; display: grid; grid-template-columns: max-content 1fr; column-gap: 16px; row-gap: 6px; }
+  .phase-detail dt { color: var(--muted); font-weight: 500; padding-top: 1px; }
+  .phase-detail dd { margin: 0; color: var(--fg); }
+  .phase-detail code { background: var(--code-bg, #0a0c10); padding: 1px 5px; border-radius: 3px; font-family: ui-monospace, monospace; font-size: 11px; color: var(--accent); }
+  .phase-detail .qc-item { display: inline-block; background: var(--border); padding: 1px 6px; border-radius: 3px; margin-right: 4px; margin-bottom: 3px; font-size: 11px; }
+  .phase-section { display: flex; flex-direction: column; gap: 8px; }
+  .phase-section-h { margin: 0; font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+  .phase-section-h .count { color: var(--accent); font-family: ui-monospace, monospace; }
+  .skills { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .skill { padding: 12px; background: rgba(255,255,255,.02); border: 1px solid var(--border); border-radius: 8px; transition: opacity .2s; }
+  .skill.hidden { display: none; }
+  .skill-name { color: var(--fg); text-decoration: none; font-weight: 500; font-size: 14px; }
+  .skill-name:hover { color: var(--accent); }
+  .skill-meta { display: flex; gap: 10px; align-items: center; margin-top: 4px; font-size: 11px; color: var(--muted); }
+  .tier { background: var(--border); padding: 1px 6px; border-radius: 4px; font-family: ui-monospace, monospace; font-size: 10px; }
+  .tier-L1 { background: rgba(110, 231, 183, .15); color: var(--accent); }
+  .tier-L2 { background: rgba(245, 158, 11, .15); color: var(--working); }
+  .tier-L3 { background: rgba(59, 130, 246, .15); color: #60a5fa; }
+  .tier-L4 { background: rgba(168, 85, 247, .15); color: #c084fc; }
+  .skill-resp { margin: 8px 0 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .empty { color: var(--muted); font-style: italic; font-size: 13px; }
+  footer { padding: 20px 40px; border-top: 1px solid var(--border); color: var(--muted); font-size: 12px; }
+  footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Pipeline · Skills Dashboard</h1>
+  <p>17 skills across 9 phases · auto-generated 2026-05-04 19:01 UTC</p>
+</header>
+
+<div class="stats">
+  <div class="stat"><span class="stat-num">17</span><span class="stat-label">Total skills</span></div>
+  <div class="stat"><span class="stat-num stub">0</span><span class="stat-label">Stub</span></div>
+  <div class="stat"><span class="stat-num working">13</span><span class="stat-label">Working</span></div>
+  <div class="stat"><span class="stat-num polished">4</span><span class="stat-label">Polished</span></div>
+  <div class="stat"><span class="stat-num mature">0</span><span class="stat-label">Mature</span></div>
+</div>
+
+<div class="filters">
+  <label>Filter by maturity:</label>
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="stub">Stub</button>
+  <button class="filter-btn" data-filter="working">Working</button>
+  <button class="filter-btn" data-filter="polished">Polished</button>
+  <button class="filter-btn" data-filter="mature">Mature</button>
+</div>
+
+<main>
+
+      <article class="phase">
+        <header>
+          <span class="phase-num">1</span>
+          <h2>Scrape</h2>
+        </header>
+        <p class="phase-summary">Crawls the original dental practice website and dumps every page&#39;s HTML, headings, paragraphs, JSON-LD structured data, and image URLs into a raw &quot;bronze&quot; archive. No AI involved — pure HTTP + parsing.</p>
+        
+      <div class="phase-io">
+        <div><span class="io-label">In</span><span class="io-val">URL (e.g. https://springstdentistry.com)</span></div>
+        <div class="io-arrow">↓</div>
+        <div><span class="io-label">Out</span><span class="io-val">pages[] · structured data · image URLs · site assets · sitemap</span></div>
+        
+      </div>
+        <details class="phase-detail">
+           <summary>Tools · QC · cost</summary>
+           <dl><dt>Tools</dt><dd><code>Playwright (headless browser)</code>, <code>lib/scraper.js</code>, <code>lib/scrape-reviews.js</code></dd><dt>QC</dt><dd><span class="qc-item">Page count</span><span class="qc-item">Redirect count</span><span class="qc-item">&quot;Bronze empty?&quot; check</span></dd><dt>Cache</dt><dd>Local cache by URL — re-runs reuse bronze if present</dd><dt>Cost</dt><dd>Free (HTTP only)</dd><dt>Skip flag</dt><dd><code>--skip-scrape</code></dd></dl>
+         </details>
+        <div class="phase-section">
+           <h3 class="phase-section-h">Skills</h3>
+           <p class="empty">None — fully deterministic phase</p>
+         </div>
+      </article>
+      <article class="phase">
+        <header>
+          <span class="phase-num">2</span>
+          <h2>Silver</h2>
+        </header>
+        <p class="phase-summary">AI-extracts bronze into a structured PracticeData object. Three content tiers: structured fields (practice, doctors, services, hours) capture canonical data; differentiators[] captures short labels for &quot;why us&quot; facts; additionalContent[] rescues verbatim prose blocks (pull-quotes, philosophy paragraphs, blog bodies). Visual/design data is OUT OF SCOPE — colors, fonts, mood belong to Design Extract.</p>
+        
+      <div class="phase-io">
+        <div><span class="io-label">In</span><span class="io-val">Bronze pages — top 8 by relevance (home, about, contact, doctor, team, services). Selection is for prompt-size only; ALL distinctive content within those pages is preserved across the three tiers.</span></div>
+        <div class="io-arrow">↓</div>
+        <div><span class="io-label">Out</span><span class="io-val">silver — structured PracticeData with structured + label + prose tiers</span></div>
+        
+      <details class="output-detail">
+        <summary>Full output schema (11 groups)</summary>
+        <dl>
+          <dt>practice</dt><dd>name · domain · phone · email · googleReviewLink · googleProfileLink · sameAs[]</dd><dt>🔄 doctors[]</dt><dd>Unified array of all practice doctors (was doctor + additionalDoctors). doctors[0] is the most prominent / featured / founder; remaining entries are equal-billing secondary doctors. Each: { name, firstName, lastName, credentials, bio, education, specialties[], photoPath }.</dd><dt>address</dt><dd>street · city · state · zip · country · full</dd><dt>hours</dt><dd>display[{ day, time }] · raw</dd><dt>services</dt><dd>offered[{ name, slug, category, source, confidence }] — answers &quot;what can the practice DO for me?&quot;</dd><dt>brand</dt><dd>logoPath only. (colors and fonts removed — Design Extract owns visual data)</dd><dt>content</dt><dd>heroTagline · heroHeadline · heroSubheadline · aboutText · testimonials[] · faqs[] · insurance[] · stats{}</dd><dt>🆕 additionalContent[] (top-level)</dt><dd>Catch-all rescue. Each item: { type, title, content, source }. Captures pull-quotes, philosophy paragraphs, &quot;Welcome To&quot; intros, office descriptions, technology copy, mission statements, blog bodies, taglines — anything distinctive that didn&#39;t fit a structured field. Verbatim. Capped 30 items, ~2200 chars each. Consumed by doctor / service-page / faq / blog skills.</dd><dt>🔄 differentiators[]</dt><dd>(was signals[]) — { type, label, detail, source, confidence }. Short LABELS for facts that set the practice apart: technology, awards, languages, financing, emergency. Answers &quot;why us?&quot; — distinct from services (what we do) and additionalContent (verbatim prose).</dd><dt>images</dt><dd>logo · hero[] · team[] · office[] · gallery[] · beforeAfter[] — URLs only, classification happens in Phase 1d</dd><dt>migration</dt><dd>oldUrls[] for redirect mapping</dd>
+        </dl>
+      </details>
+      </div>
+        <details class="phase-detail">
+           <summary>Tools · QC · cost</summary>
+           <dl><dt>Tools</dt><dd><code>Anthropic Sonnet 4.6</code>, <code>lib/ai-silver.js</code></dd><dt>QC</dt><dd><span class="qc-item">Schema validation</span><span class="qc-item">Multi-doctor presence check</span><span class="qc-item">No-duplicate boundary (services / differentiators / additionalContent)</span><span class="qc-item">additional-content-not-surfaced (post-build, in coverage audit)</span></dd><dt>Cost</dt><dd>Sonnet — moderate per build</dd><dt>Skip flag</dt><dd><code>--skip-scrape (whole phase)</code></dd></dl>
+         </details>
+        <div class="phase-section">
+           <h3 class="phase-section-h">Skills <span class="count">(2)</span></h3>
+           <ul class="skills">
+        <li class="skill" data-maturity="working">
+          <a href="./skills/extraction-image-roles.html" class="skill-name">extraction/image-roles</a>
+          <span class="skill-meta">
+            <span class="tier tier-L1">L1</span>
+            <span class="maturity">🟡 working</span>
+          </span>
+          <p class="skill-resp">Classifies one downloaded image at a time using Claude Haiku Vision.</p>
+        </li>
+        <li class="skill" data-maturity="polished">
+          <a href="./skills/extraction-silver.html" class="skill-name">extraction/silver</a>
+          <span class="skill-meta">
+            <span class="tier tier-L1">L1</span>
+            <span class="maturity">🟢 polished</span>
+          </span>
+          <p class="skill-resp">The bronze→silver transform.</p>
+        </li></ul>
+         </div>
+      </article>
+      <article class="phase">
+        <header>
+          <span class="phase-num">3</span>
+          <h2>Merge</h2>
+        </header>
+        <p class="phase-summary">Combines silver (from the scrape) with the optional intake.json (if a client filled out a form) into a single normalized practice data shape. Deterministic — no AI calls. Intake values override silver where present.</p>
+        
+      <div class="phase-io">
+        <div><span class="io-label">In</span><span class="io-val">silver + optional intake.json</span></div>
+        <div class="io-arrow">↓</div>
+        <div><span class="io-label">Out</span><span class="io-val">merged (same shape, with intake overrides applied)</span></div>
+        
+      </div>
+        <details class="phase-detail">
+           <summary>Tools · QC · cost</summary>
+           <dl><dt>Tools</dt><dd><code>lib/merger.js (pure JS)</code></dd><dt>QC</dt><dd><span class="qc-item">Missing-field flags (e.g. doctor.name absent)</span></dd><dt>Cost</dt><dd>Free</dd></dl>
+         </details>
+        <div class="phase-section">
+           <h3 class="phase-section-h">Skills</h3>
+           <p class="empty">None — fully deterministic phase</p>
+         </div>
+      </article>
+      <article class="phase">
+        <header>
+          <span class="phase-num">4</span>
+          <h2>Design Extract</h2>
+        </header>
+        <p class="phase-summary">Reads the existing site&#39;s current design — extracts the actual colors used, the actual fonts loaded, the visual mood (warm / clinical / corporate / etc), and assesses brand strength (distinctive / generic / inconsistent). Pure extraction, NOT direction. The output feeds into Brand Direction so the rebuild can decide whether to evolve the existing brand or rebuild from scratch.</p>
+        
+      <div class="phase-io">
+        <div><span class="io-label">In</span><span class="io-val">bronze pages + audit positioning</span></div>
+        <div class="io-arrow">↓</div>
+        <div><span class="io-label">Out</span><span class="io-val">designExtraction { existingPalette, existingFonts, mood, brandStrength, evolutionSignal, rationale }</span></div>
+        
+      </div>
+        <details class="phase-detail">
+           <summary>Tools · QC · cost</summary>
+           <dl><dt>Tools</dt><dd><code>Anthropic Sonnet 4.6</code>, <code>lib/ai-design.js</code></dd><dt>QC</dt><dd><span class="qc-item">Brand strength rationale required</span><span class="qc-item">Evolution signal must be one of: evolve | rebuild</span></dd><dt>Cost</dt><dd>Sonnet — single call</dd><dt>Skip flag</dt><dd><code>--skip-design</code></dd></dl>
+         </details>
+        <div class="phase-section">
+           <h3 class="phase-section-h">Skills <span class="count">(1)</span></h3>
+           <ul class="skills">
+        <li class="skill" data-maturity="working">
+          <a href="./skills/design-design-extract.html" class="skill-name">design/design-extract</a>
+          <span class="skill-meta">
+            <span class="tier tier-L1">L1</span>
+            <span class="maturity">🟡 working</span>
+          </span>
+          <p class="skill-resp">Reads the **existing** site&#39;s current design and extracts what&#39;s actually there: the colors actually used, the fonts actually loaded, the visual mood, and an assessment of brand strength.</p>
+        </li></ul>
+         </div>
+      </article>
+      <article class="phase">
+        <header>
+          <span class="phase-num">5</span>
+          <h2>Brand Direction</h2>
+        </header>
+        <p class="phase-summary">Decides the NEW brand direction for the rebuild: palette, typography, voice, mood, spatial system. Takes design-extraction signals (what exists today) plus audit positioning, then either evolves the current brand or starts fresh. Biased by personality signals — specialist/premium → cool palette + grotesque type; family/community → warm palette + humanist serif.</p>
+        
+      <div class="phase-io">
+        <div><span class="io-label">In</span><span class="io-val">designExtraction + audit positioning + merged practice data</span></div>
+        <div class="io-arrow">↓</div>
+        <div><span class="io-label">Out</span><span class="io-val">brandBrief { palette, typography, spatial, motion, voice, mood, rationale, paletteSource, contrastCheck }</span></div>
+        
+      </div>
+        <details class="phase-detail">
+           <summary>Tools · QC · cost</summary>
+           <dl><dt>Tools</dt><dd><code>Anthropic Sonnet 4.6</code>, <code>curated palette library</code>, <code>Google Fonts catalog</code>, <code>recently-used font diversity check</code></dd><dt>QC</dt><dd><span class="qc-item">WCAG AA contrast check (advisory in prompt)</span><span class="qc-item">Used-font diversity (no duplicate font pairs across recent builds)</span></dd><dt>Cost</dt><dd>Sonnet — single call</dd><dt>Skip flag</dt><dd><code>--skip-design</code></dd></dl>
+         </details>
+        <div class="phase-section">
+           <h3 class="phase-section-h">Skills <span class="count">(1)</span></h3>
+           <ul class="skills">
+        <li class="skill" data-maturity="polished">
+          <a href="./skills/design-brand-direction.html" class="skill-name">design/brand-direction</a>
+          <span class="skill-meta">
+            <span class="tier tier-L1">L1</span>
+            <span class="maturity">🟢 polished</span>
+          </span>
+          <p class="skill-resp">Produces deliberate brand guidelines (palette, typography, spatial, motion, voice, mood) for the NEW site.</p>
+        </li></ul>
+         </div>
+      </article>
+      <article class="phase">
+        <header>
+          <span class="phase-num">6</span>
+          <h2>Director</h2>
+        </header>
+        <p class="phase-summary">Picks the creative archetype and hero variant, then deterministically derives the rest of the visual system. AI picks freely from enums; the deterministic layer (derive-design-tokens) overrides nav/footer/gallery/typography to guarantee two different archetypes never look the same.</p>
+        
+      <div class="phase-io">
+        <div><span class="io-label">In</span><span class="io-val">brandBrief + merged data + recent own-builds (for divergence)</span></div>
+        <div class="io-arrow">↓</div>
+        <div><span class="io-label">Out</span><span class="io-val">design-dna.ts containing four groups of fields</span></div>
+        
+      <details class="output-detail">
+        <summary>Full output schema (4 groups)</summary>
+        <dl>
+          <dt>Variant picks (8 dimensions × 5 variants each)</dt><dd>archetype · heroVariant · servicesVariant · navVariant · footerVariant · galleryVariant · cardTreatment · density · motion · radius · sectionOrder[]</dd><dt>designTokens (derived deterministically from archetype)</dt><dd>cornerRadius · buttonTreatment · labelStyle · sectionSpacing · contentDensity · layoutWidth · heroLayout · servicesLayout · aboutLayout · testimonialsLayout · ctaLayout · faqLayout · typePersonality · colorFamily</dd><dt>Creative metadata</dt><dd>creativeDirection · divergenceRationale · borrowedFrom · borrowedTrait · brandSummary</dd><dt>Voice &amp; rules</dt><dd>writingTone · doRules[] · dontRules[] · typographyScale · colorPalette · spacingScale</dd>
+        </dl>
+      </details>
+      </div>
+        <details class="phase-detail">
+           <summary>Tools · QC · cost</summary>
+           <dl><dt>Tools</dt><dd><code>Anthropic Sonnet 4.6 (multi-candidate)</code>, <code>derive-design-tokens.js</code>, <code>design library (own + inspo)</code></dd><dt>QC</dt><dd><span class="qc-item">DNA shape validation</span><span class="qc-item">Archetype-family check (warm practice mustn&#39;t get editorial archetype)</span><span class="qc-item">Divergence from recent builds</span></dd><dt>Cost</dt><dd>Sonnet — 3 candidates evaluated, best picked</dd></dl>
+         </details>
+        <div class="phase-section">
+           <h3 class="phase-section-h">Skills <span class="count">(2)</span></h3>
+           <ul class="skills">
+        <li class="skill" data-maturity="polished">
+          <a href="./skills/creative-derive-design-tokens.html" class="skill-name">creative/derive-design-tokens</a>
+          <span class="skill-meta">
+            <span class="tier tier-L2">L2</span>
+            <span class="maturity">🟢 polished</span>
+          </span>
+          <p class="skill-resp">Deterministic mapping from Creative Director DNA + brand mood → concrete design tokens.</p>
+        </li>
+        <li class="skill" data-maturity="polished">
+          <a href="./skills/creative-director.html" class="skill-name">creative/director</a>
+          <span class="skill-meta">
+            <span class="tier tier-L1">L1</span>
+            <span class="maturity">🟢 polished</span>
+          </span>
+          <p class="skill-resp">Picks a DISTINCT visual direction for the practice — archetype, hero variant, chrome variants, density, motion, radius, section order — actively diverging from recent own-builds and the practice&#39;s …</p>
+        </li></ul>
+         </div>
+      </article>
+      <article class="phase">
+        <header>
+          <span class="phase-num">7</span>
+          <h2>Generate</h2>
+        </header>
+        <p class="phase-summary">Generates content for every homepage section AND every internal service page. Section content goes into JSON files consumed by pre-built variant components (5 layouts × 8 dimensions). Service pages get full multi-section restructuring from the original page&#39;s bodyText.</p>
+        
+      <div class="phase-io">
+        <div><span class="io-label">In</span><span class="io-val">DNA + designTokens + per-section content slice + scraped service bodyText</span></div>
+        <div class="io-arrow">↓</div>
+        <div><span class="io-label">Out</span><span class="io-val">Content JSON files + per-section shim components + service detail pages</span></div>
+        
+      <details class="output-detail">
+        <summary>Full output schema (4 groups)</summary>
+        <dl>
+          <dt>Homepage section content (one per section)</dt><dd>src/components/generated/{HeroSection,ServicesSection,DoctorIntro,ReviewsSection,CTABlock,FaqSection}.content.json</dd><dt>Section shim components (auto-generated)</dt><dd>src/components/generated/*.astro — thin wrappers that import the chosen variant + pass content</dd><dt>Service detail pages (one per scraped service)</dt><dd>src/pages/services/&lt;slug&gt;.astro — multi-section structured pages with highlight, subsection, callout-list, process, benefits, faq blocks</dd><dt>Updated services index</dt><dd>src/pages/services.astro — listing of all offered services</dd>
+        </dl>
+      </details>
+      </div>
+        <details class="phase-detail">
+           <summary>Tools · QC · cost</summary>
+           <dl><dt>Tools</dt><dd><code>Anthropic Sonnet 4.6</code>, <code>skill-loader.js (renders prompts from skill .md files)</code>, <code>variant component library</code></dd><dt>QC</dt><dd><span class="qc-item">JSON schema parse</span><span class="qc-item">Locked-field enforcement (doctor name, credentials)</span><span class="qc-item">No-fabrication rules in prompts</span></dd><dt>Cost</dt><dd>Sonnet — one call per section + one per service page</dd><dt>Skip flag</dt><dd><code>--skip-generate</code></dd></dl>
+         </details>
+        <div class="phase-section">
+           <h3 class="phase-section-h">Skills <span class="count">(9)</span></h3>
+           <ul class="skills">
+        <li class="skill" data-maturity="working">
+          <a href="./skills/content-content-map.html" class="skill-name">content/content-map</a>
+          <span class="skill-meta">
+            <span class="tier tier-L1">L1</span>
+            <span class="maturity">🟡 working</span>
+          </span>
+          <p class="skill-resp">Pre-generation pass that uses scraped pages + audit recommendations to produce a **content map** of elevated, practice-specific copy.</p>
+        </li>
+        <li class="skill" data-maturity="working">
+          <a href="./skills/content-cta.html" class="skill-name">content/cta</a>
+          <span class="skill-meta">
+            <span class="tier tier-L1">L1</span>
+            <span class="maturity">🟡 working</span>
+          </span>
+          <p class="skill-resp">Produce content JSON for the closing call-to-action block: a compelling headline, soft subheadline, primary CTA, and phone.</p>
+        </li>
+        <li class="skill" data-maturity="working">
+          <a href="./skills/content-doctor-intro.html" class="skill-name">content/doctor-intro</a>
+          <span class="skill-meta">
+            <span class="tier tier-L1">L1</span>
+            <span class="maturity">🟡 working</span>
+          </span>
+          <p class="skill-resp">Produce the content JSON for the homepage Doctor Introduction block.</p>
+        </li>
+        <li class="skill" data-maturity="working">
+          <a href="./skills/content-faq.html" class="skill-name">content/faq</a>
+          <span class="skill-meta">
+            <span class="tier tier-L1">L1</span>
+            <span class="maturity">🟡 working</span>
+          </span>
+          <p class="skill-resp">Produce 6–8 frequently-asked questions (with answers) for the homepage FAQ section.</p>
+        </li>
+        <li class="skill" data-maturity="working">
+          <a href="./skills/content-hero.html" class="skill-name">content/hero</a>
+          <span class="skill-meta">
+            <span class="tier tier-L1">L1</span>
+            <span class="maturity">🟡 working</span>
+          </span>
+          <p class="skill-resp">Produce the content JSON for the homepage hero section: headline, subheadline, eyebrow, CTAs, and phone.</p>
+        </li>
+        <li class="skill" data-maturity="working">
+          <a href="./skills/content-reviews.html" class="skill-name">content/reviews</a>
+          <span class="skill-meta">
+            <span class="tier tier-L1">L1</span>
+            <span class="maturity">🟡 working</span>
+          </span>
+          <p class="skill-resp">Produce content JSON for the homepage Reviews/Testimonials section.</p>
+        </li>
+        <li class="skill" data-maturity="working">
+          <a href="./skills/content-services.html" class="skill-name">content/services</a>
+          <span class="skill-meta">
+            <span class="tier tier-L1">L1</span>
+            <span class="maturity">🟡 working</span>
+          </span>
+          <p class="skill-resp">Produce content JSON for the homepage Services section: heading, optional eyebrow + subheading, and a per-service descriptions list.</p>
+        </li>
+        <li class="skill" data-maturity="working">
+          <a href="./skills/pages-blog-rewrite.html" class="skill-name">pages/blog-rewrite</a>
+          <span class="skill-meta">
+            <span class="tier tier-L1">L1</span>
+            <span class="maturity">🟡 working</span>
+          </span>
+          <p class="skill-resp">Restructures a scraped blog post (or `additionalContent[]` item of `type: blog-post`) into a clean Markdown body for the rebuilt site.</p>
+        </li>
+        <li class="skill" data-maturity="working">
+          <a href="./skills/pages-service-page.html" class="skill-name">pages/service-page</a>
+          <span class="skill-meta">
+            <span class="tier tier-L1">L1</span>
+            <span class="maturity">🟡 working</span>
+          </span>
+          <p class="skill-resp">Restructures a single scraped service page (raw bodyText + headings) into a clean, multi-section service detail page: headline, subheadline, intro, 3–6 typed sections (highlight / subsection / call…</p>
+        </li></ul>
+         </div>
+      </article>
+      <article class="phase">
+        <header>
+          <span class="phase-num">8</span>
+          <h2>Build</h2>
+        </header>
+        <p class="phase-summary">Compiles the Astro project into static HTML in dist/. Pre-build link scrubber fixes known bad hrefs. Optional --agent flag runs visual QC iterations on the built output.</p>
+        
+      <div class="phase-io">
+        <div><span class="io-label">In</span><span class="io-val">src/ files (pages, components, config, content)</span></div>
+        <div class="io-arrow">↓</div>
+        <div><span class="io-label">Out</span><span class="io-val">dist/ — production HTML, CSS, JS, sitemap, assets</span></div>
+        
+      </div>
+        <details class="phase-detail">
+           <summary>Tools · QC · cost</summary>
+           <dl><dt>Tools</dt><dd><code>Astro 5</code>, <code>Tailwind CSS</code>, <code>(optional) designer agent for visual QC</code></dd><dt>QC</dt><dd><span class="qc-item">Astro build errors fail the run</span><span class="qc-item">Link scrubber (pre-build)</span><span class="qc-item">SEO audit (post-build)</span></dd><dt>Cost</dt><dd>Free (compute only)</dd><dt>Skip flag</dt><dd><code>--skip-build</code></dd></dl>
+         </details>
+        <div class="phase-section">
+           <h3 class="phase-section-h">Skills</h3>
+           <p class="empty">None — fully deterministic phase</p>
+         </div>
+      </article>
+      <article class="phase">
+        <header>
+          <span class="phase-num">9</span>
+          <h2>Audit</h2>
+        </header>
+        <p class="phase-summary">Compares scraped data against the rebuilt site to catch what got dropped: missing doctors, thinned service pages, mismatched contact info, signals not surfaced. Outputs a markdown + JSON report. Critical findings warn loudly inline.</p>
+        
+      <div class="phase-io">
+        <div><span class="io-label">In</span><span class="io-val">bronze + silver + merged + image-roles.json + dist/ HTML</span></div>
+        <div class="io-arrow">↓</div>
+        <div><span class="io-label">Out</span><span class="io-val">_pipeline/coverage-audit.{json,md}</span></div>
+        
+      </div>
+        <details class="phase-detail">
+           <summary>Tools · QC · cost</summary>
+           <dl><dt>Tools</dt><dd><code>Deterministic comparators (lib/coverage-audit.js)</code></dd><dt>QC</dt><dd><span class="qc-item">7 cross-checks: doctors-missing, doctor-photo-pairing, services-missing, service-page-thin, signals-missing, phone-mismatch, no-blog-index</span></dd><dt>Cost</dt><dd>Free</dd></dl>
+         </details>
+        <div class="phase-section">
+           <h3 class="phase-section-h">Skills <span class="count">(2)</span></h3>
+           <ul class="skills">
+        <li class="skill" data-maturity="working">
+          <a href="./skills/audit-coverage-audit.html" class="skill-name">audit/coverage-audit</a>
+          <span class="skill-meta">
+            <span class="tier tier-L4">L4</span>
+            <span class="maturity">🟡 working</span>
+          </span>
+          <p class="skill-resp">Whole-pipeline before/after audit.</p>
+        </li>
+        <li class="skill" data-maturity="working">
+          <a href="./skills/audit-site-audit.html" class="skill-name">audit/site-audit</a>
+          <span class="skill-meta">
+            <span class="tier tier-L1">L1</span>
+            <span class="maturity">🟡 working</span>
+          </span>
+          <p class="skill-resp">Strategic recommendations for the redesign.</p>
+        </li></ul>
+         </div>
+      </article>
+</main>
+
+<footer>
+  Source: <a href="./SKILLS.md">SKILLS.md</a> · <a href="./PIPELINE.md">PIPELINE.md</a> · Skills live at <code>skills/</code>
+</footer>
+
+<script>
+  const buttons = document.querySelectorAll('.filter-btn');
+  buttons.forEach(b => b.addEventListener('click', () => {
+    buttons.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    const f = b.dataset.filter;
+    document.querySelectorAll('.skill').forEach(el => {
+      const m = el.dataset.maturity;
+      el.classList.toggle('hidden', f !== 'all' && m !== f);
+    });
+  }));
+</script>
+</body>
+</html>

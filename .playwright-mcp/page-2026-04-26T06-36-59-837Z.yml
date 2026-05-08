@@ -1,0 +1,75 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - heading "Spring St. Dentistry — Site Audit" [level=1] [ref=e4]
+      - generic [ref=e5]: https://www.springstdentistry.com · April 25, 2026
+    - generic [ref=e6]:
+      - generic [ref=e7]: Groundwork Builder
+      - generic [ref=e8]: groundwork.build
+  - navigation [ref=e9]:
+    - button "Scorecard" [ref=e10] [cursor=pointer]
+    - button "What We Found 5" [ref=e11] [cursor=pointer]
+    - button "Your Messaging" [active] [ref=e12] [cursor=pointer]
+    - button "What We'd Fix" [ref=e13] [cursor=pointer]
+  - main [ref=e14]:
+    - generic [ref=e265]:
+      - generic [ref=e266]:
+        - heading "Your Messaging" [level=2] [ref=e267]
+        - generic [ref=e268]: Analysis by Claude AI
+      - generic [ref=e269]:
+        - strong [ref=e270]: "How this analysis works:"
+        - text: We read every page of your site and analyzed how you're positioned compared to what patients in your area are searching for. This section is
+        - strong [ref=e271]: analysis by Claude AI
+        - text: — not a mechanical score, but a read of your actual content and how it lands on a new visitor.
+      - generic [ref=e272]:
+        - generic [ref=e273]:
+          - heading "Positioning" [level=4] [ref=e274]
+          - generic [ref=e275]: Current
+          - paragraph [ref=e276]: A general neighborhood dental office offering a broad range of routine and cosmetic services in Long Beach, CA — no clear differentiation or specialty emphasis evident from the site structure.
+          - generic [ref=e277]: Recommended
+          - paragraph [ref=e278]: Long Beach's trusted full-service family and cosmetic dental practice — where everyday dental care meets smile transformation, led by Dr. Anthony Hoang DMD.
+          - paragraph [ref=e279]: The practice offers a strong breadth of services spanning general, cosmetic, restorative, and orthodontic care. Leaning into both the family-friendly angle and cosmetic transformation creates two clear patient entry points. Long Beach is a competitive dental market, so anchoring to a specific neighborhood identity and a named doctor builds trust and local search relevance.
+        - generic [ref=e280]:
+          - heading "Brand Tone" [level=4] [ref=e281]
+          - generic [ref=e282]: Current
+          - paragraph [ref=e283]: Likely clinical and transactional — a basic service-listing approach with minimal warmth or patient reassurance given the absence of testimonials, FAQs, and a relatively low image count.
+          - generic [ref=e284]: Recommended
+          - paragraph [ref=e285]: Warm, confident, and approachable — conversational without being overly casual. Reassuring for anxious patients, clear and direct for high-intent cosmetic and implant seekers.
+          - paragraph [ref=e286]: Long Beach has a diverse, community-oriented population. A tone that feels personal and welcoming — especially from Dr. Hoang's voice — will differentiate the practice from corporate DSO competitors. Anxious patients are a large untapped segment who respond strongly to reassuring language, and the absence of current testimonials or FAQs suggests this emotional layer is completely missing.
+        - generic [ref=e287]:
+          - heading "Service Emphasis" [level=4] [ref=e288]
+          - generic [ref=e289]:
+            - generic [ref=e290]: dental-implants
+            - generic [ref=e291]: cosmetic-dentistry
+            - generic [ref=e292]: orthodontics
+            - generic [ref=e293]: teeth-whitening
+          - paragraph [ref=e294]: Dental implants carry the highest revenue potential and strongest local search intent in Long Beach. The current site lists implants but likely underserves the topic given only 14 images and 40 pages crawled — there is room to build authoritative implant content. Cosmetic dentistry and teeth whitening are natural upsell complements and high-intent search categories. Orthodontics (likely Invisalign or clear aligners) appeals to the adult demographic increasingly dominant in Long Beach and merits its own expanded hub.
+        - generic [ref=e295]:
+          - heading "Differentiators Found on Your Site" [level=4] [ref=e296]
+          - list [ref=e297]:
+            - listitem [ref=e298]: • Dr. Anthony Hoang DMD — a named, credentialed individual doctor leading the practice, which stands out against corporate dental chains in Long Beach and should be front and center in the redesign.
+            - listitem [ref=e299]: • Broad in-house service range spanning general, cosmetic, restorative, and orthodontics — patients can stay with one trusted provider rather than being referred out, a genuine convenience differentiator worth making explicit.
+            - listitem [ref=e300]: • Spring Street location identity — the practice name itself signals a specific Long Beach neighborhood anchor, which can be leveraged for hyper-local SEO and community connection messaging.
+        - generic [ref=e301]:
+          - heading "Content Gaps — What's Missing" [level=4] [ref=e302]
+          - list [ref=e303]:
+            - listitem [ref=e304]: • No patient testimonials or reviews integration — this is a critical trust signal missing entirely; the redesign must include Google review pulls or curated testimonials prominently on the homepage and service pages.
+            - listitem [ref=e305]: • No FAQ content detected — adding procedure-specific FAQs (especially for implants, root canal, and orthodontics) addresses patient anxiety, improves dwell time, and captures featured snippet opportunities.
+            - listitem [ref=e306]: "• Missing services from the available taxonomy that could drive incremental traffic: Porcelain Veneers, Dental Bridges, Dentures, Emergency Dentistry, and Sedation Dentistry are all absent and represent real patient needs in Long Beach."
+            - listitem [ref=e307]: • No All-on-4 or full-arch implant content — this is a high-value, high-search-volume subset of implants that deserves its own page given the primary emphasis on dental implants.
+            - listitem [ref=e308]: • Invisalign or clear aligner branding is missing — the site lists 'Orthodontics' generically but does not appear to call out Invisalign specifically, losing significant branded search traffic.
+            - listitem [ref=e309]: • Doctor bio exists but likely needs expansion — with only 14 images across 40 pages, Dr. Hoang's personal story, credentials, and philosophy are probably thin; a rich bio with photo builds trust and E-E-A-T signals.
+            - listitem [ref=e310]: • No before-and-after smile gallery detected — essential for cosmetic dentistry and teeth whitening conversion; patients need visual proof before booking aesthetic procedures.
+            - listitem [ref=e311]: • Practice email is missing from the data — contact information completeness is a basic trust and conversion requirement that must be resolved in the redesign.
+            - listitem [ref=e312]: • No on-domain scheduling or contact flow confirmed — if a third-party booking tool is in use (e.g., an embedded widget), there is no apparent on-domain fallback contact page that search engines can crawl and patients can find if the widget fails; an on-domain /contact or /book-appointment page with the phone number, address, hours, and a native form should exist regardless of any third-party booker.
+        - generic [ref=e313]:
+          - heading "Search Opportunities" [level=4] [ref=e314]
+          - list [ref=e315]:
+            - listitem [ref=e316]: • Target 'dental implants Long Beach CA' and supporting long-tail variants ('affordable dental implants Long Beach', 'same day dental implants Long Beach') with a dedicated, content-rich implant hub page — currently likely a single thin page.
+            - listitem [ref=e317]: • Build a local neighborhood landing page strategy targeting Spring Street, Bixby Knolls, Belmont Shore, and other Long Beach districts to capture geo-modified searches beyond the city level.
+            - listitem [ref=e318]: • Claim and optimize 'emergency dentist Long Beach' by adding an Emergency Dentistry service page — this is a high-intent, often-uncontested category the practice is currently invisible for.
+            - listitem [ref=e319]: "• Add structured data: LocalBusiness schema with complete NAP, OpeningHours, and PriceRange; DentistSchema as primary entity type; BreadcrumbList on all service pages; and Person schema for Dr. Hoang to strengthen E-E-A-T signals in Google's entity graph."
+            - listitem [ref=e320]: • Create an Invisalign or clear aligners page optimized for 'Invisalign Long Beach' — branded orthodontic searches are high volume and the current generic 'Orthodontics' slug captures none of that intent.
+            - listitem [ref=e321]: • Build a comprehensive FAQ page or per-service FAQ sections targeting question-based queries ('how much do dental implants cost in Long Beach', 'is root canal painful') to compete for People Also Ask and featured snippet placements.
+            - listitem [ref=e322]: • Sitemap and crawl hygiene review — with 40 pages crawled and no confirmed hub structure, there is likely crawl budget waste or orphaned pages; a clear IA with a stable primary nav linking to service hubs and a footer acting as a secondary site map will concentrate link equity and improve indexation.
+            - listitem [ref=e323]: • Add testimonials or a reviews page with schema markup (AggregateRating) to surface star ratings in organic search results, which materially improves click-through rates for local dental queries.

@@ -1,0 +1,84 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Studio (Pipeline Server)",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "scripts/pipeline/studio.js"
+      ],
+      "port": 4001,
+      "autoPort": true
+    },
+    {
+      "name": "Astro Dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "port": 4321
+    },
+    {
+      "name": "Astro Preview",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "preview"
+      ],
+      "port": 4321
+    },
+    {
+      "name": "Audit Files",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "-y",
+        "serve",
+        "_audits",
+        "-p",
+        "4002",
+        "--no-clipboard"
+      ],
+      "port": 4002
+    },
+    {
+      "name": "Pipeline Output",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "-y",
+        "serve",
+        "/Users/garrettgunther/Projects/output",
+        "-p",
+        "4003",
+        "--no-clipboard"
+      ],
+      "port": 4003
+    },
+    {
+      "name": "Client Preview",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "-y",
+        "serve",
+        "/Users/garrettgunther/Projects/clients/springs-dental-v2/dist",
+        "-p",
+        "4321",
+        "--no-clipboard"
+      ],
+      "port": 4321
+    },
+    {
+      "name": "Pipeline Report",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "-y",
+        "serve",
+        "/Users/garrettgunther/Projects/clients/springs-dental-v2/_pipeline",
+        "-p",
+        "4500",
+        "--no-clipboard"
+      ],
+      "port": 4500
+    }
+  ]
+}

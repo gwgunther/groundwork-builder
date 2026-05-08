@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Invisalign® Treatment",
+  "description": "The world's most advanced clear aligner system — delivered by a certified Invisalign Diamond Provider.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Russell EK Chang, DDS, MS, FACD, Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Alamitos"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Invisalign® Treatment | ${site.name}`}
+  description="The world's most advanced clear aligner system — delivered by a certified Invisalign Diamond Provider."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Invisalign® Treatment
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      The world's most advanced clear aligner system — delivered by a certified Invisalign Diamond Provider.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">There's never been a better time to straighten your teeth with the most advanced clear aligner in the world. Our office is proud to be a certified Invisalign Diamond Provider, which gives you a clear, convenient, and comfortable option to achieve the smile you've always wanted. Diamond Provider status reflects a high volume of successfully completed Invisalign cases, placing Chang Orthodontics among the most experienced Invisalign practices in the region. We use the iTero digital scanning system to create fast, precise 3D digital images of your teeth — no traditional impressions required. In addition to Invisalign, our practice also offers InBrace lingual braces and LightForce custom 3D-printed brackets for patients seeking alternative discreet or highly customized treatment options.</p>
+      <ul class="space-y-3 my-6">
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Invisalign Diamond Provider — among the highest tier of certified providers</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>iTero digital scanning for precise 3D treatment planning</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Nearly invisible aligners worn 20–22 hours per day</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>Weekly aligner changes for efficient tooth movement</span></li>
+        <li class="flex gap-3"><span class="text-brand-primary font-bold mt-1">→</span><span>InBrace and LightForce available as additional options</span></li>
+      </ul>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

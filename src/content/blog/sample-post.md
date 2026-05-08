@@ -2,7 +2,7 @@
 title: "Your First Blog Post Title"
 description: "A brief description of your blog post for search engines (max 160 characters)."
 publishDate: 2026-01-15
-targetKeyword: "sample dental keyword"
+targetKeyword: "sample keyword phrase"
 category: "general-dentistry"
 author: "[PRACTICE_NAME]"
 draft: false
@@ -14,7 +14,7 @@ This is a sample blog post. Replace this content with an article relevant to you
 
 ## Why This Matters
 
-Write about topics your patients search for — common questions, treatment explanations, and oral health tips.
+Write about topics your audience searches for — common questions, services, and helpful education.
 
 ## What to Include
 
