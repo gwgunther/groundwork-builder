@@ -7,6 +7,10 @@ export default defineConfig({
   site: 'https://example.com',
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: {
+      entries: ['src/pages/**/*.astro'],
+      noDiscovery: true,
+    },
   },
   integrations: [
     sitemap({
