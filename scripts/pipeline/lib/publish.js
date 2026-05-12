@@ -21,7 +21,7 @@
  *   AIRTABLE_BASE_ID         — Airtable base ID
  *   AIRTABLE_TABLE_NAME      — table name (default: "Clients")
  *   GROUNDWORK_SUBDOMAIN     — base subdomain (default: groundworkdental.com)
- *   GITHUB_REPO_OWNER        — GitHub repo owner (default: garrettgunther)
+ *   GITHUB_REPO_OWNER        — GitHub repo owner (default: gwgunther)
  *   GITHUB_REPO_NAME         — GitHub repo name (default: groundwork-builder)
  */
 
@@ -207,7 +207,7 @@ function gitCommitPush(repoPath, message, paths = []) {
 async function ensureCfPagesProject({ slug, baseDomain }) {
   const token     = process.env.CLOUDFLARE_API_TOKEN;
   const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
-  const repoOwner = process.env.GITHUB_REPO_OWNER || 'garrettgunther';
+  const repoOwner = process.env.GITHUB_REPO_OWNER || 'gwgunther';
   const repoName  = process.env.GITHUB_REPO_NAME  || 'groundwork-builder';
 
   if (!token || !accountId) {

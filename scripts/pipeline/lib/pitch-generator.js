@@ -454,7 +454,6 @@ ${hasScores ? `
     ` : `
     <p class="scores-tradeoff">Rebuilt site scores are typical for Astro-built sites. Final score measured after deployment.</p>
     `}
-    </div>
   </div>
 </div>
 ` : ''}
