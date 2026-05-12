@@ -7,5 +7,6 @@ dist/
 google-service-account.json
 _credentials/
 _pipeline/
+_audits/
 output/
 src/components/generated/
