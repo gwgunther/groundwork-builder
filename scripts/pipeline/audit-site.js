@@ -30,6 +30,10 @@ import { extractSilver }          from './lib/ai-silver.js';
 import { analyzeImages }          from './lib/ai-images.js';
 import { runPageSpeed }           from './lib/pagespeed.js';
 import { runTechAudit }           from './lib/tech-audit.js';
+import { runTrustScan }           from './lib/trust-scanner.js';
+import { runHostingScan }         from './lib/hosting-scanner.js';
+import { runGbpScan }             from './lib/gbp-scanner.js';
+import { aggregateGrowthScore }   from './lib/findings.js';
 import { runSiteAudit }           from './lib/ai-audit.js';
 import { generateAuditReports }   from './lib/audit-report-generator.js';
 import { mergeData }              from './lib/merger.js';
@@ -48,6 +52,9 @@ function parseArgs() {
     skipPagespeed:   false,
     verbose:         false,
     previewUrl:      null,
+    placeId:         null,
+    businessName:    null,
+    skipGbp:         false,
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -66,6 +73,15 @@ function parseArgs() {
         break;
       case '--preview-url':
         opts.previewUrl = args[++i];
+        break;
+      case '--place-id':
+        opts.placeId = args[++i];
+        break;
+      case '--business-name':
+        opts.businessName = args[++i];
+        break;
+      case '--skip-gbp':
+        opts.skipGbp = true;
         break;
       case '--verbose':
         opts.verbose = true;
@@ -104,6 +120,9 @@ Options:
   --preset <name>        Vertical preset (default: dental)
   --skip-pagespeed       Skip Google PageSpeed Insights API call
   --preview-url <url>    Link to a Groundwork preview for this site
+  --place-id <id>        Google Place ID to scan GBP directly (skips lookup)
+  --business-name <q>    Business name to text-search for GBP (default: silver practice name + city)
+  --skip-gbp             Skip the GBP scan entirely
   --verbose              Detailed output
   --help                 Show this help
 
@@ -244,6 +263,75 @@ async function main() {
   await writeFile(join(dataDir, 'tech-audit.json'), JSON.stringify(techAudit, null, 2), 'utf-8');
   console.log('');
 
+  // ── Phase 4b: Trust scan ────────────────────────────────────────────────
+  console.log('[Phase 4b] Running trust scan...');
+  const trustScan = runTrustScan(bronze);
+  console.log(`  ${trustScan.summary.critical} critical · ${trustScan.summary.warnings} warnings · ${trustScan.summary.passed} passed`);
+  await writeFile(join(dataDir, 'trust-scan.json'), JSON.stringify(trustScan, null, 2), 'utf-8');
+  console.log('');
+
+  // ── Phase 4c: Hosting scan ──────────────────────────────────────────────
+  console.log('[Phase 4c] Running hosting scan...');
+  let hostingScan = { findings: [], summary: { critical: 0, warnings: 0, passed: 0 }, meta: {} };
+  try {
+    hostingScan = await runHostingScan(bronze);
+    console.log(`  ${hostingScan.summary.critical} critical · ${hostingScan.summary.warnings} warnings · ${hostingScan.summary.passed} passed`);
+    if (hostingScan.meta?.hostname) {
+      console.log(`  Host: ${hostingScan.meta.hostname} · NS: ${(hostingScan.meta.nameservers || []).slice(0, 2).join(', ') || 'n/a'}`);
+    }
+  } catch (err) {
+    console.warn(`  Hosting scan failed (non-fatal): ${err.message}`);
+  }
+  await writeFile(join(dataDir, 'hosting-scan.json'), JSON.stringify(hostingScan, null, 2), 'utf-8');
+  console.log('');
+
+  // ── Phase 4d: GBP scan (Places Details API) ─────────────────────────────
+  let gbpScan = { findings: [], summary: { critical: 0, warnings: 0, passed: 0 }, meta: {} };
+  if (opts.skipGbp) {
+    console.log('[Phase 4d] Skipping GBP scan (--skip-gbp).');
+    console.log('');
+  } else if (!process.env.GOOGLE_PLACES_API_KEY) {
+    console.log('[Phase 4d] Skipping GBP scan (GOOGLE_PLACES_API_KEY not set).');
+    console.log('');
+  } else {
+    console.log('[Phase 4d] Running GBP scan...');
+    try {
+      const businessName = opts.businessName
+        || (scraped?.practice?.name && scraped?.address?.city
+            ? `${scraped.practice.name} ${scraped.address.city}`
+            : scraped?.practice?.name || practiceName);
+      gbpScan = await runGbpScan({ placeId: opts.placeId, businessName });
+      if (gbpScan.meta?.found === false) {
+        console.log(`  No GBP match for "${gbpScan.meta.query}".`);
+      } else {
+        console.log(`  Resolved: ${gbpScan.meta.displayName} · ${gbpScan.meta.userRatingCount} reviews`);
+        console.log(`  ${gbpScan.summary.critical} critical · ${gbpScan.summary.warnings} warnings · ${gbpScan.summary.passed} passed`);
+      }
+    } catch (err) {
+      console.warn(`  GBP scan failed (non-fatal): ${err.message}`);
+    }
+    await writeFile(join(dataDir, 'gbp-scan.json'), JSON.stringify(gbpScan, null, 2), 'utf-8');
+    console.log('');
+  }
+
+  // ── Combined Growth Score across all detector outputs ───────────────────
+  const allFindings = [
+    ...techAudit.findings,
+    ...trustScan.findings,
+    ...hostingScan.findings,
+    ...gbpScan.findings,
+  ];
+  const growthScore = aggregateGrowthScore(allFindings);
+  if (growthScore != null) {
+    console.log(`  Growth Score: ${growthScore}/100 (site + perf + trust + hosting + gbp)`);
+    console.log('');
+  }
+  await writeFile(
+    join(dataDir, 'findings.json'),
+    JSON.stringify({ growthScore, findings: allFindings }, null, 2),
+    'utf-8',
+  );
+
   // ── Phase 5: AI Audit ────────────────────────────────────────────────────
   console.log('[Phase 5] Running AI content audit...');
   let aiAudit = null;
@@ -263,14 +351,27 @@ async function main() {
 
   // ── Phase 6: Generate Reports ────────────────────────────────────────────
   console.log('[Phase 6] Generating audit reports...');
+  // Synthesized "tech audit" view for the report = all findings merged so the
+  // Findings tab renders site + perf + trust + hosting + GBP in one place.
+  const combinedTechAudit = {
+    findings: allFindings,
+    summary: {
+      critical: allFindings.filter(f => f.severity === 'critical').length,
+      warnings: allFindings.filter(f => f.severity === 'warning').length,
+      passed:   allFindings.filter(f => f.severity === 'passed').length,
+    },
+    growthScore,
+  };
   const { fullPath, summaryPath } = await generateAuditReports(outputDir, {
     url: opts.url,
     practiceName,
     pagespeed,
-    techAudit,
+    techAudit: combinedTechAudit,
     aiAudit,
     scraped,
     previewUrl: opts.previewUrl || null,
+    growthScore,
+    gbpMeta: gbpScan.meta || null,
   });
   console.log('');
 

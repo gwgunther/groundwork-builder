@@ -44,11 +44,151 @@ function scoreBg(score) {
   return '#FDDCDC';
 }
 
+function growthLabel(score) {
+  if (score == null) return '—';
+  if (score >= 85) return 'Strong online presence';
+  if (score >= 60) return 'Solid foundation, gaps to close';
+  if (score >= 40) return 'Significant issues holding you back';
+  return 'Major work needed';
+}
+
+function buildGrowthHero(score, techAudit, gbpMeta) {
+  if (score == null) return '';
+  const color = scoreColor(score);
+  const bg = scoreBg(score);
+  const label = growthLabel(score);
+  const critical = techAudit?.summary?.critical || 0;
+  const warnings = techAudit?.summary?.warnings || 0;
+  const passed = techAudit?.summary?.passed || 0;
+  const gbpLine = gbpMeta?.displayName
+    ? `<div class="growth-hero-sub">GBP: <strong>${esc(gbpMeta.displayName)}</strong> · ${gbpMeta.userRatingCount ?? 0} reviews · ${gbpMeta.rating != null ? gbpMeta.rating.toFixed(1) + '★' : '—'}</div>`
+    : '';
+
+  return `
+<section class="growth-hero" style="background:${bg};border-left:6px solid ${color}">
+  <div class="growth-hero-left">
+    <div class="growth-hero-eyebrow">Growth Score</div>
+    <div class="growth-hero-score" style="color:${color}">${score}<span class="growth-hero-denom">/100</span></div>
+    <div class="growth-hero-label">${esc(label)}</div>
+    ${gbpLine}
+  </div>
+  <div class="growth-hero-right">
+    <div class="growth-stat"><span class="growth-stat-num" style="color:var(--red)">${critical}</span><span class="growth-stat-label">Critical</span></div>
+    <div class="growth-stat"><span class="growth-stat-num" style="color:var(--amber)">${warnings}</span><span class="growth-stat-label">Warnings</span></div>
+    <div class="growth-stat"><span class="growth-stat-num" style="color:var(--green)">${passed}</span><span class="growth-stat-label">Passed</span></div>
+  </div>
+</section>`;
+}
+
 function scoreLabel(score) {
   if (score == null) return '—';
   if (score >= 90) return 'Good';
   if (score >= 50) return 'Needs work';
   return 'Poor';
+}
+
+// ---------------------------------------------------------------------------
+// Diff-mode (before/after) rendering
+// ---------------------------------------------------------------------------
+
+function buildDiffHero(diff) {
+  if (!diff?.summary) return '';
+  const { beforeScore, afterScore, delta, counts } = diff.summary;
+  const afterColor = scoreColor(afterScore);
+  const afterBg = scoreBg(afterScore);
+  const beforeColor = scoreColor(beforeScore);
+  const deltaSign = delta != null && delta >= 0 ? '+' : '';
+  const deltaColor = delta == null ? '#9E9990' : delta >= 0 ? '#2E7D4F' : '#C0392B';
+
+  return `
+<section class="growth-hero diff-hero" style="background:${afterBg};border-left:6px solid ${afterColor}">
+  <div class="growth-hero-left">
+    <div class="growth-hero-eyebrow">Growth Score — Before → After</div>
+    <div class="diff-score-row">
+      <span class="diff-score-before" style="color:${beforeColor}">${beforeScore ?? '—'}</span>
+      <span class="diff-arrow">→</span>
+      <span class="growth-hero-score" style="color:${afterColor}">${afterScore ?? '—'}<span class="growth-hero-denom">/100</span></span>
+      ${delta != null ? `<span class="diff-delta" style="color:${deltaColor};background:${deltaColor}1a">${deltaSign}${delta}</span>` : ''}
+    </div>
+    <div class="growth-hero-label">${esc(growthLabel(afterScore))}</div>
+  </div>
+  <div class="growth-hero-right">
+    <div class="growth-stat"><span class="growth-stat-num" style="color:var(--green)">${counts.fixed}</span><span class="growth-stat-label">Fixed</span></div>
+    <div class="growth-stat"><span class="growth-stat-num" style="color:var(--amber)">${counts['still-issue']}</span><span class="growth-stat-label">Still issue</span></div>
+    <div class="growth-stat"><span class="growth-stat-num" style="color:var(--red)">${counts.regressed}</span><span class="growth-stat-label">Regressed</span></div>
+  </div>
+</section>`;
+}
+
+function diffTransitionMeta(transition) {
+  return {
+    fixed:         { label: 'Fixed',         color: 'var(--green)',  symbol: '✓' },
+    'still-issue': { label: 'Still issue',   color: 'var(--amber)',  symbol: '!' },
+    regressed:     { label: 'Regressed',     color: 'var(--red)',    symbol: '↓' },
+    unchanged:     { label: 'Still passing', color: 'var(--green)',  symbol: '✓' },
+    new:           { label: 'New finding',   color: 'var(--amber)',  symbol: '+' },
+    removed:       { label: 'Not re-scanned', color: 'var(--text-dim)', symbol: '—' },
+  }[transition] || { label: transition, color: 'var(--text-dim)', symbol: '·' };
+}
+
+function buildDiffCard(d) {
+  const meta = diffTransitionMeta(d.transition);
+  const beforeDetail = d.before?.detail || '—';
+  const afterDetail  = d.after?.detail  || (d.transition === 'removed' ? 'Not re-scanned' : '—');
+  const fixedLine = d.transition === 'fixed' && d.fixed_copy
+    ? `<div class="diff-fixed-line">${esc(d.fixed_copy)}</div>`
+    : '';
+
+  return `
+<article class="diff-card diff-card-${d.transition}">
+  <header class="diff-card-header">
+    <span class="diff-card-symbol" style="color:${meta.color}">${meta.symbol}</span>
+    <div class="diff-card-titles">
+      <div class="diff-card-title">${esc(d.title || d.id)}</div>
+      <div class="diff-card-category">${esc(d.category || '')}</div>
+    </div>
+    <span class="diff-card-badge" style="color:${meta.color};border-color:${meta.color}">${esc(meta.label)}</span>
+  </header>
+  ${fixedLine}
+  <div class="diff-card-row">
+    <div class="diff-card-side diff-card-before">
+      <div class="diff-side-label">Before</div>
+      <div class="diff-side-detail">${esc(beforeDetail)}</div>
+    </div>
+    <div class="diff-card-side diff-card-after">
+      <div class="diff-side-label">After</div>
+      <div class="diff-side-detail">${esc(afterDetail)}</div>
+    </div>
+  </div>
+  ${d.benefit ? `<div class="diff-card-benefit">Why this matters: ${esc(d.benefit)}</div>` : ''}
+</article>`;
+}
+
+function buildDiffFindings(diff) {
+  if (!diff?.diff?.length) {
+    return `<div class="empty-state"><p>No diff data available.</p></div>`;
+  }
+  // Order groups for narrative: wins first, then problems, then context.
+  const ORDER = ['fixed', 'regressed', 'still-issue', 'new', 'unchanged', 'removed'];
+  const byTransition = {};
+  for (const d of diff.diff) {
+    (byTransition[d.transition] ||= []).push(d);
+  }
+
+  const groups = [];
+  for (const t of ORDER) {
+    const items = byTransition[t];
+    if (!items?.length) continue;
+    const meta = diffTransitionMeta(t);
+    groups.push(`
+<section class="diff-group">
+  <h3 class="diff-group-title" style="color:${meta.color}">${esc(meta.label)} (${items.length})</h3>
+  <div class="diff-group-list">
+    ${items.map(buildDiffCard).join('\n')}
+  </div>
+</section>`);
+  }
+  return groups.join('\n');
 }
 
 function metricStatus(value, metric) {
@@ -233,12 +373,22 @@ function sharedCss() {
 // Full report builder (audit-report.html)
 // ---------------------------------------------------------------------------
 
-function buildFullReport({ url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl }) {
+function buildFullReport({ url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, growthScore = null, gbpMeta = null, diff = null }) {
   const runDate = formatDate(new Date().toISOString());
   const mobile  = pagespeed?.mobile  || null;
   const desktop = pagespeed?.desktop || null;
 
   const criticalCount = techAudit?.summary?.critical || 0;
+  const diffMode = !!diff?.diff?.length;
+  const hero = diffMode
+    ? buildDiffHero(diff)
+    : buildGrowthHero(growthScore, techAudit, gbpMeta);
+  const findingsTabContent = diffMode
+    ? buildDiffFindings(diff)
+    : buildFindingsTab(techAudit);
+  const findingsTabLabel = diffMode ? 'Before → After' : 'What We Found';
+  const findingsTabBadgeCount = diffMode ? diff.summary.counts.fixed : criticalCount;
+  const findingsTabBadgeClass = diffMode ? 'badge-green' : 'badge';
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -272,6 +422,50 @@ ${sharedCss()}
 .section-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 28px; }
 .section-header h2 { font-size: 18px; font-weight: 700; letter-spacing: -0.2px; }
 .section-note { font-size: 12px; color: var(--text-dim); }
+
+/* ── Growth Hero ── */
+.growth-hero { max-width: 1080px; margin: 28px auto 0; padding: 22px 28px; border-radius: var(--radius); display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+.growth-hero-eyebrow { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); margin-bottom: 4px; }
+.growth-hero-score { font-size: 56px; font-weight: 800; font-family: var(--mono); line-height: 1; letter-spacing: -1px; }
+.growth-hero-denom { font-size: 22px; font-weight: 600; color: var(--text-dim); margin-left: 2px; }
+.growth-hero-label { font-size: 15px; font-weight: 700; color: var(--ink); margin-top: 6px; }
+.growth-hero-sub { font-size: 12px; color: var(--text-dim); margin-top: 6px; }
+.growth-hero-right { display: flex; gap: 28px; }
+.growth-stat { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.growth-stat-num { font-size: 30px; font-weight: 800; font-family: var(--mono); line-height: 1; }
+.growth-stat-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim); }
+
+/* ── Diff hero + cards (re-scan / before→after mode) ── */
+.diff-score-row { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.diff-score-before { font-size: 32px; font-weight: 800; font-family: var(--mono); line-height: 1; opacity: 0.7; text-decoration: line-through; text-decoration-thickness: 2px; }
+.diff-arrow { font-size: 22px; font-weight: 700; color: var(--text-dim); }
+.diff-delta { font-size: 14px; font-weight: 800; padding: 4px 10px; border-radius: 20px; font-family: var(--mono); }
+.badge-green { background: var(--green); color: white; font-size: 10px; font-weight: 800; padding: 1px 6px; border-radius: 10px; margin-left: 5px; vertical-align: middle; }
+
+.diff-group { margin-bottom: 32px; }
+.diff-group-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 14px; }
+.diff-group-list { display: flex; flex-direction: column; gap: 12px; }
+
+.diff-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; }
+.diff-card-fixed { border-left: 4px solid var(--green); }
+.diff-card-regressed { border-left: 4px solid var(--red); }
+.diff-card-still-issue { border-left: 4px solid var(--amber); }
+.diff-card-new { border-left: 4px solid var(--amber); }
+.diff-card-unchanged { border-left: 4px solid var(--green); opacity: 0.7; }
+.diff-card-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+.diff-card-symbol { font-size: 18px; font-weight: 800; line-height: 1.2; }
+.diff-card-titles { flex: 1; }
+.diff-card-title { font-size: 14px; font-weight: 700; }
+.diff-card-category { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim); margin-top: 2px; }
+.diff-card-badge { font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 12px; border: 1px solid; text-transform: uppercase; letter-spacing: 0.5px; }
+.diff-fixed-line { font-size: 13px; font-weight: 600; color: var(--green); margin-bottom: 12px; }
+.diff-card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.diff-card-side { padding: 12px 14px; }
+.diff-card-before { background: #FDDCDC55; border-right: 1px solid var(--border); }
+.diff-card-after  { background: #D4EDD955; }
+.diff-side-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim); margin-bottom: 4px; }
+.diff-side-detail { font-size: 12px; line-height: 1.5; }
+.diff-card-benefit { font-size: 12px; font-style: italic; color: var(--text-dim); margin-top: 10px; line-height: 1.5; }
 
 /* ── Scorecard ── */
 .score-strip { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 32px; }
@@ -384,9 +578,11 @@ ${sharedCss()}
   </div>
 </header>
 
+${hero}
+
 <nav class="tab-nav">
   <button class="tab-btn active" data-tab="scorecard">Scorecard</button>
-  <button class="tab-btn" data-tab="findings">What We Found ${criticalCount > 0 ? `<span class="badge">${criticalCount}</span>` : ''}</button>
+  <button class="tab-btn" data-tab="findings">${esc(findingsTabLabel)} ${findingsTabBadgeCount > 0 ? `<span class="${findingsTabBadgeClass}">${findingsTabBadgeCount}</span>` : ''}</button>
   <button class="tab-btn" data-tab="content">Your Messaging</button>
   <button class="tab-btn" data-tab="build">What We'd Fix</button>
 </nav>
@@ -398,9 +594,9 @@ ${sharedCss()}
     ${buildScorecardTab(mobile, desktop)}
   </div>
 
-  <!-- ═══ TAB: What We Found ═════════════════════════════════════════════ -->
+  <!-- ═══ TAB: What We Found / Before → After ════════════════════════════ -->
   <div class="tab-panel" id="tab-findings">
-    ${buildFindingsTab(techAudit)}
+    ${findingsTabContent}
   </div>
 
   <!-- ═══ TAB: Your Messaging ════════════════════════════════════════════ -->
@@ -1055,16 +1251,21 @@ export async function generateAuditReports(outputDir, {
   aiAudit = null,
   scraped = null,
   previewUrl = null,
+  growthScore = null,
+  gbpMeta = null,
+  diff = null,
+  outputFilename = null,
 } = {}) {
   await mkdir(outputDir, { recursive: true });
 
-  const shared = { url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl };
+  const shared = { url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, growthScore, gbpMeta, diff };
 
   const fullHtml    = buildFullReport(shared);
   const summaryHtml = buildSummaryReport(shared);
 
-  const fullPath    = resolve(outputDir, 'audit-report.html');
-  const summaryPath = resolve(outputDir, 'audit-summary.html');
+  const baseName = outputFilename || (diff ? 'audit-report-after' : 'audit-report');
+  const fullPath    = resolve(outputDir, `${baseName}.html`);
+  const summaryPath = resolve(outputDir, `${baseName === 'audit-report' ? 'audit-summary' : baseName + '-summary'}.html`);
 
   await Promise.all([
     writeFile(fullPath, fullHtml, 'utf-8'),
