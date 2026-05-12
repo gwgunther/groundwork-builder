@@ -32,8 +32,44 @@ import { runTechAudit }           from './lib/tech-audit.js';
 import { runTrustScan }           from './lib/trust-scanner.js';
 import { runHostingScan }         from './lib/hosting-scanner.js';
 import { runGbpScan }             from './lib/gbp-scanner.js';
+import { enrichFinding }          from './lib/findings.js';
 import { diffFindings, summarizeDiff } from './lib/findings-diff.js';
 import { generateAuditReports } from './lib/audit-report-generator.js';
+
+function getHostname(url) {
+  try { return new URL(url).hostname.toLowerCase(); }
+  catch { return ''; }
+}
+
+function eTldPlusOne(hostname) {
+  const h = hostname.replace(/^www\./, '');
+  const parts = h.split('.');
+  if (parts.length <= 2) return h;
+  const twoPart = /^(co|com|org|net|gov|ac)\.[a-z]{2}$/i;
+  const last2 = parts.slice(-2).join('.');
+  return twoPart.test(last2) ? parts.slice(-3).join('.') : last2;
+}
+
+function buildGbpWebsiteMismatchFinding(auditedUrl, gbpScan) {
+  const websiteUri = gbpScan?.meta?.websiteUri;
+  if (!websiteUri) return null;
+  const auditRoot = eTldPlusOne(getHostname(auditedUrl));
+  const gbpRoot   = eTldPlusOne(getHostname(websiteUri));
+  if (!auditRoot || !gbpRoot) return null;
+  const mismatch = auditRoot !== gbpRoot;
+  return enrichFinding({
+    id: 'gbp-website-mismatches-audit-url',
+    category: 'gbp',
+    severity: mismatch ? 'warning' : 'passed',
+    title: 'GBP website link matches audited domain',
+    detail: mismatch
+      ? `GBP links to ${gbpRoot} but the audited site is ${auditRoot}. Two domains for the same brand split SEO authority and confuse prospects.`
+      : `GBP website link (${gbpRoot}) matches the audited domain.`,
+    benefit: 'When the GBP points to a different domain than the practice\'s main site, the listing\'s authority bleeds out to a domain you may not even control.',
+    affectedPages: [],
+    count: mismatch ? 1 : 0,
+  });
+}
 
 function parseArgs() {
   const args = process.argv.slice(2);
@@ -160,6 +196,10 @@ async function main() {
     }
   }
   console.log('');
+
+  // Cross-source: does GBP's linked website match the audited URL?
+  const gbpWebsiteMismatch = buildGbpWebsiteMismatchFinding(opts.previewUrl, gbpScan);
+  if (gbpWebsiteMismatch) gbpScan.findings.push(gbpWebsiteMismatch);
 
   // ── Combine + diff ─────────────────────────────────────────────────────
   console.log('[4/4] Computing diff...');

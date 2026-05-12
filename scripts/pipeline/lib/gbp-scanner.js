@@ -279,6 +279,7 @@ export async function runGbpScan(opts = {}) {
       displayName,
       formattedAddress: place.formattedAddress || '',
       googleMapsUri: place.googleMapsUri || '',
+      websiteUri: place.websiteUri || '',
       userRatingCount,
       rating: place.rating ?? null,
       businessStatus: place.businessStatus || '',

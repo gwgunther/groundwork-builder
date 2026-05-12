@@ -33,7 +33,7 @@ import { runTechAudit }           from './lib/tech-audit.js';
 import { runTrustScan }           from './lib/trust-scanner.js';
 import { runHostingScan }         from './lib/hosting-scanner.js';
 import { runGbpScan }             from './lib/gbp-scanner.js';
-import { aggregateGrowthScore }   from './lib/findings.js';
+import { aggregateGrowthScore, enrichFinding } from './lib/findings.js';
 import { buildFixWorklist, summarizeWorklist } from './lib/fix-worklist.js';
 import { runSiteAudit }           from './lib/ai-audit.js';
 import { generateAuditReports }   from './lib/audit-report-generator.js';
@@ -144,6 +144,46 @@ function slugify(str) {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '')
     || 'audit';
+}
+
+function getHostname(url) {
+  try { return new URL(url).hostname.toLowerCase(); }
+  catch { return ''; }
+}
+
+function eTldPlusOne(hostname) {
+  const h = hostname.replace(/^www\./, '');
+  const parts = h.split('.');
+  if (parts.length <= 2) return h;
+  const twoPart = /^(co|com|org|net|gov|ac)\.[a-z]{2}$/i;
+  const last2 = parts.slice(-2).join('.');
+  return twoPart.test(last2) ? parts.slice(-3).join('.') : last2;
+}
+
+/**
+ * Cross-source check: GBP's linked website should match the audited domain.
+ * Returns a single enriched finding, or null if the check doesn't apply
+ * (no GBP scan, no websiteUri on the GBP).
+ */
+function buildGbpWebsiteMismatchFinding(auditedUrl, gbpScan) {
+  const websiteUri = gbpScan?.meta?.websiteUri;
+  if (!websiteUri) return null;
+  const auditRoot = eTldPlusOne(getHostname(auditedUrl));
+  const gbpRoot   = eTldPlusOne(getHostname(websiteUri));
+  if (!auditRoot || !gbpRoot) return null;
+  const mismatch = auditRoot !== gbpRoot;
+  return enrichFinding({
+    id: 'gbp-website-mismatches-audit-url',
+    category: 'gbp',
+    severity: mismatch ? 'warning' : 'passed',
+    title: 'GBP website link matches audited domain',
+    detail: mismatch
+      ? `GBP links to ${gbpRoot} but the audited site is ${auditRoot}. Two domains for the same brand split SEO authority and confuse prospects.`
+      : `GBP website link (${gbpRoot}) matches the audited domain.`,
+    benefit: 'When the GBP points to a different domain than the practice\'s main site, the listing\'s authority bleeds out to a domain you may not even control.',
+    affectedPages: [],
+    count: mismatch ? 1 : 0,
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -313,6 +353,14 @@ async function main() {
     }
     await writeFile(join(dataDir, 'gbp-scan.json'), JSON.stringify(gbpScan, null, 2), 'utf-8');
     console.log('');
+  }
+
+  // Cross-source: does GBP's linked website match the audited URL?
+  const gbpWebsiteMismatch = buildGbpWebsiteMismatchFinding(opts.url, gbpScan);
+  if (gbpWebsiteMismatch) {
+    gbpScan.findings.push(gbpWebsiteMismatch);
+    if (gbpWebsiteMismatch.severity === 'warning') gbpScan.summary.warnings += 1;
+    else if (gbpWebsiteMismatch.severity === 'passed') gbpScan.summary.passed += 1;
   }
 
   // Prefer silver > GBP displayName > URL slug for the report title.
