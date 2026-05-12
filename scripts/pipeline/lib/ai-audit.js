@@ -5,17 +5,7 @@
  * Gracefully skips if ANTHROPIC_API_KEY is not set.
  */
 
-<<<<<<< HEAD
 import { renderSkillPrompt } from './skill-loader.js';
-=======
-import { readFile } from 'node:fs/promises';
-import { resolve, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const PROMPT_PATH = resolve(__dirname, '..', 'prompts', 'site-audit.md');
-const POSITIONING_SKILL_PATH = resolve(__dirname, '..', 'skills', 'positioning.md');
->>>>>>> origin/main
 
 /**
  * Run the AI site audit on scraped + merged data.
@@ -48,18 +38,6 @@ export async function runSiteAudit(scraped, merged, preset, opts = {}) {
     return null;
   }
 
-<<<<<<< HEAD
-=======
-  let positioningSkill = '';
-  try {
-    positioningSkill = await readFile(POSITIONING_SKILL_PATH, 'utf-8');
-  } catch {
-    console.warn('  Warning: Could not load positioning skill — proceeding without it.');
-  }
-
-  const prompt = interpolatePrompt(promptTemplate, scraped, merged, preset, positioningSkill);
-
->>>>>>> origin/main
   if (opts.verbose) {
     console.log('  [audit] Prompt length:', prompt.length, 'chars');
   }
@@ -71,20 +49,11 @@ export async function runSiteAudit(scraped, merged, preset, opts = {}) {
   try {
     const { callAnthropic } = await import('./ai-call.js');
 
-<<<<<<< HEAD
     const response = await callAnthropic({
       phase:     'audit',
       model:     'claude-sonnet-4-6',
       maxTokens: 4096,
       messages:  [{ role: 'user', content: prompt }],
-=======
-    const response = await client.messages.create({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 2048,
-      messages: [
-        { role: 'user', content: prompt },
-      ],
->>>>>>> origin/main
     });
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
@@ -133,21 +102,12 @@ export async function runSiteAudit(scraped, merged, preset, opts = {}) {
 /**
  * Interpolate {{placeholders}} in the prompt template.
  */
-<<<<<<< HEAD
 async function interpolatePrompt(scraped, merged, preset) {
-=======
-function interpolatePrompt(template, scraped, merged, preset, positioningSkill = '') {
->>>>>>> origin/main
   const services = merged.services?.offered || [];
   const hubs = merged.services?.hubs || [];
   const taxonomy = preset?.taxonomy?.services || [];
 
-<<<<<<< HEAD
   return renderSkillPrompt('audit/site-audit', {
-=======
-  const replacements = {
-    positioningSkill: positioningSkill || '(No positioning skill file found — use best judgment.)',
->>>>>>> origin/main
     verticalName: preset?.schema?.verticalName || 'Practice',
     practiceName: merged.practice?.name || '[Unknown]',
     domain: merged.practice?.domain || '[Unknown]',

@@ -18,17 +18,7 @@
  *                            behaviour where Write does the audit inline).
  */
 
-<<<<<<< HEAD
 import { renderSkillPrompt } from './skill-loader.js';
-=======
-import { readFile } from 'node:fs/promises';
-import { resolve, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const PROMPT_PATH = resolve(__dirname, '..', 'prompts', 'content-map.md');
-const COPYWRITING_SKILL_PATH = resolve(__dirname, '..', 'skills', 'copywriting.md');
->>>>>>> origin/main
 
 /**
  * Run Content Write.
@@ -80,18 +70,6 @@ export async function runContentWrite(scraped, merged, audit, preset, opts = {},
     return null;
   }
 
-<<<<<<< HEAD
-=======
-  let copywritingSkill = '';
-  try {
-    copywritingSkill = await readFile(COPYWRITING_SKILL_PATH, 'utf-8');
-  } catch {
-    console.warn('  Warning: Could not load copywriting skill — proceeding without it.');
-  }
-
-  const prompt = buildPrompt(promptTemplate, scraped, merged, audit, preset, copywritingSkill);
-
->>>>>>> origin/main
   if (opts.verbose) {
     console.log('  [content] Prompt length:', prompt.length, 'chars');
   }
@@ -137,7 +115,6 @@ export async function runContentWrite(scraped, merged, audit, preset, opts = {},
 // Prompt builder
 // ---------------------------------------------------------------------------
 
-<<<<<<< HEAD
 /**
  * Back-compat alias. Existing callers (build-site.js, studio.js) continue
  * to use `runContentMapping(scraped, merged, audit, preset, opts)` and now
@@ -147,9 +124,6 @@ export async function runContentWrite(scraped, merged, audit, preset, opts = {},
 export const runContentMapping = runContentWrite;
 
 async function buildPrompt(scraped, merged, audit, preset, blueprint) {
-=======
-function buildPrompt(template, scraped, merged, audit, preset, copywritingSkill = '') {
->>>>>>> origin/main
   const practice = merged.practice || {};
   const doctor = merged.doctor || {};
   const services = merged.services || {};
@@ -198,7 +172,6 @@ function buildPrompt(template, scraped, merged, audit, preset, copywritingSkill 
   // Audit signals
   const primaryService = offeredServices[0]?.slug || 'general-dentistry';
 
-<<<<<<< HEAD
   // Blueprint from Content Map (if upstream phase ran). Formatted as a tagged
   // block so the model uses Map's quality scores + source recommendations as
   // primary guidance for keep/optimize/create per section.
@@ -407,27 +380,6 @@ function buildServicePageContent(services, inventory) {
   }
 
   return blocks.length > 0 ? blocks.join('\n\n') : 'No matching service pages found in crawl.';
-=======
-  return template
-    .replace('{{copywritingGuidelines}}', copywritingSkill || '(No copywriting skill file found — use best judgment.)')
-    .replace('{{practiceName}}', practice.name || '[Practice Name]')
-    .replace('{{domain}}', practice.domain || '[domain]')
-    .replace('{{doctorName}}', doctor.name || '[Doctor Name]')
-    .replace('{{credentials}}', doctor.credentials || 'DDS')
-    .replace('{{city}}', merged.address?.city || '[City]')
-    .replace('{{state}}', merged.address?.state || '[State]')
-    .replace('{{phone}}', practice.phone || '[Phone]')
-    .replace('{{servicesList}}', servicesList)
-    .replace('{{hubSlugs}}', hubSlugs)
-    .replace('{{positioning}}', positioning)
-    .replace('{{tone}}', tone)
-    .replace('{{differentiators}}', differentiators)
-    .replace('{{primaryService}}', primaryService)
-    .replace('{{pageInventory}}', pageInventory)
-    .replace('{{testimonials}}', testimonials)
-    .replace('{{existingFAQs}}', existingFAQs)
-    .replace('{{stats}}', statsStr);
->>>>>>> origin/main
 }
 
 function buildPageInventorySummary(inventory) {
