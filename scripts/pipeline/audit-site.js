@@ -314,6 +314,11 @@ async function main() {
     console.log('');
   }
 
+  // Prefer silver > GBP displayName > URL slug for the report title.
+  const displayPracticeName = (scraped?.practice?.name && scraped.practice.name.trim())
+    || (gbpScan.meta?.displayName && gbpScan.meta.displayName.trim())
+    || practiceName;
+
   // ── Combined Growth Score across all detector outputs ───────────────────
   const allFindings = [
     ...techAudit.findings,
@@ -364,7 +369,7 @@ async function main() {
   };
   const { fullPath, summaryPath } = await generateAuditReports(outputDir, {
     url: opts.url,
-    practiceName,
+    practiceName: displayPracticeName,
     pagespeed,
     techAudit: combinedTechAudit,
     aiAudit,
@@ -383,7 +388,7 @@ async function main() {
   console.log('  AUDIT SUMMARY');
   console.log('='.repeat(56));
   console.log('');
-  console.log(`  Practice:  ${practiceName}`);
+  console.log(`  Practice:  ${displayPracticeName}`);
   console.log(`  URL:       ${opts.url}`);
   console.log(`  Pages:     ${bronze.pageCount}`);
   console.log('');
