@@ -61,6 +61,23 @@ export function buildFixWorklist(findings) {
 }
 
 /**
+ * Predicate: is the given action target present in the worklist?
+ *
+ * Used by generators to decide whether their work is needed for this build.
+ * When `worklist` is null/undefined, returns true — preserves legacy behavior
+ * (generator runs as it always did) for callers that haven't been wired to
+ * pass a worklist yet.
+ *
+ * @param {object[] | null} worklist - output of buildFixWorklist, or null
+ * @param {string} target - the catalog target id this generator owns
+ */
+export function isTargetInWorklist(worklist, target) {
+  if (!worklist) return true;                            // legacy path: no gate
+  if (!Array.isArray(worklist)) return true;             // defensive
+  return worklist.some(entry => entry.target === target);
+}
+
+/**
  * Lightweight summary of the worklist — for CLI output and quick inspection.
  */
 export function summarizeWorklist(worklist) {

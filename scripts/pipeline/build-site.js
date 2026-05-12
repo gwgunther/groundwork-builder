@@ -70,6 +70,7 @@ function parseArgs() {
     agent: true,
     agentIterations: '6',
     publish: false,
+    fixWorklistPath: null,
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -141,6 +142,13 @@ function parseArgs() {
         // project, add subdomain, write Airtable row.
         opts.publish = true;
         break;
+      case '--fix-worklist':
+        // Path to a grader-emitted fix-worklist.json. Generators that have
+        // been wired (currently: skill-seo-optimize.js) will gate their tiers
+        // on whether their target is listed. Without this flag, generators
+        // run unconditionally (legacy behavior).
+        opts.fixWorklistPath = args[++i];
+        break;
       case '--help':
         printHelp();
         process.exit(0);
@@ -205,6 +213,29 @@ async function main() {
   const preset = await loadPreset(opts.preset);
   console.log(`[Preset] Loaded: ${preset.name} (${preset.taxonomy.services.length} service taxonomy entries)`);
   console.log('');
+
+  // Optionally load grader-emitted fix worklist. Generators wired to consume
+  // it will gate their tiers on whether their target is listed.
+  let fixWorklist = null;
+  if (opts.fixWorklistPath) {
+    try {
+      const { readFile: rf } = await import('node:fs/promises');
+      const raw = JSON.parse(await rf(opts.fixWorklistPath, 'utf8'));
+      // Accept either the top-level array or the wrapped { worklist: [] } shape.
+      fixWorklist = Array.isArray(raw) ? raw : (raw?.worklist || null);
+      const n = fixWorklist?.length ?? 0;
+      console.log(`[FixWorklist] Loaded ${n} action${n === 1 ? '' : 's'} from ${opts.fixWorklistPath}`);
+      if (n > 0) {
+        const targets = fixWorklist.map(e => e.target).join(', ');
+        console.log(`[FixWorklist] Targets: ${targets}`);
+      }
+      console.log('');
+    } catch (err) {
+      console.warn(`[FixWorklist] Could not load ${opts.fixWorklistPath}: ${err.message}`);
+      console.warn('[FixWorklist] Falling back to unconditional generator behavior.');
+      console.log('');
+    }
+  }
 
   // Track stats for the summary
   const stats = {
@@ -1170,7 +1201,7 @@ async function main() {
         console.log(`  Iteration ${iter}/${MAX_ITERATIONS} (current: ${beforeOverall}/10, ${beforeIssues} issues)`);
 
         // Optimize
-        const optResult = await optimizeSeo({ outputDir, seoReport: lastReport, merged });
+        const optResult = await optimizeSeo({ outputDir, seoReport: lastReport, merged, fixWorklist });
         const fixedCount = optResult.applied.filter(a => a.status === 'fixed').length;
         allApplied.push(...optResult.applied.map(a => ({ ...a, iteration: iter })));
 
