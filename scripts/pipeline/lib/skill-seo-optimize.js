@@ -1,18 +1,18 @@
 /**
  * SEO Optimizer — applies fixes based on the SEO audit's findings.
  *
- * Tier 1 (deterministic auto-fixes):
- *   - Missing/short meta description: derive from page H1 + first paragraph.
+ * Each fixer is a registry entry that owns one catalog target. The main loop
+ * walks the registry and runs each fixer whose target is in the worklist
+ * (or all fixers, if no worklist is provided). Adding a new fix is a one-
+ * entry registry change; the dispatch loop doesn't need to grow.
  *
- * Tier 2 (AI rewrites, more expensive but higher-leverage):
- *   - Thin service-detail pages: expand body via ai-content-expand.
- *   - Thin blog posts: expand body via ai-content-expand.
+ * Current fixers:
+ *   - meta-descriptions  (tier 1, deterministic) — fixMetaDescription
+ *   - content-expand     (tier 2, AI)            — expandThinContent
  *
- * Returns { applied: Array<{ url, fix, status, detail? }> }.
+ * Tier 2 fixers additionally require ANTHROPIC_API_KEY (opts.aiRewrites).
  *
- * The optimizer does NOT rebuild the site or re-run the audit — those are
- * orchestrated by build-site.js so the optimizer can be re-used in tests
- * and one-off runs.
+ * Returns { applied, gated: { ran, skipped } }.
  */
 
 import { readFile, writeFile } from 'node:fs/promises';
@@ -20,109 +20,139 @@ import { resolve } from 'node:path';
 import { expandContent } from './ai-content-expand.js';
 import { isTargetInWorklist } from './fix-worklist.js';
 
+// ---------------------------------------------------------------------------
+// Fixer registry — one entry per catalog target the optimizer knows how to fix
+// ---------------------------------------------------------------------------
+
+/**
+ * @typedef {object} Fixer
+ * @property {string} target       - catalog target id (e.g. 'meta-descriptions')
+ * @property {1 | 2} tier          - 1 = deterministic, 2 = needs ANTHROPIC_API_KEY
+ * @property {string} description  - human-readable summary (for logs/docs)
+ * @property {(ctx: FixerCtx) => Promise<object[]>} run - returns applied[] entries
+ *
+ * @typedef {object} FixerCtx
+ * @property {string} outputDir
+ * @property {object} seoReport
+ * @property {object} merged
+ * @property {object} opts
+ */
+
+/** @type {Fixer[]} */
+const FIXERS = [
+  {
+    target: 'meta-descriptions',
+    tier: 1,
+    description: 'Auto-fix missing/short meta descriptions from page H1 + intro',
+    async run({ outputDir, seoReport, merged }) {
+      const applied = [];
+      for (const page of seoReport.pages) {
+        const metaCheck = page.checks?.meta_description;
+        if (metaCheck?.score && metaCheck.score < 6) {
+          const fix = await fixMetaDescription({ outputDir, page, merged });
+          applied.push({ url: page.url, fix: 'meta-description', ...fix });
+        }
+      }
+      return applied;
+    },
+  },
+  {
+    target: 'content-expand',
+    tier: 2,
+    description: 'AI-expand thin blog posts and service-detail pages',
+    async run({ outputDir, seoReport, merged, opts }) {
+      const applied = [];
+      const maxBlog    = opts.maxBlogExpansions ?? 4;
+      const maxService = opts.maxServiceExpansions ?? 4;
+
+      const thinBlog = seoReport.pages
+        .filter(p => p.pageType === 'blog-post' && p.checks?.content_depth?.score && p.checks.content_depth.score < 6)
+        .sort((a, b) => a.checks.content_depth.score - b.checks.content_depth.score)
+        .slice(0, maxBlog);
+
+      const thinService = seoReport.pages
+        .filter(p => p.pageType === 'service-detail' && p.checks?.content_depth?.score && p.checks.content_depth.score < 6)
+        .sort((a, b) => a.checks.content_depth.score - b.checks.content_depth.score)
+        .slice(0, maxService);
+
+      if (thinBlog.length > 0) {
+        const results = await Promise.allSettled(
+          thinBlog.map(p => expandBlogPost({ outputDir, page: p, merged }))
+        );
+        for (let i = 0; i < thinBlog.length; i++) {
+          const r = results[i];
+          applied.push({
+            url: thinBlog[i].url,
+            fix: 'blog-expand',
+            ...(r.status === 'fulfilled' ? r.value : { status: 'error', detail: r.reason?.message }),
+          });
+        }
+      }
+
+      if (thinService.length > 0) {
+        const results = await Promise.allSettled(
+          thinService.map(p => expandServicePage({ outputDir, page: p, merged }))
+        );
+        for (let i = 0; i < thinService.length; i++) {
+          const r = results[i];
+          applied.push({
+            url: thinService[i].url,
+            fix: 'service-expand',
+            ...(r.status === 'fulfilled' ? r.value : { status: 'error', detail: r.reason?.message }),
+          });
+        }
+      }
+
+      return applied;
+    },
+  },
+];
+
 /**
  * @param {object} args
  * @param {string} args.outputDir   - root of the generated Astro project
  * @param {object} args.seoReport   - output from auditSeo (Phase 4.6)
  * @param {object} args.merged      - merged practice data
  * @param {object[]} [args.fixWorklist] - optional grader-emitted worklist. When
- *   present, each fix tier only runs if its catalog target is in the worklist.
- *   When absent, all tiers run (legacy behavior).
+ *   present, a fixer only runs if its catalog target is in the worklist. When
+ *   absent, all fixers run (legacy behavior).
  * @param {object} [opts]
- * @param {boolean} [opts.aiRewrites] - default true; pass false to do only auto-fixes
+ * @param {boolean} [opts.aiRewrites] - default true; false → skip tier-2 fixers
  * @param {number} [opts.maxBlogExpansions] - default 4; cap on AI calls per run
  * @param {number} [opts.maxServiceExpansions] - default 4
- * @returns {Promise<{ applied: Array, gated: { metaDescriptions: boolean, contentExpand: boolean } }>}
+ * @returns {Promise<{ applied: Array, gated: { ran: string[], skipped: string[] } }>}
  */
 export async function optimizeSeo({ outputDir, seoReport, merged, fixWorklist = null }, opts = {}) {
   const aiRewrites = opts.aiRewrites !== false && !!process.env.ANTHROPIC_API_KEY;
-  const maxBlog = opts.maxBlogExpansions ?? 4;
-  const maxService = opts.maxServiceExpansions ?? 4;
   const applied = [];
+  const ran = [];
+  const skipped = [];
 
   if (!seoReport?.pages?.length) {
-    return { applied, gated: { metaDescriptions: false, contentExpand: false } };
+    return { applied, gated: { ran, skipped } };
   }
 
-  // Worklist gates: when a grader worklist is provided, each tier only runs
-  // if its catalog target is listed (i.e., the practice has an open finding
-  // that this tier resolves). When no worklist is provided, both tiers run
-  // unconditionally (legacy behavior).
-  const runMeta   = isTargetInWorklist(fixWorklist, 'meta-descriptions');
-  const runExpand = isTargetInWorklist(fixWorklist, 'content-expand');
+  for (const fixer of FIXERS) {
+    // Tier 2 fixers require AI; skip silently if disabled or no key.
+    if (fixer.tier === 2 && !aiRewrites) {
+      skipped.push(fixer.target);
+      continue;
+    }
+    // Worklist gate: skip if target isn't listed (null worklist = always run)
+    if (!isTargetInWorklist(fixWorklist, fixer.target)) {
+      skipped.push(fixer.target);
+      continue;
+    }
+    ran.push(fixer.target);
+    const fixerApplied = await fixer.run({ outputDir, seoReport, merged, opts });
+    applied.push(...fixerApplied);
+  }
+
   if (fixWorklist) {
-    console.log(`  [seo-optimize] worklist gates → meta:${runMeta ? 'run' : 'skip'} · expand:${runExpand ? 'run' : 'skip'}`);
+    console.log(`  [seo-optimize] worklist gates → ran:[${ran.join(', ') || 'none'}] · skipped:[${skipped.join(', ') || 'none'}]`);
   }
 
-  // Group issues by url + dimension for fast lookup
-  const issuesByPage = new Map();
-  for (const page of seoReport.pages) {
-    issuesByPage.set(page.url, page);
-  }
-
-  // ------------------------------------------------------------------
-  // Tier 1: deterministic auto-fixes — meta descriptions
-  // ------------------------------------------------------------------
-
-  if (runMeta) {
-    for (const page of seoReport.pages) {
-      const metaCheck = page.checks?.meta_description;
-      if (metaCheck?.score && metaCheck.score < 6) {
-        const fix = await fixMetaDescription({ outputDir, page, merged });
-        applied.push({ url: page.url, fix: 'meta-description', ...fix });
-      }
-    }
-  }
-
-  // ------------------------------------------------------------------
-  // Tier 2: AI rewrites for thin content
-  // ------------------------------------------------------------------
-
-  if (aiRewrites && runExpand) {
-    const thinBlog = seoReport.pages
-      .filter(p => p.pageType === 'blog-post' && p.checks?.content_depth?.score && p.checks.content_depth.score < 6)
-      .sort((a, b) => a.checks.content_depth.score - b.checks.content_depth.score)
-      .slice(0, maxBlog);
-
-    const thinService = seoReport.pages
-      .filter(p => p.pageType === 'service-detail' && p.checks?.content_depth?.score && p.checks.content_depth.score < 6)
-      .sort((a, b) => a.checks.content_depth.score - b.checks.content_depth.score)
-      .slice(0, maxService);
-
-    // Run blog expansions in parallel — one Claude call per post
-    if (thinBlog.length > 0) {
-      const results = await Promise.allSettled(
-        thinBlog.map(p => expandBlogPost({ outputDir, page: p, merged }))
-      );
-      for (let i = 0; i < thinBlog.length; i++) {
-        const r = results[i];
-        applied.push({
-          url: thinBlog[i].url,
-          fix: 'blog-expand',
-          ...(r.status === 'fulfilled' ? r.value : { status: 'error', detail: r.reason?.message }),
-        });
-      }
-    }
-
-    if (thinService.length > 0) {
-      const results = await Promise.allSettled(
-        thinService.map(p => expandServicePage({ outputDir, page: p, merged }))
-      );
-      for (let i = 0; i < thinService.length; i++) {
-        const r = results[i];
-        applied.push({
-          url: thinService[i].url,
-          fix: 'service-expand',
-          ...(r.status === 'fulfilled' ? r.value : { status: 'error', detail: r.reason?.message }),
-        });
-      }
-    }
-  }
-
-  return {
-    applied,
-    gated: { metaDescriptions: !runMeta, contentExpand: !runExpand },
-  };
+  return { applied, gated: { ran, skipped } };
 }
 
 // ---------------------------------------------------------------------------
