@@ -197,6 +197,13 @@ Report-side rendering of the diff (red→green flip in place) is deferred to a l
 
 Verified visually: fixture run with 3 fixed / 1 still-issue (score 16 → 79, +63) renders the hero, tab label "Before → After 3", and diff cards as expected.
 
-## PR #6 — Competitor + keyword module (last)
+## Roadmap (post-grader)
 
-- `scripts/pipeline/lib/competitor-scanner.js` — Places nearby + simple SERP rank for `{specialty} {city}`. Emits `keyword-rank-below-3`, `outranked-by-local-competitor`.
+### Next — Builder fix_action consumption (Push model)
+`audit-site.js` writes a worklist of fix_actions (deduped, ordered, only findings in `issue` state) to `_data/fix-worklist.json`. The builder reads it and invokes the matching generator per action — skipping work the practice already does well. Closes the loop: grader actually drives the build, and re-scan diff becomes an honest receipt of what changed.
+
+### Deferred — Competitor + keyword module
+`scripts/pipeline/lib/competitor-scanner.js` — Places nearby + simple SERP rank for `{specialty} {city}`. Emits `keyword-rank-below-3`, `outranked-by-local-competitor`. Deferred until we've used the current report on real prospects and know whether comparative signal actually moves them.
+
+### Deferred — Public web UI
+The eventual Owner.com-style lead-gen tool. Thin web frontend on top of `audit-site.js`: Places autocomplete entry, streamed scan progress, public report URL, lead event on view (not on form submit). 1–2 week build. Data layer is already generic enough to back it — no refactor needed.

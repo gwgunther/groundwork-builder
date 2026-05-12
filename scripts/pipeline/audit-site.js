@@ -34,6 +34,7 @@ import { runTrustScan }           from './lib/trust-scanner.js';
 import { runHostingScan }         from './lib/hosting-scanner.js';
 import { runGbpScan }             from './lib/gbp-scanner.js';
 import { aggregateGrowthScore }   from './lib/findings.js';
+import { buildFixWorklist, summarizeWorklist } from './lib/fix-worklist.js';
 import { runSiteAudit }           from './lib/ai-audit.js';
 import { generateAuditReports }   from './lib/audit-report-generator.js';
 import { mergeData }              from './lib/merger.js';
@@ -334,6 +335,22 @@ async function main() {
   await writeFile(
     join(dataDir, 'findings.json'),
     JSON.stringify({ growthScore, findings: allFindings }, null, 2),
+    'utf-8',
+  );
+
+  // ── Fix worklist: actionable de-duped list of generators the builder should run
+  const fixWorklist = buildFixWorklist(allFindings);
+  const worklistSummary = summarizeWorklist(fixWorklist);
+  if (worklistSummary.totalActions > 0) {
+    const byKind = Object.entries(worklistSummary.byKind)
+      .map(([k, v]) => `${v} ${k}`)
+      .join(' · ');
+    console.log(`  Fix worklist: ${worklistSummary.totalActions} action${worklistSummary.totalActions === 1 ? '' : 's'} (${byKind}) covering ${worklistSummary.totalFindings} finding${worklistSummary.totalFindings === 1 ? '' : 's'}`);
+    console.log('');
+  }
+  await writeFile(
+    join(dataDir, 'fix-worklist.json'),
+    JSON.stringify({ summary: worklistSummary, worklist: fixWorklist }, null, 2),
     'utf-8',
   );
 
