@@ -8,6 +8,7 @@
  *
  * Current fixers:
  *   - meta-descriptions  (tier 1, deterministic) — fixMetaDescription
+ *   - canonical-tags     (tier 1, deterministic) — fixCanonicalSite (site URL)
  *   - content-expand     (tier 2, AI)            — expandThinContent
  *
  * Tier 2 fixers additionally require ANTHROPIC_API_KEY (opts.aiRewrites).
@@ -54,6 +55,17 @@ const FIXERS = [
         }
       }
       return applied;
+    },
+  },
+  {
+    target: 'canonical-tags',
+    tier: 1,
+    description: "Set astro.config.mjs `site` to the practice domain so BaseLayout's auto-canonical resolves correctly",
+    async run({ outputDir, merged }) {
+      const result = await fixCanonicalSite({ outputDir, merged });
+      // One file change resolves the finding for every affected page; report as
+      // a single applied entry with a config-sentinel URL.
+      return [{ url: '(astro.config.mjs)', fix: 'canonical-site', ...result }];
     },
   },
   {
@@ -233,6 +245,66 @@ function composeMetaDescription({ h1, intro, practice, city }) {
     if (candidate.length >= 80 && candidate.length <= 160) return candidate;
   }
   return null;
+}
+
+// ---------------------------------------------------------------------------
+// Tier 1: canonical site URL fix
+// ---------------------------------------------------------------------------
+
+/**
+ * Patch astro.config.mjs so BaseLayout's auto-canonical resolves to the real
+ * practice domain instead of the template's `https://example.com` default.
+ *
+ * BaseLayout already emits `<link rel="canonical">` on every page (via
+ * `new URL(Astro.url.pathname, Astro.site).href`), so once `site` is correct,
+ * every page's canonical is correct in the next rebuild. No per-page edits.
+ */
+async function fixCanonicalSite({ outputDir, merged }) {
+  const configPath = resolve(outputDir, 'astro.config.mjs');
+  let src;
+  try {
+    src = await readFile(configPath, 'utf8');
+  } catch {
+    return { status: 'skipped', detail: 'astro.config.mjs not found in build output' };
+  }
+
+  const domain = merged?.practice?.domain
+    || merged?.practice?.url
+    || merged?.url;
+  if (!domain) {
+    return { status: 'skipped', detail: 'No practice domain available in merged data' };
+  }
+
+  const target = normalizeSiteUrl(domain);
+
+  // Match `site: 'whatever'` or `site: "whatever"`, single capture group on the value.
+  const siteRe = /(\bsite\s*:\s*)(['"])([^'"]*)\2/;
+  const match = src.match(siteRe);
+  if (!match) {
+    return { status: 'skipped', detail: 'Could not locate `site:` key in astro.config.mjs' };
+  }
+  const current = match[3];
+  if (current === target) {
+    return { status: 'noop', detail: `Already set to ${target}` };
+  }
+
+  const patched = src.replace(siteRe, `$1'${target}'`);
+  await writeFile(configPath, patched, 'utf8');
+  return { status: 'fixed', detail: `Set site = ${target} (was ${current})` };
+}
+
+function normalizeSiteUrl(raw) {
+  let s = String(raw).trim();
+  if (!s) return s;
+  // Strip trailing slash(es) and any path/query — we want only the origin.
+  s = s.replace(/\/+$/, '');
+  if (!/^https?:\/\//i.test(s)) s = 'https://' + s;
+  try {
+    const u = new URL(s);
+    return `${u.protocol}//${u.host}`;
+  } catch {
+    return s;
+  }
 }
 
 // ---------------------------------------------------------------------------
