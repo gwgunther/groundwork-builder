@@ -185,6 +185,11 @@ export const FINDINGS_CATALOG = {
     fixed_copy: 'Consolidated web presence to a single primary domain.',
     fix_action: { kind: 'manual', target: 'domain-consolidation' },
   },
+  'gbp-website-mismatches-audit-url': {
+    weight: 1.3,
+    fixed_copy: 'Consolidated GBP website link to match the audited domain.',
+    fix_action: { kind: 'gbp_api', target: 'websiteUri' },
+  },
 };
 
 /**
