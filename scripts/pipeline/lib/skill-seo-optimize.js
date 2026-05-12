@@ -18,26 +18,40 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { expandContent } from './ai-content-expand.js';
+import { isTargetInWorklist } from './fix-worklist.js';
 
 /**
  * @param {object} args
  * @param {string} args.outputDir   - root of the generated Astro project
  * @param {object} args.seoReport   - output from auditSeo (Phase 4.6)
  * @param {object} args.merged      - merged practice data
+ * @param {object[]} [args.fixWorklist] - optional grader-emitted worklist. When
+ *   present, each fix tier only runs if its catalog target is in the worklist.
+ *   When absent, all tiers run (legacy behavior).
  * @param {object} [opts]
  * @param {boolean} [opts.aiRewrites] - default true; pass false to do only auto-fixes
  * @param {number} [opts.maxBlogExpansions] - default 4; cap on AI calls per run
  * @param {number} [opts.maxServiceExpansions] - default 4
- * @returns {Promise<{ applied: Array }>}
+ * @returns {Promise<{ applied: Array, gated: { metaDescriptions: boolean, contentExpand: boolean } }>}
  */
-export async function optimizeSeo({ outputDir, seoReport, merged }, opts = {}) {
+export async function optimizeSeo({ outputDir, seoReport, merged, fixWorklist = null }, opts = {}) {
   const aiRewrites = opts.aiRewrites !== false && !!process.env.ANTHROPIC_API_KEY;
   const maxBlog = opts.maxBlogExpansions ?? 4;
   const maxService = opts.maxServiceExpansions ?? 4;
   const applied = [];
 
   if (!seoReport?.pages?.length) {
-    return { applied };
+    return { applied, gated: { metaDescriptions: false, contentExpand: false } };
+  }
+
+  // Worklist gates: when a grader worklist is provided, each tier only runs
+  // if its catalog target is listed (i.e., the practice has an open finding
+  // that this tier resolves). When no worklist is provided, both tiers run
+  // unconditionally (legacy behavior).
+  const runMeta   = isTargetInWorklist(fixWorklist, 'meta-descriptions');
+  const runExpand = isTargetInWorklist(fixWorklist, 'content-expand');
+  if (fixWorklist) {
+    console.log(`  [seo-optimize] worklist gates → meta:${runMeta ? 'run' : 'skip'} · expand:${runExpand ? 'run' : 'skip'}`);
   }
 
   // Group issues by url + dimension for fast lookup
@@ -47,14 +61,16 @@ export async function optimizeSeo({ outputDir, seoReport, merged }, opts = {}) {
   }
 
   // ------------------------------------------------------------------
-  // Tier 1: deterministic auto-fixes
+  // Tier 1: deterministic auto-fixes — meta descriptions
   // ------------------------------------------------------------------
 
-  for (const page of seoReport.pages) {
-    const metaCheck = page.checks?.meta_description;
-    if (metaCheck?.score && metaCheck.score < 6) {
-      const fix = await fixMetaDescription({ outputDir, page, merged });
-      applied.push({ url: page.url, fix: 'meta-description', ...fix });
+  if (runMeta) {
+    for (const page of seoReport.pages) {
+      const metaCheck = page.checks?.meta_description;
+      if (metaCheck?.score && metaCheck.score < 6) {
+        const fix = await fixMetaDescription({ outputDir, page, merged });
+        applied.push({ url: page.url, fix: 'meta-description', ...fix });
+      }
     }
   }
 
@@ -62,7 +78,7 @@ export async function optimizeSeo({ outputDir, seoReport, merged }, opts = {}) {
   // Tier 2: AI rewrites for thin content
   // ------------------------------------------------------------------
 
-  if (aiRewrites) {
+  if (aiRewrites && runExpand) {
     const thinBlog = seoReport.pages
       .filter(p => p.pageType === 'blog-post' && p.checks?.content_depth?.score && p.checks.content_depth.score < 6)
       .sort((a, b) => a.checks.content_depth.score - b.checks.content_depth.score)
@@ -103,7 +119,10 @@ export async function optimizeSeo({ outputDir, seoReport, merged }, opts = {}) {
     }
   }
 
-  return { applied };
+  return {
+    applied,
+    gated: { metaDescriptions: !runMeta, contentExpand: !runExpand },
+  };
 }
 
 // ---------------------------------------------------------------------------
