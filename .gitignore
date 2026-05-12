@@ -5,6 +5,7 @@ dist/
 *.log
 .DS_Store
 google-service-account.json
+_credentials/
 _pipeline/
 output/
 src/components/generated/
