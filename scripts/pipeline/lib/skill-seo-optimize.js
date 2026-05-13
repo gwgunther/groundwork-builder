@@ -276,6 +276,12 @@ async function fixCanonicalSite({ outputDir, merged }) {
   }
 
   const target = normalizeSiteUrl(domain);
+  if (!isValidSiteUrl(target)) {
+    // Silver sometimes returns placeholder strings like '[Unknown]', 'undefined',
+    // or whitespace. Writing those into the config silently corrupts every
+    // page's canonical URL — strictly worse than the example.com default. Bail.
+    return { status: 'skipped', detail: `Domain "${domain}" does not look valid (resolved to ${target || '<empty>'})` };
+  }
 
   // Match `site: 'whatever'` or `site: "whatever"`, single capture group on the value.
   const siteRe = /(\bsite\s*:\s*)(['"])([^'"]*)\2/;
@@ -305,6 +311,21 @@ function normalizeSiteUrl(raw) {
   } catch {
     return s;
   }
+}
+
+/**
+ * Reject sentinel/junk values that would corrupt the config if written.
+ * Silver sometimes emits literal '[Unknown]', 'undefined', whitespace, etc.
+ * A valid site URL needs a real hostname (a label + a TLD, no spaces/brackets).
+ */
+function isValidSiteUrl(s) {
+  if (!s || typeof s !== 'string') return false;
+  let u;
+  try { u = new URL(s); } catch { return false; }
+  // Hostname must look domain-ish: letters/digits/hyphens/dots only, at least
+  // one dot, TLD of 2+ alpha chars. Rejects 'undefined', 'null', '[Unknown]',
+  // empty, single-label, etc.
+  return /^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*\.[a-z]{2,}$/i.test(u.hostname);
 }
 
 // ---------------------------------------------------------------------------
