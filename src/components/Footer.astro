@@ -3,7 +3,9 @@ import { site, address as addr, hours } from '../config/site';
 import { designDNA } from '../config/design-dna';
 
 const currentYear = new Date().getFullYear();
-const phone = site.phone;
+// Use display phone (env-overridable for call-extension forwarding numbers).
+// Falls back to site.phone when PUBLIC_DISPLAY_PHONE isn't set.
+const phone = site.displayPhone || site.phone;
 const email = site.email;
 const googleReviewLink = site.googleReviewLink;
 const variant = designDNA.footerVariant;

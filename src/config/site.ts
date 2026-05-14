@@ -1,11 +1,29 @@
 // Central source of truth for practice information.
 // Replace all [PLACEHOLDER] values with your practice's actual information.
 
+// Real practice phone (used in schema, NAP-consistent for local SEO).
+// Never change this when running a Google Ads call-extension forwarding
+// number — Google's NAP-verification needs to see your verified number.
+const realPhone = '(555) 123-4567';
+const realPhoneDigits = '5551234567';
+
+// Display phone — what users see and click in the UI. Defaults to the real
+// phone. Override via `PUBLIC_DISPLAY_PHONE` env var to swap in a Google Ads
+// call-extension forwarding number for an entire deployment (e.g. staging or
+// a campaign-specific subdomain). For per-visitor swapping based on the
+// referring ad, install Google's Dynamic Number Insertion snippet — it
+// rewrites visible phone numbers on the page at runtime; this env var is
+// the static counterpart for deployment-level overrides.
+const trackingPhone = import.meta.env.PUBLIC_DISPLAY_PHONE || '';
+const trackingDigits = trackingPhone.replace(/\D/g, '');
+
 export const site = {
   name: '[PRACTICE_NAME]',
   url: 'https://[DOMAIN]',
-  phone: '(555) 123-4567',
-  phoneDigits: '5551234567',
+  phone: realPhone,
+  phoneDigits: realPhoneDigits,
+  displayPhone: trackingPhone || realPhone,
+  displayPhoneDigits: trackingDigits || realPhoneDigits,
   email: 'info@[DOMAIN]',
   googleReviewLink: 'https://g.page/r/[YOUR_GOOGLE_REVIEW_ID]/review',
   googleProfileLink: 'https://g.page/r/[YOUR_GOOGLE_PROFILE_ID]',
