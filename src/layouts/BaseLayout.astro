@@ -181,6 +181,41 @@ const websiteSchema = {
               submit_location: location,
             });
           });
+
+          // schedule_click conversion event — fires when any link to /schedule
+          // (or any link explicitly marked data-schedule-link) is clicked.
+          // Captures patients who choose "Book Appointment" CTAs over calling
+          // — the third major conversion path for dental practices alongside
+          // phone calls and contact-form submissions.
+          //
+          // Event params:
+          //   destination       — href the user is heading to (full URL)
+          //   page_path         — path of the page the click happened on
+          //   click_location    — UI region: 'header' | 'footer' | element's
+          //                       data-schedule-location attribute, or 'body' fallback
+          //
+          // For 3rd-party schedulers (Dentrix, RevenueWell, etc.) the site
+          // author opts a link in by adding data-schedule-link to the <a>.
+          document.addEventListener('click', (event) => {
+            const link = event.target.closest('a');
+            if (!link) return;
+            const href = link.getAttribute('href') || '';
+            const isSchedule =
+              /^\/schedule(\/|$|\?|#)/.test(href) ||
+              link.dataset.scheduleLink === 'true' ||
+              link.dataset.scheduleLink === '';
+            if (!isSchedule) return;
+            const location =
+              link.dataset.scheduleLocation ||
+              link.closest('header')?.tagName?.toLowerCase() ||
+              link.closest('footer')?.tagName?.toLowerCase() ||
+              'body';
+            gtag('event', 'schedule_click', {
+              destination: href,
+              page_path: window.location.pathname,
+              click_location: location,
+            });
+          });
         </script>
       </>
     )}
