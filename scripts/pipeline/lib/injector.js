@@ -524,9 +524,13 @@ export async function injectGlobalCss(dna, outputDir) {
   };
   const transitionDuration = motionMap[dna.motion] || 'duration-200';
 
-  const css = `@tailwind base;
-@tailwind components;
-@tailwind utilities;
+  // Tailwind 4 syntax: @import "tailwindcss" replaces the old
+  // @tailwind base/components/utilities directives. @config points at the
+  // project-root tailwind.config.mjs so theme tokens resolve in @apply rules.
+  // Without this, `@apply font-sans` (and every other utility class) fails
+  // with "Cannot apply unknown utility class".
+  const css = `@import "tailwindcss";
+@config "../../tailwind.config.mjs";
 
 /* Auto-generated from design DNA — archetype: ${dna.archetype || 'default'} */
 
