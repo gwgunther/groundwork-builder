@@ -149,6 +149,38 @@ const websiteSchema = {
               click_location: location,
             });
           });
+
+          // form_submit conversion event — fires when any <form> is submitted
+          // anywhere on the site. Second-most-important conversion signal after
+          // phone calls for local service businesses; many patients book through
+          // a contact form rather than calling.
+          //
+          // Event params:
+          //   form_id           — form's id, name, or data-form-id (no PII)
+          //   form_action       — the form's action="" URL if set
+          //   page_path         — path of the page the submit happened on
+          //   submit_location   — UI region: 'header' | 'footer' | element's
+          //                       data-form-location attribute, or 'body' fallback
+          //
+          // Privacy: we NEVER read form field values. Only structural metadata
+          // (id/name/action). Opt-out: add `data-no-track="true"` to a form.
+          document.addEventListener('submit', (event) => {
+            const form = event.target.closest('form');
+            if (!form) return;
+            if (form.dataset.noTrack === 'true' || form.dataset.noTrack === '') return;
+            const formId = form.id || form.getAttribute('name') || form.dataset.formId || '';
+            const location =
+              form.dataset.formLocation ||
+              form.closest('header')?.tagName?.toLowerCase() ||
+              form.closest('footer')?.tagName?.toLowerCase() ||
+              'body';
+            gtag('event', 'form_submit', {
+              form_id: formId,
+              form_action: form.getAttribute('action') || '',
+              page_path: window.location.pathname,
+              submit_location: location,
+            });
+          });
         </script>
       </>
     )}
