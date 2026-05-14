@@ -33,6 +33,7 @@ import { runTechAudit }           from './lib/tech-audit.js';
 import { runTrustScan }           from './lib/trust-scanner.js';
 import { runHostingScan }         from './lib/hosting-scanner.js';
 import { runGbpScan }             from './lib/gbp-scanner.js';
+import { runConversionScan }      from './lib/conversion-scanner.js';
 import { aggregateGrowthScore, enrichFinding } from './lib/findings.js';
 import { buildFixWorklist, summarizeWorklist } from './lib/fix-worklist.js';
 import { runSiteAudit }           from './lib/ai-audit.js';
@@ -299,7 +300,7 @@ async function main() {
 
   // ── Phase 4: Tech Audit ──────────────────────────────────────────────────
   console.log('[Phase 4] Running tech audit...');
-  const techAudit = runTechAudit(bronze, pagespeed);
+  const techAudit = runTechAudit(bronze, pagespeed, { city: scraped?.address?.city || '' });
   console.log(`  ${techAudit.summary.critical} critical · ${techAudit.summary.warnings} warnings · ${techAudit.summary.passed} passed`);
   await writeFile(join(dataDir, 'tech-audit.json'), JSON.stringify(techAudit, null, 2), 'utf-8');
   console.log('');
@@ -368,16 +369,39 @@ async function main() {
     || (gbpScan.meta?.displayName && gbpScan.meta.displayName.trim())
     || practiceName;
 
+  // ── Phase 4e: Conversion-tracking scan (GA4 + phone_click) ───────────────
+  console.log('[Phase 4e] Running conversion-tracking scan...');
+  let conversionScan = { findings: [], summary: { critical: 0, warnings: 0, passed: 0 }, meta: {} };
+  try {
+    conversionScan = await runConversionScan(bronze);
+    if (conversionScan.meta?.fetched) {
+      const sig = [
+        conversionScan.meta.ga4Id ? `GA4:${conversionScan.meta.ga4Id}` : null,
+        conversionScan.meta.gtmContainerId ? `GTM:${conversionScan.meta.gtmContainerId}` : null,
+        conversionScan.meta.hasPhoneClick ? 'phone_click' : null,
+      ].filter(Boolean).join(' · ') || 'no signals detected';
+      console.log(`  ${sig}`);
+      console.log(`  ${conversionScan.summary.critical} critical · ${conversionScan.summary.warnings} warnings · ${conversionScan.summary.passed} passed`);
+    } else {
+      console.log(`  Skipped: ${conversionScan.meta?.reason || 'no signals available'}`);
+    }
+  } catch (err) {
+    console.warn(`  Conversion scan failed (non-fatal): ${err.message}`);
+  }
+  await writeFile(join(dataDir, 'conversion-scan.json'), JSON.stringify(conversionScan, null, 2), 'utf-8');
+  console.log('');
+
   // ── Combined Growth Score across all detector outputs ───────────────────
   const allFindings = [
     ...techAudit.findings,
     ...trustScan.findings,
     ...hostingScan.findings,
     ...gbpScan.findings,
+    ...conversionScan.findings,
   ];
   const growthScore = aggregateGrowthScore(allFindings);
   if (growthScore != null) {
-    console.log(`  Growth Score: ${growthScore}/100 (site + perf + trust + hosting + gbp)`);
+    console.log(`  Growth Score: ${growthScore}/100 (site + perf + trust + hosting + gbp + conversion)`);
     console.log('');
   }
   await writeFile(

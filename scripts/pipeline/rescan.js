@@ -32,6 +32,7 @@ import { runTechAudit }           from './lib/tech-audit.js';
 import { runTrustScan }           from './lib/trust-scanner.js';
 import { runHostingScan }         from './lib/hosting-scanner.js';
 import { runGbpScan }             from './lib/gbp-scanner.js';
+import { runConversionScan }      from './lib/conversion-scanner.js';
 import { enrichFinding }          from './lib/findings.js';
 import { diffFindings, summarizeDiff } from './lib/findings-diff.js';
 import { generateAuditReports } from './lib/audit-report-generator.js';
@@ -201,6 +202,22 @@ async function main() {
   const gbpWebsiteMismatch = buildGbpWebsiteMismatchFinding(opts.previewUrl, gbpScan);
   if (gbpWebsiteMismatch) gbpScan.findings.push(gbpWebsiteMismatch);
 
+  // Re-run the conversion scan against the preview URL so the diff shows
+  // whether GA4 / phone_click landed on the built site.
+  console.log('[3.5/4] Re-running conversion-tracking scan...');
+  let conversionScan = { findings: [], summary: { critical: 0, warnings: 0, passed: 0 }, meta: {} };
+  try {
+    conversionScan = await runConversionScan(bronze);
+    if (conversionScan.meta?.fetched) {
+      console.log(`  ${conversionScan.summary.critical} critical · ${conversionScan.summary.warnings} warnings · ${conversionScan.summary.passed} passed`);
+    } else {
+      console.log(`  Skipped: ${conversionScan.meta?.reason || 'no signals'}`);
+    }
+  } catch (err) {
+    console.warn(`  Conversion scan failed (non-fatal): ${err.message}`);
+  }
+  console.log('');
+
   // ── Combine + diff ─────────────────────────────────────────────────────
   console.log('[4/4] Computing diff...');
   const afterFindings = [
@@ -208,6 +225,7 @@ async function main() {
     ...trustScan.findings,
     ...hostingScan.findings,
     ...gbpScan.findings,
+    ...conversionScan.findings,
   ];
   const diff = diffFindings(beforeFindings, afterFindings);
   const summary = summarizeDiff(diff);
