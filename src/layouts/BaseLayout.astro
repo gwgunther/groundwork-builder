@@ -124,6 +124,31 @@ const websiteSchema = {
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', ga4Id);
+
+          // phone_click conversion event — fires when any tel: link is clicked
+          // anywhere on the site. Sole conversion signal for Google Ads Smart
+          // Bidding on calls (the #1 conversion action for dental practices).
+          //
+          // Event params:
+          //   phone_number   — the dialed number (digits only, after stripping "tel:")
+          //   page_path      — path of the page the click happened on (attribution)
+          //   click_location — which UI region: 'header' | 'footer' | element's
+          //                    data-phone-location attribute, or 'body' fallback
+          document.addEventListener('click', (event) => {
+            const link = event.target.closest('a[href^="tel:"]');
+            if (!link) return;
+            const phone = link.getAttribute('href').replace(/^tel:/, '').trim();
+            const location =
+              link.dataset.phoneLocation ||
+              link.closest('header')?.tagName?.toLowerCase() ||
+              link.closest('footer')?.tagName?.toLowerCase() ||
+              'body';
+            gtag('event', 'phone_click', {
+              phone_number: phone,
+              page_path: window.location.pathname,
+              click_location: location,
+            });
+          });
         </script>
       </>
     )}
