@@ -378,6 +378,16 @@ async function generateIndividualServicePages(data, outputDir) {
     const cta         = content?.cta         || 'Schedule a Consultation';
     const benefits    = content?.benefits    || [];
 
+    // Title for the <title> tag: append the city to the service name so the
+    // local-intent keyword ("Dental Implants Huntington Beach") shows up in
+    // SERPs and Google Ads quality signals. Skips city if not available (the
+    // headline alone is a safe fallback). The service slug — not the full
+    // marketing headline — is the right keyword anchor here, because
+    // AI-generated headlines drift toward emotive phrasing ("Get a
+    // Confident Smile") that doesn't match ad keywords.
+    const titleService = d.svc.name || headline;
+    const titleWithCity = city ? `${titleService} ${city}` : titleService;
+
     let intro = content?.intro || null;
     let structuredPage = null;  // Full structured output from ai-service-page.js
     if (d.source === 'ai-rewrite') {
@@ -439,7 +449,7 @@ const procedureSchema = ${JSON.stringify(procedureSchema, null, 2)};
 ---
 
 <BaseLayout
-  title={\`${escapeQuotes(headline)} | \${site.name}\`}
+  title={\`${escapeQuotes(titleWithCity)} | \${site.name}\`}
   description="${escapeQuotes(subheadline)}"
   schema={[localBusinessSchema, procedureSchema]}
 >
@@ -454,7 +464,7 @@ const procedureSchema = ${JSON.stringify(procedureSchema, null, 2)};
 ---
 
 <BaseLayout
-  title={\`${escapeQuotes(headline)} | \${site.name}\`}
+  title={\`${escapeQuotes(titleWithCity)} | \${site.name}\`}
   description="${escapeQuotes(subheadline)}"
   schema={[localBusinessSchema, procedureSchema]}
 >
