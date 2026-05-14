@@ -15,7 +15,9 @@ const {
   subheading = `Schedule a consultation with our team. We'll create a personalized treatment plan just for you.`,
   primaryCTA = 'Book Appointment',
   primaryHref = '/schedule',
-  phone = site.phone,
+  // Default to display phone (env-overridable for call-extension forwarding
+  // numbers). Falls back to site.phone when PUBLIC_DISPLAY_PHONE isn't set.
+  phone = site.displayPhone || site.phone,
 } = Astro.props;
 
 const variant = designDNA.ctaVariant;
