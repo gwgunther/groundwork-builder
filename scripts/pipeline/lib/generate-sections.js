@@ -13,7 +13,7 @@
  * left as stubs that ship with the source template.
  */
 
-import { writeFile, mkdir } from 'node:fs/promises';
+import { writeFile, mkdir, readFile, access } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { run as runGenerate } from '../skills/skill-generate.js';
 import { buildMolecules } from './ai-molecules.js';
@@ -144,7 +144,58 @@ export async function generateSections(dna, practice, merged, bronze, outputDir)
     }
   }
 
-  return { generated, files, errors, validationIssues };
+  // Defensive: index.astro statically imports every section component from
+  // src/components/generated/*.astro. If a generator was skipped (data guard
+  // failed) OR a section in the index's import list has no generator at all
+  // (e.g. 'gallery' currently — no skill-generate handler), the Vite build
+  // dies on "Could not resolve <path>". Write empty stubs for any imports
+  // that didn't get a real file. The stub renders nothing; index.astro only
+  // calls the component when its section appears in `designDNA.sectionOrder`.
+  const stubbed = await writeMissingGeneratedStubs(outputDir);
+  if (stubbed.length > 0) {
+    console.log(`  [generate] Wrote ${stubbed.length} stub${stubbed.length === 1 ? '' : 's'} for unresolved imports: ${stubbed.join(', ')}`);
+  }
+
+  return { generated, files, errors, validationIssues, stubbed };
+}
+
+/**
+ * Scan index.astro for static imports of `generated/*.astro` and write empty
+ * stubs for any that don't exist on disk. Pure defensive guard against the
+ * "import-without-generator" class of build failures.
+ *
+ * @param {string} outputDir
+ * @returns {Promise<string[]>} list of stub component names written
+ */
+async function writeMissingGeneratedStubs(outputDir) {
+  const indexPath = resolve(outputDir, 'src/pages/index.astro');
+  const generatedDir = resolve(outputDir, 'src/components/generated');
+  let indexSrc;
+  try {
+    indexSrc = await readFile(indexPath, 'utf8');
+  } catch {
+    return [];  // no index.astro — nothing to verify
+  }
+
+  // Match `from '../components/generated/<Name>.astro'` (single or double quotes)
+  const importRe = /from\s+['"]\.\.\/components\/generated\/([A-Z][A-Za-z0-9_-]*)\.astro['"]/g;
+  const names = [...indexSrc.matchAll(importRe)].map(m => m[1]);
+  const unique = [...new Set(names)];
+
+  const written = [];
+  for (const name of unique) {
+    const filePath = resolve(generatedDir, `${name}.astro`);
+    try {
+      await access(filePath);
+      // file exists — leave it alone
+    } catch {
+      const stub = `---\n// Auto-stub: index.astro imports this component but no generator produced it.\n// Renders nothing; only matters if '${name}' is in designDNA.sectionOrder.\n---\n`;
+      await mkdir(dirname(filePath), { recursive: true });
+      await writeFile(filePath, stub, 'utf8');
+      written.push(name);
+    }
+  }
+  return written;
 }
 
 // ---------------------------------------------------------------------------
