@@ -619,12 +619,23 @@ export async function injectAstroConfig(data, outputDir) {
     .map(h => `'/${h.slug}/'`)
     .join(', ');
 
+  // Astro 6 + Tailwind 4 — Tailwind is wired via the Vite plugin
+  // (@tailwindcss/vite), not the deprecated @astrojs/tailwind integration.
+  // Matches this repo's root astro.config.mjs and the generated project's
+  // package.json (which already lists @tailwindcss/vite as a dependency).
   const content = `import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: '${esc(siteUrl)}',
+  vite: {
+    plugins: [tailwindcss()],
+    optimizeDeps: {
+      entries: ['src/pages/**/*.astro'],
+      noDiscovery: true,
+    },
+  },
   integrations: [
     sitemap({
       filter: (page) => !page.includes('/thank-you'),
@@ -646,7 +657,6 @@ export default defineConfig({
         return { ...item, priority: 0.8, changefreq: 'monthly' };
       },
     }),
-    tailwind(),
   ],
 });
 `;
