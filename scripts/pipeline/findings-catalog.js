@@ -190,6 +190,26 @@ export const FINDINGS_CATALOG = {
     fixed_copy: 'Consolidated GBP website link to match the audited domain.',
     fix_action: { kind: 'gbp_api', target: 'websiteUri' },
   },
+
+  // ── Google Ads readiness — conversion tracking + local-intent SEO ───────
+  // The grader's pitch: "you cannot run Google Ads productively until these
+  // are in place." Smart Bidding needs at least one conversion signal; local
+  // ad keywords need city in the title.
+  'no-ga4-configured': {
+    weight: 1.2,
+    fixed_copy: 'Configured GA4 measurement script — the foundation of every conversion event.',
+    fix_action: { kind: 'generator', target: 'ga4-config' },
+  },
+  'no-phone-click-tracking': {
+    weight: 1.4,
+    fixed_copy: 'Added phone_click GA4 event — Smart Bidding now has its primary conversion signal.',
+    fix_action: { kind: 'generator', target: 'phone-click-tracking' },
+  },
+  'title-no-city': {
+    weight: 1.0,
+    fixed_copy: 'Added city to service page titles for local-intent ad keyword matching.',
+    fix_action: { kind: 'generator', target: 'page-titles' },
+  },
 };
 
 /**

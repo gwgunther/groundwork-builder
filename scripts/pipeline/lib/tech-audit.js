@@ -75,6 +75,7 @@ function buildDetail(id, count, affectedPages, thresholds) {
     'no-faq':             count === 0 ? 'FAQ content found on the site.' : 'No FAQ content found anywhere on the site.',
     'thin-about':         count === 0 ? 'About page has sufficient content.' : 'About page has fewer than 200 words.',
     'no-viewport':        count === 0 ? 'Viewport meta tag detected.' : 'One or more pages may be missing a viewport meta tag.',
+    'title-no-city':      count === 0 ? 'All page titles include the practice city.' : `${base} have a title that doesn't include the practice city.`,
   };
 
   return details[id] || `${count} issue(s) found.`;
@@ -87,7 +88,8 @@ function buildDetail(id, count, affectedPages, thresholds) {
  * @param {object|null} pagespeed - { mobile, desktop } from runPageSpeed, or null
  * @returns {{ findings: object[], summary: { critical: number, warnings: number, passed: number } }}
  */
-export function runTechAudit(bronze, pagespeed = null) {
+export function runTechAudit(bronze, pagespeed = null, opts = {}) {
+  const city = (opts.city || '').trim();
   const pages = bronze?.pages || [];
   const total = pages.length;
 
@@ -142,6 +144,28 @@ export function runTechAudit(bronze, pagespeed = null) {
       benefit: 'Unique titles help Google understand which page should rank for which query and prevent pages from competing against each other.',
       affectedPages: affected,
       count: dupes.length,
+    }));
+  }
+
+  // title-no-city: pages whose <title> doesn't include the practice's city.
+  // Only emitted when `opts.city` is provided AND there are pages with titles
+  // to check. Local-intent ad keywords ("dental implants huntington beach")
+  // require the city to appear in the title — Google Ads quality signals and
+  // local SEO both reward this. We skip pages with empty titles (handled by
+  // missing-title) and short paths that aren't service-like (e.g. /thank-you).
+  if (city) {
+    const cityRe = new RegExp(`\\b${city.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
+    const affected = pages
+      .filter(p => p.title?.trim() && !cityRe.test(p.title))
+      .map(p => p.url);
+    findings.push(finding({
+      id: 'title-no-city',
+      category: 'seo',
+      title: 'Page titles missing city',
+      benefit: 'Local-intent ad keywords ("dental implants huntington beach") match strongest when the city is in the page title. Google Ads quality score and local SEO both reward title-city alignment.',
+      affectedPages: affected,
+      count: affected.length,
+      thresholds: { total: pages.length },
     }));
   }
 
