@@ -334,10 +334,11 @@ async function recordBuildRun({ slug, practiceUrl, resolvedPreviewUrl, pitchUrl,
   const accountId = await upsertAccount({
     slug,
     practiceUrl,
-    practiceName:   merged.practice?.name || null,
+    practiceName:   merged.practice?.name  || null,
+    businessEmail:  merged.practice?.email || null,
     phone:          merged.practice?.phone || null,
-    city:           merged.address?.city  || null,
-    state:          merged.address?.state || null,
+    city:           merged.address?.city   || null,
+    state:          merged.address?.state  || null,
     lifecycleStage: 'Pitched',
   });
 

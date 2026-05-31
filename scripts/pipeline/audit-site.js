@@ -215,10 +215,10 @@ async function main() {
   let airtableAccountId = null;
   try {
     const { accountId, runId } = await startAuditRun({
-      slug:        provisionalSlug,
-      practiceUrl: opts.url,
-      email:       opts.email,
-      source:      opts.source,
+      slug:         provisionalSlug,
+      practiceUrl:  opts.url,
+      contactEmail: opts.email,  // --email flag: submitter (latest form input)
+      source:       opts.source,
     });
     airtableAccountId = accountId;
     airtableRunId     = runId;
@@ -546,12 +546,15 @@ async function main() {
   if (airtableRunId) {
     try {
       const { upsertAccount } = await import('./lib/airtable.js');
-      // Refresh account with details we couldn't know at the start
+      // Refresh account with details we couldn't know at the start.
+      // Two emails: businessEmail = scraped practice contact (info@...),
+      //             contactEmail  = whoever submitted the form (--email flag)
       await upsertAccount({
         slug:           provisionalSlug,
         practiceUrl:    opts.url,
         practiceName:   displayPracticeName,
-        email:          opts.email,
+        businessEmail:  scraped?.practice?.email || null,
+        contactEmail:   opts.email || null,
         phone:          scraped?.practice?.phone || gbpScan?.meta?.nationalPhoneNumber || null,
         city:           scraped?.address?.city  || null,
         state:          scraped?.address?.state || null,
