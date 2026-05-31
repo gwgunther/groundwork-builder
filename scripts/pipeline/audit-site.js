@@ -8,7 +8,6 @@
  * Usage:
  *   node scripts/pipeline/audit-site.js --url https://example.com
  *   node scripts/pipeline/audit-site.js --url https://example.com --output _audits/smith-dental
- *   node scripts/pipeline/audit-site.js --url https://example.com --skip-pagespeed
  *   node scripts/pipeline/audit-site.js --url https://example.com --verbose
  */
 
@@ -51,7 +50,6 @@ function parseArgs() {
     url:             null,
     output:          null,
     preset:          'dental',
-    skipPagespeed:   false,
     verbose:         false,
     previewUrl:      null,
     placeId:         null,
@@ -69,9 +67,6 @@ function parseArgs() {
         break;
       case '--preset':
         opts.preset = args[++i];
-        break;
-      case '--skip-pagespeed':
-        opts.skipPagespeed = true;
         break;
       case '--preview-url':
         opts.previewUrl = args[++i];
@@ -120,7 +115,6 @@ Options:
   --url <url>            Site URL to audit (required)
   --output <path>        Output directory (default: _audits/<slug>)
   --preset <name>        Vertical preset (default: dental)
-  --skip-pagespeed       Skip Google PageSpeed Insights API call
   --preview-url <url>    Link to a Groundwork preview for this site
   --place-id <id>        Google Place ID to scan GBP directly (skips lookup)
   --business-name <q>    Business name to text-search for GBP (default: silver practice name + city)
@@ -131,7 +125,6 @@ Options:
 Examples:
   node scripts/pipeline/audit-site.js --url https://smithdental.com
   node scripts/pipeline/audit-site.js --url https://smithdental.com --output _audits/smith-dental
-  node scripts/pipeline/audit-site.js --url https://smithdental.com --skip-pagespeed
 `.trim());
 }
 
@@ -270,31 +263,22 @@ async function main() {
   await writeFile(join(dataDir, 'silver.json'), JSON.stringify(_silverForSave, null, 2), 'utf-8').catch(() => {});
 
   // ── Phase 3: PageSpeed ───────────────────────────────────────────────────
+  // Always runs. Lighthouse performance scores are core to the grader's
+  // value prop (LCP, CLS, mobile-perf), and the resulting findings drive
+  // the worklist gates downstream. Skipping it was a dev convenience flag
+  // that risked shipping reports with no performance signal — removed.
+  console.log('[Phase 3] Running PageSpeed Insights...');
   let pagespeed = null;
-  if (!opts.skipPagespeed) {
-    console.log('[Phase 3] Running PageSpeed Insights...');
-    try {
-      pagespeed = await runPageSpeed(opts.url);
-      const m = pagespeed.mobile;
-      const d = pagespeed.desktop;
-      if (m) console.log(`  Mobile:  perf=${m.performance} seo=${m.seo} a11y=${m.accessibility} bp=${m.bestPractices}`);
-      if (d) console.log(`  Desktop: perf=${d.performance} seo=${d.seo} a11y=${d.accessibility} bp=${d.bestPractices}`);
-      await writeFile(join(dataDir, 'pagespeed.json'), JSON.stringify(pagespeed, null, 2), 'utf-8');
-    } catch (err) {
-      console.warn(`  PageSpeed failed (non-fatal): ${err.message}`);
-      pagespeed = { mobile: null, desktop: null };
-    }
-  } else {
-    console.log('[Phase 3] Skipping PageSpeed (--skip-pagespeed).');
-    // Try to reuse previously saved pagespeed data
-    try {
-      const { readFile } = await import('node:fs/promises');
-      const saved = JSON.parse(await readFile(join(dataDir, 'pagespeed.json'), 'utf-8'));
-      pagespeed = saved;
-      console.log('  Loaded cached PageSpeed data.');
-    } catch {
-      pagespeed = { mobile: null, desktop: null };
-    }
+  try {
+    pagespeed = await runPageSpeed(opts.url);
+    const m = pagespeed.mobile;
+    const d = pagespeed.desktop;
+    if (m) console.log(`  Mobile:  perf=${m.performance} seo=${m.seo} a11y=${m.accessibility} bp=${m.bestPractices}`);
+    if (d) console.log(`  Desktop: perf=${d.performance} seo=${d.seo} a11y=${d.accessibility} bp=${d.bestPractices}`);
+    await writeFile(join(dataDir, 'pagespeed.json'), JSON.stringify(pagespeed, null, 2), 'utf-8');
+  } catch (err) {
+    console.warn(`  PageSpeed failed (non-fatal): ${err.message}`);
+    pagespeed = { mobile: null, desktop: null };
   }
   console.log('');
 
