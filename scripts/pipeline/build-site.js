@@ -1561,6 +1561,7 @@ async function main() {
         slug,
         practiceUrl: opts.url || null,
         previewUrl:  null, // auto-derived from slug + GROUNDWORK_SUBDOMAIN
+        gcsPrefix:   runStorage.gcsPrefix || null,
       });
     } catch (err) {
       console.warn(`[Publish] Failed: ${err.message}`);

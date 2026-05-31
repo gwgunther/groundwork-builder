@@ -17,10 +17,11 @@
  *   CLOUDFLARE_API_TOKEN     — CF API token with Pages:Edit permission
  *   CLOUDFLARE_ACCOUNT_ID    — CF account ID
  *   GROUNDWORK_DENTAL_PATH   — absolute path to groundwork-dental repo (optional, defaults below)
- *   AIRTABLE_API_KEY         — Airtable personal access token
- *   AIRTABLE_BASE_ID         — Airtable base ID
- *   AIRTABLE_TABLE_NAME      — table name (default: "Clients")
- *   GROUNDWORK_SUBDOMAIN     — base subdomain (default: groundworkdental.com)
+ *   AIRTABLE_API_KEY            — Airtable personal access token
+ *   AIRTABLE_BASE_ID            — Airtable base ID
+ *   AIRTABLE_ACCOUNTS_TABLE     — Accounts table name
+ *   AIRTABLE_RUNS_TABLE         — Runs table name
+ *   GROUNDWORK_SUBDOMAIN        — base subdomain (default: groundworkdental.com)
  *   GITHUB_REPO_OWNER        — GitHub repo owner (default: gwgunther)
  *   GITHUB_REPO_NAME         — GitHub repo name (default: groundwork-builder)
  */
@@ -30,6 +31,7 @@ import { copyFile, mkdir, readFile }       from 'node:fs/promises';
 import { existsSync }                      from 'node:fs';
 import { resolve, dirname, basename }      from 'node:path';
 import { generatePitchPage }              from './pitch-generator.js';
+import { upsertAccount, createRun }       from './airtable.js';
 
 // ---------------------------------------------------------------------------
 // Main entry
@@ -42,6 +44,7 @@ export async function publish(opts = {}) {
     practiceUrl  = null,                          // changorthodontics.com
     previewUrl   = null,                          // changorthodontics.groundworkdental.com (auto-derived if null)
     ctaUrl       = null,                          // override CTA link on pitch page
+    gcsPrefix    = null,                          // e.g. 'chang-orthodontics/runs/2026-...'
   } = opts;
 
   if (!outputDir) throw new Error('publish: outputDir is required');
@@ -163,11 +166,23 @@ export async function publish(opts = {}) {
     console.warn(`  ⚠ Cloudflare setup failed: ${err.message}`);
   }
 
-  // 6. Airtable row
+  // 6. Airtable — record this build as a new Run row linked to the Account
   try {
-    const airtableId = await writeAirtableRow({ slug, practiceUrl, resolvedPreviewUrl, pitchUrl, pipelineDir });
-    results.airtable = airtableId;
-    console.log(`  ✓ Airtable row created/updated (id: ${airtableId})`);
+    const tracked = await recordBuildRun({
+      slug,
+      practiceUrl,
+      resolvedPreviewUrl,
+      pitchUrl,
+      pipelineDir,
+      gcsPrefix,
+      afterScores,
+    });
+    results.airtable = tracked.runId;
+    if (tracked.runId) {
+      console.log(`  ✓ Airtable: Run ${tracked.runId} created (Account ${tracked.accountId}, Lifecycle: Pitched)`);
+    } else {
+      console.log(`  ⚠ Airtable disabled (env vars missing) — skipped tracking`);
+    }
   } catch (err) {
     console.warn(`  ⚠ Airtable write failed: ${err.message}`);
   }
@@ -273,77 +288,85 @@ async function ensureCfPagesProject({ slug, baseDomain }) {
 }
 
 // ---------------------------------------------------------------------------
-// Airtable
+// Airtable — two-table model (Accounts + Runs)
 // ---------------------------------------------------------------------------
 
-async function writeAirtableRow({ slug, practiceUrl, resolvedPreviewUrl, pitchUrl, pipelineDir }) {
-  const apiKey    = process.env.AIRTABLE_API_KEY;
-  const baseId    = process.env.AIRTABLE_BASE_ID;
-  const tableName = process.env.AIRTABLE_TABLE_NAME || 'Clients';
+/**
+ * Record a build as a new Run row linked to the Account.
+ *
+ * Steps:
+ *   1. Upsert the Account by slug. If audit ran first (PR #24), this updates
+ *      the existing row with anything new + flips Lifecycle Stage to 'Pitched'.
+ *      If audit was skipped, this creates the Account row from scratch.
+ *   2. Create a new Run row with runType='build', linked to the Account.
+ *
+ * Returns { accountId, runId } — either field may be null if Airtable is
+ * disabled (env vars missing); the caller logs accordingly.
+ */
+async function recordBuildRun({ slug, practiceUrl, resolvedPreviewUrl, pitchUrl, pipelineDir, gcsPrefix, afterScores }) {
+  // Load merged.json for contact details to refresh on the Account
+  let merged = {};
+  try {
+    const raw = JSON.parse(await readFile(resolve(pipelineDir, '06-merge.json'), 'utf-8'));
+    merged = raw.output || raw;
+  } catch { /* optional */ }
 
-  if (!apiKey || !baseId) {
-    throw new Error('AIRTABLE_API_KEY and AIRTABLE_BASE_ID are required');
+  // Cost ledger from this build's AI calls (best-effort)
+  let costEst = null;
+  try {
+    const { getCostLedger } = await import('./ai-call.js');
+    const ledger = getCostLedger();
+    if (ledger.callCount > 0) costEst = Number(ledger.totalCost.toFixed(2));
+  } catch { /* non-fatal */ }
+
+  // GitHub folder URL — derive from env so it's a clickable link in Airtable
+  const repoOwner = process.env.GITHUB_REPO_OWNER || 'gwgunther';
+  const repoName  = process.env.GITHUB_REPO_NAME  || 'groundwork-builder';
+  const githubFolderUrl = `https://github.com/${repoOwner}/${repoName}/tree/main/clients/${slug}`;
+
+  // GCS folder — convert prefix to a clickable Cloud Console URL
+  const gcsBucket = process.env.GOOGLE_CLOUD_STORAGE_BUCKET || 'builder-data';
+  const gcsRunFolder = gcsPrefix
+    ? `https://console.cloud.google.com/storage/browser/${gcsBucket}/${gcsPrefix}`
+    : null;
+
+  // 1. Upsert Account with anything we now know — and flip Lifecycle to Pitched
+  const accountId = await upsertAccount({
+    slug,
+    practiceUrl,
+    practiceName:   merged.practice?.name || null,
+    phone:          merged.practice?.phone || null,
+    city:           merged.address?.city  || null,
+    state:          merged.address?.state || null,
+    lifecycleStage: 'Pitched',
+  });
+
+  if (!accountId) {
+    // Airtable disabled; quietly skip
+    return { accountId: null, runId: null };
   }
 
-  // Load summary + pagespeed for metadata
-  let summary   = {};
-  let pagespeed = {};
-  let merged    = {};
-  try { summary   = JSON.parse(await readFile(resolve(pipelineDir, 'summary.json'),      'utf-8')); } catch {}
-  try { pagespeed = JSON.parse(await readFile(resolve(pipelineDir, '03-pagespeed.json'), 'utf-8')); } catch {}
-  try { merged    = JSON.parse(await readFile(resolve(pipelineDir, '06-merge.json'),     'utf-8')); merged = merged.output || merged; } catch {}
+  // 2. Create the build Run row
+  const runId = await createRun({
+    accountId,
+    runType:    'build',
+    status:     'Done',
+    websiteUrl: practiceUrl,
+    source:     'system',  // builds aren't user-initiated in the same way as audits
+    build: {
+      buildSlug:       slug,
+      previewUrl:      `https://${resolvedPreviewUrl}`,
+      pitchUrl:        `https://${pitchUrl}`,
+      githubFolderUrl,
+      gcsRunFolder,
+    },
+    audit: {
+      // After-build scores from PageSpeed against the live preview
+      mobileScore:  afterScores?.mobile  ?? null,
+      desktopScore: afterScores?.desktop ?? null,
+    },
+    costEst,
+  });
 
-  const doctors  = merged.doctors || (merged.doctor ? [merged.doctor] : []);
-  const services = merged.services || [];
-
-  const fields = {
-    'Slug':            slug,
-    'Practice Name':   summary.practiceName || merged.practice?.name || slug,
-    'Practice URL':    practiceUrl || summary.scrapedUrl || '',
-    'Preview URL':     `https://${resolvedPreviewUrl}`,
-    'Pitch URL':       `https://${pitchUrl}`,
-    'Doctors Found':   doctors.length,
-    'Services Found':  services.length,
-    'Mobile Score':    pagespeed?.output?.mobile?.performance  ?? pagespeed?.mobile?.performance  ?? null,
-    'Desktop Score':   pagespeed?.output?.desktop?.performance ?? pagespeed?.desktop?.performance ?? null,
-    'Status':          'Pitched',
-    'Built At':        new Date().toISOString().split('T')[0],
-  };
-
-  // Remove null fields (Airtable rejects null for number fields)
-  for (const k of Object.keys(fields)) {
-    if (fields[k] == null) delete fields[k];
-  }
-
-  const url = `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableName)}`;
-
-  // Check if row with this slug already exists
-  const searchRes = await fetch(
-    `${url}?filterByFormula=${encodeURIComponent(`{Slug}="${slug}"`)}`,
-    { headers: { Authorization: `Bearer ${apiKey}` } }
-  );
-  const searchData = await searchRes.json();
-  const existing   = searchData.records?.[0];
-
-  if (existing) {
-    // Update existing row
-    const patchRes = await fetch(`${url}/${existing.id}`, {
-      method:  'PATCH',
-      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ fields }),
-    });
-    const patchData = await patchRes.json();
-    if (patchData.error) throw new Error(patchData.error.message);
-    return patchData.id;
-  } else {
-    // Create new row
-    const createRes = await fetch(url, {
-      method:  'POST',
-      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ fields }),
-    });
-    const createData = await createRes.json();
-    if (createData.error) throw new Error(createData.error.message);
-    return createData.id;
-  }
+  return { accountId, runId };
 }
