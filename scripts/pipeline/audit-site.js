@@ -33,7 +33,7 @@ import { runTrustScan }           from './lib/trust-scanner.js';
 import { runHostingScan }         from './lib/hosting-scanner.js';
 import { runGbpScan }             from './lib/gbp-scanner.js';
 import { runConversionScan }      from './lib/conversion-scanner.js';
-import { aggregateGrowthScore, enrichFinding } from './lib/findings.js';
+import { summarizeFindings, enrichFinding } from './lib/findings.js';
 import { buildFixWorklist, summarizeWorklist } from './lib/fix-worklist.js';
 import { runSiteAudit }           from './lib/ai-audit.js';
 import { generateAuditReports }   from './lib/audit-report-generator.js';
@@ -375,7 +375,9 @@ async function main() {
   await writeFile(join(dataDir, 'conversion-scan.json'), JSON.stringify(conversionScan, null, 2), 'utf-8');
   console.log('');
 
-  // ── Combined Growth Score across all detector outputs ───────────────────
+  // ── Combined findings across all detector outputs ──────────────────────
+  // Report shows objective counts only — no subjective composite "score."
+  // Prospects can verify the numbers themselves by counting cards.
   const allFindings = [
     ...techAudit.findings,
     ...trustScan.findings,
@@ -383,14 +385,12 @@ async function main() {
     ...gbpScan.findings,
     ...conversionScan.findings,
   ];
-  const growthScore = aggregateGrowthScore(allFindings);
-  if (growthScore != null) {
-    console.log(`  Growth Score: ${growthScore}/100 (site + perf + trust + hosting + gbp + conversion)`);
-    console.log('');
-  }
+  const findingsSummary = summarizeFindings(allFindings);
+  console.log(`  Checks: ${findingsSummary.total} total · ${findingsSummary.passed} passed · ${findingsSummary.critical} critical · ${findingsSummary.warnings} warnings`);
+  console.log('');
   await writeFile(
     join(dataDir, 'findings.json'),
-    JSON.stringify({ growthScore, findings: allFindings }, null, 2),
+    JSON.stringify({ summary: findingsSummary, findings: allFindings }, null, 2),
     'utf-8',
   );
 
@@ -438,7 +438,6 @@ async function main() {
       warnings: allFindings.filter(f => f.severity === 'warning').length,
       passed:   allFindings.filter(f => f.severity === 'passed').length,
     },
-    growthScore,
   };
   const { fullPath, summaryPath } = await generateAuditReports(outputDir, {
     url: opts.url,
@@ -448,7 +447,7 @@ async function main() {
     aiAudit,
     scraped,
     previewUrl: opts.previewUrl || null,
-    growthScore,
+    findingsSummary,
     gbpMeta: gbpScan.meta || null,
   });
   console.log('');

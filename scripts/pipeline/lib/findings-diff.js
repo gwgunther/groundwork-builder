@@ -7,7 +7,7 @@
  * canonical diff artifact that powers the before/after report.
  */
 
-import { aggregateGrowthScore } from './findings.js';
+// No score aggregation — the diff exposes only objective transition counts.
 
 /**
  * Index a findings array by id. Last wins on collision (shouldn't happen, but
@@ -91,7 +91,8 @@ function classifyTransition(b, a) {
 }
 
 /**
- * Summary stats for the diff: how many flipped, how many remain, score delta.
+ * Summary stats for the diff: how many checks transitioned to each state.
+ * Pure counts — no subjective composite metric.
  */
 export function summarizeDiff(diffs) {
   const counts = {
@@ -103,20 +104,5 @@ export function summarizeDiff(diffs) {
     removed:      0,
   };
   for (const d of diffs) counts[d.transition] = (counts[d.transition] ?? 0) + 1;
-
-  const beforeFindings = diffs.filter(d => d.before).map(d => ({
-    state: d.before.state, weight: d.weight,
-  }));
-  const afterFindings = diffs.filter(d => d.after).map(d => ({
-    state: d.after.state, weight: d.weight,
-  }));
-  const beforeScore = aggregateGrowthScore(beforeFindings);
-  const afterScore  = aggregateGrowthScore(afterFindings);
-
-  return {
-    counts,
-    beforeScore,
-    afterScore,
-    delta: (beforeScore != null && afterScore != null) ? afterScore - beforeScore : null,
-  };
+  return { counts };
 }

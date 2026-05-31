@@ -44,38 +44,37 @@ function scoreBg(score) {
   return '#FDDCDC';
 }
 
-function growthLabel(score) {
-  if (score == null) return '—';
-  if (score >= 85) return 'Strong online presence';
-  if (score >= 60) return 'Solid foundation, gaps to close';
-  if (score >= 40) return 'Significant issues holding you back';
-  return 'Major work needed';
-}
+// Objective-counts hero. No subjective composite score — just the same
+// numbers a prospect could verify themselves by counting cards in the
+// findings tab. The left side narrates "we checked N things, here's the
+// state." The right side breaks down the issues by severity.
+function buildCountsHero(findingsSummary, gbpMeta) {
+  if (!findingsSummary) return '';
+  const { total, passed, critical, warnings, issues } = findingsSummary;
+  // Color the border by how many critical issues exist. Red = real problem
+  // worth surfacing; amber = warnings only; green = clean.
+  const accent = critical > 0 ? '#C0392B' : warnings > 0 ? '#C07A1A' : '#2E7D4F';
+  const bg     = critical > 0 ? '#FDDCDC' : warnings > 0 ? '#FEF3CD' : '#D4EDD9';
 
-function buildGrowthHero(score, techAudit, gbpMeta) {
-  if (score == null) return '';
-  const color = scoreColor(score);
-  const bg = scoreBg(score);
-  const label = growthLabel(score);
-  const critical = techAudit?.summary?.critical || 0;
-  const warnings = techAudit?.summary?.warnings || 0;
-  const passed = techAudit?.summary?.passed || 0;
   const gbpLine = gbpMeta?.displayName
     ? `<div class="growth-hero-sub">GBP: <strong>${esc(gbpMeta.displayName)}</strong> · ${gbpMeta.userRatingCount ?? 0} reviews · ${gbpMeta.rating != null ? gbpMeta.rating.toFixed(1) + '★' : '—'}</div>`
     : '';
 
+  const headline = issues === 0
+    ? `All ${total} checks passed.`
+    : `${issues} of ${total} checks need attention.`;
+
   return `
-<section class="growth-hero" style="background:${bg};border-left:6px solid ${color}">
+<section class="growth-hero" style="background:${bg};border-left:6px solid ${accent}">
   <div class="growth-hero-left">
-    <div class="growth-hero-eyebrow">Growth Score</div>
-    <div class="growth-hero-score" style="color:${color}">${score}<span class="growth-hero-denom">/100</span></div>
-    <div class="growth-hero-label">${esc(label)}</div>
+    <div class="growth-hero-eyebrow">Site audit</div>
+    <div class="growth-hero-headline" style="color:var(--ink)">${esc(headline)}</div>
     ${gbpLine}
   </div>
   <div class="growth-hero-right">
-    <div class="growth-stat"><span class="growth-stat-num" style="color:var(--red)">${critical}</span><span class="growth-stat-label">Critical</span></div>
-    <div class="growth-stat"><span class="growth-stat-num" style="color:var(--amber)">${warnings}</span><span class="growth-stat-label">Warnings</span></div>
     <div class="growth-stat"><span class="growth-stat-num" style="color:var(--green)">${passed}</span><span class="growth-stat-label">Passed</span></div>
+    <div class="growth-stat"><span class="growth-stat-num" style="color:var(--amber)">${warnings}</span><span class="growth-stat-label">Warnings</span></div>
+    <div class="growth-stat"><span class="growth-stat-num" style="color:var(--red)">${critical}</span><span class="growth-stat-label">Critical</span></div>
   </div>
 </section>`;
 }
@@ -93,29 +92,31 @@ function scoreLabel(score) {
 
 function buildDiffHero(diff) {
   if (!diff?.summary) return '';
-  const { beforeScore, afterScore, delta, counts } = diff.summary;
-  const afterColor = scoreColor(afterScore);
-  const afterBg = scoreBg(afterScore);
-  const beforeColor = scoreColor(beforeScore);
-  const deltaSign = delta != null && delta >= 0 ? '+' : '';
-  const deltaColor = delta == null ? '#9E9990' : delta >= 0 ? '#2E7D4F' : '#C0392B';
+  const { counts } = diff.summary;
+  const fixed     = counts.fixed || 0;
+  const stillIss  = counts['still-issue'] || 0;
+  const regressed = counts.regressed || 0;
+  // Green if the build cleaned everything up; amber if some issues remain;
+  // red if anything regressed (rare — would mean the rebuild was worse).
+  const accent = regressed > 0 ? '#C0392B' : stillIss > 0 ? '#C07A1A' : '#2E7D4F';
+  const bg     = regressed > 0 ? '#FDDCDC' : stillIss > 0 ? '#FEF3CD' : '#D4EDD9';
+
+  const headline = regressed > 0
+    ? `${fixed} fixed, but ${regressed} regressed in the rebuild.`
+    : stillIss > 0
+      ? `${fixed} fixed. ${stillIss} ${stillIss === 1 ? 'issue' : 'issues'} still need attention.`
+      : `All ${fixed} previously-failing checks are now passing.`;
 
   return `
-<section class="growth-hero diff-hero" style="background:${afterBg};border-left:6px solid ${afterColor}">
+<section class="growth-hero diff-hero" style="background:${bg};border-left:6px solid ${accent}">
   <div class="growth-hero-left">
-    <div class="growth-hero-eyebrow">Growth Score — Before → After</div>
-    <div class="diff-score-row">
-      <span class="diff-score-before" style="color:${beforeColor}">${beforeScore ?? '—'}</span>
-      <span class="diff-arrow">→</span>
-      <span class="growth-hero-score" style="color:${afterColor}">${afterScore ?? '—'}<span class="growth-hero-denom">/100</span></span>
-      ${delta != null ? `<span class="diff-delta" style="color:${deltaColor};background:${deltaColor}1a">${deltaSign}${delta}</span>` : ''}
-    </div>
-    <div class="growth-hero-label">${esc(growthLabel(afterScore))}</div>
+    <div class="growth-hero-eyebrow">Before → After</div>
+    <div class="growth-hero-headline" style="color:var(--ink)">${esc(headline)}</div>
   </div>
   <div class="growth-hero-right">
-    <div class="growth-stat"><span class="growth-stat-num" style="color:var(--green)">${counts.fixed}</span><span class="growth-stat-label">Fixed</span></div>
-    <div class="growth-stat"><span class="growth-stat-num" style="color:var(--amber)">${counts['still-issue']}</span><span class="growth-stat-label">Still issue</span></div>
-    <div class="growth-stat"><span class="growth-stat-num" style="color:var(--red)">${counts.regressed}</span><span class="growth-stat-label">Regressed</span></div>
+    <div class="growth-stat"><span class="growth-stat-num" style="color:var(--green)">${fixed}</span><span class="growth-stat-label">Fixed</span></div>
+    <div class="growth-stat"><span class="growth-stat-num" style="color:var(--amber)">${stillIss}</span><span class="growth-stat-label">Still issue</span></div>
+    <div class="growth-stat"><span class="growth-stat-num" style="color:var(--red)">${regressed}</span><span class="growth-stat-label">Regressed</span></div>
   </div>
 </section>`;
 }
@@ -373,7 +374,7 @@ function sharedCss() {
 // Full report builder (audit-report.html)
 // ---------------------------------------------------------------------------
 
-function buildFullReport({ url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, growthScore = null, gbpMeta = null, diff = null }) {
+function buildFullReport({ url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, findingsSummary = null, gbpMeta = null, diff = null }) {
   const runDate = formatDate(new Date().toISOString());
   const mobile  = pagespeed?.mobile  || null;
   const desktop = pagespeed?.desktop || null;
@@ -382,7 +383,7 @@ function buildFullReport({ url, practiceName, pagespeed, techAudit, aiAudit, scr
   const diffMode = !!diff?.diff?.length;
   const hero = diffMode
     ? buildDiffHero(diff)
-    : buildGrowthHero(growthScore, techAudit, gbpMeta);
+    : buildCountsHero(findingsSummary, gbpMeta);
   const findingsTabContent = diffMode
     ? buildDiffFindings(diff)
     : buildFindingsTab(techAudit);
@@ -423,23 +424,17 @@ ${sharedCss()}
 .section-header h2 { font-size: 18px; font-weight: 700; letter-spacing: -0.2px; }
 .section-note { font-size: 12px; color: var(--text-dim); }
 
-/* ── Growth Hero ── */
+/* ── Audit Hero ── */
 .growth-hero { max-width: 1080px; margin: 28px auto 0; padding: 22px 28px; border-radius: var(--radius); display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
-.growth-hero-eyebrow { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); margin-bottom: 4px; }
-.growth-hero-score { font-size: 56px; font-weight: 800; font-family: var(--mono); line-height: 1; letter-spacing: -1px; }
-.growth-hero-denom { font-size: 22px; font-weight: 600; color: var(--text-dim); margin-left: 2px; }
-.growth-hero-label { font-size: 15px; font-weight: 700; color: var(--ink); margin-top: 6px; }
-.growth-hero-sub { font-size: 12px; color: var(--text-dim); margin-top: 6px; }
+.growth-hero-eyebrow { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); margin-bottom: 6px; }
+.growth-hero-headline { font-size: 26px; font-weight: 800; line-height: 1.2; letter-spacing: -0.3px; }
+.growth-hero-sub { font-size: 12px; color: var(--text-dim); margin-top: 8px; }
 .growth-hero-right { display: flex; gap: 28px; }
 .growth-stat { display: flex; flex-direction: column; align-items: center; gap: 4px; }
 .growth-stat-num { font-size: 30px; font-weight: 800; font-family: var(--mono); line-height: 1; }
 .growth-stat-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim); }
 
 /* ── Diff hero + cards (re-scan / before→after mode) ── */
-.diff-score-row { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
-.diff-score-before { font-size: 32px; font-weight: 800; font-family: var(--mono); line-height: 1; opacity: 0.7; text-decoration: line-through; text-decoration-thickness: 2px; }
-.diff-arrow { font-size: 22px; font-weight: 700; color: var(--text-dim); }
-.diff-delta { font-size: 14px; font-weight: 800; padding: 4px 10px; border-radius: 20px; font-family: var(--mono); }
 .badge-green { background: var(--green); color: white; font-size: 10px; font-weight: 800; padding: 1px 6px; border-radius: 10px; margin-left: 5px; vertical-align: middle; }
 
 .diff-group { margin-bottom: 32px; }
@@ -1251,14 +1246,14 @@ export async function generateAuditReports(outputDir, {
   aiAudit = null,
   scraped = null,
   previewUrl = null,
-  growthScore = null,
+  findingsSummary = null,
   gbpMeta = null,
   diff = null,
   outputFilename = null,
 } = {}) {
   await mkdir(outputDir, { recursive: true });
 
-  const shared = { url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, growthScore, gbpMeta, diff };
+  const shared = { url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, findingsSummary, gbpMeta, diff };
 
   const fullHtml    = buildFullReport(shared);
   const summaryHtml = buildSummaryReport(shared);
