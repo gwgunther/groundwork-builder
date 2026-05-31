@@ -458,6 +458,10 @@ async function main() {
   // -----------------------------------------------------------------------
   // Resolve output directory
   // -----------------------------------------------------------------------
+  // Default placement depends on whether we're publishing:
+  //   --publish        → clients/<slug>/   (in-repo, so git push triggers CF Pages)
+  //   no --publish     → ../output/<slug>/ (out-of-repo, doesn't pollute the monorepo)
+  // Explicit --output always overrides both.
   let outputDir = opts.output;
   if (!outputDir) {
     const slug = merged.practice.name
@@ -465,10 +469,12 @@ async function main() {
       : merged.practice.domain
         ? slugify(merged.practice.domain.replace(/\.\w+$/, ''))
         : 'new-dental-site';
-    outputDir = resolve('..', 'output', `${slug}`);
+    outputDir = opts.publish
+      ? resolve('clients', `${slug}`)
+      : resolve('..', 'output', `${slug}`);
   }
   outputDir = resolve(outputDir);
-  console.log(`[Output] ${outputDir}`);
+  console.log(`[Output] ${outputDir}${opts.publish ? '   (publish mode — committed to monorepo)' : ''}`);
   console.log('');
 
   // Create run-scoped storage (GCS + local) and artifact writer
