@@ -77,7 +77,8 @@ async function airReq(method, table, pathOrBody = null, body = null) {
  * @param {string} args.slug              - canonical slug, unique key
  * @param {string} [args.practiceUrl]
  * @param {string} [args.practiceName]
- * @param {string} [args.email]
+ * @param {string} [args.businessEmail]   - scraped practice email (info@...)
+ * @param {string} [args.contactEmail]    - submitter (latest self-serve form input)
  * @param {string} [args.phone]
  * @param {string} [args.city]
  * @param {string} [args.state]
@@ -109,16 +110,17 @@ export async function upsertAccount(args = {}) {
 }
 
 function buildAccountFields({
-  practiceUrl, practiceName, email, phone, city, state, source, lifecycleStage,
+  practiceUrl, practiceName, businessEmail, contactEmail, phone, city, state, source, lifecycleStage,
 }) {
   const f = {};
-  if (practiceUrl)    f['Practice URL']   = practiceUrl;
-  if (practiceName)   f['Practice Name']  = practiceName;
-  if (email)          f['Email']          = email;
-  if (phone)          f['Phone']          = phone;
-  if (city)           f['City']           = city;
-  if (state)          f['State']          = state;
-  if (source)         f['Source']         = source;
+  if (practiceUrl)    f['Practice URL']    = practiceUrl;
+  if (practiceName)   f['Practice Name']   = practiceName;
+  if (businessEmail)  f['Business Email']  = businessEmail;
+  if (contactEmail)   f['Contact Email']   = contactEmail;
+  if (phone)          f['Phone']           = phone;
+  if (city)           f['City']            = city;
+  if (state)          f['State']           = state;
+  if (source)         f['Source']          = source;
   if (lifecycleStage) f['Lifecycle Stage'] = lifecycleStage;
   return f;
 }
@@ -175,7 +177,7 @@ export async function updateRun(runId, args = {}) {
 
 function buildRunFields(args, accountId) {
   const {
-    runType, status, websiteUrl, source,
+    runType, status, websiteUrl, source, contactEmail,
     audit = {}, build = {}, rescan = {},
     costEst, errorDetail,
   } = args;
@@ -185,6 +187,7 @@ function buildRunFields(args, accountId) {
   if (status)          f['Status']            = status;
   if (websiteUrl)      f['Website URL']       = websiteUrl;
   if (source)          f['Submission Method'] = SOURCE_MAP[source] || source;
+  if (contactEmail)    f['Contact Email']     = contactEmail;
   if (status === 'Done' || status === 'Failed') {
     f['Completed At'] = new Date().toISOString();
   }
@@ -224,10 +227,10 @@ function buildRunFields(args, accountId) {
  * `{ accountId, runId }` — pass `runId` to `updateRun()` when the audit
  * finishes with the metrics.
  */
-export async function startAuditRun({ slug, practiceUrl, email, source }) {
+export async function startAuditRun({ slug, practiceUrl, contactEmail, source }) {
   if (!enabled()) return { accountId: null, runId: null };
   const accountId = await upsertAccount({
-    slug, practiceUrl, email, source,
+    slug, practiceUrl, contactEmail, source,
     lifecycleStage: 'Prospect',
   });
   const runId = await createRun({
@@ -236,6 +239,7 @@ export async function startAuditRun({ slug, practiceUrl, email, source }) {
     status:  'Running',
     websiteUrl: practiceUrl,
     source,
+    contactEmail,
   });
   return { accountId, runId };
 }
