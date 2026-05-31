@@ -35,6 +35,8 @@ import { runGbpScan }             from './lib/gbp-scanner.js';
 import { runConversionScan }      from './lib/conversion-scanner.js';
 import { summarizeFindings, enrichFinding } from './lib/findings.js';
 import { buildFixWorklist, summarizeWorklist } from './lib/fix-worklist.js';
+import { startAuditRun, updateRun }   from './lib/airtable.js';
+import { createRunStorage }           from './lib/storage.js';
 import { runSiteAudit }           from './lib/ai-audit.js';
 import { generateAuditReports }   from './lib/audit-report-generator.js';
 import { mergeData }              from './lib/merger.js';
@@ -55,6 +57,8 @@ function parseArgs() {
     placeId:         null,
     businessName:    null,
     skipGbp:         false,
+    email:           null,
+    source:          'manual',
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -79,6 +83,13 @@ function parseArgs() {
         break;
       case '--skip-gbp':
         opts.skipGbp = true;
+        break;
+      case '--email':
+        opts.email = args[++i];
+        break;
+      case '--source':
+        // 'self-serve' | 'manual' | 'biz-dev'
+        opts.source = args[++i];
         break;
       case '--verbose':
         opts.verbose = true;
@@ -193,7 +204,36 @@ async function main() {
   console.log('');
   console.log(`  URL:     ${opts.url}`);
   console.log(`  Preset:  ${opts.preset}`);
+  console.log(`  Source:  ${opts.source}${opts.email ? ' · ' + opts.email : ''}`);
   console.log('');
+
+  // ── Derive slug + start Airtable run early so we have a record even if
+  //    a later phase crashes. Slug is provisional — based on URL hostname;
+  //    silver refines practiceName + city later, used to update the row.
+  const provisionalSlug = slugify(new URL(opts.url).hostname.replace(/^www\./, '').split('.')[0]);
+  let airtableRunId = null;
+  let airtableAccountId = null;
+  try {
+    const { accountId, runId } = await startAuditRun({
+      slug:        provisionalSlug,
+      practiceUrl: opts.url,
+      email:       opts.email,
+      source:      opts.source,
+    });
+    airtableAccountId = accountId;
+    airtableRunId     = runId;
+    globalThis.__groundworkAirtableRunId = runId;  // accessible to outer fatal-error handler
+    if (runId) console.log(`[Airtable] Tracking run: ${runId} (account: ${accountId})`);
+    else       console.log(`[Airtable] Disabled (env vars missing). Continuing without tracking.`);
+    console.log('');
+  } catch (err) {
+    console.warn(`[Airtable] startAuditRun failed (non-fatal): ${err.message}`);
+    console.log('');
+  }
+
+  // ── Init GCS-backed storage so intermediate artifacts persist beyond the
+  //    operator's local disk (essential when this runs in a container).
+  const runStorage = createRunStorage(provisionalSlug);
 
   // ── Load preset ─────────────────────────────────────────────────────────
   console.log(`[Preset] Loading "${opts.preset}" preset...`);
@@ -498,15 +538,69 @@ async function main() {
   console.log('');
   console.log('='.repeat(56));
   console.log('');
+
+  // ── Finalize Airtable tracking row ──────────────────────────────────────
+  // Update both the Account (with refined practice info from silver) and the
+  // Run (with the metrics + URLs). All non-fatal — local report is still
+  // written even if Airtable rejects the call.
+  if (airtableRunId) {
+    try {
+      const { upsertAccount } = await import('./lib/airtable.js');
+      // Refresh account with details we couldn't know at the start
+      await upsertAccount({
+        slug:           provisionalSlug,
+        practiceUrl:    opts.url,
+        practiceName:   displayPracticeName,
+        email:          opts.email,
+        phone:          scraped?.practice?.phone || gbpScan?.meta?.nationalPhoneNumber || null,
+        city:           scraped?.address?.city  || null,
+        state:          scraped?.address?.state || null,
+        source:         opts.source,
+        lifecycleStage: 'Audited',
+      });
+      await updateRun(airtableRunId, {
+        status: 'Done',
+        audit: {
+          totalChecks:    findingsSummary.total,
+          passed:         findingsSummary.passed,
+          critical:       findingsSummary.critical,
+          warnings:       findingsSummary.warnings,
+          mobileScore:    pagespeed?.mobile?.performance  ?? null,
+          desktopScore:   pagespeed?.desktop?.performance ?? null,
+          gbpReviews:     gbpScan?.meta?.userRatingCount ?? null,
+          gbpRating:      gbpScan?.meta?.rating ?? null,
+          // auditReportUrl populated later by the API server when it hosts the file
+        },
+      });
+      console.log(`[Airtable] Run ${airtableRunId} marked Done.`);
+    } catch (err) {
+      console.warn(`[Airtable] finalize failed (non-fatal): ${err.message}`);
+    }
+  }
 }
 
 // ---------------------------------------------------------------------------
 // Run
 // ---------------------------------------------------------------------------
 
-main().catch((err) => {
+// Module-level reference to the active Airtable Run id, set by main() once
+// startAuditRun completes. The outer .catch reads it to mark the row Failed.
+globalThis.__groundworkAirtableRunId = null;
+
+main().catch(async (err) => {
   console.error('');
   console.error('Fatal error:', err.message);
   if (err.stack) console.error(err.stack);
+  try {
+    if (globalThis.__groundworkAirtableRunId) {
+      await updateRun(globalThis.__groundworkAirtableRunId, {
+        status: 'Failed',
+        errorDetail: err.message + (err.stack ? '\n\n' + err.stack : ''),
+      });
+      console.error('[Airtable] Run marked Failed.');
+    }
+  } catch (e) {
+    console.error('[Airtable] Could not mark run Failed:', e.message);
+  }
   process.exit(1);
 });
