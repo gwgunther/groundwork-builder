@@ -233,7 +233,7 @@ async function main() {
   await mkdir(dataDir, { recursive: true });
   await writeFile(
     join(dataDir, 'findings-after.json'),
-    JSON.stringify({ findings: afterFindings, growthScore: summary.afterScore }, null, 2),
+    JSON.stringify({ findings: afterFindings }, null, 2),
     'utf-8',
   );
   await writeFile(
@@ -272,9 +272,7 @@ async function main() {
   console.log('  RE-SCAN SUMMARY');
   console.log('='.repeat(56));
   console.log('');
-  console.log(`  Growth Score:    ${summary.beforeScore ?? '—'} → ${summary.afterScore ?? '—'}`
-    + (summary.delta != null ? `   (${summary.delta >= 0 ? '+' : ''}${summary.delta})` : ''));
-  console.log('');
+  // No subjective composite — just the objective transition counts.
   console.log(`  Fixed:           ${summary.counts.fixed}`);
   console.log(`  Still issue:     ${summary.counts['still-issue']}`);
   console.log(`  Regressed:       ${summary.counts.regressed}`);

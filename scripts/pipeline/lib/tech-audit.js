@@ -4,14 +4,14 @@
  *
  * Export:
  *   runTechAudit(bronze, pagespeed)
- *   → { findings: Finding[], summary: { critical, warnings, passed }, growthScore: number | null }
+ *   → { findings: Finding[], summary: { critical, warnings, passed } }
  *
  * Finding shape (existing fields preserved; grader fields added at return):
  *   { id, category, severity, title, detail, benefit, affectedPages, count,
  *     state, weight, fixed_copy, fix_action }
  */
 
-import { enrichFindings, aggregateGrowthScore } from './findings.js';
+import { enrichFindings } from './findings.js';
 
 // Paths that should be excluded from "thin content" checks
 const UTILITY_PATH_PATTERNS = [
@@ -481,7 +481,5 @@ export function runTechAudit(bronze, pagespeed = null, opts = {}) {
     passed:   enriched.filter(f => f.severity === 'passed').length,
   };
 
-  const growthScore = aggregateGrowthScore(enriched);
-
-  return { findings: enriched, summary, growthScore };
+  return { findings: enriched, summary };
 }

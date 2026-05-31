@@ -3,7 +3,9 @@
  *
  * Detector logic lives in scripts/pipeline/lib/ (tech-audit.js, gbp-scanner.js, etc.).
  * This file holds the *metadata* each detector references by id:
- *   - weight:      how much this check contributes to the Growth Score (0.5–2.0)
+ *   - weight:      internal priority signal — used by the fix-worklist to
+ *                  order which fixes the builder runs first when limited.
+ *                  NOT a user-facing score. Range 0.5–2.0.
  *   - fixed_copy:  past-tense headline used when re-scan flips state to 'fixed'
  *   - fix_action:  how the builder resolves this finding
  *

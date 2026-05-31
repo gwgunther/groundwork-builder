@@ -45,24 +45,30 @@ export function enrichFindings(findings) {
 }
 
 /**
- * Growth Score: weighted percentage of findings in 'fixed' state.
- * Ignores 'not_applicable'.
+ * Aggregate findings into objective counts — what the report actually shows.
  *
- *   score = round(100 * sum(weight where fixed) / sum(weight where applicable))
+ * No subjective scoring. Each value is something the prospect could verify
+ * themselves by counting cards.
  *
- * Returns null if no applicable findings (avoid divide-by-zero).
+ *   total      — every applicable finding (excludes not_applicable)
+ *   passed     — state === 'fixed'
+ *   issues     — state === 'issue' (sum of critical + warnings)
+ *   critical   — state === 'issue' AND severity === 'critical'
+ *   warnings   — state === 'issue' AND severity === 'warning'
  */
-export function aggregateGrowthScore(findings) {
-  let earned = 0;
-  let possible = 0;
-  for (const f of findings) {
+export function summarizeFindings(findings) {
+  let total = 0, passed = 0, critical = 0, warnings = 0;
+  for (const f of findings || []) {
     if (f.state === 'not_applicable') continue;
-    const w = f.weight ?? 1.0;
-    possible += w;
-    if (f.state === 'fixed') earned += w;
+    total += 1;
+    if (f.state === 'fixed') {
+      passed += 1;
+    } else if (f.state === 'issue') {
+      if (f.severity === 'critical') critical += 1;
+      else warnings += 1;
+    }
   }
-  if (possible === 0) return null;
-  return Math.round(100 * earned / possible);
+  return { total, passed, issues: critical + warnings, critical, warnings };
 }
 
 /**
