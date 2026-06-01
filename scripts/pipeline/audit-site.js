@@ -38,6 +38,7 @@ import { buildFixWorklist, summarizeWorklist } from './lib/fix-worklist.js';
 import { startAuditRun, updateRun }   from './lib/airtable.js';
 import { createRunStorage }           from './lib/storage.js';
 import { slugFromUrl }                from './lib/slug.js';
+import { captureHomepageScreenshot }  from './lib/screenshot.js';
 import { runSiteAudit }           from './lib/ai-audit.js';
 import { generateAuditReports }   from './lib/audit-report-generator.js';
 import { mergeData }              from './lib/merger.js';
@@ -310,18 +311,33 @@ async function main() {
   // value prop (LCP, CLS, mobile-perf), and the resulting findings drive
   // the worklist gates downstream. Skipping it was a dev convenience flag
   // that risked shipping reports with no performance signal — removed.
-  console.log('[Phase 3] Running PageSpeed Insights...');
+  console.log('[Phase 3] Running PageSpeed Insights + homepage screenshot in parallel...');
   let pagespeed = null;
-  try {
-    pagespeed = await runPageSpeed(opts.url);
+  let screenshotPath = null;
+  // Save at audit-dir root (sibling of audit-summary.html) so the HTML
+  // can reference 'homepage.png' as a plain relative path. _data/ stays
+  // for intermediate JSON only.
+  const screenshotFile = join(outputDir, 'homepage.png');
+  const [psResult, shotResult] = await Promise.allSettled([
+    runPageSpeed(opts.url),
+    captureHomepageScreenshot(opts.url, screenshotFile),
+  ]);
+  if (psResult.status === 'fulfilled') {
+    pagespeed = psResult.value;
     const m = pagespeed.mobile;
     const d = pagespeed.desktop;
     if (m) console.log(`  Mobile:  perf=${m.performance} seo=${m.seo} a11y=${m.accessibility} bp=${m.bestPractices}`);
     if (d) console.log(`  Desktop: perf=${d.performance} seo=${d.seo} a11y=${d.accessibility} bp=${d.bestPractices}`);
     await writeFile(join(dataDir, 'pagespeed.json'), JSON.stringify(pagespeed, null, 2), 'utf-8');
-  } catch (err) {
-    console.warn(`  PageSpeed failed (non-fatal): ${err.message}`);
+  } else {
+    console.warn(`  PageSpeed failed (non-fatal): ${psResult.reason?.message}`);
     pagespeed = { mobile: null, desktop: null };
+  }
+  if (shotResult.status === 'fulfilled' && shotResult.value) {
+    screenshotPath = shotResult.value;
+    console.log(`  Homepage screenshot: ${screenshotFile.replace(outputDir + '/', '')}`);
+  } else {
+    console.warn(`  Homepage screenshot failed (non-fatal): ${shotResult.reason?.message || 'unknown'}`);
   }
   console.log('');
 
@@ -492,6 +508,7 @@ async function main() {
     previewUrl: opts.previewUrl || null,
     findingsSummary,
     gbpMeta: gbpScan.meta || null,
+    screenshotFile: screenshotPath ? 'homepage.png' : null,  // relative to outputDir
   });
   console.log('');
 

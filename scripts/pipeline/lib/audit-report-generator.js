@@ -1028,9 +1028,17 @@ function buildWhatWedbuildTab(techAudit, aiAudit, scraped, previewUrl) {
 // Summary page builder (audit-summary.html)
 // ---------------------------------------------------------------------------
 
-function buildSummaryReport({ url, practiceName, pagespeed, techAudit, aiAudit, previewUrl }) {
+function buildSummaryReport({ url, practiceName, pagespeed, techAudit, aiAudit, previewUrl, screenshotFile = null }) {
   const runDate = formatDate(new Date().toISOString());
   const mobile  = pagespeed?.mobile || null;
+  // Top of summary: show "we actually looked at your site" — homepage thumb.
+  // Path is relative to outputDir (which is where the HTML lives), so the
+  // <img src> will resolve when the file is opened locally or hosted.
+  const screenshotBlock = screenshotFile ? `
+<div class="hero-screenshot">
+  <img src="${esc(screenshotFile)}" alt="Homepage of ${esc(practiceName)}" />
+  <div class="hero-screenshot-cap">We crawled <strong>${esc(url)}</strong>${techAudit?.findings ? ` and ran ${techAudit.findings.length} checks` : ''}.</div>
+</div>` : '';
 
   const categories = [
     { key: 'performance',   label: 'Mobile Speed',        subtitle: 'How fast your site loads on a phone' },
@@ -1059,26 +1067,43 @@ function buildSummaryReport({ url, practiceName, pagespeed, techAudit, aiAudit, 
     </div>`;
   }).join('');
 
-  // ALL critical + warning findings, ordered: critical first then warnings.
-  // Each finding is paired with its "what we'd change" outcome (1:1 by id).
+  // Critical + warning findings, ordered: critical first, then warnings.
+  // Summary shows only the top 5 with a "see all" CTA at the bottom that
+  // links to the full audit-report.html (which renders every finding).
+  // Past user feedback: 13 rows is too much for a summary; 5 + CTA reads
+  // cleaner without losing the credibility of "we found a lot."
   const findings = techAudit?.findings || [];
   const issueFindings = [
     ...findings.filter(f => f.severity === 'critical'),
     ...findings.filter(f => f.severity === 'warning'),
   ];
+  const SUMMARY_LIMIT = 5;
+  const visibleFindings = issueFindings.slice(0, SUMMARY_LIMIT);
+  const hiddenCount     = issueFindings.length - visibleFindings.length;
+
+  // Display-clean a URL: strip protocol, strip leading slash dupes
+  // (some sites emit /blog//page/3 instead of /blog/page/3), prefer
+  // just the path for compact display in the report.
+  const cleanPath = (url) => {
+    try {
+      const p = new URL(url).pathname || '/';
+      return p.replace(/\/{2,}/g, '/');
+    } catch {
+      return String(url).replace(/\/{2,}/g, '/');
+    }
+  };
 
   // Build the paired rows — each row is one issue + the matching change.
   // Visual: 2-column grid, row dividers visually unite the pair.
-  const pairedRows = issueFindings.map(f => {
+  const pairedRows = visibleFindings.map(f => {
     const c = f.severity === 'critical'
       ? { icon: '✕', bg: '#FDDCDC', color: 'var(--red)',   label: 'CRITICAL' }
       : { icon: '!', bg: '#FEF3CD', color: 'var(--amber)', label: 'WARNING'  };
 
     // Examples: pull up to 3 affected pages from the finding data.
-    // Show as paths (strip the host prefix) so they read cleanly.
-    const examples = (f.affectedPages || []).slice(0, 3).map(url => {
-      try { return new URL(url).pathname || '/'; } catch { return url; }
-    });
+    // Use cleanPath to strip protocol/host and collapse any double-slashes
+    // the original site emits (some Sesame-hosted sites do).
+    const examples = (f.affectedPages || []).slice(0, 3).map(cleanPath);
     const exampleHtml = examples.length > 0
       ? `<div style="font-size:11px;color:var(--text-dim);margin-top:6px;font-family:var(--mono);line-height:1.5">
            ${examples.map(p => `<span style="background:#F5F2EE;padding:1px 6px;border-radius:3px;margin-right:4px;display:inline-block;margin-bottom:2px">${esc(p)}</span>`).join('')}
@@ -1145,6 +1170,52 @@ body {
 .gw-logo { text-align: right; }
 .gw-logo .mark { font-size: 13px; font-weight: 800; color: var(--terracotta); letter-spacing: 1px; text-transform: uppercase; }
 .gw-logo .domain { font-size: 11px; color: var(--text-dim); }
+
+/* Homepage screenshot — top of summary, proves we looked at the site */
+.hero-screenshot {
+  margin: -8px 0 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #F5F2EE;
+}
+.hero-screenshot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 380px;
+  object-fit: cover;
+  object-position: top center;
+}
+.hero-screenshot-cap {
+  padding: 10px 16px;
+  font-size: 12px;
+  color: var(--text-dim);
+  background: white;
+  border-top: 1px solid var(--border);
+}
+.hero-screenshot-cap strong { color: var(--ink); font-weight: 600; }
+
+/* "See all issues" CTA at the bottom of the truncated paired grid */
+.see-all-cta {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  background: var(--cream);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.see-all-text { font-size: 13px; color: var(--ink); line-height: 1.5; }
+.see-all-text strong { color: var(--terracotta); font-weight: 700; margin-right: 4px; }
+.see-all-text span { color: var(--text-dim); }
+.see-all-btn {
+  background: var(--ink); color: white; text-decoration: none;
+  font-size: 13px; font-weight: 700;
+  padding: 10px 18px; border-radius: var(--radius);
+  white-space: nowrap;
+}
+.see-all-btn:hover { opacity: 0.9; }
 
 .scores-section { background: #FAF8F5; border-radius: var(--radius); padding: 20px 24px; margin-bottom: 24px; }
 .scores-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
@@ -1247,6 +1318,9 @@ body {
   </div>
 </div>
 
+<!-- Homepage screenshot — proves we actually looked at the site -->
+${screenshotBlock}
+
 <!-- Scores -->
 ${!mobile ? '' : `
 <div class="scores-section">
@@ -1277,6 +1351,15 @@ ${issueFindings.length > 0 ? `
 <div class="pair-grid">
   ${pairedRows}
 </div>
+${hiddenCount > 0 ? `
+<div class="see-all-cta">
+  <div class="see-all-text">
+    <strong>+ ${hiddenCount} more ${hiddenCount === 1 ? 'issue' : 'issues'}</strong>
+    <span>across SEO, performance, accessibility, GBP, and conversion tracking.</span>
+  </div>
+  <a class="see-all-btn" href="audit-report.html">See all ${issueFindings.length} issues →</a>
+</div>
+` : ''}
 ` : `
 <div style="background:#D4EDD955;border:1px solid #D4EDD9;border-radius:var(--radius);padding:18px;font-size:13px;color:var(--ink);text-align:center">
   ✓ No critical or warning issues found — the site is in good shape.
@@ -1343,10 +1426,11 @@ export async function generateAuditReports(outputDir, {
   gbpMeta = null,
   diff = null,
   outputFilename = null,
+  screenshotFile = null,
 } = {}) {
   await mkdir(outputDir, { recursive: true });
 
-  const shared = { url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, findingsSummary, gbpMeta, diff };
+  const shared = { url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, findingsSummary, gbpMeta, diff, screenshotFile };
 
   const fullHtml    = buildFullReport(shared);
   const summaryHtml = buildSummaryReport(shared);
