@@ -97,6 +97,33 @@ export async function publish(opts = {}) {
     console.warn(`  ⚠ After PageSpeed skipped: ${err.message}`);
   }
 
+  // 1a.5 Run the full re-scan against the deployed preview. Re-runs every
+  // scanner (tech, trust, hosting, GBP, conversion) and diffs against the
+  // original audit's findings.json. Produces audit-report-after.html with
+  // the before/after pairs, plus the Fixed/Still/Regressed counts we'll
+  // push to the Build row in step 6.
+  //
+  // Needs the audit's data dir — we derive it from the slug since publish
+  // is always called with the same slug audit-site.js uses for outputs.
+  let rescanResult = null;
+  try {
+    console.log(`  Running rescan vs. original audit...`);
+    const { runRescan } = await import('./rescan-core.js');
+    const auditDir = resolve(dirname(new URL(import.meta.url).pathname), '..', '..', '..', '_audits', slug);
+    rescanResult = await runRescan({
+      auditDir,
+      previewUrl:  `https://${resolvedPreviewUrl}`,
+    });
+    if (rescanResult) {
+      const c = rescanResult.summary.counts;
+      console.log(`  ✓ Rescan: ${c.fixed} fixed · ${c['still-issue']} still issue · ${c.regressed} regressed`);
+    } else {
+      console.log(`  ⚠ Rescan skipped — original audit findings not found at expected path`);
+    }
+  } catch (err) {
+    console.warn(`  ⚠ Rescan failed (non-fatal): ${err.message}`);
+  }
+
   // 1b. Generate pitch.html (with real after-scores if available)
   try {
     results.pitchHtml = await generatePitchPage(pipelineDir, {
@@ -178,6 +205,7 @@ export async function publish(opts = {}) {
       pipelineDir,
       gcsPrefix,
       afterScores,
+      rescanCounts: rescanResult?.summary?.counts || null,
     });
     results.airtable = tracked.buildId;
     if (tracked.buildId) {
@@ -307,7 +335,7 @@ async function ensureCfPagesProject({ slug, baseDomain }) {
  * Returns { accountId, buildId, sourceAuditId } — any may be null if
  * Airtable is disabled or no prior audit exists.
  */
-async function recordBuildRun({ slug, practiceUrl, resolvedPreviewUrl, pitchUrl, pipelineDir, gcsPrefix, afterScores }) {
+async function recordBuildRun({ slug, practiceUrl, resolvedPreviewUrl, pitchUrl, pipelineDir, gcsPrefix, afterScores, rescanCounts }) {
   // Load merged.json for contact details to refresh on the Account
   let merged = {};
   try {
@@ -368,7 +396,11 @@ async function recordBuildRun({ slug, practiceUrl, resolvedPreviewUrl, pitchUrl,
     // After-build PageSpeed scores from the live preview
     mobileScore:     afterScores?.mobile  ?? null,
     desktopScore:    afterScores?.desktop ?? null,
-    rescannedAt:     afterScores ? new Date().toISOString() : null,
+    // Rescan diff vs. the Source Audit
+    fixedCount:      rescanCounts?.fixed ?? null,
+    stillIssueCount: rescanCounts?.['still-issue'] ?? null,
+    regressedCount:  rescanCounts?.regressed ?? null,
+    rescannedAt:     (afterScores || rescanCounts) ? new Date().toISOString() : null,
     costEst,
   });
 
