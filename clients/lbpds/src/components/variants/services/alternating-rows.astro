@@ -1,0 +1,81 @@
+---
+/**
+ * Services Alternating Rows — Editorial list layout.
+ * Each service = a full-width row with number, name, description, and link.
+ * Creates a completely different rhythm from the card grid — deliberate, magazine-style.
+ */
+import type { ServicesContent } from '../types';
+import { designDNA } from '../../../config/design-dna';
+import { resolveTokens } from '../token-utils';
+
+interface Props { content: ServicesContent }
+const { content } = Astro.props;
+
+const tokens = (designDNA as any).designTokens ?? {};
+const t = resolveTokens(tokens);
+---
+
+<section data-section="services" class={`bg-surface-1 ${t.spacingClass}`}>
+  <div class={t.containerClass}>
+
+    <!-- Header -->
+    <div class="max-w-2xl mb-12 md:mb-16">
+      {content.eyebrow && (
+        <span class={t.eyebrowClass}>{content.eyebrow}</span>
+      )}
+      <h2 class="font-serif text-3xl md:text-4xl font-bold text-neutral-dark mb-4">
+        {content.heading}
+      </h2>
+      {content.subheading && (
+        <p class="font-sans text-lg text-neutral-mid leading-relaxed">
+          {content.subheading}
+        </p>
+      )}
+    </div>
+
+    <!-- Rows -->
+    <ul class="divide-y divide-neutral-dark/10 list-none p-0" role="list">
+      {content.items.map((service, i) => (
+        <li>
+          <a
+            href={`/services/${service.slug}`}
+            class="group grid grid-cols-[auto_1fr_auto] md:grid-cols-[3rem_1fr_2fr_auto] items-center gap-4 md:gap-8 py-6 md:py-8 no-underline"
+            aria-label={`Learn about ${service.name}`}
+          >
+            <!-- Row number -->
+            <span class="font-sans text-sm font-bold text-brand-primary/40 tabular-nums w-8 text-right shrink-0 hidden md:block">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+
+            <!-- Service name -->
+            <h3 class="font-serif text-xl md:text-2xl font-semibold text-neutral-dark group-hover:text-brand-primary transition-colors col-span-2 md:col-span-1">
+              {service.name}
+            </h3>
+
+            <!-- Description — hidden on mobile to keep rows scannable -->
+            <p class="font-sans text-neutral-mid text-sm leading-relaxed hidden md:block">
+              {service.desc}
+            </p>
+
+            <!-- Arrow -->
+            <span
+              class="w-10 h-10 rounded-full border border-neutral-dark/15 flex items-center justify-center shrink-0 group-hover:border-brand-primary group-hover:bg-brand-primary/5 transition-all col-start-3 row-start-1 md:col-auto md:row-auto"
+              aria-hidden="true"
+            >
+              <svg class="w-4 h-4 text-neutral-mid group-hover:text-brand-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- View all CTA — left-aligned to match editorial header -->
+    <div class="mt-10">
+      <a href="/services" class={t.btnPrimary}>
+        {content.ctaLabel || 'View All Services'}
+      </a>
+    </div>
+  </div>
+</section>

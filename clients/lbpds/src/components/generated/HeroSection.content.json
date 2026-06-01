@@ -1,0 +1,16 @@
+{
+  "variant": "centered",
+  "eyebrow": "Guiding the way to healthy smiles.",
+  "headline": "Long Beach's Trusted Pediatric Dental Specialists",
+  "subheadline": "Our team of board-certified pediatric dentists creates a calm, kid-friendly environment where children in Long Beach grow up with healthy, confident smiles. From first visits to teen care, we're with your family every step.",
+  "primaryCta": {
+    "label": "Schedule Your Child's Visit",
+    "href": "/schedule"
+  },
+  "secondaryCta": {
+    "label": "Explore Our Services",
+    "href": "/services"
+  },
+  "phone": "(562) 377-1375",
+  "hasImage": true
+}

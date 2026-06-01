@@ -1,0 +1,48 @@
+{
+  "variant": "split-by-category",
+  "eyebrow": "What Patients Ask Us",
+  "heading": "Your Questions About Kids' Dental Care in Long Beach, Answered",
+  "subheading": "From your child's very first visit to ongoing treatment, Dr. Cortez and the team at Pediatric Dental Specialists are here to help you feel confident every step of the way.",
+  "items": [
+    {
+      "q": "How do I schedule my child's first appointment at Pediatric Dental Specialists?",
+      "a": "You can call our Long Beach office directly at (562) 377-1375 to book an appointment with Dr. Cortez. No referral is required, though we do accept them. We recommend calling as early as possible so we can find a time that works best for your family.",
+      "category": "Scheduling"
+    },
+    {
+      "q": "What should I do if my child has a dental emergency?",
+      "a": "If your child experiences a knocked-out tooth, severe toothache, or dental injury, call us right away at (562) 377-1375. Pediatric Dental Specialists provides emergency dental care, and our team will guide you on next steps over the phone while we arrange to see your child as quickly as possible. Do not wait — prompt care can make a significant difference in the outcome.",
+      "category": "Scheduling"
+    },
+    {
+      "q": "Does Pediatric Dental Specialists accept dental insurance?",
+      "a": "We work with many dental insurance plans and encourage you to call our Long Beach office at (562) 377-1375 so our team can verify your child's specific coverage before the appointment. We are happy to help you understand your benefits and what to expect regarding any out-of-pocket costs.",
+      "category": "Insurance & Payment"
+    },
+    {
+      "q": "When should I bring my baby in for their first dental visit?",
+      "a": "The American Academy of Pediatric Dentistry recommends scheduling your child's first dental visit by their first birthday or within six months of their first tooth appearing — whichever comes first. Dr. Cortez will examine your baby's emerging teeth, discuss proper oral hygiene for infants, and answer any questions you have about caring for your little one's smile.",
+      "category": "First Visit"
+    },
+    {
+      "q": "What happens during a child's first dental exam at your Long Beach office?",
+      "a": "During the first visit, Dr. Cortez will gently examine your child's teeth, gums, and jaw development in a calm, kid-friendly environment. We will also perform a professional cleaning if appropriate for your child's age, discuss fluoride and diet, and address any habits like pacifier use or digit sucking. Our goal is to make the experience positive so your child feels comfortable coming back.",
+      "category": "First Visit"
+    },
+    {
+      "q": "Is fluoride treatment safe for my child, and does my child need it?",
+      "a": "Fluoride is a safe, proven mineral that strengthens tooth enamel and helps prevent cavities in children. Dr. Cortez will assess your child's individual cavity risk and recommend fluoride treatments as part of their routine dental exams and cleanings when appropriate. We use amounts carefully calibrated for your child's age and weight.",
+      "category": "Treatment"
+    },
+    {
+      "q": "At what age can my child get braces, and does Dr. Cortez offer orthodontic treatment?",
+      "a": "Yes, Pediatric Dental Specialists offers braces as part of our comprehensive care for kids and teens in Long Beach. The right age for braces varies by child — Dr. Cortez will evaluate your child's tooth and jaw development, typically around age 7 for an initial orthodontic assessment, and recommend treatment timing based on their specific needs.",
+      "category": "Treatment"
+    },
+    {
+      "q": "How should my child care for their teeth after a dental procedure?",
+      "a": "After treatment, Dr. Cortez will provide specific aftercare instructions tailored to the procedure your child received. In general, children should avoid hard or sticky foods immediately after certain treatments, maintain their regular brushing and flossing routine, and attend follow-up visits as recommended. If you notice unusual swelling, pain, or other concerns after leaving our Long Beach office, call us at (562) 377-1375 right away.",
+      "category": "Aftercare"
+    }
+  ]
+}

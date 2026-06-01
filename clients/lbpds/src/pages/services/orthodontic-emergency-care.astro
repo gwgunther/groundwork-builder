@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Orthodontic Emergency Care",
+  "description": "We want our patients to be informed of problems that may occur, and understand how to solve them, at least temporarily, until it is possible to return to our office.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Pediatric Dental Specialists",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Long Beach"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Orthodontic Emergency Care Long Beach | ${site.name}`}
+  description="We want our patients to be informed of problems that may occur, and understand how to solve them, at least temporarily, until it is possible to return to our office."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Orthodontic Emergency Care
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      We want our patients to be informed of problems that may occur, and understand how to solve them, at least temporarily, until it is possible to return to our office.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">We want our patients to be informed of problems that may occur, and understand how to solve them — at least temporarily — until it is possible to return to our office. Whether it's a loose bracket, a broken wire, or a poking archwire, we've put together guidance for the most common orthodontic hiccups. And if you're ever unsure, just give us a call — we're happy to help you figure out what to do next.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Call Our Office</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

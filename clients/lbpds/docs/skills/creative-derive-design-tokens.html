@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>creative/derive-design-tokens · Skill</title>
+<style>
+  :root {
+    --bg: #0f1115; --fg: #e7e8ea; --muted: #9098a3; --accent: #6ee7b7;
+    --card: #181b22; --border: #262a33; --code-bg: #0a0c10;
+    --stub: #6b7280; --working: #f59e0b; --polished: #10b981; --mature: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  .topbar { padding: 16px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .topbar a { color: var(--accent); text-decoration: none; font-size: 13px; }
+  .topbar a:hover { text-decoration: underline; }
+  .topbar-meta { color: var(--muted); font-size: 12px; }
+  .container { max-width: 880px; margin: 0 auto; padding: 32px 40px 80px; }
+  header.skill-head { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  header.skill-head h1 { margin: 0 0 4px; font-size: 28px; font-weight: 600; }
+  .skill-path { color: var(--muted); font-family: ui-monospace, SFMono-Regular, monospace; font-size: 13px; }
+  .badges { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+  .badge.tier { background: var(--border); font-family: ui-monospace, monospace; }
+  .badge.tier-L1 { background: rgba(110, 231, 183, .15); color: var(--accent); }
+  .badge.tier-L2 { background: rgba(245, 158, 11, .15); color: var(--working); }
+  .badge.tier-L3 { background: rgba(59, 130, 246, .15); color: #60a5fa; }
+  .badge.tier-L4 { background: rgba(168, 85, 247, .15); color: #c084fc; }
+  .badge.maturity { background: var(--border); }
+  .badge.phase { background: var(--card); border: 1px solid var(--border); color: var(--muted); }
+  .meta-table { font-size: 13px; color: var(--muted); margin-top: 12px; }
+  .meta-table strong { color: var(--fg); font-weight: 500; }
+  .meta-table code { background: var(--card); padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--accent); }
+  .doc h2 { margin: 32px 0 12px; font-size: 20px; font-weight: 600; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .doc h3 { margin: 24px 0 8px; font-size: 16px; font-weight: 600; color: var(--accent); }
+  .doc p { margin: 0 0 14px; }
+  .doc ul, .doc ol { margin: 0 0 14px; padding-left: 24px; }
+  .doc li { margin-bottom: 4px; }
+  .doc a { color: var(--accent); }
+  .doc strong { color: var(--fg); font-weight: 600; }
+  .doc code { background: var(--card); padding: 2px 6px; border-radius: 3px; font-size: 13px; color: var(--accent); font-family: ui-monospace, SFMono-Regular, monospace; }
+  .doc pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 0 0 16px; }
+  .doc pre code { background: transparent; padding: 0; color: var(--fg); font-size: 13px; line-height: 1.5; white-space: pre; }
+  .doc table { border-collapse: collapse; margin: 0 0 16px; font-size: 14px; width: 100%; }
+  .doc th, .doc td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+  .doc th { background: var(--card); font-weight: 600; }
+  .doc blockquote { border-left: 3px solid var(--accent); padding: 4px 16px; margin: 0 0 16px; color: var(--muted); }
+  .doc hr { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../PIPELINE.html">← Back to Pipeline Dashboard</a>
+  <span class="topbar-meta">Source: <code style="background:transparent">skills/creative/derive-design-tokens.md</code></span>
+</div>
+
+<div class="container">
+  <header class="skill-head">
+    <div class="skill-path">skills/creative/derive-design-tokens.md</div>
+    <h1>derive design tokens</h1>
+    <div class="badges">
+      <span class="badge tier tier-L2">L2</span>
+      <span class="badge maturity">🟢 polished</span>
+      <span class="badge phase">Phase: Director</span>
+      <span class="badge phase">Model: deterministic</span>
+    </div>
+    
+    <div class="meta-table">
+      <div><strong>Source:</strong> <code>scripts/pipeline/lib/derive-design-tokens.js</code></div>
+      <div><strong>Function:</strong> <code>deriveDesignTokens()</code></div>
+    </div>
+  </header>
+
+  <div class="doc">
+<h1>Skill: Derive Design Tokens</h1>
+<h2>Responsibility</h2>
+<p>Deterministic mapping from Creative Director DNA + brand mood → concrete
+design tokens. NO AI calls. Every output value is from a small enum. The
+archetype is the primary signal: each archetype locks a unique combination
+across 8 layout/chrome/personality dimensions, ensuring two sites with
+different archetypes are visually unrecognizable as same-source. Mood drives
+button + label style; density drives spacing; radius is mapped through. Also
+hard-overrides chrome variants (nav/footer/gallery) deterministically so the
+AI director cannot accidentally make two sites look identical by picking the
+same chrome independently.</p>
+<h2>Inputs</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Source</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>dna.archetype</code></td>
+<td>enum</td>
+<td>director</td>
+<td>Primary differentiation key</td>
+</tr>
+<tr>
+<td><code>dna.density</code></td>
+<td>enum</td>
+<td>director</td>
+<td>airy / balanced / dense</td>
+</tr>
+<tr>
+<td><code>dna.radius</code></td>
+<td>enum</td>
+<td>director</td>
+<td>sharp / sm / md / lg / pill</td>
+</tr>
+<tr>
+<td><code>dna.heroVariant</code> / <code>servicesVariant</code> / <code>doctorVariant</code> / <code>ctaVariant</code></td>
+<td>enum</td>
+<td>director</td>
+<td>Used in fallback when archetype is unknown</td>
+</tr>
+<tr>
+<td><code>brandBrief.mood</code></td>
+<td>string</td>
+<td>brand-direction</td>
+<td>Drives button + label style</td>
+</tr>
+<tr>
+<td><code>brandBrief.spatial.density</code></td>
+<td>string</td>
+<td>brand-direction</td>
+<td>Overrides dna.density when present</td>
+</tr>
+</tbody></table>
+<h2>Output schema</h2>
+<pre><code class="language-json">{
+  &quot;cornerRadius&quot;: &quot;sharp | moderate | rounded | full&quot;,
+  &quot;buttonTreatment&quot;: &quot;filled | outline | soft-fill&quot;,
+  &quot;labelStyle&quot;: &quot;badge | inline&quot;,
+  &quot;sectionSpacing&quot;: &quot;airy | default | compact&quot;,
+  &quot;contentDensity&quot;: &quot;default | tight&quot;,
+  &quot;layoutWidth&quot;: &quot;standard&quot;,
+  &quot;heroLayout&quot;:         &quot;centered | split | split-offset | poster | text-only&quot;,
+  &quot;servicesLayout&quot;:     &quot;card-grid | alternating-rows | accordion | two-col-feature | numbered-list&quot;,
+  &quot;aboutLayout&quot;:        &quot;split-photo | full-width-card | editorial-full | minimal-text | two-col-brief&quot;,
+  &quot;testimonialsLayout&quot;: &quot;card-row | pull-quotes | single-featured | list-testimonials | grid-mosaic&quot;,
+  &quot;ctaLayout&quot;:          &quot;centered-banner | split-image | inline-minimal | floating-card | two-button&quot;,
+  &quot;faqLayout&quot;:          &quot;accordion-expandable | simple-stack | two-column | split-by-category | cards-grid&quot;,
+  &quot;navVariant&quot;:         &quot;left-logo | centered-logo | split-logo | transparent-overlay | top-bar&quot;,
+  &quot;footerVariant&quot;:      &quot;minimal-dark | editorial-split | classic-4col | compact-centered | bold-cta-footer&quot;,
+  &quot;galleryVariant&quot;:     &quot;masonry-3col | editorial-2col | filmstrip | featured-grid | full-bleed-row&quot;,
+  &quot;typePersonality&quot;:    &quot;humanist-serif | grotesque | display-serif&quot;,
+  &quot;colorFamily&quot;:        &quot;warm | cool | neutral&quot;
+}
+</code></pre>
+<h2>Evaluation criteria</h2>
+<ul>
+<li><strong>Each archetype produces a unique combination</strong> across all 8 layout/chrome/personality dimensions</li>
+<li><strong>Editorial-family archetypes get cool/neutral palettes + grotesque/display fonts</strong></li>
+<li><strong>Classic-family archetypes get warm palettes + humanist-serif fonts</strong></li>
+<li><strong>Chrome variants are deterministic per archetype</strong> — director&#39;s nav/footer/gallery picks are overridden</li>
+<li><strong>Mood keyword match</strong> — recognized vocabulary maps to button/label style; unrecognized mood falls back to <code>filled</code> + <code>inline</code></li>
+<li><strong>Unknown archetype falls back gracefully</strong> — uses heroVariant/servicesVariant/density to derive a sensible token set</li>
+</ul>
+<h2>Known gaps</h2>
+<ul>
+<li>8 archetypes is a small space — adding a 9th requires a full row of unique mappings, easy to accidentally collide with an existing row</li>
+<li>Mood keyword matching is naive substring-match; &quot;warmly clinical&quot; matches both warm and clinical, first match wins</li>
+<li>No way to express &quot;this archetype usually uses X but for THIS practice should use Y&quot; — overrides are not supported</li>
+<li>Density override path: brandBrief.spatial.density wins over dna.density without conflict warning</li>
+<li>typePersonality has only 3 values — covers the common cases but doesn&#39;t differentiate within (e.g. condensed vs expanded grotesque)</li>
+</ul>
+<h2>Improvement levers</h2>
+<ol>
+<li><strong>Easy (L2):</strong> Add a unit-test grid that asserts every archetype&#39;s row is unique across all dimensions</li>
+<li><strong>Easy (L2):</strong> Expand mood keyword vocabulary with weighted matching instead of first-hit</li>
+<li><strong>Medium:</strong> Add a 4th typePersonality (<code>monospace</code> or <code>display-sans</code>) for brutalist-tech archetypes</li>
+<li><strong>Medium:</strong> Allow per-build token overrides in DNA so director can deliberately deviate when justified</li>
+</ol>
+<h2>Test fixtures</h2>
+<p><em>None yet. Future: <code>skills/creative/derive-design-tokens.fixtures/all-archetypes.json</code> snapshot test.</em></p>
+<hr>
+<h2>Logic</h2>
+<h3>Archetype → 11-dimension layout grid (the differentiation engine)</h3>
+<table>
+<thead>
+<tr>
+<th>archetype</th>
+<th>hero</th>
+<th>services</th>
+<th>testimonials</th>
+<th>about</th>
+<th>cta</th>
+<th>faq</th>
+<th>nav</th>
+<th>footer</th>
+<th>gallery</th>
+<th>type</th>
+<th>color</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>editorial-asymmetric</strong></td>
+<td>split</td>
+<td>alternating-rows</td>
+<td>pull-quotes</td>
+<td>full-width-card</td>
+<td>split-image</td>
+<td>simple-stack</td>
+<td>centered-logo</td>
+<td>minimal-dark</td>
+<td>editorial-2col</td>
+<td>grotesque</td>
+<td>cool</td>
+</tr>
+<tr>
+<td><strong>magazine-split</strong></td>
+<td>split-offset</td>
+<td>two-col-feature</td>
+<td>single-featured</td>
+<td>editorial-full</td>
+<td>floating-card</td>
+<td>two-column</td>
+<td>split-logo</td>
+<td>editorial-split</td>
+<td>editorial-2col</td>
+<td>grotesque</td>
+<td>cool</td>
+</tr>
+<tr>
+<td><strong>poster-hero</strong></td>
+<td>poster</td>
+<td>numbered-list</td>
+<td>pull-quotes</td>
+<td>split-photo</td>
+<td>centered-banner</td>
+<td>simple-stack</td>
+<td>transparent-overlay</td>
+<td>minimal-dark</td>
+<td>full-bleed-row</td>
+<td>display-serif</td>
+<td>cool</td>
+</tr>
+<tr>
+<td><strong>bold-serif-driven</strong></td>
+<td>split</td>
+<td>alternating-rows</td>
+<td>list-testimonials</td>
+<td>full-width-card</td>
+<td>split-image</td>
+<td>split-by-category</td>
+<td>left-logo</td>
+<td>editorial-split</td>
+<td>filmstrip</td>
+<td>display-serif</td>
+<td>cool</td>
+</tr>
+<tr>
+<td><strong>minimal-brutalist</strong></td>
+<td>text-only</td>
+<td>numbered-list</td>
+<td>single-featured</td>
+<td>minimal-text</td>
+<td>inline-minimal</td>
+<td>two-column</td>
+<td>split-logo</td>
+<td>minimal-dark</td>
+<td>editorial-2col</td>
+<td>grotesque</td>
+<td>neutral</td>
+</tr>
+<tr>
+<td><strong>centered-classic</strong></td>
+<td>centered</td>
+<td>card-grid</td>
+<td>card-row</td>
+<td>split-photo</td>
+<td>centered-banner</td>
+<td>accordion-expandable</td>
+<td>left-logo</td>
+<td>classic-4col</td>
+<td>masonry-3col</td>
+<td>humanist-serif</td>
+<td>warm</td>
+</tr>
+<tr>
+<td><strong>warm-editorial</strong></td>
+<td>centered</td>
+<td>accordion</td>
+<td>list-testimonials</td>
+<td>two-col-brief</td>
+<td>two-button</td>
+<td>split-by-category</td>
+<td>top-bar</td>
+<td>editorial-split</td>
+<td>masonry-3col</td>
+<td>humanist-serif</td>
+<td>warm</td>
+</tr>
+<tr>
+<td><strong>card-heavy</strong></td>
+<td>centered</td>
+<td>card-grid</td>
+<td>grid-mosaic</td>
+<td>split-photo</td>
+<td>two-button</td>
+<td>cards-grid</td>
+<td>left-logo</td>
+<td>bold-cta-footer</td>
+<td>featured-grid</td>
+<td>humanist-serif</td>
+<td>warm</td>
+</tr>
+</tbody></table>
+<p>The first 5 rows are the <strong>editorial/bold family</strong> (cool palette, grotesque/display fonts).
+The last 3 rows are the <strong>classic/warm family</strong> (warm palette, humanist-serif fonts).</p>
+<h3>Fallback (unknown archetype)</h3>
+<p>If <code>dna.archetype</code> isn&#39;t in the table:</p>
+<ul>
+<li><code>heroLayout</code>: <code>&#39;split&#39;</code> if heroVariant is in {split-image, full-bleed, poster, asymmetric-left, asymmetric-right}, else <code>&#39;centered&#39;</code></li>
+<li><code>servicesLayout</code>: <code>&#39;alternating-rows&#39;</code> if servicesVariant is <code>&#39;editorial-list&#39;</code>, else <code>&#39;card-grid&#39;</code></li>
+<li><code>aboutLayout</code>: <code>&#39;full-width-card&#39;</code> if doctorVariant is <code>&#39;editorial-full&#39;</code>, else <code>&#39;split-photo&#39;</code></li>
+<li><code>testimonialsLayout</code>: <code>&#39;card-row&#39;</code> if archetype is <code>card-heavy</code> or density is <code>dense</code>, else <code>&#39;pull-quotes&#39;</code></li>
+<li><code>ctaLayout</code>: <code>&#39;split-image&#39;</code> if ctaVariant is <code>&#39;split-card&#39;</code>, else <code>&#39;centered-banner&#39;</code></li>
+<li><code>faqLayout</code>: <code>&#39;accordion-expandable&#39;</code></li>
+<li>Chrome: <code>left-logo</code> / <code>editorial-split</code> / <code>masonry-3col</code></li>
+<li>Personality: <code>humanist-serif</code> / <code>neutral</code></li>
+</ul>
+<h3>Mood → style tokens (button + label)</h3>
+<table>
+<thead>
+<tr>
+<th>keywords</th>
+<th>buttonTreatment</th>
+<th>labelStyle</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>warm, friendly, approachable, coastal, family, welcoming, cozy, inviting</td>
+<td>filled</td>
+<td>badge</td>
+</tr>
+<tr>
+<td>modern, clean, minimal, swiss, editorial, brutalist, stark, crisp</td>
+<td>outline</td>
+<td>inline</td>
+</tr>
+<tr>
+<td>premium, confident, bold, luxury, refined, upscale, elegant, authority</td>
+<td>filled</td>
+<td>badge</td>
+</tr>
+<tr>
+<td>clinical, specialist, precise, scientific, advanced, technical, expert</td>
+<td>soft-fill</td>
+<td>inline</td>
+</tr>
+<tr>
+<td>(no match)</td>
+<td>filled</td>
+<td>inline</td>
+</tr>
+</tbody></table>
+<p>First match wins (substring on lowercased mood string).</p>
+<h3>Radius mapping</h3>
+<table>
+<thead>
+<tr>
+<th>dna.radius</th>
+<th>cornerRadius</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sharp / sm</td>
+<td>sharp</td>
+</tr>
+<tr>
+<td>md</td>
+<td>moderate</td>
+</tr>
+<tr>
+<td>lg</td>
+<td>rounded</td>
+</tr>
+<tr>
+<td>pill</td>
+<td>full</td>
+</tr>
+</tbody></table>
+<h3>Density mapping</h3>
+<table>
+<thead>
+<tr>
+<th>brandBrief.spatial.density (or dna.density)</th>
+<th>sectionSpacing</th>
+<th>contentDensity</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>airy</td>
+<td>airy</td>
+<td>default</td>
+</tr>
+<tr>
+<td>balanced</td>
+<td>default</td>
+<td>default</td>
+</tr>
+<tr>
+<td>dense</td>
+<td>compact</td>
+<td>tight</td>
+</tr>
+</tbody></table>
+
+  </div>
+</div>
+</body>
+</html>

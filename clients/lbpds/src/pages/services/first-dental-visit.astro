@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "First Dental Visit",
+  "description": "When should your child's first dental visit be?",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Pediatric Dental Specialists",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Long Beach"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`First Dental Visit Long Beach | ${site.name}`}
+  description="When should your child's first dental visit be?"
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      First Dental Visit
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      When should your child's first dental visit be?
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">The American Academy of Pediatrics and the American Academy of Pediatric Dentistry recommend that infants be seen shortly after the first tooth erupts, or no later than their first birthday. At Pediatric Dental Specialists in Long Beach, Dr. Cortez sees children starting at that first-tooth milestone — not because anything is likely to be wrong, but because early visits establish healthy habits, catch problems before they grow, and give parents concrete guidance on what to do at home.</p>
+      <p class="mb-4">A first dental visit is less an exam and more an introduction. For infants and toddlers, the appointment is typically brief — often 30 to 45 minutes — and focused on getting your child comfortable in the chair while giving you accurate information about teething, diet, thumb habits, and daily cleaning.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who Should Come In and When</h2>
+      <p class="mb-4">Any child who has at least one tooth should have their first dental appointment scheduled, ideally within six months of that tooth appearing. If your child's first birthday arrives before that first tooth does, come in by age one regardless. Starting early means Dr. Cortez can spot early decay patterns, assess jaw and bite development, and make sure any habits like pacifier use or bottle feeding aren't creating issues that are easier to address now than later.</p>
+      <p class="mb-4">Families in Long Beach sometimes wait until a child has a full set of teeth or shows a visible problem before booking that first visit. The earlier approach tends to go more smoothly — children who visit regularly from infancy are typically more relaxed in the dental chair as they grow.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What Happens During the Appointment</h2>
+      <p class="mb-4">For very young children, the first visit often uses what's called a "knee-to-knee" exam. You sit face-to-face with Dr. Cortez, and your child lies back with their head in the doctor's lap and legs across yours. This keeps your child close to you while allowing a clear view of all the teeth and gums.</p>
+      <p class="mb-4">During the exam, Dr. Cortez will:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>Check all erupted teeth for signs of early decay or enamel concerns</li>
+        <li>Assess gum tissue, bite alignment, and jaw development</li>
+        <li>Look for oral habits that may need monitoring over time</li>
+        <li>Apply fluoride varnish if appropriate for your child's age and risk level</li>
+      </ul>
+      <p class="mb-4">The appointment is also time set aside for parent education. You'll leave with specific guidance — not a handout — on brushing technique for your child's current age, what to expect as more teeth come in, and how feeding habits affect dental health.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Bring and How to Prepare</h2>
+      <p class="mb-4">Bring your child's insurance card and any medical history that's relevant, including any medications they take. Arrive a few minutes early so the front desk process doesn't feel rushed.</p>
+      <p class="mb-4">At home before the visit, keep your tone neutral or positive when mentioning the appointment. Avoid framing it as something to be brave about, which can introduce anxiety that wasn't there. Children who haven't been to a dentist before don't have a reason to be nervous — they're taking cues from you.</p>
+      <p class="mb-4">If your child is old enough, letting them know they'll get to sit in a special chair and that the dentist will count their teeth is enough context for most toddlers.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">How First Visits Connect to Long-Term Care</h2>
+      <p class="mb-4">The first dental visit sets the pattern for everything that follows. Children who come in early tend to have a different relationship with dental care — it's routine rather than reactive. Dr. Cortez uses the first visit to establish a baseline, so that changes over time are visible and trackable rather than caught late.</p>
+      <p class="mb-4">Most children will be seen every six months after that initial appointment. The schedule may shift depending on a child's individual cavity risk, but twice-yearly visits are the standard starting point.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**How long does a first dental visit take?** For infants and toddlers, most first visits run 30 to 45 minutes. Older children having their first visit may take a little longer if X-rays are appropriate.</p>
+      <p class="mb-4">**Will my child need X-rays at the first visit?** Not always. X-rays are typically introduced once there are teeth that are touching side-by-side and a clearer view is needed. Dr. Cortez will let you know if they're needed at that visit.</p>
+      <p class="mb-4">**What if my child cries during the exam?** It's common, and the team is experienced with it. A brief cry doesn't mean the visit was harmful or traumatic — most children settle quickly, and the appointment can usually proceed.</p>
+      <p class="mb-4">**Does the first visit include a cleaning?** For very young children, a polishing or fluoride varnish may be applied, but a full cleaning in the traditional sense is typically introduced as the child gets older and can cooperate with the process.</p>
+      <p class="mb-4">**What if my child is past age one and hasn't been seen yet?** Schedule an appointment as soon as you can. There's no penalty for starting late — the goal is just to get an accurate picture of where things stand and begin good habits from here.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Book Your Child's First Visit</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

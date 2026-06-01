@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Fluoride",
+  "description": "Fluoride in Long Beach",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Pediatric Dental Specialists",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Long Beach"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Fluoride Long Beach | ${site.name}`}
+  description="Fluoride in Long Beach"
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Fluoride
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Fluoride in Long Beach
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Fluoride is one of the most effective tools available for protecting kids' teeth from cavities. It works by strengthening tooth enamel and making it harder for decay to take hold. At Pediatric Dental Specialists in Long Beach, Dr. Cortez and the team will talk with you about whether a fluoride treatment is the right fit for your child — and help you choose the best approach based on their age, cavity history, and daily habits.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Why Fluoride Matters for Children's Teeth</h2>
+      <p class="mb-4">Tooth enamel is constantly under attack from acids produced by bacteria in the mouth. Every time a child eats or drinks something sugary or starchy, those bacteria produce acid that weakens enamel in a process called demineralization. Fluoride helps reverse early mineral loss and rebuild enamel before a cavity can form — a process called remineralization.</p>
+      <p class="mb-4">Children are particularly good candidates for fluoride because their teeth are still developing and more vulnerable to decay. Baby teeth matter: they hold space for permanent teeth, help with speech development, and allow kids to chew comfortably. Protecting them with fluoride is a straightforward, low-intervention way to reduce the risk of cavities during the years they're most likely to occur.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Types of Fluoride Treatment</h2>
+      <p class="mb-4">Fluoride reaches teeth in two main ways: topically (applied directly to the tooth surface) and systemically (swallowed, usually through fluoridated water or supplements). At a dental visit, topical fluoride is the standard approach.</p>
+      <p class="mb-4">In-office topical fluoride typically comes as a gel, foam, or varnish:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>**Fluoride varnish** is the most common option for younger children. It's painted directly onto the teeth with a small brush and sets quickly on contact with saliva. It has a mild flavor and dries in place, so there's no waiting period after the appointment.</li>
+        <li>**Fluoride gel or foam** is applied using a tray that a child holds in their mouth for about one minute. This option is more common for older kids.</li>
+      </ul>
+      <p class="mb-4">Varnish treatments are fast — the application itself takes only a few minutes and is typically done at the end of a routine cleaning visit.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect at Your Child's Appointment</h2>
+      <p class="mb-4">Fluoride treatment is one of the least involved parts of a dental visit. After the cleaning and exam, the fluoride is applied to clean, dry teeth. For varnish, a small brush is used to coat each tooth surface. The whole process takes two to four minutes.</p>
+      <p class="mb-4">After a varnish treatment, children can eat and drink normally right away, though it's generally recommended to avoid very hot foods or drinks and sticky foods for the rest of the day so the fluoride has time to absorb fully into the enamel.</p>
+      <p class="mb-4">Dr. Cortez will let you know how often fluoride treatment makes sense for your child. For most kids, it's applied at each routine visit — typically every six months — though children with a higher cavity risk may benefit from more frequent applications.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Fluoride at Home</h2>
+      <p class="mb-4">In-office treatment works best when it's paired with consistent fluoride use at home. For children under three, a rice-sized smear of fluoride toothpaste is the standard recommendation. Children three and older can use a pea-sized amount. Spitting rather than rinsing after brushing helps the fluoride stay on the teeth longer.</p>
+      <p class="mb-4">If your family's water supply in Long Beach contains fluoride, your child is also getting low-level systemic exposure daily, which contributes to overall enamel strength.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**Is fluoride safe for young children?** Yes. At the amounts used in dental varnish and fluoride toothpaste, fluoride has a long safety record for children. Dr. Cortez follows current guidelines on dosage by age and will adjust recommendations based on your child's specific needs.</p>
+      <p class="mb-4">**At what age should fluoride treatments start?** Fluoride varnish can be applied as soon as the first tooth comes in — typically around six months to one year. Starting early helps protect baby teeth during the cavity-prone toddler years.</p>
+      <p class="mb-4">**Does my child need fluoride if they drink fluoridated tap water?** Possibly. Systemic fluoride from water helps, but topical fluoride applied directly to the teeth provides a different and additional layer of protection. Most children benefit from both.</p>
+      <p class="mb-4">**What if my child swallows some of the fluoride varnish?** The amount used in a single application is very small. Swallowing a trace amount is not a safety concern, though the goal is for it to remain on the teeth.</p>
+      <p class="mb-4">**How do I know if my child is at high risk for cavities?** Dr. Cortez assesses cavity risk at each visit by looking at factors like diet, oral hygiene habits, tooth anatomy, and any history of previous decay. Children identified as higher risk may be recommended fluoride treatments more frequently than twice a year.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Visit</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

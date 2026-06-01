@@ -1,0 +1,79 @@
+---
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  faqs: FAQ[];
+  heading?: string;
+}
+
+const {
+  faqs,
+  heading = 'Frequently Asked Questions',
+} = Astro.props;
+---
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  'mainEntity': faqs.map(faq => ({
+    '@type': 'Question',
+    'name': faq.question,
+    'acceptedAnswer': {
+      '@type': 'Answer',
+      'text': faq.answer,
+    },
+  })),
+})} />
+
+<section class="py-12">
+  <h2 class="section-subheading text-center mb-8">{heading}</h2>
+
+  <div class="space-y-4 max-w-3xl mx-auto">
+    {faqs.map((faq, index) => (
+      <div class="border border-neutral-border rounded-xl overflow-hidden">
+        <button
+          class="w-full text-left px-6 py-4 flex justify-between items-center bg-white hover:bg-brand-light transition-colors duration-200"
+          aria-expanded="false"
+          data-faq-btn={index}
+        >
+          <span class="font-semibold text-brand-primary pr-4">{faq.question}</span>
+          <svg
+            class="w-5 h-5 text-brand-secondary flex-shrink-0 transition-transform duration-200"
+            data-faq-icon={index}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div
+          class="hidden px-6 py-4 bg-brand-light text-neutral-mid leading-relaxed"
+          data-faq-content={index}
+        >
+          {faq.answer}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  const buttons = document.querySelectorAll('[data-faq-btn]');
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const index = btn.getAttribute('data-faq-btn');
+      const content = document.querySelector(`[data-faq-content="${index}"]`);
+      const icon = document.querySelector(`[data-faq-icon="${index}"]`);
+      const isOpen = !content?.classList.contains('hidden');
+
+      content?.classList.toggle('hidden');
+      icon?.classList.toggle('rotate-180');
+      btn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+</script>

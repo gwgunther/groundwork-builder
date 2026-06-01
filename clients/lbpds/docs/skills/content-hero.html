@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>content/hero · Skill</title>
+<style>
+  :root {
+    --bg: #0f1115; --fg: #e7e8ea; --muted: #9098a3; --accent: #6ee7b7;
+    --card: #181b22; --border: #262a33; --code-bg: #0a0c10;
+    --stub: #6b7280; --working: #f59e0b; --polished: #10b981; --mature: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  .topbar { padding: 16px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .topbar a { color: var(--accent); text-decoration: none; font-size: 13px; }
+  .topbar a:hover { text-decoration: underline; }
+  .topbar-meta { color: var(--muted); font-size: 12px; }
+  .container { max-width: 880px; margin: 0 auto; padding: 32px 40px 80px; }
+  header.skill-head { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  header.skill-head h1 { margin: 0 0 4px; font-size: 28px; font-weight: 600; }
+  .skill-path { color: var(--muted); font-family: ui-monospace, SFMono-Regular, monospace; font-size: 13px; }
+  .badges { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+  .badge.tier { background: var(--border); font-family: ui-monospace, monospace; }
+  .badge.tier-L1 { background: rgba(110, 231, 183, .15); color: var(--accent); }
+  .badge.tier-L2 { background: rgba(245, 158, 11, .15); color: var(--working); }
+  .badge.tier-L3 { background: rgba(59, 130, 246, .15); color: #60a5fa; }
+  .badge.tier-L4 { background: rgba(168, 85, 247, .15); color: #c084fc; }
+  .badge.maturity { background: var(--border); }
+  .badge.phase { background: var(--card); border: 1px solid var(--border); color: var(--muted); }
+  .meta-table { font-size: 13px; color: var(--muted); margin-top: 12px; }
+  .meta-table strong { color: var(--fg); font-weight: 500; }
+  .meta-table code { background: var(--card); padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--accent); }
+  .doc h2 { margin: 32px 0 12px; font-size: 20px; font-weight: 600; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .doc h3 { margin: 24px 0 8px; font-size: 16px; font-weight: 600; color: var(--accent); }
+  .doc p { margin: 0 0 14px; }
+  .doc ul, .doc ol { margin: 0 0 14px; padding-left: 24px; }
+  .doc li { margin-bottom: 4px; }
+  .doc a { color: var(--accent); }
+  .doc strong { color: var(--fg); font-weight: 600; }
+  .doc code { background: var(--card); padding: 2px 6px; border-radius: 3px; font-size: 13px; color: var(--accent); font-family: ui-monospace, SFMono-Regular, monospace; }
+  .doc pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 0 0 16px; }
+  .doc pre code { background: transparent; padding: 0; color: var(--fg); font-size: 13px; line-height: 1.5; white-space: pre; }
+  .doc table { border-collapse: collapse; margin: 0 0 16px; font-size: 14px; width: 100%; }
+  .doc th, .doc td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+  .doc th { background: var(--card); font-weight: 600; }
+  .doc blockquote { border-left: 3px solid var(--accent); padding: 4px 16px; margin: 0 0 16px; color: var(--muted); }
+  .doc hr { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../PIPELINE.html">← Back to Pipeline Dashboard</a>
+  <span class="topbar-meta">Source: <code style="background:transparent">skills/content/hero.md</code></span>
+</div>
+
+<div class="container">
+  <header class="skill-head">
+    <div class="skill-path">skills/content/hero.md</div>
+    <h1>hero</h1>
+    <div class="badges">
+      <span class="badge tier tier-L1">L1</span>
+      <span class="badge maturity">🟡 working</span>
+      <span class="badge phase">Phase: Generate</span>
+      <span class="badge phase">Model: claude-sonnet-4-6</span>
+    </div>
+    
+    <div class="meta-table">
+      <div><strong>Source:</strong> <code>scripts/pipeline/skills/skill-generate.js</code></div>
+      <div><strong>Function:</strong> <code>heroContentBrief()</code></div>
+    </div>
+  </header>
+
+  <div class="doc">
+<h1>Skill: Hero Content Generation</h1>
+<h2>Responsibility</h2>
+<p>Produce the content JSON for the homepage hero section: headline, subheadline,
+eyebrow, CTAs, and phone. Layout variant is locked in by the archetype (via
+<code>dna.designTokens.heroLayout</code>); this skill only writes copy. Output is consumed
+by the variant component in <code>src/components/variants/hero/&lt;variant&gt;.astro</code>.</p>
+<h2>Inputs</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Source</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>recommended</code></td>
+<td>string</td>
+<td><code>dna.designTokens.heroLayout</code></td>
+<td>Locked layout variant</td>
+</tr>
+<tr>
+<td><code>practice.name</code></td>
+<td>string</td>
+<td>merged</td>
+<td>Practice name</td>
+</tr>
+<tr>
+<td><code>practice.city</code></td>
+<td>string</td>
+<td>merged</td>
+<td>City for local copy</td>
+</tr>
+<tr>
+<td><code>practice.cityOrFallback</code></td>
+<td>string</td>
+<td>derived</td>
+<td>`practice.city</td>
+</tr>
+<tr>
+<td><code>practice.cityForCta</code></td>
+<td>string</td>
+<td>derived</td>
+<td>`practice.city</td>
+</tr>
+<tr>
+<td><code>practice.phone</code></td>
+<td>string</td>
+<td>merged</td>
+<td>Phone for the CTA panel</td>
+</tr>
+<tr>
+<td><code>tagline</code></td>
+<td>string | null</td>
+<td>content.tagline</td>
+<td>Existing scraped tagline</td>
+</tr>
+</tbody></table>
+<h2>Output schema</h2>
+<pre><code class="language-json">{
+  &quot;variant&quot;: &quot;centered | split | split-offset | poster | text-only&quot;,
+  &quot;eyebrow&quot;: &quot;string | null&quot;,
+  &quot;headline&quot;: &quot;string — ≤10 words, specific to practice&quot;,
+  &quot;subheadline&quot;: &quot;string — 1-2 sentences&quot;,
+  &quot;primaryCta&quot;: { &quot;label&quot;: &quot;string — verb + noun&quot;, &quot;href&quot;: &quot;/schedule&quot; },
+  &quot;secondaryCta&quot;: { &quot;label&quot;: &quot;string&quot;, &quot;href&quot;: &quot;/services&quot; },
+  &quot;phone&quot;: &quot;string&quot;,
+  &quot;hasImage&quot;: true
+}
+</code></pre>
+<h2>Evaluation criteria</h2>
+<ul>
+<li><strong>Headline ≤10 words</strong> and references practice name, doctor, or city — never generic</li>
+<li><strong>Variant matches the locked layout</strong> — does not deviate from the recommended value</li>
+<li><strong>primaryCta.label</strong> is action-oriented (verb + noun); never &quot;Learn More&quot; / &quot;Get Started&quot;</li>
+<li><strong>Eyebrow</strong> uses tagline if provided, else <code>null</code> (no filler)</li>
+<li><strong>No fabricated facts</strong> — claims, numbers, or credentials must be grounded</li>
+<li><strong>Returns only JSON</strong>, no markdown fences or commentary</li>
+</ul>
+<h2>Known gaps</h2>
+<ul>
+<li>No tone calibration — same prompt for warm-family vs. clinical-specialist practices</li>
+<li>Doesn&#39;t use the existing scraped hero copy as a stylistic reference (only the tagline field)</li>
+<li>No length validator — caller doesn&#39;t enforce ≤10 words</li>
+<li>Subheadline can drift into restating the headline</li>
+</ul>
+<h2>Improvement levers</h2>
+<ol>
+<li><strong>Easy (L1):</strong> Add an explicit &quot;do not repeat the headline&#39;s words&quot; instruction</li>
+<li><strong>Easy (L1):</strong> Inject mood/personality from brand brief into the tone guidance</li>
+<li><strong>Medium:</strong> Output validator that re-rolls if headline length &gt; 10 words</li>
+<li><strong>Medium:</strong> Pass scraped existing hero copy as stylistic reference (not for verbatim reuse)</li>
+</ol>
+<h2>Test fixtures</h2>
+<p><em>None yet. Future: <code>skills/content/hero.fixtures/{good,bad}/*.json</code></em></p>
+<hr>
+<h2>PROMPT</h2>
+<pre><code class="language-text">Generate content JSON for the Hero section of {{practice.name}} in {{practice.cityOrFallback}}.
+
+The hero layout variant will be: &quot;{{recommended}}&quot; — locked from archetype, do NOT change it.
+Layout reference (for context only):
+- &quot;centered&quot;:     full-bleed image with centered text overlay
+- &quot;split&quot;:        balanced 50/50 text panel + image
+- &quot;split-offset&quot;: text 40% / image 60%, image bleeds edge — cinematic
+- &quot;poster&quot;:       full-bleed image, NO overlay; text in floating card pinned bottom-left
+- &quot;text-only&quot;:    no image; pure typographic dark-bg display poster
+
+Return ONLY this JSON (no markdown, no prose):
+{
+  &quot;variant&quot;: &quot;{{recommended}}&quot;,
+  &quot;eyebrow&quot;: &quot;{{tagline}}&quot;,
+  &quot;headline&quot;: &quot;&lt;main h1 — ≤10 words, specific to {{practice.name}} or {{practice.cityOrFallback}}&gt;&quot;,
+  &quot;subheadline&quot;: &quot;&lt;1-2 sentences — what patients gain, specific to this practice&gt;&quot;,
+  &quot;primaryCta&quot;: { &quot;label&quot;: &quot;&lt;verb + noun, NOT &#39;Learn More&#39; or &#39;Get Started&#39;&gt;&quot;, &quot;href&quot;: &quot;/schedule&quot; },
+  &quot;secondaryCta&quot;: { &quot;label&quot;: &quot;&lt;secondary action&gt;&quot;, &quot;href&quot;: &quot;/services&quot; },
+  &quot;phone&quot;: &quot;{{practice.phone}}&quot;,
+  &quot;hasImage&quot;: true
+}
+
+Rules:
+- headline must reference the specific practice, doctor, or city — never generic dental copy
+- eyebrow: use the tagline if provided; set to null if it adds no meaning
+- primaryCta.label must be action-oriented and specific (e.g. &quot;Book Your Consultation&quot;, &quot;Schedule in {{practice.cityForCta}}&quot;)
+- Return ONLY the JSON object, no backticks, no explanation
+</code></pre>
+
+  </div>
+</div>
+</body>
+</html>

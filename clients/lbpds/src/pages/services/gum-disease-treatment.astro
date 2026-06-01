@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Gum Disease Treatment",
+  "description": "Gum Disease Treatment in Long Beach",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Pediatric Dental Specialists",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Long Beach"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Gum Disease Treatment Long Beach | ${site.name}`}
+  description="Gum Disease Treatment in Long Beach"
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Gum Disease Treatment
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Gum Disease Treatment in Long Beach
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Gum disease isn't just an adult concern — kids and teens can develop it too. It starts as an infection of the gums surrounding the teeth, and catching it early makes a real difference. If your child's gums look red, swollen, or bleed when they brush, it's worth having us take a look. Dr. Cortez and the team at Pediatric Dental Specialists will assess what's going on and walk you through the gentlest, most effective way to get things back on track.</p>
+      <p class="mb-4">The most common form in children is gingivitis, which affects the gum tissue but hasn't yet spread to the bone or deeper structures. Left untreated, gingivitis can progress to more serious periodontitis. The good news: when it's caught at the gingivitis stage, the damage is typically reversible with the right care.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Why Kids and Teens Get Gum Disease</h2>
+      <p class="mb-4">Gum disease in younger patients usually comes down to a few predictable causes. Plaque that isn't brushed away properly hardens into tartar, which irritates the gum tissue. Hormonal changes during puberty can make gums more sensitive and reactive. Some medications, orthodontic appliances, and underlying health conditions can also increase a child's risk.</p>
+      <p class="mb-4">Common signs to watch for include:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>Gums that look redder or puffier than normal</li>
+        <li>Bleeding when your child brushes or flosses</li>
+        <li>Gums that seem to be pulling away from the teeth</li>
+        <li>Persistent bad breath that doesn't go away with brushing</li>
+        <li>Teeth that feel loose</li>
+      </ul>
+      <p class="mb-4">Any one of these is a reason to schedule an appointment. Parents in Long Beach often come in after noticing blood on the toothbrush — that's exactly the right instinct.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect at a Gum Disease Appointment</h2>
+      <p class="mb-4">At the first visit, Dr. Cortez will examine the gum tissue closely, measure the depth of the pockets between the gums and teeth, and review your child's brushing and flossing habits. X-rays may be taken to check whether the bone beneath the gums has been affected.</p>
+      <p class="mb-4">For mild gingivitis, treatment often starts with a professional cleaning to remove built-up plaque and tartar, combined with specific guidance on brushing technique and routine at home. Most kids with early-stage gum disease see significant improvement within a few weeks of consistent care.</p>
+      <p class="mb-4">If the condition is more advanced, Dr. Cortez may recommend a deeper cleaning procedure called scaling and root planing. This involves carefully cleaning below the gumline to remove deposits and smooth the root surfaces so the gums can reattach properly. It's done gently, with local anesthetic to keep your child comfortable, and may be completed over one or two appointments depending on how much area needs attention.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Home Care After Treatment</h2>
+      <p class="mb-4">What happens between appointments matters just as much as the in-office work. After treatment, your child will need to brush twice daily using a soft-bristled brush, floss once a day, and possibly use a prescribed or recommended rinse. Dr. Cortez will go over exactly what the routine should look like before your child leaves the office — not general advice, but a specific plan based on what was found during the exam.</p>
+      <p class="mb-4">Follow-up visits are typically scheduled more frequently after gum disease treatment, often every three to four months, until the gum health is stable.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">When to Call Us</h2>
+      <p class="mb-4">Don't wait for a scheduled cleaning if you notice bleeding, swelling, or your child mentions that their gums hurt. Gum disease moves slowly in most cases, but earlier treatment means less intervention. Patients at our Long Beach practice can call or request an appointment online — we'll usually get younger patients with active symptoms seen quickly.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**Can gum disease go away on its own in kids?** Early gingivitis can improve with better brushing and flossing, but it won't resolve on its own if tartar has built up. A professional cleaning is typically needed to remove the deposits that home care can't reach.</p>
+      <p class="mb-4">**Is gum disease treatment painful for children?** For most cases of mild gingivitis, the cleaning itself causes little to no discomfort. For deeper cleaning procedures, local anesthetic is used so the area is numb throughout.</p>
+      <p class="mb-4">**How long does treatment take?** A standard cleaning for gingivitis takes roughly 45–60 minutes. Scaling and root planing may require two appointments of similar length, depending on how many areas are involved.</p>
+      <p class="mb-4">**Will my child's gums go back to normal?** In cases of gingivitis, yes — the gum tissue can return to a healthy appearance and function once the infection is controlled and a consistent home routine is in place.</p>
+      <p class="mb-4">**At what age can kids get gum disease?** Gingivitis can occur as soon as a child has teeth, though it becomes more common as kids get older and particularly during the teen years when hormonal changes affect gum sensitivity.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule an Exam</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

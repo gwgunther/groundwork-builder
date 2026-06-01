@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Emergencies",
+  "description": "Emergencies in Long Beach",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Pediatric Dental Specialists",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Long Beach"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Emergencies Long Beach | ${site.name}`}
+  description="Emergencies in Long Beach"
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Emergencies
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Emergencies in Long Beach
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Dental emergencies in children can happen without warning — a fall at the playground, a sudden toothache in the middle of the night, or a knocked-out tooth during a soccer game. If your child is in pain or has experienced a dental injury, Pediatric Dental Specialists in Long Beach is available to help you figure out the right next step. Call the office as soon as possible; Dr. Cortez and the team will triage what's happening and get your child seen promptly.</p>
+      <p class="mb-4">Emergency care at this practice covers three main categories: traumatic dental injuries (such as knocked-out, chipped, or displaced teeth), tooth pain (including toothaches that may signal infection or decay), and gum emergencies (such as swelling, bleeding, or abscess). You don't need to diagnose the problem yourself — that's what the appointment is for.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What Counts as a Dental Emergency</h2>
+      <p class="mb-4">Not every dental concern needs same-day care, but some situations do. Reach out immediately if your child is experiencing:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>A tooth that has been knocked out completely</li>
+        <li>A tooth that has been pushed out of position or driven into the gum</li>
+        <li>Severe, persistent tooth pain that isn't relieved by children's pain reliever</li>
+        <li>Significant swelling of the face, jaw, or gum tissue</li>
+        <li>A dental abscess (a swollen, painful bump near a tooth)</li>
+        <li>A broken tooth with a sharp edge causing injury to soft tissue</li>
+        <li>Heavy or uncontrolled bleeding in the mouth following an injury</li>
+      </ul>
+      <p class="mb-4">A chipped tooth with no pain and no rough edges is typically not urgent, but it still warrants a call so the team can advise you.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Do Before You Arrive</h2>
+      <p class="mb-4">A few steps in the minutes after an injury can make a meaningful difference in the outcome.</p>
+      <p class="mb-4">**If a permanent tooth is knocked out:** Pick it up by the crown (the white part), not the root. Rinse it gently with water if it's dirty — do not scrub it. Try to place it back in the socket if your child is calm enough, or store it in a small container of cold milk. Get to the office as fast as possible; timing matters significantly for reimplantation.</p>
+      <p class="mb-4">**If a baby tooth is knocked out:** Do not try to put it back in the socket. Call the office, and bring the tooth with you if you have it.</p>
+      <p class="mb-4">**For pain or swelling:** A cold compress applied to the outside of the cheek can help reduce swelling. Children's ibuprofen or acetaminophen (dosed by weight) can provide temporary relief while you're on your way.</p>
+      <p class="mb-4">**For a broken tooth:** Rinse your child's mouth with warm water. Save any tooth fragments if you can find them and bring them to the appointment.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect at an Emergency Appointment</h2>
+      <p class="mb-4">When you arrive, the team will assess your child's comfort level first. If your child is in pain, managing that discomfort is the priority before any evaluation or treatment begins.</p>
+      <p class="mb-4">Dr. Cortez will examine the affected area, and in most cases will take one or more X-rays to evaluate what's happening below the gumline — bone damage and root involvement aren't visible to the naked eye. After the exam, you'll receive a clear explanation of what was found and what the treatment options are before anything proceeds.</p>
+      <p class="mb-4">Depending on the situation, treatment that same day might include relieving an infection, stabilizing a displaced tooth, smoothing or bonding a fractured tooth, or extracting a tooth that cannot be saved. Some injuries require a follow-up appointment once initial swelling has resolved.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Emergency Care for Baby Teeth vs. Permanent Teeth</h2>
+      <p class="mb-4">The approach to a dental emergency differs depending on whether the affected tooth is a primary (baby) tooth or a permanent tooth. Injuries to baby teeth are managed carefully to avoid disrupting the developing permanent tooth underneath. Permanent teeth, once lost or seriously damaged, cannot be replaced naturally, which is why fast action on those injuries is especially important.</p>
+      <p class="mb-4">Families throughout Long Beach should know that age and tooth type will directly shape the treatment plan — Dr. Cortez will walk you through the reasoning specific to your child's situation.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**What should I do if my child's tooth is knocked out?** If it's a permanent tooth, handle it by the crown, rinse it gently, and try to reinsert it or store it in cold milk. Call the office immediately. Time between the injury and treatment significantly affects whether the tooth can be saved. If it's a baby tooth, do not reinsert it — just call and bring the tooth along to the appointment.</p>
+      <p class="mb-4">**How quickly can my child be seen for a dental emergency?** Call the office as soon as the emergency happens. The team will assess the situation over the phone and work to get your child in as quickly as possible. The more information you can provide when you call — what happened, which tooth, whether there's bleeding or swelling — the faster they can prepare for your arrival.</p>
+      <p class="mb-4">**My child has a toothache but it started late at night. What should I do?** Give your child an appropriate dose of children's ibuprofen or acetaminophen for temporary pain relief and call the office first thing in the morning. If the pain is severe, accompanied by facial swelling, or your child has a fever, that combination suggests a possible infection and warrants more urgent attention.</p>
+      <p class="mb-4">**Can a chipped baby tooth be repaired?** It depends on the extent of the chip and whether any nerve tissue is involved. Minor chips on baby teeth may be smoothed or left alone if there's no discomfort. Larger fractures may need bonding or, in some cases, extraction. An exam will determine what's appropriate.</p>
+      <p class="mb-4">**Is dental trauma covered by insurance?** Coverage for dental injuries varies significantly by plan. The front desk team can help you understand your benefits and will work with you on payment regardless of the situation. Don't let uncertainty about insurance delay a call if your child is in pain or has experienced an injury.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Call Us Now</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

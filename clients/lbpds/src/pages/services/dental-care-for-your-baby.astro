@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Dental Care for Your Baby",
+  "description": "Starting your child off with good dental care can help protect their teeth for decades to come.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Pediatric Dental Specialists",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Long Beach"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Dental Care For Your Baby Long Beach | ${site.name}`}
+  description="Starting your child off with good dental care can help protect their teeth for decades to come."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Dental Care for Your Baby
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Starting your child off with good dental care can help protect their teeth for decades to come.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Starting your child off with good dental care can help protect their teeth for decades to come. Many parents in Long Beach are surprised to learn that dental care for babies begins before the first tooth even appears. At Pediatric Dental Specialists, Dr. Cortez and the team work with families from infancy onward — from cleaning newborn gums to brushing a one-year-old's first tiny teeth and everything in between. The goal is to catch problems early, build healthy habits from the start, and give parents clear, practical guidance at every stage.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">When to Start and What to Do Before Teeth Come In</h2>
+      <p class="mb-4">You don't need to wait for a tooth to start caring for your baby's mouth. After feedings, gently wiping your baby's gums with a clean, damp cloth removes milk residue and bacteria that can affect the gum tissue and lay the groundwork for tooth decay once teeth arrive. This also gets your baby used to having their mouth touched — a habit that makes brushing easier later.</p>
+      <p class="mb-4">The American Academy of Pediatric Dentistry recommends a child's first dental visit by their first birthday, or within six months of the first tooth erupting — whichever comes first. That timeline might feel early, but the first visit is less about drilling and more about setting the foundation.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What Happens at a Baby's First Dental Visit</h2>
+      <p class="mb-4">A first visit for an infant typically takes about 30 to 45 minutes. It usually includes:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>A gentle examination of the gums, any erupted teeth, jaw, and bite</li>
+        <li>A check for early signs of tooth decay, including nursing bottle cavities</li>
+        <li>A conversation with a parent or caregiver about feeding habits, pacifier use, and fluoride</li>
+        <li>Guidance on brushing technique and toothpaste amount appropriate for your child's age</li>
+      </ul>
+      <p class="mb-4">Dr. Cortez often conducts part of the exam with the baby on a parent's lap, which tends to keep younger children more comfortable. The visit is designed to be calm and low-pressure — not every visit at this age involves any treatment at all.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Common Concerns Dr. Cortez Hears from Parents</h2>
+      <p class="mb-4">A few topics come up repeatedly at these early visits:</p>
+      <p class="mb-4">**Nursing bottle tooth decay.** Putting a baby to bed with a bottle of milk or juice is one of the most common causes of early childhood tooth decay. The sugars pool around teeth during sleep and create conditions where cavities form quickly, even on baby teeth.</p>
+      <p class="mb-4">**Teething and gum soreness.** Teething is uncomfortable but normal. Cold teething rings can help. Numbing gels are generally not recommended for infants.</p>
+      <p class="mb-4">**Pacifier and thumb habits.** Most children give these up on their own before age three. If the habit continues beyond that, it's worth discussing at a visit because prolonged use can affect how teeth come in.</p>
+      <p class="mb-4">**Fluoride.** Whether your baby needs a fluoride supplement depends on your water source and other factors. This is something Dr. Cortez can review based on your family's specific situation.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Brushing Those First Teeth</h2>
+      <p class="mb-4">Once the first tooth breaks through — usually around six months, though the range varies widely — it needs to be brushed twice a day. Use a soft-bristled infant toothbrush and a tiny smear of fluoride toothpaste, roughly the size of a grain of rice. This is the current guidance for children under three years old.</p>
+      <p class="mb-4">As more teeth come in and your child moves past age three, the amount increases to a pea-sized amount. You'll be brushing for them until they have the coordination to do it themselves, which is usually somewhere around age six to eight.</p>
+      <p class="mb-4">Families across Long Beach who start these routines early tend to have an easier time at dental visits because the child grows up seeing the dentist as a normal part of life — not a place to dread.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**At what age should my baby have their first dental visit?** By their first birthday, or within six months of their first tooth coming in — whichever is earlier.</p>
+      <p class="mb-4">**Do baby teeth really matter if they're just going to fall out?** Yes. Baby teeth hold space for permanent teeth, help with speech development, and allow your child to chew properly. Decay in baby teeth can also spread and affect developing permanent teeth underneath.</p>
+      <p class="mb-4">**What toothpaste should I use for my baby?** A fluoride toothpaste in a grain-of-rice-sized amount is appropriate once the first tooth appears. Non-fluoride training toothpaste is not the current recommendation for cavity prevention.</p>
+      <p class="mb-4">**My baby cries through every brushing. Is that normal?** Very common, especially in the beginning. Consistency matters more than whether it goes smoothly. Most children adjust within a few weeks once brushing becomes part of the routine.</p>
+      <p class="mb-4">**Is thumb-sucking harmful to my baby's teeth?** Not in infancy or early toddlerhood. The concern grows if the habit continues past age three or four, when it can begin to influence how the teeth and jaw develop. It's a good topic to bring up at a regular visit.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Book Your Baby's First Visit</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>
