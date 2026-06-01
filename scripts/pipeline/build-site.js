@@ -374,6 +374,16 @@ async function main() {
 
   const merged = mergeData(scraped, intake, preset);
 
+  // Canonical URL-derived slug — shared across outputDir, --publish, design
+  // library distillation, Airtable, GCS, and the auto-rescan lookup. Must
+  // be at function scope so every downstream consumer (especially publish())
+  // sees the same value. Falls back to scraped domain, then a constant.
+  const { slugFromUrl } = await import('./lib/slug.js');
+  const slug = (opts.url && slugFromUrl(opts.url))
+    || (merged.practice?.domain && slugFromUrl(`https://${merged.practice.domain}`))
+    || 'new-dental-site';
+
+
   // Merge scraped reviews into merged — store under BOTH keys for compatibility
   if (reviews && reviews.reviews.length > 0) {
     if (!merged.content) merged.content = {};
@@ -464,11 +474,8 @@ async function main() {
   // Explicit --output always overrides both.
   let outputDir = opts.output;
   if (!outputDir) {
-    // Canonical URL-derived slug (matches Airtable + GCS + audit output)
-    const { slugFromUrl } = await import('./lib/slug.js');
-    const slug = (opts.url && slugFromUrl(opts.url))
-      || (merged.practice.domain && slugFromUrl(`https://${merged.practice.domain}`))
-      || 'new-dental-site';
+    // Uses the canonical `slug` hoisted above — single source of truth so
+    // publish(), Airtable, GCS, and the design library all agree.
     outputDir = opts.publish
       ? resolve('clients', `${slug}`)
       : resolve('..', 'output', `${slug}`);
@@ -1492,7 +1499,9 @@ async function main() {
   // as anti-inspo on the next run so future sites diverge from this one).
   if (process.env.ANTHROPIC_API_KEY) {
     try {
-      const slug = (merged?.practice?.name || 'build').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'build';
+      // Use the canonical URL-derived slug — same key Airtable, GCS, and
+      // the auto-rescan use. Previously this re-derived from practice.name,
+      // which drifted from the canonical id and broke library lookups.
       await distillDesign({ source: outputDir, slug, tag: 'own', note: 'auto-distilled at build time' });
       console.log(`  Distilled build into design library as "${slug}" (own).`);
     } catch (err) {
