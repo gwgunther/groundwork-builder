@@ -1,0 +1,49 @@
+{
+  "variant": "numbered-list",
+  "eyebrow": "What We Offer",
+  "heading": "Comprehensive Dental Care on Spring Street",
+  "subheading": "From routine cleanings to smile transformations, we deliver every service with precision and comfort.",
+  "items": [
+    {
+      "name": "Clear Aligners",
+      "slug": "clear-aligners",
+      "desc": "Straighten your teeth discreetly with custom aligners that fit seamlessly into your lifestyle."
+    },
+    {
+      "name": "Cosmetic Dentistry",
+      "slug": "cosmetic-dentistry",
+      "desc": "Enhance your smile's appearance with treatments tailored to boost your confidence every day."
+    },
+    {
+      "name": "Deep Cleaning",
+      "slug": "deep-cleaning",
+      "desc": "Remove stubborn tartar and bacteria below the gumline to protect your long-term gum health."
+    },
+    {
+      "name": "Dental Bonding",
+      "slug": "dental-bonding",
+      "desc": "Repair chips, cracks, or gaps quickly with tooth-colored resin for a natural-looking result."
+    },
+    {
+      "name": "Dental Bridges",
+      "slug": "dental-bridges",
+      "desc": "Restore missing teeth with a durable, natural-looking bridge that brings back your full smile."
+    },
+    {
+      "name": "Dental Crowns",
+      "slug": "dental-crowns",
+      "desc": "Protect and strengthen damaged teeth with custom crowns crafted to match your natural bite."
+    },
+    {
+      "name": "Dental Exam & Cleaning",
+      "slug": "dental-exam-cleaning",
+      "desc": "Catch problems early and leave with a fresh, polished smile through our thorough routine visits."
+    },
+    {
+      "name": "Dental Fillings",
+      "slug": "dental-fillings",
+      "desc": "Treat cavities comfortably with tooth-colored fillings that blend invisibly with your natural teeth."
+    }
+  ],
+  "ctaLabel": "View All Services"
+}

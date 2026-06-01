@@ -9,5 +9,4 @@ _credentials/
 _pipeline/
 _audits/
 output/
-src/components/generated/
 .playwright-mcp/

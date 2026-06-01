@@ -1,0 +1,28 @@
+{
+  "variant": "pull-quotes",
+  "eyebrow": "Patient Stories",
+  "heading": "What Our Patients Say About Spring St. Dentistry",
+  "items": [
+    {
+      "quote": "I can't say enough great things about Spring St. Dentistry! From the moment you walk in, you're greeted by Jackie at the front desk—she's so kind and welcoming, you instantly feel at ease. The entire staff is incredibly friendly and professional.\n\nThe doctor, Hoang is truly the best around—caring, patient, and takes his time with you so you never feel rushed or overlooked. You can tell he genuinely cares about his patients. Charlie and Janet, who assist the doctor, are absolutely wonderful. They make you feel so comfortable and reassured, like you're in great hands (because you are!).\n\nMy husband used to be terrified of going to the dentist. Now? He won't even miss an appointment! That's how amazing this place is.\n\nIf you're looking for a dental office that treats you like family and gives top-notch care, please come here! You won't regret it.",
+      "author": "Barbara A",
+      "rating": 5,
+      "featured": true
+    },
+    {
+      "quote": "I've been coming here my whole life, the only dentist for me, and NOT ONCE have I ever had a bad experience. Dr Hoang and all the doctors clean my teeth just perfect. I've also never had a cavity in my whole life thanks to these people and have perfect clean teeth since an infant til now at 22 years old. Charlie was so incredible, polished my teeth up perfect and these guys always make sure I'm comfortable and happy, and every time I leave thinking how lucky I am that this place has been the only dentist place I've gone to my whole life with such amazing staff and atmosphere",
+      "author": "Chad Bierman",
+      "rating": 5,
+      "featured": false
+    },
+    {
+      "quote": "Super good people, kind and attentive, I felt super comfortable with them, very professional with everything and empathetic, I recommend 100%",
+      "author": "sofia Escobar",
+      "rating": 5,
+      "featured": false
+    }
+  ],
+  "aggregateRating": 5,
+  "reviewCount": 52,
+  "googleUrl": "https://www.google.com/maps/place/Spring+St.+Dentistry/@33.766568,-118.0842986,13z/data=!4m6!3m5!1s0x80dd2e06b18264df:0x5859cb8cd370dcb8!8m2!3d33.8097103!4d-118.1057071!16s%2Fg%2F1tx1thg9?entry=ttu"
+}

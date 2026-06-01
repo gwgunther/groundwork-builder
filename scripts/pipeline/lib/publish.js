@@ -370,6 +370,14 @@ async function ensureCfPagesProject({ slug, baseDomain }) {
           destination_dir: 'dist',
           root_dir:        `clients/${slug}`,
         },
+        // CF Pages defaults to Node 20, but Astro 6 needs >=22.12. Without
+        // this, every fresh project's first build crashes with
+        //   "Node.js v20.20.0 is not supported by Astro!"
+        // Setting on both production + preview branches so PRs work too.
+        deployment_configs: {
+          production: { env_vars: { NODE_VERSION: { value: '22' } } },
+          preview:    { env_vars: { NODE_VERSION: { value: '22' } } },
+        },
       }),
     });
     const createData = await createRes.json();

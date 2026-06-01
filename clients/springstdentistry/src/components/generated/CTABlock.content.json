@@ -1,0 +1,11 @@
+{
+  "variant": "centered-banner",
+  "headline": "Your Healthiest Smile Starts Right Here in Long Beach",
+  "subheadline": "Whether it's been six months or six years, we make it easy to get back in the chair. No judgment — just great dental care from a team that genuinely cares.",
+  "primaryCta": {
+    "label": "Schedule Your Appointment Today",
+    "href": "/schedule"
+  },
+  "phone": "(562) 420-8578",
+  "hasImage": true
+}

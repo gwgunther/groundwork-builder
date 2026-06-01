@@ -1,0 +1,48 @@
+{
+  "variant": "simple-stack",
+  "eyebrow": "What Patients Ask Us",
+  "heading": "Your Questions About Spring St. Dentistry, Answered",
+  "subheading": "From your first visit to ongoing care, here's what Long Beach patients most often want to know before coming in.",
+  "items": [
+    {
+      "q": "How do I schedule an appointment with Dr. Hoang?",
+      "a": "You can call Spring St. Dentistry directly at (562) 420-8578 to book an appointment with Dr. Anthony Hoang. No referral is needed — we welcome new patients and can typically get you scheduled quickly. Just let us know if you have a specific concern or service in mind when you call.",
+      "category": "Scheduling"
+    },
+    {
+      "q": "Do you see patients for dental emergencies or same-day visits?",
+      "a": "If you're experiencing a dental emergency such as a broken tooth, severe pain, or a lost filling, call us at (562) 420-8578 as soon as possible. We do our best to accommodate urgent situations and get Long Beach patients seen promptly. Don't wait — early treatment can prevent a small problem from becoming a much larger one.",
+      "category": "Scheduling"
+    },
+    {
+      "q": "Does Spring St. Dentistry accept dental insurance?",
+      "a": "We work with many dental insurance plans and will help you understand your coverage before treatment begins. We recommend calling our office at (562) 420-8578 with your insurance information so we can verify your benefits ahead of your visit. Our team is happy to walk you through what's covered and discuss payment options for any remaining balance.",
+      "category": "Insurance & Payment"
+    },
+    {
+      "q": "What should I expect at my first visit?",
+      "a": "Your first appointment typically includes a comprehensive dental exam and professional cleaning so Dr. Hoang can get a full picture of your oral health. We may take X-rays to check for issues that aren't visible to the naked eye. From there, Dr. Hoang will talk you through any findings and recommend a care plan tailored to your needs.",
+      "category": "First Visit"
+    },
+    {
+      "q": "Am I a good candidate for clear aligners?",
+      "a": "Clear aligners are a popular option for adults and teens looking to straighten their teeth without traditional metal braces. They work best for mild to moderate alignment issues, and Dr. Hoang will evaluate your bite and teeth during a consultation to determine if they're right for you. If you're in the Long Beach area and curious about discreet orthodontic options, give us a call to get started.",
+      "category": "Treatment"
+    },
+    {
+      "q": "What's the difference between a regular cleaning and a deep cleaning?",
+      "a": "A routine cleaning removes plaque and tartar from the surfaces of your teeth above the gumline, while a deep cleaning (also called scaling and root planing) goes below the gumline to treat gum disease. Dr. Hoang will recommend a deep cleaning if there are signs of infection or significant buildup around the roots of your teeth. It's typically done in sections and may require a follow-up visit to monitor healing.",
+      "category": "Treatment"
+    },
+    {
+      "q": "What's the difference between dental bonding, fillings, and crowns — and how will I know which one I need?",
+      "a": "Dental fillings repair cavities and minor decay, bonding uses tooth-colored resin to fix chips or small cosmetic flaws, and crowns cap a tooth that is significantly damaged or weakened. Dr. Hoang will assess the extent of damage or decay and recommend the most conservative option that will protect your tooth long-term. All three can be matched to your natural tooth color for a seamless look.",
+      "category": "Treatment"
+    },
+    {
+      "q": "How do I care for my teeth after a crown, bridge, or bonding procedure?",
+      "a": "Most restorations like crowns, bridges, and bonding can be cared for just like your natural teeth — brush twice daily, floss regularly, and keep up with your routine cleanings at Spring St. Dentistry. Avoid biting down on very hard foods like ice or hard candy, which can chip or crack restorations. Dr. Hoang will give you specific aftercare instructions based on your procedure before you leave the office.",
+      "category": "Aftercare"
+    }
+  ]
+}
