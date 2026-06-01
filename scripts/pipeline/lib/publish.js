@@ -2,12 +2,19 @@
  * Publish — deploys a built client site and generates the pitch page.
  *
  * Steps (in order):
- *   1. Generate pitch.html from _pipeline/ artifacts
- *   2. Copy pitch.html to groundwork-dental/public/pitch/<slug>/index.html
- *   3. Git commit + push monorepo (groundwork-builder) — triggers CF Pages deploy
- *   4. Git commit + push groundwork-dental — pitch page goes live
- *   5. Create Cloudflare Pages project (if not exists) + add subdomain
- *   6. Write Airtable row (client tracker)
+ *   1. Ensure Cloudflare Pages project exists + custom domain attached
+ *   2. Git commit + push monorepo (groundwork-builder) — triggers CF Pages deploy
+ *   3. Wait for the preview URL to come live (poll until HTTP 200, ~60-180s)
+ *   4. Run PageSpeed on the now-live preview — real after-scores
+ *   5. Run rescan against the preview — diff vs original audit
+ *   6. Generate pitch.html (with real after-scores)
+ *   7. Copy pitch.html into groundwork-dental and host updated audit folder
+ *   8. Git commit + push groundwork-dental — pitch + before/after go live
+ *   9. Write Airtable Build row with real diff counts + scores
+ *
+ * Earlier version had PageSpeed and rescan running BEFORE the deploy push —
+ * which meant they hit an empty preview URL every time, recorded null scores
+ * and bogus diff counts. Reordered so deploy goes first, then we measure.
  *
  * Usage:
  *   import { publish } from './publish.js';
@@ -73,73 +80,104 @@ export async function publish(opts = {}) {
     gitDental:      null,
   };
 
-  // 1a. Run PageSpeed on the deployed preview URL to get real after-scores
-  let afterScores = null;
+  // Repo root for `git -C` invocations. publish.js lives at
+  // scripts/pipeline/lib/publish.js — three levels up is the repo root,
+  // four was the previous (broken) value pointing at the parent dir.
+  const repoRoot   = resolve(dirname(new URL(import.meta.url).pathname), '..', '..', '..');
+  const dentalPath = process.env.GROUNDWORK_DENTAL_PATH
+    || resolve(repoRoot, '..', 'groundwork-dental');
+
+  // ── 1. Ensure CF Pages project + domain exist BEFORE the push ──
+  // CF Pages will auto-deploy whatever main branch contains on next push,
+  // so the project needs to exist first. ensureCfPagesProject is idempotent
+  // (no-op if it already exists).
   try {
-    console.log(`  Running PageSpeed on rebuilt site (${resolvedPreviewUrl})...`);
-    const { runPageSpeed, extractScoreReasons } = await import('./pagespeed.js');
-    const ps = await runPageSpeed(`https://${resolvedPreviewUrl}`);
-    afterScores = {
-      mobile:  ps.mobile?.performance  ?? null,
-      desktop: ps.desktop?.performance ?? null,
-      seo:     ps.mobile?.seo          ?? null,
-      // Top reasons score isn't 100 (honest tradeoffs)
-      reasons: extractScoreReasons(ps.mobile, 3),
-    };
-    console.log(`  ✓ After scores — Mobile: ${afterScores.mobile} Desktop: ${afterScores.desktop}`);
-    // Write to pipeline so pitch can read it later
-    const { writeFile } = await import('node:fs/promises');
-    await writeFile(
-      resolve(pipelineDir, '03-pagespeed-after.json'),
-      JSON.stringify({ step: '03-pagespeed-after', timestamp: new Date().toISOString(), output: afterScores }, null, 2)
-    );
+    const cfResult = await ensureCfPagesProject({ slug, baseDomain });
+    results.cfProject = cfResult.project;
+    results.cfDomain  = cfResult.domain;
+    console.log(`  ✓ CF Pages: ${cfResult.created ? 'created' : 'already exists'} — ${resolvedPreviewUrl}`);
   } catch (err) {
-    console.warn(`  ⚠ After PageSpeed skipped: ${err.message}`);
+    console.warn(`  ⚠ Cloudflare setup failed: ${err.message}`);
   }
 
-  // 1a.5 Run the full re-scan against the deployed preview. Re-runs every
-  // scanner (tech, trust, hosting, GBP, conversion) and diffs against the
-  // original audit's findings.json. Produces audit-report-after.html with
-  // the before/after pairs, plus the Fixed/Still/Regressed counts we'll
-  // push to the Build row in step 6.
-  //
-  // Needs the audit's data dir — we derive it from the slug since publish
-  // is always called with the same slug audit-site.js uses for outputs.
-  let rescanResult = null;
+  // ── 2. Push monorepo — triggers CF Pages deploy ──
   try {
-    console.log(`  Running rescan vs. original audit...`);
-    const { runRescan } = await import('./rescan-core.js');
-    const auditDir = resolve(dirname(new URL(import.meta.url).pathname), '..', '..', '..', '_audits', slug);
-    rescanResult = await runRescan({
-      auditDir,
-      previewUrl:  `https://${resolvedPreviewUrl}`,
-    });
-    if (rescanResult) {
-      const c = rescanResult.summary.counts;
-      console.log(`  ✓ Rescan: ${c.fixed} fixed · ${c['still-issue']} still issue · ${c.regressed} regressed`);
+    gitCommitPush(repoRoot, `feat: add ${slug} client site`, [
+      `clients/${slug}`,
+    ]);
+    results.gitBuilder = 'pushed';
+    console.log(`  ✓ Monorepo pushed → CF Pages auto-deploying ${slug}`);
+  } catch (err) {
+    console.warn(`  ⚠ Monorepo push failed: ${err.message}`);
+  }
+
+  // ── 3. Wait for the deploy to come live ──
+  // CF Pages usually takes 30-90s after push. We poll the preview URL
+  // until it returns 200 (or until we hit the timeout — non-fatal if so;
+  // PageSpeed/rescan will just record null and we'll know to retry later).
+  let previewLive = false;
+  try {
+    previewLive = await waitForDeploy(`https://${resolvedPreviewUrl}`);
+    if (previewLive) {
+      console.log(`  ✓ Preview live — proceeding with PageSpeed + rescan`);
     } else {
-      console.log(`  ⚠ Rescan skipped — original audit findings not found at expected path`);
+      console.warn(`  ⚠ Preview did not come live within timeout — after-scores will be null`);
     }
   } catch (err) {
-    console.warn(`  ⚠ Rescan failed (non-fatal): ${err.message}`);
+    console.warn(`  ⚠ Deploy wait error: ${err.message}`);
   }
 
-  // 1a.6 Re-host the now-updated audit report folder. The rescan produced
-  // audit-report-after.html → groundwork-dental/public/audits/<slug>/before-after.html.
-  // Same path that hosted the original audit report; we just re-push.
-  let hostedReports = { indexUrl: null, beforeAfterUrl: null, skippedReason: null };
-  try {
-    const { hostAuditReport } = await import('./host-reports.js');
-    const auditDir = resolve(dirname(new URL(import.meta.url).pathname), '..', '..', '..', '_audits', slug);
-    hostedReports = await hostAuditReport({ auditDir, slug });
-    if (hostedReports.pushed && hostedReports.beforeAfterUrl) {
-      console.log(`  ✓ Before/after report: ${hostedReports.beforeAfterUrl}`);
+  // ── 4. PageSpeed on the now-live preview ──
+  let afterScores = null;
+  if (previewLive) {
+    try {
+      console.log(`  Running PageSpeed on rebuilt site (${resolvedPreviewUrl})...`);
+      const { runPageSpeed, extractScoreReasons } = await import('./pagespeed.js');
+      const ps = await runPageSpeed(`https://${resolvedPreviewUrl}`);
+      afterScores = {
+        mobile:  ps.mobile?.performance  ?? null,
+        desktop: ps.desktop?.performance ?? null,
+        seo:     ps.mobile?.seo          ?? null,
+        // Top reasons score isn't 100 (honest tradeoffs)
+        reasons: extractScoreReasons(ps.mobile, 3),
+      };
+      console.log(`  ✓ After scores — Mobile: ${afterScores.mobile} Desktop: ${afterScores.desktop}`);
+      // Write to pipeline so pitch can read it later
+      const { writeFile } = await import('node:fs/promises');
+      await writeFile(
+        resolve(pipelineDir, '03-pagespeed-after.json'),
+        JSON.stringify({ step: '03-pagespeed-after', timestamp: new Date().toISOString(), output: afterScores }, null, 2)
+      );
+    } catch (err) {
+      console.warn(`  ⚠ After PageSpeed skipped: ${err.message}`);
     }
-  } catch (err) {
-    console.warn(`  ⚠ Host before/after failed (non-fatal): ${err.message}`);
   }
 
-  // 1b. Generate pitch.html (with real after-scores if available)
+  // ── 5. Rescan against the now-live preview ──
+  // Re-runs every scanner against the deployed site, diffs vs original
+  // findings.json, writes audit-report-after.html. Counts go to Airtable.
+  let rescanResult = null;
+  if (previewLive) {
+    try {
+      console.log(`  Running rescan vs. original audit...`);
+      const { runRescan } = await import('./rescan-core.js');
+      const auditDir = resolve(repoRoot, '_audits', slug);
+      rescanResult = await runRescan({
+        auditDir,
+        previewUrl:  `https://${resolvedPreviewUrl}`,
+      });
+      if (rescanResult) {
+        const c = rescanResult.summary.counts;
+        console.log(`  ✓ Rescan: ${c.fixed} fixed · ${c['still-issue']} still issue · ${c.regressed} regressed`);
+      } else {
+        console.log(`  ⚠ Rescan skipped — original audit findings not found at expected path`);
+      }
+    } catch (err) {
+      console.warn(`  ⚠ Rescan failed (non-fatal): ${err.message}`);
+    }
+  }
+
+  // ── 6. Generate pitch.html (with the real after-scores) ──
   try {
     results.pitchHtml = await generatePitchPage(pipelineDir, {
       previewUrl: resolvedPreviewUrl,
@@ -153,41 +191,41 @@ export async function publish(opts = {}) {
     console.warn(`  ⚠ Pitch generation failed: ${err.message}`);
   }
 
-  // 2. Copy pitch.html to groundwork-dental repo
+  // ── 7a. Copy pitch.html to groundwork-dental ──
   try {
-    const dentalPath = process.env.GROUNDWORK_DENTAL_PATH
-      || resolve(dirname(new URL(import.meta.url).pathname), '..', '..', '..', '..', 'groundwork-dental');
-
-    if (existsSync(dentalPath)) {
+    if (existsSync(dentalPath) && results.pitchHtml) {
       const destDir = resolve(dentalPath, 'public', 'pitch', slug);
       await mkdir(destDir, { recursive: true });
       const destFile = resolve(destDir, 'index.html');
       await copyFile(results.pitchHtml, destFile);
       results.pitchLive = destFile;
       console.log(`  ✓ Pitch copied to groundwork-dental: public/pitch/${slug}/index.html`);
-    } else {
+    } else if (!existsSync(dentalPath)) {
       console.warn(`  ⚠ groundwork-dental not found at ${dentalPath} — skipping pitch copy`);
     }
   } catch (err) {
     console.warn(`  ⚠ Pitch copy failed: ${err.message}`);
   }
 
-  // 3. Git push monorepo (groundwork-builder)
+  // ── 7b. Host updated audit folder (now contains audit-report-after.html) ──
+  // hostAuditReport() copies the audit-report-after.html into the dental
+  // repo and does its OWN commit+push. So the dental repo will see two
+  // commits — one from us in step 8 (pitch), one from host-reports here
+  // (audit folder). That's fine; they touch different folders.
+  let hostedReports = { indexUrl: null, beforeAfterUrl: null, skippedReason: null };
   try {
-    const repoRoot = resolve(dirname(new URL(import.meta.url).pathname), '..', '..', '..', '..');
-    gitCommitPush(repoRoot, `feat: add ${slug} client site`, [
-      `clients/${slug}`,
-    ]);
-    results.gitBuilder = 'pushed';
-    console.log(`  ✓ Monorepo pushed → CF Pages will auto-deploy ${slug}`);
+    const { hostAuditReport } = await import('./host-reports.js');
+    const auditDir = resolve(repoRoot, '_audits', slug);
+    hostedReports = await hostAuditReport({ auditDir, slug });
+    if (hostedReports.pushed && hostedReports.beforeAfterUrl) {
+      console.log(`  ✓ Before/after report: ${hostedReports.beforeAfterUrl}`);
+    }
   } catch (err) {
-    console.warn(`  ⚠ Monorepo push failed: ${err.message}`);
+    console.warn(`  ⚠ Host before/after failed (non-fatal): ${err.message}`);
   }
 
-  // 4. Git push groundwork-dental (pitch page)
+  // ── 8. Git push dental — pitch page goes live ──
   try {
-    const dentalPath = process.env.GROUNDWORK_DENTAL_PATH
-      || resolve(dirname(new URL(import.meta.url).pathname), '..', '..', '..', '..', 'groundwork-dental');
     if (results.pitchLive && existsSync(dentalPath)) {
       gitCommitPush(dentalPath, `feat: add pitch page for ${slug}`, [
         `public/pitch/${slug}`,
@@ -199,18 +237,7 @@ export async function publish(opts = {}) {
     console.warn(`  ⚠ groundwork-dental push failed: ${err.message}`);
   }
 
-  // 5. Cloudflare Pages — create project + add custom domain
-  try {
-    const cfResult = await ensureCfPagesProject({ slug, baseDomain });
-    results.cfProject = cfResult.project;
-    results.cfDomain  = cfResult.domain;
-    console.log(`  ✓ CF Pages: ${cfResult.created ? 'created' : 'already exists'} — ${resolvedPreviewUrl}`);
-  } catch (err) {
-    console.warn(`  ⚠ Cloudflare setup failed: ${err.message}`);
-  }
-
-  // 6. Airtable — record this build as a new Build row linked to its
-  // Source Audit (looked up by slug) and the Account.
+  // ── 9. Airtable — Build row with real diff counts + after-scores ──
   try {
     const tracked = await recordBuildRun({
       slug,
@@ -245,6 +272,41 @@ export async function publish(opts = {}) {
 // ---------------------------------------------------------------------------
 // Git helpers
 // ---------------------------------------------------------------------------
+
+/**
+ * Poll a URL until it returns HTTP 200, or timeout. Used to wait for
+ * Cloudflare Pages to finish deploying before we run PageSpeed / rescan
+ * against the preview — otherwise both hit empty content and record
+ * garbage data.
+ *
+ * Strategy: 5s intervals for the first 60s (most deploys land in this
+ * window), then 10s intervals up to a 5-min total cap.
+ *
+ * Returns true when the URL responds 200; false on timeout.
+ */
+async function waitForDeploy(url, { totalTimeoutMs = 5 * 60_000 } = {}) {
+  const start = Date.now();
+  console.log(`  Waiting for ${url} to come live...`);
+  let attempt = 0;
+  while (Date.now() - start < totalTimeoutMs) {
+    attempt++;
+    try {
+      // HEAD is enough — CF Pages serves the same status as GET for the root.
+      const res = await fetch(url, { method: 'HEAD', redirect: 'follow' });
+      if (res.ok) {
+        const elapsed = ((Date.now() - start) / 1000).toFixed(0);
+        console.log(`    live after ${elapsed}s (attempt ${attempt})`);
+        return true;
+      }
+    } catch {
+      // Network / DNS errors are expected while the deploy is propagating.
+    }
+    const elapsed = Date.now() - start;
+    const delay = elapsed < 60_000 ? 5_000 : 10_000;
+    await new Promise(r => setTimeout(r, delay));
+  }
+  return false;
+}
 
 function gitCommitPush(repoPath, message, paths = []) {
   const addTargets = paths.length > 0 ? paths.join(' ') : '.';
