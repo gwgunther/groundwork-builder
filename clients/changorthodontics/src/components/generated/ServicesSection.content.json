@@ -1,0 +1,49 @@
+{
+  "variant": "alternating-rows",
+  "eyebrow": "What We Offer",
+  "heading": "Specialized Orthodontic Care for Every Smile",
+  "subheading": "From early intervention to complex craniofacial treatment, we tailor every plan to your unique needs.",
+  "items": [
+    {
+      "name": "Cleft Lip and Palate Treatment",
+      "slug": "cleft-lip-and-palate-treatment",
+      "desc": "Comprehensive orthodontic support that helps patients with cleft conditions achieve functional, confident smiles."
+    },
+    {
+      "name": "Craniofacial Orthodontics",
+      "slug": "craniofacial-orthodontics",
+      "desc": "Specialized care for complex facial and skeletal conditions, improving both appearance and long-term oral function."
+    },
+    {
+      "name": "Damon Smile",
+      "slug": "damon-smile",
+      "desc": "Self-ligating braces that move teeth more comfortably and efficiently with fewer adjustments and shorter treatment time."
+    },
+    {
+      "name": "Dentofacial Orthopedics",
+      "slug": "dentofacial-orthopedics",
+      "desc": "Guides jaw and facial bone development to correct bite problems and create lasting structural harmony."
+    },
+    {
+      "name": "Digital X-rays",
+      "slug": "digital-x-rays",
+      "desc": "Low-radiation digital imaging delivers precise diagnostics while keeping your exposure and wait time to a minimum."
+    },
+    {
+      "name": "Early Orthodontic Treatment",
+      "slug": "early-orthodontic-treatment",
+      "desc": "Intercepting bite and alignment issues in young children prevents more complex and costly treatment later on."
+    },
+    {
+      "name": "Emergency Care",
+      "slug": "emergency-care",
+      "desc": "Prompt attention for broken brackets, loose wires, or discomfort so your treatment stays on track."
+    },
+    {
+      "name": "In-Ovation Braces",
+      "slug": "in-ovation-braces",
+      "desc": "Low-profile self-ligating brackets reduce friction and discomfort, helping you reach your smile goal faster."
+    }
+  ],
+  "ctaLabel": "View All Services"
+}

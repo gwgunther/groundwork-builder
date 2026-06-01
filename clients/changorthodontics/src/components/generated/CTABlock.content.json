@@ -1,0 +1,11 @@
+{
+  "variant": "split-image",
+  "headline": "Your Best Smile Starts Right Here in Los Alamitos",
+  "subheadline": "Take the first step with a complimentary consultation — no pressure, just a friendly conversation about your smile goals.",
+  "primaryCta": {
+    "label": "Schedule Your Free Consultation",
+    "href": "/schedule"
+  },
+  "phone": "(562) 430-0541",
+  "hasImage": true
+}

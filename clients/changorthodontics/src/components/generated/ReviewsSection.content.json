@@ -1,0 +1,20 @@
+{
+  "variant": "pull-quotes",
+  "eyebrow": "Patient Stories",
+  "heading": "What Our Patients Say About Chang Orthodontics",
+  "items": [
+    {
+      "quote": "This office is amazing, this is my last child with braces! My two daughters went here as well. The office is beautiful, Dr. Chang is so efficient with his treatments and the braces come off when he s",
+      "author": "Patient",
+      "rating": 5
+    },
+    {
+      "quote": "I have been a patient now with Dr. Chang for two years and I always feel welcomed with the loving, caring, warmest staff around! Not to mention the great service and beautiful office! Love you all at",
+      "author": "Patient",
+      "rating": 5
+    }
+  ],
+  "aggregateRating": 5,
+  "reviewCount": 151,
+  "googleUrl": "https://g.page/ChangOrtho/review?rc"
+}

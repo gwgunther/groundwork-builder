@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>extraction/silver · Skill</title>
+<style>
+  :root {
+    --bg: #0f1115; --fg: #e7e8ea; --muted: #9098a3; --accent: #6ee7b7;
+    --card: #181b22; --border: #262a33; --code-bg: #0a0c10;
+    --stub: #6b7280; --working: #f59e0b; --polished: #10b981; --mature: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  .topbar { padding: 16px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .topbar a { color: var(--accent); text-decoration: none; font-size: 13px; }
+  .topbar a:hover { text-decoration: underline; }
+  .topbar-meta { color: var(--muted); font-size: 12px; }
+  .container { max-width: 880px; margin: 0 auto; padding: 32px 40px 80px; }
+  header.skill-head { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  header.skill-head h1 { margin: 0 0 4px; font-size: 28px; font-weight: 600; }
+  .skill-path { color: var(--muted); font-family: ui-monospace, SFMono-Regular, monospace; font-size: 13px; }
+  .badges { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+  .badge.tier { background: var(--border); font-family: ui-monospace, monospace; }
+  .badge.tier-L1 { background: rgba(110, 231, 183, .15); color: var(--accent); }
+  .badge.tier-L2 { background: rgba(245, 158, 11, .15); color: var(--working); }
+  .badge.tier-L3 { background: rgba(59, 130, 246, .15); color: #60a5fa; }
+  .badge.tier-L4 { background: rgba(168, 85, 247, .15); color: #c084fc; }
+  .badge.maturity { background: var(--border); }
+  .badge.phase { background: var(--card); border: 1px solid var(--border); color: var(--muted); }
+  .meta-table { font-size: 13px; color: var(--muted); margin-top: 12px; }
+  .meta-table strong { color: var(--fg); font-weight: 500; }
+  .meta-table code { background: var(--card); padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--accent); }
+  .doc h2 { margin: 32px 0 12px; font-size: 20px; font-weight: 600; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .doc h3 { margin: 24px 0 8px; font-size: 16px; font-weight: 600; color: var(--accent); }
+  .doc p { margin: 0 0 14px; }
+  .doc ul, .doc ol { margin: 0 0 14px; padding-left: 24px; }
+  .doc li { margin-bottom: 4px; }
+  .doc a { color: var(--accent); }
+  .doc strong { color: var(--fg); font-weight: 600; }
+  .doc code { background: var(--card); padding: 2px 6px; border-radius: 3px; font-size: 13px; color: var(--accent); font-family: ui-monospace, SFMono-Regular, monospace; }
+  .doc pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 0 0 16px; }
+  .doc pre code { background: transparent; padding: 0; color: var(--fg); font-size: 13px; line-height: 1.5; white-space: pre; }
+  .doc table { border-collapse: collapse; margin: 0 0 16px; font-size: 14px; width: 100%; }
+  .doc th, .doc td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+  .doc th { background: var(--card); font-weight: 600; }
+  .doc blockquote { border-left: 3px solid var(--accent); padding: 4px 16px; margin: 0 0 16px; color: var(--muted); }
+  .doc hr { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../PIPELINE.html">← Back to Pipeline Dashboard</a>
+  <span class="topbar-meta">Source: <code style="background:transparent">skills/extraction/silver.md</code></span>
+</div>
+
+<div class="container">
+  <header class="skill-head">
+    <div class="skill-path">skills/extraction/silver.md</div>
+    <h1>silver</h1>
+    <div class="badges">
+      <span class="badge tier tier-L1">L1</span>
+      <span class="badge maturity">🟢 polished</span>
+      <span class="badge phase">Phase: Silver</span>
+      <span class="badge phase">Model: claude-sonnet-4-6</span>
+    </div>
+    
+    <div class="meta-table">
+      <div><strong>Source:</strong> <code>scripts/pipeline/lib/ai-silver.js</code></div>
+      <div><strong>Function:</strong> <code>buildPrompt()</code></div>
+    </div>
+  </header>
+
+  <div class="doc">
+<h1>Skill: Silver Extraction</h1>
+<h2>Responsibility</h2>
+<p>The bronze→silver transform. Takes raw scraped HTML/JSON-LD/text from up to 8
+key pages of a practice site and extracts a single structured <code>PracticeData</code>
+JSON object: NAP, doctor(s), services, brand colors, hours, content blocks
+(hero/about/testimonials/faqs), images-by-role, differentiators (was &quot;signals&quot;), and a verbatim content rescue layer (additionalContent[]).
+This is the foundation of the entire pipeline — every downstream skill
+depends on its accuracy.</p>
+<h2>Inputs</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Source</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>bronze.baseUrl</code></td>
+<td>string</td>
+<td>scrape</td>
+<td>Site root URL</td>
+</tr>
+<tr>
+<td><code>bronze.pageCount</code></td>
+<td>number</td>
+<td>scrape</td>
+<td>Total pages crawled</td>
+</tr>
+<tr>
+<td><code>allPaths</code> (first 40)</td>
+<td>string[]</td>
+<td>scrape</td>
+<td>All known URL paths</td>
+</tr>
+<tr>
+<td><code>pageBlocks</code></td>
+<td>string</td>
+<td>derived</td>
+<td>Formatted bodies of up to 8 selected key pages (homepage, about, contact, doctor pages, services, team, schedule, specials)</td>
+</tr>
+<tr>
+<td><code>siteAssets.navigation</code></td>
+<td>string[]</td>
+<td>scrape</td>
+<td>Top-level nav text</td>
+</tr>
+<tr>
+<td><code>siteAssets.socialLinks</code></td>
+<td>string[]</td>
+<td>scrape</td>
+<td>Up to 8 social URLs</td>
+</tr>
+<tr>
+<td><code>siteAssets.cssColors</code></td>
+<td>string[]</td>
+<td>scrape</td>
+<td>Up to 30 raw colors</td>
+</tr>
+</tbody></table>
+<p>Per-page formatting includes: title + meta, hero text, headings (cap 20, or
+40 for people pages), paragraphs (cap 8/200 chars, or 20/400 for people
+pages), images with alt, <strong>all</strong> Person/Dentist JSON-LD entries (sliced 1000
+chars each, never deduped), other JSON-LD (cap 3/400 chars), and bodyText
+(cap 1500, or <strong>6000 for people pages</strong> — bumped from 1500 to capture 2nd/3rd
+doctor bios that previously fell off the end).</p>
+<h2>Output schema</h2>
+<pre><code class="language-json">{
+  &quot;practice&quot;:  { &quot;name&quot;, &quot;phone&quot;, &quot;email&quot;, &quot;domain&quot;, &quot;googleReviewLink&quot;, &quot;googleProfileLink&quot;, &quot;sameAs&quot; },
+  &quot;address&quot;:   { &quot;street&quot;, &quot;city&quot;, &quot;state&quot;, &quot;zip&quot; },
+  &quot;hours&quot;:     { &quot;display&quot;: [{ &quot;day&quot;, &quot;time&quot; }], &quot;raw&quot; },
+  &quot;doctors&quot;:   [
+    { &quot;name&quot;, &quot;firstName&quot;, &quot;lastName&quot;, &quot;credentials&quot;, &quot;bio&quot;, &quot;education&quot;, &quot;specialties&quot;, &quot;photoUrl&quot; }
+  ],
+  &quot;services&quot;:  { &quot;offered&quot;: [{ &quot;name&quot;, &quot;category&quot; }] },
+  &quot;brand&quot;:     { &quot;logoUrl&quot; },
+  &quot;content&quot;:   { &quot;heroTagline&quot;, &quot;heroSubheadline&quot;, &quot;aboutText&quot;, &quot;testimonials&quot;, &quot;faqs&quot;, &quot;insurance&quot;, &quot;specials&quot;, &quot;stats&quot; },
+  &quot;additionalContent&quot;: [
+    { &quot;type&quot;, &quot;title&quot;, &quot;content&quot;, &quot;source&quot; }
+  ],
+  &quot;differentiators&quot;: [
+    { &quot;type&quot;, &quot;label&quot;, &quot;detail&quot;, &quot;source&quot;, &quot;confidence&quot; }
+  ],
+  &quot;images&quot;:    { &quot;logo&quot;, &quot;hero&quot;, &quot;team&quot;, &quot;office&quot;, &quot;gallery&quot;, &quot;beforeAfter&quot; },
+  &quot;migration&quot;: { &quot;oldUrls&quot; }
+}
+</code></pre>
+<h3>Three content tiers</h3>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Field</th>
+<th>Question it answers</th>
+<th>Shape</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Structured</td>
+<td><code>services[]</code></td>
+<td>What can the practice DO for me? (procedures)</td>
+<td><code>{ name, slug, category }</code></td>
+</tr>
+<tr>
+<td>Labels</td>
+<td><code>differentiators[]</code></td>
+<td>WHY this practice over another?</td>
+<td><code>{ type, label, detail, source, confidence }</code> (short labels, 4–12 words)</td>
+</tr>
+<tr>
+<td>Prose</td>
+<td><code>additionalContent[]</code></td>
+<td>What else does the site say in their own voice?</td>
+<td><code>{ type, title, content, source }</code> (verbatim full prose blocks)</td>
+</tr>
+</tbody></table>
+<p>Same fact may appear once across tiers — never duplicated. iTero scanner as a label in <code>differentiators[]</code> does NOT also appear as a redundant entry there; the matching prose paragraph from <code>/about</code> goes in <code>additionalContent[]</code> as its full text.</p>
+<h2>Evaluation criteria</h2>
+<ul>
+<li><strong>Verbatim copy</strong> for all text fields (heroTagline, heroSubheadline, aboutText, doctor.bio, testimonials, faqs, specials) — no paraphrase, no improvement</li>
+<li><strong>No fabrication</strong> — null when the field is absent on the site, never a plausible substitute</li>
+<li><strong>Multi-doctor capture (CRITICAL)</strong> — <code>doctors[]</code> must include EVERY doctor mentioned (Person/Dentist JSON-LD, &quot;Get To Know Dr. X&quot; sections). doctors[0] is the most prominent (founder / homepage hero); subsequent entries are equal-billing. Returning a single-doctor array when the site clearly has multiple is a hard error</li>
+<li><strong>practice.name uses FULL footer/logo name</strong>, not truncated</li>
+<li><strong>Google links validated</strong> — <code>googleReviewLink</code> / <code>googleProfileLink</code> must be on a Google domain; otherwise null (caller hard-validates this)</li>
+<li><strong>Services deduplicated</strong> — no near-synonyms; uses the practice&#39;s own naming</li>
+<li><strong>Image classification</strong> by URL pattern + alt (team/staff/dr- → team; slider/hero/banner → hero; gallery/treatments → gallery)</li>
+<li><strong>JSON-LD preferred</strong> for NAP and doctor when present</li>
+<li><strong>Differentiators only when notable</strong> — confidence ≥ 0.7, short labels (4–12 words), type from allowed taxonomy</li>
+<li><strong>Content rescue (additionalContent)</strong> — sweep bronze for distinctive prose that didn&#39;t fit other fields (pull-quotes, philosophy paragraphs, mission statements, &quot;Welcome To&quot; intros, office descriptions, technology copy, blog post bodies, taglines). Verbatim. Each item: <code>{ type, title, content, source }</code>. Cap: 30 items, ~2200 chars each. Skipped items = lost voice in the rebuild.</li>
+<li><strong>Three-tier boundary respected</strong> — services / differentiators / additionalContent are NOT interchangeable; same fact never duplicated across tiers</li>
+<li><strong>Visual data OUT OF SCOPE</strong> — colors, fonts, mood belong to Design Extract phase. Silver does NOT extract palette or typography even if it can see them in CSS</li>
+<li><strong>Returns only JSON</strong></li>
+</ul>
+<h2>Known gaps</h2>
+<ul>
+<li>Page selection caps at 8 — practices with deep team/services hierarchies may have doctors on un-selected pages</li>
+<li>bodyText cap of 6000 chars on people pages still truncates very long team listings (10+ doctors)</li>
+<li>Service deduplication relies on the model&#39;s judgment; near-synonym detection is inconsistent</li>
+<li>Hours parsing handles common formats but exotic tables (multi-location, holiday schedules) may degrade</li>
+<li>No structured schema validation — caller normalizes shape but doesn&#39;t reject malformed AI output</li>
+<li>CSS color capture is raw; brand.colors selection depends entirely on the model&#39;s &quot;is this a brand color&quot; judgment</li>
+</ul>
+<h2>Improvement levers</h2>
+<ol>
+<li><strong>Easy (L1):</strong> Tighten &quot;no fabrication&quot; rule with concrete examples of common hallucinations to avoid</li>
+<li><strong>Easy (caller-side):</strong> Validator that re-checks every doctor name against the bronze JSON-LD entries</li>
+<li><strong>Medium:</strong> Two-pass for multi-doctor sites — first count doctors, then extract each individually</li>
+<li><strong>Medium:</strong> Pre-filter page selection by detecting &quot;team&quot; / &quot;providers&quot; / &quot;meet&quot; pages and prioritizing them</li>
+<li><strong>Hard:</strong> Structured-output mode (Anthropic tools) so the model can&#39;t return malformed shapes</li>
+</ol>
+<h2>Test fixtures</h2>
+<p><em>None yet. Future: <code>skills/extraction/silver.fixtures/{single-doctor,multi-doctor,sparse}/*</code> with expected output JSON.</em></p>
+<hr>
+<h2>PROMPT</h2>
+<pre><code class="language-text">You are analyzing raw crawled data from a professional practice website (healthcare, wellness, or local services context).
+Your job: extract structured practice information and return it as JSON.
+
+WEBSITE: {{bronze.baseUrl}}
+CRAWLED: {{bronze.pageCount}} pages
+ALL PATHS: {{allPaths}}
+
+{{pageBlocks}}
+
+---
+SITE NAVIGATION: {{navigationText}}
+SOCIAL LINKS: {{socialLinksText}}
+CSS COLORS (raw list): {{cssColorsText}}
+
+---
+Extract the following as a single JSON object. Use null for any field you cannot determine with confidence.
+
+{
+  &quot;practice&quot;: {
+    &quot;name&quot;: &quot;Full legal practice name as shown on site (e.g. &#39;Spring St. Family Practice&#39;, not truncated)&quot;,
+    &quot;phone&quot;: &quot;Phone in (XXX) XXX-XXXX format&quot;,
+    &quot;email&quot;: &quot;Email address or null&quot;,
+    &quot;domain&quot;: &quot;Domain without protocol&quot;,
+    &quot;googleReviewLink&quot;: &quot;URL to leave a Google review — MUST be on google.com or g.page domain. If the only &#39;reviews&#39; link points to Facebook, Yelp, etc., return null here, NOT that URL.&quot;,
+    &quot;googleProfileLink&quot;: &quot;URL of Google Business Profile (google.com/maps/...) — MUST be a Google domain. Return null if not found.&quot;,
+    &quot;sameAs&quot;: [&quot;Social/directory profile URLs&quot;]
+  },
+  &quot;address&quot;: {
+    &quot;street&quot;: &quot;Street address&quot;,
+    &quot;city&quot;: &quot;City&quot;,
+    &quot;state&quot;: &quot;2-letter state&quot;,
+    &quot;zip&quot;: &quot;ZIP code&quot;
+  },
+  &quot;hours&quot;: {
+    &quot;display&quot;: [{ &quot;day&quot;: &quot;Mon&quot;, &quot;time&quot;: &quot;9am – 5pm&quot; }],
+    &quot;raw&quot;: &quot;Raw hours text as found on site&quot;
+  },
+  // ─── PREFERRED: unified doctors[] array (X3 schema) ─────────────────────
+  // doctors[0] is the most prominent (founder / homepage hero); subsequent
+  // entries are equal-billing secondary doctors. Order matters for display.
+  &quot;doctors&quot;: [
+    {
+      &quot;name&quot;: &quot;Full name with Dr. prefix&quot;,
+      &quot;firstName&quot;: &quot;First name only&quot;,
+      &quot;lastName&quot;: &quot;Last name only&quot;,
+      &quot;credentials&quot;: &quot;e.g. DMD, DDS&quot;,
+      &quot;bio&quot;: &quot;Full bio paragraph(s) — do not truncate&quot;,
+      &quot;education&quot;: &quot;Education/training details or null&quot;,
+      &quot;specialties&quot;: [&quot;List of specialties or focus areas&quot;],
+      &quot;photoUrl&quot;: &quot;URL of doctor headshot photo or null&quot;
+    }
+    // ... additional doctors as further entries in this array
+  ],
+  // ─── ALSO ACCEPTED: legacy split shape (back-compat with older AI outputs) ──
+  // The silver loader auto-normalizes doctor + additionalDoctors into doctors[].
+  // Use whichever is more natural; doctors[] is preferred for clarity.
+  // &quot;doctor&quot;: { ... },
+  // &quot;additionalDoctors&quot;: [ { ... }, { ... } ],
+  &quot;services&quot;: {
+    &quot;offered&quot;: [
+      {
+        &quot;name&quot;: &quot;Human-readable service name&quot;,
+        &quot;category&quot;: &quot;general|cosmetic|orthodontic|emergency|specialty|implant|pediatric&quot;
+      }
+    ]
+  },
+  &quot;brand&quot;: {
+    &quot;logoUrl&quot;: &quot;URL of the practice logo image&quot;
+    // NOTE: visual brand fields (colors, fonts, mood) are extracted separately by the
+    // Design Extract phase. Do NOT include them here, even if visible in the source CSS.
+  },
+  &quot;content&quot;: {
+    &quot;heroTagline&quot;: &quot;The main hero/banner headline as it appears on the scraped site — copy verbatim. Do not invent or paraphrase.&quot;,
+    &quot;heroSubheadline&quot;: &quot;Supporting hero subtext or null&quot;,
+    &quot;aboutText&quot;: &quot;Full about-us / practice philosophy paragraph(s)&quot;,
+    &quot;testimonials&quot;: [
+      { &quot;text&quot;: &quot;Review text&quot;, &quot;author&quot;: &quot;Name or null&quot;, &quot;stars&quot;: 5 }
+    ],
+    &quot;faqs&quot;: [
+      { &quot;question&quot;: &quot;Q&quot;, &quot;answer&quot;: &quot;A&quot; }
+    ],
+    &quot;insurance&quot;: [&quot;List of accepted insurance plans&quot;],
+    &quot;specials&quot;: [
+      { &quot;title&quot;: &quot;Special offer title&quot;, &quot;description&quot;: &quot;Description&quot; }
+    ],
+    &quot;stats&quot;: {
+      &quot;yearsExperience&quot;: null,
+      &quot;googleRating&quot;: null,
+      &quot;fiveStarReviews&quot;: null
+    }
+  },
+  &quot;images&quot;: {
+    &quot;logo&quot;: &quot;URL of logo image&quot;,
+    &quot;hero&quot;: [&quot;URLs of hero/banner background images&quot;],
+    &quot;team&quot;: [&quot;URLs of doctor/staff headshot photos&quot;],
+    &quot;office&quot;: [&quot;URLs of office/facility interior photos&quot;],
+    &quot;gallery&quot;: [&quot;URLs of service category or treatment images&quot;],
+    &quot;beforeAfter&quot;: [&quot;URLs of before/after treatment or result photos&quot;]
+  },
+  &quot;migration&quot;: {
+    &quot;oldUrls&quot;: [&quot;All crawled page paths, one per entry&quot;]
+  },
+  &quot;additionalContent&quot;: [
+    {
+      &quot;type&quot;: &quot;free-form short label, e.g. &#39;philosophy&#39; | &#39;pullquote&#39; | &#39;office-tour&#39; | &#39;technology&#39; | &#39;welcome&#39; | &#39;mission&#39; | &#39;community&#39; | &#39;awards&#39; | &#39;press&#39; | &#39;blog-post&#39; | &#39;specialty-deep-dive&#39; | &#39;patient-experience&#39; | &#39;team&#39; | &#39;financing-detail&#39;&quot;,
+      &quot;title&quot;: &quot;The heading from the source page if there was one (H2/H3), or null&quot;,
+      &quot;content&quot;: &quot;VERBATIM body text. Truncate long pieces (&gt;2000 chars) to first 1500 + &#39; …[truncated]&#39;.&quot;,
+      &quot;source&quot;: &quot;Page path where this was found, e.g. /about, /services/cosmetic, /blog/post-slug&quot;
+    }
+  ],
+  &quot;differentiators&quot;: [
+    {
+      &quot;type&quot;: &quot;technology|award|membership|financing|language|emergency|hours_note|staff_note|insurance|patient_perk|unique_feature&quot;,
+      &quot;label&quot;: &quot;Short human-readable label (4–12 words). Examples: &#39;CEREC same-day crowns&#39;, &#39;Spanish &amp; Vietnamese spoken&#39;, &#39;Same-day emergency appointments&#39;&quot;,
+      &quot;detail&quot;: &quot;Optional extra detail (≤1 sentence), or null&quot;,
+      &quot;source&quot;: &quot;Page path where this was found, e.g. /services/cerec&quot;,
+      &quot;confidence&quot;: 0.0
+    }
+  ]
+}
+
+Rules — CONTENT FIDELITY (most important):
+- COPY VERBATIM: For all text fields (heroTagline, heroSubheadline, aboutText, doctor.bio, testimonials, faqs, specials), copy
+  the exact text from the site. Do not paraphrase, improve, or rewrite. Use null if the text does not exist on the site.
+- NO FABRICATION: Never invent content that is not present on the scraped pages. No &quot;placeholder&quot; bio text, no invented
+  taglines, no made-up testimonials. If a field is missing from the site, return null — not a plausible-sounding substitute.
+- services: extract ONLY services that are explicitly named as distinct offerings on the site. Deduplicate near-synonyms
+  by keeping the name as it appears on the site&#39;s own navigation or services pages (e.g. if the site has &quot;Zoom® Whitening&quot;
+  and also &quot;Teeth Whitening&quot; as the same service, keep only the primary one). Do not expand or infer services from context.
+- doctor.bio: copy the full bio verbatim. If no bio exists, return null — do not generate one.
+- MULTI-DOCTOR PRACTICES — CRITICAL: many practices have 2+ doctors. You MUST capture all of them.
+  • Place the most-prominent doctor (usually founder, listed first, named in homepage hero) in `doctor`.
+  • Place every OTHER doctor (Dr. Jeremy, Dr. Michael, etc.) in `additionalDoctors` array.
+  • Look in: (1) Person/Dentist/Orthodontist JSON-LD entries — these are the most reliable signal
+    (each one is typically a separate doctor); (2) about-page bodyText for &quot;Get To Know Dr. X&quot; /
+    &quot;Meet Dr. Y&quot; subheadings; (3) team-page entries; (4) footer staff lists.
+  • If you see 2 distinct doctor names mentioned by name in JSON-LD or about-page text, you MUST
+    return at least 2 entries (1 in `doctor`, ≥1 in `additionalDoctors`). Returning `additionalDoctors: null`
+    when the site clearly has multiple doctors is a hard error — it deletes a real person from the rebuild.
+  • Each additional doctor must include name, credentials (if available), bio (if available), photoUrl (if matchable).
+- practice.name: use the FULL name as it appears in the footer or logo alt text, not truncated.
+- brand.colors.primary: must NOT be white (#fff, #ffffff, #f*) or near-black (#000, #111, #222, #333). Pick the actual brand color.
+- images: classify based on URL path patterns AND alt text. Common patterns: */team/*, /staff/*, /dr-* → team;
+  /slider/*, /hero/*, /banner/* → hero; /services/*, /gallery/*, /treatments/* → gallery or office. Before/after → beforeAfter.
+- hours: parse whatever format appears (e.g. &quot;Monday-Thursday 9:00AM-6:00PM&quot; → display: [{day:&quot;Mon–Thu&quot;, time:&quot;9:00AM–6:00PM&quot;}])
+- If JSON-LD structured data exists, prefer it for NAP (name, address, phone), hours, and doctor info.
+- differentiators: Extract any notable advantages, unique features, technology, awards, financing,
+  language capabilities, emergency services, membership plans, or anything that makes this practice
+  stand out. Each signal must have a type from the allowed taxonomy. Minimum confidence 0.7.
+  Return empty array [] if nothing notable found. Do NOT invent differentiators.
+- Return ONLY the JSON object. No markdown. No explanation.
+</code></pre>
+
+  </div>
+</div>
+</body>
+</html>

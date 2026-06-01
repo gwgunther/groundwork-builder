@@ -1,0 +1,81 @@
+---
+/**
+ * Services Card Grid — 3-column card grid.
+ * The standard services layout for warm/family-focused brands.
+ */
+import type { ServicesContent } from '../types';
+import { designDNA } from '../../../config/design-dna';
+import { resolveTokens } from '../token-utils';
+
+interface Props { content: ServicesContent }
+const { content } = Astro.props;
+
+const tokens = (designDNA as any).designTokens ?? {};
+const t = resolveTokens(tokens);
+
+const cardRadius = t.radiusClass;
+const cardClass = {
+  'bordered-flat':  `border border-neutral-dark/10 bg-surface-1`,
+  'soft-shadow':    `bg-surface-1 shadow-md hover:shadow-lg`,
+  'elevated':       `bg-surface-1 shadow-lg hover:shadow-xl hover:-translate-y-1`,
+  'ghost':          `bg-brand-light/60 border border-brand-primary/10`,
+}[(designDNA as any).cardTreatment] ?? `bg-surface-1 shadow-md hover:shadow-lg`;
+---
+
+<section data-section="services" class={`bg-surface-1 ${t.spacingClass}`}>
+  <div class={t.containerClass}>
+
+    <!-- Header -->
+    <div class="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+      {content.eyebrow && (
+        <span class={t.eyebrowClass}>{content.eyebrow}</span>
+      )}
+      <h2 class="font-serif text-3xl md:text-4xl font-bold text-neutral-dark mb-4">
+        {content.heading}
+      </h2>
+      {content.subheading && (
+        <p class="font-sans text-lg text-neutral-mid leading-relaxed">
+          {content.subheading}
+        </p>
+      )}
+    </div>
+
+    <!-- Card grid -->
+    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 list-none p-0" role="list">
+      {content.items.map((service) => (
+        <li>
+          <a
+            href={`/services/${service.slug}`}
+            class={`group flex flex-col h-full p-6 md:p-8 ${cardRadius} ${cardClass} transition-all duration-200 no-underline`}
+            aria-label={`Learn about ${service.name}`}
+          >
+            <!-- Icon placeholder — brand accent dot -->
+            <div class={`w-10 h-10 ${cardRadius} bg-brand-primary/10 flex items-center justify-center mb-5 shrink-0 group-hover:bg-brand-primary/20 transition-colors`} aria-hidden="true">
+              <span class="w-3 h-3 rounded-full bg-brand-primary block"></span>
+            </div>
+
+            <h3 class="font-serif text-xl font-semibold text-neutral-dark mb-3 group-hover:text-brand-primary transition-colors">
+              {service.name}
+            </h3>
+            <p class="font-sans text-neutral-mid text-sm leading-relaxed flex-grow">
+              {service.desc}
+            </p>
+            <span class="mt-5 inline-flex items-center gap-1 text-brand-primary text-sm font-semibold group-hover:gap-2 transition-all">
+              Learn more
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- View all CTA -->
+    <div class="text-center mt-12">
+      <a href="/services" class={t.btnPrimary}>
+        {content.ctaLabel || 'View All Services'}
+      </a>
+    </div>
+  </div>
+</section>

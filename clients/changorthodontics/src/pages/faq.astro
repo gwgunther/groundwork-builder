@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import CTABlock from '../components/CTABlock.astro';
+import { site, localBusinessSchema } from '../config/site';
+
+// TODO: Add practice-specific FAQs
+const faqs = [
+  { question: 'What insurance do you accept?', answer: 'We accept most major dental insurance plans. Contact our office to verify your specific coverage and benefits.' },
+  { question: 'Are you accepting new patients?', answer: 'Yes! We welcome new patients of all ages. Call us or book online to schedule your first visit.' },
+  { question: 'What should I bring to my first appointment?', answer: 'Please bring your photo ID, insurance card, a list of current medications, and any recent dental X-rays if available.' },
+  { question: 'Do you offer financing or payment plans?', answer: 'Yes, we offer flexible payment options including CareCredit and in-house payment plans. We believe cost should never be a barrier to dental care.' },
+  { question: 'What if I have a dental emergency?', answer: 'Call our office immediately. We accommodate same-day emergency appointments whenever possible.' },
+  { question: 'How long do dental implants last?', answer: 'With proper care and maintenance, dental implants can last a lifetime. They are the most durable and long-lasting tooth replacement option available.' },
+];
+---
+
+<BaseLayout
+  title={`FAQ — ${site.name}`}
+  description={`Common questions about dental services at ${site.name}. Insurance, appointments, treatments, and more.`}
+  schema={localBusinessSchema}
+>
+  <section class="bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="section-heading mb-6">Frequently Asked Questions</h1>
+        <p class="text-lg text-neutral-mid">
+          Quick answers to the questions we hear most often. Can't find what you're looking for? Call us at <a href={`tel:${site.phone.replace(/\D/g, '')}`} class="text-brand-primary font-semibold">{site.phone}</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <FAQBlock faqs={faqs} heading="" />
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <CTABlock phone={site.phone} />
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,44 @@
+{
+  "branding/logo.png": {
+    "sourceUrl": "https://www.changorthodontics.com/assets/images/logo.png",
+    "alt": "",
+    "originalFilename": "logo.png",
+    "category": "logo"
+  },
+  "gallery/gallery-1-appointment-request.jpg": {
+    "sourceUrl": "https://www.changorthodontics.com/assets/uploads/images/appointment-request.jpg",
+    "alt": "",
+    "originalFilename": "appointment-request.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-2-for-all-ages.jpg": {
+    "sourceUrl": "https://www.changorthodontics.com/assets/uploads/images/for-all-ages.jpg",
+    "alt": "",
+    "originalFilename": "for-all-ages.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-3-surgical.jpg": {
+    "sourceUrl": "https://www.changorthodontics.com/assets/uploads/images/surgical-orthodontics.jpg",
+    "alt": "",
+    "originalFilename": "surgical-orthodontics.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-4-life-with-braces.jpg": {
+    "sourceUrl": "https://www.changorthodontics.com/assets/uploads/images/life-with-braces.jpg",
+    "alt": "",
+    "originalFilename": "life-with-braces.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-5-emergency-care.jpg": {
+    "sourceUrl": "https://www.changorthodontics.com/assets/uploads/images/emergency-care.jpg",
+    "alt": "",
+    "originalFilename": "emergency-care.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-6-craniofacial.jpg": {
+    "sourceUrl": "https://www.changorthodontics.com/assets/uploads/images/craniofacial-orthodontics.jpg",
+    "alt": "",
+    "originalFilename": "craniofacial-orthodontics.jpg",
+    "category": "gallery"
+  }
+}

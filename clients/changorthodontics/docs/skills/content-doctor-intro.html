@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>content/doctor-intro · Skill</title>
+<style>
+  :root {
+    --bg: #0f1115; --fg: #e7e8ea; --muted: #9098a3; --accent: #6ee7b7;
+    --card: #181b22; --border: #262a33; --code-bg: #0a0c10;
+    --stub: #6b7280; --working: #f59e0b; --polished: #10b981; --mature: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  .topbar { padding: 16px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .topbar a { color: var(--accent); text-decoration: none; font-size: 13px; }
+  .topbar a:hover { text-decoration: underline; }
+  .topbar-meta { color: var(--muted); font-size: 12px; }
+  .container { max-width: 880px; margin: 0 auto; padding: 32px 40px 80px; }
+  header.skill-head { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  header.skill-head h1 { margin: 0 0 4px; font-size: 28px; font-weight: 600; }
+  .skill-path { color: var(--muted); font-family: ui-monospace, SFMono-Regular, monospace; font-size: 13px; }
+  .badges { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+  .badge.tier { background: var(--border); font-family: ui-monospace, monospace; }
+  .badge.tier-L1 { background: rgba(110, 231, 183, .15); color: var(--accent); }
+  .badge.tier-L2 { background: rgba(245, 158, 11, .15); color: var(--working); }
+  .badge.tier-L3 { background: rgba(59, 130, 246, .15); color: #60a5fa; }
+  .badge.tier-L4 { background: rgba(168, 85, 247, .15); color: #c084fc; }
+  .badge.maturity { background: var(--border); }
+  .badge.phase { background: var(--card); border: 1px solid var(--border); color: var(--muted); }
+  .meta-table { font-size: 13px; color: var(--muted); margin-top: 12px; }
+  .meta-table strong { color: var(--fg); font-weight: 500; }
+  .meta-table code { background: var(--card); padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--accent); }
+  .doc h2 { margin: 32px 0 12px; font-size: 20px; font-weight: 600; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .doc h3 { margin: 24px 0 8px; font-size: 16px; font-weight: 600; color: var(--accent); }
+  .doc p { margin: 0 0 14px; }
+  .doc ul, .doc ol { margin: 0 0 14px; padding-left: 24px; }
+  .doc li { margin-bottom: 4px; }
+  .doc a { color: var(--accent); }
+  .doc strong { color: var(--fg); font-weight: 600; }
+  .doc code { background: var(--card); padding: 2px 6px; border-radius: 3px; font-size: 13px; color: var(--accent); font-family: ui-monospace, SFMono-Regular, monospace; }
+  .doc pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 0 0 16px; }
+  .doc pre code { background: transparent; padding: 0; color: var(--fg); font-size: 13px; line-height: 1.5; white-space: pre; }
+  .doc table { border-collapse: collapse; margin: 0 0 16px; font-size: 14px; width: 100%; }
+  .doc th, .doc td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+  .doc th { background: var(--card); font-weight: 600; }
+  .doc blockquote { border-left: 3px solid var(--accent); padding: 4px 16px; margin: 0 0 16px; color: var(--muted); }
+  .doc hr { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../PIPELINE.html">← Back to Pipeline Dashboard</a>
+  <span class="topbar-meta">Source: <code style="background:transparent">skills/content/doctor-intro.md</code></span>
+</div>
+
+<div class="container">
+  <header class="skill-head">
+    <div class="skill-path">skills/content/doctor-intro.md</div>
+    <h1>doctor intro</h1>
+    <div class="badges">
+      <span class="badge tier tier-L1">L1</span>
+      <span class="badge maturity">🟡 working</span>
+      <span class="badge phase">Phase: Generate</span>
+      <span class="badge phase">Model: claude-sonnet-4-6</span>
+    </div>
+    
+    <div class="meta-table">
+      <div><strong>Source:</strong> <code>scripts/pipeline/skills/skill-generate.js</code></div>
+      <div><strong>Function:</strong> <code>doctorContentBrief()</code></div>
+    </div>
+  </header>
+
+  <div class="doc">
+<h1>Skill: Doctor Intro Content Generation</h1>
+<h2>Responsibility</h2>
+<p>Produce the content JSON for the homepage Doctor Introduction block. Most
+fields are LOCKED (variant, name, credentials, hasPortrait) and must be copied
+verbatim from the input — the AI only writes the eyebrow, bio, and CTA label.
+This locking pattern was added because the AI had been overwriting the
+canonical doctor name with shortened forms.</p>
+<h2>Inputs</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Source</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>recommended</code></td>
+<td>string</td>
+<td><code>dna.designTokens.aboutLayout</code></td>
+<td>Locked layout</td>
+</tr>
+<tr>
+<td><code>practice.name</code></td>
+<td>string</td>
+<td>merged</td>
+<td>Practice name</td>
+</tr>
+<tr>
+<td><code>practice.city</code></td>
+<td>string</td>
+<td>merged</td>
+<td>City for grounding</td>
+</tr>
+<tr>
+<td><code>cityOrFallback</code></td>
+<td>string</td>
+<td>derived</td>
+<td>`practice.city</td>
+</tr>
+<tr>
+<td><code>displayName</code></td>
+<td>string</td>
+<td>derived</td>
+<td>`content.nameNoTitle</td>
+</tr>
+<tr>
+<td><code>credentials</code></td>
+<td>string</td>
+<td>derived</td>
+<td>`content.credentials</td>
+</tr>
+<tr>
+<td><code>lastName</code></td>
+<td>string</td>
+<td>derived</td>
+<td>last token of displayName</td>
+</tr>
+<tr>
+<td><code>bioBlock</code></td>
+<td>string</td>
+<td>derived</td>
+<td>If bio present: &quot;Bio source material — ...{bio first 800 chars}&quot;. Else: &quot;No bio on file — write 2–3 warm sentences specific to {city} ...&quot;</td>
+</tr>
+<tr>
+<td><code>additionalContentBlock</code></td>
+<td>string</td>
+<td>derived</td>
+<td>Empty string if no rescued content; otherwise a numbered list of pull-quotes / philosophy / welcome statements from <code>content.additionalContent</code>, filtered for doctor-relevant types or items mentioning this doctor by name. The AI uses these to ground the bio in real practice voice.</td>
+</tr>
+</tbody></table>
+<h2>Output schema</h2>
+<pre><code class="language-json">{
+  &quot;variant&quot;: &quot;string — must equal {{recommended}}&quot;,
+  &quot;eyebrow&quot;: &quot;string — 2–4 words, NOT just &#39;Meet Your Doctor&#39; if better available&quot;,
+  &quot;name&quot;: &quot;string — must equal {{displayName}}&quot;,
+  &quot;credentials&quot;: &quot;string — must equal {{credentials}}&quot;,
+  &quot;bio&quot;: &quot;string — 2-3 paragraphs separated by \\n\\n&quot;,
+  &quot;ctaLabel&quot;: &quot;string — verb + name, e.g. &#39;Meet Dr. {{lastName}}&#39;&quot;,
+  &quot;ctaHref&quot;: &quot;/about&quot;,
+  &quot;hasPortrait&quot;: true
+}
+</code></pre>
+<h2>Evaluation criteria</h2>
+<ul>
+<li><strong>Locked fields are byte-identical</strong> — variant, name, credentials, hasPortrait must equal the locked input values</li>
+<li><strong>Bio is grounded</strong> — uses provided bio source if present, never fabricates schools/years/credentials</li>
+<li><strong>Voice match</strong> — when <code>additionalContent</code> rescued blocks exist (philosophy paragraphs, pull-quotes), the bio echoes their phrasing/tone, not generic &quot;compassionate care&quot; filler</li>
+<li><strong>Eyebrow adds meaning</strong> — not just &quot;Meet Your Doctor&quot; if a better hook is available</li>
+<li><strong>CTA label uses the verb + name pattern</strong> with last name (e.g. &quot;Meet Dr. Hoang&quot;)</li>
+<li><strong>2-3 paragraphs</strong> in bio, separated by <code>\n\n</code></li>
+<li><strong>Returns only JSON</strong></li>
+</ul>
+<h2>Known gaps</h2>
+<ul>
+<li>AI was previously ignoring locked values (overwriting <code>name</code> with a shorter form) — the LOCKED FIELDS section was added to fix this; needs ongoing validation</li>
+<li>No automatic enforcement that the output&#39;s locked fields match input — caller should validate post-hoc</li>
+<li>Eyebrow can still default to generic &quot;Meet Our Doctor&quot; when source bio is sparse</li>
+<li>No explicit handling of multi-doctor practices (this is the homepage primary slot only)</li>
+</ul>
+<h2>Improvement levers</h2>
+<ol>
+<li><strong>Easy (L1):</strong> Tighten the LOCKED FIELDS instruction with an example of what &quot;verbatim&quot; means</li>
+<li><strong>Easy (caller-side):</strong> Validator that overwrites the locked fields back to input values post-call</li>
+<li><strong>Medium:</strong> Pass practice differentiators (technology, awards) into the bio brief so generated bios reference them</li>
+<li><strong>Medium:</strong> Per-archetype eyebrow style guidance (warm/family vs. clinical/specialist)</li>
+</ol>
+<h2>Test fixtures</h2>
+<p><em>None yet. Future: regression test that the AI never alters the locked <code>name</code> field.</em></p>
+<hr>
+<h2>PROMPT</h2>
+<pre><code class="language-text">Generate copy for the Doctor Introduction section of {{practice.name}}.
+
+Layout variant: &quot;{{recommended}}&quot; — locked from archetype, do NOT change it.
+Layout reference (for context only):
+- &quot;split-photo&quot;:      portrait left (or right), bio text opposite — warm and personal
+- &quot;full-width-card&quot;:  large portrait fills left half, floating content card on right — editorial premium
+- &quot;editorial-full&quot;:   portrait fills entire section background; content card overlay on right
+- &quot;minimal-text&quot;:     no portrait at all; pure typographic — name as design element, bio in 2 columns
+- &quot;two-col-brief&quot;:    compact split — small avatar + name on left, short bio on right
+
+CRITICAL — LOCKED FIELDS (copy these values EXACTLY into the output — do NOT change them):
+  variant   = &quot;{{recommended}}&quot;
+  name      = &quot;{{displayName}}&quot;
+  credentials = &quot;{{credentials}}&quot;
+  hasPortrait = true
+
+FILL IN only the fields marked &lt;...&gt; below. Do not change the locked fields.
+
+Return ONLY this JSON object:
+{
+  &quot;variant&quot;: &quot;{{recommended}}&quot;,
+  &quot;eyebrow&quot;: &quot;&lt;2–4 words — adds meaning beyond the heading, NOT just &#39;Meet Your Doctor&#39; if you can do better&gt;&quot;,
+  &quot;name&quot;: &quot;{{displayName}}&quot;,
+  &quot;credentials&quot;: &quot;{{credentials}}&quot;,
+  &quot;bio&quot;: &quot;&lt;2–3 paragraphs separated by \\n\\n — warm, specific to this practice and city, never fabricated credentials&gt;&quot;,
+  &quot;ctaLabel&quot;: &quot;&lt;verb + name, e.g. &#39;Meet Dr. {{lastName}}&#39; or &#39;Our Team&#39;&gt;&quot;,
+  &quot;ctaHref&quot;: &quot;/about&quot;,
+  &quot;hasPortrait&quot;: true
+}
+
+{{bioBlock}}
+{{additionalContentBlock}}
+
+Return ONLY the JSON object. No prose, no markdown.
+</code></pre>
+
+  </div>
+</div>
+</body>
+</html>
