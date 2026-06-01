@@ -5,17 +5,17 @@ export default {
     extend: {
       colors: {
         brand: {
-          primary:   '#1a5c6e',
-          secondary: '#2d4a52',
+          primary:   '#0e5c6e',
+          secondary: '#1a3d4f',
           light:     '#f0f7f8',
-          accent:    '#b8923a',
-          highlight: '#b8923a',
+          accent:    '#b8924a',
+          highlight: '#b8924a',
         },
         neutral: {
-          dark:   '#0e1f24',
-          mid:    '#5a7a82',
+          dark:   '#0f2330',
+          mid:    '#4a6472',
           light:  '#f0f7f8',
-          border: '#5a7a82',
+          border: '#4a6472',
         },
         surface: {
           1: '#FFFFFF',
@@ -24,7 +24,7 @@ export default {
         // Role-based border color (used as border-border-light in templates).
         // No literal-color slots — text/dark surfaces use neutral-dark and
         // muted text uses neutral-mid; both trace to brand.dark / brand.muted.
-        'border-light':'#5a7a82',
+        'border-light':'#4a6472',
       },
       fontFamily: {
         serif: ['Plus Jakarta Sans', 'Georgia', 'serif'],

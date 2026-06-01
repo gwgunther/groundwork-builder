@@ -30,145 +30,114 @@ const socialLinks = [
 
 <footer class="w-full bg-neutral-dark text-white">
 
-  <!-- Top divider rule -->
-  <div class="w-full h-px bg-brand-primary opacity-40"></div>
+  <!-- Editorial split: large practice name left, columns right -->
+  <div class="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
-  <!-- Main 4-column grid -->
-  <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+      <!-- Left column: practice identity -->
+      <div class="flex flex-col gap-6">
+        <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary">
+          Long Beach, CA
+        </p>
+        <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-white">
+          {site.name}
+        </h2>
+        <p class="text-base leading-relaxed text-neutral-300 max-w-sm">
+          Neighborhood dentistry rooted in Spring Street — where honest care and unhurried appointments have been the standard since day one.
+        </p>
 
-    <!-- Col 1: Practice identity -->
-    <div class="flex flex-col gap-4">
-      <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary">Spring St. Dentistry</p>
-      <p class="font-serif text-xl font-bold leading-snug text-white">
-        Neighborhood care.<br />Clinical precision.
-      </p>
-      <p class="text-sm leading-relaxed text-neutral-300">
-        Serving Long Beach families from our Spring Street practice — where every visit feels like a return, not an appointment.
-      </p>
-      <!-- Social links -->
-      <div class="flex items-center gap-4 pt-2">
-        {socialLinks.map((s) => (
+        <!-- Address block -->
+        <address class="not-italic flex flex-col gap-1 text-sm text-neutral-300">
+          <span>{addr.street}</span>
+          <span>{addr.city}, {addr.state} {addr.zip}</span>
           <a
-            href={s.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={s.label}
-            class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/20 text-white hover:border-brand-primary hover:text-brand-primary transition-all duration-200"
+            href={`tel:${site.phone.replace(/\D/g, '')}`}
+            class="mt-2 text-brand-primary font-semibold text-base hover:underline underline-offset-2 transition-all duration-200"
+            aria-label={`Call us at ${site.phone}`}
           >
-            {s.icon === 'google' && (
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M21.805 10.023H12v3.977h5.617C17.1 15.9 15.188 17.25 12 17.25c-3.314 0-6-2.686-6-6s2.686-6 6-6c1.538 0 2.937.584 3.993 1.537l2.828-2.828C17.148 2.671 14.686 1.5 12 1.5 6.201 1.5 1.5 6.201 1.5 12S6.201 22.5 12 22.5c5.523 0 10.5-4.477 10.5-10 0-.827-.09-1.632-.195-2.477z"/>
-              </svg>
-            )}
-            {s.icon === 'facebook' && (
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
-              </svg>
-            )}
+            {site.phone}
           </a>
-        ))}
-      </div>
-    </div>
+        </address>
 
-    <!-- Col 2: Address & contact -->
-    <div class="flex flex-col gap-4">
-      <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary">Find Us</p>
-      <address class="not-italic flex flex-col gap-2 text-sm leading-relaxed text-neutral-300">
-        <span>{addr.street}</span>
-        <span>{addr.city}, {addr.state} {addr.zip}</span>
-      </address>
-      <a
-        href={`tel:${site.phone.replace(/\D/g, '')}`}
-        class="inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-brand-primary transition-all duration-200"
-        aria-label={`Call us at ${site.phone}`}
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/>
-        </svg>
-        {site.phone}
-      </a>
-      <a
-        href="https://www.google.com/maps/place/Spring+St.+Dentistry/@33.766568,-118.0842986,13z/data=!4m6!3m5!1s0x80dd2e06b18264df:0x5859cb8cd370dcb8!8m2!3d33.8097103!4d-118.1057071!16s%2Fg%2F1tx1thg9?entry=ttu"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-1 text-sm text-neutral-400 hover:text-brand-primary transition-all duration-200"
-        aria-label="Get directions to Spring St. Dentistry on Google Maps"
-      >
-        Get directions
-        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M7 17L17 7M7 7h10v10"/>
-        </svg>
-      </a>
-    </div>
-
-    <!-- Col 3: Office hours -->
-    <div class="flex flex-col gap-4">
-      <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary">Office Hours</p>
-      <dl class="flex flex-col gap-2 text-sm text-neutral-300">
-        {site.hours ? (
-          site.hours.map((row) => (
-            <div class="flex justify-between gap-4">
-              <dt class="text-neutral-400">{row.days}</dt>
-              <dd class="text-white font-medium text-right">{row.hours}</dd>
-            </div>
-          ))
-        ) : (
-          <>
-            <div class="flex justify-between gap-4">
-              <dt class="text-neutral-400">Mon – Fri</dt>
-              <dd class="text-white font-medium text-right">9:00 am – 6:00 pm</dd>
-            </div>
-            <div class="flex justify-between gap-4">
-              <dt class="text-neutral-400">Saturday</dt>
-              <dd class="text-white font-medium text-right">9:00 am – 2:00 pm</dd>
-            </div>
-            <div class="flex justify-between gap-4">
-              <dt class="text-neutral-400">Sunday</dt>
-              <dd class="text-white font-medium text-right">Closed</dd>
-            </div>
-          </>
-        )}
-      </dl>
-    </div>
-
-    <!-- Col 4: Navigation -->
-    <div class="flex flex-col gap-4">
-      <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary">Quick Links</p>
-      <nav aria-label="Footer navigation">
-        <ul class="flex flex-col gap-3">
-          {navLinks.map((link) => (
-            <li>
-              <a
-                href={link.href}
-                class="text-sm text-neutral-300 hover:text-white transition-all duration-200"
-              >
-                {link.label}
-              </a>
-            </li>
+        <!-- Social links -->
+        <div class="flex items-center gap-4 mt-2">
+          {socialLinks.map((link) => (
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={link.label}
+              class="inline-flex items-center gap-2 text-sm font-medium text-neutral-300 hover:text-brand-primary transition-all duration-200"
+            >
+              {link.icon === 'google' && (
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M21.805 10.023H12v3.977h5.617C17.1 16.018 14.78 17.5 12 17.5c-3.038 0-5.5-2.462-5.5-5.5S8.962 6.5 12 6.5c1.395 0 2.663.522 3.627 1.373l2.828-2.828C16.738 3.358 14.48 2.5 12 2.5 6.753 2.5 2.5 6.753 2.5 12S6.753 21.5 12 21.5c5.523 0 9.5-3.977 9.5-9.5 0-.655-.067-1.295-.195-1.977z"/>
+                </svg>
+              )}
+              {link.icon === 'facebook' && (
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M22 12c0-5.522-4.478-10-10-10S2 6.478 2 12c0 4.991 3.657 9.128 8.438 9.878V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+                </svg>
+              )}
+              <span>{link.label}</span>
+            </a>
           ))}
-        </ul>
-      </nav>
-      <div class="pt-4 mt-2 border-t border-white/10">
-        <a
-          href="/schedule"
-          class="inline-block bg-brand-primary text-white font-semibold px-6 py-3 rounded-2xl transition-all duration-200 text-center hover:opacity-90 text-sm w-full"
-        >
-          Book Appointment
-        </a>
+        </div>
+      </div>
+
+      <!-- Right column: nav + hours -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-10">
+
+        <!-- Navigation -->
+        <nav aria-label="Footer navigation">
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary mb-4">
+            Navigation
+          </p>
+          <ul class="flex flex-col gap-3">
+            {navLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-base text-neutral-300 hover:text-white transition-all duration-200"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <!-- Office hours -->
+        {site.hours && (
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary mb-4">
+              Office Hours
+            </p>
+            <ul class="flex flex-col gap-2">
+              {Object.entries(site.hours).map(([day, hours]) => (
+                <li class="flex justify-between gap-4 text-sm text-neutral-300">
+                  <span class="font-medium text-white">{day}</span>
+                  <span>{hours}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
       </div>
     </div>
-
   </div>
 
-  <!-- Bottom rule + copyright -->
-  <div class="w-full h-px bg-white/10"></div>
-  <div class="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-    <p class="text-xs text-neutral-400 text-center sm:text-left">
-      &copy; {currentYear} {site.name}. All rights reserved.
-    </p>
-    <p class="text-xs text-neutral-500 text-center sm:text-right">
-      {addr.city}, {addr.state} &mdash; Lic. general dentistry practice
-    </p>
+  <!-- Bottom bar -->
+  <div class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-sm text-neutral-400">
+        &copy; {currentYear} {site.name}. All rights reserved.
+      </p>
+      <p class="text-sm text-neutral-500">
+        {addr.city}, {addr.state}
+      </p>
+    </div>
   </div>
 
 </footer>

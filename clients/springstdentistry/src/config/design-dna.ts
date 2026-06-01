@@ -61,19 +61,19 @@ export interface DesignDNA {
 }
 
 export const designDNA: DesignDNA = {
-  "archetype": "card-heavy",
-  "heroVariant": "centered",
-  "servicesVariant": "cards-3up",
-  "navVariant": "left-logo",
-  "footerVariant": "bold-cta-footer",
+  "archetype": "poster-hero",
+  "heroVariant": "poster",
+  "servicesVariant": "editorial-list",
+  "navVariant": "transparent-overlay",
+  "footerVariant": "minimal-dark",
   "ctaVariant": "full-width-dark",
   "doctorVariant": "portrait-left",
-  "galleryVariant": "featured-grid",
+  "galleryVariant": "full-bleed-row",
   "sectionOrder": [
     "hero",
+    "gallery",
     "doctor-intro",
     "services",
-    "gallery",
     "reviews",
     "cta",
     "faq"
@@ -83,29 +83,29 @@ export const designDNA: DesignDNA = {
   "motion": "subtle",
   "radius": "lg",
   "borrowedFrom": null,
-  "borrowedTrait": "thin-rule section dividers between content bands",
+  "borrowedTrait": "oversized type accent — a large-scale numeral or single word rendered at display size behind a content block, used as a structural graphic element rather than readable text",
   "headingScale": "moderate",
-  "sectionDivider": "line",
-  "heroTextPosition": "center",
-  "divergenceRationale": "All three prior builds used asymmetric or split hero variants (asymmetric-right, asymmetric-right, split-image) within the editorial-asymmetric, magazine-split, and warm-editorial archetypes — so any split or asymmetric hero and any editorial-family archetype is off the table. Card-heavy with a centered hero is a clean break: it lands in the classic/warm family (appropriate for a community neighborhood practice), produces a card-grid services layout and centered trust-forward hero, and has not appeared once in the recent build log. The vertical prior suggested gallery-first, but with doctor credibility (LANAP, DMD, dual-doctor) being the primary conversion lever and gallery data confirmed available, the IA best-practice sequence (trust → doctor → services → gallery → reviews → CTA) outweighs the orthodontic soft prior.",
-  "creativeDirection": "A warm-authoritative card grid site where deep teal structural bands and muted gold thin-rule dividers give the layout clinical order, while centered humanist type and soft-shadow cards keep the neighborhood warmth intact — credibility you can feel before you read a word.",
+  "sectionDivider": "color-shift",
+  "heroTextPosition": "bottom-left",
+  "divergenceRationale": "All three prior builds occupy the split-image/full-bleed/asymmetric-right hero space paired with magazine-split, card-heavy, or warm-editorial archetypes — poster-hero with a bottom-left text anchor is the one unused combination that still sits comfortably in the editorial/bold family appropriate for an implants-and-LANAP-forward specialist practice. Centered-classic and warm-editorial were ruled out because the brand direction explicitly chose a grotesque heading face and a cool-dominant palette to differentiate from spa-dentistry competitors, which maps to the editorial family. Gallery is elevated above services per the vertical prior (orthodontics/cosmetic — outcome visuals convert before feature lists), and the soft color-shift divider between sections replaces the line or space dividers seen in prior builds.",
+  "creativeDirection": "A confident, neighborhood-rooted editorial voice — the poster hero anchors the teal authority color at full saturation with the doctor's name and a plain-spoken outcome line sitting low-left like a broadsheet byline, while featured-grid gallery and alternating editorial-list services give the page a considered, unhurried premium feel that earns trust through specificity rather than decoration.",
   "coverage": {
     "filteredSections": []
   },
-  "typographyScale": "Playfair Display (heading) / DM Sans (body) — scale 14/16/20/28/40/56px",
+  "typographyScale": "Cormorant Garamond (heading) / DM Sans (body) — scale 14/16/20/28/40/56px",
   "colorPalette": {
-    "primary": "#0e6b7a",
+    "primary": "#0a6b7c",
     "secondary": "#1a4a5c",
     "light": "#f0f7f8",
-    "accent": "#c8a96e",
+    "accent": "#c9a96e",
     "highlight": "#e8f4f6"
   },
   "spacingScale": "4/8/16/24/48/80px",
   "writingTone": "Warm, clear, specific to Long Beach.",
-  "brandSummary": "Spring St. Dentistry, led by Dr. Anthony Hoang, serving Long Beach, — A warm-authoritative card grid site where deep teal structural bands and muted gold thin-rule dividers give the layout clinical order, while centered humanist type and soft-shadow cards keep the neighborhood warmth intact — credibility you can feel before you read a word.",
+  "brandSummary": "Spring St. Dentistry, led by Dr. Anthony Hoang, serving Long Beach, — A confident, neighborhood-rooted editorial voice — the poster hero anchors the teal authority color at full saturation with the doctor's name and a plain-spoken outcome line sitting low-left like a broadsheet byline, while featured-grid gallery and alternating editorial-list services give the page a considered, unhurried premium feel that earns trust through specificity rather than decoration.",
   "doRules": [
-    "Use the archetype's established card-heavy layout — don't mix incompatible grid styles mid-page.",
-    "Hero variant must be centered — lock this choice.",
+    "Use the archetype's established poster-hero layout — don't mix incompatible grid styles mid-page.",
+    "Hero variant must be poster — lock this choice.",
     "Card treatment is soft-shadow — apply consistently across all card instances.",
     "Phone number must be a tel: link in the mobile header, minimum 44px touch target.",
     "Doctor name and credentials must appear without scrolling on the homepage.",
@@ -129,19 +129,19 @@ export const designDNA: DesignDNA = {
     "sectionSpacing": "default",
     "contentDensity": "default",
     "layoutWidth": "standard",
-    "heroLayout": "centered",
-    "servicesLayout": "card-grid",
+    "heroLayout": "poster",
+    "servicesLayout": "numbered-list",
     "aboutLayout": "split-photo",
-    "testimonialsLayout": "grid-mosaic",
-    "ctaLayout": "two-button",
-    "faqLayout": "cards-grid",
-    "navVariant": "left-logo",
-    "footerVariant": "bold-cta-footer",
-    "galleryVariant": "featured-grid",
-    "typePersonality": "humanist-serif",
-    "colorFamily": "warm"
+    "testimonialsLayout": "pull-quotes",
+    "ctaLayout": "centered-banner",
+    "faqLayout": "simple-stack",
+    "navVariant": "transparent-overlay",
+    "footerVariant": "minimal-dark",
+    "galleryVariant": "full-bleed-row",
+    "typePersonality": "display-serif",
+    "colorFamily": "cool"
   },
-  "evalRationale": "Candidate 0 wins on creative interest: the specific detail of 'deep teal structural bands and muted gold thin-rule dividers' giving 'clinical order' alongside 'centered humanist type' is the most evocative and distinctive creative direction of the three, and its unique section order (CTA before FAQ) shows deliberate IA thinking rather than a default template. Candidates 1 and 2 are nearly identical in both spec and creative language, making 0 the clear differentiator."
+  "evalRationale": "Candidate 0 is the only entry that achieves genuine structural divergence from all three prior builds by using a poster-hero archetype with a bottom-left text anchor — a combination unused in the recent catalog — while its gallery-elevated section order and broadsheet editorial voice add specific creative interest that Candidates 1 and 2 lack entirely. Candidates 1 and 2 are near-identical centered-classic builds sharing the same archetype, hero variant, radius, motion, card treatment, and section order, making them redundant with each other and insufficiently distinct from the warm-editorial and magazine-split prior builds."
 };
 
 export interface ImageRoles {

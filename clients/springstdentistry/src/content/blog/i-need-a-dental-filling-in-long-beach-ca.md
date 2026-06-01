@@ -1,6 +1,6 @@
 ---
 title: "I Need A Dental Filling in Long Beach, CA"
-description: "Dental fillings repair cavities, chips, and worn enamel while restoring confidence and protecting your smile at every age."
+description: "Dental fillings repair cavities, chips, and worn enamel while restoring the natural look and function of your smile at every stage of life."
 publishDate: 2026-06-01
 targetKeyword: "i need a dental filling in long beach ca"
 category: "restorative"

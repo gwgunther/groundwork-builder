@@ -1,6 +1,6 @@
 ---
 title: "Dental Checkup And Cleaning in Long Beach, CA"
-description: "Regular dental checkups and cleanings keep your smile healthy, confident, and fresh while helping catch issues early."
+description: "Regular dental checkups and cleanings help you stay proactive about your health, remove buildup, and keep your smile fresh and confident."
 publishDate: 2026-06-01
 targetKeyword: "dental checkup and cleaning in long beach ca"
 category: "oral-health"
