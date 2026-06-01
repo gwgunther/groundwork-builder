@@ -65,22 +65,22 @@
     "originalFilename": "new-patients.jpg",
     "category": "gallery"
   },
-  "gallery/gallery-7-exam-cleaning.jpg": {
-    "sourceUrl": "https://www.springstdentistry.com/images/dental-services/exam-cleaning.jpg",
+  "gallery/gallery-7-dental-fillings.jpg": {
+    "sourceUrl": "https://www.springstdentistry.com/images/dental-services/dental-fillings.jpg",
     "alt": "",
-    "originalFilename": "exam-cleaning.jpg",
+    "originalFilename": "dental-fillings.jpg",
     "category": "gallery"
   },
-  "gallery/gallery-8-teeth-whitening.jpg": {
-    "sourceUrl": "https://www.springstdentistry.com/images/dental-services/teeth-whitening.jpg",
-    "alt": "",
-    "originalFilename": "teeth-whitening.jpg",
-    "category": "gallery"
-  },
-  "gallery/gallery-9-dental-crowns.jpg": {
+  "gallery/gallery-8-dental-crowns.jpg": {
     "sourceUrl": "https://www.springstdentistry.com/images/dental-services/dental-crowns.jpg",
     "alt": "",
     "originalFilename": "dental-crowns.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-9-teeth-whitening.jpg": {
+    "sourceUrl": "https://www.springstdentistry.com/images/dental-services/teeth-whitening.jpg",
+    "alt": "",
+    "originalFilename": "teeth-whitening.jpg",
     "category": "gallery"
   },
   "gallery/gallery-10-dental-implants.jpg": {
@@ -89,10 +89,10 @@
     "originalFilename": "dental-implants.jpg",
     "category": "gallery"
   },
-  "gallery/gallery-11-dental-fillings.jpg": {
-    "sourceUrl": "https://www.springstdentistry.com/images/dental-services/dental-fillings.jpg",
+  "gallery/gallery-11-exam-cleaning.jpg": {
+    "sourceUrl": "https://www.springstdentistry.com/images/dental-services/exam-cleaning.jpg",
     "alt": "",
-    "originalFilename": "dental-fillings.jpg",
+    "originalFilename": "exam-cleaning.jpg",
     "category": "gallery"
   },
   "gallery/gallery-12-root-canal.jpg": {

@@ -31,7 +31,7 @@ export const additionalDoctors = [
     "firstName": "Richard",
     "lastName": "Lee",
     "nameNoTitle": "Richard K. Lee",
-    "credentials": "DDS",
+    "credentials": "Board-Certified Periodontist",
     "bio": "Dr. Richard Kang Lee is a board-certified periodontist. Before completing his residency in periodontics at Tufts University in Boston, he practiced general dentistry for 6 years in Southern California. This invaluable experience provided him with a comprehensive approach to dentistry and periodontics. To provide a wide range of treatment options for his patients, he has completed training in laser-assisted periodontal therapy and is a LANAP-certified clinician. He enjoys collaborating with restorative providers in delivering the best long-term treatment outcomes for health, stability, and esthetics. Dr. Lee is an active member of the American Dental Association(ADA), California Dental Association(CDA), California Society of Periodontists (CSP), and the American Academy of Periodontology (AAP). He has lectured at the West Coast Study Club and is faculty for the live surgical implant course with Hiossen. Dr. Richard Lee met his wife Jennifer in dental school at Tufts University. Following graduation in 2013, both relocated to California to work in private practice.",
     "education": "",
     "specialties": [],
@@ -97,7 +97,7 @@ export const personSchema = {
     'address': localBusinessSchema.address,
   },
   'description': doctor.bio,
-  'alumniOf': 'DMD from Tufts University School of Dental Medicine (2014), General Practice Residency at Loma Linda VA Medical Center, Lakewood High School, UC Irvine',
+  'alumniOf': 'DMD degree from Tufts University School of Dental Medicine (2014), General Practice Residency in Dentistry at the Loma Linda VA Medical Center, Lakewood High School, UC Irvine',
   'knowsAbout': ["General Dentistry","Family Dentistry","Cosmetic Dentistry"],
 };
 

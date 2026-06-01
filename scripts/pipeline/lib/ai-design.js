@@ -18,6 +18,10 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROMPT_PATH = resolve(__dirname, '..', 'prompts', 'design-map.md');
 const DESIGN_SKILL_PATH = resolve(__dirname, '..', 'skills', 'design.md');
+// Second skill — adapted from github.com/Leonxlnx/taste-skill (design-taste-frontend).
+// Provides anti-AI-slop visual rules + a creative arsenal of premium patterns.
+// Loaded alongside design.md and concatenated into the prompt's {{designSkill}}.
+const TASTE_SKILL_PATH = resolve(__dirname, '..', 'skills', 'taste-frontend.md');
 
 /**
  * Run AI design mapping.
@@ -43,12 +47,22 @@ export async function runDesignMapping(scraped, merged, audit, opts = {}) {
     return null;
   }
 
-  let designSkill = '';
+  // Load both design skills and concatenate. design.md = project-specific
+  // (Astro stack, dental vertical). taste-frontend.md = generic premium-UI
+  // rules (anti-AI-slop, typography, color, motion guardrails). Both flow
+  // into the same {{designSkill}} template slot.
+  const skillParts = [];
   try {
-    designSkill = await readFile(DESIGN_SKILL_PATH, 'utf-8');
+    skillParts.push(await readFile(DESIGN_SKILL_PATH, 'utf-8'));
   } catch {
-    console.warn('  Warning: Could not load design skill — proceeding without it.');
+    console.warn('  Warning: Could not load design.md — proceeding without it.');
   }
+  try {
+    skillParts.push(await readFile(TASTE_SKILL_PATH, 'utf-8'));
+  } catch {
+    console.warn('  Warning: Could not load taste-frontend.md — proceeding without it.');
+  }
+  const designSkill = skillParts.join('\n\n---\n\n');
 
   const prompt = buildPrompt(promptTemplate, scraped, merged, audit, designSkill);
 

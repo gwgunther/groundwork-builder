@@ -7,9 +7,10 @@
   },
   "team": [
     "team/team-2-dr-lee.jpg",
-    "gallery/gallery-8-dental-implants.jpg",
     "gallery/gallery-11-dental-implants.jpg",
+    "gallery/gallery-8-dental-implants.jpg",
     "gallery/gallery-10-exam-cleaning.jpg",
+    "gallery/gallery-11-exam-cleaning.jpg",
     "gallery/gallery-7-exam-cleaning.jpg",
     "gallery/gallery-9-exam-cleaning.jpg"
   ],
@@ -17,20 +18,21 @@
     "heroes/office-2-office.jpg"
   ],
   "gallery": [
+    "gallery/gallery-8-teeth-whitening.jpg",
     "gallery/gallery-3.jpg",
     "gallery/gallery-7-teeth-whitening.jpg",
-    "gallery/gallery-8-teeth-whitening.jpg",
     "gallery/gallery-9-teeth-whitening.jpg",
+    "gallery/gallery-11-dental-crowns.jpg",
     "gallery/gallery-1-general-dentistry.jpg",
     "gallery/gallery-10-dental-crowns.jpg",
     "gallery/gallery-10-dental-implants.jpg",
-    "gallery/gallery-11-dental-crowns.jpg",
     "gallery/gallery-11-dental-fillings.jpg",
     "gallery/gallery-2-cosmetic-dentistry.jpg",
     "gallery/gallery-4-family-dentistry.jpg",
     "gallery/gallery-5-reviews.jpg",
     "gallery/gallery-6-new-patients.jpg",
     "gallery/gallery-7-dental-fillings.jpg",
+    "gallery/gallery-8-dental-crowns.jpg",
     "gallery/gallery-8-dental-fillings.jpg",
     "gallery/gallery-9-dental-crowns.jpg"
   ],

@@ -3,17 +3,17 @@
     {
       "slug": "spring-st-dentistry",
       "tag": "own",
-      "source": "/Users/garrettgunther/Projects/spring-st-test3",
-      "captured": "2026-05-03",
-      "archetype": "centered-classic",
-      "mood": "warm, approachable",
-      "fontPair": "DM Serif Display / Plus Jakarta Sans",
+      "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/springstdentistry",
+      "captured": "2026-06-01",
+      "archetype": "magazine-split",
+      "mood": "clinical-warm",
+      "fontPair": "Plus Jakarta Sans / DM Sans",
       "adjectives": [
-        "warm",
-        "professional",
-        "trustworthy",
-        "accessible",
-        "refined"
+        "professional-approachable",
+        "teal-warm",
+        "trust-forward",
+        "locally-rooted",
+        "patient-centric"
       ]
     },
     {
@@ -62,6 +62,38 @@
         "trust-driven",
         "editorial-refined",
         "credential-forward"
+      ]
+    },
+    {
+      "slug": "springstdentistry",
+      "tag": "own",
+      "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/springstdentistry",
+      "captured": "2026-06-01",
+      "archetype": "poster-hero",
+      "mood": "professional, warm",
+      "fontPair": "Plus Jakarta Sans / DM Sans",
+      "adjectives": [
+        "trustworthy",
+        "accessible",
+        "refined",
+        "patient-focused",
+        "locally-rooted"
+      ]
+    },
+    {
+      "slug": "changorthodontics",
+      "tag": "own",
+      "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/changorthodontics",
+      "captured": "2026-06-01",
+      "archetype": "editorial-asymmetric",
+      "mood": "professional, trustworthy",
+      "fontPair": "Space Grotesk/Inter",
+      "adjectives": [
+        "clinical-refined",
+        "credible",
+        "modern-traditional",
+        "accessible",
+        "warm-authoritative"
       ]
     }
   ]

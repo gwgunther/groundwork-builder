@@ -1,10 +1,10 @@
 {
   "palette": {
-    "primary": "#0D5F6E",
-    "secondary": "#1A4A5C",
-    "accent": "#C9A96E",
-    "background": "#F0F7F8",
-    "mood": "clinical-warm"
+    "primary": "#0e5c6e",
+    "secondary": "#1a3d4f",
+    "accent": "#b8924a",
+    "background": "#f0f7f8",
+    "mood": "professional, warm"
   },
   "type": {
     "display": "Plus Jakarta Sans",
@@ -13,12 +13,12 @@
     "contrast": "high"
   },
   "layout": {
-    "archetype": "magazine-split",
+    "archetype": "poster-hero",
     "density": "balanced",
     "grid": "12col"
   },
   "hero": {
-    "variant": "asymmetric-right",
+    "variant": "full-bleed",
     "imageTreatment": "warm-documentary"
   },
   "sections": [
@@ -36,13 +36,13 @@
   "radius": "md",
   "fontPair": "Plus Jakarta Sans / DM Sans",
   "adjectives": [
-    "professional-approachable",
-    "teal-warm",
-    "trust-forward",
-    "locally-rooted",
-    "patient-centric"
+    "trustworthy",
+    "accessible",
+    "refined",
+    "patient-focused",
+    "locally-rooted"
   ],
-  "slug": "spring-st-dentistry",
+  "slug": "springstdentistry",
   "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/springstdentistry",
   "tag": "own",
   "captured": "2026-06-01",

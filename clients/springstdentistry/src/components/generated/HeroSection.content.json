@@ -1,10 +1,10 @@
 {
-  "variant": "poster",
-  "eyebrow": "Your neighbors. Your dentists.",
-  "headline": "Long Beach Smiles Cared For on Spring Street",
-  "subheadline": "Spring St. Dentistry brings friendly, comprehensive dental care to the heart of Long Beach — from routine cleanings to complete smile makeovers, all under one roof.",
+  "variant": "split",
+  "eyebrow": "Your smile. Our neighborhood.",
+  "headline": "Long Beach's Trusted Dentist on Spring Street",
+  "subheadline": "Spring St. Dentistry delivers personalized, comfortable dental care for every member of your Long Beach family — from routine cleanings to complete smile transformations.",
   "primaryCta": {
-    "label": "Book Your Appointment",
+    "label": "Schedule Your Visit",
     "href": "/schedule"
   },
   "secondaryCta": {
