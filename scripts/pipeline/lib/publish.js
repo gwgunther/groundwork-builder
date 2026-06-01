@@ -101,6 +101,9 @@ export async function publish(opts = {}) {
   }
 
   // ── 2. Push monorepo — triggers CF Pages deploy ──
+  // Capture pushTime BEFORE the push so waitForCfDeploy can identify
+  // OUR deployment (any deployment.created_on > pushTime).
+  const pushTime = Date.now();
   try {
     gitCommitPush(repoRoot, `feat: add ${slug} client site`, [
       `clients/${slug}`,
@@ -111,13 +114,19 @@ export async function publish(opts = {}) {
     console.warn(`  ⚠ Monorepo push failed: ${err.message}`);
   }
 
-  // ── 3. Wait for the deploy to come live ──
-  // CF Pages usually takes 30-90s after push. We poll the preview URL
-  // until it returns 200 (or until we hit the timeout — non-fatal if so;
-  // PageSpeed/rescan will just record null and we'll know to retry later).
+  // ── 3. Wait for the deploy via CF Pages API ──
+  // Polls the deployments endpoint directly rather than probing the URL —
+  // avoids the DNS/SSL/522-cache lag that caused earlier runs to time out
+  // even after the deploy was actually live. Detects failures immediately.
   let previewLive = false;
   try {
-    previewLive = await waitForDeploy(`https://${resolvedPreviewUrl}`);
+    previewLive = await waitForCfDeploy({
+      accountId: process.env.CLOUDFLARE_ACCOUNT_ID,
+      apiToken:  process.env.CLOUDFLARE_API_TOKEN,
+      slug,
+      url:       `https://${resolvedPreviewUrl}`,
+      pushTime,
+    });
     if (previewLive) {
       console.log(`  ✓ Preview live — proceeding with PageSpeed + rescan`);
     } else {
@@ -274,43 +283,106 @@ export async function publish(opts = {}) {
 // ---------------------------------------------------------------------------
 
 /**
- * Poll a URL until it returns HTTP 200, or timeout. Used to wait for
- * Cloudflare Pages to finish deploying before we run PageSpeed / rescan
- * against the preview — otherwise both hit empty content and record
- * garbage data.
+ * Wait for a Cloudflare Pages deploy to finish, by polling the CF API
+ * directly instead of probing the URL until it responds 200.
  *
- * Strategy: 5s intervals for the first 60s (most established projects'
- * deploys land in this window), then 10s intervals up to a 10-min cap.
+ * Why this matters: URL-polling has three failure modes that caused
+ * earlier runs to time out even after the deploy actually succeeded —
+ *   (1) DNS propagation lag after the CNAME is created (~30-60s)
+ *   (2) Cloudflare briefly caches 522s while the deploy is in progress
+ *   (3) SSL cert issuance happens AFTER the build finishes (+30-90s)
  *
- * Why 10 min: first-build for a brand-new CF Pages project pulls deps
- * from scratch and routinely takes 4–7 minutes. The earlier 5-min cap
- * caused first builds to silently skip PageSpeed + rescan and write
- * null scores to Airtable. 10 min gives genuine first-time builds room
- * to land while still catching truly-stuck deploys.
+ * CF Pages' own API tells us exactly when the deploy reached the
+ * "deploy / success" stage. After that, we do a short HTTP retry to
+ * cover the SSL/DNS tail, and we're done.
  *
- * Returns true when the URL responds 200; false on timeout.
+ * Other benefits over URL polling:
+ *   - Detects build failure immediately (vs. timing out on a stuck preview)
+ *   - Skips ambiguity when an older deployment is still serving — we
+ *     identify OUR deploy by created_on > pushTime
+ *
+ * @param {object} args
+ * @param {string} args.accountId  Cloudflare account id
+ * @param {string} args.apiToken   Bearer token with Pages:Read at minimum
+ * @param {string} args.slug       Pages project name
+ * @param {string} args.url        Public URL — used for final HTTP verify
+ * @param {number} args.pushTime   Date.now() captured BEFORE the git push
+ * @param {number} [args.totalTimeoutMs]  Cap, default 15 min
+ * @returns {Promise<boolean>}  true on deploy/success + URL HTTP 200
  */
-async function waitForDeploy(url, { totalTimeoutMs = 10 * 60_000 } = {}) {
+async function waitForCfDeploy({ accountId, apiToken, slug, url, pushTime, totalTimeoutMs = 15 * 60_000 }) {
   const start = Date.now();
-  console.log(`  Waiting for ${url} to come live...`);
-  let attempt = 0;
+  const base = `https://api.cloudflare.com/client/v4/accounts/${accountId}/pages/projects/${slug}/deployments?per_page=3`;
+  const headers = { Authorization: `Bearer ${apiToken}` };
+
+  console.log(`  Polling CF Pages API for ${slug} deploy status...`);
+  // Tolerance: deployments can be created slightly before our local clock
+  // registers the push response (clock skew). 30s back-window is generous.
+  const acceptCreatedAfter = pushTime - 30_000;
+  let lastStageReported = null;
+  let ourDeployId = null;
+
   while (Date.now() - start < totalTimeoutMs) {
-    attempt++;
     try {
-      // HEAD is enough — CF Pages serves the same status as GET for the root.
+      const res = await fetch(base, { headers });
+      const data = await res.json();
+      // Find the deployment created AFTER our push (i.e. ours).
+      const ours = (data.result || []).find(d => new Date(d.created_on).getTime() > acceptCreatedAfter);
+
+      if (ours) {
+        if (!ourDeployId) {
+          ourDeployId = ours.id;
+          console.log(`    Tracking deployment ${ours.id.slice(0, 8)} (created ${ours.created_on})`);
+        }
+        const stage = ours.latest_stage || {};
+        const elapsed = ((Date.now() - start) / 1000).toFixed(0);
+        const stageKey = `${stage.name}/${stage.status}`;
+
+        if (stageKey !== lastStageReported) {
+          console.log(`    [${elapsed}s] ${stageKey}`);
+          lastStageReported = stageKey;
+        }
+
+        if (stage.status === 'failure') {
+          console.warn(`    ✗ Build failed at stage "${stage.name}" after ${elapsed}s`);
+          return false;
+        }
+        if (stage.name === 'deploy' && stage.status === 'success') {
+          console.log(`    ✓ CF says deploy/success after ${elapsed}s — verifying URL...`);
+          // Short HTTP retry for the SSL/DNS tail (~5s typical, ~60s worst case)
+          return await verifyUrl(url);
+        }
+      }
+      // else: our push hasn't been picked up yet (webhook delay), keep waiting
+    } catch (err) {
+      // Network blip — keep retrying
+    }
+    await new Promise(r => setTimeout(r, 5_000));
+  }
+
+  const totalSec = ((Date.now() - start) / 1000).toFixed(0);
+  console.warn(`    ⚠ Deploy did not reach success within ${totalSec}s`);
+  return false;
+}
+
+/**
+ * Brief HTTP retry loop to confirm a CF-reported-success deploy is actually
+ * serving content. Covers the 5-60s SSL/DNS tail after CF Pages says it's done.
+ */
+async function verifyUrl(url, { maxAttempts = 12, intervalMs = 5_000 } = {}) {
+  for (let i = 1; i <= maxAttempts; i++) {
+    try {
       const res = await fetch(url, { method: 'HEAD', redirect: 'follow' });
       if (res.ok) {
-        const elapsed = ((Date.now() - start) / 1000).toFixed(0);
-        console.log(`    live after ${elapsed}s (attempt ${attempt})`);
+        console.log(`    ✓ ${url} → HTTP ${res.status}`);
         return true;
       }
     } catch {
-      // Network / DNS errors are expected while the deploy is propagating.
+      // DNS/SSL not ready yet — keep retrying
     }
-    const elapsed = Date.now() - start;
-    const delay = elapsed < 60_000 ? 5_000 : 10_000;
-    await new Promise(r => setTimeout(r, delay));
+    if (i < maxAttempts) await new Promise(r => setTimeout(r, intervalMs));
   }
+  console.warn(`    ⚠ ${url} did not return HTTP 200 within ${maxAttempts * intervalMs / 1000}s`);
   return false;
 }
 
