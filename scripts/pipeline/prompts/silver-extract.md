@@ -26,24 +26,35 @@ Extract the following as a single JSON object. Use null for any field you cannot
     "display": [{ "day": "Mon", "time": "9am – 5pm" }],
     "raw": "Raw hours text as found on site"
   },
-  "doctor": {
-    "name": "Full name with Dr. prefix",
-    "firstName": "First name only",
-    "lastName": "Last name only",
-    "credentials": "e.g. DMD, DDS",
-    "bio": "Full bio paragraph(s) — do not truncate",
-    "education": "Education/training details or null",
-    "specialties": ["List of specialties or focus areas"],
-    "photoUrl": "URL of doctor headshot photo or null"
-  },
-  "additionalDoctors": [
+  "doctors": [
     {
       "name": "Full name with Dr. prefix",
-      "firstName": "First",
-      "lastName": "Last",
-      "credentials": "e.g. DDS",
-      "bio": "Bio text or null",
-      "photoUrl": "Photo URL or null"
+      "firstName": "First name only",
+      "lastName": "Last name only",
+      "credentials": "e.g. DMD, DDS",
+      "bio": "Full bio paragraph(s) — do not truncate. NULL if no actual doctor bio exists. Do NOT use the practice mission/about copy as a doctor bio.",
+      "education": "Education/training details or null",
+      "specialties": ["List of specialties or focus areas"],
+      "photoUrl": "URL of doctor headshot photo or null",
+      "rank": 1
+    }
+  ],
+  "staff": [
+    {
+      "name": "Full name (no Dr. prefix — these are non-doctor team members)",
+      "role": "hygienist | assistant | receptionist | office_manager | other",
+      "bio": "Short bio if present, else null",
+      "credentials": "e.g. RDH, CDA — or null",
+      "photoUrl": "URL of staff headshot or null"
+    }
+  ],
+  "navigation": [
+    {
+      "text": "Visible nav label",
+      "href": "Path or URL as it appears in the source nav",
+      "children": [
+        { "text": "Sub-item label", "href": "/sub-item" }
+      ]
     }
   ],
   "services": {
@@ -101,5 +112,8 @@ Rules:
 - images: classify based on URL path patterns AND alt text. /client/images/dr-* → team. /home-slider/* → hero. /dental-services/* → gallery. Before/after → beforeAfter.
 - hours: parse whatever format appears (e.g. "Monday-Thursday 9:00AM-6:00PM" → display: [{day:"Mon–Thu", time:"9:00AM–6:00PM"}])
 - services: extract everything mentioned as a service, treatment, or procedure across all pages
+- doctors: array of ALL doctors at the practice, ordered by prominence. Rank 1 = primary/featured (founder, "Dr. X" in branding, first to appear). Use null for bio when no actual doctor bio exists — DO NOT substitute the practice's mission/about/philosophy text for a missing doctor bio.
+- staff: array of non-doctor team members (hygienists, dental assistants, receptionists, office managers) found on team/staff pages. Empty array if none found.
+- navigation: copy the primary site navigation as a tree. Top-level items become `text`+`href`; nested dropdown items go in `children`. Preserve the source order. Exclude patient-login portals.
 - If JSON-LD structured data exists, prefer it for NAP (name, address, phone), hours, and doctor info
 - Return ONLY the JSON object. No markdown. No explanation.

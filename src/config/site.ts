@@ -36,7 +36,22 @@ export const doctor = {
   credentials: '[CREDENTIALS]', // e.g. 'DDS, MS' or 'DMD'
 };
 
-export const doctors = [doctor];
+// Secondary clinicians (back-compat with multi-doctor templates).
+// The build pipeline replaces this with doctors[1..] for real practices.
+export const additionalDoctors: typeof doctor[] = [];
+
+export const doctors = [doctor, ...additionalDoctors];
+
+// Non-doctor staff (hygienists, dental assistants, receptionists, office
+// managers). Empty in the template; populated by the build pipeline when the
+// source site lists a team / staff page.
+export const staff: Array<{
+  name: string;
+  role: string;
+  bio?: string;
+  credentials?: string;
+  photoPath?: string | null;
+}> = [];
 
 export const address = {
   street: '[STREET_ADDRESS]',

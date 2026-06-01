@@ -17,7 +17,7 @@
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CTABlock from '../components/CTABlock.astro';
-import { site, doctors, address, localBusinessSchema, personSchemas } from '../config/site';
+import { site, doctors, address, localBusinessSchema, personSchemas, staff } from '../config/site';
 import { readFileSync } from 'node:fs';
 
 // Resolve image-roles for doctor portraits (paired by name in ai-image-roles).
@@ -131,6 +131,44 @@ const supporting = doctors.slice(1);
               </article>
             );
           })}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Staff — non-doctor team members. Visually distinct from the doctor
+       grid above (smaller cards, "Our Team" framing) so doctors stay primary. -->
+  {staff && staff.length > 0 && (
+    <section class="py-16 md:py-24 bg-surface-2 border-t border-border-light">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-highlight mb-4">Our Team</p>
+          <h2 class="section-subheading">Meet the People Who Care for You</h2>
+        </div>
+        <div class={`grid gap-8 ${staff.length === 1 ? 'md:grid-cols-1 max-w-sm mx-auto' : staff.length === 2 ? 'md:grid-cols-2 max-w-3xl mx-auto' : staff.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2 lg:grid-cols-4'}`}>
+          {staff.map((member) => (
+            <div class="text-center">
+              <div class="aspect-square rounded-2xl bg-neutral-light mb-4 overflow-hidden flex items-center justify-center">
+                {member.photoPath ? (
+                  <img src={`/images/${member.photoPath}`} alt={member.name} class="w-full h-full object-cover object-top" loading="lazy" />
+                ) : (
+                  <span class="text-2xl font-serif text-neutral-mid">{member.name?.charAt(0) || '?'}</span>
+                )}
+              </div>
+              <h3 class="font-serif text-lg font-bold text-neutral-dark">{member.name}</h3>
+              {member.role && member.role !== 'other' && (
+                <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mt-1">
+                  {member.role.replace(/_/g, ' ')}
+                </p>
+              )}
+              {member.credentials && (
+                <p class="text-xs text-neutral-mid mt-1">{member.credentials}</p>
+              )}
+              {member.bio && (
+                <p class="text-sm text-neutral-mid mt-3 leading-relaxed">{member.bio}</p>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </section>

@@ -49,6 +49,13 @@ export function createEmptyPracticeData() {
       photoPath: null,
     },
     additionalDoctors: [],
+    // X3: unified doctors[] — rank-ordered, primary first.
+    // (Back-compat: `doctor` + `additionalDoctors` are kept in sync by merger.)
+    doctors: [],
+    // Non-doctor team members (hygienists, assistants, receptionists, office managers)
+    staff: [],
+    // Navigation tree from the source site, used by injector for the rebuilt nav
+    navigation: [],
     address: {
       street: null,
       city: null,
