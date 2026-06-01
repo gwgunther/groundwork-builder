@@ -10,3 +10,4 @@ _pipeline/
 _audits/
 output/
 src/components/generated/
+.playwright-mcp/
