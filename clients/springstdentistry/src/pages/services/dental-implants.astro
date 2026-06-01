@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Dental Implants in Long Beach",
+  "description": "Spring St. Dentistry provides dental implants in Long Beach. Schedule an appointment with our Long Beach implant dentist.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Spring St. Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Long Beach"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Dental Implants Long Beach | ${site.name}`}
+  description="Spring St. Dentistry provides dental implants in Long Beach. Schedule an appointment with our Long Beach implant dentist."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Dental Implants in Long Beach
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Spring St. Dentistry provides dental implants in Long Beach. Schedule an appointment with our Long Beach implant dentist.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">If you have a missing tooth that's affecting how you eat, speak, or feel about your smile, a dental implant is one of the most reliable long-term solutions available. At Spring St. Dentistry in Long Beach, Dr. Anthony Hoang places dental implants that work by inserting an artificial tooth root — typically a small titanium post — into the jaw, then capping it with a dental crown. The result is a replacement tooth that looks, feels, and functions like the original. Whether you're missing one tooth or several, implants can restore normal biting function and close the gap in your smile.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">How a Dental Implant Works</h2>
+      <p class="mb-4">The process happens in stages. First, the titanium implant post is surgically placed into the jawbone. Over the following weeks, the bone gradually fuses to the post through a process called osseointegration — this is what makes implants stable and long-lasting. Once the implant has integrated fully, an abutment is attached to connect the post to the final restoration. Finally, a custom-made dental crown is placed on top, matched in shape and shade to your surrounding teeth.</p>
+      <p class="mb-4">The total timeline from placement to final crown typically spans several months, though it varies depending on how quickly you heal and whether any preparatory work — such as a bone graft — is needed beforehand.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who Is a Good Candidate?</h2>
+      <p class="mb-4">Most adults with a missing tooth are worth evaluating for implants. A few factors matter most:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>**Sufficient jawbone density.** The implant needs solid bone to anchor into. If bone loss has occurred after a tooth was removed, a bone graft may be done first to rebuild the site.</li>
+        <li>**Healthy gums.** Active gum disease needs to be treated before implant placement.</li>
+        <li>**General health.** Certain conditions that affect healing — such as uncontrolled diabetes — can influence the timing or approach.</li>
+        <li>**Non-smoking or willingness to quit.** Smoking slows healing and increases the risk of implant failure.</li>
+      </ul>
+      <p class="mb-4">The only way to know for certain whether implants are right for you is an in-person evaluation. Dr. Hoang can review your X-rays and health history to give you a straightforward answer.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect at Your Visits</h2>
+      <p class="mb-4">Your first appointment is a consultation. Dr. Hoang will examine your mouth, take X-rays to assess bone levels, and talk through your options. If implants are appropriate, you'll discuss a timeline and any preparatory steps.</p>
+      <p class="mb-4">The placement appointment itself is done under local anesthesia, so the area is numb during the procedure. Some pressure is normal, but sharp pain is not — let the team know if you feel discomfort. After placement, mild soreness and swelling for a few days is typical, manageable with over-the-counter pain relievers and any instructions provided at checkout.</p>
+      <p class="mb-4">Follow-up visits monitor healing during the osseointegration period. Once healing is confirmed, impressions are taken to fabricate the crown, and a final appointment places it. Most patients in Long Beach are able to return to normal eating and daily routines within a few days of each stage.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Caring for Your Implant Long-Term</h2>
+      <p class="mb-4">Dental implants don't decay the way natural teeth do, but they still need daily care. Brushing twice a day, flossing around the implant, and keeping up with regular cleanings at Spring St. Dentistry protects the surrounding gum tissue and keeps the implant stable. With proper care, implants are built to last many years.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**How long do dental implants last?** Implants are designed to be a permanent solution. The titanium post can last decades or longer with proper oral hygiene and regular dental visits. The crown on top may need to be replaced eventually due to normal wear.</p>
+      <p class="mb-4">**Does the implant procedure hurt?** The placement is done with local anesthesia, so you shouldn't feel pain during the procedure. Soreness afterward is common for a few days and is usually managed with over-the-counter pain relievers.</p>
+      <p class="mb-4">**How much do dental implants cost?** The cost varies depending on how many implants are needed, whether preparatory work like bone grafting is required, and your insurance coverage. Call (562) 420-8578 to ask about current pricing and payment options.</p>
+      <p class="mb-4">**Can implants replace more than one tooth?** Yes. Multiple implants can replace several individual teeth. Implants can also anchor larger restorations like implant-supported bridges when multiple adjacent teeth are missing.</p>
+      <p class="mb-4">**How do I get started?** Call Spring St. Dentistry at (562) 420-8578 to schedule a consultation with Dr. Hoang. He'll assess your bone structure and overall oral health to determine whether implants are a good fit for you.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

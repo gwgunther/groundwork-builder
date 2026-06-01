@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>content/faq · Skill</title>
+<style>
+  :root {
+    --bg: #0f1115; --fg: #e7e8ea; --muted: #9098a3; --accent: #6ee7b7;
+    --card: #181b22; --border: #262a33; --code-bg: #0a0c10;
+    --stub: #6b7280; --working: #f59e0b; --polished: #10b981; --mature: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  .topbar { padding: 16px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .topbar a { color: var(--accent); text-decoration: none; font-size: 13px; }
+  .topbar a:hover { text-decoration: underline; }
+  .topbar-meta { color: var(--muted); font-size: 12px; }
+  .container { max-width: 880px; margin: 0 auto; padding: 32px 40px 80px; }
+  header.skill-head { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  header.skill-head h1 { margin: 0 0 4px; font-size: 28px; font-weight: 600; }
+  .skill-path { color: var(--muted); font-family: ui-monospace, SFMono-Regular, monospace; font-size: 13px; }
+  .badges { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+  .badge.tier { background: var(--border); font-family: ui-monospace, monospace; }
+  .badge.tier-L1 { background: rgba(110, 231, 183, .15); color: var(--accent); }
+  .badge.tier-L2 { background: rgba(245, 158, 11, .15); color: var(--working); }
+  .badge.tier-L3 { background: rgba(59, 130, 246, .15); color: #60a5fa; }
+  .badge.tier-L4 { background: rgba(168, 85, 247, .15); color: #c084fc; }
+  .badge.maturity { background: var(--border); }
+  .badge.phase { background: var(--card); border: 1px solid var(--border); color: var(--muted); }
+  .meta-table { font-size: 13px; color: var(--muted); margin-top: 12px; }
+  .meta-table strong { color: var(--fg); font-weight: 500; }
+  .meta-table code { background: var(--card); padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--accent); }
+  .doc h2 { margin: 32px 0 12px; font-size: 20px; font-weight: 600; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .doc h3 { margin: 24px 0 8px; font-size: 16px; font-weight: 600; color: var(--accent); }
+  .doc p { margin: 0 0 14px; }
+  .doc ul, .doc ol { margin: 0 0 14px; padding-left: 24px; }
+  .doc li { margin-bottom: 4px; }
+  .doc a { color: var(--accent); }
+  .doc strong { color: var(--fg); font-weight: 600; }
+  .doc code { background: var(--card); padding: 2px 6px; border-radius: 3px; font-size: 13px; color: var(--accent); font-family: ui-monospace, SFMono-Regular, monospace; }
+  .doc pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 0 0 16px; }
+  .doc pre code { background: transparent; padding: 0; color: var(--fg); font-size: 13px; line-height: 1.5; white-space: pre; }
+  .doc table { border-collapse: collapse; margin: 0 0 16px; font-size: 14px; width: 100%; }
+  .doc th, .doc td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+  .doc th { background: var(--card); font-weight: 600; }
+  .doc blockquote { border-left: 3px solid var(--accent); padding: 4px 16px; margin: 0 0 16px; color: var(--muted); }
+  .doc hr { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../PIPELINE.html">← Back to Pipeline Dashboard</a>
+  <span class="topbar-meta">Source: <code style="background:transparent">skills/content/faq.md</code></span>
+</div>
+
+<div class="container">
+  <header class="skill-head">
+    <div class="skill-path">skills/content/faq.md</div>
+    <h1>faq</h1>
+    <div class="badges">
+      <span class="badge tier tier-L1">L1</span>
+      <span class="badge maturity">🟡 working</span>
+      <span class="badge phase">Phase: Generate</span>
+      <span class="badge phase">Model: claude-sonnet-4-6</span>
+    </div>
+    
+    <div class="meta-table">
+      <div><strong>Source:</strong> <code>scripts/pipeline/skills/skill-generate.js</code></div>
+      <div><strong>Function:</strong> <code>faqContentBrief()</code></div>
+    </div>
+  </header>
+
+  <div class="doc">
+<h1>Skill: FAQ Content Generation</h1>
+<h2>Responsibility</h2>
+<p>Produce 6–8 frequently-asked questions (with answers) for the homepage FAQ
+section. Synthesizes from THREE sources, in priority order:</p>
+<ol>
+<li><strong>Scraped FAQs</strong> (from the original site) — used verbatim</li>
+<li><strong>Service-derived questions</strong> — for each service offered, generate a
+natural patient question (cost, candidacy, duration, before/after)</li>
+<li><strong>Practice-level questions</strong> — referral, insurance, first visit,
+emergency, scheduling</li>
+</ol>
+<p>Each FAQ is tagged with a category (<code>Scheduling</code>, <code>Insurance &amp; Payment</code>,
+<code>First Visit</code>, <code>Treatment</code>, <code>Aftercare</code>) so the <code>split-by-category</code> variant
+can group them.</p>
+<h2>Inputs</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Source</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>recommended</code></td>
+<td>string</td>
+<td><code>dna.designTokens.faqLayout</code></td>
+<td>Layout variant (locked from archetype)</td>
+</tr>
+<tr>
+<td><code>practice.name</code></td>
+<td>string</td>
+<td>merged</td>
+<td>Practice name</td>
+</tr>
+<tr>
+<td><code>practice.city</code></td>
+<td>string</td>
+<td>merged</td>
+<td>City</td>
+</tr>
+<tr>
+<td><code>practice.phone</code></td>
+<td>string</td>
+<td>merged</td>
+<td>Phone</td>
+</tr>
+<tr>
+<td><code>practice.doctor</code></td>
+<td>string</td>
+<td>merged</td>
+<td>Primary doctor name</td>
+</tr>
+<tr>
+<td><code>scrapedFaqsJson</code></td>
+<td>string (JSON)</td>
+<td>merged.content.faqs</td>
+<td>Verbatim scraped Q/A pairs</td>
+</tr>
+<tr>
+<td><code>servicesText</code></td>
+<td>string</td>
+<td>merged.services.offered</td>
+<td>Bullet list of services</td>
+</tr>
+<tr>
+<td><code>specialty</code></td>
+<td>string</td>
+<td>derived</td>
+<td>&quot;general dentistry&quot; / &quot;orthodontics&quot; / etc</td>
+</tr>
+<tr>
+<td><code>lastName</code></td>
+<td>string</td>
+<td>derived</td>
+<td>doctor&#39;s last name for natural references</td>
+</tr>
+<tr>
+<td><code>additionalContentBlock</code></td>
+<td>string</td>
+<td>derived</td>
+<td>Empty when no relevant rescued items; otherwise a &quot;Source 4&quot; block listing rescued content of types: financing, insurance, emergency, accessibility, multilingual, approach, first-visit, patient-experience, community, technology. Used to ground FAQ answers in real practice voice.</td>
+</tr>
+</tbody></table>
+<h2>Output schema</h2>
+<pre><code class="language-json">{
+  &quot;variant&quot;: &quot;accordion-expandable | two-column | simple-stack | cards-grid | split-by-category&quot;,
+  &quot;eyebrow&quot;: &quot;string | null&quot;,
+  &quot;heading&quot;: &quot;string — practice-specific, NOT &#39;FAQ&#39;&quot;,
+  &quot;subheading&quot;: &quot;string | null&quot;,
+  &quot;items&quot;: [
+    {
+      &quot;q&quot;: &quot;string — the question&quot;,
+      &quot;a&quot;: &quot;string — 2-4 sentence answer&quot;,
+      &quot;category&quot;: &quot;Scheduling | Insurance &amp; Payment | First Visit | Treatment | Aftercare&quot;
+    }
+  ]
+}
+</code></pre>
+<h2>Evaluation criteria</h2>
+<p>These are the criteria the output should be graded against. They are also
+the rules the prompt enforces.</p>
+<ul>
+<li><strong>6–8 items</strong> — fewer feels thin, more is overwhelming</li>
+<li><strong>Source 1 first</strong> — if scraped FAQs exist, they appear verbatim (no rephrasing)</li>
+<li><strong>Service coverage</strong> — at least 1 question per most-asked-about service when service list is provided</li>
+<li><strong>Practice basics covered</strong> — must include at least one question each on:
+insurance/payment, first visit, scheduling/referral, emergency</li>
+<li><strong>No fabrication</strong> — no invented prices, hours, years-in-business, credentials</li>
+<li><strong>Specificity</strong> — references practice name, doctor name, or city when natural; never generic dental copy</li>
+<li><strong>Answer length</strong> — 2–4 sentences each; concise + scannable</li>
+<li><strong>Categorized</strong> — every item has a category from the allowed taxonomy</li>
+<li><strong>Order</strong> — by patient journey: scheduling → insurance → first visit → treatment → aftercare</li>
+<li><strong>Heading specificity</strong> — never just &quot;FAQ&quot; or &quot;Frequently Asked Questions&quot;; should reference practice/city</li>
+</ul>
+<h2>Known gaps</h2>
+<ul>
+<li>No deduplication when scraped FAQs and service-derived FAQs ask the same question</li>
+<li>Doesn&#39;t cross-check answers against scraped content for accuracy (could fabricate plausible-but-wrong answers about insurance specifics)</li>
+<li>Category taxonomy is fixed — can&#39;t yet add custom categories per practice (e.g. &quot;Pediatric&quot; for kid-focused practices)</li>
+<li>No tone calibration — same prompt for warm-family practice and clinical-specialist practice</li>
+</ul>
+<h2>Improvement levers</h2>
+<ol>
+<li><strong>Easy (L1, edit this prompt):</strong> Add tone-calibration phrases tied to archetype family — warm/family vs. clinical/specialist</li>
+<li><strong>Easy (L1):</strong> Add an explicit &quot;duplicate check&quot; step in the prompt</li>
+<li><strong>Medium:</strong> Output validator that scores each FAQ against the criteria above and flags low-quality answers for re-roll</li>
+<li><strong>Medium:</strong> Per-specialty FAQ topic priorities (orthodontics → &quot;what age?&quot;, periodontics → &quot;is it painful?&quot;)</li>
+</ol>
+<h2>Test fixtures</h2>
+<p><em>None yet. Future: <code>skills/content/faq.fixtures/{good,bad}/*.json</code></em></p>
+<hr>
+<h2>PROMPT</h2>
+<pre><code class="language-text">Generate the FAQ content for {{practice.name}} in {{practice.cityOrFallback}}.
+
+## Layout variant — locked: &quot;{{recommended}}&quot;
+Layout reference (for context only):
+- &quot;accordion-expandable&quot;: Alpine accordion, first item open
+- &quot;two-column&quot;:           questions left, answers right (no accordion)
+- &quot;simple-stack&quot;:         editorial typography, no accordion
+- &quot;cards-grid&quot;:           each FAQ in its own card, 2-col grid
+- &quot;split-by-category&quot;:    grouped by category (insurance / treatment / visits / aftercare)
+
+## Source 1 — Scraped FAQs (use VERBATIM if any)
+{{scrapedFaqsBlock}}
+
+## Source 2 — Services offered (each implies natural questions)
+{{servicesText}}
+
+## Source 3 — Practice context
+- Practice: {{practice.name}}
+- Doctor:   {{practice.doctorOrFallback}}
+- City:     {{practice.city}}
+- Phone:    {{practice.phone}}
+- Specialty: {{specialty}}
+{{additionalContentBlock}}
+
+## Your task
+Produce 6–8 FAQs that:
+1. **Use scraped FAQs first** — if Source 1 had real Q/A pairs, include them verbatim (do NOT rephrase real answers).
+2. **Fill gaps from services** — generate 1–2 service-specific Qs for the most asked-about services (cost, age, duration, before/after, candidacy).
+3. **Cover practice basics** — at least 1 each for: insurance/payment, first visit, scheduling/referral, emergency/same-day. Be specific to {{practice.cityOrFallback}} and the practice when relevant.
+4. **Order by patient journey**: first-time / scheduling → insurance → first visit → treatment specifics → aftercare.
+5. **Categorize** each FAQ — use one of: &quot;Scheduling&quot;, &quot;Insurance &amp; Payment&quot;, &quot;First Visit&quot;, &quot;Treatment&quot;, &quot;Aftercare&quot;. This is used by the split-by-category variant.
+
+## CRITICAL rules
+- NEVER fabricate specific facts — no fake &quot;We&#39;ve been in business since 1995&quot;, no fake pricing, no fake hours
+- Answer length: 2–4 sentences each (concise, scannable)
+- Reference the practice/doctor by name when natural (&quot;Dr. {{lastName}} will...&quot;)
+- {{cityReferenceLine}}
+- Plain language — no jargon unless explained
+
+## Return ONLY this JSON (no markdown, no prose):
+{
+  &quot;variant&quot;: &quot;{{recommended}}&quot;,
+  &quot;eyebrow&quot;: &quot;&lt;short label, e.g. &#39;Frequently Asked&#39; or &#39;What Patients Ask Us&#39;&gt;&quot;,
+  &quot;heading&quot;: &quot;&lt;specific heading — NEVER generic &#39;FAQ&#39; or &#39;Frequently Asked Questions&#39;&gt;&quot;,
+  &quot;subheading&quot;: &quot;&lt;optional 1-sentence subheading, or null&gt;&quot;,
+  &quot;items&quot;: [
+    { &quot;q&quot;: &quot;&lt;question&gt;&quot;, &quot;a&quot;: &quot;&lt;answer in 2-4 sentences&gt;&quot;, &quot;category&quot;: &quot;Scheduling|Insurance &amp; Payment|First Visit|Treatment|Aftercare&quot; }
+  ]
+}
+</code></pre>
+
+  </div>
+</div>
+</body>
+</html>

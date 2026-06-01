@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>design/design-extract · Skill</title>
+<style>
+  :root {
+    --bg: #0f1115; --fg: #e7e8ea; --muted: #9098a3; --accent: #6ee7b7;
+    --card: #181b22; --border: #262a33; --code-bg: #0a0c10;
+    --stub: #6b7280; --working: #f59e0b; --polished: #10b981; --mature: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  .topbar { padding: 16px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .topbar a { color: var(--accent); text-decoration: none; font-size: 13px; }
+  .topbar a:hover { text-decoration: underline; }
+  .topbar-meta { color: var(--muted); font-size: 12px; }
+  .container { max-width: 880px; margin: 0 auto; padding: 32px 40px 80px; }
+  header.skill-head { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  header.skill-head h1 { margin: 0 0 4px; font-size: 28px; font-weight: 600; }
+  .skill-path { color: var(--muted); font-family: ui-monospace, SFMono-Regular, monospace; font-size: 13px; }
+  .badges { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+  .badge.tier { background: var(--border); font-family: ui-monospace, monospace; }
+  .badge.tier-L1 { background: rgba(110, 231, 183, .15); color: var(--accent); }
+  .badge.tier-L2 { background: rgba(245, 158, 11, .15); color: var(--working); }
+  .badge.tier-L3 { background: rgba(59, 130, 246, .15); color: #60a5fa; }
+  .badge.tier-L4 { background: rgba(168, 85, 247, .15); color: #c084fc; }
+  .badge.maturity { background: var(--border); }
+  .badge.phase { background: var(--card); border: 1px solid var(--border); color: var(--muted); }
+  .meta-table { font-size: 13px; color: var(--muted); margin-top: 12px; }
+  .meta-table strong { color: var(--fg); font-weight: 500; }
+  .meta-table code { background: var(--card); padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--accent); }
+  .doc h2 { margin: 32px 0 12px; font-size: 20px; font-weight: 600; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .doc h3 { margin: 24px 0 8px; font-size: 16px; font-weight: 600; color: var(--accent); }
+  .doc p { margin: 0 0 14px; }
+  .doc ul, .doc ol { margin: 0 0 14px; padding-left: 24px; }
+  .doc li { margin-bottom: 4px; }
+  .doc a { color: var(--accent); }
+  .doc strong { color: var(--fg); font-weight: 600; }
+  .doc code { background: var(--card); padding: 2px 6px; border-radius: 3px; font-size: 13px; color: var(--accent); font-family: ui-monospace, SFMono-Regular, monospace; }
+  .doc pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 0 0 16px; }
+  .doc pre code { background: transparent; padding: 0; color: var(--fg); font-size: 13px; line-height: 1.5; white-space: pre; }
+  .doc table { border-collapse: collapse; margin: 0 0 16px; font-size: 14px; width: 100%; }
+  .doc th, .doc td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+  .doc th { background: var(--card); font-weight: 600; }
+  .doc blockquote { border-left: 3px solid var(--accent); padding: 4px 16px; margin: 0 0 16px; color: var(--muted); }
+  .doc hr { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../PIPELINE.html">← Back to Pipeline Dashboard</a>
+  <span class="topbar-meta">Source: <code style="background:transparent">skills/design/design-extract.md</code></span>
+</div>
+
+<div class="container">
+  <header class="skill-head">
+    <div class="skill-path">skills/design/design-extract.md</div>
+    <h1>design extract</h1>
+    <div class="badges">
+      <span class="badge tier tier-L1">L1</span>
+      <span class="badge maturity">🟡 working</span>
+      <span class="badge phase">Phase: Design Extract</span>
+      <span class="badge phase">Model: claude-sonnet-4-6</span>
+    </div>
+    
+    <div class="meta-table">
+      <div><strong>Source:</strong> <code>scripts/pipeline/lib/ai-design.js</code></div>
+      <div><strong>Function:</strong> <code>runDesignMapping()</code></div>
+    </div>
+  </header>
+
+  <div class="doc">
+<h1>Skill: Design Extraction</h1>
+<h2>Responsibility</h2>
+<p>Reads the <strong>existing</strong> site&#39;s current design and extracts what&#39;s actually
+there: the colors actually used, the fonts actually loaded, the visual mood,
+and an assessment of brand strength. Pure extraction — no creative direction
+happens here. The output feeds Brand Direction so the rebuild can decide
+whether to evolve the existing brand or start fresh.</p>
+<h2>Inputs</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Source</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>bronze.pages</code></td>
+<td>array</td>
+<td>scrape</td>
+<td>All scraped pages with their detected stylesheets, colors, fonts</td>
+</tr>
+<tr>
+<td><code>bronze.siteAssets</code></td>
+<td>object</td>
+<td>scrape</td>
+<td>CSS files, font URLs, computed styles</td>
+</tr>
+<tr>
+<td><code>merged.practice</code></td>
+<td>object</td>
+<td>merge</td>
+<td>Practice name (for sanity context only)</td>
+</tr>
+</tbody></table>
+<h2>Output schema</h2>
+<pre><code class="language-json">{
+  &quot;existingPalette&quot;: {
+    &quot;primary&quot;:   &quot;#hex — most-used non-white/black brand color&quot;,
+    &quot;secondary&quot;: &quot;#hex — second most prominent&quot;,
+    &quot;accent&quot;:    &quot;#hex — small/icon accent or null&quot;,
+    &quot;dark&quot;:      &quot;#hex — body-text dark&quot;,
+    &quot;muted&quot;:     &quot;#hex — supporting/secondary text&quot;
+  },
+  &quot;existingFonts&quot;: {
+    &quot;heading&quot;: &quot;Font name as actually loaded&quot;,
+    &quot;body&quot;:    &quot;Font name as actually loaded&quot;,
+    &quot;display&quot;: &quot;Font name or null&quot;
+  },
+  &quot;mood&quot;: &quot;2-3 word label (e.g. &#39;Warm Coastal Trust&#39;, &#39;Modern Clinical Confidence&#39;, &#39;Generic Corporate Dental&#39;)&quot;,
+  &quot;brandStrength&quot;: &quot;distinctive | competent | weak | inconsistent&quot;,
+  &quot;brandStrengthRationale&quot;: &quot;1-2 sentences on why&quot;,
+  &quot;evolutionSignal&quot;: &quot;evolve | rebuild&quot;,
+  &quot;rationale&quot;: &quot;Why evolve vs rebuild — what&#39;s worth keeping if anything&quot;
+}
+</code></pre>
+<h2>Evaluation criteria</h2>
+<ul>
+<li><strong>Colors are real hex codes</strong>, not guesses — must be present in bronze CSS / inline styles</li>
+<li><strong>Fonts are real font-family names</strong> as loaded by the source site&#39;s stylesheets</li>
+<li><strong>brandStrength uses one of the 4 allowed values</strong> — never null/missing</li>
+<li><strong>evolutionSignal aligns with brandStrength</strong> — distinctive → evolve, weak → rebuild</li>
+<li><strong>No fabrication</strong> — if the source site has no consistent palette, return whatever colors are most-used, NOT an invented &quot;what would look good&quot;</li>
+<li><strong>Returns only JSON</strong></li>
+</ul>
+<h2>Known gaps</h2>
+<ul>
+<li>CSS parsing is shallow — relies on declared color values; computed/runtime CSS variables can be missed</li>
+<li>No analysis of color USE (a color in the stylesheet isn&#39;t necessarily a brand color — could be a button accent on one page)</li>
+<li>Mood label is single-AI-pass — no validation against the audit&#39;s positioning</li>
+<li>Font detection misses webfonts loaded via JS (rare but happens)</li>
+<li>evolutionSignal is binary — no &quot;partial evolve&quot; option for sites with one good color but bad typography</li>
+</ul>
+<h2>Improvement levers</h2>
+<ol>
+<li><strong>Easy (L1):</strong> Add explicit &quot;color frequency&quot; reasoning to the prompt — count occurrences before naming a primary</li>
+<li><strong>Easy (caller-side):</strong> Cross-validate <code>existingPalette.primary</code> against bronze CSS by frequency</li>
+<li><strong>Medium:</strong> Add a &quot;preserve&quot; array — specific design elements (logo color, signature font) the rebuild should retain even if doing a <code>rebuild</code></li>
+<li><strong>Medium:</strong> Per-page mood scoring — homepage mood vs about-page mood often differ; could surface that signal</li>
+</ol>
+<h2>Test fixtures</h2>
+<p><em>None yet. Future: <code>skills/design/design-extract.fixtures/{distinctive-brand,weak-brand,inconsistent-brand}/*.json</code></em></p>
+<hr>
+<h2>PROMPT</h2>
+<pre><code class="language-text">You are a brand analyst auditing an existing {{verticalName}} practice website BEFORE a redesign.
+
+Your job is NOT to design anything. Your job is to DOCUMENT what currently exists and assess its quality.
+The output of this step feeds a dedicated Brand Direction step that will make all creative decisions.
+
+Be honest and specific. If the brand is weak or generic, say so. If it&#39;s strong, say so. Do not soften either assessment.
+
+## Practice Profile
+
+**Practice Name:** {{practiceName}}
+**Location:** {{city}}, {{state}}
+
+## Existing Site Signals
+
+**Colors found on current site:**
+{{existingColors}}
+
+**Logo URL:** {{logoUrl}}
+
+**Current site aesthetic notes:**
+{{aestheticNotes}}
+
+## Instructions
+
+Analyze the existing brand signals and return a single JSON object. Focus on WHAT EXISTS, not what should change.
+
+```json
+{
+  &quot;existingPalette&quot;: {
+    &quot;primary&quot;:   &quot;#hex or null — the most dominant color found&quot;,
+    &quot;secondary&quot;: &quot;#hex or null — the second most prominent color&quot;,
+    &quot;accent&quot;:    &quot;#hex or null — any highlight or warm accent found&quot;,
+    &quot;light&quot;:     &quot;#hex or null — background/near-white found&quot;,
+    &quot;raw&quot;:       [&quot;#hex&quot;, &quot;#hex&quot;]
+  },
+  &quot;existingFonts&quot;: {
+    &quot;heading&quot;: &quot;font name detected or null&quot;,
+    &quot;body&quot;:    &quot;font name detected or null&quot;,
+    &quot;detected&quot;: [&quot;font1&quot;, &quot;font2&quot;]
+  },
+  &quot;mood&quot;: &quot;2-3 word label for the current site&#39;s feel (e.g. &#39;Outdated Clinical Blue&#39;, &#39;Generic Dental White&#39;, &#39;Warm Family Practice&#39;)&quot;,
+  &quot;brandStrength&quot;: &quot;strong | moderate | weak | none&quot;,
+  &quot;brandStrengthRationale&quot;: &quot;1-2 sentences: why is it strong or weak? Be specific.&quot;,
+  &quot;colorConsistency&quot;: &quot;consistent | inconsistent | minimal — was a real palette applied or random colors?&quot;,
+  &quot;evolutionSignal&quot;: &quot;evolve | rebuild — should we evolve this brand or start fresh? Brief justification.&quot;,
+  &quot;rationale&quot;: &quot;2-3 sentences summarizing the current brand state that the Brand Direction step should use as input&quot;
+}
+</code></pre>
+<p>Rules:</p>
+<ul>
+<li>If no colors were detected, set <code>brandStrength</code> to <code>none</code> and <code>evolutionSignal</code> to <code>rebuild</code></li>
+<li>If only 1-2 inconsistent colors found, <code>brandStrength</code> is <code>weak</code></li>
+<li>Do NOT recommend a new palette or fonts — that is not your job</li>
+<li>Return ONLY the JSON object. No markdown, no explanation before or after.</li>
+</ul>
+<pre><code>
+</code></pre>
+
+  </div>
+</div>
+</body>
+</html>

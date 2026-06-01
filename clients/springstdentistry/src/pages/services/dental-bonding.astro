@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Dental Bonding in Long Beach",
+  "description": "Spring St. Dentistry provides dental bonding in Long Beach to help repair and improve the appearance of your smile.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Spring St. Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Long Beach"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Dental Bonding Long Beach | ${site.name}`}
+  description="Spring St. Dentistry provides dental bonding in Long Beach to help repair and improve the appearance of your smile."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Dental Bonding in Long Beach
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Spring St. Dentistry provides dental bonding in Long Beach to help repair and improve the appearance of your smile.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Dental bonding is a cosmetic procedure in which a tooth-colored composite resin is applied directly to a tooth, shaped, and hardened with a curing light. It's used to repair chips, cracks, gaps, and discoloration — and most cases are completed in a single appointment without removing any significant amount of tooth structure. At Spring St. Dentistry in Long Beach, Dr. Anthony Hoang uses bonding as one of the more accessible options for patients who want to improve the appearance of a tooth without committing to a crown or veneer.</p>
+      <p class="mb-4">The resin used in bonding is matched to the shade of your surrounding teeth, so the finished result blends naturally. For minor cosmetic concerns, the difference in how a tooth looks can be substantial.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What Dental Bonding Can Fix</h2>
+      <p class="mb-4">Bonding works well for a specific range of cosmetic and minor structural issues. Common reasons patients at our Long Beach office choose bonding include:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>A chipped front tooth from an injury or accident</li>
+        <li>Small gaps between teeth that affect the look of a smile</li>
+        <li>Surface cracks or worn-down enamel</li>
+        <li>A tooth that is slightly shorter than the ones around it</li>
+        <li>Discoloration or staining that doesn't respond to whitening</li>
+      </ul>
+      <p class="mb-4">Bonding is generally best suited for low-pressure areas — front teeth and teeth that don't absorb heavy bite force. For back teeth or more significant structural problems, Dr. Hoang may recommend a different approach such as a crown.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">How the Procedure Works</h2>
+      <p class="mb-4">A typical bonding appointment at Spring St. Dentistry runs between 30 and 60 minutes per tooth. The steps are straightforward:</p>
+      <p class="mb-4">1. **Preparation.** The surface of the tooth is lightly roughened and a conditioning liquid is applied. This helps the resin adhere properly. In most cases, anesthesia isn't required unless the bonding is being done near a decayed or sensitive area. 2. **Resin application.** The composite resin — selected to match your tooth color — is applied in layers and molded to the correct shape. 3. **Curing.** A handheld ultraviolet light hardens each layer of resin within seconds. 4. **Finishing.** Once hardened, the bonded area is trimmed, shaped, and polished until it matches the texture of the surrounding tooth.</p>
+      <p class="mb-4">Because so little preparation is needed, bonding is one of the least invasive cosmetic procedures available. Most patients leave the same day with a noticeably improved tooth.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect After Bonding</h2>
+      <p class="mb-4">Bonded teeth don't require a recovery period. You can eat and drink normally the same day, though it's sensible to avoid staining foods and beverages — coffee, tea, red wine — for the first 24 to 48 hours while the resin fully sets.</p>
+      <p class="mb-4">The composite material used in bonding is durable, but it's not as hard as natural enamel or porcelain. Biting fingernails, chewing on pens, or using teeth to open packaging can chip bonded resin over time. With reasonable care, bonding typically lasts several years before any touch-up or replacement is needed.</p>
+      <p class="mb-4">Bonded teeth are maintained the same way natural teeth are: regular brushing, flossing, and routine cleanings. Dr. Hoang will check the condition of any bonded teeth at your regular exams.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Is Bonding Right for You?</h2>
+      <p class="mb-4">Bonding is a practical option when the cosmetic concern is limited in scope — one or two teeth, a chip, a gap, minor discoloration. Patients across Long Beach often come in expecting they'll need something more involved, and bonding turns out to be sufficient. It's also the most affordable entry point for cosmetic work, which makes it worth considering before moving to costlier alternatives.</p>
+      <p class="mb-4">If you have more extensive concerns across multiple teeth, Dr. Hoang may discuss whether veneers or other options would be a better long-term investment.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**Does dental bonding hurt?** For most cosmetic bonding cases, no anesthesia is needed and the procedure is not painful. If the area being treated is near decay or a sensitive root, a local anesthetic can be used.</p>
+      <p class="mb-4">**How long does dental bonding last?** Bonding typically lasts anywhere from 3 to 10 years depending on the location of the tooth, how the bonding is used, and how well it's maintained. Front teeth that don't absorb direct bite force tend to last longer.</p>
+      <p class="mb-4">**Can bonded teeth be whitened?** Composite resin does not respond to whitening treatments the way natural enamel does. If you're considering both whitening and bonding, it's best to whiten first so the resin can be matched to your brightened shade.</p>
+      <p class="mb-4">**Is bonding the same as a veneer?** No. Veneers are thin shells of porcelain (or composite) that are custom-made in a lab and bonded to the front surface of a tooth. Dental bonding uses resin applied and shaped directly in the chair. Bonding is faster and less expensive; veneers are generally more durable and stain-resistant over time.</p>
+      <p class="mb-4">**How do I get started?** Call Spring St. Dentistry at (562) 420-8578 or stop by the office. Dr. Hoang can evaluate the tooth at a regular exam or a dedicated consultation and let you know whether bonding is the right fit.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Book Your Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

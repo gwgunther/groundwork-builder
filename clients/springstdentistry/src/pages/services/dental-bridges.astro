@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Dental Bridges in Long Beach",
+  "description": "Spring St. Dentistry provides dental bridges in Long Beach to help restore your smile after tooth loss.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Spring St. Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Long Beach"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Dental Bridges Long Beach | ${site.name}`}
+  description="Spring St. Dentistry provides dental bridges in Long Beach to help restore your smile after tooth loss."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Dental Bridges in Long Beach
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Spring St. Dentistry provides dental bridges in Long Beach to help restore your smile after tooth loss.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">A missing tooth affects more than just the way your smile looks — it can make chewing uncomfortable and cause neighboring teeth to shift over time. A dental bridge is a reliable way to fill that gap. It anchors an artificial tooth (called a pontic) to the healthy teeth on either side, restoring both the function and appearance of your smile. At Spring St. Dentistry, Dr. Anthony Hoang will walk you through your options and help you decide whether a bridge — or another solution like an implant — is the right fit for your situation.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What a Dental Bridge Actually Is</h2>
+      <p class="mb-4">A traditional dental bridge consists of two crowns placed on the teeth flanking the gap (the abutment teeth), with a false tooth suspended between them. The whole unit is cemented in place and functions like your natural teeth. The result is fixed — unlike a partial denture, you don't remove it at night.</p>
+      <p class="mb-4">Bridges are typically made from porcelain, porcelain fused to metal, or all-ceramic materials. Porcelain and ceramic options are matched to the color of your surrounding teeth, so the bridge blends in rather than standing out. The right material depends on where the gap is located, how much bite force that area handles, and your preferences.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who Is a Good Candidate for a Bridge</h2>
+      <p class="mb-4">A bridge works well when you have one or two adjacent missing teeth and the neighboring teeth are healthy enough to serve as anchors. If those surrounding teeth already have large fillings or crowns, placing bridge crowns on them may make practical sense since they need restorations anyway.</p>
+      <p class="mb-4">Bridges are generally not recommended when the supporting teeth are too weak or when bone loss in the area is significant. Patients who are missing multiple non-adjacent teeth, or who want to avoid altering healthy neighboring teeth, are often better served by implants. That's a conversation worth having during your consultation — there's no single right answer for everyone.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect During the Process</h2>
+      <p class="mb-4">Getting a dental bridge at Spring St. Dentistry typically takes two appointments spaced a few weeks apart.</p>
+      <p class="mb-4">**First appointment:**</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>The abutment teeth are numbed with local anesthetic</li>
+        <li>A small amount of enamel is removed from each abutment tooth to make room for the crowns</li>
+        <li>Impressions (or a digital scan) are taken of the prepared teeth and the surrounding bite</li>
+        <li>A temporary bridge is placed to protect the area while the permanent restoration is being fabricated</li>
+      </ul>
+      <p class="mb-4">**Second appointment:**</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>The temporary bridge is removed</li>
+        <li>The permanent bridge is checked for fit, bite alignment, and color match</li>
+        <li>Once everything looks right, the bridge is permanently cemented</li>
+      </ul>
+      <p class="mb-4">The preparation appointment usually runs 60–90 minutes. The second visit is generally shorter, around 30–60 minutes. Most patients return to normal eating within a day or two, though the dentist will advise you to avoid very hard or sticky foods in the first 24 hours after final placement.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Caring for a Bridge Long-Term</h2>
+      <p class="mb-4">A well-maintained bridge can last ten years or longer. The most important thing to understand is that the teeth underneath the crowns can still develop decay, so cleaning around the bridge is critical. Standard brushing covers the tops and sides, but flossing requires a little more effort since you can't pass floss straight down between the pontic and the gumline.</p>
+      <p class="mb-4">Floss threaders or a water flosser make it straightforward to clean beneath the bridge each day. Patients in Long Beach who have questions about technique can ask during any routine cleaning appointment — a short demonstration makes a real difference.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**Does getting a dental bridge hurt?** The preparation appointment involves numbing the abutment teeth, so the procedure itself is not painful. Some soreness and sensitivity around the gums is normal for a few days afterward and typically resolves on its own.</p>
+      <p class="mb-4">**How long does a dental bridge last?** With consistent brushing, daily cleaning under the pontic, and regular dental checkups, a bridge often lasts 10–15 years. How long it lasts depends heavily on oral hygiene and whether you avoid habits like chewing ice or grinding your teeth.</p>
+      <p class="mb-4">**Is a bridge better than an implant?** Neither is universally better — they solve the same problem differently. An implant doesn't require altering neighboring teeth and preserves bone in the jaw. A bridge is faster to complete and may cost less upfront. Dr. Hoang can help you weigh the tradeoffs based on your specific teeth, bone structure, and budget.</p>
+      <p class="mb-4">**Will my bridge look natural?** Porcelain and ceramic bridges are shaded to match your existing teeth. In most cases, the bridge is not noticeable in normal conversation or photographs.</p>
+      <p class="mb-4">**Does insurance cover dental bridges?** Many dental insurance plans cover a portion of the cost of a bridge, typically categorizing it as a major restorative procedure. Coverage percentages and annual maximums vary by plan. The front desk at Spring St. Dentistry can help you understand your benefits before treatment begins.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

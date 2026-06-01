@@ -1,0 +1,166 @@
+---
+import { site, doctor, address as addr } from '../config/site'
+import { designDNA } from '../config/design-dna'
+
+
+---
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-neutral-100">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
+    <div class="flex items-center justify-between h-16 md:h-20">
+
+      <!-- Logo / Practice Name -->
+      <a
+        href="/"
+        class="flex-shrink-0 font-serif text-xl font-bold text-neutral-dark whitespace-nowrap hover:text-brand-primary transition-all duration-200"
+        aria-label="Spring St. Dentistry — home"
+      >
+        Spring St. Dentistry
+      </a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-8" x-data="{}">
+
+        <!-- Services Dropdown -->
+        <div class="relative group">
+          <button
+            class="flex items-center gap-1 text-sm font-semibold text-neutral-dark whitespace-nowrap hover:text-brand-primary transition-all duration-200 focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Services
+            <svg class="w-4 h-4 mt-px transition-transform duration-200 group-hover:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+            </svg>
+          </button>
+
+          <!-- Dropdown: pt-2 bridges hover gap — never use mt-2 -->
+          <div class="absolute top-full left-0 pt-2 w-56 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 z-50">
+            <div class="rounded-2xl bg-white shadow-md p-2">
+              <a href="/services/clear-aligners"       class="block px-4 py-2 text-sm font-medium text-neutral-dark whitespace-nowrap rounded-xl hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-200">Clear Aligners</a>
+              <a href="/services/cosmetic-dentistry"   class="block px-4 py-2 text-sm font-medium text-neutral-dark whitespace-nowrap rounded-xl hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-200">Cosmetic Dentistry</a>
+              <a href="/services/deep-cleaning"        class="block px-4 py-2 text-sm font-medium text-neutral-dark whitespace-nowrap rounded-xl hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-200">Deep Cleaning</a>
+              <a href="/services/dental-bonding"       class="block px-4 py-2 text-sm font-medium text-neutral-dark whitespace-nowrap rounded-xl hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-200">Dental Bonding</a>
+              <a href="/services/dental-bridges"       class="block px-4 py-2 text-sm font-medium text-neutral-dark whitespace-nowrap rounded-xl hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-200">Dental Bridges</a>
+              <a href="/services/dental-crowns"        class="block px-4 py-2 text-sm font-medium text-neutral-dark whitespace-nowrap rounded-xl hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-200">Dental Crowns</a>
+              <div class="my-1 border-t border-neutral-100"></div>
+              <a href="/services"                      class="block px-4 py-2 text-sm font-semibold text-brand-primary whitespace-nowrap rounded-xl hover:bg-brand-primary/10 transition-all duration-200">All Services →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top-level links -->
+        <a href="/blog"     class="text-sm font-semibold text-neutral-dark whitespace-nowrap hover:text-brand-primary transition-all duration-200 focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2">Our Blog</a>
+        <a href="/schedule" class="text-sm font-semibold text-neutral-dark whitespace-nowrap hover:text-brand-primary transition-all duration-200 focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2">New Patients</a>
+        <a href="/about"    class="text-sm font-semibold text-neutral-dark whitespace-nowrap hover:text-brand-primary transition-all duration-200 focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2">Meet Dr. Hoang</a>
+
+      </div>
+
+      <!-- Right: Phone + CTA -->
+      <div class="hidden md:flex items-center gap-4">
+        <a
+          href="tel:+15624208578"
+          class="tabular-nums text-sm font-semibold text-neutral-dark whitespace-nowrap hover:text-brand-primary transition-all duration-200 focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2"
+          aria-label="Call Spring St. Dentistry at (562) 420-8578"
+        >
+          (562) 420-8578
+        </a>
+        <a
+          href="/schedule"
+          class="inline-block bg-brand-primary text-white font-semibold px-6 py-3 rounded-2xl transition-all duration-200 text-center hover:opacity-90 whitespace-nowrap ml-6 focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2"
+        >
+          Book Appointment
+        </a>
+      </div>
+
+      <!-- Mobile: Phone + Hamburger -->
+      <div class="flex md:hidden items-center gap-3" x-data="{ open: false }">
+        <a
+          href="tel:+15624208578"
+          class="tabular-nums text-sm font-semibold text-neutral-dark hover:text-brand-primary transition-all duration-200 min-h-[44px] flex items-center"
+          aria-label="Call (562) 420-8578"
+        >
+          (562) 420-8578
+        </a>
+
+        <button
+          @click="open = !open"
+          :aria-expanded="open"
+          aria-controls="mobile-menu"
+          aria-label="Toggle navigation menu"
+          class="relative flex items-center justify-center w-11 h-11 rounded-xl text-neutral-dark hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-200 focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2"
+        >
+          <!-- Hamburger icon -->
+          <svg x-show="!open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <!-- Close icon -->
+          <svg x-show="open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <!-- Mobile Menu Panel -->
+        <div
+          id="mobile-menu"
+          x-show="open"
+          x-transition:enter="transition duration-200 ease-out"
+          x-transition:enter-start="opacity-0 -translate-y-2"
+          x-transition:enter-end="opacity-100 translate-y-0"
+          x-transition:leave="transition duration-150 ease-in"
+          x-transition:leave-start="opacity-100 translate-y-0"
+          x-transition:leave-end="opacity-0 -translate-y-2"
+          class="absolute top-full left-0 right-0 bg-white border-t border-neutral-100 shadow-md px-4 py-6 z-50"
+          @click.outside="open = false"
+        >
+          <div class="flex flex-col gap-1" x-data="{ servicesOpen: false }">
+
+            <!-- Services accordion -->
+            <div>
+              <button
+                @click="servicesOpen = !servicesOpen"
+                :aria-expanded="servicesOpen"
+                class="flex items-center justify-between w-full px-3 py-3 text-sm font-semibold text-neutral-dark rounded-xl hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-200 min-h-[44px]"
+              >
+                Services
+                <svg
+                  class="w-4 h-4 transition-transform duration-200"
+                  :class="servicesOpen ? 'rotate-180' : ''"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                </svg>
+              </button>
+
+              <div x-show="servicesOpen" x-transition class="pl-4 flex flex-col gap-1 mt-1">
+                <a href="/services/clear-aligners"     class="block px-3 py-2 text-sm font-medium text-neutral-dark rounded-xl hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-200 min-h-[44px] flex items-center">Clear Aligners</a>
+                <a href="/services/cosmetic-dentistry" class="block px-3 py-2 text-sm font-medium text-neutral-dark rounded-xl hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-200 min-h-[44px] flex items-center">Cosmetic Dentistry</a>
+                <a href="/services/deep-cleaning"      class="block px-3 py-2 text-sm font-medium text-neutral-dark rounded-xl hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-200 min-h-[44px] flex items-center">Deep Cleaning</a>
+                <a href="/services/dental-bonding"     class="block px-3 py-2 text-sm font-medium text-neutral-dark rounded-xl hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-200 min-h-[44px] flex items-center">Dental Bonding</a>
+                <a href="/services/dental-bridges"     class="block px-3 py-2 text-sm font-medium text-neutral-dark rounded-xl hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-200 min-h-[44px] flex items-center">Dental Bridges</a>
+                <a href="/services/dental-crowns"      class="block px-3 py-2 text-sm font-medium text-neutral-dark rounded-xl hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-200 min-h-[44px] flex items-center">Dental Crowns</a>
+                <a href="/services"                    class="block px-3 py-2 text-sm font-semibold text-brand-primary rounded-xl hover:bg-brand-primary/10 transition-all duration-200 min-h-[44px] flex items-center">All Services →</a>
+              </div>
+            </div>
+
+            <a href="/blog"     class="block px-3 py-3 text-sm font-semibold text-neutral-dark rounded-xl hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-200 min-h-[44px] flex items-center">Our Blog</a>
+            <a href="/schedule" class="block px-3 py-3 text-sm font-semibold text-neutral-dark rounded-xl hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-200 min-h-[44px] flex items-center">New Patients</a>
+            <a href="/about"    class="block px-3 py-3 text-sm font-semibold text-neutral-dark rounded-xl hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-200 min-h-[44px] flex items-center">Meet Dr. Hoang</a>
+
+            <div class="mt-4 pt-4 border-t border-neutral-100">
+              <a
+                href="/schedule"
+                class="inline-block w-full bg-brand-primary text-white font-semibold px-6 py-3 rounded-2xl transition-all duration-200 text-center hover:opacity-90"
+              >
+                Book Appointment
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+</header>

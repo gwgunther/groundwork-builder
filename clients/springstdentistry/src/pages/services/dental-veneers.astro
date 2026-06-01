@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Dental Veneers in Long Beach",
+  "description": "Spring St. Dentistry provides dental veneers in Long Beach to help you achieve a brighter, more even smile.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Spring St. Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Long Beach"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Dental Veneers Long Beach | ${site.name}`}
+  description="Spring St. Dentistry provides dental veneers in Long Beach to help you achieve a brighter, more even smile."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Dental Veneers in Long Beach
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Spring St. Dentistry provides dental veneers in Long Beach to help you achieve a brighter, more even smile.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Dental veneers are thin, custom-made shells that bond to the front surface of your teeth to improve their color, shape, size, or overall appearance. They're a popular choice for patients who want to address staining, minor chips, gaps, or uneven teeth — all at once, with beautiful, lasting results. At Spring St. Dentistry in Long Beach, Dr. Anthony Hoang offers porcelain veneers designed to blend naturally with your existing teeth. Most patients complete the process in two appointments.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What Veneers Can Fix</h2>
+      <p class="mb-4">Veneers are a versatile cosmetic option, but they work best for specific concerns. Patients at Spring St. Dentistry commonly ask about veneers for:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>Teeth that are permanently discolored and don't respond well to whitening — often from tetracycline staining, excess fluoride, or old dental work</li>
+        <li>Minor chips or fractures on front teeth</li>
+        <li>Small gaps between teeth that aren't severe enough to require orthodontic treatment</li>
+        <li>Teeth that appear short, uneven, or slightly misshapen</li>
+        <li>Mild crowding or overlapping where the visual result matters more than bite correction</li>
+      </ul>
+      <p class="mb-4">Veneers don't address structural damage, decay, or significant bite problems. During a consultation, Dr. Hoang will evaluate whether veneers are appropriate or whether a different approach — like crowns, bonding, or orthodontics — would serve you better.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">The Veneer Process: What to Expect</h2>
+      <p class="mb-4">The process typically spans two visits, with a short wait between them while your veneers are fabricated.</p>
+      <p class="mb-4">**First appointment — preparation and impressions:** Dr. Hoang removes a thin layer of enamel from the front of each tooth receiving a veneer. This is usually less than a millimeter and is necessary to ensure the veneer sits flush rather than adding bulk. After preparation, impressions or digital scans are taken and sent to a dental lab. Temporary veneers are placed to protect your teeth in the meantime.</p>
+      <p class="mb-4">**Second appointment — bonding:** When your permanent porcelain veneers return from the lab, Dr. Hoang checks the fit, shape, and color against your natural teeth before permanently bonding them. Minor adjustments can be made at this stage. The bonding itself uses a strong dental cement and a curing light to harden the bond quickly. The appointment typically takes one to two hours depending on how many veneers are being placed.</p>
+      <p class="mb-4">Because enamel is removed in the process, veneers are considered a permanent alteration — your teeth will always need to be covered by veneers or another restoration going forward.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Porcelain vs. Composite Veneers</h2>
+      <p class="mb-4">Spring St. Dentistry offers porcelain veneers, which are the more durable and stain-resistant option. Porcelain reflects light in a way that closely mimics natural tooth enamel, which is why the results tend to look realistic rather than opaque or artificial.</p>
+      <p class="mb-4">Composite resin veneers are an alternative some practices offer — they can sometimes be completed in a single visit and cost less upfront, but they're more prone to staining over time and typically don't last as long as porcelain. If you're weighing your options, that tradeoff is worth discussing during your consultation.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Caring for Veneers Long-Term</h2>
+      <p class="mb-4">Porcelain veneers are durable, but they're not indestructible. With routine care, they can last ten years or longer.</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>Brush twice daily with a non-abrasive toothpaste</li>
+        <li>Floss daily — veneers don't protect gum tissue, so gum health still matters</li>
+        <li>Avoid biting hard objects like ice, pens, or fingernails</li>
+        <li>If you grind your teeth at night, mention this before treatment — a night guard may be recommended to protect your veneers</li>
+        <li>Keep your regular cleaning appointments; the teeth and gums underneath still need care</li>
+      </ul>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**Do veneers hurt?** The preparation appointment involves local anesthesia, so you shouldn't feel pain during the procedure. Some patients experience sensitivity for a few days after enamel is removed, which typically resolves once the permanent veneers are bonded.</p>
+      <p class="mb-4">**How long do porcelain veneers last?** With proper care, porcelain veneers typically last ten to fifteen years before they may need to be replaced. Longevity depends on how well you care for them and whether you grind your teeth.</p>
+      <p class="mb-4">**Are veneers covered by insurance?** Veneers are generally considered a cosmetic procedure and are not covered by most dental insurance plans. If you have questions about costs or payment options, the team at Spring St. Dentistry can walk you through what to expect before you commit.</p>
+      <p class="mb-4">**Can I get veneers on just one tooth?** Yes. Some patients in Long Beach come in wanting to fix a single chipped or discolored tooth. Dr. Hoang will work to match the veneer to your surrounding teeth so the result looks consistent.</p>
+      <p class="mb-4">**What's the difference between veneers and crowns?** A veneer covers only the front surface of a tooth and requires minimal enamel removal. A crown covers the entire tooth and is used when a tooth is more significantly damaged or weakened. Veneers are the less invasive option when the underlying tooth structure is healthy.</p>
+      <p class="mb-4">To find out whether veneers are the right fit for your teeth, call Spring St. Dentistry at (562) 420-8578 to schedule a consultation with Dr. Hoang.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Dental X-Rays in Long Beach",
+  "description": "Spring St. Dentistry provides dental x-rays in Long Beach as part of a comprehensive exam and care plan.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Spring St. Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Long Beach"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Dental X-rays Long Beach | ${site.name}`}
+  description="Spring St. Dentistry provides dental x-rays in Long Beach as part of a comprehensive exam and care plan."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Dental X-Rays in Long Beach
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Spring St. Dentistry provides dental x-rays in Long Beach as part of a comprehensive exam and care plan.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Dental x-rays are an important part of a thorough exam. They let us see what's happening beneath the surface — detecting decay between teeth, monitoring bone levels, and identifying issues that aren't visible to the naked eye. At Spring St. Dentistry, we use x-rays as part of our customized dental hygiene plans to make sure we have a complete picture of your oral health. If you have questions about x-rays or what to expect during your visit, feel free to call us at (562) 420-8578.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Book Your Exam</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

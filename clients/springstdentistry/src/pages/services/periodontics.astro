@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Periodontics in Long Beach",
+  "description": "Spring St. Dentistry provides periodontal care in Long Beach, including advanced treatments for gum disease.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Spring St. Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Long Beach"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Periodontics Long Beach | ${site.name}`}
+  description="Spring St. Dentistry provides periodontal care in Long Beach, including advanced treatments for gum disease."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Periodontics in Long Beach
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Spring St. Dentistry provides periodontal care in Long Beach, including advanced treatments for gum disease.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Periodontics is the branch of dentistry focused on the health of your gums and the structures that support your teeth. Gum disease is more common than most people realize, and when left untreated it can lead to tooth loss and affect your overall health. At Spring St. Dentistry, we offer a full range of periodontal services — from deep cleanings and root scaling and planing to advanced laser-based treatments like LANAP — so you can get the level of care your gums actually need, all in one place. If you've been told you have gum disease, or if you've noticed bleeding, swelling, or recession, call us at (562) 420-8578 to schedule an evaluation.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Periodontal Evaluation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

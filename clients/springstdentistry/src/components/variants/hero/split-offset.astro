@@ -1,0 +1,100 @@
+---
+/**
+ * Hero Split Offset — 2/5 text + 3/5 image. Cinematic asymmetry.
+ * Image bleeds to the right edge. Text on brand-light bg, left side.
+ */
+import type { HeroContent } from '../types';
+import { designDNA } from '../../../config/design-dna';
+import { site } from '../../../config/site';
+import { imagePath } from '../../../config/design-dna';
+import { resolveTokens } from '../token-utils';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+const { content } = Astro.props;
+
+const tokens = (designDNA as any).designTokens ?? {};
+const t = resolveTokens(tokens);
+
+// Load hero image
+let imageRoles = {};
+try {
+  const p = `${process.cwd()}/public/images/image-roles.json`;
+  imageRoles = JSON.parse(readFileSync(p, 'utf8'));
+} catch {}
+const heroImg = imagePath(imageRoles.hero ?? null);
+
+const phone = content.phone || site.phone;
+const siteName = site.name ?? '';
+---
+
+<section data-section="hero" class="min-h-[85vh] flex flex-col md:grid md:grid-cols-5 overflow-hidden">
+
+  <!-- Text panel — 2 of 5 columns -->
+  <div class="flex flex-col justify-center bg-brand-light order-2 md:order-1 md:col-span-2 px-8 md:px-12 py-16 md:py-24">
+    <div class="max-w-sm">
+      {content.eyebrow && (
+        <span class={t.eyebrowClass}>{content.eyebrow}</span>
+      )}
+
+      <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark leading-tight mb-6">
+        {content.headline}
+      </h1>
+
+      <p class="font-sans text-base text-neutral-mid leading-relaxed mb-8">
+        {content.subheadline}
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-col sm:flex-row md:flex-col lg:flex-row gap-4 mb-6">
+        <a href={content.primaryCta.href} class={t.btnPrimary}>
+          {content.primaryCta.label}
+        </a>
+        {content.secondaryCta && (
+          <a
+            href={content.secondaryCta.href}
+            class={`inline-flex items-center justify-center px-6 py-3 ${t.radiusClass} font-semibold text-sm border-2 border-neutral-dark/20 text-neutral-dark hover:border-brand-primary hover:text-brand-primary transition-all duration-200`}
+          >
+            {content.secondaryCta.label}
+          </a>
+        )}
+      </div>
+
+      <!-- Phone -->
+      {phone && (
+        <a
+          href={`tel:${phone}`}
+          class="inline-flex items-center gap-2 text-neutral-mid hover:text-brand-primary transition-colors font-sans text-base tabular-nums"
+          aria-label={`Call us at ${phone}`}
+        >
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.95V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z"/>
+          </svg>
+          {phone}
+        </a>
+      )}
+    </div>
+  </div>
+
+  <!-- Image panel — 3 of 5 columns, bleeds to right edge -->
+  <div class="relative min-h-[50vw] md:min-h-0 order-1 md:order-2 md:col-span-3 overflow-hidden">
+    {heroImg ? (
+      <img
+        src={heroImg}
+        alt={`${siteName} practice`}
+        class="absolute inset-0 w-full h-full object-cover object-center aspect-[3/4] md:aspect-auto"
+        loading="eager"
+        fetchpriority="high"
+      />
+    ) : (
+      <!-- Fallback: decorative monogram on brand-primary bg -->
+      <div class="absolute inset-0 bg-brand-primary flex items-center justify-center">
+        <span class="font-serif text-[20rem] font-bold text-white/10 select-none leading-none" aria-hidden="true">
+          {siteName.charAt(0)}
+        </span>
+      </div>
+    )}
+  </div>
+
+</section>

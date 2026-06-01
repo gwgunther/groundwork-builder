@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Family Dentist in Long Beach",
+  "description": "Spring St. Dentistry provides family dentistry in Long Beach. Schedule an appointment with our Long Beach family dentist for adults and children.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Spring St. Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Long Beach"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Family Dentistry Long Beach | ${site.name}`}
+  description="Spring St. Dentistry provides family dentistry in Long Beach. Schedule an appointment with our Long Beach family dentist for adults and children."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Family Dentist in Long Beach
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Spring St. Dentistry provides family dentistry in Long Beach. Schedule an appointment with our Long Beach family dentist for adults and children.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">At Spring St. Dentistry, we offer dental care for the entire family — from the little ones to the adults. Our office has experience working with patients of all ages, so one location can meet all of your family's needs. Our patient's satisfaction is our top priority, and we strive to exceed your expectations through professionalism and genuine care. We gladly provide oral hygiene demonstrations for both children and adults, so your whole family stays confident in their brushing and flossing routines. We're experienced in working with kids and make it a priority to create an environment where they feel relaxed and happy throughout their appointment.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Book Your Family's Visit</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

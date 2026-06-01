@@ -1,0 +1,156 @@
+---
+/**
+ * About page — uniform iteration over doctors[].
+ *
+ * doctors[0] is the featured doctor (full hero treatment with bio).
+ * doctors.slice(1) get the team-section card treatment.
+ *
+ * For single-doctor practices, doctors.length === 1 → only the hero renders,
+ * the team section is conditional.
+ *
+ * Doctor data + portraits flow through:
+ *   silver.doctors[]                      ← extraction
+ *   → merged.doctors[]                    ← merger
+ *   → injector writes doctors[] in site.ts
+ *   → image-roles.json doctorPortraits[]  ← Vision-classifier paired by name
+ *   → this template iterates doctors[]
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTABlock from '../components/CTABlock.astro';
+import { site, doctors, address, localBusinessSchema, personSchemas } from '../config/site';
+import { readFileSync } from 'node:fs';
+
+// Resolve image-roles for doctor portraits (paired by name in ai-image-roles).
+// Names from site.ts may differ slightly from image-roles keys (e.g. "Dr. Russell
+// Chang" in site.ts vs "Dr. Russell EK Chang" in image-roles when the injector
+// strips middle initials). Match progressively: exact → first+last token →
+// last-name only. Stops at the first hit.
+let imageRoles: any = { doctorPortraits: {} };
+try {
+  imageRoles = JSON.parse(readFileSync(`${process.cwd()}/public/images/image-roles.json`, 'utf8'));
+} catch { /* manifest missing in dev */ }
+const normalize = (s: string) => String(s || '').toLowerCase().replace(/^dr\.?\s+/i, '').replace(/[^a-z\s]/g, '').trim();
+const portraitFor = (name: string): string | null => {
+  const portraits = imageRoles.doctorPortraits || {};
+  // 1. Exact match
+  if (portraits[name]) return `/images/${portraits[name]}`;
+  // 2. Token-set fuzzy match — every meaningful (3+ char) token in the
+  //    look-up name must appear in the candidate key.
+  const want = new Set(normalize(name).split(/\s+/).filter(t => t.length >= 3));
+  if (want.size === 0) return null;
+  for (const [key, path] of Object.entries(portraits)) {
+    const have = new Set(normalize(key).split(/\s+/).filter(t => t.length >= 3));
+    let ok = true;
+    for (const t of want) if (!have.has(t)) { ok = false; break; }
+    if (ok) return `/images/${path}`;
+  }
+  return null;
+};
+
+const featured = doctors[0];
+const supporting = doctors.slice(1);
+---
+
+<BaseLayout
+  title={`About ${featured.name} — ${site.name}`}
+  description={`Meet ${featured.name}, ${featured.credentials}. Learn about our practice, philosophy, and commitment to exceptional dental care in ${address.city}.`}
+  schema={[localBusinessSchema, ...personSchemas]}
+>
+  <!-- Hero — featured (primary) doctor -->
+  <section class="bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-highlight mb-4">About Our Practice</p>
+          <h1 class="section-heading mb-6">Meet {featured.name}</h1>
+          {featured.bio ? (
+            <div class="text-lg text-neutral-mid leading-relaxed space-y-4 mb-4">
+              {featured.bio.split('\n\n').slice(0, 2).map((p) => <p>{p}</p>)}
+            </div>
+          ) : (
+            <p class="text-lg text-neutral-mid leading-relaxed mb-4">
+              {featured.name} provides exceptional dental care to patients in {address.city}.
+            </p>
+          )}
+          {featured.education && (
+            <p class="text-neutral-mid leading-relaxed">
+              {featured.credentials}{featured.education ? ` — ${featured.education}` : ''}
+            </p>
+          )}
+        </div>
+        {(() => {
+          const photo = portraitFor(featured.name);
+          return photo ? (
+            <div class="rounded-2xl overflow-hidden aspect-[4/5]"><img src="/images/team/team-1-dr-hoang.jpg" alt="Dr. Anthony Hoang" class="w-full h-full object-cover object-top rounded-2xl" loading="lazy" /></div>
+          ) : (
+            <div class="bg-neutral-light rounded-2xl aspect-[4/5] flex items-center justify-center">
+              <p class="text-neutral-mid text-sm">Doctor Photo</p>
+            </div>
+          );
+        })()}
+      </div>
+    </div>
+  </section>
+
+  <!-- Team section — supporting doctors. Conditional on length > 0. -->
+  {supporting.length > 0 && (
+    <section class="py-16 md:py-24 bg-surface-1">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 md:mb-16">
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-highlight mb-4">Our Team</p>
+          <h2 class="section-subheading">Meet Our Doctors</h2>
+        </div>
+        <div class={`grid gap-12 md:gap-16 ${supporting.length === 1 ? 'md:grid-cols-1 max-w-4xl mx-auto' : supporting.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'}`}>
+          {supporting.map((d) => {
+            const photo = portraitFor(d.name);
+            return (
+              <article class="grid grid-cols-1 sm:grid-cols-3 gap-6 items-start">
+                <div class="sm:col-span-1">
+                  {photo ? (
+                    <img src={photo} alt={d.name} class="w-full aspect-[4/5] object-cover object-top rounded-2xl" loading="lazy" />
+                  ) : (
+                    <div class="w-full aspect-[4/5] rounded-2xl bg-neutral-light flex items-center justify-center text-neutral-mid text-xs">
+                      {d.firstName?.charAt(0) || '?'}
+                    </div>
+                  )}
+                </div>
+                <div class="sm:col-span-2">
+                  <h3 class="font-serif text-2xl md:text-3xl font-bold text-neutral-dark mb-2">{d.name}</h3>
+                  {d.credentials && (
+                    <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary mb-4">{d.credentials}</p>
+                  )}
+                  {d.bio && (
+                    <p class="text-neutral-mid leading-relaxed">{d.bio}</p>
+                  )}
+                  {d.education && (
+                    <p class="text-sm text-neutral-mid mt-3 italic">{d.education}</p>
+                  )}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Philosophy -->
+  <section class="py-16">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-subheading text-center mb-8">Our Philosophy</h2>
+      <div class="prose-dental">
+        <p class="text-lg text-neutral-mid leading-relaxed mb-4">Dr. Anthony Hoang was born and raised in Long Beach and Lakewood, and feels a true sense of pride and honor to have a dental practice in his hometown. He attended local schools at Lakewood High School and UC Irvine. He received his DMD degree from Tufts University School of Dental Medicine located in Boston, Massachusetts in 2014 and completed an additional year of General Practice Residency in Dentistry at the Loma Linda VA Medical Center where he provided comprehensive dental care to the veteran population. Dr. Hoang's favorite aspects of dentistry are the interpersonal relationships he develops with his patients and making them feel at ease during their dental visits. He looks forward to meeting all of his patients and providing high quality comprehensive dentistry for all of their needs. Dr. Hoang enjoys giving back to the community and has volunteered at nonprofit organizations such as the Long Beach Children's Dental Health Clinic, Boston public schools outreach programs, federal medical centers, and the Autumn Years Alzheimer's care facility.</p>
+        <p>
+          Whether you need a simple cleaning or a complex restoration, we treat every patient with the same attention to detail and commitment to excellence.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <CTABlock phone={site.phone} />
+    </div>
+  </section>
+</BaseLayout>

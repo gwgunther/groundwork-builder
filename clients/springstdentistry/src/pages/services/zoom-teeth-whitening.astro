@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Zoom Teeth Whitening in Long Beach",
+  "description": "Spring St. Dentistry offers Zoom teeth whitening in Long Beach for fast, dramatic results in a single appointment.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Spring St. Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Long Beach"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Zoom Teeth Whitening Long Beach | ${site.name}`}
+  description="Spring St. Dentistry offers Zoom teeth whitening in Long Beach for fast, dramatic results in a single appointment."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Zoom Teeth Whitening in Long Beach
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Spring St. Dentistry offers Zoom teeth whitening in Long Beach for fast, dramatic results in a single appointment.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Zoom teeth whitening is an in-office treatment that can brighten your smile by several shades in about an hour. Using a professional-strength whitening gel activated by a special light, Zoom delivers faster and more dramatic results than take-home treatments alone. It's a great option if you have an upcoming event, a job interview, or you simply want to see a noticeable change as quickly as possible. At Spring St. Dentistry, we'll make sure you're comfortable throughout the process and leave with a smile you feel great about.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Book Your Zoom Appointment</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTABlock from '../components/CTABlock.astro';
+import { site, localBusinessSchema } from '../config/site';
+
+// TODO: Customize services for the practice
+const services = [
+  { name: 'Clear Aligners', slug: 'clear-aligners', href: '/services/clear-aligners', desc: 'Spring St. Dentistry offers clear aligner treatment to help you achieve a straighter smile comfortably and discreetly.' },
+  { name: 'Cosmetic Dentistry', slug: 'cosmetic-dentistry', href: '/services/cosmetic-dentistry', desc: 'Spring St. Dentistry provides cosmetic dentistry in Long Beach. Schedule an appointment with our Long Beach cosmetic dentist.' },
+  { name: 'Deep Cleaning', slug: 'deep-cleaning', href: '/services/deep-cleaning', desc: 'Spring St. Dentistry provides deep cleaning services in Long Beach to help restore and protect your gum health.' },
+  { name: 'Dental Bonding', slug: 'dental-bonding', href: '/services/dental-bonding', desc: 'Spring St. Dentistry offers dental bonding in Long Beach to repair chips, cracks, and gaps for a more confident smile.' },
+  { name: 'Dental Bridges', slug: 'dental-bridges', href: '/services/dental-bridges', desc: 'Spring St. Dentistry provides dental bridges in Long Beach to help restore your smile after tooth loss.' },
+  { name: 'Dental Crowns', slug: 'dental-crowns', href: '/services/dental-crowns', desc: 'Spring St. Dentistry provides Dental Crowns in Long Beach. Schedule an appointment with our Long Beach dentist for dental crowns.' },
+  { name: 'Dental Exam & Cleaning', slug: 'dental-exam-cleaning', href: '/services/dental-exam-cleaning', desc: 'Spring St. Dentistry provides Dental Exam & Cleaning in Long Beach. Schedule an appointment with our Long Beach dentist for a Dental Exam & Cleaning.' },
+  { name: 'Dental Fillings', slug: 'dental-fillings', href: '/services/dental-fillings', desc: 'Spring St. Dentistry provides Dental Fillings in Long Beach. Schedule an appointment with our Long Beach dentist for Dental Fillings.' },
+  { name: 'Dental Implants', slug: 'dental-implants', href: '/services/dental-implants', desc: 'Spring St. Dentistry provides dental implants in Long Beach. Schedule an appointment with our Long Beach implant dentist.' },
+  { name: 'Dental Veneers', slug: 'dental-veneers', href: '/services/dental-veneers', desc: 'Spring St. Dentistry offers dental veneers in Long Beach to give you a beautifully transformed smile.' },
+  { name: 'Dental X-rays', slug: 'dental-x-rays', href: '/services/dental-x-rays', desc: 'Spring St. Dentistry uses dental X-rays as part of your comprehensive exam to help detect issues early.' },
+  { name: 'Extractions', slug: 'extractions', href: '/services/extractions', desc: 'Spring St. Dentistry provides tooth extractions in Long Beach when needed to protect your overall oral health.' },
+  { name: 'Family Dentistry', slug: 'family-dentistry', href: '/services/family-dentistry', desc: 'Spring St. Dentistry provides family dentistry in Long Beach. Schedule an appointment with our Long Beach family dentist for adults and children.' },
+  { name: 'General Dentistry', slug: 'general-dentistry', href: '/services/general-dentistry', desc: 'Spring St. Dentistry provides general dentistry in Long Beach. Schedule an appointment with our Long Beach dentist.' },
+  { name: 'Invisalign', slug: 'invisalign', href: '/services/invisalign', desc: 'Spring St. Dentistry provides Invisalign treatment in Long Beach for a straighter smile without traditional braces.' },
+  { name: 'LANAP Treatment', slug: 'lanap-treatment', href: '/services/lanap-treatment', desc: 'Spring St. Dentistry offers LANAP — laser-assisted treatment for gum disease — as a minimally invasive alternative to traditional gum surgery.' },
+  { name: 'Laser-Assisted Periodontal Therapy', slug: 'laser-assisted-periodontal-therapy', href: '/services/laser-assisted-periodontal-therapy', desc: 'Spring St. Dentistry provides laser-assisted periodontal therapy in Long Beach for effective, gentle treatment of gum disease.' },
+  { name: 'Orthodontics', slug: 'orthodontics', href: '/services/orthodontics', desc: 'Spring St. Dentistry provides Orthodontics in Long Beach. Schedule an appointment with our Long Beach Orthodontics team.' },
+  { name: 'Periodontics', slug: 'periodontics', href: '/services/periodontics', desc: 'Spring St. Dentistry provides periodontal care in Long Beach, including LANAP treatment and root scaling and planing.' },
+  { name: 'Porcelain Crowns', slug: 'porcelain-crowns', href: '/services/porcelain-crowns', desc: 'Spring St. Dentistry offers porcelain crowns in Long Beach for a natural-looking restoration that blends seamlessly with your smile.' },
+  { name: 'Root Canal', slug: 'root-canal', href: '/services/root-canal', desc: 'Spring St. Dentistry provides Root Canal treatment in Long Beach. Schedule an appointment with our Long Beach dentist for Root Canal Treatment.' },
+  { name: 'Root Scaling and Planing', slug: 'root-scaling-and-planing', href: '/services/root-scaling-and-planing', desc: 'Spring St. Dentistry provides root scaling and planing in Long Beach to treat gum disease and restore gum health.' },
+  { name: 'Same Day Emergency Treatment', slug: 'same-day-emergency-treatment', href: '/services/same-day-emergency-treatment', desc: 'Spring St. Dentistry offers same-day emergency treatment in Long Beach for tooth pain, broken teeth, and urgent dental needs.' },
+  { name: 'Teeth Whitening', slug: 'teeth-whitening', href: '/services/teeth-whitening', desc: 'Spring St. Dentistry provides Teeth Whitening in Long Beach. Schedule an appointment with our Long Beach dentist for a professional Teeth Whitening.' },
+  { name: 'Traditional Metal Braces', slug: 'traditional-metal-braces', href: '/services/traditional-metal-braces', desc: 'Spring St. Dentistry offers traditional metal braces in Long Beach as a reliable and effective option for straightening your smile.' },
+  { name: 'Zoom Teeth Whitening', slug: 'zoom-teeth-whitening', href: '/services/zoom-teeth-whitening', desc: 'Spring St. Dentistry offers Zoom teeth whitening in Long Beach for fast, dramatic results in a single appointment.' },
+];
+---
+
+<BaseLayout
+  title={`Services — ${site.name}`}
+  description={`Comprehensive dental services at ${site.name}. General dentistry, cosmetic treatments, dental implants, and restorations. Call ${site.phone}.`}
+  schema={localBusinessSchema}
+>
+  <section class="bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="section-heading mb-6">Our Services</h1>
+        <p class="text-lg text-neutral-mid leading-relaxed">
+          From routine checkups to advanced restorations, we provide a full range of dental services to keep your smile healthy and beautiful.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {services.map((service) => (
+          <a href={service.href || `/services/${service.slug}`} class="card hover:border-brand-primary/30 transition-colors group">
+            <h2 class="font-serif text-xl font-semibold text-neutral-dark mb-2 group-hover:text-brand-primary transition-colors">{service.name}</h2>
+            <p class="text-neutral-mid">{service.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <CTABlock phone={site.phone} />
+    </div>
+  </section>
+</BaseLayout>

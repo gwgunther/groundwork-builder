@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>audit/site-audit · Skill</title>
+<style>
+  :root {
+    --bg: #0f1115; --fg: #e7e8ea; --muted: #9098a3; --accent: #6ee7b7;
+    --card: #181b22; --border: #262a33; --code-bg: #0a0c10;
+    --stub: #6b7280; --working: #f59e0b; --polished: #10b981; --mature: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  .topbar { padding: 16px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .topbar a { color: var(--accent); text-decoration: none; font-size: 13px; }
+  .topbar a:hover { text-decoration: underline; }
+  .topbar-meta { color: var(--muted); font-size: 12px; }
+  .container { max-width: 880px; margin: 0 auto; padding: 32px 40px 80px; }
+  header.skill-head { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  header.skill-head h1 { margin: 0 0 4px; font-size: 28px; font-weight: 600; }
+  .skill-path { color: var(--muted); font-family: ui-monospace, SFMono-Regular, monospace; font-size: 13px; }
+  .badges { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+  .badge.tier { background: var(--border); font-family: ui-monospace, monospace; }
+  .badge.tier-L1 { background: rgba(110, 231, 183, .15); color: var(--accent); }
+  .badge.tier-L2 { background: rgba(245, 158, 11, .15); color: var(--working); }
+  .badge.tier-L3 { background: rgba(59, 130, 246, .15); color: #60a5fa; }
+  .badge.tier-L4 { background: rgba(168, 85, 247, .15); color: #c084fc; }
+  .badge.maturity { background: var(--border); }
+  .badge.phase { background: var(--card); border: 1px solid var(--border); color: var(--muted); }
+  .meta-table { font-size: 13px; color: var(--muted); margin-top: 12px; }
+  .meta-table strong { color: var(--fg); font-weight: 500; }
+  .meta-table code { background: var(--card); padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--accent); }
+  .doc h2 { margin: 32px 0 12px; font-size: 20px; font-weight: 600; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .doc h3 { margin: 24px 0 8px; font-size: 16px; font-weight: 600; color: var(--accent); }
+  .doc p { margin: 0 0 14px; }
+  .doc ul, .doc ol { margin: 0 0 14px; padding-left: 24px; }
+  .doc li { margin-bottom: 4px; }
+  .doc a { color: var(--accent); }
+  .doc strong { color: var(--fg); font-weight: 600; }
+  .doc code { background: var(--card); padding: 2px 6px; border-radius: 3px; font-size: 13px; color: var(--accent); font-family: ui-monospace, SFMono-Regular, monospace; }
+  .doc pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 0 0 16px; }
+  .doc pre code { background: transparent; padding: 0; color: var(--fg); font-size: 13px; line-height: 1.5; white-space: pre; }
+  .doc table { border-collapse: collapse; margin: 0 0 16px; font-size: 14px; width: 100%; }
+  .doc th, .doc td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+  .doc th { background: var(--card); font-weight: 600; }
+  .doc blockquote { border-left: 3px solid var(--accent); padding: 4px 16px; margin: 0 0 16px; color: var(--muted); }
+  .doc hr { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../PIPELINE.html">← Back to Pipeline Dashboard</a>
+  <span class="topbar-meta">Source: <code style="background:transparent">skills/audit/site-audit.md</code></span>
+</div>
+
+<div class="container">
+  <header class="skill-head">
+    <div class="skill-path">skills/audit/site-audit.md</div>
+    <h1>site audit</h1>
+    <div class="badges">
+      <span class="badge tier tier-L1">L1</span>
+      <span class="badge maturity">🟡 working</span>
+      <span class="badge phase">Phase: Audit</span>
+      <span class="badge phase">Model: claude-sonnet-4-6</span>
+    </div>
+    
+    <div class="meta-table">
+      <div><strong>Source:</strong> <code>scripts/pipeline/lib/ai-audit.js</code></div>
+      <div><strong>Function:</strong> <code>runSiteAudit()</code></div>
+    </div>
+  </header>
+
+  <div class="doc">
+<h1>Skill: AI Site Audit</h1>
+<h2>Responsibility</h2>
+<p>Strategic recommendations for the redesign. Takes scraped + merged data plus
+the loaded vertical preset, and produces positioning / serviceEmphasis / tone
+recommendations along with differentiators, content gaps, SEO opportunities,
+and warnings. The output&#39;s <code>positioning.recommended</code> and <code>tone.recommended</code>
+fields drive the brand-direction phase&#39;s color-temperature and typography
+personality signals; <code>serviceEmphasis</code> informs the director&#39;s section
+ordering. Prompt template lives separately at
+<code>scripts/pipeline/prompts/site-audit.md</code> and is interpolated with
+<code>{{placeholder}}</code> substitutions.</p>
+<h2>Inputs</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Source</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>verticalName</code></td>
+<td>string</td>
+<td>preset.schema.verticalName</td>
+<td>&quot;Practice&quot; fallback</td>
+</tr>
+<tr>
+<td><code>practiceName</code></td>
+<td>string</td>
+<td>merged.practice.name</td>
+<td></td>
+</tr>
+<tr>
+<td><code>domain</code></td>
+<td>string</td>
+<td>merged.practice.domain</td>
+<td></td>
+</tr>
+<tr>
+<td><code>doctorName</code></td>
+<td>string</td>
+<td>merged.doctor.name</td>
+<td>&quot;Dr. {first} {last}&quot; fallback</td>
+</tr>
+<tr>
+<td><code>credentials</code></td>
+<td>string</td>
+<td>merged.doctor.credentials</td>
+<td></td>
+</tr>
+<tr>
+<td><code>city</code>, <code>state</code></td>
+<td>string</td>
+<td>merged.address</td>
+<td></td>
+</tr>
+<tr>
+<td><code>phone</code></td>
+<td>string</td>
+<td>merged.practice.phone</td>
+<td></td>
+</tr>
+<tr>
+<td><code>servicesList</code></td>
+<td>string</td>
+<td>derived</td>
+<td>&quot;- {canonical} ({slug})&quot; lines, &quot;(none detected)&quot; fallback</td>
+</tr>
+<tr>
+<td><code>hubsList</code></td>
+<td>string</td>
+<td>derived</td>
+<td>&quot;- {label} → /services/{slug}&quot; lines</td>
+</tr>
+<tr>
+<td><code>taxonomyList</code></td>
+<td>string</td>
+<td>preset.taxonomy.services</td>
+<td>&quot;- {canonical} [{category}]&quot; lines</td>
+</tr>
+<tr>
+<td><code>pageCount</code></td>
+<td>string</td>
+<td>scraped.migration.oldUrls.length</td>
+<td></td>
+</tr>
+<tr>
+<td><code>hasBio</code> / <code>hasTestimonials</code> / <code>hasFaqs</code></td>
+<td>&quot;Yes&quot;/&quot;No&quot;</td>
+<td>merged</td>
+<td></td>
+</tr>
+<tr>
+<td><code>socialsCount</code> / <code>imageCount</code></td>
+<td>string</td>
+<td>derived counts</td>
+<td></td>
+</tr>
+<tr>
+<td><code>confidenceFlags</code></td>
+<td>string</td>
+<td>merged.meta.confidenceFlags</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2>Output schema</h2>
+<pre><code class="language-json">{
+  &quot;positioning&quot;:     { &quot;current&quot;, &quot;recommended&quot;, &quot;rationale&quot; },
+  &quot;serviceEmphasis&quot;: { &quot;primary&quot;: &quot;slug&quot;, &quot;secondary&quot;: [&quot;slug&quot;], &quot;rationale&quot; },
+  &quot;tone&quot;:            { &quot;current&quot;, &quot;recommended&quot;, &quot;rationale&quot; },
+  &quot;differentiators&quot;: [&quot;string&quot;],
+  &quot;contentGaps&quot;:     [&quot;string&quot;],
+  &quot;seoOpportunities&quot;: [&quot;string&quot;],
+  &quot;warnings&quot;:        [&quot;string&quot;]
+}
+</code></pre>
+<h2>Evaluation criteria</h2>
+<ul>
+<li><strong>Specific to this practice</strong> — recommendations reference actual scraped data, not generic dental advice</li>
+<li><strong><code>serviceEmphasis.primary</code> is a real slug</strong> from the offered services list, not a fabricated category</li>
+<li><strong><code>positioning.recommended</code> is concrete</strong> — phrases like &quot;trusted family practice in Long Beach&quot; beat &quot;modern dental practice&quot;</li>
+<li><strong><code>tone.recommended</code> is descriptive</strong> (&quot;warm, conversational, approachable&quot;) — drives downstream brand-direction signals</li>
+<li><strong>Differentiators cite evidence</strong> from the scraped data (technology, awards, language capabilities, hours notes)</li>
+<li><strong>SEO opportunities apply Groundwork IA playbook</strong> — primary nav stable paths, on-domain scheduling, structured data, third-party-booker tradeoffs</li>
+<li><strong>Warnings call out red flags</strong> observed in the data (broken socials, missing bio, phone format inconsistencies)</li>
+<li><strong>Returns only JSON</strong> — no prose wrap, no code fences (caller has a retry-with-nudge fallback for parse failures)</li>
+</ul>
+<h2>Known gaps</h2>
+<ul>
+<li>No verification that recommended services in <code>serviceEmphasis</code> actually have content depth in scraped data — can recommend emphasizing a service the practice barely offers</li>
+<li>&quot;Tone&quot; is a free-form phrase rather than a fixed taxonomy — downstream brand-direction has to regex-match it for warm/specialist signals</li>
+<li>Differentiators can drift toward generic (&quot;experienced staff&quot;, &quot;modern equipment&quot;) when scraped data is sparse</li>
+<li><code>warnings</code> is often empty even when bronze data has obvious issues (404 socials, malformed JSON-LD)</li>
+<li>No memory of past audits for this practice — rebuilds with new scrape data start from scratch</li>
+</ul>
+<h2>Improvement levers</h2>
+<ol>
+<li><strong>Easy (L1):</strong> Constrain <code>tone.recommended</code> to a small enum (warm/clinical/editorial/bold/refined) so brand-direction can map deterministically</li>
+<li><strong>Easy (L1):</strong> Add explicit &quot;name at least one differentiator from scraped signals or technology mentions&quot; requirement</li>
+<li><strong>Medium:</strong> Cross-check <code>serviceEmphasis</code> slugs against bronze service-page bodyText length — only emphasize services with actual content</li>
+<li><strong>Medium:</strong> Persist past audits per-domain and feed into prompt as &quot;previous audit recommended X — what changed?&quot;</li>
+</ol>
+<h2>Test fixtures</h2>
+<p><em>None yet. Future: <code>skills/audit/site-audit.fixtures/{family,specialist,sparse}/*.json</code></em></p>
+<hr>
+<h2>PROMPT</h2>
+<pre><code class="language-text">You are a website strategist analyzing a {{verticalName}} practice website to prepare for a complete site redesign.
+
+## Your Task
+
+Analyze the scraped data from this practice&#39;s existing website and produce strategic recommendations that will guide the redesign. Be specific, actionable, and grounded in what you see in the data.
+
+## Practice Data
+
+**Practice Name:** {{practiceName}}
+**Website:** {{domain}}
+**Doctor:** {{doctorName}} ({{credentials}})
+**Location:** {{city}}, {{state}}
+**Phone:** {{phone}}
+
+### Services Detected
+{{servicesList}}
+
+### Service Hub Pages to Build
+{{hubsList}}
+
+### Available Taxonomy (all possible services for this vertical)
+{{taxonomyList}}
+
+### Additional Context
+- Pages crawled: {{pageCount}}
+- Has doctor bio: {{hasBio}}
+- Has testimonials: {{hasTestimonials}}
+- Has FAQs: {{hasFaqs}}
+- Social profiles found: {{socialsCount}}
+- Images found: {{imageCount}}
+- Confidence flags: {{confidenceFlags}}
+
+## Instructions
+
+Analyze this data and return a JSON object with the following structure. Be specific to THIS practice — don&#39;t give generic advice.
+
+When you identify `seoOpportunities` and `contentGaps`, consider (when relevant to the scraped site) the **Groundwork Builder IA playbook**—domain-agnostic principles: primary `&lt;nav&gt;` with stable paths to main sections, homepage links into major hubs—not only conversion CTAs, footer as a secondary map of key URLs, on-domain scheduling/contact flows not orphaned when a third-party booking tool is primary, sensible crawl/sitemap expectations, and primary-entity + breadcrumb-style structured data where applicable. Call out tradeoffs (e.g. third-party booker vs on-domain contact/scheduling URLs) explicitly when you see them in the data.
+
+```json
+{
+  &quot;positioning&quot;: {
+    &quot;current&quot;: &quot;What the current site seems to position the practice as&quot;,
+    &quot;recommended&quot;: &quot;Recommended positioning for the redesign&quot;,
+    &quot;rationale&quot;: &quot;Why this positioning will work better&quot;
+  },
+  &quot;serviceEmphasis&quot;: {
+    &quot;primary&quot;: &quot;slug of the #1 service to emphasize&quot;,
+    &quot;secondary&quot;: [&quot;slug&quot;, &quot;slug&quot;],
+    &quot;rationale&quot;: &quot;Why these services should be the focus&quot;
+  },
+  &quot;tone&quot;: {
+    &quot;current&quot;: &quot;Assessed tone of the current site&quot;,
+    &quot;recommended&quot;: &quot;Recommended tone for redesign&quot;,
+    &quot;rationale&quot;: &quot;Why this tone will resonate with their audience&quot;
+  },
+  &quot;differentiators&quot;: [
+    &quot;Specific thing that makes this practice unique (based on data)&quot;,
+    &quot;Another differentiator&quot;
+  ],
+  &quot;contentGaps&quot;: [
+    &quot;Missing content that should be added&quot;,
+    &quot;Another gap&quot;
+  ],
+  &quot;seoOpportunities&quot;: [
+    &quot;Specific SEO opportunity based on their services + location&quot;,
+    &quot;Another opportunity&quot;
+  ],
+  &quot;warnings&quot;: [
+    &quot;Any red flags or concerns noticed in the data&quot;
+  ]
+}
+</code></pre>
+<p>Return ONLY the JSON object. No markdown formatting, no explanation before or after.</p>
+<pre><code>
+</code></pre>
+
+  </div>
+</div>
+</body>
+</html>

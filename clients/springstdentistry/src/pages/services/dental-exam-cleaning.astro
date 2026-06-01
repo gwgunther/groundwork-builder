@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Dental Exam & Cleaning in Long Beach",
+  "description": "Spring St. Dentistry provides dental exams and cleanings in Long Beach. Schedule your visit with our Long Beach dentist.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Spring St. Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Long Beach"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Dental Exam & Cleaning Long Beach | ${site.name}`}
+  description="Spring St. Dentistry provides dental exams and cleanings in Long Beach. Schedule your visit with our Long Beach dentist."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Dental Exam &amp; Cleaning in Long Beach
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Spring St. Dentistry provides dental exams and cleanings in Long Beach. Schedule your visit with our Long Beach dentist.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Regular dental cleanings and exams are one of the most important things you can do for your oral health — and they go a long way toward preventing bigger problems down the road. The American Dental Association (ADA) recommends visiting a dentist twice a year, and most insurances cover both visits for exactly that reason. A cleaning removes bacteria, tartar buildup, and plaque from the surface of your teeth that brushing alone can't reach. Your exam gives us a chance to catch anything early, while it's still easy to address. At Spring St. Dentistry, we make every visit as comfortable and stress-free as we can.</p>
+      <p class="mb-4">Most adults and children should plan on two visits per year, roughly six months apart. Some patients — those managing gum disease, dry mouth, or a history of frequent cavities — may benefit from more frequent appointments. If you're unsure what schedule makes sense for you, Dr. Anthony Hoang can help you figure that out at your first visit.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What Happens During a Cleaning</h2>
+      <p class="mb-4">A dental cleaning, performed by a dental hygienist, typically takes 30 to 60 minutes depending on how much buildup has accumulated since your last visit. The process generally includes:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>**Scaling** — using hand instruments or an ultrasonic scaler to remove tartar (hardened plaque) from above and just below the gumline</li>
+        <li>**Polishing** — a slightly gritty paste applied with a rotating tool smooths the tooth surface and removes surface stains</li>
+        <li>**Flossing** — the hygienist flosses between every tooth to clear debris and check for tight contacts or bleeding gums</li>
+        <li>**Fluoride treatment** — often applied at the end of the cleaning to strengthen enamel, particularly for patients at higher cavity risk</li>
+      </ul>
+      <p class="mb-4">No two cleanings are identical. If it has been several years since your last visit, there may be more tartar present, and the appointment may run a little longer.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What the Exam Covers</h2>
+      <p class="mb-4">After or during the cleaning, Dr. Hoang conducts the clinical exam. This is more than a quick look around. A thorough exam typically includes:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>Checking each tooth for signs of decay, cracks, or wear</li>
+        <li>Evaluating the gums for signs of inflammation, recession, or periodontal disease</li>
+        <li>Reviewing bite alignment and jaw function</li>
+        <li>Screening for oral cancer, which involves examining the tongue, cheeks, floor of the mouth, and throat</li>
+        <li>Reviewing any X-rays taken that day</li>
+      </ul>
+      <p class="mb-4">X-rays are not taken at every visit — the frequency depends on your age, cavity history, and current oral health. Bitewing X-rays for lower-risk adults are commonly taken once a year or every other year.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Why Skipping Visits Costs More Later</h2>
+      <p class="mb-4">Tartar buildup left in place long enough can lead to gum disease, and early gum disease (gingivitis) left untreated can progress to periodontitis — a more serious infection that affects the bone supporting your teeth. Cavities caught when they're small can usually be addressed with a simple filling. Caught later, the same cavity might need a crown or, in severe cases, extraction. The math is straightforward: a cleaning costs less than a root canal, and a routine exam is less disruptive than an emergency visit.</p>
+      <p class="mb-4">For patients in Long Beach without dental insurance, many practices — including Spring St. Dentistry — offer in-house membership or discount plans worth asking about when you call.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect at Spring St. Dentistry</h2>
+      <p class="mb-4">Spring St. Dentistry is located in Long Beach and serves patients from the surrounding area. Appointments are structured so that the cleaning and exam generally happen in a single visit, which keeps things efficient. If Dr. Hoang identifies anything during the exam that needs follow-up — a cavity, a cracked tooth, early gum disease — he'll explain what he found and what the options are before any additional treatment is scheduled. Nothing is done without your knowledge and agreement.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**How long does a dental cleaning and exam take?** Most appointments run between 45 minutes and an hour for patients who are current on their visits. If it's been a while since your last cleaning, plan for a little extra time.</p>
+      <p class="mb-4">**Does a cleaning hurt?** It shouldn't. Some sensitivity around the gumline is normal, especially if there's significant buildup or if your gums are inflamed. If you're uncomfortable at any point, let the hygienist know — they can adjust their approach.</p>
+      <p class="mb-4">**How often do I actually need X-rays?** That depends on your individual situation. Lower-risk adults often get bitewing X-rays once a year or every other year. A full-mouth series is taken less frequently. Dr. Hoang will recommend a schedule based on your history.</p>
+      <p class="mb-4">**What if I haven't been to a dentist in several years?** You won't be lectured. The first appointment will focus on getting a clear picture of where things stand. The hygienist may need more time for scaling, and Dr. Hoang may recommend a follow-up visit to address anything found. The goal is to get you back on track, not to make you feel bad about the gap.</p>
+      <p class="mb-4">**Does insurance cover cleanings and exams?** Most dental insurance plans cover two preventive visits per year at 100%, specifically because preventive care reduces overall costs. It's worth confirming your benefits before your appointment, but routine cleanings are among the most commonly covered dental services.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Book Your Cleaning</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Cosmetic Dentist in Long Beach",
+  "description": "Spring St. Dentistry provides cosmetic dentistry in Long Beach. Schedule an appointment with our Long Beach cosmetic dentist.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Spring St. Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Long Beach"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Cosmetic Dentistry Long Beach | ${site.name}`}
+  description="Spring St. Dentistry provides cosmetic dentistry in Long Beach. Schedule an appointment with our Long Beach cosmetic dentist."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Cosmetic Dentist in Long Beach
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Spring St. Dentistry provides cosmetic dentistry in Long Beach. Schedule an appointment with our Long Beach cosmetic dentist.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Spring St. Dentistry offers cosmetic dentistry services designed to improve the appearance of your smile. A great smile gives you the confidence to make lasting first impressions — from job interviews to everyday life. If you're unhappy with the color, shape, spacing, or overall look of your teeth, cosmetic dentistry provides targeted solutions to address those concerns. Dr. Anthony Hoang works with patients in Long Beach to create results that feel natural and match each person's goals, whether that means a subtle refresh or a more dramatic change.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What Cosmetic Dentistry Actually Covers</h2>
+      <p class="mb-4">Cosmetic dentistry is a broad term for procedures focused on the visual appearance of your teeth and smile rather than strictly treating disease or damage. That said, many cosmetic treatments also improve function. At Spring St. Dentistry, the cosmetic services available include:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>**Veneers** — thin porcelain or composite shells bonded to the front surface of teeth to correct shape, size, color, or minor misalignment</li>
+        <li>**Dental bonding** — a tooth-colored resin applied and shaped directly on the tooth, often completed in a single visit, useful for chips, gaps, or discoloration</li>
+        <li>**Teeth whitening** — professional-grade whitening that achieves more noticeable results than over-the-counter products</li>
+        <li>**Clear aligners** — a series of removable, transparent trays that gradually shift teeth into better alignment without metal brackets or wires</li>
+      </ul>
+      <p class="mb-4">These options cover a wide range of concerns, so most patients find at least one treatment that fits what they're hoping to change.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">How to Know Which Treatment Is Right for You</h2>
+      <p class="mb-4">The starting point is a consultation where Dr. Hoang reviews the current condition of your teeth and listens to what you'd like to improve. Not every cosmetic procedure is appropriate for every patient — for example, whitening works best on natural tooth enamel and won't change the color of existing crowns or veneers. Bonding is a good fit for small repairs, while veneers are better suited to more extensive reshaping or color correction that needs to last long-term.</p>
+      <p class="mb-4">During your consultation, you'll get a clear picture of which options apply to your situation, what the process involves, and roughly what to expect at each stage. Patients leave with enough information to make a decision without pressure.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect During a Cosmetic Dentistry Appointment</h2>
+      <p class="mb-4">The length and number of appointments depends on the procedure. A bonding appointment typically takes 30–60 minutes per tooth and is completed in one visit. Veneers usually require two appointments — one to prepare the teeth and take impressions, and a second to place the finished veneers once they're ready. Clear aligner treatment unfolds over several months with periodic check-ins to swap trays and monitor progress.</p>
+      <p class="mb-4">Teeth whitening can be done as an in-office procedure or with a take-home kit your dentist provides. In-office whitening is generally completed in about an hour.</p>
+      <p class="mb-4">Most cosmetic procedures involve little to no discomfort. For anything that requires tooth preparation, local anesthetic is available if needed.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Cosmetic Dentistry and Long-Term Maintenance</h2>
+      <p class="mb-4">Cosmetic results last longer with consistent upkeep. Veneers and bonding can chip if subjected to heavy biting force or habits like nail biting, so patients are counseled on how to protect their investment. Whitening results fade gradually over time, especially with regular coffee, tea, or wine consumption — periodic touch-ups help maintain the shade. Clear aligner treatment is followed by a retainer phase to keep teeth in their new position.</p>
+      <p class="mb-4">Routine cleanings and exams remain important even after cosmetic work, because the underlying teeth and gums still need monitoring. Many Long Beach patients combine cosmetic and preventive appointments to stay on schedule without extra trips.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**Is cosmetic dentistry covered by dental insurance?** Most cosmetic procedures are considered elective and are not covered by standard dental insurance. However, some treatments — like bonding used to repair a chipped tooth — may have partial coverage depending on your plan. It's worth checking with your insurer before your appointment.</p>
+      <p class="mb-4">**How long do veneers last?** Porcelain veneers typically last 10–15 years with proper care. Composite veneers and bonding generally last 5–7 years before they may need touching up or replacement.</p>
+      <p class="mb-4">**Does teeth whitening work on all types of stains?** Professional whitening works well on surface stains caused by food, drinks, and aging. It is less effective on stains from certain medications or internal tooth discoloration. Your dentist can tell you during a consultation whether whitening is likely to give you the results you're looking for.</p>
+      <p class="mb-4">**Can I get cosmetic work done if I have cavities or gum issues?** Generally, any active decay or gum disease should be treated before cosmetic procedures begin. Placing veneers or whitening over unhealthy teeth can compromise both the cosmetic result and your oral health. Dr. Hoang will flag any issues during your initial exam.</p>
+      <p class="mb-4">**How do clear aligners compare to traditional braces for cosmetic alignment?** Clear aligners are well-suited for mild to moderate spacing and alignment issues and offer the advantage of being removable and nearly invisible. Traditional braces may still be the better option for more complex movement. A consultation will clarify which approach fits your case.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

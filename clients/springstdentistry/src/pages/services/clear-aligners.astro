@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Clear Aligners in Long Beach",
+  "description": "Spring St. Dentistry offers clear aligner treatment to help you achieve a straighter smile comfortably and discreetly.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Spring St. Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Long Beach"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Clear Aligners Long Beach | ${site.name}`}
+  description="Spring St. Dentistry offers clear aligner treatment to help you achieve a straighter smile comfortably and discreetly."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Clear Aligners in Long Beach
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Spring St. Dentistry offers clear aligner treatment to help you achieve a straighter smile comfortably and discreetly.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Clear aligners are a modern, nearly invisible way to straighten your teeth without the wires and brackets of traditional braces. At Spring St. Dentistry, we offer clear aligner options to fit your lifestyle — whether you're an adult looking for a discreet solution or a teen who wants flexibility. Each set of custom-made aligners gently shifts your teeth into place over time, and because they're removable, eating, brushing, and flossing stay easy throughout your treatment.</p>
+      <p class="mb-4">If you're wondering whether clear aligners can address your specific concerns, the short answer is: they work well for a wide range of cases, including crowding, spacing, and mild-to-moderate bite issues. Dr. Anthony Hoang evaluates each patient individually to determine whether clear aligners are the right fit or whether another approach would serve you better.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who Clear Aligners Are a Good Fit For</h2>
+      <p class="mb-4">Clear aligners are a practical option for most adults and older teens whose permanent teeth have fully come in. They tend to work especially well for people who:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>Have mild to moderate crowding or spacing between teeth</li>
+        <li>Want to straighten their teeth without visible metal hardware</li>
+        <li>Can commit to wearing aligners 20–22 hours per day</li>
+        <li>Need to remove their orthodontic appliance occasionally for professional or social obligations</li>
+      </ul>
+      <p class="mb-4">They may not be the best choice for more complex bite corrections that require the precise control of traditional braces or other appliances. That's something Dr. Hoang will go over with you directly during your consultation.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">How the Process Works</h2>
+      <p class="mb-4">A clear aligner treatment typically follows a predictable sequence of steps:</p>
+      <p class="mb-4">1. **Consultation and records.** Dr. Hoang examines your teeth, reviews your bite, and takes impressions or digital scans. These records are used to map out your tooth movement plan. 2. **Custom aligner fabrication.** Your aligners are manufactured to match your treatment plan. Each tray is slightly different, designed to move specific teeth incrementally. 3. **Wearing your aligners.** You switch to a new set of aligners roughly every one to two weeks, depending on your plan. Each tray moves your teeth a small amount. 4. **Check-in appointments.** You'll come in periodically — typically every six to eight weeks — so Dr. Hoang can confirm your teeth are tracking correctly and address any adjustments. 5. **Retention.** Once your active treatment ends, a retainer keeps your teeth in their new positions. Skipping retention is the most common reason teeth shift back over time.</p>
+      <p class="mb-4">Total treatment length varies depending on how much movement is needed. Mild cases may wrap up in a few months; more involved treatment plans can take a year or longer.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect at Your First Appointment</h2>
+      <p class="mb-4">Your first visit at Spring St. Dentistry for clear aligners is primarily a consultation and records appointment. Plan for it to take around 60 minutes. Dr. Hoang will look at your current alignment, ask about your goals, and take any scans or photos needed to model your treatment. You'll leave with a clear picture of what treatment would involve, how long it's likely to take, and what it would cost — before committing to anything.</p>
+      <p class="mb-4">Many patients in Long Beach come in expecting a hard sell and are relieved to find a straightforward conversation instead.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Keeping Your Aligners and Teeth Clean During Treatment</h2>
+      <p class="mb-4">Because aligners are removable, your hygiene routine doesn't change much — but it does require a little more consistency. A few practical notes:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>Remove aligners before eating or drinking anything other than water</li>
+        <li>Rinse your aligners every time you take them out</li>
+        <li>Brush and floss before putting them back in, so you're not trapping food or bacteria against your teeth</li>
+        <li>Clean the aligners themselves with a soft toothbrush and mild soap — avoid toothpaste, which can scratch the plastic and make them cloudy</li>
+      </ul>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**How often do I have to wear my aligners?** For treatment to stay on schedule, aligners need to be worn 20–22 hours per day. Taking them out for meals and brushing is expected; leaving them out for extended periods regularly will slow your progress.</p>
+      <p class="mb-4">**Do clear aligners hurt?** Some pressure or mild soreness is normal for the first day or two after switching to a new tray. It's a sign the aligners are working. Over-the-counter pain relief is usually enough if needed.</p>
+      <p class="mb-4">**Can I drink coffee or tea with aligners in?** It's best to remove them first. Hot liquids can warp the plastic, and dark beverages will stain them.</p>
+      <p class="mb-4">**How much do clear aligners cost in Long Beach?** Cost varies depending on the complexity of your case and the total number of trays needed. Spring St. Dentistry can provide a specific estimate after your consultation and records appointment.</p>
+      <p class="mb-4">**What happens if I lose or damage an aligner?** Contact the office as soon as possible. Dr. Hoang will advise whether to move to the next tray, go back to your previous one, or order a replacement — depending on where you are in treatment.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Deep Cleaning in Long Beach",
+  "description": "Spring St. Dentistry provides deep cleaning services in Long Beach to help protect your gums and overall oral health.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Spring St. Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Long Beach"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Deep Cleaning Long Beach | ${site.name}`}
+  description="Spring St. Dentistry provides deep cleaning services in Long Beach to help protect your gums and overall oral health."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Deep Cleaning in Long Beach
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Spring St. Dentistry provides deep cleaning services in Long Beach to help protect your gums and overall oral health.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Sometimes a routine cleaning isn't quite enough. If plaque and tartar have built up below the gumline, a deep cleaning — also called scaling and root planing — can help get your gum health back on track. Deep cleaning is a non-surgical treatment specifically designed to address the early-to-moderate stages of gum disease, and it's one of the most effective ways to stop the condition from progressing further. At Spring St. Dentistry, we work with each patient to develop a care plan that fits their needs, and deep cleaning is one of the tools we use to prevent gum disease from getting worse.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What Deep Cleaning Actually Does</h2>
+      <p class="mb-4">A standard cleaning removes plaque and tartar from the surfaces of your teeth above the gumline. A deep cleaning goes further. Scaling removes hardened deposits from below the gumline, where a regular cleaning cannot reach. Root planing smooths the root surfaces of your teeth, which makes it harder for bacteria to reattach and gives your gums a better surface to heal against.</p>
+      <p class="mb-4">The goal isn't cosmetic — it's to reduce the bacterial load in the pockets between your teeth and gums, lower inflammation, and give the gum tissue a chance to reattach to the tooth roots.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who Needs a Deep Cleaning</h2>
+      <p class="mb-4">Deep cleaning is typically recommended when a patient has signs of periodontal (gum) disease. During a routine exam, Dr. Hoang measures the depth of the pockets around each tooth using a small probe. Healthy pockets are usually 1–3 mm deep. Pockets of 4 mm or more, especially combined with bleeding, bone loss visible on X-rays, or gum recession, are signs that a deeper intervention is needed.</p>
+      <p class="mb-4">Common indicators that a deep cleaning may be appropriate include:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>Gums that bleed when you brush or floss</li>
+        <li>Persistent bad breath that doesn't resolve with brushing</li>
+        <li>Gums that look red, swollen, or pulled away from the teeth</li>
+        <li>Teeth that feel loose or have shifted</li>
+        <li>Tartar buildup that has extended below the gumline</li>
+      </ul>
+      <p class="mb-4">Some patients in Long Beach go years between dental visits and arrive with significant buildup that a standard cleaning simply cannot address in one appointment. A deep cleaning is often the right starting point to reset their gum health.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect During the Appointment</h2>
+      <p class="mb-4">Deep cleanings are typically done in two appointments — one side of the mouth per visit — though this can vary depending on the extent of treatment needed. Local anesthetic is used so the area being worked on is numb. You should not feel pain during the procedure, though you may feel pressure or vibration.</p>
+      <p class="mb-4">Each appointment generally takes 60–90 minutes. Afterward, your gums may be sore or sensitive for a few days, and some mild bleeding is normal. Most patients find the discomfort manageable with over-the-counter pain relievers and resolves within a week.</p>
+      <p class="mb-4">Following the deep cleaning, Dr. Hoang will typically schedule a follow-up visit — sometimes called a periodontal maintenance appointment — to check how your gums have responded and measure pocket depths again.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Keeping Your Gums Healthy After Treatment</h2>
+      <p class="mb-4">A deep cleaning isn't a one-time fix if the habits that led to buildup don't change. Patients who have had gum disease are generally placed on a more frequent cleaning schedule — often every three to four months rather than every six — to prevent the condition from returning.</p>
+      <p class="mb-4">Brushing twice daily, flossing consistently, and not smoking all make a significant difference in how well your gums hold up after treatment. If you have questions about your specific home care routine, that's a straightforward conversation to have at your next visit.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**Is a deep cleaning painful?** Local anesthetic is used, so the procedure itself should not hurt. Some soreness and sensitivity in the days after is normal and typically fades within a week.</p>
+      <p class="mb-4">**How is a deep cleaning different from a regular cleaning?** A regular cleaning addresses the surfaces above the gumline. A deep cleaning specifically treats buildup and bacterial deposits below the gumline, in the pockets around the roots.</p>
+      <p class="mb-4">**How long does a deep cleaning take?** Most deep cleanings are split into two appointments of roughly 60–90 minutes each, covering one half of the mouth per visit.</p>
+      <p class="mb-4">**Will my insurance cover it?** Many dental insurance plans cover scaling and root planing when there is documented evidence of periodontal disease. Coverage varies by plan. Our office can help you understand your benefits before treatment begins.</p>
+      <p class="mb-4">**What happens if I don't get a deep cleaning when it's recommended?** Untreated gum disease tends to progress. Deeper pockets, bone loss, and eventual tooth loss are possible outcomes. A deep cleaning is one of the most effective ways to interrupt that process before it reaches a more severe stage.</p>
+      <p class="mb-4">If you're not sure whether a deep cleaning is right for you, the best next step is a full exam. Call Spring St. Dentistry at **(562) 420-8578** to schedule an appointment with Dr. Hoang.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Visit</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</BaseLayout>

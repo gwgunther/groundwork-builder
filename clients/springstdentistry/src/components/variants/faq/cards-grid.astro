@@ -1,0 +1,64 @@
+---
+/**
+ * FAQ Cards Grid — Each FAQ in a card. 2-column on desktop. Modern marketing feel.
+ */
+import type { FaqContent } from '../types';
+import { designDNA } from '../../../config/design-dna';
+import { resolveTokens } from '../token-utils';
+
+const { content } = Astro.props;
+
+const tokens = (designDNA as any).designTokens ?? {};
+const t = resolveTokens(tokens);
+
+const eyebrow = content.eyebrow ?? 'Frequently Asked';
+const heading = content.heading ?? 'Common Questions';
+
+const schemaJson = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": (content.items ?? []).map((it) => ({
+    "@type": "Question",
+    "name": it.q,
+    "acceptedAnswer": { "@type": "Answer", "text": it.a }
+  }))
+});
+---
+
+{content.items && content.items.length > 0 && (
+  <section data-section="faq" class={`bg-surface-2 ${t.spacingClass}`}>
+    <div class={t.containerClass}>
+
+      <!-- Header -->
+      <div class="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+        {eyebrow && <span class={t.eyebrowClass}>{eyebrow}</span>}
+        <h2 class="font-serif text-3xl md:text-4xl font-bold text-neutral-dark mb-4">
+          {heading}
+        </h2>
+        {content.subheading && (
+          <p class="font-sans text-lg text-neutral-mid leading-relaxed">
+            {content.subheading}
+          </p>
+        )}
+      </div>
+
+      <!-- Card grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+        {content.items.map((faq) => (
+          <div class={`bg-surface-1 border border-border-light p-6 md:p-8 ${t.radiusClass}`}>
+            <div class="w-8 h-1 bg-brand-primary mb-4" aria-hidden="true"></div>
+            <h3 class="font-serif text-base md:text-lg font-bold text-neutral-dark mb-3">
+              {faq.q}
+            </h3>
+            <p class="text-neutral-mid text-sm md:text-base leading-relaxed">
+              {faq.a}
+            </p>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+)}
+
+<script type="application/ld+json" set:html={schemaJson} />
