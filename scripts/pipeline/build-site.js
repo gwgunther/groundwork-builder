@@ -464,11 +464,11 @@ async function main() {
   // Explicit --output always overrides both.
   let outputDir = opts.output;
   if (!outputDir) {
-    const slug = merged.practice.name
-      ? slugify(merged.practice.name)
-      : merged.practice.domain
-        ? slugify(merged.practice.domain.replace(/\.\w+$/, ''))
-        : 'new-dental-site';
+    // Canonical URL-derived slug (matches Airtable + GCS + audit output)
+    const { slugFromUrl } = await import('./lib/slug.js');
+    const slug = (opts.url && slugFromUrl(opts.url))
+      || (merged.practice.domain && slugFromUrl(`https://${merged.practice.domain}`))
+      || 'new-dental-site';
     outputDir = opts.publish
       ? resolve('clients', `${slug}`)
       : resolve('..', 'output', `${slug}`);

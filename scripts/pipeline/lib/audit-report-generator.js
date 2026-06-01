@@ -239,22 +239,63 @@ function findingDisplayTitle(f) {
   return FINDING_DISPLAY_TITLES[f.id] || f.title;
 }
 
-// Human-readable "What We'd Fix" outcome text for each finding ID
+// Human-readable "What We'd Fix" outcome text for each finding ID. Plain
+// English, future-tense, ends with the patient/practice payoff. Should
+// cover every check the grader can fire — otherwise the summary shows
+// "No automated fix" placeholders.
 const IMPROVEMENT_OUTCOMES = {
+  // SEO — tech-audit.js
   'missing-meta':      'Every page gets a compelling description in Google search results, so patients actually click through to your site.',
   'missing-title':     'Every page gets a clear, keyword-rich title so Google knows what it\'s about — and so do patients.',
   'duplicate-titles':  'Each page targets a different search term, so your pages work together instead of canceling each other out.',
   'missing-h1':        'Patients and Google can immediately see what each page is about, making your content easier to navigate and rank.',
+  'multiple-h1':       'Each page has exactly one H1, so search engines understand the primary topic without competing signals.',
   'thin-content':      'Key service pages get the depth of information patients are searching for — and Google rewards.',
   'missing-schema':    'Your practice name, location, hours, and services are claimed in Google\'s knowledge graph for richer search listings.',
   'missing-canonical': 'Search engines consolidate ranking power behind the right page version instead of splitting it across duplicates.',
+  'title-no-city':     'Service page titles include your city, so local-intent ad keywords ("dental implants huntington beach") match strongest.',
+
+  // Performance — tech-audit.js
   'low-performance':   'Faster loading so phone visitors stay on your site — instead of leaving before they ever read your name.',
   'low-lcp':           'The first thing a patient sees loads in under 2.5 seconds, giving a strong first impression on any device.',
   'high-cls':          'Content stays in place as the page loads — no shifting, no accidental taps, no frustrated visitors.',
+
+  // Accessibility — tech-audit.js
   'missing-alt':       'Every image is described for Google Image Search and for patients using screen readers or low vision.',
+
+  // Content — tech-audit.js
   'no-testimonials':   'Patient reviews and social proof are woven into the design so new patients feel confident choosing you.',
   'no-faq':            'A FAQ section captures patients asking questions in Google — and reduces repetitive phone calls to your front desk.',
   'thin-about':        'A rich About page with your story, credentials, and team photography that converts curious visitors into booked patients.',
+
+  // Mobile — tech-audit.js
+  'no-viewport':       'Pages render properly on phones so Google can index your site as mobile-friendly and patients don\'t pinch-to-zoom.',
+
+  // Trust / contact — trust-scanner.js
+  'no-phone-on-site':       'Click-to-call phone number lives in the header on every page, so mobile patients can dial without a search.',
+  'no-address-on-site':     'Your address is surfaced on every page so prospects can locate your practice and Google sees a clear NAP signal.',
+  'no-hours-on-site':       'Operating hours are visible everywhere so patients know when to call — and don\'t arrive to a closed office.',
+  'no-social-links':        'Social profiles are linked in the footer, extending reach and giving prospects another channel to verify your practice.',
+
+  // Hosting — hosting-scanner.js
+  'using-third-party-domain': 'A first-party domain so the practice owns its SEO equity, brand authority, and tracking instead of borrowing from a hosted-site provider.',
+  'fractured-web-presence':   'A single primary domain so Google ranks one authoritative source instead of splitting authority across duplicates.',
+
+  // GBP — gbp-scanner.js
+  'gbp-no-title':            'The Google Business Profile title is set to the practice name so prospects find you on Maps.',
+  'gbp-no-description':      'A keyword-rich GBP description controls your narrative on Google Maps and improves "dentist near me" ranking.',
+  'gbp-description-no-keywords': 'The GBP description includes the services and city you want to rank for in local search.',
+  'gbp-no-phone':            'A click-to-call phone number on GBP enables direct calls from Google Maps — the highest-converting local action.',
+  'gbp-no-hours':            'Hours on GBP enable the "Open now" filter and prevent visitors from showing up to a closed office.',
+  'gbp-no-website-linked':   'The practice website is linked from GBP, driving qualified Maps traffic to your booking flow.',
+  'gbp-low-review-count':    'A review-request flow grows your Google reviews — the #1 ranking factor in the local pack after relevance.',
+  'gbp-category-mismatch':   'GBP categories are aligned with the services you offer, so you appear for the right local searches.',
+  'gbp-incomplete-profile':  'Every essential GBP field is filled in, which Google rewards with higher placement in the local pack.',
+  'gbp-website-mismatches-audit-url': 'GBP points to your primary domain, consolidating authority instead of bleeding to a secondary URL.',
+
+  // Conversion tracking — conversion-scanner.js
+  'no-ga4-configured':        'GA4 is wired up so Google Ads can import conversion signals — without it, Smart Bidding has nothing to optimize against.',
+  'no-phone-click-tracking':  'A phone_click event fires on every tel: link, giving Google Ads the signal it needs to prioritize keywords that drive calls.',
 };
 
 // Derive key improvements from findings for "What We'd Fix" section
@@ -1018,40 +1059,61 @@ function buildSummaryReport({ url, practiceName, pagespeed, techAudit, aiAudit, 
     </div>`;
   }).join('');
 
-  // Top 5 findings — with specific evidence front and center
+  // ALL critical + warning findings, ordered: critical first then warnings.
+  // Each finding is paired with its "what we'd change" outcome (1:1 by id).
   const findings = techAudit?.findings || [];
-  const topFindings = [
+  const issueFindings = [
     ...findings.filter(f => f.severity === 'critical'),
     ...findings.filter(f => f.severity === 'warning'),
-  ].slice(0, 5);
+  ];
 
-  const findingRows = topFindings.map(f => {
-    const colors = {
-      critical: { icon: '✕', bg: '#FDDCDC', color: 'var(--red)' },
-      warning:  { icon: '!', bg: '#FEF3CD', color: 'var(--amber)' },
-    };
-    const c = colors[f.severity] || { icon: '✓', bg: '#D4EDD9', color: 'var(--green)' };
-    return `<div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #F0EDE8">
-      <div style="
-        width:20px;height:20px;border-radius:50%;background:${c.bg};color:${c.color};
-        display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;
-        flex-shrink:0;margin-top:1px;
-      ">${esc(c.icon)}</div>
-      <div>
-        <div style="font-size:13px;font-weight:700;line-height:1.3">${esc(findingDisplayTitle(f))}</div>
-        <div style="font-size:12px;font-weight:600;color:var(--ink);margin-top:3px;line-height:1.4">${esc(f.detail)}</div>
-        ${f.benefit ? `<div style="font-size:11px;color:var(--sage);margin-top:3px;line-height:1.4;font-style:italic">${esc(f.benefit)}</div>` : ''}
+  // Build the paired rows — each row is one issue + the matching change.
+  // Visual: 2-column grid, row dividers visually unite the pair.
+  const pairedRows = issueFindings.map(f => {
+    const c = f.severity === 'critical'
+      ? { icon: '✕', bg: '#FDDCDC', color: 'var(--red)',   label: 'CRITICAL' }
+      : { icon: '!', bg: '#FEF3CD', color: 'var(--amber)', label: 'WARNING'  };
+
+    // Examples: pull up to 3 affected pages from the finding data.
+    // Show as paths (strip the host prefix) so they read cleanly.
+    const examples = (f.affectedPages || []).slice(0, 3).map(url => {
+      try { return new URL(url).pathname || '/'; } catch { return url; }
+    });
+    const exampleHtml = examples.length > 0
+      ? `<div style="font-size:11px;color:var(--text-dim);margin-top:6px;font-family:var(--mono);line-height:1.5">
+           ${examples.map(p => `<span style="background:#F5F2EE;padding:1px 6px;border-radius:3px;margin-right:4px;display:inline-block;margin-bottom:2px">${esc(p)}</span>`).join('')}
+           ${f.affectedPages?.length > 3 ? `<span style="color:var(--text-dim)">+${f.affectedPages.length - 3} more</span>` : ''}
+         </div>`
+      : '';
+
+    // The paired "what we'd change" — 1:1 lookup by finding id.
+    const outcome = IMPROVEMENT_OUTCOMES[f.id] || null;
+    const outcomeHtml = outcome
+      ? `<div class="pair-fix">
+           <div class="pair-fix-icon">→</div>
+           <div class="pair-fix-text">${esc(outcome)}</div>
+         </div>`
+      : `<div class="pair-fix pair-fix-none">
+           <div class="pair-fix-icon" style="color:var(--text-dim)">·</div>
+           <div class="pair-fix-text" style="color:var(--text-dim);font-style:italic">No automated fix — requires manual review.</div>
+         </div>`;
+
+    return `<div class="pair-row" style="border-left:3px solid ${c.color}">
+      <div class="pair-found">
+        <div class="pair-found-header">
+          <div class="pair-found-icon" style="background:${c.bg};color:${c.color}">${esc(c.icon)}</div>
+          <div class="pair-found-meta">
+            <div class="pair-found-title">${esc(findingDisplayTitle(f))}</div>
+            <div class="pair-found-severity" style="color:${c.color}">${esc(c.label)}</div>
+          </div>
+        </div>
+        <div class="pair-found-detail">${esc(f.detail)}</div>
+        ${exampleHtml}
+        ${f.benefit ? `<div class="pair-found-why">${esc(f.benefit)}</div>` : ''}
       </div>
+      ${outcomeHtml}
     </div>`;
   }).join('');
-
-  // What We'd Change — patient/practice outcome framing
-  const improvements = deriveImprovements(techAudit, aiAudit).slice(0, 5);
-  const improvementRows = improvements.map(item => `
-  <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid #F0EDE8">
-    <div style="color:var(--terracotta);font-weight:800;flex-shrink:0;margin-top:2px;font-size:13px">→</div>
-    <div style="font-size:13px;line-height:1.5">${esc(item.msg)}</div>
-  </div>`).join('');
 
   const criticalCount = findings.filter(f => f.severity === 'critical').length;
   const warningCount  = findings.filter(f => f.severity === 'warning').length;
@@ -1103,8 +1165,43 @@ body {
 }
 .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-@media (max-width: 560px) { .two-col { grid-template-columns: 1fr; } }
+/* Paired rows: each finding sits next to its "what we'd change" outcome
+   in the SAME row, so the visual relationship is unambiguous. */
+.pair-grid { display: flex; flex-direction: column; gap: 14px; }
+.pair-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  background: white; border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+}
+@media (max-width: 560px) { .pair-row { grid-template-columns: 1fr; } }
+.pair-found      { padding: 16px 18px; border-right: 1px solid var(--border); }
+.pair-fix        { padding: 16px 18px; background: #FAFAF8; display: flex; gap: 10px; align-items: flex-start; }
+.pair-fix-icon   { color: var(--terracotta); font-weight: 800; font-size: 16px; flex-shrink: 0; line-height: 1.4; }
+.pair-fix-text   { font-size: 13px; line-height: 1.5; color: var(--ink); }
+
+@media (max-width: 560px) {
+  .pair-found { border-right: none; border-bottom: 1px solid var(--border); }
+}
+
+.pair-found-header { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px; }
+.pair-found-icon {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800; flex-shrink: 0; margin-top: 1px;
+}
+.pair-found-meta { flex: 1; }
+.pair-found-title { font-size: 13px; font-weight: 700; line-height: 1.3; }
+.pair-found-severity { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-top: 2px; }
+.pair-found-detail { font-size: 12px; font-weight: 600; color: var(--ink); line-height: 1.4; }
+.pair-found-why { font-size: 11px; color: var(--sage); margin-top: 6px; line-height: 1.4; font-style: italic; }
+
+/* Column headers above the paired rows */
+.pair-headers { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-bottom: 8px; }
+@media (max-width: 560px) { .pair-headers { display: none; } }
+.pair-header {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px;
+  color: var(--text-dim); padding: 0 18px;
+}
 
 .block { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
 
@@ -1171,24 +1268,20 @@ ${(criticalCount > 0 || warningCount > 0) ? `
   ${warningCount > 0  ? `<div class="sev-badge warning">! ${warningCount} warning${warningCount !== 1 ? 's' : ''}</div>` : ''}
 </div>` : ''}
 
-<!-- Two Column: What We Found + What We'd Change -->
-<div class="two-col">
-
-  <div class="block">
-    <div class="section-title" style="margin-bottom:10px">What We Found</div>
-    ${topFindings.length > 0 ? findingRows : `<p style="font-size:13px;color:var(--text-dim)">No critical issues found — the site is in good shape.</p>`}
-  </div>
-
-  <div class="block">
-    <div class="section-title" style="margin-bottom:10px">What We'd Change</div>
-    ${improvementRows || `<p style="font-size:13px;color:var(--text-dim)">Run a full audit with a URL to see specific recommendations.</p>`}
-    ${aiAudit?.positioning?.recommended ? `
-    <div style="margin-top:14px;padding:10px 12px;background:var(--cream);border-left:3px solid var(--terracotta);border-radius:0 6px 6px 0;font-size:12px;line-height:1.5;color:var(--ink)">
-      <strong style="color:var(--terracotta)">New positioning:</strong> ${esc(aiAudit.positioning.recommended.slice(0, 120))}${aiAudit.positioning.recommended.length > 120 ? '…' : ''}
-    </div>` : ''}
-  </div>
-
+<!-- Paired Findings + Changes — each finding sits next to its corresponding fix -->
+${issueFindings.length > 0 ? `
+<div class="pair-headers">
+  <div class="pair-header">What We Found</div>
+  <div class="pair-header">What We'd Change</div>
 </div>
+<div class="pair-grid">
+  ${pairedRows}
+</div>
+` : `
+<div style="background:#D4EDD955;border:1px solid #D4EDD9;border-radius:var(--radius);padding:18px;font-size:13px;color:var(--ink);text-align:center">
+  ✓ No critical or warning issues found — the site is in good shape.
+</div>
+`}
 
 <!-- Preview CTA -->
 ${previewUrl ? `

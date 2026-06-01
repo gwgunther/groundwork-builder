@@ -37,6 +37,7 @@ import { summarizeFindings, enrichFinding } from './lib/findings.js';
 import { buildFixWorklist, summarizeWorklist } from './lib/fix-worklist.js';
 import { startAuditRun, updateRun }   from './lib/airtable.js';
 import { createRunStorage }           from './lib/storage.js';
+import { slugFromUrl }                from './lib/slug.js';
 import { runSiteAudit }           from './lib/ai-audit.js';
 import { generateAuditReports }   from './lib/audit-report-generator.js';
 import { mergeData }              from './lib/merger.js';
@@ -210,12 +211,13 @@ async function main() {
   // ── Derive slug + start Airtable run early so we have a record even if
   //    a later phase crashes. Slug is provisional — based on URL hostname;
   //    silver refines practiceName + city later, used to update the row.
-  const provisionalSlug = slugify(new URL(opts.url).hostname.replace(/^www\./, '').split('.')[0]);
+  // Canonical slug — URL-derived (stable, used by Airtable + GCS + output dir)
+  const canonicalSlug = slugFromUrl(opts.url) || slugify(opts.url);
   let airtableRunId = null;
   let airtableAccountId = null;
   try {
     const { accountId, runId } = await startAuditRun({
-      slug:         provisionalSlug,
+      slug:         canonicalSlug,
       practiceUrl:  opts.url,
       contactEmail: opts.email,  // --email flag: submitter (latest form input)
       source:       opts.source,
@@ -233,7 +235,7 @@ async function main() {
 
   // ── Init GCS-backed storage so intermediate artifacts persist beyond the
   //    operator's local disk (essential when this runs in a container).
-  const runStorage = createRunStorage(provisionalSlug);
+  const runStorage = createRunStorage(canonicalSlug);
 
   // ── Load preset ─────────────────────────────────────────────────────────
   console.log(`[Preset] Loading "${opts.preset}" preset...`);
@@ -288,10 +290,11 @@ async function main() {
     || 'Site Audit';
 
   // Resolve output dir
+  // Output dir uses the canonical (URL-derived) slug, NOT the practice name.
+  // Keeps Airtable/GCS/output dir all on the same identifier.
   let outputDir = opts.output;
   if (!outputDir) {
-    const slug = slugify(practiceName);
-    outputDir = resolve('_audits', slug);
+    outputDir = resolve('_audits', canonicalSlug);
   }
   outputDir = resolve(outputDir);
   const dataDir = join(outputDir, '_data');
@@ -550,7 +553,7 @@ async function main() {
       // Two emails: businessEmail = scraped practice contact (info@...),
       //             contactEmail  = whoever submitted the form (--email flag)
       await upsertAccount({
-        slug:           provisionalSlug,
+        slug:           canonicalSlug,
         practiceUrl:    opts.url,
         practiceName:   displayPracticeName,
         businessEmail:  scraped?.practice?.email || null,
