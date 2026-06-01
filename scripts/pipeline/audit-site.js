@@ -560,16 +560,20 @@ async function main() {
   console.log('');
 
   // ── Host the report HTML on groundworkdental.com ─────────────────────────
-  // Copies audit-report.html + audit-summary.html + homepage.png into
-  // groundwork-dental/public/audits/<slug>/ and git-pushes. CF Pages
-  // auto-deploys. Non-fatal — local files are still available if hosting
-  // fails for any reason.
-  let hostedReports = { indexUrl: null, summaryUrl: null, pushed: false, skippedReason: null };
+  // Copies audit-summary.html (→ index.html) + audit-report.html + homepage.png
+  // into groundwork-dental/public/audits/<slug>/ and git-pushes. CF Pages
+  // auto-deploys. The customer-facing summary lands at /audits/<slug>/; the
+  // deep-dive full report sits at /audits/<slug>/audit-report.
+  // Non-fatal — local files are still available if hosting fails.
+  let hostedReports = { indexUrl: null, fullReportUrl: null, pushed: false, skippedReason: null };
   try {
     const { hostAuditReport } = await import('./lib/host-reports.js');
     hostedReports = await hostAuditReport({ auditDir: outputDir, slug: canonicalSlug });
     if (hostedReports.pushed) {
-      console.log(`[Host] Audit report public at: ${hostedReports.indexUrl}`);
+      console.log(`[Host] Audit summary public at: ${hostedReports.indexUrl}`);
+      if (hostedReports.fullReportUrl) {
+        console.log(`[Host] Full report public at:   ${hostedReports.fullReportUrl}`);
+      }
     } else if (hostedReports.skippedReason) {
       console.log(`[Host] Skipped: ${hostedReports.skippedReason}`);
     }
