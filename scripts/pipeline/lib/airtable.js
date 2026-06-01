@@ -1,15 +1,18 @@
 /**
- * Airtable client — two-table tracking layer for the grader/builder pipeline.
+ * Airtable client — three-table tracking layer for the grader/builder pipeline.
  *
  * Tables:
  *   Accounts — one row per practice (identity, lifecycle, contact)
- *   Runs     — one row per pipeline invocation (snapshot of metrics + URLs)
+ *   Audits   — one row per audit run (findings, scores, GBP snapshot)
+ *   Builds   — one row per generated site (deployed URLs, rescan diff,
+ *              linked to its Source Audit)
  *
  * Required env vars:
  *   AIRTABLE_API_KEY
  *   AIRTABLE_BASE_ID
- *   AIRTABLE_ACCOUNTS_TABLE   (e.g. "Accounts")
- *   AIRTABLE_RUNS_TABLE       (e.g. "Runs")
+ *   AIRTABLE_ACCOUNTS_TABLE
+ *   AIRTABLE_AUDITS_TABLE
+ *   AIRTABLE_BUILDS_TABLE
  *
  * If any are unset, every export becomes a no-op that returns null. Lets
  * audit/build runs continue locally without Airtable when offline or in
@@ -18,12 +21,11 @@
 
 const BASE        = 'https://api.airtable.com/v0';
 const SOURCE_MAP  = {
-  // map our canonical source names → existing single-select options in Airtable
-  // (existing options: 'Customer Submission', 'Manual Entry')
+  // Canonical source → existing Submission Method options in Airtable
   'self-serve': 'Customer Submission',
   'manual':     'Manual Entry',
-  'biz-dev':    'Manual Entry',   // closest existing option
-  'system':     'Manual Entry',
+  'biz-dev':    'Manual Entry',
+  'system':     'System Trigger',
 };
 
 function config() {
@@ -31,13 +33,14 @@ function config() {
     apiKey:    process.env.AIRTABLE_API_KEY,
     baseId:    process.env.AIRTABLE_BASE_ID,
     accounts:  process.env.AIRTABLE_ACCOUNTS_TABLE,
-    runs:      process.env.AIRTABLE_RUNS_TABLE,
+    audits:    process.env.AIRTABLE_AUDITS_TABLE,
+    builds:    process.env.AIRTABLE_BUILDS_TABLE,
   };
 }
 
 function enabled() {
   const c = config();
-  return !!(c.apiKey && c.baseId && c.accounts && c.runs);
+  return !!(c.apiKey && c.baseId && c.accounts && c.audits && c.builds);
 }
 
 async function airReq(method, table, pathOrBody = null, body = null) {
@@ -70,40 +73,21 @@ async function airReq(method, table, pathOrBody = null, body = null) {
 // Accounts
 // ---------------------------------------------------------------------------
 
-/**
- * Find an Account by slug, or create one. Returns the Airtable record id.
- *
- * @param {object} args
- * @param {string} args.slug              - canonical slug, unique key
- * @param {string} [args.practiceUrl]
- * @param {string} [args.practiceName]
- * @param {string} [args.businessEmail]   - scraped practice email (info@...)
- * @param {string} [args.contactEmail]    - submitter (latest self-serve form input)
- * @param {string} [args.phone]
- * @param {string} [args.city]
- * @param {string} [args.state]
- * @param {string} [args.source]          - 'self-serve' | 'manual' | 'biz-dev'
- * @param {string} [args.lifecycleStage]  - e.g. 'Audited' (set on first audit)
- * @returns {Promise<string|null>} Account record id, or null when Airtable is disabled
- */
 export async function upsertAccount(args = {}) {
   if (!enabled()) return null;
   const { slug } = args;
   if (!slug) throw new Error('upsertAccount: slug is required');
 
   const c = config();
-  // Look up by Slug
   const filter = encodeURIComponent(`{Slug}="${slug.replace(/"/g, '\\"')}"`);
   const search = await airReq('GET', c.accounts, `?filterByFormula=${filter}&maxRecords=1`);
   const existing = search.records?.[0];
 
   const fields = buildAccountFields(args);
   if (existing) {
-    // Update only the fields we have new values for; preserve existing data.
     const updated = await airReq('PATCH', c.accounts, `/${existing.id}`, { fields });
     return updated.id;
   }
-  // Create new — slug is required
   fields.Slug = slug;
   const created = await airReq('POST', c.accounts, { fields });
   return created.id;
@@ -126,123 +110,182 @@ function buildAccountFields({
 }
 
 // ---------------------------------------------------------------------------
-// Runs
+// Audits
 // ---------------------------------------------------------------------------
 
 /**
- * Create a Run row linked to an Account. Always creates a new row (history is
- * preserved — re-audits and re-builds get distinct rows).
+ * Create an Audit row linked to an Account. Sets Slug = account slug so
+ * downstream builds can look it up (Source Audit).
  *
- * @param {object} args
- * @param {string} args.accountId         - record id from upsertAccount()
- * @param {string} args.runType           - 'audit' | 'build' | 'rescan'
- * @param {string} args.status            - 'Running' | 'Done' | 'Failed'
- * @param {string} [args.websiteUrl]      - original site URL
- * @param {string} [args.source]          - 'self-serve' | 'manual' | 'biz-dev' | 'system'
- * @param {object} [args.audit]           - { totalChecks, passed, critical, warnings, mobileScore, desktopScore, gbpReviews, gbpRating, auditReportUrl }
- * @param {object} [args.build]           - { buildSlug, previewUrl, pitchUrl, githubFolderUrl, gcsRunFolder }
- * @param {object} [args.rescan]          - { fixedCount, stillIssueCount, regressedCount }
- * @param {number} [args.costEst]
- * @param {string} [args.errorDetail]
- * @returns {Promise<string|null>}
+ * @returns {Promise<string|null>} Audit record id
  */
-export async function createRun(args = {}) {
+export async function createAudit(args = {}) {
   if (!enabled()) return null;
-  const { accountId, runType, status } = args;
-  if (!accountId) throw new Error('createRun: accountId is required');
-  if (!runType)   throw new Error('createRun: runType is required');
-  if (!status)    throw new Error('createRun: status is required');
+  const { accountId, slug, status } = args;
+  if (!accountId) throw new Error('createAudit: accountId is required');
+  if (!slug)      throw new Error('createAudit: slug is required');
+  if (!status)    throw new Error('createAudit: status is required');
 
   const c = config();
-  const fields = buildRunFields(args, accountId);
-  // Stamp creation time at insert (not in buildRunFields, which is also used
-  // by updateRun — that would overwrite the original timestamp).
+  const fields = buildAuditFields(args, accountId);
+  fields['Slug'] = slug;
   fields['Date Added'] = new Date().toISOString();
-  const created = await airReq('POST', c.runs, { fields });
+  const created = await airReq('POST', c.audits, { fields });
   return created.id;
 }
 
-/**
- * Update a Run row by id. Used to flip Status → Done/Failed and write
- * post-run metrics (audit counts, build URLs, etc.) once the pipeline
- * finishes.
- */
-export async function updateRun(runId, args = {}) {
+export async function updateAudit(auditId, args = {}) {
   if (!enabled()) return null;
-  if (!runId) throw new Error('updateRun: runId is required');
+  if (!auditId) throw new Error('updateAudit: auditId is required');
   const c = config();
-  const fields = buildRunFields(args, null);
-  // Don't overwrite Account on update.
-  delete fields.Account;
-  const updated = await airReq('PATCH', c.runs, `/${runId}`, { fields });
+  const fields = buildAuditFields(args, null);
+  delete fields.Account;  // never overwrite link on update
+  const updated = await airReq('PATCH', c.audits, `/${auditId}`, { fields });
   return updated.id;
 }
 
-function buildRunFields(args, accountId) {
+/**
+ * Find the most recent Audit row for an account slug. Used by the build
+ * pipeline to set Source Audit when publishing.
+ *
+ * @returns {Promise<string|null>}  audit record id, or null if none found
+ */
+export async function findLatestAuditBySlug(slug) {
+  if (!enabled()) return null;
+  if (!slug) return null;
+  const c = config();
+  const filter = encodeURIComponent(`{Slug}="${slug.replace(/"/g, '\\"')}"`);
+  const search = await airReq(
+    'GET',
+    c.audits,
+    `?filterByFormula=${filter}&sort[0][field]=Date Added&sort[0][direction]=desc&maxRecords=1`,
+  );
+  return search.records?.[0]?.id || null;
+}
+
+function buildAuditFields(args, accountId) {
   const {
-    runType, status, websiteUrl, source, contactEmail,
-    audit = {}, build = {}, rescan = {},
-    costEst, errorDetail,
+    status, websiteUrl, source, contactEmail,
+    totalChecks, passed, critical, warnings,
+    mobileScore, desktopScore,
+    gbpReviews, gbpRating,
+    auditReportUrl, gcsRunFolder,
+    errorDetail,
   } = args;
   const f = {};
-  if (accountId)       f['Account']           = [accountId];
-  if (runType)         f['Run Type']          = runType;
-  if (status)          f['Status']            = status;
-  if (websiteUrl)      f['Website URL']       = websiteUrl;
-  if (source)          f['Submission Method'] = SOURCE_MAP[source] || source;
-  if (contactEmail)    f['Contact Email']     = contactEmail;
-  if (status === 'Done' || status === 'Failed') {
+  if (accountId)        f['Account']           = [accountId];
+  if (status)           f['Status']            = status;
+  if (websiteUrl)       f['Website URL']       = websiteUrl;
+  if (source)           f['Submission Method'] = SOURCE_MAP[source] || source;
+  if (contactEmail)     f['Contact Email']     = contactEmail;
+  if (status === 'Audited' || status === 'Failed') {
     f['Completed At'] = new Date().toISOString();
   }
-  // Audit fields
-  if (audit.totalChecks  != null) f['Total Checks']      = audit.totalChecks;
-  if (audit.passed       != null) f['Passed']            = audit.passed;
-  if (audit.critical     != null) f['Critical']          = audit.critical;
-  if (audit.warnings     != null) f['Warnings']          = audit.warnings;
-  if (audit.mobileScore  != null) f['Mobile Score']      = audit.mobileScore;
-  if (audit.desktopScore != null) f['Desktop Score']     = audit.desktopScore;
-  if (audit.gbpReviews   != null) f['GBP Reviews']       = audit.gbpReviews;
-  if (audit.gbpRating    != null) f['GBP Rating']        = audit.gbpRating;
-  if (audit.auditReportUrl)       f['Audit Report Link'] = audit.auditReportUrl;
-  // Build fields
-  if (build.buildSlug)            f['Build Slug']        = build.buildSlug;
-  if (build.previewUrl)           f['Preview URL']       = build.previewUrl;
-  if (build.pitchUrl)             f['Pitch URL']         = build.pitchUrl;
-  if (build.githubFolderUrl)      f['GitHub Folder URL'] = build.githubFolderUrl;
-  if (build.gcsRunFolder)         f['GCS Run Folder']    = build.gcsRunFolder;
-  // Rescan fields
-  if (rescan.fixedCount       != null) f['Fixed Count']        = rescan.fixedCount;
-  if (rescan.stillIssueCount  != null) f['Still Issue Count']  = rescan.stillIssueCount;
-  if (rescan.regressedCount   != null) f['Regressed Count']    = rescan.regressedCount;
-  // Misc
-  if (costEst    != null)        f['Cost Est ($)'] = costEst;
-  if (errorDetail)               f['Error Detail'] = errorDetail;
+  if (totalChecks  != null) f['Total Checks']      = totalChecks;
+  if (passed       != null) f['Passed']            = passed;
+  if (critical     != null) f['Critical']          = critical;
+  if (warnings     != null) f['Warnings']          = warnings;
+  if (mobileScore  != null) f['Mobile Score']      = mobileScore;
+  if (desktopScore != null) f['Desktop Score']     = desktopScore;
+  if (gbpReviews   != null) f['GBP Reviews']       = gbpReviews;
+  if (gbpRating    != null) f['GBP Rating']        = gbpRating;
+  if (auditReportUrl)       f['Audit Report URL']  = auditReportUrl;
+  if (gcsRunFolder)         f['GCS Run Folder']    = gcsRunFolder;
+  if (errorDetail)          f['Error Detail']      = errorDetail;
   return f;
 }
 
 // ---------------------------------------------------------------------------
-// Convenience: full audit cycle in one call
+// Builds
 // ---------------------------------------------------------------------------
 
 /**
- * Upsert account + create audit Run + return both ids. Use at the START
- * of an audit run when you only have inputs (url, email, source). Returns
- * `{ accountId, runId }` — pass `runId` to `updateRun()` when the audit
- * finishes with the metrics.
+ * Create a Build row, linked to an Account and (optionally) to a Source
+ * Audit. The publish flow calls findLatestAuditBySlug() first to get the
+ * source audit, then passes the id here as sourceAuditId.
+ *
+ * @returns {Promise<string|null>}  build record id
  */
-export async function startAuditRun({ slug, practiceUrl, contactEmail, source }) {
-  if (!enabled()) return { accountId: null, runId: null };
+export async function createBuild(args = {}) {
+  if (!enabled()) return null;
+  const { accountId, buildSlug, status } = args;
+  if (!accountId) throw new Error('createBuild: accountId is required');
+  if (!buildSlug) throw new Error('createBuild: buildSlug is required');
+  if (!status)    throw new Error('createBuild: status is required');
+
+  const c = config();
+  const fields = buildBuildFields(args, accountId);
+  fields['Build Slug'] = buildSlug;
+  fields['Date Added'] = new Date().toISOString();
+  const created = await airReq('POST', c.builds, { fields });
+  return created.id;
+}
+
+export async function updateBuild(buildId, args = {}) {
+  if (!enabled()) return null;
+  if (!buildId) throw new Error('updateBuild: buildId is required');
+  const c = config();
+  const fields = buildBuildFields(args, null);
+  delete fields.Account;
+  delete fields['Source Audit'];
+  const updated = await airReq('PATCH', c.builds, `/${buildId}`, { fields });
+  return updated.id;
+}
+
+function buildBuildFields(args, accountId) {
+  const {
+    sourceAuditId, status, websiteUrl,
+    previewUrl, pitchUrl, githubFolderUrl, gcsRunFolder,
+    mobileScore, desktopScore,
+    fixedCount, stillIssueCount, regressedCount,
+    rescannedAt, costEst, errorDetail,
+  } = args;
+  const f = {};
+  if (accountId)     f['Account']      = [accountId];
+  if (sourceAuditId) f['Source Audit'] = [sourceAuditId];
+  if (status)        f['Status']       = status;
+  if (websiteUrl)    f['Website URL']  = websiteUrl;
+  if (status === 'Pitched' || status === 'Failed') {
+    f['Completed At'] = new Date().toISOString();
+  }
+  if (previewUrl)       f['Preview URL']       = previewUrl;
+  if (pitchUrl)         f['Pitch URL']         = pitchUrl;
+  if (githubFolderUrl)  f['GitHub Folder URL'] = githubFolderUrl;
+  if (gcsRunFolder)     f['GCS Run Folder']    = gcsRunFolder;
+  if (mobileScore  != null) f['Mobile Score']       = mobileScore;
+  if (desktopScore != null) f['Desktop Score']      = desktopScore;
+  if (fixedCount       != null) f['Fixed Count']         = fixedCount;
+  if (stillIssueCount  != null) f['Still Issue Count']   = stillIssueCount;
+  if (regressedCount   != null) f['Regressed Count']     = regressedCount;
+  if (rescannedAt)          f['Rescanned At'] = rescannedAt;
+  if (costEst    != null)   f['Cost Est ($)'] = costEst;
+  if (errorDetail)          f['Error Detail'] = errorDetail;
+  return f;
+}
+
+// ---------------------------------------------------------------------------
+// Convenience entry point
+// ---------------------------------------------------------------------------
+
+/**
+ * Upsert account + create initial Running audit row. Called at the START
+ * of audit-site.js so even early failures leave a tracked row.
+ *
+ * @returns {{ accountId: string|null, auditId: string|null }}
+ */
+export async function startAudit({ slug, practiceUrl, contactEmail, source }) {
+  if (!enabled()) return { accountId: null, auditId: null };
   const accountId = await upsertAccount({
     slug, practiceUrl, contactEmail, source,
     lifecycleStage: 'Prospect',
   });
-  const runId = await createRun({
+  const auditId = await createAudit({
     accountId,
-    runType: 'audit',
-    status:  'Running',
-    websiteUrl: practiceUrl,
+    slug,
+    status:       'Auditing',
+    websiteUrl:   practiceUrl,
     source,
     contactEmail,
   });
-  return { accountId, runId };
+  return { accountId, auditId };
 }

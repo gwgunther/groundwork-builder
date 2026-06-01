@@ -35,7 +35,7 @@ import { runGbpScan }             from './lib/gbp-scanner.js';
 import { runConversionScan }      from './lib/conversion-scanner.js';
 import { summarizeFindings, enrichFinding } from './lib/findings.js';
 import { buildFixWorklist, summarizeWorklist } from './lib/fix-worklist.js';
-import { startAuditRun, updateRun }   from './lib/airtable.js';
+import { startAudit, updateAudit }    from './lib/airtable.js';
 import { createRunStorage }           from './lib/storage.js';
 import { slugFromUrl }                from './lib/slug.js';
 import { captureHomepageScreenshot }  from './lib/screenshot.js';
@@ -214,23 +214,23 @@ async function main() {
   //    silver refines practiceName + city later, used to update the row.
   // Canonical slug — URL-derived (stable, used by Airtable + GCS + output dir)
   const canonicalSlug = slugFromUrl(opts.url) || slugify(opts.url);
-  let airtableRunId = null;
+  let airtableAuditId = null;
   let airtableAccountId = null;
   try {
-    const { accountId, runId } = await startAuditRun({
+    const { accountId, auditId } = await startAudit({
       slug:         canonicalSlug,
       practiceUrl:  opts.url,
-      contactEmail: opts.email,  // --email flag: submitter (latest form input)
+      contactEmail: opts.email,
       source:       opts.source,
     });
     airtableAccountId = accountId;
-    airtableRunId     = runId;
-    globalThis.__groundworkAirtableRunId = runId;  // accessible to outer fatal-error handler
-    if (runId) console.log(`[Airtable] Tracking run: ${runId} (account: ${accountId})`);
-    else       console.log(`[Airtable] Disabled (env vars missing). Continuing without tracking.`);
+    airtableAuditId   = auditId;
+    globalThis.__groundworkAirtableAuditId = auditId;  // outer fatal-error handler reads this
+    if (auditId) console.log(`[Airtable] Tracking audit: ${auditId} (account: ${accountId})`);
+    else         console.log(`[Airtable] Disabled (env vars missing). Continuing without tracking.`);
     console.log('');
   } catch (err) {
-    console.warn(`[Airtable] startAuditRun failed (non-fatal): ${err.message}`);
+    console.warn(`[Airtable] startAudit failed (non-fatal): ${err.message}`);
     console.log('');
   }
 
@@ -563,12 +563,10 @@ async function main() {
   // Update both the Account (with refined practice info from silver) and the
   // Run (with the metrics + URLs). All non-fatal — local report is still
   // written even if Airtable rejects the call.
-  if (airtableRunId) {
+  if (airtableAuditId) {
     try {
       const { upsertAccount } = await import('./lib/airtable.js');
-      // Refresh account with details we couldn't know at the start.
-      // Two emails: businessEmail = scraped practice contact (info@...),
-      //             contactEmail  = whoever submitted the form (--email flag)
+      // Refresh account with details we now know from silver + GBP scans.
       await upsertAccount({
         slug:           canonicalSlug,
         practiceUrl:    opts.url,
@@ -581,21 +579,20 @@ async function main() {
         source:         opts.source,
         lifecycleStage: 'Audited',
       });
-      await updateRun(airtableRunId, {
-        status: 'Done',
-        audit: {
-          totalChecks:    findingsSummary.total,
-          passed:         findingsSummary.passed,
-          critical:       findingsSummary.critical,
-          warnings:       findingsSummary.warnings,
-          mobileScore:    pagespeed?.mobile?.performance  ?? null,
-          desktopScore:   pagespeed?.desktop?.performance ?? null,
-          gbpReviews:     gbpScan?.meta?.userRatingCount ?? null,
-          gbpRating:      gbpScan?.meta?.rating ?? null,
-          // auditReportUrl populated later by the API server when it hosts the file
-        },
+      // Write all metrics + flip Audit status to Audited.
+      await updateAudit(airtableAuditId, {
+        status:       'Audited',
+        totalChecks:  findingsSummary.total,
+        passed:       findingsSummary.passed,
+        critical:     findingsSummary.critical,
+        warnings:     findingsSummary.warnings,
+        mobileScore:  pagespeed?.mobile?.performance  ?? null,
+        desktopScore: pagespeed?.desktop?.performance ?? null,
+        gbpReviews:   gbpScan?.meta?.userRatingCount ?? null,
+        gbpRating:    gbpScan?.meta?.rating ?? null,
+        // auditReportUrl populated later when the API server hosts the file
       });
-      console.log(`[Airtable] Run ${airtableRunId} marked Done.`);
+      console.log(`[Airtable] Audit ${airtableAuditId} marked Audited.`);
     } catch (err) {
       console.warn(`[Airtable] finalize failed (non-fatal): ${err.message}`);
     }
@@ -606,24 +603,24 @@ async function main() {
 // Run
 // ---------------------------------------------------------------------------
 
-// Module-level reference to the active Airtable Run id, set by main() once
-// startAuditRun completes. The outer .catch reads it to mark the row Failed.
-globalThis.__groundworkAirtableRunId = null;
+// Module-level reference to the active Audit row id, set by main() after
+// startAudit completes. The outer .catch reads it to mark the row Failed.
+globalThis.__groundworkAirtableAuditId = null;
 
 main().catch(async (err) => {
   console.error('');
   console.error('Fatal error:', err.message);
   if (err.stack) console.error(err.stack);
   try {
-    if (globalThis.__groundworkAirtableRunId) {
-      await updateRun(globalThis.__groundworkAirtableRunId, {
+    if (globalThis.__groundworkAirtableAuditId) {
+      await updateAudit(globalThis.__groundworkAirtableAuditId, {
         status: 'Failed',
         errorDetail: err.message + (err.stack ? '\n\n' + err.stack : ''),
       });
-      console.error('[Airtable] Run marked Failed.');
+      console.error('[Airtable] Audit marked Failed.');
     }
   } catch (e) {
-    console.error('[Airtable] Could not mark run Failed:', e.message);
+    console.error('[Airtable] Could not mark audit Failed:', e.message);
   }
   process.exit(1);
 });
