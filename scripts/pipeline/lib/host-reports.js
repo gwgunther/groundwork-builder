@@ -6,15 +6,19 @@
  * pushes — Cloudflare Pages auto-deploys.
  *
  * Layout under public/audits/<slug>/:
- *   index.html          — the audit report (always present after audit)
- *   summary.html        — the 1-page summary (always present)
+ *   index.html          — the SUMMARY (customer-facing: screenshot, top-5
+ *                         finding/fix pairs, "See all" CTA). The page a
+ *                         prospect lands on from an email link.
+ *   audit-report.html   — the full deep-dive tabbed report. Filename kept
+ *                         as-is so the summary's "See all N issues →"
+ *                         relative link resolves without rewriting templates.
  *   before-after.html   — the diff report (present only after a build)
  *   homepage.png        — homepage screenshot (if captured)
  *
- * Public URLs end up at:
- *   https://groundworkdental.com/audits/<slug>/
- *   https://groundworkdental.com/audits/<slug>/summary
- *   https://groundworkdental.com/audits/<slug>/before-after
+ * Public URLs:
+ *   https://groundworkdental.com/audits/<slug>/                — summary
+ *   https://groundworkdental.com/audits/<slug>/audit-report    — full report
+ *   https://groundworkdental.com/audits/<slug>/before-after    — diff (post-build)
  *
  * Same pattern publish.js already uses for pitch pages.
  */
@@ -36,8 +40,8 @@ function baseDomain() {
 
 /**
  * @typedef {object} HostedReportPaths
- * @property {string|null} indexUrl         — public URL for the audit report (audits/<slug>/)
- * @property {string|null} summaryUrl       — public URL for the 1-page summary
+ * @property {string|null} indexUrl         — public URL for the customer-facing summary (audits/<slug>/)
+ * @property {string|null} fullReportUrl    — public URL for the deep-dive tabbed report
  * @property {string|null} beforeAfterUrl   — public URL for the before/after report
  * @property {boolean}     pushed           — was groundwork-dental git-pushed?
  * @property {string|null} skippedReason    — null if hosted, else why not
@@ -58,7 +62,7 @@ export async function hostAuditReport({ auditDir, slug }) {
   const dentalPath = dentalRepoPath();
   const out = {
     indexUrl:       null,
-    summaryUrl:     null,
+    fullReportUrl:  null,
     beforeAfterUrl: null,
     pushed:         false,
     skippedReason:  null,
@@ -77,8 +81,11 @@ export async function hostAuditReport({ auditDir, slug }) {
   await mkdir(destDir, { recursive: true });
 
   const copies = [
-    { from: join(auditDir, 'audit-report.html'),       to: join(destDir, 'index.html') },
-    { from: join(auditDir, 'audit-summary.html'),      to: join(destDir, 'summary.html') },
+    // Customer-facing summary lands at the index URL — that's the page a
+    // prospect opens from an email. The dense tabbed full-report stays at
+    // its own URL, linked from the summary's "See all N issues →" CTA.
+    { from: join(auditDir, 'audit-summary.html'),      to: join(destDir, 'index.html') },
+    { from: join(auditDir, 'audit-report.html'),       to: join(destDir, 'audit-report.html') },
     { from: join(auditDir, 'audit-report-after.html'), to: join(destDir, 'before-after.html') },
     { from: join(auditDir, 'homepage.png'),            to: join(destDir, 'homepage.png') },
   ];
@@ -88,7 +95,7 @@ export async function hostAuditReport({ auditDir, slug }) {
 
   const domain = baseDomain();
   out.indexUrl       = `https://${domain}/audits/${slug}/`;
-  out.summaryUrl     = `https://${domain}/audits/${slug}/summary`;
+  out.fullReportUrl  = `https://${domain}/audits/${slug}/audit-report`;
   if (existsSync(join(destDir, 'before-after.html'))) {
     out.beforeAfterUrl = `https://${domain}/audits/${slug}/before-after`;
   }
