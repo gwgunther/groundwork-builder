@@ -297,7 +297,10 @@ function buildSectionContent(merged, bronze = null) {
     doctor: {
       // X3 — primary doctor pulled from doctors[0]; back-compat with old shape
       name:        merged?.doctors?.[0]?.name        || merged?.doctor?.name        || null,
-      bio:         merged?.doctors?.[0]?.bio         || merged?.doctor?.bio         || merged?.content?.aboutText || null,
+      // Bio MUST be the doctor's own — never fall back to practice.aboutText.
+      // That fallback was the source of the "bio bleed" bug (practice mission
+      // statement rendered as the doctor's biography).
+      bio:         merged?.doctors?.[0]?.bio         || merged?.doctor?.bio         || null,
       credentials: merged?.doctors?.[0]?.credentials || merged?.doctor?.credentials || null,
       // Relevant rescued content for grounding the bio in real voice.
       // Filter additionalContent to types that make sense for a doctor section:

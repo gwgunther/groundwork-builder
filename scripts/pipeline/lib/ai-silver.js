@@ -31,19 +31,34 @@ const API_URL = 'https://api.anthropic.com/v1/messages';
  * Caps at ~8 pages to keep the prompt manageable.
  */
 function selectKeyPages(pages) {
+  // Force-include — team/staff pages always get included regardless of cap,
+  // because losing the team page means losing every non-doctor staff member.
+  const FORCE = [
+    p => /\/(team|staff|meet[-_]our[-_](team|staff))/i.test(p.path),
+  ];
+
   const PRIORITY = [
     p => p.path === '/',
     p => /\/about/.test(p.path),
     p => /\/contact/.test(p.path),
-    p => /\/dr[-_]/.test(p.path) || /\/doctor/.test(p.path),
+    p => /\/dr[-_]/.test(p.path) || /\/doctor/.test(p.path) || /\/meet[-_]dr/i.test(p.path),
     p => /\/services/.test(p.path),
-    p => /\/team/.test(p.path) || /\/staff/.test(p.path),
     p => /\/appointment/.test(p.path) || /\/schedule/.test(p.path),
     p => /\/specials/.test(p.path) || /\/offers/.test(p.path),
   ];
 
   const picked  = [];
   const pickedSet = new Set();
+
+  // Force-includes first — never get squeezed out by the 8-page cap.
+  for (const test of FORCE) {
+    for (const page of pages) {
+      if (!pickedSet.has(page.url) && test(page)) {
+        picked.push(page);
+        pickedSet.add(page.url);
+      }
+    }
+  }
 
   for (const test of PRIORITY) {
     for (const page of pages) {
@@ -188,17 +203,61 @@ async function callClaude(prompt) {
 // Post-process: normalize the AI output into the merger's expected shape
 // ---------------------------------------------------------------------------
 
-function normalizeAiOutput(raw, bronzeBaseUrl) {
+function normalizeAiOutput(raw, bronze) {
+  const bronzeBaseUrl = typeof bronze === 'string' ? bronze : bronze?.baseUrl;
+  const bronzeNav     = typeof bronze === 'object' ? (bronze?.siteAssets?.navigation || []) : [];
+
   // Ensure every array field exists
   const practice = raw.practice || {};
   const address  = raw.address  || {};
   const hours    = raw.hours    || null;
-  const doctor   = raw.doctor   || {};
   const services = raw.services || {};
   const brand    = raw.brand    || {};
   const content  = raw.content  || {};
   const images   = raw.images   || {};
   const migration = raw.migration || {};
+
+  // ---- Doctors[] — unified array; back-compat to doctor + additionalDoctors ----
+  // Build a single canonical doctors[] from whichever shape the model produced.
+  // Accept either: (a) new `doctors[]` array, or (b) legacy `doctor` + `additionalDoctors[]`.
+  const rawDoctors = Array.isArray(raw.doctors) && raw.doctors.length > 0
+    ? raw.doctors
+    : [
+        ...(raw.doctor && (raw.doctor.name || raw.doctor.firstName) ? [raw.doctor] : []),
+        ...(Array.isArray(raw.additionalDoctors) ? raw.additionalDoctors : []),
+      ];
+
+  const doctors = rawDoctors.map((d, idx) => ({
+    name:        d?.name        || null,
+    firstName:   d?.firstName   || null,
+    lastName:    d?.lastName    || null,
+    credentials: d?.credentials || null,
+    bio:         d?.bio         || null,
+    education:   d?.education   || null,
+    specialties: d?.specialties || [],
+    photoPath:   d?.photoUrl    || d?.photoPath || null,
+    rank:        d?.rank        || idx + 1,
+  }));
+
+  const primaryDoctor = doctors[0] || {
+    name: null, firstName: null, lastName: null, credentials: null,
+    bio: null, education: null, specialties: [], photoPath: null,
+  };
+  const secondaryDoctors = doctors.slice(1);
+
+  // ---- Staff[] — non-doctor team members ----
+  const staff = (Array.isArray(raw.staff) ? raw.staff : []).map(s => ({
+    name:        s?.name        || null,
+    role:        s?.role        || 'other',
+    bio:         s?.bio         || null,
+    credentials: s?.credentials || null,
+    photoPath:   s?.photoUrl    || s?.photoPath || null,
+  })).filter(s => s.name);
+
+  // ---- Navigation — prefer AI-extracted tree; fall back to bronze flat nav ----
+  const navigation = Array.isArray(raw.navigation) && raw.navigation.length > 0
+    ? raw.navigation
+    : bronzeNav;
 
   return {
     practice: {
@@ -212,26 +271,16 @@ function normalizeAiOutput(raw, bronzeBaseUrl) {
       medicalSpecialty:   null,
       sameAs:             practice.sameAs  || [],
     },
-    doctor: {
-      name:        doctor.name        || null,
-      firstName:   doctor.firstName   || null,
-      lastName:    doctor.lastName    || null,
-      credentials: doctor.credentials || null,
-      bio:         doctor.bio         || null,
-      education:   doctor.education   || null,
-      specialties: doctor.specialties || [],
-      photoPath:   doctor.photoUrl    || null,
-    },
-    additionalDoctors: (raw.additionalDoctors || []).map(d => ({
-      name:        d.name        || null,
-      firstName:   d.firstName   || null,
-      lastName:    d.lastName    || null,
-      credentials: d.credentials || null,
-      bio:         d.bio         || null,
-      education:   null,
-      specialties: [],
-      photoPath:   d.photoUrl    || null,
-    })),
+    // Canonical: doctors[] is the source of truth (rank 1 = primary).
+    doctors,
+    // Staff[] — non-doctor team (hygienists, assistants, receptionists, office managers).
+    staff,
+    // Navigation tree from the source site — used by injector to build navLinks.
+    navigation,
+    // Back-compat: legacy consumers still read `doctor` and `additionalDoctors`.
+    // These mirror doctors[0] and doctors[1..].
+    doctor: primaryDoctor,
+    additionalDoctors: secondaryDoctors,
     address: {
       street:  address.street  || null,
       city:    address.city    || null,
@@ -349,7 +398,7 @@ export async function extractSilver(bronze) {
     return {};
   }
 
-  const silver = normalizeAiOutput(raw, bronze.baseUrl);
+  const silver = normalizeAiOutput(raw, bronze);
 
   // Attach page inventory for downstream AI steps (ai-content, ai-audit)
   silver.pageInventory = bronze.pages.map(p => ({
@@ -367,7 +416,9 @@ export async function extractSilver(bronze) {
 
   console.log(`[ai-silver] Silver extraction complete.`);
   console.log(`  Practice:  ${silver.practice.name}`);
-  console.log(`  Doctor:    ${silver.doctor.name}`);
+  console.log(`  Doctors:   ${silver.doctors.length} (primary: ${silver.doctor.name})`);
+  console.log(`  Staff:     ${silver.staff.length}`);
+  console.log(`  Nav items: ${silver.navigation.length}`);
   console.log(`  Phone:     ${silver.practice.phone}`);
   console.log(`  Address:   ${silver.address.full}`);
   console.log(`  Hours:     ${silver.hours?.raw || silver.hours?.display?.[0]?.day || 'null'}`);

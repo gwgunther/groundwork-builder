@@ -249,13 +249,46 @@ export function mergeData(scrapeData, intakeData, preset = null) {
 
   // X3: doctors[] array (was doctor + additionalDoctors). If silver provided
   // doctors[], use it; otherwise reconstruct from legacy fields.
-  if (Array.isArray(scrapeData.doctors)) {
+  //
+  // BACK-COMPAT ADAPTER: existing _audits/<slug>/_data/silver.json files (from
+  // before this refactor) only have `doctor` (singular) + `additionalDoctors[]`.
+  // The fallback below treats `doctor` as doctors[0] and appends additional
+  // doctors so prospects don't need a full re-audit.
+  if (Array.isArray(scrapeData.doctors) && scrapeData.doctors.length > 0) {
     data.doctors = scrapeData.doctors;
-  } else if (data.doctor || (data.additionalDoctors || []).length > 0) {
+  } else if ((data.doctor && data.doctor.name) || (data.additionalDoctors || []).length > 0) {
     data.doctors = [
       ...(data.doctor && data.doctor.name ? [data.doctor] : []),
       ...((data.additionalDoctors || []).filter(d => d?.name)),
     ];
+  } else {
+    data.doctors = [];
+  }
+
+  // Keep legacy doctor + additionalDoctors in sync with doctors[] so older
+  // consumers (`merged.doctor.name`, etc.) keep working uniformly.
+  if (data.doctors.length > 0) {
+    data.doctor = data.doctors[0];
+    data.additionalDoctors = data.doctors.slice(1);
+  }
+
+  // Staff[] passthrough (silver → merged)
+  if (Array.isArray(scrapeData.staff)) {
+    data.staff = scrapeData.staff;
+  } else if (Array.isArray(intakeData.staff)) {
+    data.staff = intakeData.staff;
+  } else {
+    data.staff = [];
+  }
+
+  // Navigation passthrough (silver → merged). Intake-provided navigation wins
+  // if present.
+  if (Array.isArray(intakeData.navigation) && intakeData.navigation.length > 0) {
+    data.navigation = intakeData.navigation;
+  } else if (Array.isArray(scrapeData.navigation)) {
+    data.navigation = scrapeData.navigation;
+  } else {
+    data.navigation = [];
   }
 
   if (scrapeData.pageInventory)          data.pageInventory = scrapeData.pageInventory;
