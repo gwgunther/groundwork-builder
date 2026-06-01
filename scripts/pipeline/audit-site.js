@@ -559,14 +559,31 @@ async function main() {
   console.log('='.repeat(56));
   console.log('');
 
+  // ── Host the report HTML on groundworkdental.com ─────────────────────────
+  // Copies audit-report.html + audit-summary.html + homepage.png into
+  // groundwork-dental/public/audits/<slug>/ and git-pushes. CF Pages
+  // auto-deploys. Non-fatal — local files are still available if hosting
+  // fails for any reason.
+  let hostedReports = { indexUrl: null, summaryUrl: null, pushed: false, skippedReason: null };
+  try {
+    const { hostAuditReport } = await import('./lib/host-reports.js');
+    hostedReports = await hostAuditReport({ auditDir: outputDir, slug: canonicalSlug });
+    if (hostedReports.pushed) {
+      console.log(`[Host] Audit report public at: ${hostedReports.indexUrl}`);
+    } else if (hostedReports.skippedReason) {
+      console.log(`[Host] Skipped: ${hostedReports.skippedReason}`);
+    }
+  } catch (err) {
+    console.warn(`[Host] Failed (non-fatal): ${err.message}`);
+  }
+
   // ── Finalize Airtable tracking row ──────────────────────────────────────
-  // Update both the Account (with refined practice info from silver) and the
-  // Run (with the metrics + URLs). All non-fatal — local report is still
-  // written even if Airtable rejects the call.
+  // Update both the Account (with refined practice info from silver) and
+  // the Audit (with metrics + the now-public report URL). Non-fatal —
+  // local report is still written even if Airtable rejects.
   if (airtableAuditId) {
     try {
       const { upsertAccount } = await import('./lib/airtable.js');
-      // Refresh account with details we now know from silver + GBP scans.
       await upsertAccount({
         slug:           canonicalSlug,
         practiceUrl:    opts.url,
@@ -579,18 +596,17 @@ async function main() {
         source:         opts.source,
         lifecycleStage: 'Audited',
       });
-      // Write all metrics + flip Audit status to Audited.
       await updateAudit(airtableAuditId, {
-        status:       'Audited',
-        totalChecks:  findingsSummary.total,
-        passed:       findingsSummary.passed,
-        critical:     findingsSummary.critical,
-        warnings:     findingsSummary.warnings,
-        mobileScore:  pagespeed?.mobile?.performance  ?? null,
-        desktopScore: pagespeed?.desktop?.performance ?? null,
-        gbpReviews:   gbpScan?.meta?.userRatingCount ?? null,
-        gbpRating:    gbpScan?.meta?.rating ?? null,
-        // auditReportUrl populated later when the API server hosts the file
+        status:         'Audited',
+        totalChecks:    findingsSummary.total,
+        passed:         findingsSummary.passed,
+        critical:       findingsSummary.critical,
+        warnings:       findingsSummary.warnings,
+        mobileScore:    pagespeed?.mobile?.performance  ?? null,
+        desktopScore:   pagespeed?.desktop?.performance ?? null,
+        gbpReviews:     gbpScan?.meta?.userRatingCount ?? null,
+        gbpRating:      gbpScan?.meta?.rating ?? null,
+        auditReportUrl: hostedReports.indexUrl || null,
       });
       console.log(`[Airtable] Audit ${airtableAuditId} marked Audited.`);
     } catch (err) {

@@ -124,6 +124,21 @@ export async function publish(opts = {}) {
     console.warn(`  ⚠ Rescan failed (non-fatal): ${err.message}`);
   }
 
+  // 1a.6 Re-host the now-updated audit report folder. The rescan produced
+  // audit-report-after.html → groundwork-dental/public/audits/<slug>/before-after.html.
+  // Same path that hosted the original audit report; we just re-push.
+  let hostedReports = { indexUrl: null, beforeAfterUrl: null, skippedReason: null };
+  try {
+    const { hostAuditReport } = await import('./host-reports.js');
+    const auditDir = resolve(dirname(new URL(import.meta.url).pathname), '..', '..', '..', '_audits', slug);
+    hostedReports = await hostAuditReport({ auditDir, slug });
+    if (hostedReports.pushed && hostedReports.beforeAfterUrl) {
+      console.log(`  ✓ Before/after report: ${hostedReports.beforeAfterUrl}`);
+    }
+  } catch (err) {
+    console.warn(`  ⚠ Host before/after failed (non-fatal): ${err.message}`);
+  }
+
   // 1b. Generate pitch.html (with real after-scores if available)
   try {
     results.pitchHtml = await generatePitchPage(pipelineDir, {
