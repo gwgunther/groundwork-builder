@@ -20,7 +20,7 @@ import { getAllReferences }     from '../lib/impeccable.js';
 
 const MODEL   = 'claude-sonnet-4-6';
 const __dir   = dirname(fileURLToPath(import.meta.url));
-const RUBRIC  = JSON.parse(await readFile(join(__dir, '../rubric.json'), 'utf8'));
+const RUBRIC  = JSON.parse(await readFile(join(__dir, '../config/rubric.json'), 'utf8'));
 
 export async function run({ dna, practice, screenshots = [], files = {} }) {
   const start   = Date.now();
