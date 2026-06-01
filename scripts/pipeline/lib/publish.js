@@ -379,7 +379,9 @@ async function ensureCfPagesProject({ slug, baseDomain }) {
     created = true;
   }
 
-  // Add custom subdomain (idempotent — CF ignores if already exists)
+  // Add custom subdomain. CF marks it status: pending until the zone has
+  // a CNAME pointing at <slug>.pages.dev — that DNS step happens below.
+  // Error 8000018 = "already added," fine on re-runs.
   const subdomain = `${slug}.${baseDomain}`;
   const domainRes = await fetch(`${base}/${slug}/domains`, {
     method:  'POST',
@@ -387,12 +389,99 @@ async function ensureCfPagesProject({ slug, baseDomain }) {
     body:    JSON.stringify({ name: subdomain }),
   });
   const domainData = await domainRes.json();
-  // 409 = already exists, which is fine
   if (!domainData.success && domainData.errors?.[0]?.code !== 8000018) {
     console.warn(`    CF domain warning: ${JSON.stringify(domainData.errors)}`);
   }
 
+  // Create the CNAME in DNS so CF Pages can verify the domain and issue
+  // an SSL cert. Without this, the custom domain stays "pending CNAME
+  // record not set" forever, the URL never resolves, and PageSpeed/rescan
+  // run against an empty preview. This was missing for every build prior
+  // to this fix — every project sat in pending-validation purgatory.
+  try {
+    await ensureCnameRecord({
+      headers,
+      zoneName: baseDomain,
+      hostname: subdomain,
+      target:   `${slug}.pages.dev`,
+    });
+  } catch (err) {
+    console.warn(`    DNS CNAME warning: ${err.message}`);
+  }
+
   return { project: slug, domain: subdomain, created };
+}
+
+/**
+ * Ensure a proxied CNAME exists in the given zone, pointing hostname → target.
+ *
+ * - Looks up the zone by name (one zone lookup per ensure-call; small cost).
+ * - Checks for an existing record at that hostname:
+ *   · If none → creates a new proxied CNAME.
+ *   · If one exists with matching content → no-op (idempotent).
+ *   · If one exists with DIFFERENT content → warns and leaves it alone.
+ *     Operator should resolve manually rather than have a deploy silently
+ *     overwrite a record we don't understand.
+ *
+ * @param {object} args
+ * @param {object} args.headers   Authorization + Content-Type headers
+ * @param {string} args.zoneName  e.g. 'groundworkdental.com'
+ * @param {string} args.hostname  e.g. 'springstdentistry.groundworkdental.com'
+ * @param {string} args.target    e.g. 'springstdentistry.pages.dev'
+ */
+async function ensureCnameRecord({ headers, zoneName, hostname, target }) {
+  // 1. Find the zone id
+  const zoneListRes  = await fetch(
+    `https://api.cloudflare.com/client/v4/zones?name=${encodeURIComponent(zoneName)}`,
+    { headers },
+  );
+  const zoneList = await zoneListRes.json();
+  const zone = zoneList.result?.[0];
+  if (!zone) {
+    throw new Error(`Zone "${zoneName}" not found in this CF account — DNS:Edit on a different account?`);
+  }
+  const zoneId = zone.id;
+
+  // 2. Look for an existing record at hostname
+  const recListRes = await fetch(
+    `https://api.cloudflare.com/client/v4/zones/${zoneId}/dns_records?name=${encodeURIComponent(hostname)}`,
+    { headers },
+  );
+  const recList = await recListRes.json();
+  const existing = recList.result?.[0];
+
+  if (existing) {
+    if (existing.type === 'CNAME' && existing.content === target) {
+      // Already correct — nothing to do.
+      console.log(`    ✓ DNS CNAME ${hostname} → ${target} (already present)`);
+      return;
+    }
+    // Something else lives at this hostname — don't auto-overwrite.
+    console.warn(`    ⚠ ${hostname} already has a ${existing.type} record (${existing.content}). Leaving as-is — resolve manually if you intended CF Pages to own this hostname.`);
+    return;
+  }
+
+  // 3. Create the CNAME, proxied (orange-cloud) so CF Pages edge serves it.
+  const createRes = await fetch(
+    `https://api.cloudflare.com/client/v4/zones/${zoneId}/dns_records`,
+    {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        type:    'CNAME',
+        name:    hostname,
+        content: target,
+        proxied: true,
+        ttl:     1,   // 1 = automatic; required when proxied: true
+        comment: 'Auto-created by groundwork-builder publish pipeline',
+      }),
+    },
+  );
+  const created = await createRes.json();
+  if (!created.success) {
+    throw new Error(`DNS create failed: ${JSON.stringify(created.errors)}`);
+  }
+  console.log(`    ✓ DNS CNAME ${hostname} → ${target} (created)`);
 }
 
 // ---------------------------------------------------------------------------
