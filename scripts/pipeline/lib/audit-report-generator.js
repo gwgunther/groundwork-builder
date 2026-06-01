@@ -721,28 +721,9 @@ function buildScorecardTab(mobile, desktop) {
     </tr>`;
   }).join('');
 
-  // Key metrics — plain language names
-  const mMetrics = mobile?.metrics || {};
-  const metricDefs = [
-    { key: 'lcp', label: 'Time to See Your Page',     sublabel: 'LCP', threshold: 'Goal: under 2.5 sec' },
-    { key: 'fcp', label: 'Time to First Content',     sublabel: 'FCP', threshold: 'Goal: under 1.8 sec' },
-    { key: 'tbt', label: 'Page Responsiveness',       sublabel: 'TBT', threshold: 'Goal: under 200ms' },
-    { key: 'cls', label: 'Visual Stability',          sublabel: 'CLS — does content jump around', threshold: 'Goal: under 0.1' },
-    { key: 'si',  label: 'How Fast It Looks Loaded',  sublabel: 'SI',  threshold: 'Goal: under 3.4 sec' },
-    { key: 'tti', label: 'Time Until Fully Interactive', sublabel: 'TTI', threshold: 'Goal: under 3.8 sec' },
-  ];
-
-  const metricCards = metricDefs.map(m => {
-    const val    = mMetrics[m.key] ?? null;
-    const status = metricStatus(val, m.key);
-    const color  = { pass: 'var(--green)', warn: 'var(--amber)', fail: 'var(--red)', na: 'var(--text-dim)' }[status];
-    return `<div class="metric-card">
-      <div class="metric-label">${esc(m.label)}</div>
-      <div class="metric-sublabel">${esc(m.sublabel)}</div>
-      <div class="metric-value metric-status-${esc(status)}" style="color:${esc(color)}">${esc(formatMetric(val, m.key))}</div>
-      <div class="metric-threshold">${esc(m.threshold)}</div>
-    </div>`;
-  }).join('');
+  // Key metrics — plain language names. Shared with summary via
+  // buildMobileSpeedBreakdown() so both reports render the same block.
+  const metricsBreakdown = buildMobileSpeedBreakdown(mobile);
 
   const noData = !mobile && !desktop;
 
@@ -771,11 +752,46 @@ function buildScorecardTab(mobile, desktop) {
     <tbody>${rows}</tbody>
   </table>
 
-  <div style="font-size:13px;font-weight:700;margin-bottom:14px;color:var(--ink)">Mobile speed breakdown <span style="font-size:11px;font-weight:400;color:var(--text-dim)">— measured by Google Lighthouse on a simulated phone</span></div>
-  <div class="metrics-grid">${metricCards}</div>
+  ${metricsBreakdown}
 
   <p class="source-note">All metrics sourced from Google PageSpeed Insights API v5. Mobile scores are the primary signal Google uses for search ranking.</p>
   `}`;
+}
+
+/**
+ * Render the "Mobile speed breakdown" block — heading + 6 Lighthouse metric
+ * cards (LCP, FCP, TBT, CLS, SI, TTI) with goal thresholds and pass/warn/fail
+ * coloring. Shared by the full report (scorecard tab) AND the customer-facing
+ * summary, so both convey the same visceral "your LCP is 12s vs goal 2.5s"
+ * detail rather than just an abstract 0-100 score.
+ *
+ * Returns empty string if no mobile data.
+ */
+function buildMobileSpeedBreakdown(mobile) {
+  if (!mobile) return '';
+  const mMetrics = mobile.metrics || {};
+  const metricDefs = [
+    { key: 'lcp', label: 'Time to See Your Page',     sublabel: 'LCP', threshold: 'Goal: under 2.5 sec' },
+    { key: 'fcp', label: 'Time to First Content',     sublabel: 'FCP', threshold: 'Goal: under 1.8 sec' },
+    { key: 'tbt', label: 'Page Responsiveness',       sublabel: 'TBT', threshold: 'Goal: under 200ms' },
+    { key: 'cls', label: 'Visual Stability',          sublabel: 'CLS — does content jump around', threshold: 'Goal: under 0.1' },
+    { key: 'si',  label: 'How Fast It Looks Loaded',  sublabel: 'SI',  threshold: 'Goal: under 3.4 sec' },
+    { key: 'tti', label: 'Time Until Fully Interactive', sublabel: 'TTI', threshold: 'Goal: under 3.8 sec' },
+  ];
+  const cards = metricDefs.map(m => {
+    const val    = mMetrics[m.key] ?? null;
+    const status = metricStatus(val, m.key);
+    const color  = { pass: 'var(--green)', warn: 'var(--amber)', fail: 'var(--red)', na: 'var(--text-dim)' }[status];
+    return `<div class="metric-card">
+      <div class="metric-label">${esc(m.label)}</div>
+      <div class="metric-sublabel">${esc(m.sublabel)}</div>
+      <div class="metric-value metric-status-${esc(status)}" style="color:${esc(color)}">${esc(formatMetric(val, m.key))}</div>
+      <div class="metric-threshold">${esc(m.threshold)}</div>
+    </div>`;
+  }).join('');
+  return `
+  <div style="font-size:13px;font-weight:700;margin-bottom:14px;color:var(--ink)">Mobile speed breakdown <span style="font-size:11px;font-weight:400;color:var(--text-dim)">— measured by Google Lighthouse on a simulated phone</span></div>
+  <div class="metrics-grid">${cards}</div>`;
 }
 
 // ---------------------------------------------------------------------------
@@ -800,16 +816,19 @@ function buildFindingsTab(techAudit) {
       ? '(Measured by Google Lighthouse)'
       : '(Detected by crawling your site)';
 
-    // For criticals, show affected pages inline; for warnings use disclosure
+    // For criticals, show affected pages inline; for warnings use disclosure.
+    // URLs are hyperlinked so the reader can click directly to the page
+    // exhibiting the issue — far more useful than a wall of plaintext URLs.
+    const linkLi = (u) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a></li>`;
     const pagesHtml = f.affectedPages?.length > 0
       ? isCritical
         ? `<div class="finding-pages-inline">
             <div class="pages-label">Affected pages (${f.affectedPages.length})</div>
-            <ul>${f.affectedPages.slice(0, 10).map(u => `<li>${esc(u)}</li>`).join('')}${f.affectedPages.length > 10 ? `<li style="color:var(--text-dim)">… and ${f.affectedPages.length - 10} more</li>` : ''}</ul>
+            <ul>${f.affectedPages.slice(0, 10).map(linkLi).join('')}${f.affectedPages.length > 10 ? `<li style="color:var(--text-dim)">… and ${f.affectedPages.length - 10} more</li>` : ''}</ul>
            </div>`
         : `<details class="finding-pages">
             <summary>${f.affectedPages.length} affected page${f.affectedPages.length !== 1 ? 's' : ''} (click to expand)</summary>
-            <ul>${f.affectedPages.map(u => `<li>${esc(u)}</li>`).join('')}</ul>
+            <ul>${f.affectedPages.map(linkLi).join('')}</ul>
            </details>`
       : '';
 
@@ -1081,17 +1100,9 @@ function buildSummaryReport({ url, practiceName, pagespeed, techAudit, aiAudit, 
   const visibleFindings = issueFindings.slice(0, SUMMARY_LIMIT);
   const hiddenCount     = issueFindings.length - visibleFindings.length;
 
-  // Display-clean a URL: strip protocol, strip leading slash dupes
-  // (some sites emit /blog//page/3 instead of /blog/page/3), prefer
-  // just the path for compact display in the report.
-  const cleanPath = (url) => {
-    try {
-      const p = new URL(url).pathname || '/';
-      return p.replace(/\/{2,}/g, '/');
-    } catch {
-      return String(url).replace(/\/{2,}/g, '/');
-    }
-  };
+  // Helper: collapse the /blog//page/3 → /blog/page/3 double-slashes some
+  // Sesame-hosted sites emit, so the displayed URL doesn't look like a typo.
+  const fixDoubleSlash = (url) => String(url).replace(/(?<!:)\/{2,}/g, '/');
 
   // Build the paired rows — each row is one issue + the matching change.
   // Visual: 2-column grid, row dividers visually unite the pair.
@@ -1100,16 +1111,21 @@ function buildSummaryReport({ url, practiceName, pagespeed, techAudit, aiAudit, 
       ? { icon: '✕', bg: '#FDDCDC', color: 'var(--red)',   label: 'CRITICAL' }
       : { icon: '!', bg: '#FEF3CD', color: 'var(--amber)', label: 'WARNING'  };
 
-    // Examples: pull up to 3 affected pages from the finding data.
-    // Use cleanPath to strip protocol/host and collapse any double-slashes
-    // the original site emits (some Sesame-hosted sites do).
-    const examples = (f.affectedPages || []).slice(0, 3).map(cleanPath);
-    const exampleHtml = examples.length > 0
-      ? `<div style="font-size:11px;color:var(--text-dim);margin-top:6px;font-family:var(--mono);line-height:1.5">
-           ${examples.map(p => `<span style="background:#F5F2EE;padding:1px 6px;border-radius:3px;margin-right:4px;display:inline-block;margin-bottom:2px">${esc(p)}</span>`).join('')}
-           ${f.affectedPages?.length > 3 ? `<span style="color:var(--text-dim)">+${f.affectedPages.length - 3} more</span>` : ''}
-         </div>`
-      : '';
+    // Affected pages: show the full hyperlinked URL list (up to 10), with
+    // overflow rolloff. Earlier we truncated to 3 path-only chips, but that
+    // hid the load-bearing insight — when 5 URLs share one title, the
+    // duplication only becomes obvious when you see all 5 listed. Full
+    // URLs (not just paths) make duplication visible across hosts/blogs.
+    const pages = (f.affectedPages || []).slice(0, 10);
+    const overflow = (f.affectedPages?.length || 0) - pages.length;
+    const exampleHtml = pages.length > 0 ? `
+      <div class="pair-found-pages">
+        <div class="pair-found-pages-label">Affected page${f.affectedPages.length === 1 ? '' : 's'} (${f.affectedPages.length})</div>
+        <ul>
+          ${pages.map(u => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(fixDoubleSlash(u))}</a></li>`).join('')}
+          ${overflow > 0 ? `<li class="pair-found-pages-more">… and ${overflow} more</li>` : ''}
+        </ul>
+      </div>` : '';
 
     // The paired "what we'd change" — 1:1 lookup by finding id.
     const outcome = IMPROVEMENT_OUTCOMES[f.id] || null;
@@ -1196,26 +1212,61 @@ body {
 }
 .hero-screenshot-cap strong { color: var(--ink); font-weight: 600; }
 
-/* "See all issues" CTA at the bottom of the truncated paired grid */
-.see-all-cta {
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  background: var(--cream);
-  border: 1px dashed var(--border);
+/* Lead-magnet CTA — primary conversion path for cold traffic. Replaces
+   the old "see all issues" link that exposed the full report for free.
+   The full report (and a redesigned preview) is the carrot; this is the
+   email-opt-in to unlock it. Visually loud on purpose — this is THE CTA. */
+.lead-magnet-cta {
+  background: linear-gradient(135deg, #FFF6F0 0%, #FFEDDF 100%);
+  border: 2px solid var(--terracotta);
   border-radius: var(--radius);
-  padding: 14px 18px;
-  margin-top: 14px;
-  flex-wrap: wrap;
+  padding: 22px 24px;
+  margin-top: 20px;
+  text-align: center;
 }
-.see-all-text { font-size: 13px; color: var(--ink); line-height: 1.5; }
-.see-all-text strong { color: var(--terracotta); font-weight: 700; margin-right: 4px; }
-.see-all-text span { color: var(--text-dim); }
-.see-all-btn {
-  background: var(--ink); color: white; text-decoration: none;
-  font-size: 13px; font-weight: 700;
-  padding: 10px 18px; border-radius: var(--radius);
+.lead-magnet-eyebrow {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+  color: var(--terracotta); margin-bottom: 8px;
+}
+.lead-magnet-heading {
+  font-size: 18px; font-weight: 800; color: var(--ink); line-height: 1.3;
+  margin-bottom: 8px;
+}
+.lead-magnet-body {
+  font-size: 13px; color: var(--ink); line-height: 1.55; max-width: 540px;
+  margin: 0 auto 16px;
+}
+.lead-magnet-btn {
+  display: inline-block;
+  background: var(--terracotta); color: white; text-decoration: none;
+  font-size: 14px; font-weight: 700;
+  padding: 13px 26px; border-radius: var(--radius);
   white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(196, 105, 67, 0.25);
 }
-.see-all-btn:hover { opacity: 0.9; }
+.lead-magnet-btn:hover { opacity: 0.92; }
+.lead-magnet-fineprint {
+  font-size: 11px; color: var(--text-dim); margin-top: 10px;
+}
+
+/* Affected-pages list inside a paired finding row — hyperlinked, scrollable. */
+.pair-found-pages { margin-top: 10px; }
+.pair-found-pages-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
+  color: var(--text-dim); margin-bottom: 4px;
+}
+.pair-found-pages ul {
+  list-style: none; padding: 0; margin: 0;
+  background: #F5F2EE; border-radius: 4px; padding: 8px 12px;
+  font-family: var(--mono); font-size: 11px; line-height: 1.6;
+  max-height: 140px; overflow-y: auto;
+}
+.pair-found-pages li { padding: 1px 0; }
+.pair-found-pages li a {
+  color: var(--ink); text-decoration: none; word-break: break-all;
+}
+.pair-found-pages li a:hover { color: var(--terracotta); text-decoration: underline; }
+.pair-found-pages-more { color: var(--text-dim); font-style: italic; }
 
 .scores-section { background: #FAF8F5; border-radius: var(--radius); padding: 20px 24px; margin-bottom: 24px; }
 .scores-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
@@ -1332,6 +1383,12 @@ ${!mobile ? '' : `
     </div>
   </div>
   <div class="score-strip">${scoreCircles}</div>
+
+  <!-- Mobile speed breakdown: the visceral detail behind the abstract score.
+       Same Lighthouse metrics the full report shows (LCP, FCP, TBT, CLS, SI, TTI). -->
+  <div style="margin-top:24px">
+    ${buildMobileSpeedBreakdown(mobile)}
+  </div>
 </div>
 `}
 
@@ -1351,22 +1408,30 @@ ${issueFindings.length > 0 ? `
 <div class="pair-grid">
   ${pairedRows}
 </div>
-${hiddenCount > 0 ? `
-<div class="see-all-cta">
-  <div class="see-all-text">
-    <strong>+ ${hiddenCount} more ${hiddenCount === 1 ? 'issue' : 'issues'}</strong>
-    <span>across SEO, performance, accessibility, GBP, and conversion tracking.</span>
+<!-- Lead-magnet CTA — the ONE conversion path for cold traffic.
+     Email opt-in unlocks the full report (every issue, not just top 5)
+     PLUS a redesigned preview of their homepage. The full report at
+     audits/<slug>/audit-report is intentionally NOT linked here — it's
+     the carrot we trade for the email. -->
+<div class="lead-magnet-cta">
+  <div class="lead-magnet-eyebrow">Want the full picture?</div>
+  <div class="lead-magnet-heading">Get the complete report${hiddenCount > 0 ? ` — all ${issueFindings.length} issues` : ''} + a free redesigned preview of your homepage</div>
+  <div class="lead-magnet-body">
+    We'll send the full breakdown across SEO, page speed, accessibility, Google Business Profile, and conversion tracking — plus a working preview of your site, rebuilt with the fixes applied. Sent to your inbox in under 24 hours.
   </div>
-  <a class="see-all-btn" href="audit-report.html">See all ${issueFindings.length} issues →</a>
+  <a class="lead-magnet-btn" href="#get-full-report">Get my full report + free preview →</a>
+  <div class="lead-magnet-fineprint">No commitment. We build the preview from your existing content — no intake form needed.</div>
 </div>
-` : ''}
 ` : `
 <div style="background:#D4EDD955;border:1px solid #D4EDD9;border-radius:var(--radius);padding:18px;font-size:13px;color:var(--ink);text-align:center">
   ✓ No critical or warning issues found — the site is in good shape.
 </div>
 `}
 
-<!-- Preview CTA -->
+<!-- Preview CTA — only shown when a real redesigned preview has been built
+     (post-publish). For cold traffic with no preview yet, the lead-magnet
+     CTA above is the sole conversion path; we don't show a generic
+     "Get Started" button that competes with it. -->
 ${previewUrl ? `
 <div class="cta-block">
   <div class="cta-left">
@@ -1376,16 +1441,7 @@ ${previewUrl ? `
   <a class="cta-btn" href="${esc(previewUrl)}" target="_blank" rel="noopener">
     View Preview →
   </a>
-</div>` : `
-<div class="cta-block">
-  <div class="cta-left">
-    <h3>Ready for a new site?</h3>
-    <p>Groundwork builds fully custom, SEO-optimized sites in under 24 hours.</p>
-  </div>
-  <a class="cta-btn" href="https://groundwork.build" target="_blank" rel="noopener">
-    Get Started →
-  </a>
-</div>`}
+</div>` : ''}
 
 <!-- Footer -->
 <div class="report-footer">
