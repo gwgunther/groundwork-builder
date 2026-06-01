@@ -1536,6 +1536,30 @@ async function main() {
     console.warn(`  Coverage audit failed: ${err.message}`);
   }
 
+  // Content Coverage Audit: bronze-vs-final category-level diff. Catches
+  // hard losses (whole team pages, multi-doctor collapses, nav shrinking,
+  // informational pages vanishing) that coverage-audit.js's weaker signals
+  // can miss.
+  try {
+    const { runContentCoverage } = await import('./lib/content-coverage.js');
+    const ccc = await runContentCoverage({ slug, outputDir });
+    if (ccc.summary.total > 0) {
+      console.log('');
+      console.log(`[Content Coverage Audit] ${ccc.summary.critical} critical · ${ccc.summary.warning} warning · ${ccc.summary.note} note`);
+      for (const f of ccc.findings.filter(x => x.severity === 'CRITICAL')) {
+        console.log(`  🔴 ${f.message}`);
+      }
+      for (const f of ccc.findings.filter(x => x.severity === 'WARNING')) {
+        console.log(`  🟡 ${f.message}`);
+      }
+      console.log(`  Full report: ${resolve(outputDir, '_pipeline/content-coverage.md')}`);
+    } else {
+      console.log('[Content Coverage Audit] No category losses detected ✓');
+    }
+  } catch (err) {
+    console.warn(`  Content coverage audit failed: ${err.message}`);
+  }
+
   // Generate HTML reports — three views of the same data:
   //   index.html          — internal report (operator: prompts, JSON, telemetry)
   //   external-report.html — practice-facing detailed report (no internals)

@@ -19,16 +19,39 @@ const __dirname = dirname(__filename);
 /** Template root is 3 levels up from this file (scripts/pipeline/lib -> project root) */
 const TEMPLATE_ROOT = resolve(__dirname, '../../..');
 
-/** Directories / files to skip when cloning the template */
+/**
+ * Directories / files to skip when cloning the template.
+ *
+ * Each entry is matched against the relative path from TEMPLATE_ROOT
+ * (see cloneTemplate). Anything matched is excluded entirely — neither
+ * the folder nor its contents are copied into clients/<slug>/.
+ *
+ * Rule of thumb: include a path here if it's
+ *   (a) per-prospect operator state that should NOT ship with builds
+ *       (audits, internal docs, credentials, pipeline artifacts)
+ *   (b) the pipeline source itself (recursive copy hazard)
+ *   (c) huge / regenerable (node_modules, dist)
+ */
 const CLONE_EXCLUDE = new Set([
+  // Build artifacts + dependencies
   'node_modules',
   'dist',
   '.git',
+
+  // Pipeline source — recursive copy hazard
   'scripts/pipeline',
-  '_memory',
-  '_pipeline',
-  'clients',         // built sites — never copy other clients into a new build
   'skills',          // skill source files — runtime-loaded, not part of template output
+
+  // Per-prospect operator state — must not ship with clients
+  '_audits',         // OTHER prospects' audit outputs (HTML reports, findings, screenshots)
+  '_memory',         // design-library of past builds
+  '_pipeline',       // operator-side run artifacts
+  '_credentials',    // service-account keys + secrets (gitignored, but stop the disk copy)
+  'output',          // local dev output
+
+  // Operator docs + clients — neither belongs in a client build
+  'docs',            // Groundwork's internal architecture + design docs
+  'clients',         // built sites — never copy other clients into a new build
 ]);
 
 // ---------------------------------------------------------------------------
