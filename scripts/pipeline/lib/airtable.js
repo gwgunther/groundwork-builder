@@ -155,6 +155,9 @@ export async function createRun(args = {}) {
 
   const c = config();
   const fields = buildRunFields(args, accountId);
+  // Stamp creation time at insert (not in buildRunFields, which is also used
+  // by updateRun — that would overwrite the original timestamp).
+  fields['Date Added'] = new Date().toISOString();
   const created = await airReq('POST', c.runs, { fields });
   return created.id;
 }
