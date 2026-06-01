@@ -20,7 +20,8 @@
  *   AIRTABLE_API_KEY            — Airtable personal access token
  *   AIRTABLE_BASE_ID            — Airtable base ID
  *   AIRTABLE_ACCOUNTS_TABLE     — Accounts table name
- *   AIRTABLE_RUNS_TABLE         — Runs table name
+ *   AIRTABLE_AUDITS_TABLE       — Audits table name
+ *   AIRTABLE_BUILDS_TABLE       — Builds table name
  *   GROUNDWORK_SUBDOMAIN        — base subdomain (default: groundworkdental.com)
  *   GITHUB_REPO_OWNER        — GitHub repo owner (default: gwgunther)
  *   GITHUB_REPO_NAME         — GitHub repo name (default: groundwork-builder)
@@ -31,7 +32,7 @@ import { copyFile, mkdir, readFile }       from 'node:fs/promises';
 import { existsSync }                      from 'node:fs';
 import { resolve, dirname, basename }      from 'node:path';
 import { generatePitchPage }              from './pitch-generator.js';
-import { upsertAccount, createRun }       from './airtable.js';
+import { upsertAccount, createBuild, findLatestAuditBySlug } from './airtable.js';
 
 // ---------------------------------------------------------------------------
 // Main entry
@@ -166,7 +167,8 @@ export async function publish(opts = {}) {
     console.warn(`  ⚠ Cloudflare setup failed: ${err.message}`);
   }
 
-  // 6. Airtable — record this build as a new Run row linked to the Account
+  // 6. Airtable — record this build as a new Build row linked to its
+  // Source Audit (looked up by slug) and the Account.
   try {
     const tracked = await recordBuildRun({
       slug,
@@ -177,9 +179,10 @@ export async function publish(opts = {}) {
       gcsPrefix,
       afterScores,
     });
-    results.airtable = tracked.runId;
-    if (tracked.runId) {
-      console.log(`  ✓ Airtable: Run ${tracked.runId} created (Account ${tracked.accountId}, Lifecycle: Pitched)`);
+    results.airtable = tracked.buildId;
+    if (tracked.buildId) {
+      const linked = tracked.sourceAuditId ? ` · Source Audit ${tracked.sourceAuditId}` : ' · no prior Audit found';
+      console.log(`  ✓ Airtable: Build ${tracked.buildId} created (Account ${tracked.accountId}, Lifecycle: Pitched${linked})`);
     } else {
       console.log(`  ⚠ Airtable disabled (env vars missing) — skipped tracking`);
     }
@@ -298,10 +301,11 @@ async function ensureCfPagesProject({ slug, baseDomain }) {
  *   1. Upsert the Account by slug. If audit ran first (PR #24), this updates
  *      the existing row with anything new + flips Lifecycle Stage to 'Pitched'.
  *      If audit was skipped, this creates the Account row from scratch.
- *   2. Create a new Run row with runType='build', linked to the Account.
+ *   2. Look up the latest Audit row for this slug to set Source Audit.
+ *   3. Create a new Build row, linked to Account + (optionally) Source Audit.
  *
- * Returns { accountId, runId } — either field may be null if Airtable is
- * disabled (env vars missing); the caller logs accordingly.
+ * Returns { accountId, buildId, sourceAuditId } — any may be null if
+ * Airtable is disabled or no prior audit exists.
  */
 async function recordBuildRun({ slug, practiceUrl, resolvedPreviewUrl, pitchUrl, pipelineDir, gcsPrefix, afterScores }) {
   // Load merged.json for contact details to refresh on the Account
@@ -330,7 +334,7 @@ async function recordBuildRun({ slug, practiceUrl, resolvedPreviewUrl, pitchUrl,
     ? `https://console.cloud.google.com/storage/browser/${gcsBucket}/${gcsPrefix}`
     : null;
 
-  // 1. Upsert Account with anything we now know — and flip Lifecycle to Pitched
+  // 1. Upsert Account — flip lifecycle to Pitched
   const accountId = await upsertAccount({
     slug,
     practiceUrl,
@@ -343,31 +347,30 @@ async function recordBuildRun({ slug, practiceUrl, resolvedPreviewUrl, pitchUrl,
   });
 
   if (!accountId) {
-    // Airtable disabled; quietly skip
-    return { accountId: null, runId: null };
+    return { accountId: null, buildId: null, sourceAuditId: null };
   }
 
-  // 2. Create the build Run row
-  const runId = await createRun({
+  // 2. Find the most recent Audit for this slug — sets Source Audit on
+  // the new Build. May be null if someone built without auditing first.
+  const sourceAuditId = await findLatestAuditBySlug(slug);
+
+  // 3. Create the Build row
+  const buildId = await createBuild({
     accountId,
-    runType:    'build',
-    status:     'Done',
-    websiteUrl: practiceUrl,
-    source:     'system',  // builds aren't user-initiated in the same way as audits
-    build: {
-      buildSlug:       slug,
-      previewUrl:      `https://${resolvedPreviewUrl}`,
-      pitchUrl:        `https://${pitchUrl}`,
-      githubFolderUrl,
-      gcsRunFolder,
-    },
-    audit: {
-      // After-build scores from PageSpeed against the live preview
-      mobileScore:  afterScores?.mobile  ?? null,
-      desktopScore: afterScores?.desktop ?? null,
-    },
+    sourceAuditId,
+    buildSlug:       slug,
+    status:          'Pitched',
+    websiteUrl:      practiceUrl,
+    previewUrl:      `https://${resolvedPreviewUrl}`,
+    pitchUrl:        `https://${pitchUrl}`,
+    githubFolderUrl,
+    gcsRunFolder,
+    // After-build PageSpeed scores from the live preview
+    mobileScore:     afterScores?.mobile  ?? null,
+    desktopScore:    afterScores?.desktop ?? null,
+    rescannedAt:     afterScores ? new Date().toISOString() : null,
     costEst,
   });
 
-  return { accountId, runId };
+  return { accountId, buildId, sourceAuditId };
 }
