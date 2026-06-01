@@ -20,7 +20,7 @@ dotenvConfig({
   override: true,
 });
 
-import { readFile } from 'node:fs/promises';
+import { readFile, access } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 import { generateAuditReports } from './lib/audit-report-generator.js';
 
@@ -86,6 +86,19 @@ async function main() {
   const url = silver?.practice?.url || (silver?.practice?.domain ? `https://${silver.practice.domain}` : '');
   const practiceName = silver?.practice?.name || 'Site Audit';
 
+  // Detect a previously-captured homepage screenshot. Newer audits save it
+  // at audit-dir root; older ones may have it in _data/. Check both.
+  let screenshotFile = null;
+  try {
+    await access(join(auditDir, 'homepage.png'));
+    screenshotFile = 'homepage.png';
+  } catch {
+    try {
+      await access(join(dataDir, 'homepage.png'));
+      screenshotFile = '_data/homepage.png';
+    } catch { /* none — report omits it */ }
+  }
+
   console.log(`[Regen] Re-rendering reports for ${practiceName} (${allFindings.length} findings)...`);
 
   const { fullPath, summaryPath } = await generateAuditReports(auditDir, {
@@ -97,6 +110,7 @@ async function main() {
     scraped: silver,
     findingsSummary,
     gbpMeta: gbp?.meta || null,
+    screenshotFile,
   });
   console.log(`[Regen] ✓ Written:`);
   console.log(`    ${fullPath}`);
