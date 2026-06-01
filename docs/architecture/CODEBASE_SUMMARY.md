@@ -2,7 +2,7 @@
 
 ## Overview
 
-Groundwork Builder is a production-ready website starter (default **dental** vertical) with an integrated AI pipeline for rapid site generation and deployment. It combines a fully-featured Astro static site with automation scripts that scrape an existing practice website, extract structured data using Claude AI, and populate the template. **[BUILD_BEST_PRACTICES.md](BUILD_BEST_PRACTICES.md)** describes cross-project IA/SEO principles; preset files under `presets/` hold vertical-specific taxonomy and copy rules.
+Groundwork Builder is a production-ready website starter (default **dental** vertical) with an integrated AI pipeline for rapid site generation and deployment. It combines a fully-featured Astro static site with automation scripts that scrape an existing practice website, extract structured data using Claude AI, and populate the template. **[../engineering/BUILD_BEST_PRACTICES.md](../engineering/BUILD_BEST_PRACTICES.md)** describes cross-project IA/SEO principles; preset files under `presets/` hold vertical-specific taxonomy and copy rules.
 
 ## Tech Stack
 
@@ -41,7 +41,7 @@ public/images/       # Static assets
 ### SEO-First Design
 - Auto-generated JSON-LD schemas: LocalBusiness, MedicalProcedure, BlogPosting, FAQPage, BreadcrumbList, WebSite (see `BaseLayout.astro`)
 - Sitemap with priority levels (homepage 1.0, key hubs including `/schedule` and `/services`, service hubs 0.9, blog 0.6–0.7); `public/robots.txt` template for crawl hints
-- **IA & linking playbook:** [BUILD_BEST_PRACTICES.md](BUILD_BEST_PRACTICES.md) — nav structure, homepage/footer internal links, scheduling/contact URL strategy, Search Console notes (not site-specific)
+- **IA & linking playbook:** [../engineering/BUILD_BEST_PRACTICES.md](../engineering/BUILD_BEST_PRACTICES.md) — nav structure, homepage/footer internal links, scheduling/contact URL strategy, Search Console notes (not site-specific)
 - Open Graph and Twitter Card metadata on every page
 - Canonical URLs throughout
 

@@ -1,6 +1,6 @@
 ---
 title: "I Have A Cavity in Long Beach, CA"
-description: "Treating a cavity promptly protects your natural teeth, restores confidence, and prevents small issues from becoming bigger ones."
+description: "Cavities are common and treatable — learn why prompt care matters and how simple habits can protect your smile."
 publishDate: 2026-06-01
 targetKeyword: "i have a cavity in long beach ca"
 category: "general-dentistry"

@@ -61,51 +61,51 @@ export interface DesignDNA {
 }
 
 export const designDNA: DesignDNA = {
-  "archetype": "poster-hero",
-  "heroVariant": "poster",
+  "archetype": "editorial-asymmetric",
+  "heroVariant": "asymmetric-left",
   "servicesVariant": "editorial-list",
-  "navVariant": "transparent-overlay",
+  "navVariant": "centered-logo",
   "footerVariant": "minimal-dark",
   "ctaVariant": "full-width-dark",
-  "doctorVariant": "portrait-left",
-  "galleryVariant": "full-bleed-row",
+  "doctorVariant": "portrait-right",
+  "galleryVariant": "editorial-2col",
   "sectionOrder": [
     "hero",
-    "gallery",
     "doctor-intro",
     "services",
+    "gallery",
     "reviews",
-    "cta",
-    "faq"
+    "faq",
+    "cta"
   ],
   "cardTreatment": "soft-shadow",
   "density": "balanced",
   "motion": "subtle",
   "radius": "lg",
   "borrowedFrom": null,
-  "borrowedTrait": "oversized type accent — a large-scale numeral or single word rendered at display size behind a content block, used as a structural graphic element rather than readable text",
+  "borrowedTrait": "thin-rule section dividers between alternating content rows",
   "headingScale": "moderate",
-  "sectionDivider": "color-shift",
+  "sectionDivider": "line",
   "heroTextPosition": "bottom-left",
-  "divergenceRationale": "All three prior builds occupy the split-image/full-bleed/asymmetric-right hero space paired with magazine-split, card-heavy, or warm-editorial archetypes — poster-hero with a bottom-left text anchor is the one unused combination that still sits comfortably in the editorial/bold family appropriate for an implants-and-LANAP-forward specialist practice. Centered-classic and warm-editorial were ruled out because the brand direction explicitly chose a grotesque heading face and a cool-dominant palette to differentiate from spa-dentistry competitors, which maps to the editorial family. Gallery is elevated above services per the vertical prior (orthodontics/cosmetic — outcome visuals convert before feature lists), and the soft color-shift divider between sections replaces the line or space dividers seen in prior builds.",
-  "creativeDirection": "A confident, neighborhood-rooted editorial voice — the poster hero anchors the teal authority color at full saturation with the doctor's name and a plain-spoken outcome line sitting low-left like a broadsheet byline, while featured-grid gallery and alternating editorial-list services give the page a considered, unhurried premium feel that earns trust through specificity rather than decoration.",
+  "divergenceRationale": "All three previous builds used hero variants in the centered or right-split family (asymmetric-right, full-bleed, split-image); this build anchors the hero text bottom-left with an asymmetric-left layout, a distinct compositional grammar. The soft vertical prior pushed gallery above services, but with dental-implants as the primary emphasis and no stat-bar data, doctor credibility placed immediately after the hero earns more trust before services are introduced — so doctor-intro leads the mid-page. poster-hero and magazine-split were ruled out as direct repeats from the own-build history.",
+  "creativeDirection": "A coastal specialist practice rendered in slate-teal and antique gold — editorial structure gives Dr. Hoang's named credibility and LANAP differentiation room to breathe, while the bottom-left hero anchor and thin-rule rhythm keep the tone unhurried and assured rather than loud.",
   "coverage": {
     "filteredSections": []
   },
-  "typographyScale": "Cormorant Garamond (heading) / DM Sans (body) — scale 14/16/20/28/40/56px",
+  "typographyScale": "Playfair Display (heading) / DM Sans (body) — scale 14/16/20/28/40/56px",
   "colorPalette": {
-    "primary": "#0a6b7c",
-    "secondary": "#1a4a5c",
-    "light": "#f0f7f8",
+    "primary": "#0e6b82",
+    "secondary": "#1a4a4e",
+    "light": "#f0f8fa",
     "accent": "#c9a96e",
-    "highlight": "#e8f4f6"
+    "highlight": "#e8f4f7"
   },
   "spacingScale": "4/8/16/24/48/80px",
   "writingTone": "Warm, clear, specific to Long Beach.",
-  "brandSummary": "Spring St. Dentistry, led by Dr. Anthony Hoang, serving Long Beach, — A confident, neighborhood-rooted editorial voice — the poster hero anchors the teal authority color at full saturation with the doctor's name and a plain-spoken outcome line sitting low-left like a broadsheet byline, while featured-grid gallery and alternating editorial-list services give the page a considered, unhurried premium feel that earns trust through specificity rather than decoration.",
+  "brandSummary": "Spring St. Dentistry, led by Dr. Anthony Hoang, serving Long Beach, — A coastal specialist practice rendered in slate-teal and antique gold — editorial structure gives Dr. Hoang's named credibility and LANAP differentiation room to breathe, while the bottom-left hero anchor and thin-rule rhythm keep the tone unhurried and assured rather than loud.",
   "doRules": [
-    "Use the archetype's established poster-hero layout — don't mix incompatible grid styles mid-page.",
-    "Hero variant must be poster — lock this choice.",
+    "Use the archetype's established editorial-asymmetric layout — don't mix incompatible grid styles mid-page.",
+    "Hero variant must be asymmetric-left — lock this choice.",
     "Card treatment is soft-shadow — apply consistently across all card instances.",
     "Phone number must be a tel: link in the mobile header, minimum 44px touch target.",
     "Doctor name and credentials must appear without scrolling on the homepage.",
@@ -129,19 +129,19 @@ export const designDNA: DesignDNA = {
     "sectionSpacing": "default",
     "contentDensity": "default",
     "layoutWidth": "standard",
-    "heroLayout": "poster",
-    "servicesLayout": "numbered-list",
-    "aboutLayout": "split-photo",
+    "heroLayout": "split",
+    "servicesLayout": "alternating-rows",
+    "aboutLayout": "full-width-card",
     "testimonialsLayout": "pull-quotes",
-    "ctaLayout": "centered-banner",
+    "ctaLayout": "split-image",
     "faqLayout": "simple-stack",
-    "navVariant": "transparent-overlay",
+    "navVariant": "centered-logo",
     "footerVariant": "minimal-dark",
-    "galleryVariant": "full-bleed-row",
-    "typePersonality": "display-serif",
+    "galleryVariant": "editorial-2col",
+    "typePersonality": "grotesque",
     "colorFamily": "cool"
   },
-  "evalRationale": "Candidate 0 is the only entry that achieves genuine structural divergence from all three prior builds by using a poster-hero archetype with a bottom-left text anchor — a combination unused in the recent catalog — while its gallery-elevated section order and broadsheet editorial voice add specific creative interest that Candidates 1 and 2 lack entirely. Candidates 1 and 2 are near-identical centered-classic builds sharing the same archetype, hero variant, radius, motion, card treatment, and section order, making them redundant with each other and insufficiently distinct from the warm-editorial and magazine-split prior builds."
+  "evalRationale": "Candidate 1 edges out Candidate 0 with nearly identical structure by grounding its creative direction in specific practice differentiators (LANAP, Dr. Hoang's named credibility) rather than generic editorial language, making it the most purposeful and least interchangeable of the three. Candidate 2 is penalized for surfacing gallery before doctor-intro, which undermines trust sequencing for a named specialist practice where credentials — not outcome volume — are the primary conversion lever."
 };
 
 export interface ImageRoles {

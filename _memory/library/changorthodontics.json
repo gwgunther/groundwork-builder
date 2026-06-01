@@ -1,0 +1,50 @@
+{
+  "palette": {
+    "primary": "#1B3A6B",
+    "secondary": "#2D5A9E",
+    "accent": "#C4962A",
+    "background": "#F2F5FA",
+    "mood": "professional, trustworthy"
+  },
+  "type": {
+    "display": "Space Grotesk",
+    "body": "Inter",
+    "scale": "standard",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "editorial-asymmetric",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "asymmetric-right",
+    "imageTreatment": "clinical-bright"
+  },
+  "sections": [
+    "hero",
+    "doctor-intro",
+    "services",
+    "reviews",
+    "gallery",
+    "faq",
+    "stat-bar",
+    "cta"
+  ],
+  "cards": "soft-shadow",
+  "motion": "subtle",
+  "radius": "md",
+  "fontPair": "Space Grotesk/Inter",
+  "adjectives": [
+    "clinical-refined",
+    "credible",
+    "modern-traditional",
+    "accessible",
+    "warm-authoritative"
+  ],
+  "slug": "changorthodontics",
+  "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/changorthodontics",
+  "tag": "own",
+  "captured": "2026-06-01",
+  "note": "auto-distilled at build time"
+}

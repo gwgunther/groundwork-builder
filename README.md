@@ -1,6 +1,14 @@
 # Dental Website Starter
 
-A production-ready website template built with Astro, Tailwind CSS, and modern web standards. The default **dental** vertical (`presets/dental/`) targets professional practice sites; add or fork presets for other verticals. For domain-agnostic IA and SEO expectations, see [BUILD_BEST_PRACTICES.md](BUILD_BEST_PRACTICES.md). Deployed examples commonly use Cloudflare Pages.
+A production-ready website template built with Astro, Tailwind CSS, and modern web standards. The default **dental** vertical (`presets/dental/`) targets professional practice sites; add or fork presets for other verticals. For domain-agnostic IA and SEO expectations, see [docs/engineering/BUILD_BEST_PRACTICES.md](docs/engineering/BUILD_BEST_PRACTICES.md). Deployed examples commonly use Cloudflare Pages.
+
+## Docs
+
+- **Architecture overview:** [docs/architecture/CODEBASE_SUMMARY.md](docs/architecture/CODEBASE_SUMMARY.md) · [docs/architecture/ARCHITECTURE.html](docs/architecture/ARCHITECTURE.html) (visual diagram of the agentic pipeline)
+- **Design rules for generated client sites:** [docs/design/DESIGN_RULES.md](docs/design/DESIGN_RULES.md)
+- **Groundwork's own brand system** (audit reports, pitch pages): [docs/design/DESIGN.md](docs/design/DESIGN.md)
+- **Engineering principles:** [docs/engineering/BUILD_BEST_PRACTICES.md](docs/engineering/BUILD_BEST_PRACTICES.md)
+- **Pipeline + skills catalog:** [docs/PIPELINE.md](docs/PIPELINE.md) · [docs/SKILLS.md](docs/SKILLS.md)
 
 ## Quick Start
 
@@ -95,7 +103,7 @@ Update `.github/workflows/deploy.yml`:
 
 ## Build & SEO playbook
 
-For information architecture, internal linking, crawl signals (`robots.txt`, sitemap), structured data, and on-domain vs third-party scheduling patterns, see **[BUILD_BEST_PRACTICES.md](BUILD_BEST_PRACTICES.md)**. It consolidates domain-agnostic expectations from this README, `CODEBASE_SUMMARY.md`, and the pipeline prompts into one internal checklist.
+For information architecture, internal linking, crawl signals (`robots.txt`, sitemap), structured data, and on-domain vs third-party scheduling patterns, see **[docs/engineering/BUILD_BEST_PRACTICES.md](docs/engineering/BUILD_BEST_PRACTICES.md)**. It consolidates domain-agnostic expectations from this README, `docs/architecture/CODEBASE_SUMMARY.md`, and the pipeline prompts into one internal checklist.
 
 ## Architecture
 

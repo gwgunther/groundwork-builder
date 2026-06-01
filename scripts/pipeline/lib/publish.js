@@ -279,12 +279,18 @@ export async function publish(opts = {}) {
  * against the preview — otherwise both hit empty content and record
  * garbage data.
  *
- * Strategy: 5s intervals for the first 60s (most deploys land in this
- * window), then 10s intervals up to a 5-min total cap.
+ * Strategy: 5s intervals for the first 60s (most established projects'
+ * deploys land in this window), then 10s intervals up to a 10-min cap.
+ *
+ * Why 10 min: first-build for a brand-new CF Pages project pulls deps
+ * from scratch and routinely takes 4–7 minutes. The earlier 5-min cap
+ * caused first builds to silently skip PageSpeed + rescan and write
+ * null scores to Airtable. 10 min gives genuine first-time builds room
+ * to land while still catching truly-stuck deploys.
  *
  * Returns true when the URL responds 200; false on timeout.
  */
-async function waitForDeploy(url, { totalTimeoutMs = 5 * 60_000 } = {}) {
+async function waitForDeploy(url, { totalTimeoutMs = 10 * 60_000 } = {}) {
   const start = Date.now();
   console.log(`  Waiting for ${url} to come live...`);
   let attempt = 0;

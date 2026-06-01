@@ -342,7 +342,7 @@ function sharedCss() {
   return `
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    /* Groundwork Dental design system v2 — see /DESIGN.md.
+    /* Groundwork Dental design system v2 — see /docs/design/DESIGN.md.
        Single source of truth: token names match the design doc 1:1.
        Legacy aliases below (--ink, --terracotta, --cream, etc.) point at
        the new tokens so existing CSS keeps working through the migration. */
@@ -511,7 +511,7 @@ ${sharedCss()}
 .header-left h1 { font-family: var(--font); font-size: 22px; font-weight: 400; letter-spacing: -0.3px; color: var(--on-dark); }
 .header-left .sub { color: var(--on-dark-muted); font-size: 13px; margin-top: 4px; font-family: var(--font-ui); }
 .header-badge { font-size: 12px; color: var(--on-dark-muted); text-align: right; line-height: 1.7; }
-/* Brand wordmark per /DESIGN.md — Georgia 'Groundwork' + sage divider + Figtree 'dental'. */
+/* Brand wordmark per /docs/design/DESIGN.md — Georgia 'Groundwork' + sage divider + Figtree 'dental'. */
 .gw-mark { display: inline-flex; align-items: baseline; gap: 8px; font-size: 16px; }
 .gw-mark .word { font-family: var(--font); font-weight: 400; color: var(--on-dark); letter-spacing: -0.2px; }
 .gw-mark .divider { width: 1px; height: 12px; background: var(--sage); align-self: center; }
@@ -645,7 +645,7 @@ ${sharedCss()}
 .preview-block { background: var(--charcoal); border-radius: var(--radius); padding: 32px; text-align: center; margin-bottom: 32px; }
 .preview-block h3 { font-family: var(--font); font-size: 26px; font-weight: 400; color: var(--on-dark); margin-bottom: 10px; letter-spacing: -0.3px; }
 .preview-block p { color: var(--on-dark-muted); font-size: 14px; margin-bottom: 20px; line-height: 1.5; }
-/* Matches .btn-primary spec — see /DESIGN.md buttons section. */
+/* Matches .btn-primary spec — see /docs/design/DESIGN.md buttons section. */
 .preview-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--sage-dark); color: white; text-decoration: none; font-family: var(--font-ui); font-size: 14px; font-weight: 500; padding: 12px 24px; border-radius: var(--radius); letter-spacing: 0.025em; min-height: 44px; line-height: 20px; transition: background-color 200ms; }
 .preview-btn:hover { background: var(--sage-darker); }
 .preview-btn:focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; }
@@ -1419,7 +1419,7 @@ body {
 
 .block { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
 
-/* Preview CTA — dark variant per CTABlock spec in /DESIGN.md.
+/* Preview CTA — dark variant per CTABlock spec in /docs/design/DESIGN.md.
    Charcoal panel + on-dark text + sage-dark button (CTABlock 'dark' variant). */
 .cta-block {
   background: var(--charcoal); border-radius: var(--radius); padding: 28px 32px;

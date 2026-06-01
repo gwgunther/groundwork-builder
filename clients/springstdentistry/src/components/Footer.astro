@@ -30,114 +30,105 @@ const socialLinks = [
 
 <footer class="w-full bg-neutral-dark text-white">
 
-  <!-- Editorial split: large practice name left, columns right -->
-  <div class="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+  <!-- Top editorial split -->
+  <div class="max-w-7xl mx-auto px-6 md:px-12 pt-16 md:pt-24 pb-12 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
 
-      <!-- Left column: practice identity -->
-      <div class="flex flex-col gap-6">
-        <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary">
+    <!-- Left column: large practice name + tagline + social -->
+    <div class="flex flex-col gap-8">
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary mb-3">
           Long Beach, CA
         </p>
         <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-white">
           {site.name}
         </h2>
-        <p class="text-base leading-relaxed text-neutral-300 max-w-sm">
-          Neighborhood dentistry rooted in Spring Street — where honest care and unhurried appointments have been the standard since day one.
+        <p class="mt-4 text-base leading-relaxed text-white/60 max-w-sm">
+          Caring for Long Beach smiles with precision, honesty, and a gentle hand — including advanced LANAP laser therapy.
         </p>
+      </div>
 
-        <!-- Address block -->
-        <address class="not-italic flex flex-col gap-1 text-sm text-neutral-300">
-          <span>{addr.street}</span>
-          <span>{addr.city}, {addr.state} {addr.zip}</span>
+      <!-- Social links -->
+      <div class="flex items-center gap-4">
+        {socialLinks.map((s) => (
           <a
-            href={`tel:${site.phone.replace(/\D/g, '')}`}
-            class="mt-2 text-brand-primary font-semibold text-base hover:underline underline-offset-2 transition-all duration-200"
-            aria-label={`Call us at ${site.phone}`}
+            href={s.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={s.label}
+            class="inline-flex items-center gap-2 border border-white/20 text-white/70 text-sm font-medium px-4 py-2 rounded-2xl transition-all duration-200 hover:border-brand-primary hover:text-brand-primary"
           >
-            {site.phone}
+            {s.icon === 'google' && (
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M21.805 10.023H12v3.977h5.617C17.018 16.175 14.76 17.5 12 17.5c-3.038 0-5.5-2.462-5.5-5.5s2.462-5.5 5.5-5.5c1.4 0 2.673.527 3.637 1.387l2.828-2.828C16.538 3.69 14.395 2.75 12 2.75 6.753 2.75 2.5 7.003 2.5 12.25S6.753 21.75 12 21.75c5.523 0 9.5-3.88 9.5-9.5 0-.737-.073-1.452-.195-2.227z"/>
+              </svg>
+            )}
+            {s.icon === 'facebook' && (
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+              </svg>
+            )}
+            {s.label}
           </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Right column: address + hours + nav -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-10">
+
+      <!-- Contact & Address -->
+      <div class="flex flex-col gap-4">
+        <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary">
+          Visit Us
+        </p>
+        <address class="not-italic text-white/70 text-base leading-relaxed">
+          <span class="block">{addr.street}</span>
+          <span class="block">{addr.city}, {addr.state} {addr.zip}</span>
         </address>
+        <a
+          href={`tel:${site.phone.replace(/\D/g, '')}`}
+          class="text-white font-semibold text-base transition-all duration-200 hover:text-brand-primary"
+          aria-label={`Call us at ${site.phone}`}
+        >
+          {site.phone}
+        </a>
+      </div>
 
-        <!-- Social links -->
-        <div class="flex items-center gap-4 mt-2">
-          {socialLinks.map((link) => (
-            <a
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={link.label}
-              class="inline-flex items-center gap-2 text-sm font-medium text-neutral-300 hover:text-brand-primary transition-all duration-200"
-            >
-              {link.icon === 'google' && (
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M21.805 10.023H12v3.977h5.617C17.1 16.018 14.78 17.5 12 17.5c-3.038 0-5.5-2.462-5.5-5.5S8.962 6.5 12 6.5c1.395 0 2.663.522 3.627 1.373l2.828-2.828C16.738 3.358 14.48 2.5 12 2.5 6.753 2.5 2.5 6.753 2.5 12S6.753 21.5 12 21.5c5.523 0 9.5-3.977 9.5-9.5 0-.655-.067-1.295-.195-1.977z"/>
-                </svg>
-              )}
-              {link.icon === 'facebook' && (
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M22 12c0-5.522-4.478-10-10-10S2 6.478 2 12c0 4.991 3.657 9.128 8.438 9.878V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
-                </svg>
-              )}
-              <span>{link.label}</span>
-            </a>
+      <!-- Navigation -->
+      <nav aria-label="Footer navigation">
+        <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary mb-4">
+          Explore
+        </p>
+        <ul class="flex flex-col gap-3">
+          {navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-white/70 text-base transition-all duration-200 hover:text-brand-primary"
+              >
+                {link.label}
+              </a>
+            </li>
           ))}
-        </div>
-      </div>
+        </ul>
+      </nav>
 
-      <!-- Right column: nav + hours -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-10">
-
-        <!-- Navigation -->
-        <nav aria-label="Footer navigation">
-          <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary mb-4">
-            Navigation
-          </p>
-          <ul class="flex flex-col gap-3">
-            {navLinks.map((link) => (
-              <li>
-                <a
-                  href={link.href}
-                  class="text-base text-neutral-300 hover:text-white transition-all duration-200"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <!-- Office hours -->
-        {site.hours && (
-          <div>
-            <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary mb-4">
-              Office Hours
-            </p>
-            <ul class="flex flex-col gap-2">
-              {Object.entries(site.hours).map(([day, hours]) => (
-                <li class="flex justify-between gap-4 text-sm text-neutral-300">
-                  <span class="font-medium text-white">{day}</span>
-                  <span>{hours}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-      </div>
     </div>
   </div>
 
+  <!-- Divider -->
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+    <hr class="border-white/10" />
+  </div>
+
   <!-- Bottom bar -->
-  <div class="border-t border-white/10">
-    <div class="max-w-7xl mx-auto px-6 md:px-12 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <p class="text-sm text-neutral-400">
-        &copy; {currentYear} {site.name}. All rights reserved.
-      </p>
-      <p class="text-sm text-neutral-500">
-        {addr.city}, {addr.state}
-      </p>
-    </div>
+  <div class="max-w-7xl mx-auto px-6 md:px-12 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+    <p class="text-white/40 text-sm">
+      &copy; {currentYear} {site.name}. All rights reserved.
+    </p>
+    <p class="text-white/30 text-sm">
+      Serving Long Beach &amp; surrounding communities
+    </p>
   </div>
 
 </footer>

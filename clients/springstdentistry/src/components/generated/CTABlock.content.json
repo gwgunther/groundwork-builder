@@ -1,9 +1,9 @@
 {
-  "variant": "centered-banner",
-  "headline": "Your Healthiest Smile Starts Right Here in Long Beach",
-  "subheadline": "Whether it's been six months or six years, we make it easy to get back in the chair. No judgment — just great dental care from a team that genuinely cares.",
+  "variant": "split-image",
+  "headline": "Your Healthiest Smile Starts in Long Beach",
+  "subheadline": "Whether it's been six months or six years, we're here to help you feel comfortable and confident in the chair. Come see why neighbors trust Spring St. Dentistry.",
   "primaryCta": {
-    "label": "Schedule Your Appointment Today",
+    "label": "Schedule Your New Patient Appointment",
     "href": "/schedule"
   },
   "phone": "(562) 420-8578",

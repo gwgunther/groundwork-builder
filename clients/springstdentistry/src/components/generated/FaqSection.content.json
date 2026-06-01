@@ -2,46 +2,46 @@
   "variant": "simple-stack",
   "eyebrow": "What Patients Ask Us",
   "heading": "Your Questions About Spring St. Dentistry, Answered",
-  "subheading": "From your first visit to ongoing care, here's what Long Beach patients most often want to know before coming in.",
+  "subheading": "From booking your first visit to understanding your treatment options, here's what Long Beach patients ask Dr. Hoang most often.",
   "items": [
     {
       "q": "How do I schedule an appointment with Dr. Hoang?",
-      "a": "You can call Spring St. Dentistry directly at (562) 420-8578 to book an appointment with Dr. Anthony Hoang. No referral is needed — we welcome new patients and can typically get you scheduled quickly. Just let us know if you have a specific concern or service in mind when you call.",
+      "a": "You can call Spring St. Dentistry directly at (562) 420-8578 to book an appointment at our Long Beach office. No referral is needed — we welcome new patients for general and cosmetic dental care. Our team will help you find a time that fits your schedule.",
       "category": "Scheduling"
     },
     {
-      "q": "Do you see patients for dental emergencies or same-day visits?",
-      "a": "If you're experiencing a dental emergency such as a broken tooth, severe pain, or a lost filling, call us at (562) 420-8578 as soon as possible. We do our best to accommodate urgent situations and get Long Beach patients seen promptly. Don't wait — early treatment can prevent a small problem from becoming a much larger one.",
+      "q": "Do you see patients for dental emergencies or same-day concerns?",
+      "a": "Yes, we do our best to accommodate urgent dental needs as quickly as possible. If you're experiencing tooth pain, a broken tooth, or another pressing issue, call us at (562) 420-8578 and let us know it's an emergency. Dr. Hoang and our team will work to get you seen promptly.",
       "category": "Scheduling"
     },
     {
       "q": "Does Spring St. Dentistry accept dental insurance?",
-      "a": "We work with many dental insurance plans and will help you understand your coverage before treatment begins. We recommend calling our office at (562) 420-8578 with your insurance information so we can verify your benefits ahead of your visit. Our team is happy to walk you through what's covered and discuss payment options for any remaining balance.",
+      "a": "We work with a variety of dental insurance plans and will help you understand your coverage before treatment begins. We recommend calling our office at (562) 420-8578 to confirm whether we accept your specific plan. For patients without insurance, we're happy to discuss payment options to make your care affordable.",
       "category": "Insurance & Payment"
     },
     {
       "q": "What should I expect at my first visit?",
-      "a": "Your first appointment typically includes a comprehensive dental exam and professional cleaning so Dr. Hoang can get a full picture of your oral health. We may take X-rays to check for issues that aren't visible to the naked eye. From there, Dr. Hoang will talk you through any findings and recommend a care plan tailored to your needs.",
+      "a": "Your first appointment typically includes a comprehensive exam with Dr. Hoang, a review of your dental and medical history, and X-rays if needed. This gives Dr. Hoang a full picture of your oral health so he can recommend the right treatment plan for you. Please arrive a few minutes early to complete any new-patient paperwork.",
       "category": "First Visit"
     },
     {
       "q": "Am I a good candidate for clear aligners?",
-      "a": "Clear aligners are a popular option for adults and teens looking to straighten their teeth without traditional metal braces. They work best for mild to moderate alignment issues, and Dr. Hoang will evaluate your bite and teeth during a consultation to determine if they're right for you. If you're in the Long Beach area and curious about discreet orthodontic options, give us a call to get started.",
+      "a": "Clear aligners are a popular option for adults and teens looking to straighten their teeth without traditional metal braces. Dr. Hoang will evaluate your bite, spacing, and overall oral health to determine whether clear aligners are right for you. Most mild to moderate alignment issues can be addressed with this treatment.",
       "category": "Treatment"
     },
     {
-      "q": "What's the difference between a regular cleaning and a deep cleaning?",
-      "a": "A routine cleaning removes plaque and tartar from the surfaces of your teeth above the gumline, while a deep cleaning (also called scaling and root planing) goes below the gumline to treat gum disease. Dr. Hoang will recommend a deep cleaning if there are signs of infection or significant buildup around the roots of your teeth. It's typically done in sections and may require a follow-up visit to monitor healing.",
+      "q": "What is a deep cleaning, and do I really need one?",
+      "a": "A deep cleaning — also called scaling and root planing — goes below the gumline to remove built-up plaque and tartar that a routine cleaning can't reach. Dr. Hoang may recommend it if there are signs of gum disease, such as gum inflammation, bleeding, or bone loss detected on X-rays. Treating gum disease early helps protect your teeth and overall health long-term.",
       "category": "Treatment"
     },
     {
-      "q": "What's the difference between dental bonding, fillings, and crowns — and how will I know which one I need?",
-      "a": "Dental fillings repair cavities and minor decay, bonding uses tooth-colored resin to fix chips or small cosmetic flaws, and crowns cap a tooth that is significantly damaged or weakened. Dr. Hoang will assess the extent of damage or decay and recommend the most conservative option that will protect your tooth long-term. All three can be matched to your natural tooth color for a seamless look.",
+      "q": "What's the difference between a dental crown and a dental bridge?",
+      "a": "A crown is a cap placed over a single damaged or weakened tooth to restore its shape, strength, and appearance. A bridge, on the other hand, replaces one or more missing teeth by anchoring an artificial tooth to the natural teeth on either side of the gap. Dr. Hoang will recommend the best option based on your specific situation during your exam.",
       "category": "Treatment"
     },
     {
-      "q": "How do I care for my teeth after a crown, bridge, or bonding procedure?",
-      "a": "Most restorations like crowns, bridges, and bonding can be cared for just like your natural teeth — brush twice daily, floss regularly, and keep up with your routine cleanings at Spring St. Dentistry. Avoid biting down on very hard foods like ice or hard candy, which can chip or crack restorations. Dr. Hoang will give you specific aftercare instructions based on your procedure before you leave the office.",
+      "q": "How do I take care of my teeth after a filling, bonding, or crown?",
+      "a": "Most restorations — including fillings, dental bonding, and crowns — require no special aftercare beyond your normal brushing and flossing routine. You may experience mild sensitivity for a few days after treatment, which is completely normal. If discomfort persists or something feels off with your bite, contact our office so Dr. Hoang can take a look.",
       "category": "Aftercare"
     }
   ]

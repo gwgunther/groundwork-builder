@@ -2,7 +2,7 @@
 
 Internal reference for **information architecture, crawl signals, structured data, and launch checks** for any site shipped from this repo. It is **not** tied to a particular domain—apply the principles; swap labels and routes to match each project’s vertical and content model.
 
-Use alongside the [README](README.md) setup checklist and [CODEBASE_SUMMARY](CODEBASE_SUMMARY.md) for architecture and pipeline behavior.
+Use alongside the [README](../../README.md) setup checklist and [CODEBASE_SUMMARY](../architecture/CODEBASE_SUMMARY.md) for architecture and pipeline behavior.
 
 ---
 
