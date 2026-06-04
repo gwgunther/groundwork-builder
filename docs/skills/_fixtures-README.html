@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>_fixtures/README · Skill</title>
+<style>
+  :root {
+    --bg: #0f1115; --fg: #e7e8ea; --muted: #9098a3; --accent: #6ee7b7;
+    --card: #181b22; --border: #262a33; --code-bg: #0a0c10;
+    --stub: #6b7280; --working: #f59e0b; --polished: #10b981; --mature: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  .topbar { padding: 16px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .topbar a { color: var(--accent); text-decoration: none; font-size: 13px; }
+  .topbar a:hover { text-decoration: underline; }
+  .topbar-meta { color: var(--muted); font-size: 12px; }
+  .container { max-width: 880px; margin: 0 auto; padding: 32px 40px 80px; }
+  header.skill-head { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  header.skill-head h1 { margin: 0 0 4px; font-size: 28px; font-weight: 600; }
+  .skill-path { color: var(--muted); font-family: ui-monospace, SFMono-Regular, monospace; font-size: 13px; }
+  .badges { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+  .badge.tier { background: var(--border); font-family: ui-monospace, monospace; }
+  .badge.tier-L1 { background: rgba(110, 231, 183, .15); color: var(--accent); }
+  .badge.tier-L2 { background: rgba(245, 158, 11, .15); color: var(--working); }
+  .badge.tier-L3 { background: rgba(59, 130, 246, .15); color: #60a5fa; }
+  .badge.tier-L4 { background: rgba(168, 85, 247, .15); color: #c084fc; }
+  .badge.maturity { background: var(--border); }
+  .badge.phase { background: var(--card); border: 1px solid var(--border); color: var(--muted); }
+  .meta-table { font-size: 13px; color: var(--muted); margin-top: 12px; }
+  .meta-table strong { color: var(--fg); font-weight: 500; }
+  .meta-table code { background: var(--card); padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--accent); }
+  .doc h2 { margin: 32px 0 12px; font-size: 20px; font-weight: 600; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .doc h3 { margin: 24px 0 8px; font-size: 16px; font-weight: 600; color: var(--accent); }
+  .doc p { margin: 0 0 14px; }
+  .doc ul, .doc ol { margin: 0 0 14px; padding-left: 24px; }
+  .doc li { margin-bottom: 4px; }
+  .doc a { color: var(--accent); }
+  .doc strong { color: var(--fg); font-weight: 600; }
+  .doc code { background: var(--card); padding: 2px 6px; border-radius: 3px; font-size: 13px; color: var(--accent); font-family: ui-monospace, SFMono-Regular, monospace; }
+  .doc pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 0 0 16px; }
+  .doc pre code { background: transparent; padding: 0; color: var(--fg); font-size: 13px; line-height: 1.5; white-space: pre; }
+  .doc table { border-collapse: collapse; margin: 0 0 16px; font-size: 14px; width: 100%; }
+  .doc th, .doc td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+  .doc th { background: var(--card); font-weight: 600; }
+  .doc blockquote { border-left: 3px solid var(--accent); padding: 4px 16px; margin: 0 0 16px; color: var(--muted); }
+  .doc hr { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../PIPELINE.html">← Back to Pipeline Dashboard</a>
+  <span class="topbar-meta">Source: <code style="background:transparent">skills/_fixtures/README.md</code></span>
+</div>
+
+<div class="container">
+  <header class="skill-head">
+    <div class="skill-path">skills/_fixtures/README.md</div>
+    <h1>README</h1>
+    <div class="badges">
+      <span class="badge tier tier-—">—</span>
+      <span class="badge maturity">—</span>
+      
+      
+    </div>
+    
+  </header>
+
+  <div class="doc">
+<h1>Skill Fixtures</h1>
+<p>End-to-end pipeline outputs captured from real practices, used as regression
+fixtures for the skill prompts.</p>
+<h2>Structure</h2>
+<p>Each subdirectory under <code>_fixtures/</code> represents one practice&#39;s complete
+pipeline run. Files are named after the phase that produced them:</p>
+<pre><code>_fixtures/&lt;practice-slug&gt;/
+  bronze.json              — raw scraper output
+  silver.json              — silver extraction (practice profile)
+  audit.json               — site-audit output
+  design.json              — design extraction
+  brand.json               — brand direction brief
+  content-blueprint.json   — content map / audit
+  content-map.json         — content write (final copy)
+  director-run1.json       — creative director DNA
+</code></pre>
+<h2>How they&#39;re produced</h2>
+<p>Run the full pipeline on a known practice:</p>
+<pre><code class="language-bash">node scripts/pipeline/test-silver.js       --url https://example.com
+node scripts/pipeline/test-content-map.js  --silver /tmp/silver-test/silver.json
+node scripts/pipeline/test-director.js     --silver /tmp/silver-test/silver.json
+</code></pre>
+<p>The test harnesses save outputs to <code>/tmp/silver-test/</code>. To capture as a
+fixture:</p>
+<pre><code class="language-bash">mkdir -p skills/_fixtures/&lt;slug&gt;
+cp /tmp/silver-test/{bronze,silver,audit,design,brand,content-blueprint,content-map,director-run1}.json \
+   skills/_fixtures/&lt;slug&gt;/
+</code></pre>
+<h2>How to use</h2>
+<p>Run the shape validator against every fixture (no API calls — purely structural):</p>
+<pre><code class="language-bash">node scripts/pipeline/test-fixtures.js
+</code></pre>
+<p>This catches regressions like:</p>
+<ul>
+<li>Silver schema fields disappearing</li>
+<li>Director&#39;s <code>dna.density</code> not tracking the brand brief</li>
+<li>Content blueprint missing required audit keys</li>
+<li>Brand palette losing <code>primary</code> field</li>
+</ul>
+<p>Full output diffs (e.g. &quot;did Dr. Cortez&#39;s bio shrink?&quot;) require running the
+pipeline live and comparing — not yet automated.</p>
+<h2>Existing fixtures</h2>
+<table>
+<thead>
+<tr>
+<th>Practice</th>
+<th>Archetype family</th>
+<th>Doctors</th>
+<th>Services</th>
+<th>Differentiators</th>
+<th>Brand palette</th>
+<th>Director archetype</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>lbpds-pediatric/</code></td>
+<td>Specialist (pediatric)</td>
+<td>3</td>
+<td>34</td>
+<td>33</td>
+<td><code>#2a5298</code> cool blue</td>
+<td>editorial-asymmetric</td>
+<td>Stress-tests parallel-per-page silver extraction. The reference fixture for multi-doctor specialist content.</td>
+</tr>
+<tr>
+<td><code>chang-orthodontics/</code></td>
+<td>Specialist (orthodontics)</td>
+<td>2</td>
+<td>27</td>
+<td><strong>79</strong></td>
+<td><code>#1B3A5C</code> navy</td>
+<td>magazine-split</td>
+<td>Technology-heavy specialist (Invisalign Diamond, InBrace, LightForce, iTero, SureSmile). 37 differentiators woven into service intros — tests the rich-tech content path.</td>
+</tr>
+<tr>
+<td><code>orange-county-dental-care/</code></td>
+<td>General, multi-doctor</td>
+<td>2</td>
+<td>40</td>
+<td>24</td>
+<td><code>#2e6b3e</code> forest green</td>
+<td>magazine-split</td>
+<td>Audit tone returned the new enum value <code>warm</code>. 80 differentiators woven across 40 service intros (~3.3× reuse).</td>
+</tr>
+<tr>
+<td><code>oc-healthy-smiles/</code></td>
+<td>General, large practice</td>
+<td><strong>5</strong></td>
+<td>21</td>
+<td>33</td>
+<td><code>#1a4d6e</code> coastal navy</td>
+<td>magazine-split</td>
+<td>Largest doctor count tested. All 5 doctor names + bios + photos extracted correctly via parallel-per-page silver.</td>
+</tr>
+<tr>
+<td><code>elements-dentistry/</code></td>
+<td><strong>Warm-family general</strong></td>
+<td>3</td>
+<td>28</td>
+<td>47</td>
+<td><code>#c4704a</code> <strong>terracotta</strong></td>
+<td><strong>card-heavy</strong></td>
+<td>The warm-family archetype path. First non-specialist fixture — terracotta palette + card-heavy archetype validate the warm-family code path end-to-end.</td>
+</tr>
+</tbody></table>
+<h2>Adding a new fixture</h2>
+<p>Pick practices that exercise different code paths:</p>
+<ul>
+<li><strong>Single-doctor general practice</strong> — minimal site, sparse services (still missing)</li>
+<li><strong>Multi-doctor pediatric specialist</strong> — covered by <code>lbpds-pediatric</code></li>
+<li><strong>Multi-doctor orthodontics specialist</strong> — covered by <code>chang-orthodontics</code></li>
+<li><strong>General multi-doctor (mid-size)</strong> — covered by <code>orange-county-dental-care</code> (2 docs) and <code>oc-healthy-smiles</code> (5 docs)</li>
+<li><strong>Warm-family general</strong> — covered by <code>elements-dentistry</code></li>
+<li><strong>Sparse / thin site</strong> — to test catch-all behaviour when content is missing (still missing)</li>
+<li><strong>JS-rendered site</strong> — to test scraper edge cases (still missing)</li>
+<li><strong>CMS-scale site (300+ pages)</strong> — partial coverage; see Known limits below</li>
+</ul>
+<h2>Known limits</h2>
+<ul>
+<li><strong>CMS-scale sites (300+ pages)</strong> can blow past the Map prompt&#39;s input-size limit. The <code>buildPageInventorySummary</code> cap of 30 priority-ranked pages keeps Map within a workable window for downstream sites, but very large CMS-driven practices (sunshinesmilesoc.com had 348 pages) may still hit transient connection errors during Map. The retry policy in <code>ai-call.js</code> (4 attempts with exponential backoff up to 10s) handles most flake; exceptionally large prompts on flaky connections may still need manual re-runs.</li>
+</ul>
+
+  </div>
+</div>
+</body>
+</html>

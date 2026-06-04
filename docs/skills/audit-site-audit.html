@@ -217,7 +217,16 @@ ordering. Prompt template lives separately at
 <li><strong>Medium:</strong> Persist past audits per-domain and feed into prompt as &quot;previous audit recommended X — what changed?&quot;</li>
 </ol>
 <h2>Test fixtures</h2>
-<p><em>None yet. Future: <code>skills/audit/site-audit.fixtures/{family,specialist,sparse}/*.json</code></em></p>
+<p><strong>References (5 fixtures):</strong></p>
+<ul>
+<li><code>lbpds-pediatric/audit.json</code> — pediatric specialist (free-form tone, captured pre-enum-fix)</li>
+<li><code>chang-orthodontics/audit.json</code> — orthodontics specialist (free-form tone, captured pre-enum-fix)</li>
+<li><code>orange-county-dental-care/audit.json</code> — tone enum: <code>warm</code> ✓ (post-fix)</li>
+<li><code>oc-healthy-smiles/audit.json</code> — tone enum: <code>warm</code> ✓ (post-fix, 5-doctor)</li>
+<li><code>elements-dentistry/audit.json</code> — tone enum: <code>warm</code> ✓ (post-fix, warm-family)</li>
+</ul>
+<p>Run <code>node scripts/pipeline/test-fixtures.js</code> for shape validation. The 3 post-fix fixtures validate the tone-enum constraint.</p>
+<p><strong>Future:</strong> sparse-content + non-warm tone (<code>clinical</code>/<code>editorial</code>/<code>bold</code>/<code>refined</code>) fixtures.</p>
 <hr>
 <h2>PROMPT</h2>
 <pre><code class="language-text">You are a website strategist analyzing a {{verticalName}} practice website to prepare for a complete site redesign.
@@ -256,6 +265,18 @@ Analyze the scraped data from this practice&#39;s existing website and produce s
 
 Analyze this data and return a JSON object with the following structure. Be specific to THIS practice — don&#39;t give generic advice.
 
+**Two hard rules:**
+
+1. **`tone.recommended` MUST be a single word from this enum:** `warm | clinical | editorial | bold | refined`
+   - `warm` — family/community/general practices; humanist serif-friendly; soft + approachable
+   - `clinical` — medical specialists; precise + restrained; trust through expertise
+   - `editorial` — premium/cosmetic/urban; magazine-like; visual confidence
+   - `bold` — modern/specialist with strong identity; high contrast; declarative
+   - `refined` — luxury/upscale; understated; elegance over volume
+   The brand-direction phase regex-matches this enum to drive color-temperature + typography-personality signals downstream. A free-form phrase like &quot;warm, conversational, approachable&quot; breaks that mapping.
+
+2. **`differentiators[]` MUST contain at least ONE entry grounded in scraped signals.** Pull from technology mentions, awards, language capabilities, certifications, hours notes, or staff credentials that appear in the data. If the data is genuinely sparse, return one differentiator referencing the most-specific fact you DID find (a service category, a location detail, a years-in-practice number) — but never fall back to generic filler like &quot;experienced staff&quot; or &quot;modern equipment&quot;.
+
 When you identify `seoOpportunities` and `contentGaps`, consider (when relevant to the scraped site) the **Groundwork Builder IA playbook**—domain-agnostic principles: primary `&lt;nav&gt;` with stable paths to main sections, homepage links into major hubs—not only conversion CTAs, footer as a secondary map of key URLs, on-domain scheduling/contact flows not orphaned when a third-party booking tool is primary, sensible crawl/sitemap expectations, and primary-entity + breadcrumb-style structured data where applicable. Call out tradeoffs (e.g. third-party booker vs on-domain contact/scheduling URLs) explicitly when you see them in the data.
 
 ```json
@@ -272,11 +293,11 @@ When you identify `seoOpportunities` and `contentGaps`, consider (when relevant 
   },
   &quot;tone&quot;: {
     &quot;current&quot;: &quot;Assessed tone of the current site&quot;,
-    &quot;recommended&quot;: &quot;Recommended tone for redesign&quot;,
+    &quot;recommended&quot;: &quot;ONE of: warm | clinical | editorial | bold | refined&quot;,
     &quot;rationale&quot;: &quot;Why this tone will resonate with their audience&quot;
   },
   &quot;differentiators&quot;: [
-    &quot;Specific thing that makes this practice unique (based on data)&quot;,
+    &quot;Specific thing that makes this practice unique (based on scraped data — REQUIRED: at least one entry must reference an actual technology, award, language capability, hours note, or staff credential found in the source. Generic &#39;experienced staff&#39; / &#39;modern equipment&#39; filler does not count.)&quot;,
     &quot;Another differentiator&quot;
   ],
   &quot;contentGaps&quot;: [

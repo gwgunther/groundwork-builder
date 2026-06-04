@@ -62,27 +62,33 @@
     <div class="badges">
       <span class="badge tier tier-L1">L1</span>
       <span class="badge maturity">🟡 working</span>
-      <span class="badge phase">Phase: Generate</span>
+      <span class="badge phase">Phase: ContentMap</span>
       <span class="badge phase">Model: claude-sonnet-4-6</span>
     </div>
     
     <div class="meta-table">
-      <div><strong>Source:</strong> <code>scripts/pipeline/lib/ai-content.js</code></div>
-      <div><strong>Function:</strong> <code>runContentMapping()</code></div>
+      <div><strong>Source:</strong> <code>scripts/pipeline/lib/ai-content-map.js</code></div>
+      <div><strong>Function:</strong> <code>runContentMap()</code></div>
     </div>
   </header>
 
   <div class="doc">
-<h1>Skill: Content Mapping</h1>
+<h1>Skill: Content Map (Blueprint / Audit)</h1>
 <h2>Responsibility</h2>
-<p>Pre-generation pass that uses scraped pages + audit recommendations to produce a
-<strong>content map</strong> of elevated, practice-specific copy. Runs as Phase 2e (after
-audit, before director). The output is saved to <code>_pipeline/03-content.json</code> and
-merged into <code>merged.content.generated</code>, where downstream skills (page-generator,
-section briefs) consume it.</p>
-<p>This skill provides &quot;first-draft&quot; copy for each scraped page — the content
-briefs in Phase 6 then pull from these drafts when generating section JSON.
-It&#39;s the bridge between raw scraped text and structured per-section content.</p>
+<p>The audit pass that decides — <strong>before any copy is written</strong> — what each page
+needs and what existing source material best fits. Produces a <code>contentAudit</code>
+keyed by section, where every entry records:</p>
+<ul>
+<li><code>existing</code>: the verbatim source text (or null if missing)</li>
+<li><code>source</code>: which page path it came from</li>
+<li><code>quality</code>: <code>strong | adequate | weak | missing</code></li>
+<li><code>action</code>: <code>keep | optimize | create</code></li>
+<li><code>rationale</code>: 1 sentence on why this assessment</li>
+</ul>
+<p>The Content Write phase (<code>skills/content/content-write.md</code>) consumes this
+blueprint to produce the actual copy. The split lets each phase do one job:
+Map judges what&#39;s there and what&#39;s needed; Write composes the words.</p>
+<p>This skill does NOT generate copy. It is a planning + audit pass only.</p>
 <h2>Inputs</h2>
 <table>
 <thead>
@@ -94,87 +100,156 @@ It&#39;s the bridge between raw scraped text and structured per-section content.
 </tr>
 </thead>
 <tbody><tr>
-<td><code>scraped</code></td>
+<td><code>practice</code> / <code>doctor</code> / <code>address</code></td>
 <td>object</td>
-<td>silver</td>
-<td>Includes pageInventory[] for per-page context</td>
+<td>merged</td>
+<td>Practice profile for grounding section needs</td>
 </tr>
 <tr>
-<td><code>merged</code></td>
-<td>object</td>
-<td>merge</td>
-<td>Practice/doctor/services for grounding</td>
+<td><code>services.offered[]</code></td>
+<td>array</td>
+<td>merged</td>
+<td>Drives the per-service section list</td>
+</tr>
+<tr>
+<td><code>additionalContent[]</code></td>
+<td>array</td>
+<td>merged</td>
+<td>Verbatim prose rescue, source-tagged — primary candidate pool</td>
+</tr>
+<tr>
+<td><code>differentiators[]</code></td>
+<td>array</td>
+<td>merged</td>
+<td>Why-us labels, source-tagged — for service section weaving guidance</td>
+</tr>
+<tr>
+<td><code>pageInventory[]</code></td>
+<td>array</td>
+<td>scraped</td>
+<td>All scraped pages (condensed) for source identification</td>
 </tr>
 <tr>
 <td><code>audit</code></td>
 <td>object</td>
 <td>site-audit</td>
-<td>positioning, tone, differentiators recommendations</td>
-</tr>
-<tr>
-<td><code>preset</code></td>
-<td>object</td>
-<td>preset-loader</td>
-<td>Vertical-specific schema (currently dental only)</td>
+<td>Strategic positioning + tone + serviceEmphasis</td>
 </tr>
 </tbody></table>
 <h2>Output schema</h2>
 <pre><code class="language-json">{
-  &quot;homepage&quot;: {
-    &quot;headline&quot;: &quot;string&quot;,
-    &quot;subheadline&quot;: &quot;string&quot;,
-    &quot;ctaPrimary&quot;: &quot;string&quot;,
-    &quot;ctaSecondary&quot;: &quot;string&quot;
+  &quot;contentAudit&quot;: {
+    &quot;homepage.heroHeadline&quot;: {
+      &quot;existing&quot;: &quot;Verbatim text from a source page, or null&quot;,
+      &quot;source&quot;:   &quot;Page path (e.g. /, /about, /services/cerec), or null&quot;,
+      &quot;quality&quot;:  &quot;strong | adequate | weak | missing&quot;,
+      &quot;action&quot;:   &quot;keep | optimize | create&quot;,
+      &quot;rationale&quot;: &quot;1 sentence explaining the assessment&quot;
+    },
+    &quot;homepage.heroSubheadline&quot;: { ... },
+    &quot;homepage.valueProp&quot;:       { ... },
+    &quot;about.introParagraph&quot;:     { ... },
+    &quot;about.philosophy&quot;:         { ... },
+    &quot;services.&lt;slug&gt;.intro&quot;:    { ... }
   },
-  &quot;about&quot;: {
-    &quot;headline&quot;: &quot;string&quot;,
-    &quot;intro&quot;: &quot;string&quot;,
-    &quot;philosophy&quot;: &quot;string&quot;
+  &quot;coverage&quot;: {
+    &quot;totalSections&quot;: 42,
+    &quot;byQuality&quot;: { &quot;strong&quot;: 7, &quot;adequate&quot;: 4, &quot;weak&quot;: 1, &quot;missing&quot;: 30 },
+    &quot;byAction&quot;:  { &quot;keep&quot;: 11, &quot;optimize&quot;: 1, &quot;create&quot;: 30 }
   },
-  &quot;services&quot;: {
-    &quot;&lt;slug&gt;&quot;: {
-      &quot;headline&quot;: &quot;string&quot;,
-      &quot;subheadline&quot;: &quot;string&quot;,
-      &quot;intro&quot;: &quot;string&quot;,
-      &quot;benefits&quot;: [&quot;string&quot;, ...],
-      &quot;cta&quot;: &quot;string&quot;
-    }
+  &quot;differentiatorMatches&quot;: {
+    &quot;&lt;service-slug&gt;&quot;: [&quot;differentiator-label-that-applies&quot;, &quot;...&quot;]
   },
-  &quot;rationale&quot;: &quot;string — 2-3 sentences on the editorial direction&quot;
+  &quot;rationale&quot;: &quot;2-3 sentences on the editorial direction this audit suggests for Write&quot;
 }
 </code></pre>
+<p><code>differentiatorMatches</code> tells Write which service intros should weave which
+differentiators (e.g. CEREC technology → dental-crowns service).</p>
 <h2>Evaluation criteria</h2>
 <ul>
-<li><strong>Practice-grounded</strong> — every headline references practice name, doctor, city, or specialty (never generic dental copy)</li>
-<li><strong>Voice match</strong> — tone aligns with audit&#39;s <code>tone.recommended</code> recommendation</li>
-<li><strong>No fabrication</strong> — claims only what was in the source pages or audit</li>
-<li><strong>Service entries match scraped slugs</strong> — keys in <code>services</code> object map to silver <code>services.offered[].slug</code></li>
-<li><strong>CTA labels are verb + noun</strong> — &quot;Book Your Consultation&quot;, not &quot;Learn More&quot;</li>
+<li><strong>Every required section has an audit entry</strong> — homepage hero/sub/valueProp, about intro/philosophy, every service.<slug>.intro</li>
+<li><strong><code>source</code> is a real page path</strong> — must appear in the page inventory or be a known top-level path; otherwise null</li>
+<li><strong>Quality scoring is honest</strong> — model should not score everything <code>strong</code> to please. Generic &quot;Welcome to <practice>&quot; copy is <code>weak</code>, not <code>strong</code></li>
+<li><strong><code>action</code> follows from quality</strong> — <code>strong → keep</code>, <code>adequate → keep | optimize</code>, <code>weak → optimize | create</code>, <code>missing → create</code></li>
+<li><strong>additionalContent prose is preferred over pageInventory excerpts</strong> when both could fit a section</li>
+<li><strong>Service-level differentiator matching is conservative</strong> — only match when the differentiator&#39;s source page or label genuinely aligns with the service</li>
 <li><strong>Returns only JSON</strong></li>
 </ul>
 <h2>Known gaps</h2>
 <ul>
-<li>Doesn&#39;t yet consume <code>silver.additionalContent[]</code> — could ground service intros in real practice voice</li>
-<li>No per-archetype tone calibration — same prompt regardless of warm/specialist</li>
-<li>Service map doesn&#39;t surface differentiators inline (technology, languages) into service intros</li>
-<li>Output is consumed by section briefs but not always — some briefs go straight to scraped data</li>
+<li>Section keys are AI-chosen rather than schema-enforced (same gap as combined version)</li>
+<li>No automated check that <code>source</code> actually contains the <code>existing</code> text — model can hallucinate the source attribution</li>
+<li>Quality scoring is subjective per-run — same content might score <code>adequate</code> one run, <code>strong</code> another</li>
+<li>Doesn&#39;t yet score whether scraped service page content is itself weak/generic before recommending <code>keep</code></li>
 </ul>
 <h2>Improvement levers</h2>
 <ol>
-<li><strong>Easy (L1):</strong> Add an <code>additionalContent[]</code> block to the prompt so service intros can pull voice from rescued pull-quotes / philosophy paragraphs</li>
-<li><strong>Medium:</strong> Cross-reference <code>differentiators[]</code> in service entries — if a service matches a technology/award differentiator, mention it inline</li>
-<li><strong>Medium:</strong> Per-archetype tone calibration via a <code>colorTempGuidance</code>-style block</li>
+<li><strong>Easy (L1):</strong> Define an explicit list of required section keys in the prompt so every run produces a complete audit</li>
+<li><strong>Easy (caller-side):</strong> Validator that confirms each <code>source</code> path actually appears in pageInventory</li>
+<li><strong>Medium:</strong> Show the model a &quot;what makes copy strong vs weak&quot; rubric in the prompt to anchor scoring</li>
+<li><strong>Hard:</strong> Persist past audits and feed in as &quot;previous audit said X — what changed?&quot;</li>
 </ol>
 <h2>Test fixtures</h2>
-<p><em>None yet. Future: <code>skills/content/content-map.fixtures/{warm-family,specialist}/*.json</code></em></p>
+<p><strong>References (5 fixtures, with quality-scoring variation by source quality):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Fixture</th>
+<th>Strong</th>
+<th>Adequate</th>
+<th>Weak</th>
+<th>Missing</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>lbpds-pediatric/content-blueprint.json</code></td>
+<td>3</td>
+<td>20</td>
+<td>10</td>
+<td>9</td>
+<td>Mixed-quality pediatric source</td>
+</tr>
+<tr>
+<td><code>chang-orthodontics/content-blueprint.json</code></td>
+<td>8</td>
+<td>19</td>
+<td>3</td>
+<td>12</td>
+<td>Tech-rich source (more <code>keep</code>)</td>
+</tr>
+<tr>
+<td><code>orange-county-dental-care/content-blueprint.json</code></td>
+<td>11</td>
+<td>18</td>
+<td>18</td>
+<td>2</td>
+<td>Richest source — most <code>keep</code> actions</td>
+</tr>
+<tr>
+<td><code>oc-healthy-smiles/content-blueprint.json</code></td>
+<td>2</td>
+<td>18</td>
+<td>4</td>
+<td>4</td>
+<td>Mostly adequate-quality</td>
+</tr>
+<tr>
+<td><code>elements-dentistry/content-blueprint.json</code></td>
+<td>5</td>
+<td>11</td>
+<td>12</td>
+<td>8</td>
+<td>Thinner source (more <code>create</code>)</td>
+</tr>
+</tbody></table>
+<p>The variation across fixtures shows the rubric works — same prompt, different scoring per site. Run <code>node scripts/pipeline/test-fixtures.js</code> for shape validation.</p>
+<p><strong>Future:</strong> strict-thin-source fixture (60%+ <code>missing</code>) to exercise the create path more aggressively.</p>
 <hr>
 <h2>PROMPT</h2>
-<pre><code class="language-text">You are a content editor helping redesign a **{{verticalName}}** practice website.
+<pre><code class="language-text">You are the Content Map / Audit phase for a dental practice website redesign. Your job: BEFORE any copy is written, audit what content already exists on the site for every section the new site will need, and recommend what to do with each.
 
-Your job is to **preserve the existing content** as faithfully as possible and only fill genuine gaps where the original site was silent. You are NOT rewriting their copy — you are migrating it to a better-organized, better-designed site.
-
-## Core principle
-The practice&#39;s own words are more trustworthy than anything you could write. Prefer their exact phrasing. Only write new copy where a section is genuinely empty on the original site, and even then, keep it conservative and factual — never speculate about awards, patient counts, years of experience, or philosophy the practice didn&#39;t express themselves.
+You are NOT writing copy. You are producing a blueprint that the Content Write phase will consume.
 
 ## Practice Profile
 
@@ -185,92 +260,106 @@ The practice&#39;s own words are more trustworthy than anything you could write.
 **Phone:** {{phone}}
 **Services Offered:** {{servicesList}}
 
-## Scraped Service Page Content
+## Audit Strategy (from site-audit phase)
 
-The following is verbatim content from each service page on the original site. Use this as the source for service descriptions — copy it directly, do not rewrite.
+- Recommended positioning: {{auditPositioning}}
+- Recommended tone: {{auditTone}}
+- Primary service to emphasize: {{auditPrimaryService}}
+
+## Sections you must audit (every one of these requires a contentAudit entry)
+</code></pre>
+<p>homepage.heroHeadline
+homepage.heroSubheadline
+homepage.heroTagline
+homepage.valueProp
+about.headline
+about.introParagraph
+about.philosophy
+{{serviceSectionList}}</p>
+<pre><code>
+(Service entries are keyed `services.&lt;slug&gt;.intro` — one per slug listed above.)
+
+## Source: scraped service page content (verbatim — primary candidate for service intros)
 
 {{servicePageContent}}
 
-## Existing Content — Page Inventory
+## Source: practice&#39;s own voice — verbatim prose rescue (additionalContent — primary candidate for hero/about/philosophy)
+
+These are distinctive prose blocks rescued verbatim from the original site, tagged by source page. The practice&#39;s actual words. **Prefer these over generic page-inventory excerpts when scoring quality and recommending `keep`.**
+
+{{additionalContentBlock}}
+
+## Source: differentiators (why-us facts, source-tagged)
+
+These are short labels of facts that distinguish this practice. Each is tagged with a source page. Use them to populate `differentiatorMatches` — a per-service mapping of which differentiator labels would naturally fit in that service&#39;s intro.
+
+{{differentiatorsBlock}}
+
+## Source: page inventory (fallback context)
 
 {{pageInventory}}
 
-## Existing Testimonials
-
-{{testimonials}}
-
-## Existing FAQs
-
-{{existingFAQs}}
-
-## Existing Stats
-
-{{stats}}
-
 ## Instructions
 
-1. **Hero copy**: Use the existing hero headline/tagline from the site if one exists. Only write a new one if the site has no hero text at all. Keep it grounded in what the practice actually says about itself.
+For every section listed above, decide:
 
-2. **About / doctor bio**: Copy the existing about text or doctor bio verbatim. Light editing for clarity is acceptable (fixing typos, splitting run-on sentences) but do NOT add claims the practice didn&#39;t make. If no about text exists, return null.
+1. **`existing`**: the verbatim source text that best fits this section (look first in additionalContent, then in scraped service pages for service intros, then in pageInventory excerpts). If nothing fits, return null.
 
-3. **Service descriptions**: For each service, copy the existing content from &quot;Scraped Service Page Content&quot; above verbatim. Use the H1 as headline, meta description as subheadline, and first paragraph(s) as intro. If no scraped page exists for a service, return null for intro — do not invent copy.
+2. **`source`**: the page path the existing text came from. Must match a real path you saw in the inputs. Null if existing is null.
 
-4. **FAQs**: Use existing FAQs verbatim. If none exist, you may write 3-4 FAQs only if they are answerable from information on the site (hours, location, services offered). Do not invent answers about insurance, pricing, or procedures.
+3. **`quality`** — be honest:
+   - `strong`: distinctive, specific to this practice, evokes voice (e.g. a doctor pull-quote, a specific philosophy statement)
+   - `adequate`: usable, on-topic, but generic (&quot;Welcome to Smiles Dental&quot;)
+   - `weak`: thin, hollow, or off-topic — would feel generic on the new site
+   - `missing`: nothing on the site addresses this section
 
-5. **Blog topics**: Suggest topics only based on services actually listed on the site + the practice&#39;s city.
+4. **`action`**:
+   - `keep`: use verbatim (typical for `strong`)
+   - `optimize`: light editing for clarity, fixing typos, splitting run-ons (typical for `adequate`)
+   - `create`: write new from scratch (typical for `weak` or `missing`)
 
-6. **Never fabricate**: No invented patient counts, no made-up awards, no guessed years of experience, no assumed philosophy statements. If data is missing, return null.
+5. **`rationale`**: one sentence explaining the assessment. Reference what specifically made it strong/weak.
 
-Return a single JSON object with this exact structure:
+For `differentiatorMatches`: for each service slug that has a service-page intro section, list any differentiator labels (from the differentiators block) that would naturally fit in that service&#39;s intro. A differentiator matches a service when its source page IS that service page, or when its `type`/`label` describes equipment/process used for that service. Be conservative — only include genuine matches, not loose associations.
+
+For `coverage`: count `byQuality` and `byAction` totals across all audit entries. Include `totalSections`.
+
+For `rationale`: 2-3 sentences on the editorial direction this audit suggests — what voice exists, where coverage is strong, where Write will need to create.
+
+## Source priority (when multiple candidates exist for a section)
+
+1. **additionalContent** — verbatim prose from the practice (hero/about/philosophy)
+2. **Scraped service page content** — for service intros only
+3. **pageInventory excerpts** — fallback when the above don&#39;t have a match
+4. **null + missing/create** — if nothing fits
+
+Never invent content. The blueprint is a record of what&#39;s THERE, not a place to compose new prose.
+
+## Return ONLY this JSON (no markdown, no prose):
 
 ```json
 {
-  &quot;homepage&quot;: {
-    &quot;heroHeadline&quot;: &quot;Exact text from site hero if present, or a minimal factual alternative (null if unclear)&quot;,
-    &quot;heroSubheadline&quot;: &quot;Exact subtext from site if present, or null&quot;,
-    &quot;heroTagline&quot;: &quot;Short brand phrase from site if present, or null&quot;,
-    &quot;ctaText&quot;: &quot;Book Appointment&quot;,
-    &quot;ctaSecondaryText&quot;: &quot;View Services&quot;,
-    &quot;valueProp&quot;: &quot;One sentence describing what the practice does and where — use their own language where possible&quot;
+  &quot;contentAudit&quot;: {
+    &quot;homepage.heroHeadline&quot;:   { &quot;existing&quot;: &quot;...&quot;, &quot;source&quot;: &quot;/&quot;, &quot;quality&quot;: &quot;...&quot;, &quot;action&quot;: &quot;...&quot;, &quot;rationale&quot;: &quot;...&quot; },
+    &quot;homepage.heroSubheadline&quot;:{ &quot;existing&quot;: &quot;...&quot;, &quot;source&quot;: &quot;/&quot;, &quot;quality&quot;: &quot;...&quot;, &quot;action&quot;: &quot;...&quot;, &quot;rationale&quot;: &quot;...&quot; },
+    &quot;homepage.heroTagline&quot;:    { &quot;existing&quot;: &quot;...&quot;, &quot;source&quot;: &quot;/&quot;, &quot;quality&quot;: &quot;...&quot;, &quot;action&quot;: &quot;...&quot;, &quot;rationale&quot;: &quot;...&quot; },
+    &quot;homepage.valueProp&quot;:      { &quot;existing&quot;: &quot;...&quot;, &quot;source&quot;: &quot;...&quot;, &quot;quality&quot;: &quot;...&quot;, &quot;action&quot;: &quot;...&quot;, &quot;rationale&quot;: &quot;...&quot; },
+    &quot;about.headline&quot;:          { &quot;existing&quot;: &quot;...&quot;, &quot;source&quot;: &quot;...&quot;, &quot;quality&quot;: &quot;...&quot;, &quot;action&quot;: &quot;...&quot;, &quot;rationale&quot;: &quot;...&quot; },
+    &quot;about.introParagraph&quot;:    { &quot;existing&quot;: &quot;...&quot;, &quot;source&quot;: &quot;...&quot;, &quot;quality&quot;: &quot;...&quot;, &quot;action&quot;: &quot;...&quot;, &quot;rationale&quot;: &quot;...&quot; },
+    &quot;about.philosophy&quot;:        { &quot;existing&quot;: &quot;...&quot;, &quot;source&quot;: &quot;...&quot;, &quot;quality&quot;: &quot;...&quot;, &quot;action&quot;: &quot;...&quot;, &quot;rationale&quot;: &quot;...&quot; },
+    &quot;services.&lt;slug&gt;.intro&quot;:   { &quot;existing&quot;: &quot;...&quot;, &quot;source&quot;: &quot;...&quot;, &quot;quality&quot;: &quot;...&quot;, &quot;action&quot;: &quot;...&quot;, &quot;rationale&quot;: &quot;...&quot; }
   },
-  &quot;about&quot;: {
-    &quot;headline&quot;: &quot;Meet the Team (or their actual heading if present)&quot;,
-    &quot;introParagraph&quot;: &quot;Verbatim about text from site, or null if absent&quot;,
-    &quot;philosophy&quot;: &quot;Verbatim philosophy/mission statement from site, or null if absent&quot;,
-    &quot;closingCTA&quot;: &quot;Ready to schedule? | Book an Appointment&quot;
+  &quot;coverage&quot;: {
+    &quot;totalSections&quot;: 42,
+    &quot;byQuality&quot;: { &quot;strong&quot;: 0, &quot;adequate&quot;: 0, &quot;weak&quot;: 0, &quot;missing&quot;: 0 },
+    &quot;byAction&quot;:  { &quot;keep&quot;: 0, &quot;optimize&quot;: 0, &quot;create&quot;: 0 }
   },
-  &quot;services&quot;: {
-    &quot;EXACT-SERVICE-SLUG&quot;: {
-      &quot;headline&quot;: &quot;H1 from their service page (or service name if no page)&quot;,
-      &quot;subheadline&quot;: &quot;Meta description from their service page, or null&quot;,
-      &quot;intro&quot;: &quot;First paragraph(s) verbatim from their service page, or null if no page existed&quot;,
-      &quot;benefits&quot;: [],
-      &quot;cta&quot;: &quot;Schedule a Consultation&quot;
-    }
+  &quot;differentiatorMatches&quot;: {
+    &quot;&lt;service-slug&gt;&quot;: [&quot;matching differentiator label&quot;, &quot;...&quot;]
   },
-  &quot;faqs&quot;: [
-    {
-      &quot;question&quot;: &quot;FAQ question (from site or answerable from site data only)&quot;,
-      &quot;answer&quot;: &quot;Answer drawn from site content only&quot;
-    }
-  ],
-  &quot;blogTopics&quot;: [
-    {
-      &quot;title&quot;: &quot;Blog post title based on actual services + location&quot;,
-      &quot;excerpt&quot;: &quot;1-2 sentence description&quot;
-    }
-  ],
-  &quot;locations&quot;: {
-    &quot;headline&quot;: &quot;Serving {{city}} and surrounding communities&quot;,
-    &quot;intro&quot;: &quot;Short factual sentence about the practice location&quot;
-  }
+  &quot;rationale&quot;: &quot;2-3 sentences&quot;
 }
 </code></pre>
-<p>For the <code>services</code> object: include one entry for <strong>each of these exact slugs</strong>: {{serviceSlugs}}</p>
-<p>Use the slug exactly as listed (e.g. <code>dental-crowns</code>, <code>exam-cleaning</code>) as the JSON key — this is how the site wires up descriptions to pages.</p>
-<p>For <code>faqs</code>: only include FAQs you can answer from the existing site content. 3-4 max if no existing FAQs found.</p>
-<p>For <code>blogTopics</code>: 4-5 topics max, relevant to their actual services and city.</p>
-<p>Return ONLY the JSON object. No markdown formatting, no explanation before or after.</p>
 <pre><code>
 </code></pre>
 

@@ -75,14 +75,14 @@
 <body>
 <header class="top">
   <h1>Pipeline · Skills Dashboard</h1>
-  <p>17 skills across 9 phases · auto-generated 2026-05-04 19:01 UTC</p>
+  <p>17 skills across 9 phases · auto-generated 2026-06-04 20:24 UTC</p>
 </header>
 
 <div class="stats">
   <div class="stat"><span class="stat-num">17</span><span class="stat-label">Total skills</span></div>
   <div class="stat"><span class="stat-num stub">0</span><span class="stat-label">Stub</span></div>
   <div class="stat"><span class="stat-num working">13</span><span class="stat-label">Working</span></div>
-  <div class="stat"><span class="stat-num polished">4</span><span class="stat-label">Polished</span></div>
+  <div class="stat"><span class="stat-num polished">3</span><span class="stat-label">Polished</span></div>
   <div class="stat"><span class="stat-num mature">0</span><span class="stat-label">Mature</span></div>
 </div>
 
@@ -124,7 +124,7 @@
           <span class="phase-num">2</span>
           <h2>Silver</h2>
         </header>
-        <p class="phase-summary">AI-extracts bronze into a structured PracticeData object. Three content tiers: structured fields (practice, doctors, services, hours) capture canonical data; differentiators[] captures short labels for &quot;why us&quot; facts; additionalContent[] rescues verbatim prose blocks (pull-quotes, philosophy paragraphs, blog bodies). Visual/design data is OUT OF SCOPE — colors, fonts, mood belong to Design Extract.</p>
+        <p class="phase-summary">AI-extracts bronze into a structured PracticeData object. Three content tiers: structured fields (practice, doctors, services, hours) capture canonical data; differentiators[] captures short labels for &quot;why us&quot; facts; additionalContent[] rescues verbatim prose blocks (pull-quotes, philosophy paragraphs, blog bodies). Visual design is observed separately by the vision design pass (currentDesign: palette, fonts, mood, era) and feeds Define Brand.</p>
         
       <div class="phase-io">
         <div><span class="io-label">In</span><span class="io-val">Bronze pages — top 8 by relevance (home, about, contact, doctor, team, services). Selection is for prompt-size only; ALL distinctive content within those pages is preserved across the three tiers.</span></div>
@@ -134,7 +134,7 @@
       <details class="output-detail">
         <summary>Full output schema (11 groups)</summary>
         <dl>
-          <dt>practice</dt><dd>name · domain · phone · email · googleReviewLink · googleProfileLink · sameAs[]</dd><dt>🔄 doctors[]</dt><dd>Unified array of all practice doctors (was doctor + additionalDoctors). doctors[0] is the most prominent / featured / founder; remaining entries are equal-billing secondary doctors. Each: { name, firstName, lastName, credentials, bio, education, specialties[], photoPath }.</dd><dt>address</dt><dd>street · city · state · zip · country · full</dd><dt>hours</dt><dd>display[{ day, time }] · raw</dd><dt>services</dt><dd>offered[{ name, slug, category, source, confidence }] — answers &quot;what can the practice DO for me?&quot;</dd><dt>brand</dt><dd>logoPath only. (colors and fonts removed — Design Extract owns visual data)</dd><dt>content</dt><dd>heroTagline · heroHeadline · heroSubheadline · aboutText · testimonials[] · faqs[] · insurance[] · stats{}</dd><dt>🆕 additionalContent[] (top-level)</dt><dd>Catch-all rescue. Each item: { type, title, content, source }. Captures pull-quotes, philosophy paragraphs, &quot;Welcome To&quot; intros, office descriptions, technology copy, mission statements, blog bodies, taglines — anything distinctive that didn&#39;t fit a structured field. Verbatim. Capped 30 items, ~2200 chars each. Consumed by doctor / service-page / faq / blog skills.</dd><dt>🔄 differentiators[]</dt><dd>(was signals[]) — { type, label, detail, source, confidence }. Short LABELS for facts that set the practice apart: technology, awards, languages, financing, emergency. Answers &quot;why us?&quot; — distinct from services (what we do) and additionalContent (verbatim prose).</dd><dt>images</dt><dd>logo · hero[] · team[] · office[] · gallery[] · beforeAfter[] — URLs only, classification happens in Phase 1d</dd><dt>migration</dt><dd>oldUrls[] for redirect mapping</dd>
+          <dt>practice</dt><dd>name · domain · phone · email · googleReviewLink · googleProfileLink · sameAs[]</dd><dt>🔄 doctors[]</dt><dd>Unified array of all practice doctors (was doctor + additionalDoctors). doctors[0] is the most prominent / featured / founder; remaining entries are equal-billing secondary doctors. Each: { name, firstName, lastName, credentials, bio, education, specialties[], photoPath }.</dd><dt>address</dt><dd>street · city · state · zip · country · full</dd><dt>hours</dt><dd>display[{ day, time }] · raw</dd><dt>services</dt><dd>offered[{ name, slug, category, source, confidence }] — answers &quot;what can the practice DO for me?&quot;</dd><dt>brand</dt><dd>logoPath. currentDesign (observed palette/type/mood/era) is captured by the vision design pass for Define Brand to elevate.</dd><dt>content</dt><dd>heroTagline · heroHeadline · heroSubheadline · aboutText · testimonials[] · faqs[] · insurance[] · stats{}</dd><dt>🆕 additionalContent[] (top-level)</dt><dd>Catch-all rescue. Each item: { type, title, content, source }. Captures pull-quotes, philosophy paragraphs, &quot;Welcome To&quot; intros, office descriptions, technology copy, mission statements, blog bodies, taglines — anything distinctive that didn&#39;t fit a structured field. Verbatim. Capped 30 items, ~2200 chars each. Consumed by doctor / service-page / faq / blog skills.</dd><dt>🔄 differentiators[]</dt><dd>(was signals[]) — { type, label, detail, source, confidence }. Short LABELS for facts that set the practice apart: technology, awards, languages, financing, emergency. Answers &quot;why us?&quot; — distinct from services (what we do) and additionalContent (verbatim prose).</dd><dt>images</dt><dd>items[] — canonical: { src, alt, role, sourcePages[], personName } per image; derived role views (logo/hero/team/office/gallery/beforeAfter/treatment/badge). Bound to pages deterministically in Assemble.</dd><dt>migration</dt><dd>oldUrls[] for redirect mapping</dd>
         </dl>
       </details>
       </div>
@@ -188,105 +188,73 @@
       <article class="phase">
         <header>
           <span class="phase-num">4</span>
-          <h2>Design Extract</h2>
+          <h2>Define Brand</h2>
         </header>
-        <p class="phase-summary">Reads the existing site&#39;s current design — extracts the actual colors used, the actual fonts loaded, the visual mood (warm / clinical / corporate / etc), and assesses brand strength (distinctive / generic / inconsistent). Pure extraction, NOT direction. The output feeds into Brand Direction so the rebuild can decide whether to evolve the existing brand or rebuild from scratch.</p>
+        <p class="phase-summary">Defines the rebuild&#39;s visual identity (brand-dna) by ELEVATING the practice&#39;s OBSERVED current design — never a category template. AI decides the palette (evolved from the real site colors — grounded, so it stays distinctive), shape, and elevation. FONTS are NOT picked by the LLM (that converges on one safe font every time): instead a deterministic, character-bucketed, per-practice-hash-seeded pairing is chosen from a curated set of vetted modern Google pairs. applyBrandToMerged writes merged.brand.{colors,roles,fonts}. Replaces the old Design-Extract + Brand-Direction split.</p>
         
       <div class="phase-io">
-        <div><span class="io-label">In</span><span class="io-val">bronze pages + audit positioning</span></div>
+        <div><span class="io-label">In</span><span class="io-val">merged.currentDesign (palette/type/mood observed by the silver design pass) + design-principles core</span></div>
         <div class="io-arrow">↓</div>
-        <div><span class="io-label">Out</span><span class="io-val">designExtraction { existingPalette, existingFonts, mood, brandStrength, evolutionSignal, rationale }</span></div>
+        <div><span class="io-label">Out</span><span class="io-val">brandDna { color{8 roles}, typography{families + scale}, shape, elevation, rationale } → merged.brand</span></div>
         
       </div>
         <details class="phase-detail">
            <summary>Tools · QC · cost</summary>
-           <dl><dt>Tools</dt><dd><code>Anthropic Sonnet 4.6</code>, <code>lib/ai-design.js</code></dd><dt>QC</dt><dd><span class="qc-item">Brand strength rationale required</span><span class="qc-item">Evolution signal must be one of: evolve | rebuild</span></dd><dt>Cost</dt><dd>Sonnet — single call</dd><dt>Skip flag</dt><dd><code>--skip-design</code></dd></dl>
+           <dl><dt>Tools</dt><dd><code>Anthropic Sonnet 4.6</code>, <code>lib/brand/brand-dna.js</code>, <code>lib/brand/font-pairings.js (deterministic + seeded)</code>, <code>lib/assemble/brand-tokens.js</code></dd><dt>QC</dt><dd><span class="qc-item">WCAG AA (enforced in prompt + verified by brand-eval)</span><span class="qc-item">No category templating (elevate, don&#39;t reinvent)</span><span class="qc-item">Fonts convergence-proof (curated + seeded, not LLM-chosen)</span></dd><dt>Cost</dt><dd>Sonnet — single call</dd><dt>Skip flag</dt><dd><code>--skip-design</code></dd></dl>
          </details>
         <div class="phase-section">
-           <h3 class="phase-section-h">Skills <span class="count">(1)</span></h3>
-           <ul class="skills">
-        <li class="skill" data-maturity="working">
-          <a href="./skills/design-design-extract.html" class="skill-name">design/design-extract</a>
-          <span class="skill-meta">
-            <span class="tier tier-L1">L1</span>
-            <span class="maturity">🟡 working</span>
-          </span>
-          <p class="skill-resp">Reads the **existing** site&#39;s current design and extracts what&#39;s actually there: the colors actually used, the fonts actually loaded, the visual mood, and an assessment of brand strength.</p>
-        </li></ul>
+           <h3 class="phase-section-h">Skills</h3>
+           <p class="empty">None — fully deterministic phase</p>
          </div>
       </article>
       <article class="phase">
         <header>
           <span class="phase-num">5</span>
-          <h2>Brand Direction</h2>
+          <h2>Plan Content</h2>
         </header>
-        <p class="phase-summary">Decides the NEW brand direction for the rebuild: palette, typography, voice, mood, spatial system. Takes design-extraction signals (what exists today) plus audit positioning, then either evolves the current brand or starts fresh. Biased by personality signals — specialist/premium → cool palette + grotesque type; family/community → warm palette + humanist serif.</p>
+        <p class="phase-summary">Deterministically PLACES every merged content item onto a page + section — no fabrication, no editorial omission. Evergreen routing: departing/retiring providers and time-sensitive items go to an announcements bucket (flagged, not featured) rather than the live roster. Coverage is guaranteed by construction.</p>
         
       <div class="phase-io">
-        <div><span class="io-label">In</span><span class="io-val">designExtraction + audit positioning + merged practice data</span></div>
+        <div><span class="io-label">In</span><span class="io-val">merged practice data (+ optional Haiku content classifications)</span></div>
         <div class="io-arrow">↓</div>
-        <div><span class="io-label">Out</span><span class="io-val">brandBrief { palette, typography, spatial, motion, voice, mood, rationale, paletteSource, contrastCheck }</span></div>
+        <div><span class="io-label">Out</span><span class="io-val">contentPlan { pages[{ slug, role, sourcePath, sections[] }], announcements[], generated[], unplaced[] }</span></div>
         
       </div>
         <details class="phase-detail">
            <summary>Tools · QC · cost</summary>
-           <dl><dt>Tools</dt><dd><code>Anthropic Sonnet 4.6</code>, <code>curated palette library</code>, <code>Google Fonts catalog</code>, <code>recently-used font diversity check</code></dd><dt>QC</dt><dd><span class="qc-item">WCAG AA contrast check (advisory in prompt)</span><span class="qc-item">Used-font diversity (no duplicate font pairs across recent builds)</span></dd><dt>Cost</dt><dd>Sonnet — single call</dd><dt>Skip flag</dt><dd><code>--skip-design</code></dd></dl>
+           <dl><dt>Tools</dt><dd><code>lib/content/plan-content.js (pure JS)</code>, <code>(optional) Haiku classify-content (evergreen vs ephemeral)</code></dd><dt>QC</dt><dd><span class="qc-item">100% coverage (every item placed or announced)</span><span class="qc-item">Verbatim fidelity tier preserved</span><span class="qc-item">No departing provider in the featured roster</span></dd><dt>Cost</dt><dd>Free (deterministic; optional Haiku classify)</dd></dl>
          </details>
         <div class="phase-section">
-           <h3 class="phase-section-h">Skills <span class="count">(1)</span></h3>
-           <ul class="skills">
-        <li class="skill" data-maturity="polished">
-          <a href="./skills/design-brand-direction.html" class="skill-name">design/brand-direction</a>
-          <span class="skill-meta">
-            <span class="tier tier-L1">L1</span>
-            <span class="maturity">🟢 polished</span>
-          </span>
-          <p class="skill-resp">Produces deliberate brand guidelines (palette, typography, spatial, motion, voice, mood) for the NEW site.</p>
-        </li></ul>
+           <h3 class="phase-section-h">Skills</h3>
+           <p class="empty">None — fully deterministic phase</p>
          </div>
       </article>
       <article class="phase">
         <header>
           <span class="phase-num">6</span>
-          <h2>Director</h2>
+          <h2>Assemble</h2>
         </header>
-        <p class="phase-summary">Picks the creative archetype and hero variant, then deterministically derives the rest of the visual system. AI picks freely from enums; the deterministic layer (derive-design-tokens) overrides nav/footer/gallery/typography to guarantee two different archetypes never look the same.</p>
+        <p class="phase-summary">Decides the layout and binds images to it. The director generates 3 candidates, each forced to a DIFFERENT archetype (per-practice hash rotation = diversity by construction); an LLM evaluator scores them against the design-principles core and picks the best on merit. The archetype is authoritative — it maps (deterministically, via ARCHETYPE_LAYOUT) to a coherent, library-valid per-section variant SET. Ownership boundary: brand-dna owns color/type/radius/elevation; content-plan owns WHICH sections appear; the director owns only order + variant + archetype. Images are bound deterministically by a sourcePages join (a service page only gets an image that appeared on its source page; portraits match by name then bio-page).</p>
         
       <div class="phase-io">
-        <div><span class="io-label">In</span><span class="io-val">brandBrief + merged data + recent own-builds (for divergence)</span></div>
+        <div><span class="io-label">In</span><span class="io-val">contentPlan + brandDna + images.items[] + merged</span></div>
         <div class="io-arrow">↓</div>
-        <div><span class="io-label">Out</span><span class="io-val">design-dna.ts containing four groups of fields</span></div>
+        <div><span class="io-label">Out</span><span class="io-val">design-dna.ts (archetype, sectionOrder, per-section variants, brand-owned tokens) + image binding</span></div>
         
       <details class="output-detail">
-        <summary>Full output schema (4 groups)</summary>
+        <summary>Full output schema (2 groups)</summary>
         <dl>
-          <dt>Variant picks (8 dimensions × 5 variants each)</dt><dd>archetype · heroVariant · servicesVariant · navVariant · footerVariant · galleryVariant · cardTreatment · density · motion · radius · sectionOrder[]</dd><dt>designTokens (derived deterministically from archetype)</dt><dd>cornerRadius · buttonTreatment · labelStyle · sectionSpacing · contentDensity · layoutWidth · heroLayout · servicesLayout · aboutLayout · testimonialsLayout · ctaLayout · faqLayout · typePersonality · colorFamily</dd><dt>Creative metadata</dt><dd>creativeDirection · divergenceRationale · borrowedFrom · borrowedTrait · brandSummary</dd><dt>Voice &amp; rules</dt><dd>writingTone · doRules[] · dontRules[] · typographyScale · colorPalette · spacingScale</dd>
+          <dt>Layout DNA</dt><dd>archetype · sectionOrder[] · hero/services/reviews/cta/doctor/faq variants (archetype-derived) · radius/cardTreatment/border (from brand-dna) · density (observed)</dd><dt>Image binding</dt><dd>globals (role pools) · portraits{name→src} (name + bio-page join) · byPage{slug→service image} (sourcePages join) · unused</dd>
         </dl>
       </details>
       </div>
         <details class="phase-detail">
            <summary>Tools · QC · cost</summary>
-           <dl><dt>Tools</dt><dd><code>Anthropic Sonnet 4.6 (multi-candidate)</code>, <code>derive-design-tokens.js</code>, <code>design library (own + inspo)</code></dd><dt>QC</dt><dd><span class="qc-item">DNA shape validation</span><span class="qc-item">Archetype-family check (warm practice mustn&#39;t get editorial archetype)</span><span class="qc-item">Divergence from recent builds</span></dd><dt>Cost</dt><dd>Sonnet — 3 candidates evaluated, best picked</dd></dl>
+           <dl><dt>Tools</dt><dd><code>Anthropic Sonnet 4.6 (3-candidate, archetype-nudged)</code>, <code>lib/assemble/assemble-layout.js</code>, <code>lib/derive-design-tokens.js (ARCHETYPE_LAYOUT)</code>, <code>lib/assemble/bind-images.js</code></dd><dt>QC</dt><dd><span class="qc-item">Ownership enforced (brand tokens override the director)</span><span class="qc-item">Section coverage vs content-plan</span><span class="qc-item">0 image mismatches (sourcePages join)</span></dd><dt>Cost</dt><dd>Sonnet — 3 candidates evaluated, best picked</dd></dl>
          </details>
         <div class="phase-section">
-           <h3 class="phase-section-h">Skills <span class="count">(2)</span></h3>
-           <ul class="skills">
-        <li class="skill" data-maturity="polished">
-          <a href="./skills/creative-derive-design-tokens.html" class="skill-name">creative/derive-design-tokens</a>
-          <span class="skill-meta">
-            <span class="tier tier-L2">L2</span>
-            <span class="maturity">🟢 polished</span>
-          </span>
-          <p class="skill-resp">Deterministic mapping from Creative Director DNA + brand mood → concrete design tokens.</p>
-        </li>
-        <li class="skill" data-maturity="polished">
-          <a href="./skills/creative-director.html" class="skill-name">creative/director</a>
-          <span class="skill-meta">
-            <span class="tier tier-L1">L1</span>
-            <span class="maturity">🟢 polished</span>
-          </span>
-          <p class="skill-resp">Picks a DISTINCT visual direction for the practice — archetype, hero variant, chrome variants, density, motion, radius, section order — actively diverging from recent own-builds and the practice&#39;s …</p>
-        </li></ul>
+           <h3 class="phase-section-h">Skills</h3>
+           <p class="empty">None — fully deterministic phase</p>
          </div>
       </article>
       <article class="phase">
@@ -313,16 +281,8 @@
            <dl><dt>Tools</dt><dd><code>Anthropic Sonnet 4.6</code>, <code>skill-loader.js (renders prompts from skill .md files)</code>, <code>variant component library</code></dd><dt>QC</dt><dd><span class="qc-item">JSON schema parse</span><span class="qc-item">Locked-field enforcement (doctor name, credentials)</span><span class="qc-item">No-fabrication rules in prompts</span></dd><dt>Cost</dt><dd>Sonnet — one call per section + one per service page</dd><dt>Skip flag</dt><dd><code>--skip-generate</code></dd></dl>
          </details>
         <div class="phase-section">
-           <h3 class="phase-section-h">Skills <span class="count">(9)</span></h3>
+           <h3 class="phase-section-h">Skills <span class="count">(8)</span></h3>
            <ul class="skills">
-        <li class="skill" data-maturity="working">
-          <a href="./skills/content-content-map.html" class="skill-name">content/content-map</a>
-          <span class="skill-meta">
-            <span class="tier tier-L1">L1</span>
-            <span class="maturity">🟡 working</span>
-          </span>
-          <p class="skill-resp">Pre-generation pass that uses scraped pages + audit recommendations to produce a **content map** of elevated, practice-specific copy.</p>
-        </li>
         <li class="skill" data-maturity="working">
           <a href="./skills/content-cta.html" class="skill-name">content/cta</a>
           <span class="skill-meta">
@@ -416,17 +376,17 @@
           <span class="phase-num">9</span>
           <h2>Audit</h2>
         </header>
-        <p class="phase-summary">Compares scraped data against the rebuilt site to catch what got dropped: missing doctors, thinned service pages, mismatched contact info, signals not surfaced. Outputs a markdown + JSON report. Critical findings warn loudly inline.</p>
+        <p class="phase-summary">Two halves. CONTENT coverage (built-in): compares scraped data against the rebuilt site to catch what got dropped — missing doctors, thinned service pages, mismatched contact info — and warns loudly inline. DESIGN quality &amp; refine (Step 7): render-fidelity (verbatim content present), a deterministic anti-slop scan (impeccable rules), and a median-of-3 vision judge scored against the shared design-principles core, feeding a keep-best craft loop. The content half ships in build-site; the design-quality/refine tools currently run in the eval harness and are being wired into the production audit path.</p>
         
       <div class="phase-io">
-        <div><span class="io-label">In</span><span class="io-val">bronze + silver + merged + image-roles.json + dist/ HTML</span></div>
+        <div><span class="io-label">In</span><span class="io-val">bronze + silver + merged + image-roles.json + dist/ HTML + rendered screenshots</span></div>
         <div class="io-arrow">↓</div>
-        <div><span class="io-label">Out</span><span class="io-val">_pipeline/coverage-audit.{json,md}</span></div>
+        <div><span class="io-label">Out</span><span class="io-val">_pipeline/coverage-audit.{json,md} + render-fidelity / pixel-quality / anti-slop reports</span></div>
         
       </div>
         <details class="phase-detail">
            <summary>Tools · QC · cost</summary>
-           <dl><dt>Tools</dt><dd><code>Deterministic comparators (lib/coverage-audit.js)</code></dd><dt>QC</dt><dd><span class="qc-item">7 cross-checks: doctors-missing, doctor-photo-pairing, services-missing, service-page-thin, signals-missing, phone-mismatch, no-blog-index</span></dd><dt>Cost</dt><dd>Free</dd></dl>
+           <dl><dt>Tools</dt><dd><code>Deterministic comparators (lib/coverage-audit.js)</code>, <code>anti-slop scanner</code>, <code>Opus vision judge (median-of-3) vs design-principles-core</code></dd><dt>QC</dt><dd><span class="qc-item">Content: doctors/services/photo-pairing/phone cross-checks</span><span class="qc-item">Design: render-fidelity ≥99%, anti-slop clean, pixel-quality (gate 9, &quot;good&quot; ~7)</span><span class="qc-item">a11y WCAG AA</span></dd><dt>Cost</dt><dd>Free (content) + Opus (vision judge)</dd></dl>
          </details>
         <div class="phase-section">
            <h3 class="phase-section-h">Skills <span class="count">(2)</span></h3>

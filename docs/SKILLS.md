@@ -5,15 +5,17 @@
 >
 > See [`PIPELINE.md`](./PIPELINE.md) for how skills compose into the build flow.
 
-Last generated: 2026-05-04 19:01 UTC
+Last generated: 2026-06-04 20:24 UTC
 
 ## At a glance
 
 | Skill | Tier | Maturity | Phase | Has Prompt |
 |---|---|---|---|---|
+| [_fixtures/README](../skills/_fixtures/README.md) | — | — | — | — |
 | [audit/coverage-audit](../skills/audit/coverage-audit.md) | L4 | 🟡 working | Audit | — |
 | [audit/site-audit](../skills/audit/site-audit.md) | L1 | 🟡 working | Audit | ✓ |
-| [content/content-map](../skills/content/content-map.md) | L1 | 🟡 working | Generate | ✓ |
+| [content/content-map](../skills/content/content-map.md) | L1 | 🟡 working | ContentMap | ✓ |
+| [content/content-write](../skills/content/content-write.md) | L1 | 🟡 working | ContentWrite | ✓ |
 | [content/cta](../skills/content/cta.md) | L1 | 🟡 working | Generate | ✓ |
 | [content/doctor-intro](../skills/content/doctor-intro.md) | L1 | 🟡 working | Generate | ✓ |
 | [content/faq](../skills/content/faq.md) | L1 | 🟡 working | Generate | ✓ |
@@ -22,8 +24,6 @@ Last generated: 2026-05-04 19:01 UTC
 | [content/services](../skills/content/services.md) | L1 | 🟡 working | Generate | ✓ |
 | [creative/derive-design-tokens](../skills/creative/derive-design-tokens.md) | L2 | 🟢 polished | Director | — |
 | [creative/director](../skills/creative/director.md) | L1 | 🟢 polished | Director | ✓ |
-| [design/brand-direction](../skills/design/brand-direction.md) | L1 | 🟢 polished | Brand Direction | ✓ |
-| [design/design-extract](../skills/design/design-extract.md) | L1 | 🟡 working | Design Extract | ✓ |
 | [extraction/image-roles](../skills/extraction/image-roles.md) | L1 | 🟡 working | Silver | ✓ |
 | [extraction/silver](../skills/extraction/silver.md) | L1 | 🟢 polished | Silver | ✓ |
 | [pages/blog-rewrite](../skills/pages/blog-rewrite.md) | L1 | 🟡 working | Generate | ✓ |
@@ -43,38 +43,7 @@ Classifies one downloaded image at a time using Claude Haiku Vision.
 
 The bronze→silver transform.
 
-### Design Extract
-
-#### [design/design-extract](../skills/design/design-extract.md)
-*Tier L1 · 🟡 working · Model: `claude-sonnet-4-6` · Source: `scripts/pipeline/lib/ai-design.js` · Function: `runDesignMapping()`*
-
-Reads the **existing** site's current design and extracts what's actually there: the colors actually used, the fonts actually loaded, the visual mood, and an assessment of brand strength.
-
-### Brand Direction
-
-#### [design/brand-direction](../skills/design/brand-direction.md)
-*Tier L1 · 🟢 polished · Model: `claude-sonnet-4-6` · Source: `scripts/pipeline/lib/ai-brand-direction.js` · Function: `runBrandDirection()`*
-
-Produces deliberate brand guidelines (palette, typography, spatial, motion, voice, mood) for the NEW site.
-
-### Director
-
-#### [creative/derive-design-tokens](../skills/creative/derive-design-tokens.md)
-*Tier L2 · 🟢 polished · Model: `deterministic` · Source: `scripts/pipeline/lib/derive-design-tokens.js` · Function: `deriveDesignTokens()`*
-
-Deterministic mapping from Creative Director DNA + brand mood → concrete design tokens.
-
-#### [creative/director](../skills/creative/director.md)
-*Tier L1 · 🟢 polished · Model: `claude-sonnet-4-6` · Source: `scripts/pipeline/lib/ai-director.js` · Function: `buildPrompt()`*
-
-Picks a DISTINCT visual direction for the practice — archetype, hero variant, chrome variants, density, motion, radius, section order — actively diverging from recent own-builds and the practice's …
-
 ### Generate
-
-#### [content/content-map](../skills/content/content-map.md)
-*Tier L1 · 🟡 working · Model: `claude-sonnet-4-6` · Source: `scripts/pipeline/lib/ai-content.js` · Function: `runContentMapping()`*
-
-Pre-generation pass that uses scraped pages + audit recommendations to produce a **content map** of elevated, practice-specific copy.
 
 #### [content/cta](../skills/content/cta.md)
 *Tier L1 · 🟡 working · Model: `claude-sonnet-4-6` · Source: `scripts/pipeline/skills/skill-generate.js` · Function: `ctaContentBrief()`*
@@ -128,6 +97,31 @@ Whole-pipeline before/after audit.
 
 Strategic recommendations for the redesign.
 
+### (Other)
+
+#### [_fixtures/README](../skills/_fixtures/README.md)
+*Tier — · —*
+
+#### [content/content-map](../skills/content/content-map.md)
+*Tier L1 · 🟡 working · Model: `claude-sonnet-4-6` · Source: `scripts/pipeline/lib/ai-content-map.js` · Function: `runContentMap()`*
+
+The audit pass that decides — **before any copy is written** — what each page needs and what existing source material best fits.
+
+#### [content/content-write](../skills/content/content-write.md)
+*Tier L1 · 🟡 working · Model: `claude-sonnet-4-6` · Source: `scripts/pipeline/lib/ai-content.js` · Function: `runContentWrite()`*
+
+The writing pass.
+
+#### [creative/derive-design-tokens](../skills/creative/derive-design-tokens.md)
+*Tier L2 · 🟢 polished · Model: `deterministic` · Source: `scripts/pipeline/lib/derive-design-tokens.js` · Function: `deriveDesignTokens()`*
+
+Deterministic mapping from Creative Director DNA + brand mood → concrete design tokens.
+
+#### [creative/director](../skills/creative/director.md)
+*Tier L1 · 🟢 polished · Model: `claude-sonnet-4-6` · Source: `scripts/pipeline/lib/ai-director.js` · Function: `buildPrompt()`*
+
+Picks a DISTINCT visual direction for the practice — archetype, hero variant, chrome variants, motion level, radius level, section order — actively diverging from recent own-builds and the practice…
+
 ## Tier reference
 
 - **L1** — Prompt — edit `## PROMPT` in the skill's `.md` file
@@ -164,10 +158,17 @@ Skills with `stub` or `working` maturity that have known gaps — these are your
 
 ### [content/content-map](../skills/content/content-map.md) · 🟡 working
 
-- Doesn't yet consume `silver.additionalContent[]` — could ground service intros in real practice voice
+- Section keys are AI-chosen rather than schema-enforced (same gap as combined version)
+- No automated check that `source` actually contains the `existing` text — model can hallucinate the source attribution
+- Quality scoring is subjective per-run — same content might score `adequate` one run, `strong` another
+- Doesn't yet score whether scraped service page content is itself weak/generic before recommending `keep`
+
+### [content/content-write](../skills/content/content-write.md) · 🟡 working
+
 - No per-archetype tone calibration — same prompt regardless of warm/specialist
-- Service map doesn't surface differentiators inline (technology, languages) into service intros
 - Output is consumed by section briefs but not always — some briefs go straight to scraped data
+- Legacy single-pass mode (no blueprint) still works but produces less consistent results than blueprint-driven mode
+- Doesn't yet check whether scraped service page content is itself weak/generic before using it verbatim — Map's quality scoring should catch this but Write doesn't double-check
 
 ### [content/cta](../skills/content/cta.md) · 🟡 working
 
@@ -208,14 +209,6 @@ Skills with `stub` or `working` maturity that have known gaps — these are your
 - No deduplication if the items array has near-synonyms ("Whitening" + "Teeth Whitening")
 - No category-aware ordering (cosmetic/general/orthodontic clusters not grouped)
 - desc rewrites can drift from the source description
-
-### [design/design-extract](../skills/design/design-extract.md) · 🟡 working
-
-- CSS parsing is shallow — relies on declared color values; computed/runtime CSS variables can be missed
-- No analysis of color USE (a color in the stylesheet isn't necessarily a brand color — could be a button accent on one page)
-- Mood label is single-AI-pass — no validation against the audit's positioning
-- Font detection misses webfonts loaded via JS (rare but happens)
-- evolutionSignal is binary — no "partial evolve" option for sites with one good color but bad typography
 
 ### [extraction/image-roles](../skills/extraction/image-roles.md) · 🟡 working
 

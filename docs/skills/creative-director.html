@@ -76,13 +76,26 @@
 <h1>Skill: Creative Director (Design DNA)</h1>
 <h2>Responsibility</h2>
 <p>Picks a DISTINCT visual direction for the practice — archetype, hero variant,
-chrome variants, density, motion, radius, section order — actively diverging
+chrome variants, motion level, radius level, section order — actively diverging
 from recent own-builds and the practice&#39;s own anti-inspo. Output is the
 &quot;design DNA&quot; that drives every downstream layout decision. The director runs
 3 candidates in parallel at temperatures 0.7 / 0.9 / 1.0, then a low-temp
 evaluator picks the best. The brand brief from <code>ai-brand-direction.js</code> is the
 director&#39;s primary creative anchor — the director orchestrates LAYOUT around
 the brand, not the other way around.</p>
+<p><strong>What the director does NOT pick:</strong></p>
+<ul>
+<li><code>density</code> (airy/balanced/dense) is owned by Brand Direction. The director
+consumes it from the brief; <code>normalizeDna</code> stamps it onto the DNA from
+<code>brandBrief.spatial.density</code> regardless of what the model returned. The
+prompt no longer asks for it. This was a fix to remove a leak where two
+phases could pick conflicting density.</li>
+<li><code>motion</code> and <code>radius</code> are still picked by the director (as abstract enum
+levels: <code>none|subtle|expressive</code>, <code>sharp|sm|md|lg|pill</code>) but soft-guided by
+Brand Direction&#39;s CSS-level <code>motion.pageEntrance</code> / <code>motion.transitions</code> and
+<code>spatial.cardRadius</code> character. The director must align with that character
+but is not stamp-overridden.</li>
+</ul>
 <p>Recent additions: archetype family axis (classic-warm vs editorial-bold) with
 explicit personality matching to practice positioning; color-temperature and
 typography-personality guidance baked into the archetype mapping;
@@ -162,7 +175,7 @@ chrome-variant collisions across builds.</p>
 <h2>Output schema</h2>
 <pre><code class="language-json">{
   &quot;archetype&quot;: &quot;editorial-asymmetric | centered-classic | magazine-split | minimal-brutalist | warm-editorial | card-heavy | poster-hero | bold-serif-driven&quot;,
-  &quot;heroVariant&quot;: &quot;centered | asymmetric-left | asymmetric-right | split-image | full-bleed | poster&quot;,
+  &quot;heroVariant&quot;: &quot;PICK BY ASSETS+CHARACTER, not habit → full-bleed (one strong hero image / immersive), poster (type-led, bold, confident brand), asymmetric-left or asymmetric-right (editorial, dynamic), centered (restrained, clinical, minimal), split-image (ONLY when featuring a doctor/team photo beside copy is genuinely the best move). split-image is the overused dental default — do NOT choose it unless nothing else fits, and justify it in divergenceRationale if you do.&quot;,
   &quot;servicesVariant&quot;: &quot;cards-3up | editorial-list | accordion&quot;,
   &quot;navVariant&quot;: &quot;centered-logo | left-logo | split-logo | transparent-overlay | top-bar&quot;,
   &quot;footerVariant&quot;: &quot;minimal-dark | editorial-split | classic-4col | compact-centered | bold-cta-footer&quot;,
@@ -171,7 +184,6 @@ chrome-variant collisions across builds.</p>
   &quot;galleryVariant&quot;: &quot;masonry-3col | editorial-2col | filmstrip | featured-grid | full-bleed-row&quot;,
   &quot;sectionOrder&quot;: [&quot;hero&quot;, &quot;...&quot;],
   &quot;cardTreatment&quot;: &quot;bordered-flat | soft-shadow | elevated | ghost&quot;,
-  &quot;density&quot;: &quot;airy | balanced | dense&quot;,
   &quot;motion&quot;: &quot;none | subtle | expressive&quot;,
   &quot;radius&quot;: &quot;sharp | sm | md | lg | pill&quot;,
   &quot;borrowedFrom&quot;: &quot;string | null&quot;,
@@ -188,11 +200,14 @@ chrome-variant collisions across builds.</p>
 <li><strong>Archetype matches practice personality</strong> — classic-warm family for general/family/community; editorial-bold for specialist/premium/urban</li>
 <li><strong>Color temperature matches archetype family</strong> — warm tones for classic family, cool tones for editorial bold</li>
 <li><strong>Typography personality matches archetype</strong> — humanist serif for warm-family, grotesque/display for editorial-bold</li>
+<li><strong>Hero variant is chosen, never defaulted</strong> — explore ALL six (centered, asymmetric-left, asymmetric-right, split-image, full-bleed, poster) and pick the one that best expresses THIS practice. Let the inputs decide: a strong single hero image → <code>full-bleed</code>; a bold, type-led brand → <code>poster</code>; editorial character → <code>asymmetric-left/right</code>; a doctor/team photo to feature → <code>split-image</code>; restrained/clinical → <code>centered</code>. <strong>Do NOT reflexively pick <code>split-image</code></strong> — it is the overused safe default. If you reach for split-image, justify why no other variant fits better in <code>divergenceRationale</code>.</li>
 <li><strong>Diverges from own-builds</strong> — archetype + heroVariant combo must not match any entry in <code>owns</code></li>
 <li><strong>Within-family novelty</strong> — does not repeat the same archetype as a previous build, even if it matches the family</li>
 <li><strong>Drops sections with missing data</strong> — no stat-bar without stats, no gallery without ≥4 images, no reviews without testimonials, no doctor-intro without doctor name (caller hard-strips these regardless)</li>
 <li><strong>Hero/services/cta always present</strong> in sectionOrder (caller enforces minimum)</li>
-<li><strong>Density is internally consistent</strong> with palette mood — airy for calm/refined, dense for editorial/bold</li>
+<li><strong>Density is inherited, not picked</strong> — <code>dna.density === brandBrief.spatial.density</code> always, stamped by <code>normalizeDna</code>. Director&#39;s prompt does not include it</li>
+<li><strong>Motion level matches brand brief character</strong> — &quot;brief and functional&quot; pageEntrance → subtle/none; expressive description → expressive</li>
+<li><strong>Radius level matches brand brief cardRadius</strong> — &quot;rounded-2xl&quot; → lg, &quot;rounded-xl&quot; → md, &quot;rounded-none&quot; → sharp</li>
 <li><strong>Borrowed trait is named</strong> — borrowedFrom + borrowedTrait, with the trait called out in divergenceRationale</li>
 <li><strong>All enum fields valid</strong> — invalid values fall back to defaults in normalizeDna (caller)</li>
 <li><strong>Returns only JSON</strong></li>
@@ -203,7 +218,8 @@ chrome-variant collisions across builds.</p>
 <li>No explicit feedback loop from coverage-audit / build outcomes back into anti-inspo (a build that produced a generic-looking site doesn&#39;t automatically poison its archetype for next time)</li>
 <li>&quot;Borrowed trait&quot; is often vague (&quot;color contrast&quot;, &quot;section rhythm&quot;) — hard to verify the borrow actually shows up in the build</li>
 <li>Section order rules don&#39;t yet learn from practice-vertical patterns (specialists may benefit from services-before-doctor)</li>
-<li>3-candidate evaluator can prefer &quot;safe&quot; candidates when the candidates differ mostly in unmeasurable ways (density / radius)</li>
+<li>3-candidate evaluator can prefer &quot;safe&quot; candidates when the candidates differ mostly in unmeasurable ways (radius / motion / cardTreatment)</li>
+<li>Director and Brand Direction still use different vocabularies for motion (CSS values vs <code>none|subtle|expressive</code>) and radius (Tailwind class vs <code>sharp|sm|md|lg|pill</code>). Soft guidance asks Director to align but there&#39;s no automated check that it actually did. Density was the only field strict enough to deterministically stamp; the others remain best-effort.</li>
 </ul>
 <h2>Improvement levers</h2>
 <ol>
@@ -214,7 +230,56 @@ chrome-variant collisions across builds.</p>
 <li><strong>Hard:</strong> Replace LLM evaluator with a deterministic scorer that measures actual layout-token diversity vs. own-builds</li>
 </ol>
 <h2>Test fixtures</h2>
-<p><em>None yet. Future: <code>skills/creative/director.fixtures/{family,specialist}/*.json</code> with expected archetype family + diverge-from cases.</em></p>
+<p><strong>References (5 fixtures, all stamped to brand.spatial.density):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Fixture</th>
+<th>Archetype</th>
+<th>heroVariant</th>
+<th>radius</th>
+<th>motion</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>lbpds-pediatric/director-run1.json</code></td>
+<td>editorial-asymmetric</td>
+<td>asymmetric-left</td>
+<td>sm</td>
+<td>subtle</td>
+</tr>
+<tr>
+<td><code>chang-orthodontics/director-run1.json</code></td>
+<td>magazine-split</td>
+<td>asymmetric-left</td>
+<td>lg</td>
+<td>subtle</td>
+</tr>
+<tr>
+<td><code>orange-county-dental-care/director-run1.json</code></td>
+<td>magazine-split</td>
+<td>asymmetric-left</td>
+<td>lg</td>
+<td>subtle</td>
+</tr>
+<tr>
+<td><code>oc-healthy-smiles/director-run1.json</code></td>
+<td>magazine-split</td>
+<td>asymmetric-left</td>
+<td>lg</td>
+<td>subtle</td>
+</tr>
+<tr>
+<td><code>elements-dentistry/director-run1.json</code></td>
+<td><strong>card-heavy</strong> (warm family)</td>
+<td>asymmetric-left</td>
+<td>lg</td>
+<td>subtle</td>
+</tr>
+</tbody></table>
+<p>Run <code>node scripts/pipeline/test-fixtures.js</code> for shape validation including the density-stamping invariant (<code>dna.density === brand.spatial.density</code>).</p>
+<p><strong>Note:</strong> 3 of 5 picked <code>magazine-split</code>. Each fixture run is independent (no shared library history), so the &quot;diverge from own-builds&quot; rule has no signal across separate test runs. In a real pipeline run with library history, divergence kicks in.</p>
+<p><strong>Future:</strong> more archetype variety — <code>centered-classic</code>, <code>warm-editorial</code>, <code>poster-hero</code>, <code>bold-serif-driven</code>, <code>minimal-brutalist</code> are all unrepresented.</p>
 <hr>
 <h2>PROMPT</h2>
 <pre><code class="language-text">You are the Creative Director for an AI website generator. Your job: pick a DISTINCT visual direction for this practice, grounded in the brief, actively diverging from our recent builds.
@@ -228,6 +293,15 @@ chrome-variant collisions across builds.</p>
 {{brandBlock}}
 {{auditBlock}}
 {{iaBlock}}
+
+# Brand Direction Brief context (when present, embedded in `brandBlock`)
+
+The brand brief is the director&#39;s primary creative anchor. It contains:
+- `Density (FIXED — set by Brand Direction, not your call)` — the director MUST NOT include `density` in its output. `normalizeDna` stamps it onto the DNA from the brief regardless of model output.
+- `Card radius character (guidance)` — Tailwind class like &quot;rounded-2xl&quot;. The director picks an abstract level (sharp/sm/md/lg/pill) that aligns with this character.
+- `Motion character (guidance)` — descriptive prose about transitions / page entrance. The director picks an abstract level (none/subtle/expressive) that aligns.
+
+
 # Available data (drives section presence — do NOT include sections whose data is missing)
 - hero image?            {{dataSignals.hasHeroImage}}
 - team photos?           {{dataSignals.hasTeamPhotos}}
@@ -281,10 +355,14 @@ Note: the brand direction phase runs before the director, so the palette may alr
 1. Omit any section whose data is false above. Intelligent templates, not templated intelligence.
 2. If stats data is missing, DO NOT include &#39;stat-bar&#39; — do not render a card with dashes.
 3. Archetype + heroVariant must differ from every own-build above.
-4. Pick ONE trait to borrow from inspo (state which one in divergenceRationale).
-5. density must reflect the palette mood — airy for calm/refined, dense for editorial/bold.
+4. **`borrowedTrait` MUST reference a concrete UI element**, not a vibe. Acceptable: &quot;stacked editorial caption&quot;, &quot;color-blocked CTA band&quot;, &quot;asymmetric portrait offset&quot;, &quot;thin-rule section dividers&quot;, &quot;oversized type accent&quot;, &quot;two-column rhythm&quot;. UNACCEPTABLE (rejected): &quot;color contrast&quot;, &quot;section rhythm&quot;, &quot;modern feel&quot;, &quot;clean look&quot;, &quot;bold visual presence&quot;. A reviewer should be able to point at the rebuilt site and find the trait.
+5. Density is set by Brand Direction (see brief above) — do not include it in your output.
 6. Personality axis takes priority over divergence: do NOT pick an editorial archetype for a warm community practice just to be different from a previous build.
-7. Within each family, pick a DIFFERENT archetype from any previous build — don&#39;t use the same one twice.
+7. **Same-family novelty:** within the chosen family, pick a DIFFERENT archetype from every previous own-build IN THE SAME FAMILY. Look at the recent own-builds list above and identify which entries are in your chosen family — your archetype must not match any of them.
+
+# Motion + radius soft guidance (when brand brief is present)
+- Pick `motion` (none|subtle|expressive) to align with the brief&#39;s motion character: &quot;brief and functional&quot; → subtle or none; &quot;expressive&quot;/&quot;playful&quot; → expressive.
+- Pick `radius` (sharp|sm|md|lg|pill) to align with the brief&#39;s cardRadius: &quot;rounded-2xl&quot;/&quot;rounded-xl&quot; → lg or md; &quot;rounded-none&quot;/&quot;rounded-sm&quot; → sharp or sm.
 
 Return ONLY this JSON (no markdown, no prose):
 {
@@ -298,7 +376,6 @@ Return ONLY this JSON (no markdown, no prose):
   &quot;galleryVariant&quot;:   &quot;&lt;one of allowed&gt;&quot;,
   &quot;sectionOrder&quot;:     [&quot;hero&quot;, &quot;...&quot;],
   &quot;cardTreatment&quot;:    &quot;bordered-flat|soft-shadow|elevated|ghost&quot;,
-  &quot;density&quot;:          &quot;airy|balanced|dense&quot;,
   &quot;motion&quot;:           &quot;none|subtle|expressive&quot;,
   &quot;radius&quot;:           &quot;sharp|sm|md|lg|pill&quot;,
   &quot;borrowedFrom&quot;:     &quot;&lt;slug of inspo used, or null&gt;&quot;,

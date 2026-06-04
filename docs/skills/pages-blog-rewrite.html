@@ -196,7 +196,11 @@ when the source is too thin (under 200 chars).</p>
 
 # Output format
 
-Return ONLY the cleaned Markdown body. No frontmatter, no title heading at the top (the title is in the file frontmatter), no horizontal rules — just the article content starting with the opening paragraph.
+Return a single JSON object with two fields:
+- `summary`: one sentence (40–160 chars) suitable for a meta description and the blog index card. Pulled from the article&#39;s actual content, not invented.
+- `markdown`: the cleaned, structured article body as Markdown. No frontmatter, no title heading at the top (the title lives in file frontmatter), no horizontal rules — just the article body starting with the opening paragraph.
+
+Output ONLY the JSON object — no prose before or after, no Markdown code fences.
 </code></pre>
 
   </div>
