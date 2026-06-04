@@ -1,6 +1,6 @@
 # Design Skill
 
-This document defines the design judgment standards applied during the AI Design Mapping step. Edit this file to evolve color, typography, and aesthetic decisions across all future site builds.
+This document defines the design judgment standards applied during the Define Brand (brand-dna) step. Edit this file to evolve color, typography, and aesthetic decisions across all future site builds.
 
 ---
 

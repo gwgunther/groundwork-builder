@@ -600,12 +600,12 @@ function serializeNavLinks(links) {
 export async function injectTailwindConfig(data, outputDir) {
   // Strict — every design token must come from the brand step. No hardcoded
   // fallbacks. If a required key is missing, that means the upstream brand
-  // step (ai-brand-direction.js) failed to produce it, and we want loud
+  // step (the brand step) failed to produce it, and we want loud
   // failure rather than silently shipping generic defaults across builds.
   const colors = data.brand?.colors || {};
   const fonts  = data.brand?.fonts  || {};
   // Full brand-dna roles (Step 6): real page background, divider, and body-text
-  // colors. When absent (legacy brand-direction path) we fall back to derived
+  // colors. When absent (no brand step) we fall back to derived
   // values so this stays backward-compatible.
   const roles  = data.brand?.roles  || {};
   const pageBg     = roles.background || '#FFFFFF';
@@ -624,7 +624,7 @@ export async function injectTailwindConfig(data, outputDir) {
   if (!fonts.heading || !fonts.body) {
     throw new Error(
       `[injector] Brand fonts missing: heading=${fonts.heading || '(missing)'}, body=${fonts.body || '(missing)'}. ` +
-      `The brand-direction phase must produce both. Refusing to ship Playfair/DM Sans defaults.`
+      `The brand step (brand-dna) must produce both. Refusing to ship Playfair/DM Sans defaults.`
     );
   }
 
@@ -968,8 +968,8 @@ export async function injectPagePlaceholders(data, outputDir, design = null) {
     || (doctorFullName ? `${doctorFullName} is dedicated to providing exceptional dental care to patients in ${city || 'the community'}.` : '');
 
   // Build Google Fonts URL from brand fonts (preferred — produced by the
-  // brand-direction phase) with the design-detection fonts as a backstop only
-  // when brand-direction didn't run. We never fall back to a hardcoded family.
+  // brand step) with the design-detection fonts as a backstop only
+  // when the brand step didn't run. We never fall back to a hardcoded family.
   const googleFontsUrl = buildGoogleFontsUrl(data.brand?.fonts || design?.fonts);
 
   const replacements = [
@@ -1054,7 +1054,7 @@ function extractGoogleId(url) {
 }
 
 /**
- * Build a Google Fonts URL from brand-direction font choices.
+ * Build a Google Fonts URL from brand-dna font choices.
  * Strict — fails loudly if fonts aren't provided. We never ship a default
  * typeface across builds; that's exactly the contamination we're avoiding.
  */
@@ -1064,7 +1064,7 @@ function buildGoogleFontsUrl(fonts) {
   if (!heading || !body) {
     throw new Error(
       `[buildGoogleFontsUrl] Brand fonts missing: heading=${heading || '(missing)'}, body=${body || '(missing)'}. ` +
-      `The brand-direction phase must produce both.`
+      `The brand step (brand-dna) must produce both.`
     );
   }
 

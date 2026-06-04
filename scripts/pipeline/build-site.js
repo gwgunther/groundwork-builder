@@ -562,7 +562,7 @@ async function main() {
   }
 
   // -----------------------------------------------------------------------
-  // Phase 2c: AI Design Mapping
+  // Phase 2c/2d: Define Brand (brand-dna)
   // -----------------------------------------------------------------------
   // CLEAN PATH (Step 4): Define Brand via brand-dna — replaces legacy AI design
   // mapping (2c) + brand direction (2d). Reads merged.currentDesign (observed) →

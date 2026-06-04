@@ -1,7 +1,7 @@
 /**
  * WCAG color contrast math + palette auto-correction.
  *
- * Pure JS, no dependencies. The AI brand-direction step self-reports contrast
+ * Pure JS, no dependencies. The AI brand step (brand-dna) self-reports contrast
  * but its math is unreliable (we've observed misses by ~0.05). This module is
  * the deterministic check + fix.
  *

@@ -96,9 +96,9 @@ const ALL_SECTIONS      = ['hero', 'doctor-intro', 'stat-bar', 'services', 'gall
 
 /**
  * @param {object} merged       - merged practice data (silver + preset)
- * @param {object} design       - output of ai-design.js (palette, fonts, mood)
+ * @param {object} design       - legacy design observation (assemble passes {mood,rationale}; brand from brand-dna)
  * @param {object} opts
- * @param {object} [brandBrief] - output of ai-brand-direction.js (palette, typography, voice, etc.)
+ * @param {object} [brandBrief] - brand brief adapted from brand-dna (via assemble-layout)
  * @returns {Promise<{dna: object, _meta: object}>}
  */
 export async function runCreativeDirector(merged, design, opts = {}, brandBrief = null, audit = null) {

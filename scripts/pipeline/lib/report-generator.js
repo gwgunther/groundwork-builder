@@ -265,7 +265,7 @@ function buildDesignSection(designOutput, scrapeOutput) {
   if (!designOutput) {
     return `<div class="empty-state">
       <div class="icon">🎨</div>
-      <p>No AI design mapping — ensure <code>ANTHROPIC_API_KEY</code> is set.<br>
+      <p>No AI brand step (brand-dna) — ensure <code>ANTHROPIC_API_KEY</code> is set.<br>
       Default color palette will be used.</p>
       ${oldColors ? `<p style="margin-top:12px;font-size:13px;color:#666">Existing colors detected: ${Object.entries(oldColors).map(([k,v]) => v ? `<span class="swatch-inline" style="background:${esc(v)}" title="${esc(v)}"></span>` : '').join('')}</p>` : ''}
     </div>`;

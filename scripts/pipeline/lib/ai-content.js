@@ -177,11 +177,11 @@ async function buildPrompt(scraped, merged, audit, preset, blueprint) {
   // primary guidance for keep/optimize/create per section.
   const blueprintBlock = buildBlueprintBlock(blueprint);
 
-  // Per-archetype tone calibration. Mirrors brand-direction's colorTempGuidance
+  // Per-archetype tone calibration. Mirrors the brand step's colorTempGuidance
   // pattern — derives a tone-guidance block from audit.tone.recommended (now a
   // constrained enum: warm | clinical | editorial | bold | refined). Tells the
   // model how copy SHOULD feel for THIS practice's archetype, parallel to how
-  // brand-direction tells it how COLORS should feel.
+  // the brand step tells it how COLORS should feel.
   const toneGuidance = buildToneGuidance(audit?.tone?.recommended);
 
   return renderSkillPrompt('content/content-write', {
@@ -210,7 +210,7 @@ async function buildPrompt(scraped, merged, audit, preset, blueprint) {
 
 /**
  * Per-archetype tone calibration. Renders a guidance block derived from the
- * audit's `tone.recommended` enum value. Mirrors brand-direction's
+ * audit's `tone.recommended` enum value. Mirrors the brand step's
  * colorTempGuidance pattern — locks the editorial voice to the practice's
  * archetype family (warm-family vs editorial-bold) so copy doesn't drift
  * generic.

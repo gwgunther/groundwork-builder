@@ -232,7 +232,7 @@ const DENSITY_MAP = {
 
 /**
  * @param {object} dna          - normalized director DNA (from normalizeDna)
- * @param {object} brandBrief   - brand direction output (.mood, .spatial.density)
+ * @param {object} brandBrief   - brand brief (.mood, .spatial.density)
  * @returns {object} designTokens
  */
 export function deriveDesignTokens(dna, brandBrief = null) {
@@ -261,7 +261,7 @@ export function deriveDesignTokens(dna, brandBrief = null) {
     navVariant:         layout.navVariant,
     footerVariant:      layout.footerVariant,
     galleryVariant:     layout.galleryVariant,
-    // Visual personality signals (used by brand-direction + director prompt)
+    // Visual personality signals (used by the assemble director prompt)
     typePersonality:    layout.typePersonality,
     colorFamily:        layout.colorFamily,
   };
