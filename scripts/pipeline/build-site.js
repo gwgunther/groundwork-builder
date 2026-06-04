@@ -969,6 +969,37 @@ async function main() {
       stats.buildIntegrity = [];
     }
 
+    // Step-7 deterministic gates (no-API, fast): anti-slop scan + render-fidelity.
+    // Warn + flag (don't hard-fail) — like coverage-audit. Surfaces AI-slop tells
+    // and dropped verbatim content on real builds.
+    if (validation.buildSuccess) {
+      stats.confidenceFlags ||= [];
+      try {
+        const { scanAntiSlop } = await import('./lib/audit/anti-slop.js');
+        const slop = scanAntiSlop(resolve(outputDir, 'dist'), resolve(outputDir, 'src/styles/global.css'));
+        stats.antiSlop = slop;
+        if (slop.total > 0) {
+          console.warn(`  [anti-slop] ${slop.total} tell(s): ${Object.keys(slop.hits).join(', ')}`);
+          stats.confidenceFlags.push(`anti-slop: ${slop.total} tell(s) — ${Object.keys(slop.hits).join(', ')}`);
+        } else {
+          console.log('  [anti-slop] clean ✓');
+        }
+      } catch (err) { console.warn(`  [anti-slop] scan failed: ${err.message}`); }
+
+      if (contentPlan) {
+        try {
+          const { checkRenderFidelity } = await import('./lib/audit/render-fidelity.js');
+          const fid = checkRenderFidelity(contentPlan, resolve(outputDir, 'dist'));
+          stats.renderFidelity = fid;
+          console.log(`  [render-fidelity] verbatim ${fid.verbatim.found}/${fid.verbatim.total} (${fid.verbatim.pct}%) · optimizable ${fid.optimizable.pct}%`);
+          if (fid.verbatim.pct < 99 && fid.misses.length) {
+            console.warn(`    ${fid.misses.length} verbatim item(s) not found verbatim (first few): ${fid.misses.slice(0, 3).join(' | ')}`);
+            stats.confidenceFlags.push(`render-fidelity: ${fid.verbatim.pct}% verbatim (${fid.misses.length} not found)`);
+          }
+        } catch (err) { console.warn(`  [render-fidelity] check failed: ${err.message}`); }
+      }
+    }
+
     await artifacts.writeStep('09-build', {
       output: {
         buildSuccess: validation.buildSuccess,
