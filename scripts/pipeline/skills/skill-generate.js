@@ -842,22 +842,33 @@ async function runVariantContentGen({ dna, practice, sectionType, content, start
   const prompt = await buildContentJsonPrompt(dna, practice, sectionType, content);
 
   const { callAnthropic } = await import('../lib/ai-call.js');
-  const res = await callAnthropic({
-    phase:       `section:${sectionType}:content`,
-    model:       MODEL,
-    maxTokens:   1200,
-    temperature: 0.65, // lower — structure is constrained, content still varied
-    messages:    [{ role: 'user', content: prompt }],
-  });
 
-  // Parse JSON — strip fences if present
-  let contentJson;
-  try {
-    const raw = res.text.replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/, '').trim();
+  // Generate + parse with retry. The content JSON occasionally failed to parse —
+  // root cause was TRUNCATION (content-heavy sections like faq overran the 1200
+  // token cap mid-array), which silently dropped the whole section. Fix: a larger
+  // budget + retry the call on parse failure (tightening temperature for
+  // structure) instead of giving up after one shot.
+  const parseContentJson = (text) => {
+    const raw = text.replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/, '').trim();
     const f = raw.indexOf('{'), l = raw.lastIndexOf('}');
-    contentJson = JSON.parse(f !== -1 ? raw.slice(f, l + 1) : raw);
-  } catch (e) {
-    throw new Error(`skill-generate: could not parse content JSON for "${sectionType}": ${e.message}\nRaw: ${res.text.slice(0, 300)}`);
+    return JSON.parse(f !== -1 ? raw.slice(f, l + 1) : raw);
+  };
+  let contentJson, lastErr, lastRaw = '', usage = null;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const res = await callAnthropic({
+      phase:       `section:${sectionType}:content`,
+      model:       MODEL,
+      maxTokens:   2400, // headroom for content-heavy sections (faq) — avoids mid-array truncation
+      temperature: attempt === 0 ? 0.65 : 0.3, // tighten on retry: favor well-formed structure
+      messages:    [{ role: 'user', content: prompt }],
+    });
+    lastRaw = res.text;
+    usage = res.usage;
+    try { contentJson = parseContentJson(res.text); break; }
+    catch (e) { lastErr = e; }
+  }
+  if (!contentJson) {
+    throw new Error(`skill-generate: could not parse content JSON for "${sectionType}" after 3 attempts: ${lastErr?.message}\nRaw: ${lastRaw.slice(0, 300)}`);
   }
 
   // Resolve which variant to use. The archetype-derived designTokens layout is
@@ -931,7 +942,7 @@ import content from '${contentImport}';
     meta: {
       model: MODEL,
       duration_ms: Date.now() - start,
-      tokens: res.usage,
+      tokens: usage,
       variantKey,
     },
   };
