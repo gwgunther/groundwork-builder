@@ -24,6 +24,8 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 
+import { refreshBaselineAuditArtifacts } from './audit-artifacts.js';
+
 import { scrape }                       from './scraper.js';
 import { runTechAudit }                 from './tech-audit.js';
 import { runTrustScan }                 from './trust-scanner.js';
@@ -95,10 +97,38 @@ export async function runRescan({ auditDir, previewUrl, skipGbp = false, placeId
   }
   const beforeFindings = beforeData?.findings || [];
 
-  // 2. Scrape preview
+  // 2. Refresh baseline audit artifacts from original findings (keeps
+  // audit-data.json + sales one-pager in sync with latest templates).
+  try {
+    await refreshBaselineAuditArtifacts(auditDir);
+    console.log('[Rescan] Refreshed baseline audit-data.json + audit-summary.html');
+  } catch (err) {
+    console.warn(`[Rescan] Baseline artifact refresh failed (non-fatal): ${err.message}`);
+  }
+
+  // 3. Scrape preview
   const bronze = await scrape(previewUrl, { verbose });
 
-  // 3. Run scanners
+  const bronzePagesAfter = {
+    pageCount: bronze?.pageCount ?? 0,
+    pages: (bronze?.pages || []).map(p => ({
+      url: p.url,
+      path: p.path,
+      title: p.title,
+      metaDescription: p.metaDescription,
+      wordCount: p.wordCount,
+      canonicalUrl: p.canonicalUrl,
+      images: (p.images || []).map(img => ({ alt: img.alt })),
+      headings: p.headings,
+    })),
+  };
+  await writeFile(
+    join(dataDir, 'bronze-pages-after.json'),
+    JSON.stringify(bronzePagesAfter, null, 2),
+    'utf-8',
+  );
+
+  // 4. Run scanners
   const techAudit  = runTechAudit(bronze, null);
   const trustScan  = runTrustScan(bronze);
   const hostingScan = await runHostingScan(bronze);
@@ -128,7 +158,7 @@ export async function runRescan({ auditDir, previewUrl, skipGbp = false, placeId
   try { conversionScan = await runConversionScan(bronze); }
   catch { /* non-fatal */ }
 
-  // 4. Combine + diff
+  // 5. Combine + diff
   const afterFindings = [
     ...techAudit.findings,
     ...trustScan.findings,
@@ -139,7 +169,7 @@ export async function runRescan({ auditDir, previewUrl, skipGbp = false, placeId
   const diff = diffFindings(beforeFindings, afterFindings);
   const summary = summarizeDiff(diff);
 
-  // 5. Write JSON artifacts
+  // 6. Write JSON artifacts
   await mkdir(dataDir, { recursive: true });
   await writeFile(
     join(dataDir, 'findings-after.json'),
@@ -152,15 +182,34 @@ export async function runRescan({ auditDir, previewUrl, skipGbp = false, placeId
     'utf-8',
   );
 
-  // 6. Render before/after report HTML
+  // 7. Render before/after report HTML (does not replace sales one-pager)
   let practiceName = 'Site Audit';
+  let pagespeed = null;
+  let silver = null;
+  let aiAudit = null;
+  let bronzeBefore = null;
   try {
-    const silver = JSON.parse(await readFile(join(dataDir, 'silver.json'), 'utf-8'));
+    silver = JSON.parse(await readFile(join(dataDir, 'silver.json'), 'utf-8'));
     practiceName = silver?.practice?.name || practiceName;
   } catch { /* optional */ }
+  try {
+    pagespeed = JSON.parse(await readFile(join(dataDir, 'pagespeed.json'), 'utf-8'));
+  } catch { /* optional */ }
+  try {
+    aiAudit = JSON.parse(await readFile(join(dataDir, 'ai-audit.json'), 'utf-8'));
+  } catch { /* optional */ }
+  try {
+    bronzeBefore = JSON.parse(await readFile(join(dataDir, 'bronze-pages.json'), 'utf-8'));
+  } catch { /* optional */ }
+
   await generateAuditReports(auditDir, {
     url: previewUrl,
     practiceName,
+    pagespeed,
+    aiAudit,
+    scraped: silver,
+    bronze: bronzeBefore,
+    dataDir,
     techAudit: {
       findings: afterFindings,
       summary: {
@@ -171,6 +220,7 @@ export async function runRescan({ auditDir, previewUrl, skipGbp = false, placeId
     },
     gbpMeta: gbpScan.meta || null,
     diff: { summary, diff },
+    outputFilename: 'audit-report-after',
   });
 
   return {

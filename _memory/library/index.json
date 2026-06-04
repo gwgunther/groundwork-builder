@@ -95,6 +95,22 @@
         "accessible",
         "warm-authoritative"
       ]
+    },
+    {
+      "slug": "lbpds",
+      "tag": "own",
+      "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/lbpds",
+      "captured": "2026-06-01",
+      "archetype": "warm-editorial",
+      "mood": "calm, clinical",
+      "fontPair": "Plus Jakarta Sans / DM Sans",
+      "adjectives": [
+        "pediatric-focused",
+        "trustworthy",
+        "approachable",
+        "professional",
+        "nurturing"
+      ]
     }
   ]
 }

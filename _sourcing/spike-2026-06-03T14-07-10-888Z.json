@@ -1,0 +1,2173 @@
+{
+  "summary": {
+    "byVendor": [
+      {
+        "name": "wordpress-generic",
+        "count": 44,
+        "pct": "44.0%"
+      },
+      {
+        "name": "unknown",
+        "count": 26,
+        "pct": "26.0%"
+      },
+      {
+        "name": "prosites",
+        "count": 7,
+        "pct": "7.0%"
+      },
+      {
+        "name": "officite",
+        "count": 5,
+        "pct": "5.0%"
+      },
+      {
+        "name": "webflow",
+        "count": 4,
+        "pct": "4.0%"
+      },
+      {
+        "name": "drupal",
+        "count": 3,
+        "pct": "3.0%"
+      },
+      {
+        "name": "wix",
+        "count": 3,
+        "pct": "3.0%"
+      },
+      {
+        "name": "squarespace",
+        "count": 2,
+        "pct": "2.0%"
+      },
+      {
+        "name": "gatsby",
+        "count": 1,
+        "pct": "1.0%"
+      },
+      {
+        "name": "great-dental-websites",
+        "count": 1,
+        "pct": "1.0%"
+      },
+      {
+        "name": "weebly",
+        "count": 1,
+        "pct": "1.0%"
+      },
+      {
+        "name": "nextjs",
+        "count": 1,
+        "pct": "1.0%"
+      },
+      {
+        "name": "duda",
+        "count": 1,
+        "pct": "1.0%"
+      },
+      {
+        "name": "unreachable",
+        "count": 1,
+        "pct": "1.0%"
+      }
+    ],
+    "byCategory": [
+      {
+        "name": "cms",
+        "count": 47,
+        "pct": "47.0%"
+      },
+      {
+        "name": "unknown",
+        "count": 27,
+        "pct": "27.0%"
+      },
+      {
+        "name": "dental-mill",
+        "count": 13,
+        "pct": "13.0%"
+      },
+      {
+        "name": "diy-builder",
+        "count": 7,
+        "pct": "7.0%"
+      },
+      {
+        "name": "modern-stack",
+        "count": 6,
+        "pct": "6.0%"
+      }
+    ]
+  },
+  "rows": [
+    {
+      "placeId": "ChIJ8Rcg-rax3IAR62IhH2PAqnI",
+      "practice": "Riverside Plaza Dentistry",
+      "address": "3602 Riverside Plaza Dr Ste 101, Riverside, CA 92506, USA",
+      "city": "Riverside",
+      "rating": 4.8,
+      "reviews": 840,
+      "website": "https://www.riversideplazadentistry.com/?sc_cid=GBP%3AO%3AGP%3A442%3AOrganic_Search%3AGeneral%3Ana&_vsrefdom=organic_gbp&y_source=1_MzU1Nzg0NS03MTUtbG9jYXRpb24ud2Vic2l0ZQ%3D%3D",
+      "finalUrl": "https://www.riversideplazadentistry.com/?sc_cid=GBP%3AO%3AGP%3A442%3AOrganic_Search%3AGeneral%3Ana&_vsrefdom=organic_gbp&y_source=1_MzU1Nzg0NS03MTUtbG9jYXRpb24ud2Vic2l0ZQ%3D%3D",
+      "httpStatus": 200,
+      "htmlLen": 219519,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJzccJb7Gv3IAR83l9_XzPhuU",
+      "practice": "Canyon Crest Dental",
+      "address": "5225 Canyon Crest Dr #209, Riverside, CA 92507, USA",
+      "city": "Riverside",
+      "rating": 4.8,
+      "reviews": 1867,
+      "website": "https://www.canyoncrestdental.com/?utm_source=google.com&utm_medium=business+profile&utm_campaign=",
+      "finalUrl": "https://www.canyoncrestdental.com/?utm_source=google.com&utm_medium=business%20profile&utm_campaign",
+      "httpStatus": 200,
+      "htmlLen": 178594,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJm7S13Jax3IARpNKlu5yyUwo",
+      "practice": "Riverside Modern Dentistry",
+      "address": "6161 Van Buren Boulevard Ste 103, Riverside, CA 92503, USA",
+      "city": "Riverside",
+      "rating": 5,
+      "reviews": 1439,
+      "website": "https://www.riversidemoderndentistry.com/?sc_cid=GBP%3AO%3AGP%3A300%3AOrganic_Search%3AGeneral%3Ana&_vsrefdom=organic_gbp&y_source=1_MzQ3OTcxOTItNzE1LWxvY2F0aW9uLndlYnNpdGU%3D",
+      "finalUrl": "https://www.riversidemoderndentistry.com/?sc_cid=GBP%3AO%3AGP%3A300%3AOrganic_Search%3AGeneral%3Ana&_vsrefdom=organic_gbp&y_source=1_MzQ3OTcxOTItNzE1LWxvY2F0aW9uLndlYnNpdGU%3D",
+      "httpStatus": 200,
+      "htmlLen": 216777,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJh1Z0isCx3IARrkU2AiQICd4",
+      "practice": "Magnolia Modern Dental",
+      "address": "3519 Van Buren Boulevard, Riverside, CA 92503, USA",
+      "city": "Riverside",
+      "rating": 4.9,
+      "reviews": 491,
+      "website": "http://www.magnoliamoderndental.com/",
+      "finalUrl": "https://magnoliamoderndental.com/",
+      "httpStatus": 200,
+      "htmlLen": 338353,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJE7J0zbqx3IARsQinAd5Roho",
+      "practice": "Inland Choice Dental - Dentist Riverside",
+      "address": "6216 Brockton Ave STE 112, Riverside, CA 92506, USA",
+      "city": "Riverside",
+      "rating": 4.9,
+      "reviews": 803,
+      "website": "https://inlandchoicedental.com/",
+      "finalUrl": "https://inlandchoicedental.com/",
+      "httpStatus": 200,
+      "htmlLen": 295600,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 2
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJHeWb9EWx3IARBOeJHpn_tyg",
+      "practice": "Dentist Near Me Riverside",
+      "address": "8990 Garfield St #4, Riverside, CA 92503, USA",
+      "city": "Riverside",
+      "rating": 4.8,
+      "reviews": 219,
+      "website": "http://951dentistnearme.com/",
+      "finalUrl": "https://www.951dentistnearme.com/",
+      "httpStatus": 200,
+      "htmlLen": 50122,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJI5PMm06w3IARPhC0o_qv6JA",
+      "practice": "Riverside Tooth Co.",
+      "address": "6886 Indiana Ave suite b, Riverside, CA 92506, USA",
+      "city": "Riverside",
+      "rating": 5,
+      "reviews": 381,
+      "website": "https://www.riversidetoothco.com/",
+      "finalUrl": "https://riversidetoothco.com/",
+      "httpStatus": 200,
+      "htmlLen": 158154,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 2
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJw2gFCIWl3IARvy8fdB-eE7g",
+      "practice": "Signature Smiles Dental",
+      "address": "14140 Meridian Pkwy Suite 102, Riverside, CA 92518, USA",
+      "city": "Riverside",
+      "rating": 4.9,
+      "reviews": 523,
+      "website": "https://www.signaturesmilesriverside.com/",
+      "finalUrl": "https://signaturesmilesriverside.com/",
+      "httpStatus": 200,
+      "htmlLen": 512681,
+      "vendor": "webflow",
+      "category": "modern-stack",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "webflow",
+          "category": "modern-stack",
+          "hitCount": 2
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJIaAO5QCx3IARTsd-DLT7lyM",
+      "practice": "Riverside Dental Center",
+      "address": "4959 Arlington Ave ste f, Riverside, CA 92504, USA",
+      "city": "Riverside",
+      "rating": 5,
+      "reviews": 222,
+      "website": "https://www.riversidedentalcenter.com/",
+      "finalUrl": "https://www.riversidedentalcenter.com/",
+      "httpStatus": 200,
+      "htmlLen": 69270,
+      "vendor": "webflow",
+      "category": "modern-stack",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "webflow",
+          "category": "modern-stack",
+          "hitCount": 2
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJC8jzSBq33IAR8RdJ-IrhbzM",
+      "practice": "Sierraview Dental Care",
+      "address": "4710 La Sierra Ave, Riverside, CA 92505, USA",
+      "city": "Riverside",
+      "rating": 4.6,
+      "reviews": 613,
+      "website": "https://dentalviews.com/location/sierraview-dental-care-riverside-ca/",
+      "finalUrl": "https://dentalviews.com/location/sierraview-dental-care-riverside-ca/",
+      "httpStatus": 200,
+      "htmlLen": 122158,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJpwUSKaux3IAR1glifMSKtcM",
+      "practice": "Riverside Dental Group",
+      "address": "7251 Magnolia Ave, Riverside, CA 92504, USA",
+      "city": "Riverside",
+      "rating": 4.7,
+      "reviews": 214,
+      "website": "http://riversidedentalgroup.com/riversidedentalgroup",
+      "finalUrl": "https://riversidedentalgroup.com/locations/riverside-dental-group/",
+      "httpStatus": 200,
+      "htmlLen": 90865,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 2
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJR3AcQVu33IART_u1ZefQWyk",
+      "practice": "West Coast Dental of Riverside",
+      "address": "3380 La Sierra Ave STE 108, Riverside, CA 92503, USA",
+      "city": "Riverside",
+      "rating": 3.9,
+      "reviews": 890,
+      "website": "https://www.westcoastdental.com/locations/riverside/?utm_source=gmb&utm_medium=organic&utm_campaign=riv",
+      "finalUrl": "https://www.westcoastdental.com/locations/riverside/?utm_source=gmb&utm_medium=organic&utm_campaign=riv",
+      "httpStatus": 200,
+      "htmlLen": 223612,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 2
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJddwhd7ax3IART3AfelOdsCs",
+      "practice": "Dental Associates of Riverside",
+      "address": "3487 Central Ave, Riverside, CA 92506, USA",
+      "city": "Riverside",
+      "rating": 4.7,
+      "reviews": 253,
+      "website": "http://riversidedentalgroup.com/riversidecentral",
+      "finalUrl": "https://riversidedentalgroup.com/locations/dental-associates-of-riverside/",
+      "httpStatus": 200,
+      "htmlLen": 91956,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 2
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJa2qthaCx3IARnbYyD4VGr7E",
+      "practice": "Smile Pathway Dental",
+      "address": "5171 Arlington Ave, Riverside, CA 92504, USA",
+      "city": "Riverside",
+      "rating": 5,
+      "reviews": 524,
+      "website": "https://www.smilepathwaydental.com/",
+      "finalUrl": "https://www.smilepathwaydental.com/",
+      "httpStatus": 200,
+      "htmlLen": 141364,
+      "vendor": "webflow",
+      "category": "modern-stack",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "webflow",
+          "category": "modern-stack",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJE238-xSu3IARqOD3epKR728",
+      "practice": "Dental Care of Riverside",
+      "address": "1325 W Blaine St, Riverside, CA 92507, USA",
+      "city": "Riverside",
+      "rating": 4.8,
+      "reviews": 239,
+      "website": "https://www.dentalcareofriverside.net/?utm_source=google&utm_medium=google_business_profile&utm_campaign=website_click",
+      "finalUrl": "https://www.dentalcareofriverside.net/?utm_source=google&utm_medium=google_business_profile&utm_campaign=website_click",
+      "httpStatus": 200,
+      "htmlLen": 134590,
+      "vendor": "prosites",
+      "category": "dental-mill",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "prosites",
+          "category": "dental-mill",
+          "hitCount": 1
+        },
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJh0YGb3ul3IAR96rtcqSlSbc",
+      "practice": "Mission Grove Dentistry",
+      "address": "285 Alessandro Blvd #7d, Riverside, CA 92508, USA",
+      "city": "Riverside",
+      "rating": 4.9,
+      "reviews": 484,
+      "website": "https://www.missiongrovedentist.com/",
+      "finalUrl": "https://www.missiongrovedentist.com/",
+      "httpStatus": 200,
+      "htmlLen": 75250,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJWe_Mpkmx3IARtm_ahRaPVnQ",
+      "practice": "Dental Experts of Riverside",
+      "address": "4959 Arlington Ave J, Riverside, CA 92504, USA",
+      "city": "Riverside",
+      "rating": 5,
+      "reviews": 283,
+      "website": "https://www.dentalexpertsofriverside.com/",
+      "finalUrl": "https://www.dentalexpertsofriverside.com/",
+      "httpStatus": 200,
+      "htmlLen": 543197,
+      "vendor": "squarespace",
+      "category": "diy-builder",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "squarespace",
+          "category": "diy-builder",
+          "hitCount": 2
+        },
+        {
+          "id": "webflow",
+          "category": "modern-stack",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJsSGYaa2x3IARQWDVsvDmHWI",
+      "practice": "Neal Edwards DDS",
+      "address": "3731 Tibbetts St #4, Riverside, CA 92506, USA",
+      "city": "Riverside",
+      "rating": 5,
+      "reviews": 335,
+      "website": "https://www.nealedwardsdds.com/",
+      "finalUrl": "https://www.nealedwardsdds.com/",
+      "httpStatus": 200,
+      "htmlLen": 374120,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJr1vf7Ea33IARLGsJf3J0Wuk",
+      "practice": "Newport Dental & Orthodontics - Riverside, CA (La Sierra)",
+      "address": "3724 La Sierra Ave f1, Riverside, CA 92505, USA",
+      "city": "Riverside",
+      "rating": 4,
+      "reviews": 273,
+      "website": "http://newportdentalriverside.com/?utm_source=generic&utm_medium=profiles&utm_campaign=local_profiles",
+      "finalUrl": "https://newportdentalriverside.com/",
+      "httpStatus": 200,
+      "htmlLen": 112414,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 2
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJQagvG62x3IARPrFSC9nlsmk",
+      "practice": "Riverside Center For Esthetic Dentistry",
+      "address": "3777 Tibbetts St, Riverside, CA 92506, USA",
+      "city": "Riverside",
+      "rating": 4.9,
+      "reviews": 223,
+      "website": "https://www.riversidecenterforestheticdentistry.com/",
+      "finalUrl": "https://www.riversidecenterforestheticdentistry.com/",
+      "httpStatus": 200,
+      "htmlLen": 83556,
+      "vendor": "drupal",
+      "category": "cms",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "drupal",
+          "category": "cms",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJ9YnVotuw3IAREQAvqCuuZIc",
+      "practice": "Parkview Dental Care",
+      "address": "3909 Van Buren Boulevard #101, Riverside, CA 92503, USA",
+      "city": "Riverside",
+      "rating": 4.6,
+      "reviews": 449,
+      "website": "https://dentalviews.com/location/parkview-dental-care-riverside-ca/",
+      "finalUrl": "https://dentalviews.com/location/parkview-dental-care-riverside-ca/",
+      "httpStatus": 200,
+      "htmlLen": 119465,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJsUcvoE2l3IARmgrbv2J0SPc",
+      "practice": "MA Dental",
+      "address": "22430 Van Buren Boulevard #200, Riverside, CA 92518, USA",
+      "city": "Riverside",
+      "rating": 5,
+      "reviews": 357,
+      "website": "http://madentalpractice.com/",
+      "finalUrl": "https://www.madentalpractice.com/",
+      "httpStatus": 200,
+      "htmlLen": 104496,
+      "vendor": "drupal",
+      "category": "cms",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "drupal",
+          "category": "cms",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJ512BRbGx3IARIrrZ41jfWcM",
+      "practice": "Gentle Dental Riverside Central",
+      "address": "3630 Central Ave Suite 6, Riverside, CA 92506, USA",
+      "city": "Riverside",
+      "rating": 4.5,
+      "reviews": 326,
+      "website": "https://gentledental.interdent.com/locations/ca/riverside-central-ave/?utm_source=gbp&utm_medium=organic&utm_campaign=gbp-listing&utm_content=GDCENTRALAVE&y_source=1_MTA5NjAyNjY1OS03MTUtbG9jYXRpb24ud2Vic2l0ZQ%3D%3D",
+      "finalUrl": "https://gentledental.interdent.com/locations/ca/riverside-central-ave?utm_source=gbp&utm_medium=organic&utm_campaign=gbp-listing&utm_content=GDCENTRALAVE&y_source=1_MTA5NjAyNjY1OS03MTUtbG9jYXRpb24ud2Vic2l0ZQ%3D%3D",
+      "httpStatus": 200,
+      "htmlLen": 142204,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJS6jL9gCx3IAR642V5rUU-mM",
+      "practice": "Riverside Dental and Orthodontics",
+      "address": "4942 Arlington Ave, Riverside, CA 92504, USA",
+      "city": "Riverside",
+      "rating": 4.5,
+      "reviews": 226,
+      "website": "https://riversidedentalandorthodontics.com/",
+      "finalUrl": "https://riversidedentalandorthodontics.com/",
+      "httpStatus": 200,
+      "htmlLen": 58073,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJG-Oobxyx3IARXN9n5t7dlU0",
+      "practice": "Magnolia Bright Dental - Riverside",
+      "address": "9174 Magnolia Ave, Riverside, CA 92503, USA",
+      "city": "Riverside",
+      "rating": 5,
+      "reviews": 87,
+      "website": "https://magnoliabrightdental.com/",
+      "finalUrl": "https://magnoliabrightdental.com/",
+      "httpStatus": 200,
+      "htmlLen": 176423,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJhQt2_6-x3IARTRpWvpbB_kc",
+      "practice": "My Riverside Dentist",
+      "address": "6339 Brockton Ave, Riverside, CA 92506, USA",
+      "city": "Riverside",
+      "rating": 4.9,
+      "reviews": 80,
+      "website": "http://www.myriversidedentaloffice.com/",
+      "finalUrl": "http://www.myriversidedentaloffice.com/",
+      "httpStatus": 200,
+      "htmlLen": 54879,
+      "vendor": "prosites",
+      "category": "dental-mill",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "prosites",
+          "category": "dental-mill",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJU9MhP7Sw3IARHFOulwdhFU0",
+      "practice": "Dentist Riverside CA - Dental Specialists of Riverside - Emergency & Cosmetic Dentist",
+      "address": "10181 Magnolia Ave, Riverside, CA 92503, USA",
+      "city": "Riverside",
+      "rating": 4.4,
+      "reviews": 181,
+      "website": "https://www.dentalspecialistsofriverside.com/",
+      "finalUrl": "https://www.dentalspecialistsofriverside.com/",
+      "httpStatus": 200,
+      "htmlLen": 180820,
+      "vendor": "gatsby",
+      "category": "modern-stack",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "gatsby",
+          "category": "modern-stack",
+          "hitCount": 2
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJTdBKZ8263IARwHTJUmNtkIs",
+      "practice": "Woodcrest Dental Studio",
+      "address": "17024 Van Buren Boulevard STE B, Riverside, CA 92504, USA",
+      "city": "Riverside",
+      "rating": 4.9,
+      "reviews": 400,
+      "website": "http://www.woodcrestdentalstudio.com/",
+      "finalUrl": "https://woodcrestdentalstudio.com/",
+      "httpStatus": 200,
+      "htmlLen": 75429,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJATUeicu23IARpUJ2HMjitoo",
+      "practice": "Aava Dental Riverside",
+      "address": "10001 Indiana Ave, Riverside, CA 92503, USA",
+      "city": "Riverside",
+      "rating": 4.9,
+      "reviews": 894,
+      "website": "https://aavadental.com/riverside-county/",
+      "finalUrl": "https://aavadental.com/riverside-county/",
+      "httpStatus": 404,
+      "htmlLen": 111584,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJS-NF5Kmx3IARce1OgqqAp6c",
+      "practice": "Riverside Dentist - Dr. Morsy Dental Services",
+      "address": "6117 Brockton Ave STE 103, Riverside, CA 92506, USA",
+      "city": "Riverside",
+      "rating": 4.8,
+      "reviews": 250,
+      "website": "https://drmorsydental.com/",
+      "finalUrl": "https://drmorsydental.com/",
+      "httpStatus": 200,
+      "htmlLen": 26463,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJz7JtTBeu3IARYbi8dLx0LoU",
+      "practice": "California Dental Group",
+      "address": "1717 3rd St, Riverside, CA 92507, USA",
+      "city": "Riverside",
+      "rating": 4.9,
+      "reviews": 495,
+      "website": "https://riversidefamilysmiles.com/",
+      "finalUrl": "https://riversidefamilysmiles.com/",
+      "httpStatus": 200,
+      "htmlLen": 204573,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 2
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJ3w9rtq2x3IAR_ZYQuWTCsZM",
+      "practice": "Riverside Dental Care",
+      "address": "6859 Magnolia Ave, Riverside, CA 92506, USA",
+      "city": "Riverside",
+      "rating": 4.7,
+      "reviews": 55,
+      "website": "https://fontanadentalcareca.com/fontana-dental-care-in-riverside-ca/",
+      "finalUrl": "https://fontanadentalcareca.com/fontana-dental-care-in-riverside-ca/",
+      "httpStatus": 200,
+      "htmlLen": 174697,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 2
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJw1q5rryx3IARucOs8XNZUWw",
+      "practice": "Mark Harris Dental",
+      "address": "5925 Brockton Ave STE B, Riverside, CA 92506, USA",
+      "city": "Riverside",
+      "rating": 4.9,
+      "reviews": 558,
+      "website": "https://www.markharrisdds.com/",
+      "finalUrl": "https://www.markharrisdds.com/",
+      "httpStatus": 200,
+      "htmlLen": 191163,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 2
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJb_neU3ql3IAR9f68bVhP870",
+      "practice": "Smile Builder Dental",
+      "address": "473 E Alessandro Blvd Ste A, Riverside, CA 92508, USA",
+      "city": "Riverside",
+      "rating": 4.9,
+      "reviews": 389,
+      "website": "https://www.smilebuilderdental.com/",
+      "finalUrl": "https://www.smilebuilderdental.com/",
+      "httpStatus": 200,
+      "htmlLen": 102225,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJN2hM3iOv3IARfFWW85EJVTo",
+      "practice": "Anthem Dental – Riverside & Moreno Valley",
+      "address": "2712 Canyon Springs Pkwy STE 3, Riverside, CA 92507, USA",
+      "city": "Riverside",
+      "rating": 4.9,
+      "reviews": 281,
+      "website": "https://anthemdentalriverside.com/?utm_source=GoogleOrganic&utm_medium=GMBwebsite&utm_campaign=GMBWebsiteLink",
+      "finalUrl": "https://anthemdentalriverside.com/?utm_source=GoogleOrganic&utm_medium=GMBwebsite&utm_campaign=GMBWebsiteLink",
+      "httpStatus": 200,
+      "htmlLen": 143834,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJVztJTTSw3IARFk4ATvqwZdY",
+      "practice": "Arlington Dental Group and Orthodontics",
+      "address": "3297 Arlington Ave Ste 101, Riverside, CA 92506, USA",
+      "city": "Riverside",
+      "rating": 4.5,
+      "reviews": 338,
+      "website": "https://www.arlingtondentalgroup.com/?sc_cid=GBP%3AO%3AGP%3A52%3AOrganic_Search%3AGeneral%3Ana&_vsrefdom=organic_gbp&y_source=1_MTEwMjY2MS03MTUtbG9jYXRpb24ud2Vic2l0ZQ%3D%3D",
+      "finalUrl": "https://www.arlingtondentalgroup.com/?sc_cid=GBP%3AO%3AGP%3A52%3AOrganic_Search%3AGeneral%3Ana&_vsrefdom=organic_gbp&y_source=1_MTEwMjY2MS03MTUtbG9jYXRpb24ud2Vic2l0ZQ%3D%3D",
+      "httpStatus": 200,
+      "htmlLen": 224561,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJq-o5aa2x3IARSLrjd_o8KCo",
+      "practice": "Cole C. Scott, DDS",
+      "address": "3731 Tibbetts St #1, Riverside, CA 92506, USA",
+      "city": "Riverside",
+      "rating": 5,
+      "reviews": 350,
+      "website": "http://www.scottdentalhealth.com/",
+      "finalUrl": "https://scottdentalhealth.com/",
+      "httpStatus": 200,
+      "htmlLen": 320529,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 2
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJK90LnLSw3IARwBk7v4y-FkI",
+      "practice": "Gentle Dental Riverside Tyler Village",
+      "address": "10168 Indiana Ave, Riverside, CA 92503, USA",
+      "city": "Riverside",
+      "rating": 4.4,
+      "reviews": 185,
+      "website": "https://gentledental.interdent.com/locations/ca/riverside-arlington/?utm_source=gbp&utm_medium=organic&utm_campaign=gbp-listing&utm_content=GDRIVERTYLER&y_source=1_MTA5NjAyNjcyOC03MTUtbG9jYXRpb24ud2Vic2l0ZQ%3D%3D",
+      "finalUrl": "https://gentledental.interdent.com/locations/ca/riverside-tyler?utm_source=gbp&utm_medium=organic&utm_campaign=gbp-listing&utm_content=GDRIVERTYLER&y_source=1_MTA5NjAyNjcyOC03MTUtbG9jYXRpb24ud2Vic2l0ZQ%3D%3D",
+      "httpStatus": 200,
+      "htmlLen": 146011,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJbfwQvgSx3IARCVdFEgmaGFU",
+      "practice": "Riverside West Dental Group",
+      "address": "Nathan call Carlos Cervantes Madison at TMobile line6945, 6945 Streeter Ave, Riverside, CA 92504, USA",
+      "city": "Riverside",
+      "rating": 4.5,
+      "reviews": 64,
+      "website": "https://txt.care/jgLL6Dm",
+      "finalUrl": "https://onlinebooking.mydentistlink.com/e6b5d9dc-63d1-4d41-a1f3-9de225c71675/f93d6e15-8d6c-407d-bd52-ce909da52661",
+      "httpStatus": 200,
+      "htmlLen": 3662,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJWxG6h8uw3IAR8JAvRfrmD0w",
+      "practice": "Magnolia Dental Care",
+      "address": "9789 Magnolia Ave, Riverside, CA 92503, USA",
+      "city": "Riverside",
+      "rating": 4.4,
+      "reviews": 78,
+      "website": "https://www.mymagnoliadentist.com/",
+      "finalUrl": "https://www.mymagnoliadentist.com/",
+      "httpStatus": 200,
+      "htmlLen": 68131,
+      "vendor": "officite",
+      "category": "dental-mill",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "officite",
+          "category": "dental-mill",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJrebzvDOx3IARayrUIg0B_Rk",
+      "practice": "Tropic Dental Care | Cosmetic & Emergency Dentist Riverside",
+      "address": "7201 Arlington Ave # A, Riverside, CA 92503, USA",
+      "city": "Riverside",
+      "rating": 4.7,
+      "reviews": 89,
+      "website": "https://www.tropicdentalcare.com/?utm_source=gmb",
+      "finalUrl": "https://www.tropicdentalcare.com/?utm_source=gmb",
+      "httpStatus": 200,
+      "htmlLen": 184874,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJ__8_NLaPjogReVfBcuuuQHg",
+      "practice": "1800 Emergency Dentist Riverside 24 Hour",
+      "address": "3400 Central Ave 3rd Floor, Ste 310, Riverside, CA 92506, USA",
+      "city": "Riverside",
+      "rating": 4.8,
+      "reviews": 24,
+      "website": "https://1800dentist.com/dentist-riverside-520620/",
+      "finalUrl": "https://1800dentist.com/emergency-dentist-riverside/",
+      "httpStatus": 200,
+      "htmlLen": 167354,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 2
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJvUx4_law3IARspXzvkTCsIU",
+      "practice": "Western Dental & Orthodontics",
+      "address": "3485 Madison St, Riverside, CA 92504, USA",
+      "city": "Riverside",
+      "rating": 4.5,
+      "reviews": 1089,
+      "website": "https://www.westerndental.com/en-us/find-a-location/california/riverside/3485-madison-st?utm_source=GMB&utm_medium=organic",
+      "finalUrl": "https://www.westerndental.com/en-us/find-a-location/california/riverside/3485-madison-street/",
+      "httpStatus": 200,
+      "htmlLen": 137809,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJNzt4qlSw3IARfFjWJhZd3Qo",
+      "practice": "Chad Tomazin DDS",
+      "address": "7154 Magnolia Ave, Riverside, CA 92504, USA",
+      "city": "Riverside",
+      "rating": 4.7,
+      "reviews": 92,
+      "website": "http://www.iedental.com/?y_source=1_OTg4NzI5OS03MTUtbG9jYXRpb24ud2Vic2l0ZQ%3D%3D",
+      "finalUrl": "https://www.iedental.com/?y_source=1_OTg4NzI5OS03MTUtbG9jYXRpb24ud2Vic2l0ZQ%3D%3D",
+      "httpStatus": 200,
+      "htmlLen": 58844,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        },
+        {
+          "id": "webflow",
+          "category": "modern-stack",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJw1ED-Fmv3IARtl7xCeJ7Esk",
+      "practice": "Canyon Springs Dental Group and Orthodontics",
+      "address": "2878 Campus Pkwy STE 1, Riverside, CA 92507, USA",
+      "city": "Riverside",
+      "rating": 4.5,
+      "reviews": 337,
+      "website": "https://www.canyonspringsdental.com/?sc_cid=GBP%3AO%3AGP%3A48%3AOrganic_Search%3AGeneral%3Ana&_vsrefdom=organic_gbp&y_source=1_MTEwMjY1OC03MTUtbG9jYXRpb24ud2Vic2l0ZQ%3D%3D",
+      "finalUrl": "https://www.canyonspringsdental.com/?sc_cid=GBP%3AO%3AGP%3A48%3AOrganic_Search%3AGeneral%3Ana&_vsrefdom=organic_gbp&y_source=1_MTEwMjY1OC03MTUtbG9jYXRpb24ud2Vic2l0ZQ%3D%3D",
+      "httpStatus": 200,
+      "htmlLen": 230453,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJ7UE83XG33IARXov9CaVzULk",
+      "practice": "California Dental Group of Riverside",
+      "address": "3845 Pierce St, Riverside, CA 92503, USA",
+      "city": "Riverside",
+      "rating": 3.9,
+      "reviews": 97,
+      "website": "https://calidentalgroup.com/riverside-office",
+      "finalUrl": "https://www.calidentalgroup.com/riverside-office/",
+      "httpStatus": 200,
+      "htmlLen": 183934,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJc2x3MUOv3IARBX4G5QAk0p0",
+      "practice": "University Dental Clinic",
+      "address": "2211 University Ave, Riverside, CA 92507, USA",
+      "city": "Riverside",
+      "rating": 5,
+      "reviews": 93,
+      "website": "https://universitydentalclinicriverside.com/",
+      "finalUrl": "https://universitydentalclinicriverside.com/",
+      "httpStatus": 200,
+      "htmlLen": 327322,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJcSLHvhul3IAR2q66O0p_WTY",
+      "practice": "Riverside Dental Group at Woodcrest",
+      "address": "19009 Van Buren Boulevard STE 204, Riverside, CA 92508, USA",
+      "city": "Riverside",
+      "rating": 4.8,
+      "reviews": 91,
+      "website": "http://www.riversidedentalgroup.com/woodcrest",
+      "finalUrl": "https://riversidedentalgroup.com/2013/12/10/woodcrest-ca-dentists-warn-against-late-night-snacking/",
+      "httpStatus": 200,
+      "htmlLen": 59167,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 2
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJ1VFqCv-33IARVxKw12RI-iw",
+      "practice": "Gold Coast Dental - Riverside",
+      "address": "4595 La Sierra Ave, Riverside, CA 92505, USA",
+      "city": "Riverside",
+      "rating": 3,
+      "reviews": 114,
+      "website": "https://goldcoastdental.com/locations/riverside-ca/?utm_source=google&utm_medium=organic&utm_campaign=gmb",
+      "finalUrl": "https://goldcoastdental.com/locations/riverside-ca/?utm_source=google&utm_medium=organic&utm_campaign=gmb",
+      "httpStatus": 200,
+      "htmlLen": 378449,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJqdsDsLKx3IARFh93VNKZ060",
+      "practice": "Christine Highum, DDS",
+      "address": "6966 Brockton Ave A, Riverside, CA 92506, USA",
+      "city": "Riverside",
+      "rating": 5,
+      "reviews": 194,
+      "website": "http://christinehighumdds.com/",
+      "finalUrl": "https://www.christinehighumdds.com/",
+      "httpStatus": 200,
+      "htmlLen": 612210,
+      "vendor": "wix",
+      "category": "diy-builder",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "wix",
+          "category": "diy-builder",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJ7yeCl7Kx3IARifPKEAAyTPM",
+      "practice": "DocDental- Negeen Zareh DMD, Inc",
+      "address": "6926 Brockton Ave STE 3, Riverside, CA 92506, USA",
+      "city": "Riverside",
+      "rating": 4.9,
+      "reviews": 390,
+      "website": "http://www.docdental.com/",
+      "finalUrl": "https://www.docdental.com/",
+      "httpStatus": 200,
+      "htmlLen": 84557,
+      "vendor": "officite",
+      "category": "dental-mill",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "officite",
+          "category": "dental-mill",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJ3TD8Nbqx3IARDiO85MIivfc",
+      "practice": "Star Dental Group",
+      "address": "6071 Magnolia Ave, Riverside, CA 92506, USA",
+      "city": "Riverside",
+      "rating": 4.4,
+      "reviews": 155,
+      "website": "https://stardentalriverside.com/?utm_source=gmb",
+      "finalUrl": "https://www.stardentalriverside.com/?utm_source=gmb",
+      "httpStatus": 200,
+      "htmlLen": 95980,
+      "vendor": "officite",
+      "category": "dental-mill",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "officite",
+          "category": "dental-mill",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJ75iNEgGx3IARkwSi0athjXU",
+      "practice": "Vazquez Norma DDS",
+      "address": "4060 Madison St, Riverside, CA 92504, USA",
+      "city": "Riverside",
+      "rating": 4.8,
+      "reviews": 151,
+      "website": "https://www.normavazquezdds.com/?utm_source=local&utm_medium=organic&utm_campaign=gbp_home",
+      "finalUrl": "https://www.normavazquezdds.com/?utm_source=local&utm_medium=organic&utm_campaign=gbp_home",
+      "httpStatus": 200,
+      "htmlLen": 193756,
+      "vendor": "great-dental-websites",
+      "category": "dental-mill",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "great-dental-websites",
+          "category": "dental-mill",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJvXWrrL2w3IARpkoDg8dgFug",
+      "practice": "Cleopatra Dental | Riverside Dentist",
+      "address": "2955 Van Buren Boulevard STE H4, Riverside, CA 92503, USA",
+      "city": "Riverside",
+      "rating": 4.7,
+      "reviews": 61,
+      "website": "https://dentistryriverside.com/",
+      "finalUrl": "https://dentistryriverside.com/",
+      "httpStatus": 200,
+      "htmlLen": 92269,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJP83sExWu3IARcW86vrPyEsc",
+      "practice": "Ace Dental Group",
+      "address": "3355 Iowa Ave ste c, Riverside, CA 92507, USA",
+      "city": "Riverside",
+      "rating": 4.8,
+      "reviews": 315,
+      "website": "http://acedentalgroup.com/",
+      "finalUrl": "http://acedentalgroup.com/",
+      "httpStatus": 200,
+      "htmlLen": 104943,
+      "vendor": "prosites",
+      "category": "dental-mill",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "prosites",
+          "category": "dental-mill",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJIUgh5DpTw4ARWNQCj2hA8E0",
+      "practice": "Dental Practice of San Bernardino",
+      "address": "322 N H St, San Bernardino, CA 92410, USA",
+      "city": "San Bernardino",
+      "rating": 4.3,
+      "reviews": 60,
+      "website": "https://www.sanbernardinofamilydental.com/",
+      "finalUrl": "https://www.sanbernardinofamilydental.com/",
+      "httpStatus": 200,
+      "htmlLen": 63773,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJ29U4RwBTw4ARDFznzsiKoPk",
+      "practice": "Vernon Dental Specialty Group",
+      "address": "1655 N Mt Vernon Ave, San Bernardino, CA 92411, USA",
+      "city": "San Bernardino",
+      "rating": 4.6,
+      "reviews": 1512,
+      "website": "https://vdspecialties.com/",
+      "finalUrl": "https://vdspecialties.com/",
+      "httpStatus": 200,
+      "htmlLen": 3312655,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJk0fOoPtSw4ARTRijMaRmWRA",
+      "practice": "Gill Family Dentistry",
+      "address": "1584 W Base Line St #103, San Bernardino, CA 92411, USA",
+      "city": "San Bernardino",
+      "rating": 4.7,
+      "reviews": 1376,
+      "website": "https://drgillfamilydentistry.com/",
+      "finalUrl": "https://drgillfamilydentistry.com/",
+      "httpStatus": 200,
+      "htmlLen": 159797,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJkT2yLg1Tw4ARVwcC7JU8Ses",
+      "practice": "D Street Family Dentistry",
+      "address": "1579 N D St, San Bernardino, CA 92405, USA",
+      "city": "San Bernardino",
+      "rating": 4.9,
+      "reviews": 206,
+      "website": "http://sanbernardinoleedds.com/",
+      "finalUrl": "https://www.sanbernardinoleedds.com/",
+      "httpStatus": 200,
+      "htmlLen": 18395,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJB-wyFSFSw4ART4AP4lvsS00",
+      "practice": "Dream Smile City Of San Bernardino",
+      "address": "4016 University Pkwy, San Bernardino, CA 92407, USA",
+      "city": "San Bernardino",
+      "rating": 4.7,
+      "reviews": 281,
+      "website": "https://dreamsmilecity.com/?utm_source=gmb",
+      "finalUrl": "https://dreamsmilecity.com/?utm_source=gmb",
+      "httpStatus": 200,
+      "htmlLen": 185181,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        },
+        {
+          "id": "godaddy-builder",
+          "category": "diy-builder",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJmd1c24Ss3IARug89Q4luOtI",
+      "practice": "Mountainview Dental Care",
+      "address": "424 E Hospitality Ln b5, San Bernardino, CA 92408, USA",
+      "city": "San Bernardino",
+      "rating": 4.7,
+      "reviews": 648,
+      "website": "https://dentalviews.com/location/mountainview-dental-care-san-bernardino-ca/",
+      "finalUrl": "https://dentalviews.com/location/mountainview-dental-care-san-bernardino-ca/",
+      "httpStatus": 200,
+      "htmlLen": 119254,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJIRqmj2VTw4ARtqH_CpHFrIA",
+      "practice": "Smiles West Dental & Orthodontics - San Bernardino",
+      "address": "1428 N Waterman Ave A, San Bernardino, CA 92404, USA",
+      "city": "San Bernardino",
+      "rating": 4.3,
+      "reviews": 145,
+      "website": "https://smileswest.com/san-bernardino/",
+      "finalUrl": "https://smileswest.com/san-bernardino/",
+      "httpStatus": 200,
+      "htmlLen": 340113,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJm7Aeu0Wt3IARCaTLOUYGqp0",
+      "practice": "Dental Lounge",
+      "address": "228 W Hospitality Ln STE B, San Bernardino, CA 92408, USA",
+      "city": "San Bernardino",
+      "rating": 5,
+      "reviews": 129,
+      "website": "https://www.sbdentallounge.com/",
+      "finalUrl": "https://www.sbdentallounge.com/",
+      "httpStatus": 200,
+      "htmlLen": 17533,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJj_igb8xTw4ARo4vBt2AO5HQ",
+      "practice": "Inland Dental Arts",
+      "address": "2015 N Waterman Ave STE B, San Bernardino, CA 92404, USA",
+      "city": "San Bernardino",
+      "rating": 4.9,
+      "reviews": 131,
+      "website": "https://www.inlanddentalarts.com/",
+      "finalUrl": "https://www.inlanddentalarts.com/",
+      "httpStatus": 200,
+      "htmlLen": 940925,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJ7Qxx2cqs3IARWy96G9CXZA4",
+      "practice": "Arrowhead Family Dentistry",
+      "address": "407 S E St, San Bernardino, CA 92401, USA",
+      "city": "San Bernardino",
+      "rating": 4,
+      "reviews": 80,
+      "website": "http://smilebettersanbernardino.com/",
+      "finalUrl": "https://smilebettersanbernardino.com/",
+      "httpStatus": 200,
+      "htmlLen": 159965,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 2
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJmXWjbJKs3IARH1QyH49Yyi4",
+      "practice": "Hospitality Dental & Orthodontics",
+      "address": "164 W Hospitality Ln suite 14, San Bernardino, CA 92408, USA",
+      "city": "San Bernardino",
+      "rating": 4.8,
+      "reviews": 529,
+      "website": "https://www.hospitalitydental.com/",
+      "finalUrl": "https://www.hospitalitydental.com/",
+      "httpStatus": 200,
+      "htmlLen": 41278,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJl5KkizhTw4AR5Y2q15lFv0g",
+      "practice": "My Dentist and Orthodontist",
+      "address": "234 N D St, San Bernardino, CA 92401, USA",
+      "city": "San Bernardino",
+      "rating": 4.5,
+      "reviews": 168,
+      "website": "https://www.mydentistcalifornia.com/",
+      "finalUrl": "https://www.mydentistcalifornia.com/",
+      "httpStatus": 200,
+      "htmlLen": 420643,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        },
+        {
+          "id": "my-social-practice",
+          "category": "dental-mill",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJ4Uve6cus3IARiwduWIzXl3Y",
+      "practice": "Inland Dental Center",
+      "address": "362 E Vanderbilt Way, San Bernardino, CA 92408, USA",
+      "city": "San Bernardino",
+      "rating": 4.3,
+      "reviews": 90,
+      "website": "https://www.idcsanbernardino.com/",
+      "finalUrl": "https://www.idcsanbernardino.com/",
+      "httpStatus": 403,
+      "htmlLen": 5756,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJK2bW0n2r3IARYrUtNCcDaeY",
+      "practice": "Hub Plaza Dental Group and Orthodontics",
+      "address": "1047 Harriman Pl Ste B, San Bernardino, CA 92408, USA",
+      "city": "San Bernardino",
+      "rating": 4.7,
+      "reviews": 308,
+      "website": "https://www.hubplazadental.com/?sc_cid=GBP%3AO%3AGP%3A20%3AOrganic_Search%3AGeneral%3Ana&_vsrefdom=organic_gbp&y_source=1_MTEwMjYzMi03MTUtbG9jYXRpb24ud2Vic2l0ZQ%3D%3D",
+      "finalUrl": "https://www.hubplazadental.com/?sc_cid=GBP%3AO%3AGP%3A20%3AOrganic_Search%3AGeneral%3Ana&_vsrefdom=organic_gbp&y_source=1_MTEwMjYzMi03MTUtbG9jYXRpb24ud2Vic2l0ZQ%3D%3D",
+      "httpStatus": 200,
+      "htmlLen": 224124,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJATsE5KJUw4ARLhxg0i7hzcs",
+      "practice": "Sulaeman Family Dentistry",
+      "address": "25054 E Baseline St, San Bernardino, CA 92410, USA",
+      "city": "San Bernardino",
+      "rating": 4.4,
+      "reviews": 225,
+      "website": "http://www.mysanbernardinodentist.com/",
+      "finalUrl": "https://www.mysanbernardinodentist.com/",
+      "httpStatus": 200,
+      "htmlLen": 99883,
+      "vendor": "weebly",
+      "category": "diy-builder",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "weebly",
+          "category": "diy-builder",
+          "hitCount": 2
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJZY2se3lTw4ARvUxWr24oG0I",
+      "practice": "Southland Dental Group: Antoine Sourialle, DDS, Inc",
+      "address": "399 E Highland Ave # 120, San Bernardino, CA 92404, USA",
+      "city": "San Bernardino",
+      "rating": 4.8,
+      "reviews": 348,
+      "website": "https://www.stbernardinedentalcenter.com/",
+      "finalUrl": "https://www.stbernardinedentalcenter.com/",
+      "httpStatus": 200,
+      "htmlLen": 310254,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJ9Yba1pxVw4ARSgOsjHcNTH8",
+      "practice": "Children Dental World",
+      "address": "1535 E Highland Ave Ste F, San Bernardino, CA 92404, USA",
+      "city": "San Bernardino",
+      "rating": 4.9,
+      "reviews": 1579,
+      "website": "https://www.mychildrendentalworld.com/",
+      "finalUrl": "https://www.mychildrendentalworld.com/",
+      "httpStatus": 200,
+      "htmlLen": 42759,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJI25SKu9Tw4ARmluroCOjGDk",
+      "practice": "Sierra Gateway Dental Office",
+      "address": "4168 N Sierra Way, San Bernardino, CA 92407, USA",
+      "city": "San Bernardino",
+      "rating": 4.4,
+      "reviews": 110,
+      "website": "https://sierradentaloffice.com/",
+      "finalUrl": "https://sierradentaloffice.com/",
+      "httpStatus": 200,
+      "htmlLen": 233018,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJox0TFHyr3IARThdR0HIoPvE",
+      "practice": "Kingsly Dentistry",
+      "address": "1060 Harriman Pl, San Bernardino, CA 92408, USA",
+      "city": "San Bernardino",
+      "rating": 4.9,
+      "reviews": 322,
+      "website": "http://www.kingslydentistry.com/",
+      "finalUrl": "https://www.kingslydentistry.com/",
+      "httpStatus": 200,
+      "htmlLen": 68322,
+      "vendor": "prosites",
+      "category": "dental-mill",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "prosites",
+          "category": "dental-mill",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJqZqIzKdTw4ARdzeNwDA85Xk",
+      "practice": "California Bright Dental",
+      "address": "850 W Highland Ave # B, San Bernardino, CA 92405, USA",
+      "city": "San Bernardino",
+      "rating": 4.4,
+      "reviews": 47,
+      "website": "https://californiabrightdental.com/",
+      "finalUrl": "https://californiabrightdental.com/",
+      "httpStatus": 200,
+      "htmlLen": 178140,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJ3d0fdhNTw4ARZL3ivhlX8D8",
+      "practice": "Western Dental & Orthodontics",
+      "address": "1199 N E St, San Bernardino, CA 92410, USA",
+      "city": "San Bernardino",
+      "rating": 4.3,
+      "reviews": 650,
+      "website": "https://www.westerndental.com/en-us/find-a-location/california/san-bernardino/1199-n-e-st/?utm_source=GMB&utm_medium=organic",
+      "finalUrl": "https://www.westerndental.com/en-us/find-a-location/california/san-bernardino/1199-north-e-street/",
+      "httpStatus": 200,
+      "htmlLen": 136284,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJy8gcnD9Tw4ARtmNYkp9Oq1Y",
+      "practice": "SUNSHINE DENTAL",
+      "address": "784 N D St, San Bernardino, CA 92401, USA",
+      "city": "San Bernardino",
+      "rating": 4.1,
+      "reviews": 77,
+      "website": "http://www.sunshinedentalclinic.com/",
+      "finalUrl": "http://www.sunshinedentalclinic.com/",
+      "httpStatus": 200,
+      "htmlLen": 65090,
+      "vendor": "prosites",
+      "category": "dental-mill",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "prosites",
+          "category": "dental-mill",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJ1xAcDPJTw4ARm1RHe20WDoE",
+      "practice": "Wildwood Dental Group",
+      "address": "292 E 40th St B, San Bernardino, CA 92404, USA",
+      "city": "San Bernardino",
+      "rating": 4.7,
+      "reviews": 95,
+      "website": "http://www.wildwood-dental.com/",
+      "finalUrl": "http://www.wildwood-dental.com/",
+      "httpStatus": 200,
+      "htmlLen": 201006,
+      "vendor": "squarespace",
+      "category": "diy-builder",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "squarespace",
+          "category": "diy-builder",
+          "hitCount": 2
+        },
+        {
+          "id": "webflow",
+          "category": "modern-stack",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJ7441Y_ms3IARPXXnoaTYn5M",
+      "practice": "San Bernardino Family Dentistry",
+      "address": "3972 N Waterman Ave STE 110, San Bernardino, CA 92404, USA",
+      "city": "San Bernardino",
+      "rating": 2.6,
+      "reviews": 9,
+      "website": "https://sbfamilydentistryb.wixsite.com/sbfamilydentistry",
+      "finalUrl": "https://sbfamilydentistryb.wixsite.com/sbfamilydentistry",
+      "httpStatus": 200,
+      "htmlLen": 963783,
+      "vendor": "wix",
+      "category": "diy-builder",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "wix",
+          "category": "diy-builder",
+          "hitCount": 2
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJ09BuEe1Uw4AR2tLohCnd_GI",
+      "practice": "Western Dental & Orthodontics",
+      "address": "2094 E Highland Ave, San Bernardino, CA 92404, USA",
+      "city": "San Bernardino",
+      "rating": 3.7,
+      "reviews": 418,
+      "website": "https://www.westerndental.com/en-us/find-a-location/california/san-bernardino/2094-e-highland-ave?utm_source=GMB&utm_medium=organic",
+      "finalUrl": "https://www.westerndental.com/en-us/find-a-location/california/san-bernardino/2094-east-highland-avenue/",
+      "httpStatus": 200,
+      "htmlLen": 136586,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJL1OiOn6t3IARhAQ8tm2-Yb8",
+      "practice": "Cal Select Dental Group",
+      "address": "164 W Hospitality Ln Suite 127, San Bernardino, CA 92408, USA",
+      "city": "San Bernardino",
+      "rating": 4.6,
+      "reviews": 194,
+      "website": "http://www.calselectdental.com/",
+      "finalUrl": "https://www.calselectdental.com/",
+      "httpStatus": 200,
+      "htmlLen": 32649,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJtVjbWx1Tw4AR5BewbJXVhAw",
+      "practice": "Children Dental World",
+      "address": "1136 N Mt Vernon Ave, San Bernardino, CA 92411, USA",
+      "city": "San Bernardino",
+      "rating": 4.8,
+      "reviews": 1427,
+      "website": "http://mychildrendentalworld.com/",
+      "finalUrl": "https://www.mychildrendentalworld.com/",
+      "httpStatus": 200,
+      "htmlLen": 42759,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJcXoRHpCs3IARCFAkDIAB2rw",
+      "practice": "Lifetime Dental & Fastbraces",
+      "address": "1918 Business Center Dr S #210, San Bernardino, CA 92408, USA",
+      "city": "San Bernardino",
+      "rating": 4.6,
+      "reviews": 131,
+      "website": "https://www.lifetimedentalsanbernardino.com/",
+      "finalUrl": "https://www.lifetimedentalsanbernardino.com/",
+      "httpStatus": 200,
+      "htmlLen": 101623,
+      "vendor": "prosites",
+      "category": "dental-mill",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "prosites",
+          "category": "dental-mill",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJlQKoU86t3IARtdAMg1YjEio",
+      "practice": "Dr. W - Family Dentistry",
+      "address": "328 Commercial Rd #104, San Bernardino, CA 92408, USA",
+      "city": "San Bernardino",
+      "rating": 5,
+      "reviews": 42,
+      "website": "http://www.drwdds.org/",
+      "finalUrl": "https://www.drwdds.org/",
+      "httpStatus": 200,
+      "htmlLen": 377087,
+      "vendor": "wix",
+      "category": "diy-builder",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "wix",
+          "category": "diy-builder",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJmRPFylxTw4ARUb0WseB_2wA",
+      "practice": "Your Smile Dental Office",
+      "address": "275 E 9th St # L, San Bernardino, CA 92410, USA",
+      "city": "San Bernardino",
+      "rating": 4.3,
+      "reviews": 37,
+      "website": "http://yoursmilesdentistry.com/",
+      "finalUrl": "https://www.yoursmilesdentistry.com/",
+      "httpStatus": 200,
+      "htmlLen": 1119965,
+      "vendor": "nextjs",
+      "category": "modern-stack",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "nextjs",
+          "category": "modern-stack",
+          "hitCount": 2
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJL9tisjtTw4ARH8t7xZpuBuw",
+      "practice": "MGO Dental",
+      "address": "654 W 4th St Suite A, San Bernardino, CA 92410, USA",
+      "city": "San Bernardino",
+      "rating": 4.3,
+      "reviews": 47,
+      "website": "http://www.mgodental.com/",
+      "finalUrl": "https://www.mgodental.com/",
+      "httpStatus": 200,
+      "htmlLen": 258750,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJfUoLoSpTw4ARnwvzbwSx6_s",
+      "practice": "Sonrisas Dental Studio",
+      "address": "570-E S Mt Vernon Ave, San Bernardino, CA 92410, USA",
+      "city": "San Bernardino",
+      "rating": 4,
+      "reviews": 154,
+      "website": "http://sonrisasdentalstudio.net/",
+      "finalUrl": "https://www.sonrisasdentalstudio.net/",
+      "httpStatus": 200,
+      "htmlLen": 67874,
+      "vendor": "officite",
+      "category": "dental-mill",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "officite",
+          "category": "dental-mill",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJKZsGLM5Tw4ARDaspKySCo9g",
+      "practice": "University Heights Family Dentistry",
+      "address": "985 Kendall Dr B, San Bernardino, CA 92407, USA",
+      "city": "San Bernardino",
+      "rating": 3.5,
+      "reviews": 62,
+      "website": "http://www.naikfamilydentistry.com/",
+      "finalUrl": "https://www.naikfamilydentistry.com/",
+      "httpStatus": 200,
+      "htmlLen": 147781,
+      "vendor": "duda",
+      "category": "diy-builder",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "duda",
+          "category": "diy-builder",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJO4jYQadTw4ARUP0AxEZ1wRI",
+      "practice": "Fresh Smile Dental",
+      "address": "1666 Medical Center Dr # 3, San Bernardino, CA 92411, USA",
+      "city": "San Bernardino",
+      "rating": 3.5,
+      "reviews": 42,
+      "website": "http://www.freshsmiledentalcare.com/",
+      "finalUrl": "http://www.freshsmiledentalcare.com/",
+      "httpStatus": 0,
+      "htmlLen": 0,
+      "vendor": "unreachable",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJOffYMFbHwoARlPukQJXcDpM",
+      "practice": "Children's Choice Dental Care San Bernardino",
+      "address": "721 W 2nd St Suite D, San Bernardino, CA 92410, USA",
+      "city": "San Bernardino",
+      "rating": 4.7,
+      "reviews": 250,
+      "website": "https://www.mychildrenschoice.com/locations/childrens-choice-dental-care-san-bernardino/",
+      "finalUrl": "https://www.mychildrenschoice.com/locations/childrens-choice-dental-care-san-bernardino/",
+      "httpStatus": 200,
+      "htmlLen": 166786,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 2,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 2
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJtxfPxexUw4ARqN2bBa10ONw",
+      "practice": "James M. Sumilat D.D.S. Inc.",
+      "address": "2035 E Highland Ave # B, San Bernardino, CA 92404, USA",
+      "city": "San Bernardino",
+      "rating": 4.9,
+      "reviews": 240,
+      "website": "https://weence.com/medical/doctors/san-bernardino/james-m-sumilat-d-d-s-inc/",
+      "finalUrl": "https://weence.com/medical/doctors/san-bernardino/james-m-sumilat-d-d-s-inc/",
+      "httpStatus": 200,
+      "htmlLen": 201631,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJlUHwRopRw4ARUxGT4MHR6QI",
+      "practice": "Town Center Dental Office",
+      "address": "4434 University Pkwy suite g, San Bernardino, CA 92407, USA",
+      "city": "San Bernardino",
+      "rating": 4.8,
+      "reviews": 14,
+      "website": "https://www.towncenterdentaloffice.com/",
+      "finalUrl": "https://www.towncenterdentaloffice.com/",
+      "httpStatus": 200,
+      "htmlLen": 41662,
+      "vendor": "officite",
+      "category": "dental-mill",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "officite",
+          "category": "dental-mill",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJH_2guSpTw4ARX5ipHl0La1M",
+      "practice": "SB Valley Dentistry",
+      "address": "555 S Mt Vernon Ave #G, San Bernardino, CA 92410, USA",
+      "city": "San Bernardino",
+      "rating": 4.3,
+      "reviews": 11,
+      "website": "http://www.sbvalleydentistry.com/",
+      "finalUrl": "http://www.sbvalleydentistry.com/",
+      "httpStatus": 200,
+      "htmlLen": 59307,
+      "vendor": "prosites",
+      "category": "dental-mill",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "prosites",
+          "category": "dental-mill",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJ2zfvsk6s3IARkFxZEb8JVMU",
+      "practice": "Spring Hills Family Dentistry",
+      "address": "22737 Barton Rd UNIT 12, Grand Terrace, CA 92313, USA",
+      "city": "Grand Terrace",
+      "rating": 4.8,
+      "reviews": 556,
+      "website": "http://springhillsdentistry.com/",
+      "finalUrl": "https://springhillsdentistry.com/",
+      "httpStatus": 200,
+      "htmlLen": 571624,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJy_y2055Tw4ARX6KUii7tHIM",
+      "practice": "Mazen Atout, DMD",
+      "address": "1584 W Base Line St #103, San Bernardino, CA 92411, USA",
+      "city": "San Bernardino",
+      "rating": 5,
+      "reviews": 10,
+      "website": "https://instagram.com/dr.mazenatout",
+      "finalUrl": "https://www.instagram.com/dr.mazenatout",
+      "httpStatus": 200,
+      "htmlLen": 883622,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJGYfjgJKs3IARdbixbJNy61M",
+      "practice": "Lil Smile Builders Children's Dentistry",
+      "address": "225 W Hospitality Ln #104, San Bernardino, CA 92408, USA",
+      "city": "San Bernardino",
+      "rating": 4.8,
+      "reviews": 673,
+      "website": "http://www.lilsmilebuilders.com/",
+      "finalUrl": "https://www.lilsmilebuilders.com/",
+      "httpStatus": 200,
+      "htmlLen": 19161,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    },
+    {
+      "placeId": "ChIJf6wzEpCs3IARR8i0IInYGOA",
+      "practice": "Inland Valley Dentistry",
+      "address": "1887 Business Center Dr S STE 2B, San Bernardino, CA 92408, USA",
+      "city": "San Bernardino",
+      "rating": 5,
+      "reviews": 3,
+      "website": "https://weence.com/medical/doctors/san-bernardino/inland-valley-dentistry/",
+      "finalUrl": "https://weence.com/medical/doctors/san-bernardino/inland-valley-dentistry/",
+      "httpStatus": 200,
+      "htmlLen": 201337,
+      "vendor": "wordpress-generic",
+      "category": "cms",
+      "confidence": 3,
+      "matched": [
+        {
+          "id": "wordpress-generic",
+          "category": "cms",
+          "hitCount": 3
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJi4zn6I2s3IARb7XJueP2SHo",
+      "practice": "Loma Linda University Center for Dentistry and Orthodontics",
+      "address": "159 W Hospitality Ln, San Bernardino, CA 92408, USA",
+      "city": "San Bernardino",
+      "rating": 3.8,
+      "reviews": 28,
+      "website": "https://dentalclinics.llu.edu/faculty-clinics/",
+      "finalUrl": "https://dentalclinics.llu.edu/faculty-clinics",
+      "httpStatus": 200,
+      "htmlLen": 45913,
+      "vendor": "drupal",
+      "category": "cms",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "drupal",
+          "category": "cms",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJdWgrYCZTw4ARs1tkM3mLbTo",
+      "practice": "Dr. Kim's Family Dentistry",
+      "address": "1184 W 2nd St #114, San Bernardino, CA 92410, USA",
+      "city": "San Bernardino",
+      "rating": 4.3,
+      "reviews": 16,
+      "website": "https://www.facebook.com/drkimfamilydental",
+      "finalUrl": "https://www.facebook.com/drkimfamilydental",
+      "httpStatus": 200,
+      "htmlLen": 1072899,
+      "vendor": "webflow",
+      "category": "modern-stack",
+      "confidence": 1,
+      "matched": [
+        {
+          "id": "webflow",
+          "category": "modern-stack",
+          "hitCount": 1
+        }
+      ]
+    },
+    {
+      "placeId": "ChIJ5RFM8Jqs3IAR0dybyj26PCs",
+      "practice": "Arrowhead Dental Specialities",
+      "address": "362 E Vanderbilt Way, San Bernardino, CA 92408, USA",
+      "city": "San Bernardino",
+      "rating": 3.9,
+      "reviews": 17,
+      "website": "https://www.arrowheaddentalspecialties.org/contact-us/contact-information-office-map/",
+      "finalUrl": "https://www.arrowheaddentalspecialties.org/contact-us/contact-information-office-map/",
+      "httpStatus": 403,
+      "htmlLen": 5977,
+      "vendor": "unknown",
+      "category": "unknown",
+      "confidence": 0,
+      "matched": []
+    }
+  ]
+}

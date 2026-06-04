@@ -17,14 +17,23 @@
  */
 
 import { readFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { sampleLibrary } from './distill-design.js';
 import { renderDesignContext } from './render-design-context.js';
-import { deriveDesignTokens } from './derive-design-tokens.js';
+import { deriveDesignTokens, ARCHETYPE_LAYOUT } from './derive-design-tokens.js';
 import { renderSkillPrompt } from './skill-loader.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// Shared design-principles core — the SAME standard the generator builds toward
+// and the pixel-quality judge scores against. The candidate evaluator scores
+// against it too, so it stops re-selecting the safe/generic archetype.
+const DESIGN_PRINCIPLES = (() => {
+  try { return readFileSync(resolve(__dirname, '../skills/design-principles-core.md'), 'utf-8'); }
+  catch { return ''; }
+})();
 
 async function loadDentalIA() {
   try {
@@ -42,6 +51,29 @@ const MODEL = 'claude-sonnet-4-6'; // Creative direction is structured JSON — 
 // Note: most of these are FYI for the director — derive-design-tokens.js
 // deterministically overrides chrome variants based on archetype.
 const HERO_VARIANTS      = ['centered', 'asymmetric-left', 'asymmetric-right', 'split-image', 'full-bleed', 'poster'];
+
+/**
+ * Pick N distinct hero variants for the candidates to EXPLORE, rotated by a
+ * stable hash of the practice name so different practices start from different
+ * points in the menu. Guarantees the set isn't all-split-image (at most one
+ * candidate gets the overused default), forcing genuine exploration. The
+ * evaluator still selects the best on merit.
+ */
+function pickExplorationItems(pool, practiceName, n = 3) {
+  let h = 0;
+  for (const ch of String(practiceName || 'practice')) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  const start = h % pool.length;
+  const rotated = [...pool.slice(start), ...pool.slice(0, start)];
+  return rotated.slice(0, n);
+}
+// Diversity is nudged on ARCHETYPE, not heroVariant — the archetype is what
+// actually drives the rendered variant set (via deriveDesignTokens →
+// ARCHETYPE_LAYOUT), and each archetype is a COHERENT matched set of section
+// variants. Nudging heroVariant (a field ignored at render) wasted the
+// exploration; nudging archetype makes real visual diversity reach the pixels.
+function pickExplorationArchetypes(practiceName, n = 3) {
+  return pickExplorationItems(ARCHETYPES, practiceName, n);
+}
 const SERVICES_VARIANTS  = ['cards-3up', 'editorial-list', 'accordion'];
 const NAV_VARIANTS       = ['centered-logo', 'left-logo', 'split-logo', 'transparent-overlay', 'top-bar'];
 const FOOTER_VARIANTS    = ['minimal-dark', 'editorial-split', 'classic-4col', 'compact-centered', 'bold-cta-footer'];
@@ -75,9 +107,18 @@ export async function runCreativeDirector(merged, design, opts = {}, brandBrief 
   const dataSignals = summarizeSignals(merged);
   const prompt = await buildPrompt({ merged, design, library, dataSignals, brandBrief, audit, dentalIA });
 
-  // Stage 1: Generate 3 candidates in parallel (different temperature seeds)
-  console.log('  [director] Generating 3 DNA candidates...');
+  // Stage 1: Generate 3 candidates in parallel (different temperature seeds).
+  // EXPLORATION NUDGE: a strong model prior makes free-choice candidates all
+  // converge on heroVariant=split-image. To escape it, each candidate is asked
+  // to design the strongest possible site around a DIFFERENT assigned hero
+  // variant. The evaluator (Stage 2) then picks the best on merit — so the
+  // OUTPUT is still merit-chosen (split-image can still win if it's genuinely
+  // best), but the candidates explore the full hero space instead of all
+  // sampling the prior's peak. Per-practice rotation → different practices
+  // surface different best heroes → natural diversity, no cross-site awareness.
+  console.log('  [director] Generating 3 DNA candidates (archetype-exploration nudge)...');
   const temperatures = [0.7, 0.9, 1.0];
+  const assignedArchetypes = pickExplorationArchetypes(dataSignals.practice, 3);
   const { callAnthropic } = await import('./ai-call.js');
   const candidateResults = await Promise.allSettled(
     temperatures.map((temp, i) =>
@@ -86,7 +127,7 @@ export async function runCreativeDirector(merged, design, opts = {}, brandBrief 
         model:       MODEL,
         maxTokens:   2000,
         temperature: temp,
-        messages:    [{ role: 'user', content: prompt }],
+        messages:    [{ role: 'user', content: `${prompt}\n\n## This candidate's archetype exploration\nDesign the STRONGEST possible site using archetype = "${assignedArchetypes[i]}". Commit to it fully and make every other decision cohere with it. The archetype is the most consequential choice — it drives the entire coherent layout system (hero, services, reviews, cta, etc.). (Another candidate is exploring a different archetype; the best overall wins — so make this one excellent, don't hedge toward a safer archetype.)` }],
       }).then(res => ({ dna: parseDna(res.text), temp, index: i, usage: res.usage }))
     )
   );
@@ -350,10 +391,16 @@ function buildEvalPrompt(candidates, library, dataSignals) {
   const owns = library.own.map(summarizeFingerprint);
   const formatted = candidates.map((c, i) => {
     const d = c.dna || {};
-    return `Candidate ${i}:\n  archetype: ${d.archetype}\n  heroVariant: ${d.heroVariant}\n  radius: ${d.radius}\n  sectionOrder: ${JSON.stringify(d.sectionOrder)}\n  cardTreatment: ${d.cardTreatment}\n  motion: ${d.motion}\n  creativeDirection: ${d.creativeDirection || ''}\n  divergenceRationale: ${d.divergenceRationale || ''}`;
+    // Surface the REAL rendered layout the archetype maps to (this is what ships,
+    // not the vestigial heroVariant the model emits). Lets the evaluator judge
+    // the actual hero — and penalize the centered-over-photo cliché.
+    const layout = ARCHETYPE_LAYOUT[d.archetype] || {};
+    return `Candidate ${i}:\n  archetype: ${d.archetype}\n  → RENDERS hero: ${layout.heroLayout || '(unknown)'}, services: ${layout.servicesLayout || '?'}, reviews: ${layout.testimonialsLayout || '?'}, cta: ${layout.ctaLayout || '?'}\n  radius: ${d.radius}\n  sectionOrder: ${JSON.stringify(d.sectionOrder)}\n  creativeDirection: ${d.creativeDirection || ''}\n  divergenceRationale: ${d.divergenceRationale || ''}`;
   }).join('\n\n');
 
-  return `You are evaluating 3 design DNA candidates for a dental practice website. Pick the best one.
+  return `You are evaluating 3 design DNA candidates for a dental practice website. Pick the one that will produce the best-DESIGNED, most distinctive site — scored against the design principles below.
+
+${DESIGN_PRINCIPLES}
 
 # Practice context
 - Name: ${dataSignals.practice}
@@ -365,17 +412,17 @@ ${owns.length ? JSON.stringify(owns.map(o => `${o.archetype}/${o.hero}`), null, 
 # Candidates
 ${formatted}
 
-# Evaluation criteria
-1. Visual distinctiveness from recent own-builds (highest weight)
-2. Creative interest — specific, unusual, not generic
-3. Appropriate for available data (no sections that require missing data)
-4. Internal consistency (radius/motion/cardTreatment should feel cohesive within the brand brief's density)
+# Evaluation criteria (in priority order)
+1. **Design quality per the §A/§B principles above** — judge the "RENDERS" layout line. HARD-PENALIZE a candidate whose hero is the centered-text-over-photo cliché unless nothing else fits; REWARD distinctive, coherent archetypes (split/poster/text-only/editorial). Do not default to the "safe/versatile" archetype — safe is a weakness here, not a strength.
+2. Coherence — the rendered section set reads as one intentional system.
+3. Appropriate for available data (no sections that require missing data).
+4. Distinctiveness from recent own-builds.
 
 Return ONLY this JSON:
 {
   "winner": <0|1|2>,
   "scores": [<0-10>, <0-10>, <0-10>],
-  "rationale": "<1-2 sentences explaining why the winner is the best choice>"
+  "rationale": "<1-2 sentences; name the principle that decided it>"
 }`;
 }
 

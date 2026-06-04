@@ -1,0 +1,63 @@
+{
+  "placeId": "ChIJm7S13Jax3IARpNKlu5yyUwo",
+  "practiceName": "Riverside Modern Dentistry",
+  "address": "6161 Van Buren Boulevard Ste 103, Riverside, CA 92503, USA",
+  "websiteUrl": "https://www.riversidemoderndentistry.com/?sc_cid=GBP%3AO%3AGP%3A300%3AOrganic_Search%3AGeneral%3Ana&_vsrefdom=organic_gbp&y_source=1_MzQ3OTcxOTItNzE1LWxvY2F0aW9uLndlYnNpdGU%3D",
+  "phone": "(951) 261-5277",
+  "rating": 5,
+  "reviewCount": 1439,
+  "primaryType": "dentist",
+  "types": [
+    "dentist",
+    "doctor",
+    "health",
+    "point_of_interest",
+    "establishment"
+  ],
+  "businessStatus": "OPERATIONAL",
+  "source": "google-places-text-search",
+  "sourcedAt": "2026-06-03T21:59:39.019Z",
+  "msa": "Riverside–San Bernardino–Ontario, CA",
+  "httpStatus": 200,
+  "finalUrl": "https://www.riversidemoderndentistry.com/?sc_cid=GBP%3AO%3AGP%3A300%3AOrganic_Search%3AGeneral%3Ana&_vsrefdom=organic_gbp&y_source=1_MzQ3OTcxOTItNzE1LWxvY2F0aW9uLndlYnNpdGU%3D",
+  "desktopPath": "_sourcing/screenshots/ChIJm7S13Jax3IARpNKlu5yyUwo-desktop.png",
+  "mobilePath": "_sourcing/screenshots/ChIJm7S13Jax3IARpNKlu5yyUwo-mobile.png",
+  "isChain": true,
+  "chainName": "Pacific Dental Services",
+  "status": "excluded-dso",
+  "vendor": "pacific-dental-services",
+  "vendorCategory": "dental-mill",
+  "wpTheme": null,
+  "features": {
+    "hasHttps": true,
+    "hasViewportMeta": true,
+    "hasSchemaOrg": true,
+    "hasClickToCall": true,
+    "hasFacebookPixel": false,
+    "hasGoogleAnalytics": false,
+    "booking": {
+      "present": false,
+      "vendor": null
+    },
+    "serviceLinkCount": 9,
+    "datedTechFlags": [],
+    "datedTechFlagCount": 0,
+    "datedTechPenalty": 0
+  },
+  "multiLocation": {
+    "multiLocation": true,
+    "addressCount": 2,
+    "ldAddressCount": 1,
+    "hasLocationsLink": false,
+    "urlHasLocations": false,
+    "reason": "2 addresses"
+  },
+  "scores": {
+    "design": 23,
+    "businessValue": 68,
+    "vendorMultiplier": 1.5,
+    "opportunity": 79,
+    "tier": null,
+    "quadrant": null
+  }
+}

@@ -1,297 +1,156 @@
 /**
- * Merge scraped data + intake data into a single PracticeData object.
+ * Merge synthesize (silver) + intake into a single PracticeData object.
  *
- * Rules:
- *   - Intake data wins all conflicts (client explicitly provided it).
- *   - Services are merged (union of both sources, deduplicated by slug).
- *   - Missing required fields get sensible defaults + confidenceFlags entries.
- *   - Generates a redirect map: old URL paths -> new page paths.
- *   - Determines which service hub pages to keep (4 hubs).
+ * MENTAL MODEL — two sources, resolved by authority:
+ *   • Silver  = observed truth (what the old site said).  The ONLY content source.
+ *   • Intake  = declared truth (what the client says is correct NOW).  A thin
+ *               "fact correction" layer over a fixed allowlist — NOT a content channel.
+ *
+ * Mechanism:
+ *   1. Clone silver wholesale  → 100% lossless + schema-flexible by construction.
+ *      (Any field synthesize adds flows through untouched; merge-eval enforces 100%.)
+ *   2. Override ONLY the correction-critical facts in INTAKE_OVERRIDE_PATHS, when
+ *      the client provided them. Intake cannot touch anything else.
+ *   3. Apply structural normalization + derived fields the downstream shape expects.
+ *
+ * Because intake writes into the SAME canonical paths silver uses (intake.js
+ * normalizes the client's raw form → practice.phone, address.street, …), the
+ * result is a clean per-key override — never two similarly-named keys.
  */
 
-import { createEmptyPracticeData, DEFAULT_HOURS, DEFAULT_COLORS } from './schema.js';
-import { slugify, formatPhone } from './utils.js';
+import { DEFAULT_HOURS, DEFAULT_COLORS } from './schema.js';
+import { slugify } from './utils.js';
+
+// ---------------------------------------------------------------------------
+// Intake allowlist — Step 3's entire surface area.
+// The client can correct ONLY these facts (the ones that go stale on an old
+// site and are costly to get wrong). Everything else always comes from silver.
+// To let intake control another field later, add its canonical path here.
+// ---------------------------------------------------------------------------
+export const INTAKE_OVERRIDE_PATHS = [
+  'practice.name',
+  'practice.phone',
+  'practice.email',
+  'practice.domain',   // website / booking URL
+  'address.street',
+  'address.city',
+  'address.state',
+  'address.zip',
+  'hours',             // full hours object (Tue–Fri 8–5, etc.)
+];
+
+const _isEmpty = (v) =>
+  v === null || v === undefined || v === '' ||
+  (Array.isArray(v) && v.length === 0) ||
+  (typeof v === 'object' && !Array.isArray(v) && Object.keys(v).length === 0);
+
+function getPath(obj, path) {
+  return path.split('.').reduce((o, k) => (o == null ? undefined : o[k]), obj);
+}
+function setPath(obj, path, val) {
+  const parts = path.split('.');
+  let cur = obj;
+  for (let i = 0; i < parts.length - 1; i++) {
+    cur[parts[i]] = cur[parts[i]] || {};
+    cur = cur[parts[i]];
+  }
+  cur[parts[parts.length - 1]] = val;
+}
 
 // ---------------------------------------------------------------------------
 // Public API
 // ---------------------------------------------------------------------------
 
 /**
- * Merge scraped data and intake data into a complete PracticeData object.
- *
- * @param {object} scrapeData - Data extracted by the scraper (may be partial).
- * @param {object} intakeData - Normalised intake data (from loadIntake).
- * @param {object} [preset]   - Loaded vertical preset (from preset-loader).
+ * @param {object} scrapeData - Silver (synthesize output). The content source.
+ * @param {object} intakeData - Normalised intake (from loadIntake). Correction layer.
+ * @param {object} [preset]   - Loaded vertical preset (for redirect rules).
  * @returns {object} Complete PracticeData
  */
 export function mergeData(scrapeData, intakeData, preset = null) {
-  // Normalize null/undefined to empty objects
   scrapeData = scrapeData || {};
   intakeData = intakeData || {};
-  const data = createEmptyPracticeData();
   const flags = [];
 
-  // ---- Practice info (intake wins) ----------------------------------------
-  data.practice.name =
-    intakeData.practice?.name ||
-    scrapeData.practice?.name ||
-    null;
-  if (!data.practice.name) flags.push('practice.name: missing');
+  // 1) Lossless base — everything silver produced flows through untouched.
+  const data = structuredClone(scrapeData);
 
-  data.practice.domain =
-    intakeData.practice?.domain ||
-    scrapeData.practice?.domain ||
-    null;
-
-  data.practice.phone =
-    intakeData.practice?.phone ||
-    scrapeData.practice?.phone ||
-    null;
-  if (!data.practice.phone) flags.push('practice.phone: missing');
-
-  data.practice.phoneDigits = data.practice.phone
-    ? data.practice.phone.replace(/\D/g, '')
-    : null;
-
-  data.practice.email =
-    intakeData.practice?.email ||
-    scrapeData.practice?.email ||
-    null;
-  if (!data.practice.email) flags.push('practice.email: missing');
-
-  data.practice.googleReviewLink =
-    intakeData.practice?.googleReviewLink ||
-    scrapeData.practice?.googleReviewLink ||
-    null;
-  data.practice.googleProfileLink =
-    intakeData.practice?.googleProfileLink ||
-    scrapeData.practice?.googleProfileLink ||
-    null;
-  data.practice.priceRange =
-    intakeData.practice?.priceRange ||
-    scrapeData.practice?.priceRange ||
-    '$$';
-  data.practice.medicalSpecialty =
-    intakeData.practice?.medicalSpecialty ||
-    scrapeData.practice?.medicalSpecialty ||
-    null;
-  data.practice.sameAs =
-    intakeData.practice?.sameAs ||
-    scrapeData.practice?.sameAs ||
-    [];
-
-  // ---- Doctor info (intake wins) ------------------------------------------
-  const intakeDoc = intakeData.doctor || {};
-  const scrapeDoc = scrapeData.doctor || {};
-
-  data.doctor.firstName = intakeDoc.firstName || scrapeDoc.firstName || null;
-  data.doctor.lastName = intakeDoc.lastName || scrapeDoc.lastName || null;
-  data.doctor.name =
-    data.doctor.firstName && data.doctor.lastName
-      ? `Dr. ${data.doctor.firstName} ${data.doctor.lastName}`
-      : scrapeDoc.name || null;
-  if (!data.doctor.name) flags.push('doctor.name: missing');
-
-  data.doctor.credentials = intakeDoc.credentials || scrapeDoc.credentials || null;
-  if (!data.doctor.credentials) flags.push('doctor.credentials: missing — defaulting to DDS');
-  data.doctor.credentials = data.doctor.credentials || 'DDS';
-
-  data.doctor.bio = intakeDoc.bio || scrapeDoc.bio || null;
-  data.doctor.education = intakeDoc.education || scrapeDoc.education || null;
-  data.doctor.specialties = intakeDoc.specialties || scrapeDoc.specialties || [];
-  data.doctor.photoPath = intakeDoc.photoPath || scrapeDoc.photoPath || null;
-
-  // ---- Additional doctors -------------------------------------------------
-  data.additionalDoctors =
-    intakeData.additionalDoctors ||
-    scrapeData.additionalDoctors ||
-    [];
-
-  // ---- Address (intake wins) ----------------------------------------------
-  const intakeAddr = intakeData.address || {};
-  const scrapeAddr = scrapeData.address || {};
-
-  data.address.street = intakeAddr.street || scrapeAddr.street || null;
-  data.address.city = intakeAddr.city || scrapeAddr.city || null;
-  data.address.state = intakeAddr.state || scrapeAddr.state || null;
-  data.address.zip = intakeAddr.zip || scrapeAddr.zip || null;
-  data.address.country = intakeAddr.country || scrapeAddr.country || 'US';
-  if (!data.address.city) flags.push('address.city: missing');
-  if (!data.address.state) flags.push('address.state: missing');
-
-  data.address.full = [
-    data.address.street,
-    data.address.city,
-    [data.address.state, data.address.zip].filter(Boolean).join(' '),
-  ]
-    .filter(Boolean)
-    .join(', ');
-
-  // ---- Hours (intake wins, else scrape, else defaults) --------------------
-  if (intakeData.hours) {
-    data.hours = intakeData.hours;
-  } else if (scrapeData.hours) {
-    data.hours = scrapeData.hours;
-  } else {
-    data.hours = { ...DEFAULT_HOURS };
-    flags.push('hours: using defaults (Mon-Fri 9-5)');
+  // 2) Intake overrides — correction-critical facts ONLY.
+  for (const path of INTAKE_OVERRIDE_PATHS) {
+    const val = getPath(intakeData, path);
+    if (!_isEmpty(val)) {
+      setPath(data, path, val);
+      flags.push(`intake override: ${path}`);
+    }
   }
 
-  // ---- Services (union + dedup) -------------------------------------------
-  const scrapeServices = scrapeData.services?.offered || [];
-  const intakeServices = intakeData.services?.offered || [];
+  // 3) Structural normalization — the canonical shape downstream consumes.
 
-  const allServices = [
-    ...intakeServices,
-    ...scrapeServices.map(s => ({
-      ...s,
-      // Normalize shape if scraper only gave strings
-      name: typeof s === 'string' ? s : s.name,
-      slug: typeof s === 'string' ? slugify(s) : s.slug || slugify(s.name),
-      source: s.source || 'scrape',
-      confidence: s.confidence ?? 0.7,
-    })),
-  ];
-
-  data.services.offered = deduplicateServices(allServices);
-  // Hubs are disabled — we preserve the original site's service structure exactly.
-  // No auto-generated parent categories. Every service page mirrors what was on the original site.
-  data.services.hubs = [];
-
-  if (data.services.offered.length === 0) {
-    flags.push('services: none detected — keeping general-dentistry hub only');
-  }
-
-  // ---- Brand (intake wins, else scrape, else defaults) --------------------
-  const intakeBrand = intakeData.brand || {};
-  const scrapeBrand = scrapeData.brand || {};
-
-  data.brand.colors = intakeBrand.colors || scrapeBrand.colors || { ...DEFAULT_COLORS };
-  if (!intakeBrand.colors && !scrapeBrand.colors) {
-    flags.push('brand.colors: using defaults');
-  }
-
-  data.brand.fonts = intakeBrand.fonts || scrapeBrand.fonts || {
-    heading: 'Playfair Display',
-    body: 'DM Sans',
+  // doctors[] is the source of truth; mirror to legacy doctor + additionalDoctors,
+  // deriving the legacy `education` string from educationList[] when present.
+  const withEdu = (d) => {
+    if (!d) return d;
+    const education = d.education
+      || (Array.isArray(d.educationList) && d.educationList.length ? d.educationList.join('; ') : null);
+    return { ...d, education };
   };
-  data.brand.logoPath = intakeBrand.logoPath || scrapeBrand.logoPath || null;
-
-  // ---- Content (merge arrays, intake wins scalars) ------------------------
-  const intakeContent = intakeData.content || {};
-  const scrapeContent = scrapeData.content || {};
-
-  data.content.heroTagline = intakeContent.heroTagline || scrapeContent.heroTagline || null;
-  data.content.aboutText = intakeContent.aboutText || scrapeContent.aboutText || null;
-  data.content.philosophy = intakeContent.philosophy || scrapeContent.philosophy || null;
-
-  data.content.testimonials = [
-    ...(intakeContent.testimonials || []),
-    ...(scrapeContent.testimonials || []),
-  ];
-  data.content.faqs = [
-    ...(intakeContent.faqs || []),
-    ...(scrapeContent.faqs || []),
-  ];
-  data.content.insurance = [
-    ...new Set([
-      ...(intakeContent.insurance || []),
-      ...(scrapeContent.insurance || []),
-    ]),
-  ];
-
-  const intakeStats = intakeContent.stats || {};
-  const scrapeStats = scrapeContent.stats || {};
-  data.content.stats.yearsExperience = intakeStats.yearsExperience || scrapeStats.yearsExperience || null;
-  data.content.stats.happyPatients = intakeStats.happyPatients || scrapeStats.happyPatients || null;
-  data.content.stats.googleRating = intakeStats.googleRating || scrapeStats.googleRating || null;
-  data.content.stats.fiveStarReviews = intakeStats.fiveStarReviews || scrapeStats.fiveStarReviews || null;
-
-  // ---- Images (merge arrays, intake wins) ---------------------------------
-  const intakeImages = intakeData.images || {};
-  const scrapeImages = scrapeData.images || {};
-
-  data.images.logo = intakeImages.logo || scrapeImages.logo || null;
-  data.images.team = [...(intakeImages.team || []), ...(scrapeImages.team || [])];
-  data.images.office = [...(intakeImages.office || []), ...(scrapeImages.office || [])];
-  data.images.gallery = [...(intakeImages.gallery || []), ...(scrapeImages.gallery || [])];
-
-  // ---- Migration (redirect map) -------------------------------------------
-  const oldUrls = scrapeData.migration?.oldUrls || [];
-  data.migration.oldUrls = oldUrls;
-  data.migration.redirectMap = generateRedirectMap(
-    oldUrls,
-    data.services.hubs,
-    preset?.redirectRules || [],
-  );
-
-  // ---- Meta ---------------------------------------------------------------
-  data.meta.oldSiteUrl = scrapeData.meta?.oldSiteUrl || null;
-  data.meta.scrapedAt = scrapeData.meta?.scrapedAt || null;
-  data.meta.intakeSource = intakeData.meta?.intakeSource || null;
-  data.meta.clientId = intakeData.meta?.clientId || scrapeData.meta?.clientId || null;
-  data.meta.confidenceFlags = flags;
-
-  // ---- Pass-through fields (not in schema, added by silver/downstream steps) ----
-  // X1: silver now produces `differentiators` (was `signals`); accept both for back-compat
-  if (Array.isArray(scrapeData.differentiators)) data.differentiators = scrapeData.differentiators;
-  else if (Array.isArray(scrapeData.signals))    data.differentiators = scrapeData.signals;
-  // Keep `signals` alias so older consumers don't break
-  if (data.differentiators) data.signals = data.differentiators;
-
-  // X2: top-level additionalContent[] (silver promoted it from content.additionalContent)
-  if (Array.isArray(scrapeData.additionalContent)) {
-    data.additionalContent = scrapeData.additionalContent;
-  } else if (Array.isArray(scrapeData.content?.additionalContent)) {
-    // Legacy nested location
-    data.additionalContent = scrapeData.content.additionalContent;
-  }
-
-  // X3: doctors[] array (was doctor + additionalDoctors). If silver provided
-  // doctors[], use it; otherwise reconstruct from legacy fields.
-  //
-  // BACK-COMPAT ADAPTER: existing _audits/<slug>/_data/silver.json files (from
-  // before this refactor) only have `doctor` (singular) + `additionalDoctors[]`.
-  // The fallback below treats `doctor` as doctors[0] and appends additional
-  // doctors so prospects don't need a full re-audit.
-  if (Array.isArray(scrapeData.doctors) && scrapeData.doctors.length > 0) {
-    data.doctors = scrapeData.doctors;
-  } else if ((data.doctor && data.doctor.name) || (data.additionalDoctors || []).length > 0) {
-    data.doctors = [
+  let doctors = Array.isArray(data.doctors) ? data.doctors : [];
+  if (doctors.length === 0) {
+    doctors = [
       ...(data.doctor && data.doctor.name ? [data.doctor] : []),
-      ...((data.additionalDoctors || []).filter(d => d?.name)),
+      ...((data.additionalDoctors || []).filter(d => d && d.name)),
     ];
+  }
+  doctors = doctors.map(withEdu);
+  data.doctors = doctors;
+  if (doctors.length > 0) {
+    data.doctor = doctors[0];
+    data.additionalDoctors = doctors.slice(1);
   } else {
-    data.doctors = [];
+    data.additionalDoctors = data.additionalDoctors || [];
   }
 
-  // Keep legacy doctor + additionalDoctors in sync with doctors[] so older
-  // consumers (`merged.doctor.name`, etc.) keep working uniformly.
-  if (data.doctors.length > 0) {
-    data.doctor = data.doctors[0];
-    data.additionalDoctors = data.doctors.slice(1);
-  }
+  // services: normalize shape + dedup by slug. Hubs disabled — mirror source structure.
+  const offered = (data.services?.offered || []).map(s => ({
+    ...(typeof s === 'object' && s ? s : {}),
+    name: typeof s === 'string' ? s : s.name,
+    slug: typeof s === 'string' ? slugify(s) : (s.slug || slugify(s.name)),
+    source: (typeof s === 'object' && s && s.source) || 'scrape',
+    confidence: (typeof s === 'object' && s && s.confidence != null) ? s.confidence : 0.7,
+  })).filter(s => s.name);
+  data.services = { offered: deduplicateServices(offered), hubs: [] };
 
-  // Staff[] passthrough (silver → merged)
-  if (Array.isArray(scrapeData.staff)) {
-    data.staff = scrapeData.staff;
-  } else if (Array.isArray(intakeData.staff)) {
-    data.staff = intakeData.staff;
-  } else {
-    data.staff = [];
-  }
+  data.staff = Array.isArray(data.staff) ? data.staff : [];
+  data.navigation = Array.isArray(data.navigation) ? data.navigation : [];
 
-  // Navigation passthrough (silver → merged). Intake-provided navigation wins
-  // if present.
-  if (Array.isArray(intakeData.navigation) && intakeData.navigation.length > 0) {
-    data.navigation = intakeData.navigation;
-  } else if (Array.isArray(scrapeData.navigation)) {
-    data.navigation = scrapeData.navigation;
-  } else {
-    data.navigation = [];
-  }
+  // 4) Sensible defaults where silver was silent (downstream back-compat).
+  if (_isEmpty(data.hours)) { data.hours = { ...DEFAULT_HOURS }; flags.push('hours: using defaults'); }
+  data.brand = data.brand || {};
+  if (_isEmpty(data.brand.colors)) { data.brand.colors = { ...DEFAULT_COLORS }; flags.push('brand.colors: using defaults'); }
+  if (_isEmpty(data.brand.fonts)) data.brand.fonts = { heading: 'Playfair Display', body: 'DM Sans' };
+  if (data.doctor && !data.doctor.credentials) data.doctor.credentials = 'DDS';
+  if (!data.practice?.name) flags.push('practice.name: missing');
+  if (!data.practice?.phone) flags.push('practice.phone: missing');
 
-  if (scrapeData.pageInventory)          data.pageInventory = scrapeData.pageInventory;
+  // 5) Derived fields.
+  data.practice = data.practice || {};
+  data.practice.phoneDigits = data.practice.phone ? String(data.practice.phone).replace(/\D/g, '') : null;
+  data.practice.priceRange = data.practice.priceRange || '$$';
+  const a = (data.address = data.address || {});
+  a.country = a.country || 'US';
+  a.full = [a.street, a.city, [a.state, a.zip].filter(Boolean).join(' ')].filter(Boolean).join(', ') || null;
+
+  // Migration redirect map (from silver's crawled URLs).
+  const oldUrls = data.migration?.oldUrls || [];
+  data.migration = {
+    oldUrls,
+    redirectMap: generateRedirectMap(oldUrls, [], preset?.redirectRules || []),
+  };
+
+  // Meta.
+  data.meta = data.meta || {};
+  data.meta.intakeSource = intakeData.meta?.intakeSource || data.meta.intakeSource || null;
+  data.meta.confidenceFlags = flags;
 
   return data;
 }
@@ -302,22 +161,16 @@ export function mergeData(scrapeData, intakeData, preset = null) {
 
 /**
  * Determine which service hub pages to keep based on detected services.
- *
  * @param {Array} services       - Array of service objects with { slug, category }.
  * @param {Array} hubDefinitions - Hub definitions from preset.
  * @param {Array} taxonomyServices - Full service taxonomy from preset.
  * @returns {Array} Array of hub objects { slug, label, desc }.
  */
 export function determineServiceHubs(services, hubDefinitions = [], taxonomyServices = []) {
-  // Hubs are ONLY created when the original site explicitly had that service category
-  // by name — we never synthesize parent categories from individual sub-services.
-  // A hub must appear verbatim (or near-verbatim) in the scraped service list.
   const activeHubs = [];
 
   for (const hub of hubDefinitions) {
-    // alwaysKeep is disabled — no hub is forced. Every hub must be earned.
     if (hub.alwaysKeep) {
-      // Only keep if an exact slug or label match exists in scraped services
       const hasExact = services.some(s => s.slug === hub.slug ||
         s.name.toLowerCase() === hub.label.toLowerCase());
       if (!hasExact) continue;
@@ -325,24 +178,13 @@ export function determineServiceHubs(services, hubDefinitions = [], taxonomyServ
       continue;
     }
 
-    // Only create a hub if the practice explicitly offered it as a named category.
-    // Matching individual sub-services (e.g. "Dental Crown" → restorative hub) is
-    // NOT sufficient — that invents categories the practice never marketed.
-    // A hub requires: the hub slug itself, OR a service whose name closely matches
-    // the hub label, OR an explicit matchSlugs hit.
     const hasExplicitMatch = services.some(svc => {
-      // Exact hub slug match (practice listed the category by name)
       if (svc.slug === hub.slug) return true;
-
-      // Explicit slug allowlist from hub definition
       if (hub.matchSlugs?.includes(svc.slug)) return true;
-
-      // Name similarity: service name contains hub label words (≥2 words matching)
       const hubWords = hub.label.toLowerCase().split(/\s+/).filter(w => w.length > 3);
       const svcName  = svc.name.toLowerCase();
       const matchCount = hubWords.filter(w => svcName.includes(w)).length;
       if (matchCount >= 2) return true;
-
       return false;
     });
 
@@ -360,8 +202,7 @@ export function determineServiceHubs(services, hubDefinitions = [], taxonomyServ
 
 /**
  * Generate a redirect map from old URL paths to new page paths.
- *
- * @param {string[]} oldUrls       - Array of old URL paths (e.g. ['/our-team/', '/teeth-whitening/']).
+ * @param {string[]} oldUrls       - Array of old URL paths.
  * @param {Array}    serviceHubs    - Active hub objects from determineServiceHubs.
  * @param {Array}    redirectRules  - Redirect rules from preset.
  * @returns {Array} Array of { from, to } redirect entries.
@@ -369,12 +210,11 @@ export function determineServiceHubs(services, hubDefinitions = [], taxonomyServ
 export function generateRedirectMap(oldUrls, serviceHubs, redirectRules = []) {
   if (!oldUrls || oldUrls.length === 0) return [];
 
-  const activeHubSlugs = new Set(serviceHubs.map(h => h.slug));
+  const activeHubSlugs = new Set((serviceHubs || []).map(h => h.slug));
   const redirects = [];
   const seen = new Set();
 
   for (const rawUrl of oldUrls) {
-    // Normalise: strip protocol/host, keep path only
     let path;
     try {
       const parsed = new URL(rawUrl, 'https://placeholder.local');
@@ -383,42 +223,23 @@ export function generateRedirectMap(oldUrls, serviceHubs, redirectRules = []) {
       path = rawUrl;
     }
 
-    // Strip trailing slash for matching (keep leading /)
     path = path.replace(/\/+$/, '') || '/';
-
-    // Skip homepage and already-mapped paths
     if (path === '/' || seen.has(path)) continue;
     seen.add(path);
 
     let target = null;
-
-    // Walk through redirect rules in priority order
     for (const rule of redirectRules) {
       if (rule.pattern.test(path)) {
         target = rule.target;
-
-        // Validate: if the target is a service hub page, only redirect
-        // if we actually have that hub active
         if (target.startsWith('/services/')) {
           const hubSlug = target.replace('/services/', '');
-          if (!activeHubSlugs.has(hubSlug)) {
-            // Fallback to generic /services
-            target = '/services';
-          }
+          if (!activeHubSlugs.has(hubSlug)) target = '/services';
         }
         break;
       }
     }
-
-    // Default fallback: redirect to homepage
-    if (!target) {
-      target = '/';
-    }
-
-    // Only add if the redirect actually changes the path
-    if (path !== target) {
-      redirects.push({ from: path, to: target });
-    }
+    if (!target) target = '/';
+    if (path !== target) redirects.push({ from: path, to: target });
   }
 
   return redirects;
@@ -429,9 +250,8 @@ export function generateRedirectMap(oldUrls, serviceHubs, redirectRules = []) {
 // ---------------------------------------------------------------------------
 
 /**
- * Deduplicate services by slug. When duplicates exist, keep the entry with
- * the highest confidence. If confidence is equal, prefer 'intake' source.
- *
+ * Deduplicate services by slug. When duplicates exist, keep the entry with the
+ * highest confidence. If confidence is equal, prefer 'intake' source.
  * @param {Array} services - Array of service objects.
  * @returns {Array} Deduplicated array sorted alphabetically by name.
  */
@@ -447,10 +267,8 @@ export function deduplicateServices(services) {
       continue;
     }
 
-    // Keep the one with higher confidence
     const newConf = svc.confidence ?? 0;
     const oldConf = existing.confidence ?? 0;
-
     if (newConf > oldConf || (newConf === oldConf && svc.source === 'intake')) {
       bySlug.set(slug, { ...svc, slug });
     }

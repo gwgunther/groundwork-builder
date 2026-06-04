@@ -1,0 +1,110 @@
+{
+  "placeId": "ChIJh1Z0isCx3IARrkU2AiQICd4",
+  "practiceName": "Magnolia Modern Dental",
+  "address": "3519 Van Buren Boulevard, Riverside, CA 92503, USA",
+  "websiteUrl": "http://www.magnoliamoderndental.com/",
+  "phone": "(951) 801-5858",
+  "rating": 4.9,
+  "reviewCount": 491,
+  "primaryType": "dentist",
+  "types": [
+    "dentist",
+    "health",
+    "point_of_interest",
+    "establishment"
+  ],
+  "businessStatus": "OPERATIONAL",
+  "source": "google-places-text-search",
+  "sourcedAt": "2026-06-03T21:59:39.019Z",
+  "msa": "Riverside–San Bernardino–Ontario, CA",
+  "httpStatus": 200,
+  "finalUrl": "https://magnoliamoderndental.com/",
+  "desktopPath": "_sourcing/screenshots/ChIJh1Z0isCx3IARrkU2AiQICd4-desktop.png",
+  "mobilePath": "_sourcing/screenshots/ChIJh1Z0isCx3IARrkU2AiQICd4-mobile.png",
+  "isChain": false,
+  "chainName": null,
+  "vendor": "wordpress-generic",
+  "vendorCategory": "cms",
+  "wpTheme": {
+    "name": "betheme",
+    "isDefault": false
+  },
+  "features": {
+    "hasHttps": true,
+    "hasViewportMeta": true,
+    "hasSchemaOrg": true,
+    "hasClickToCall": true,
+    "hasFacebookPixel": false,
+    "hasGoogleAnalytics": true,
+    "booking": {
+      "present": false,
+      "vendor": null
+    },
+    "serviceLinkCount": 9,
+    "datedTechFlags": [
+      {
+        "id": "jquery",
+        "weight": 1
+      }
+    ],
+    "datedTechFlagCount": 1,
+    "datedTechPenalty": 1
+  },
+  "multiLocation": {
+    "multiLocation": true,
+    "addressCount": 1,
+    "ldAddressCount": 2,
+    "hasLocationsLink": false,
+    "urlHasLocations": false,
+    "reason": "2 schema postal addresses"
+  },
+  "ads": {
+    "meta": {
+      "running": false,
+      "count": 0
+    },
+    "google": {
+      "running": false,
+      "count": 0,
+      "error": "google bot challenge"
+    }
+  },
+  "lighthouse": {
+    "ok": true,
+    "performance": 64,
+    "accessibility": 85,
+    "bestPractices": 81,
+    "seo": 100,
+    "lcp": 7937.000324249268,
+    "cls": 0.010923
+  },
+  "vision": {
+    "ok": true,
+    "unrenderable": false,
+    "visualCraft": 3,
+    "clarityHierarchy": 4,
+    "modernity": 3,
+    "observations": [
+      "Hero section features a large close-up photograph of a smiling woman's mouth with white text overlay reading 'Magnolia Modern Dental Creating Contagious Smiles in a Peaceful Atmosphere'",
+      "Black navigation bar at top with white text links and a white-bordered 'Call Us' button in the upper right corner",
+      "Elegant serif typography used for the main headline with a decorative curved divider element below the hero text",
+      "Beige/cream colored section below the hero with 'TOUR OUR SANCTUARY' heading in large serif type, followed by body text and a 'Gallery' button",
+      "Mobile version maintains the same layout and proportions as desktop with readable text and accessible tap targets; hamburger menu replaces horizontal navigation but hero remains fully legible"
+    ],
+    "rationales": {
+      "visualCraft": "Matches the anchor 3 almost exactly with the same hero image, typography, and layout structure—competent execution with professional photography but clearly from a template or common design pattern",
+      "clarityHierarchy": "Strong visual hierarchy with clear practice name, value proposition, and prominent 'BOOK NOW' CTA in the hero; phone number easily accessible in header on both desktop and mobile",
+      "modernity": "Contemporary flat design with large hero image and generous whitespace, but the serif typography and beige palette feel safe and conventional rather than distinctively current"
+    },
+    "rawText": "```json\n{\n  \"unrenderable\": false,\n  \"observations\": [\n    \"Hero section features a large close-up photograph of a smiling woman's mouth with white text overlay reading 'Magnolia Modern Dental Creating Contagious Smiles in a Peaceful Atmosphere'\",\n    \"Black navigation bar at top with white text links and a white-bordered 'Call Us' button in the upper right corner\",\n    \"Elegant serif typography used for the main headline with a decorative curved divider element below the hero text\",\n    \"Beige/cream colored section below the hero with 'TOUR OUR SANCTUARY' heading in large serif type, followed by body text and a 'Gallery' button\",\n    \"Mobile version maintains the same layout and proportions as desktop with readable text and accessible tap targets; hamburger menu replaces horizontal navigation but hero remains fully legible\"\n  ],\n  \"visual_craft\": {\n    \"score\": 3,\n    \"rationale\": \"Matches the anchor 3 almost exactly with the same hero image, typography, and layout structure—competent execution with professional photography but clearly from a template or common design pattern\"\n  },\n  \"clarity_hierarchy\": {\n    \"score\": 4,\n    \"rationale\": \"Strong visual hierarchy with clear practice name, value proposition, and prominent 'BOOK NOW' CTA in the hero; phone number easily accessible in header on both desktop and mobile\"\n  },\n  \"modernity\": {\n    \"score\": 3,\n    \"rationale\": \"Contemporary flat design with large hero image and generous whitespace, but the serif typography and beige palette feel safe and conventional rather than distinctively current\"\n  }\n}\n```"
+  },
+  "scores": {
+    "design": 60,
+    "businessValue": 64,
+    "vendorMultiplier": 1.1,
+    "opportunity": 28,
+    "tier": "C",
+    "quadrant": "Skip — already sorted"
+  },
+  "status": "new"
+}

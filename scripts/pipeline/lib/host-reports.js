@@ -6,9 +6,8 @@
  * pushes — Cloudflare Pages auto-deploys.
  *
  * Layout under public/audits/<slug>/:
- *   index.html          — the SUMMARY (customer-facing: screenshot, top-5
- *                         finding/fix pairs, "See all" CTA). The page a
- *                         prospect lands on from an email link.
+ *   index.html          — sales audit one-pager (lead-capture CTA). The page
+ *                         a prospect lands on from an email link.
  *   audit-report.html   — the full deep-dive tabbed report. Filename kept
  *                         as-is so the summary's "See all N issues →"
  *                         relative link resolves without rewriting templates.
@@ -26,8 +25,10 @@
 import { copyFile, mkdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { execSync } from 'node:child_process';
-import { resolve, join, dirname, basename } from 'node:path';
+import { resolve, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+
+const PIPELINE_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
 function dentalRepoPath() {
   return process.env.GROUNDWORK_DENTAL_PATH
@@ -93,6 +94,8 @@ export async function hostAuditReport({ auditDir, slug }) {
     if (existsSync(from)) await copyFile(from, to);
   }
 
+  await copyPreviewRequestApi(dentalPath);
+
   const domain = baseDomain();
   out.indexUrl       = `https://${domain}/audits/${slug}/`;
   out.fullReportUrl  = `https://${domain}/audits/${slug}/audit-report`;
@@ -117,6 +120,34 @@ export async function hostAuditReport({ auditDir, slug }) {
 export async function hostBeforeAfterReport({ auditDir, slug }) {
   const out = await hostAuditReport({ auditDir, slug });
   return out;
+}
+
+/** Deploy POST /api/audit-preview-request for audit one-pager lead capture. */
+async function copyPreviewRequestApi(dentalPath) {
+  const destLib = resolve(dentalPath, 'functions', 'lib');
+  const destApi = resolve(dentalPath, 'functions', 'api');
+  await mkdir(destLib, { recursive: true });
+  await mkdir(destApi, { recursive: true });
+
+  const libFiles = ['audit-preview-cf.js', 'audit-preview-request.js', 'airtable.js'];
+  for (const name of libFiles) {
+    const from = join(PIPELINE_ROOT, 'lib', name);
+    if (existsSync(from)) {
+      await copyFile(from, join(destLib, name));
+    }
+  }
+
+  const apiFrom = join(
+    PIPELINE_ROOT,
+    'templates',
+    'groundwork-dental',
+    'functions',
+    'api',
+    'audit-preview-request.js',
+  );
+  if (existsSync(apiFrom)) {
+    await copyFile(apiFrom, join(destApi, 'audit-preview-request.js'));
+  }
 }
 
 function gitCommitPush(repoPath, message, paths = []) {

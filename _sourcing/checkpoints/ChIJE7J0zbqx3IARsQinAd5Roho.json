@@ -1,0 +1,111 @@
+{
+  "placeId": "ChIJE7J0zbqx3IARsQinAd5Roho",
+  "practiceName": "Inland Choice Dental - Dentist Riverside",
+  "address": "6216 Brockton Ave STE 112, Riverside, CA 92506, USA",
+  "websiteUrl": "https://inlandchoicedental.com/",
+  "phone": "(951) 783-4710",
+  "rating": 4.9,
+  "reviewCount": 803,
+  "primaryType": "dentist",
+  "types": [
+    "dentist",
+    "doctor",
+    "health",
+    "point_of_interest",
+    "establishment"
+  ],
+  "businessStatus": "OPERATIONAL",
+  "source": "google-places-text-search",
+  "sourcedAt": "2026-06-03T21:59:39.019Z",
+  "msa": "Riverside–San Bernardino–Ontario, CA",
+  "httpStatus": 200,
+  "finalUrl": "https://inlandchoicedental.com/",
+  "desktopPath": "_sourcing/screenshots/ChIJE7J0zbqx3IARsQinAd5Roho-desktop.png",
+  "mobilePath": "_sourcing/screenshots/ChIJE7J0zbqx3IARsQinAd5Roho-mobile.png",
+  "isChain": false,
+  "chainName": null,
+  "vendor": "wordpress-generic",
+  "vendorCategory": "cms",
+  "wpTheme": {
+    "name": "pro",
+    "isDefault": false
+  },
+  "features": {
+    "hasHttps": true,
+    "hasViewportMeta": true,
+    "hasSchemaOrg": true,
+    "hasClickToCall": true,
+    "hasFacebookPixel": true,
+    "hasGoogleAnalytics": true,
+    "booking": {
+      "present": false,
+      "vendor": null
+    },
+    "serviceLinkCount": 4,
+    "datedTechFlags": [
+      {
+        "id": "jquery",
+        "weight": 1
+      }
+    ],
+    "datedTechFlagCount": 1,
+    "datedTechPenalty": 1
+  },
+  "multiLocation": {
+    "multiLocation": false,
+    "addressCount": 1,
+    "ldAddressCount": 1,
+    "hasLocationsLink": false,
+    "urlHasLocations": false,
+    "reason": "single location signals"
+  },
+  "ads": {
+    "meta": {
+      "running": false,
+      "count": 0
+    },
+    "google": {
+      "running": false,
+      "count": 0,
+      "error": "google bot challenge"
+    }
+  },
+  "lighthouse": {
+    "ok": true,
+    "performance": 75,
+    "accessibility": 84,
+    "bestPractices": 92,
+    "seo": 92,
+    "lcp": 3204.0153864282365,
+    "cls": 0.074767
+  },
+  "vision": {
+    "ok": true,
+    "unrenderable": false,
+    "visualCraft": 3,
+    "clarityHierarchy": 4,
+    "modernity": 4,
+    "observations": [
+      "Hero section uses a full-width aerial photograph of Riverside cityscape with mountains in background, overlaid with large white sans-serif headline text and a beige CTA button",
+      "Header features a clean white background with centered logo (teal and beige color scheme), phone number in outlined button on left, 'BOOK AN APPOINTMENT' button on right, and hamburger menu",
+      "Dark green utility bar spans full width above header containing address on left and 'EMERGENCY? CLICK HERE!' link on right in white text",
+      "Google star rating display (4.9 from 801 reviews) positioned centrally below the hero headline with colorful Google icon and gold stars",
+      "Mobile version maintains the same layout structure effectively with stacked header elements (book appointment and phone split into two buttons), readable hero text, and properly sized tap targets; no significant degradation from desktop"
+    ],
+    "rationales": {
+      "visualCraft": "Uses real aerial photography of the actual location (Riverside cityscape) rather than stock dental imagery, has a defined color palette (teal, beige, dark green), but overall execution feels competent rather than distinctive—similar to anchor 3's professional but unremarkable approach",
+      "clarityHierarchy": "Strong hierarchy with immediate clarity: large headline states the value proposition, prominent CTA button, visible phone number and emergency link, and trust signal (Google rating) all above the fold; mobile maintains this clarity with proper button sizing",
+      "modernity": "Contemporary 2023+ aesthetic with generous whitespace, large modern sans-serif typography, full-width hero image, clean minimal header, and current design patterns; avoids dated carousel or gradient effects"
+    },
+    "rawText": "```json\n{\n  \"unrenderable\": false,\n  \"observations\": [\n    \"Hero section uses a full-width aerial photograph of Riverside cityscape with mountains in background, overlaid with large white sans-serif headline text and a beige CTA button\",\n    \"Header features a clean white background with centered logo (teal and beige color scheme), phone number in outlined button on left, 'BOOK AN APPOINTMENT' button on right, and hamburger menu\",\n    \"Dark green utility bar spans full width above header containing address on left and 'EMERGENCY? CLICK HERE!' link on right in white text\",\n    \"Google star rating display (4.9 from 801 reviews) positioned centrally below the hero headline with colorful Google icon and gold stars\",\n    \"Mobile version maintains the same layout structure effectively with stacked header elements (book appointment and phone split into two buttons), readable hero text, and properly sized tap targets; no significant degradation from desktop\"\n  ],\n  \"visual_craft\": {\n    \"score\": 3,\n    \"rationale\": \"Uses real aerial photography of the actual location (Riverside cityscape) rather than stock dental imagery, has a defined color palette (teal, beige, dark green), but overall execution feels competent rather than distinctive—similar to anchor 3's professional but unremarkable approach\"\n  },\n  \"clarity_hierarchy\": {\n    \"score\": 4,\n    \"rationale\": \"Strong hierarchy with immediate clarity: large headline states the value proposition, prominent CTA button, visible phone number and emergency link, and trust signal (Google rating) all above the fold; mobile maintains this clarity with proper button sizing\"\n  },\n  \"modernity\": {\n    \"score\": 4,\n    \"rationale\": \"Contemporary 2023+ aesthetic with generous whitespace, large modern sans-serif typography, full-width hero image, clean minimal header, and current design patterns; avoids dated carousel or gradient effects\"\n  }\n}\n```"
+  },
+  "scores": {
+    "design": 65,
+    "businessValue": 51,
+    "vendorMultiplier": 1.1,
+    "opportunity": 20,
+    "tier": "C",
+    "quadrant": "Skip — already sorted"
+  },
+  "status": "new"
+}

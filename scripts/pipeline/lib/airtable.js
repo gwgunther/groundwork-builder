@@ -94,13 +94,14 @@ export async function upsertAccount(args = {}) {
 }
 
 function buildAccountFields({
-  practiceUrl, practiceName, businessEmail, contactEmail, phone, city, state, source, lifecycleStage,
+  practiceUrl, practiceName, businessEmail, contactEmail, contactName, phone, city, state, source, lifecycleStage,
 }) {
   const f = {};
   if (practiceUrl)    f['Practice URL']    = practiceUrl;
   if (practiceName)   f['Practice Name']   = practiceName;
   if (businessEmail)  f['Business Email']  = businessEmail;
   if (contactEmail)   f['Contact Email']   = contactEmail;
+  if (contactName)    f['Contact Name']    = contactName;
   if (phone)          f['Phone']           = phone;
   if (city)           f['City']            = city;
   if (state)          f['State']           = state;
@@ -239,12 +240,18 @@ function buildBuildFields(args, accountId) {
     mobileScore, desktopScore,
     fixedCount, stillIssueCount, regressedCount,
     rescannedAt, costEst, errorDetail,
+    requestNotes, contactName, contactEmail, contactPhone, contactRole,
   } = args;
   const f = {};
   if (accountId)     f['Account']      = [accountId];
   if (sourceAuditId) f['Source Audit'] = [sourceAuditId];
   if (status)        f['Status']       = status;
   if (websiteUrl)    f['Website URL']  = websiteUrl;
+  if (requestNotes)  f['Request Notes'] = requestNotes;
+  if (contactName)   f['Contact Name']  = contactName;
+  if (contactEmail)  f['Contact Email'] = contactEmail;
+  if (contactPhone)  f['Contact Phone'] = contactPhone;
+  if (contactRole)   f['Contact Role']  = contactRole;
   if (status === 'Pitched' || status === 'Failed') {
     f['Completed At'] = new Date().toISOString();
   }

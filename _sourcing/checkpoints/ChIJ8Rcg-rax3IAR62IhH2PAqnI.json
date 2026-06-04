@@ -1,0 +1,63 @@
+{
+  "placeId": "ChIJ8Rcg-rax3IAR62IhH2PAqnI",
+  "practiceName": "Riverside Plaza Dentistry",
+  "address": "3602 Riverside Plaza Dr Ste 101, Riverside, CA 92506, USA",
+  "websiteUrl": "https://www.riversideplazadentistry.com/?sc_cid=GBP%3AO%3AGP%3A442%3AOrganic_Search%3AGeneral%3Ana&_vsrefdom=organic_gbp&y_source=1_MzU1Nzg0NS03MTUtbG9jYXRpb24ud2Vic2l0ZQ%3D%3D",
+  "phone": "(951) 228-9576",
+  "rating": 4.8,
+  "reviewCount": 841,
+  "primaryType": "dentist",
+  "types": [
+    "dentist",
+    "doctor",
+    "health",
+    "point_of_interest",
+    "establishment"
+  ],
+  "businessStatus": "OPERATIONAL",
+  "source": "google-places-text-search",
+  "sourcedAt": "2026-06-03T21:59:39.019Z",
+  "msa": "Riverside–San Bernardino–Ontario, CA",
+  "httpStatus": 200,
+  "finalUrl": "https://www.riversideplazadentistry.com/?sc_cid=GBP%3AO%3AGP%3A442%3AOrganic_Search%3AGeneral%3Ana&_vsrefdom=organic_gbp&y_source=1_MzU1Nzg0NS03MTUtbG9jYXRpb24ud2Vic2l0ZQ%3D%3D",
+  "desktopPath": "_sourcing/screenshots/ChIJ8Rcg-rax3IAR62IhH2PAqnI-desktop.png",
+  "mobilePath": "_sourcing/screenshots/ChIJ8Rcg-rax3IAR62IhH2PAqnI-mobile.png",
+  "isChain": true,
+  "chainName": "Pacific Dental Services",
+  "status": "excluded-dso",
+  "vendor": "pacific-dental-services",
+  "vendorCategory": "dental-mill",
+  "wpTheme": null,
+  "features": {
+    "hasHttps": true,
+    "hasViewportMeta": true,
+    "hasSchemaOrg": true,
+    "hasClickToCall": true,
+    "hasFacebookPixel": false,
+    "hasGoogleAnalytics": false,
+    "booking": {
+      "present": false,
+      "vendor": null
+    },
+    "serviceLinkCount": 9,
+    "datedTechFlags": [],
+    "datedTechFlagCount": 0,
+    "datedTechPenalty": 0
+  },
+  "multiLocation": {
+    "multiLocation": true,
+    "addressCount": 2,
+    "ldAddressCount": 1,
+    "hasLocationsLink": false,
+    "urlHasLocations": false,
+    "reason": "2 addresses"
+  },
+  "scores": {
+    "design": 23,
+    "businessValue": 66,
+    "vendorMultiplier": 1.5,
+    "opportunity": 76,
+    "tier": null,
+    "quadrant": null
+  }
+}

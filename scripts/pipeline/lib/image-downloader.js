@@ -224,6 +224,36 @@ export async function downloadImages(data, outputDir, runStorage = null) {
     }
   }
 
+  // Normalized supplemental pass — download any role-bearing image from the
+  // canonical items[] that the bucket loops above didn't already cover
+  // (headshots, treatments, before/after, badges). Deduped against what we
+  // already fetched so nothing downloads twice. This guarantees every image the
+  // Step 6 binding may reference has a local file + sidecar entry.
+  const ROLE_SUBDIR = {
+    headshot: 'team', treatment: 'gallery', beforeAfter: 'gallery',
+    gallery: 'gallery', office: 'gallery', team: 'team', hero: 'heroes', badge: 'branding',
+  };
+  const have = new Set(Object.values(sourceMap).map((m) => m.sourceUrl));
+  const items = Array.isArray(data.images?.items) ? data.images.items : [];
+  let supIdx = 0;
+  for (const it of items) {
+    const subdir = ROLE_SUBDIR[it.role];
+    if (!subdir) continue;                  // skip 'unused'/logo* (logo handled above)
+    const entry = getEntry(it);
+    if (!entry.url || have.has(entry.url)) continue;
+    const baseName = buildName(it.role, ++supIdx, entry.url);
+    const result = await downloadToDir(entry.url, resolve(imageDir, subdir), baseName);
+    if (result) {
+      downloaded++;
+      have.add(entry.url);
+      sourceMap[`${subdir}/${result}`] = {
+        sourceUrl: entry.url, alt: entry.alt || it.alt || '',
+        originalFilename: extractOriginalFilename(entry.url),
+        category: it.role,
+      };
+    }
+  }
+
   // Write the sidecar source-map so downstream phases (image-roles, audit)
   // can recover the original filename + alt text per local file.
   if (Object.keys(sourceMap).length > 0) {

@@ -11,7 +11,13 @@
     "studio": "node scripts/pipeline/studio.js",
     "docs": "node scripts/pipeline/lib/skill-catalog.js && open docs/PIPELINE.html",
     "docs:rebuild": "node scripts/pipeline/lib/skill-catalog.js",
-    "docs:watch": "node scripts/pipeline/lib/skill-catalog.js --watch"
+    "docs:watch": "node scripts/pipeline/lib/skill-catalog.js --watch",
+    "checklist:pdf": "node scripts/resources/export-checklist-pdf.js",
+    "sourcing:anchors": "node scripts/sourcing/lib/capture-anchors.js",
+    "sourcing:spike": "node scripts/sourcing/spike/vendor-detect.js",
+    "sourcing:run": "node scripts/sourcing/run.js",
+    "sourcing:run:dry": "node scripts/sourcing/run.js --limit 10 --no-airtable",
+    "sourcing:promote": "node scripts/sourcing/promote.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",

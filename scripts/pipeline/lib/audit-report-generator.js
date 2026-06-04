@@ -11,6 +11,9 @@
 
 import { writeFile, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { assembleAuditData } from './audit-data-assembler.js';
+import { renderSalesAudit } from './sales-audit-renderer.js';
+import { renderBuildSpec } from './build-spec-renderer.js';
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -1586,25 +1589,71 @@ export async function generateAuditReports(outputDir, {
   diff = null,
   outputFilename = null,
   screenshotFile = null,
+  bronze = null,
+  auditData = null,
+  dataDir = null,
+  slug = null,
+  leadApiUrl = null,
+  auditPageUrl = null,
 } = {}) {
   await mkdir(outputDir, { recursive: true });
 
   const shared = { url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, findingsSummary, gbpMeta, diff, screenshotFile };
 
-  const fullHtml    = buildFullReport(shared);
-  const summaryHtml = buildSummaryReport(shared);
-
   const baseName = outputFilename || (diff ? 'audit-report-after' : 'audit-report');
-  const fullPath    = resolve(outputDir, `${baseName}.html`);
-  const summaryPath = resolve(outputDir, `${baseName === 'audit-report' ? 'audit-summary' : baseName + '-summary'}.html`);
+  const isAfterOnly = baseName === 'audit-report-after';
 
-  await Promise.all([
-    writeFile(fullPath, fullHtml, 'utf-8'),
-    writeFile(summaryPath, summaryHtml, 'utf-8'),
-  ]);
+  const domain = process.env.GROUNDWORK_SUBDOMAIN || 'groundworkdental.com';
+  const resolvedLeadApiUrl = leadApiUrl || `https://${domain}/api/audit-preview-request`;
 
+  const writes = [];
+  let resolvedAuditData = auditData;
+  let auditDataPath = resolve(outputDir, 'audit-data.json');
+  let summaryPath = resolve(outputDir, 'audit-summary.html');
+  let buildSpecPath = resolve(outputDir, 'build-spec.html');
+
+  if (!isAfterOnly) {
+    const slugFromOpts = slug || resolvedAuditData?.meta?.slug || '';
+    resolvedAuditData = auditData || assembleAuditData({
+      url,
+      slug: slugFromOpts,
+      bronze,
+      pagespeed,
+      findings: techAudit?.findings || [],
+      scraped,
+      aiAudit,
+      findingsSummary,
+    });
+
+    const auditDataJson = JSON.stringify(resolvedAuditData, null, 2);
+    writes.push(writeFile(auditDataPath, auditDataJson, 'utf-8'));
+    if (dataDir) {
+      await mkdir(dataDir, { recursive: true });
+      writes.push(writeFile(resolve(dataDir, 'audit-data.json'), auditDataJson, 'utf-8'));
+    }
+
+    const summaryHtml = renderSalesAudit(resolvedAuditData, { leadApiUrl: resolvedLeadApiUrl });
+    const buildSpecHtml = renderBuildSpec(resolvedAuditData);
+    summaryPath = resolve(outputDir, 'audit-summary.html');
+    buildSpecPath = resolve(outputDir, 'build-spec.html');
+    writes.push(
+      writeFile(summaryPath, summaryHtml, 'utf-8'),
+      writeFile(buildSpecPath, buildSpecHtml, 'utf-8'),
+    );
+  }
+
+  const fullHtml = buildFullReport(shared);
+  const fullPath = resolve(outputDir, `${baseName}.html`);
+  writes.push(writeFile(fullPath, fullHtml, 'utf-8'));
+
+  await Promise.all(writes);
+
+  if (!isAfterOnly) {
+    console.log(`[AuditReport] Written: ${auditDataPath}`);
+    console.log(`[AuditReport] Written: ${summaryPath}`);
+    console.log(`[AuditReport] Written: ${buildSpecPath}`);
+  }
   console.log(`[AuditReport] Written: ${fullPath}`);
-  console.log(`[AuditReport] Written: ${summaryPath}`);
 
-  return { fullPath, summaryPath };
+  return { fullPath, summaryPath, buildSpecPath, auditDataPath, auditData: resolvedAuditData };
 }

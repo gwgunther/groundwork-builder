@@ -1,0 +1,114 @@
+{
+  "placeId": "ChIJzccJb7Gv3IAR83l9_XzPhuU",
+  "practiceName": "Canyon Crest Dental",
+  "address": "5225 Canyon Crest Dr #209, Riverside, CA 92507, USA",
+  "websiteUrl": "https://www.canyoncrestdental.com/?utm_source=google.com&utm_medium=business+profile&utm_campaign=",
+  "phone": "(951) 425-4105",
+  "rating": 4.8,
+  "reviewCount": 1868,
+  "primaryType": "dentist",
+  "types": [
+    "dentist",
+    "dental_clinic",
+    "doctor",
+    "medical_clinic",
+    "health",
+    "point_of_interest",
+    "service",
+    "establishment"
+  ],
+  "businessStatus": "OPERATIONAL",
+  "source": "google-places-text-search",
+  "sourcedAt": "2026-06-03T21:59:39.019Z",
+  "msa": "Riverside–San Bernardino–Ontario, CA",
+  "httpStatus": 200,
+  "finalUrl": "https://www.canyoncrestdental.com/?utm_source=google.com&utm_medium=business%20profile&utm_campaign",
+  "desktopPath": "_sourcing/screenshots/ChIJzccJb7Gv3IAR83l9_XzPhuU-desktop.png",
+  "mobilePath": "_sourcing/screenshots/ChIJzccJb7Gv3IAR83l9_XzPhuU-mobile.png",
+  "isChain": false,
+  "chainName": null,
+  "vendor": "wordpress-generic",
+  "vendorCategory": "cms",
+  "wpTheme": {
+    "name": "salient",
+    "isDefault": false
+  },
+  "features": {
+    "hasHttps": true,
+    "hasViewportMeta": true,
+    "hasSchemaOrg": true,
+    "hasClickToCall": true,
+    "hasFacebookPixel": true,
+    "hasGoogleAnalytics": true,
+    "booking": {
+      "present": true,
+      "vendor": "nexhealth"
+    },
+    "serviceLinkCount": 9,
+    "datedTechFlags": [
+      {
+        "id": "jquery",
+        "weight": 1
+      }
+    ],
+    "datedTechFlagCount": 1,
+    "datedTechPenalty": 1
+  },
+  "multiLocation": {
+    "multiLocation": false,
+    "addressCount": 1,
+    "ldAddressCount": 1,
+    "hasLocationsLink": false,
+    "urlHasLocations": false,
+    "reason": "single location signals"
+  },
+  "ads": {
+    "meta": {
+      "running": false,
+      "count": 0
+    },
+    "google": {
+      "running": false,
+      "count": 0,
+      "error": "google bot challenge"
+    }
+  },
+  "lighthouse": {
+    "ok": true,
+    "performance": 28,
+    "accessibility": 80,
+    "bestPractices": 54,
+    "seo": 92,
+    "lcp": 24505.955289396006,
+    "cls": 0.13054500000000002
+  },
+  "vision": {
+    "ok": true,
+    "unrenderable": false,
+    "visualCraft": 4,
+    "clarityHierarchy": 4,
+    "modernity": 4,
+    "observations": [
+      "Hero features a full-width aerial photograph of Riverside with mountains at sunset/sunrise, overlaid with white serif headline text and Google star rating display",
+      "Top navigation bar uses a clean horizontal layout with gold/tan accent buttons for 'SCHEDULE APPT.' and 'CALL US' on the right side",
+      "Logo design is a custom monogram mark in white/silver with elegant script letterforms, positioned top-left",
+      "Floating purple 'Schedule Appointment' widget appears in the bottom-right corner with calendar icon and white text",
+      "Mobile version maintains the hero image readability well, collapses navigation to hamburger menu, and keeps the purple appointment widget visible, though the hero text becomes slightly smaller but remains legible"
+    ],
+    "rationales": {
+      "visualCraft": "Custom logo, real location photography, cohesive gold/tan/purple color palette, and professional typography indicate clearly custom design work, though not quite reaching the fully bespoke level of anchor 5",
+      "clarityHierarchy": "Strong headline immediately communicates purpose, prominent Google rating builds trust, multiple clear CTAs (schedule button, floating widget), and clean navigation hierarchy make action paths obvious",
+      "modernity": "Contemporary design with generous whitespace, large hero imagery, modern serif typography, and current UI patterns like floating widgets and clean navigation place this firmly in 2023+ aesthetic territory"
+    },
+    "rawText": "```json\n{\n  \"unrenderable\": false,\n  \"observations\": [\n    \"Hero features a full-width aerial photograph of Riverside with mountains at sunset/sunrise, overlaid with white serif headline text and Google star rating display\",\n    \"Top navigation bar uses a clean horizontal layout with gold/tan accent buttons for 'SCHEDULE APPT.' and 'CALL US' on the right side\",\n    \"Logo design is a custom monogram mark in white/silver with elegant script letterforms, positioned top-left\",\n    \"Floating purple 'Schedule Appointment' widget appears in the bottom-right corner with calendar icon and white text\",\n    \"Mobile version maintains the hero image readability well, collapses navigation to hamburger menu, and keeps the purple appointment widget visible, though the hero text becomes slightly smaller but remains legible\"\n  ],\n  \"visual_craft\": {\n    \"score\": 4,\n    \"rationale\": \"Custom logo, real location photography, cohesive gold/tan/purple color palette, and professional typography indicate clearly custom design work, though not quite reaching the fully bespoke level of anchor 5\"\n  },\n  \"clarity_hierarchy\": {\n    \"score\": 4,\n    \"rationale\": \"Strong headline immediately communicates purpose, prominent Google rating builds trust, multiple clear CTAs (schedule button, floating widget), and clean navigation hierarchy make action paths obvious\"\n  },\n  \"modernity\": {\n    \"score\": 4,\n    \"rationale\": \"Contemporary design with generous whitespace, large hero imagery, modern serif typography, and current UI patterns like floating widgets and clean navigation place this firmly in 2023+ aesthetic territory\"\n  }\n}\n```"
+  },
+  "scores": {
+    "design": 57,
+    "businessValue": 54,
+    "vendorMultiplier": 1.1,
+    "opportunity": 26,
+    "tier": "C",
+    "quadrant": "Prime"
+  },
+  "status": "new"
+}

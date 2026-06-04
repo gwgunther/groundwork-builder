@@ -65,7 +65,7 @@ ${dna.heroTextPosition ? `- heroTextPosition from DNA: \`${dna.heroTextPosition}
 - Headline: ${content?.headline || '[MISSING: content.headline — do not use generic phrases; write a headline grounded in this specific practice/doctor/city using the brief above]'}
 - Subheadline: ${content?.subheadline || '[MISSING: content.subheadline — write one grounded in this specific practice; never generic copy]'}
 
-**Hero variant:** \`${dna.heroVariant}\`
+**Hero variant:** \`${dna.designTokens?.heroLayout || dna.heroVariant}\`
 - If full-bleed: use \`min-h-[70vh]\` and a dark overlay gradient
 - If density=airy: use generous padding
 - For images: use \`{imagePath(imageRoles.hero)}\` — wrap in a null check: \`{heroImg && <img ... />}\`
@@ -860,8 +860,12 @@ async function runVariantContentGen({ dna, practice, sectionType, content, start
     throw new Error(`skill-generate: could not parse content JSON for "${sectionType}": ${e.message}\nRaw: ${res.text.slice(0, 300)}`);
   }
 
-  // Resolve which variant to use. Priority: AI's content JSON → designTokens
-  // (deterministic from archetype) → safe default per section type.
+  // Resolve which variant to use. The archetype-derived designTokens layout is
+  // AUTHORITATIVE — it's the single source of truth and guarantees a COHERENT,
+  // library-valid variant set per archetype. The content AI's `variant` is NOT
+  // allowed to override it (that override was discarding the director's coherent
+  // archetype choice and collapsing sites onto the generic 'centered' hero).
+  // contentJson.variant is only a last-resort fallback if the token is somehow absent.
   const tokens = dna.designTokens || {};
   const tokenForSection = {
     hero:           tokens.heroLayout         || 'centered',
@@ -871,7 +875,7 @@ async function runVariantContentGen({ dna, practice, sectionType, content, start
     cta:            tokens.ctaLayout          || 'centered-banner',
     faq:            tokens.faqLayout          || 'accordion-expandable',
   }[sectionType];
-  const variantKey = contentJson.variant || tokenForSection;
+  const variantKey = tokenForSection || contentJson.variant;
 
   // Build the Astro shim that imports from the variant component.
   // Compute relative paths from the shim file's directory — critical because

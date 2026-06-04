@@ -1,0 +1,50 @@
+{
+  "palette": {
+    "primary": "#2D6A78",
+    "secondary": "#1A4A57",
+    "accent": "#3AAFA9",
+    "background": "#F2F9FA",
+    "mood": "calm, clinical"
+  },
+  "type": {
+    "display": "Plus Jakarta Sans",
+    "body": "DM Sans",
+    "scale": "standard",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "warm-editorial",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "full-bleed",
+    "imageTreatment": "editorial-muted"
+  },
+  "sections": [
+    "hero",
+    "doctor-intro",
+    "services",
+    "reviews",
+    "gallery",
+    "faq",
+    "stat-bar",
+    "cta"
+  ],
+  "cards": "soft-shadow",
+  "motion": "subtle",
+  "radius": "lg",
+  "fontPair": "Plus Jakarta Sans / DM Sans",
+  "adjectives": [
+    "pediatric-focused",
+    "trustworthy",
+    "approachable",
+    "professional",
+    "nurturing"
+  ],
+  "slug": "lbpds",
+  "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/lbpds",
+  "tag": "own",
+  "captured": "2026-06-01",
+  "note": "auto-distilled at build time"
+}

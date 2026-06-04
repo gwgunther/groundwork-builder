@@ -132,6 +132,27 @@ export function getPalettesForMood(mood = 'calm', limit = 5, usedIds = []) {
 }
 
 /**
+ * Diverse palette spread — shows the AI the FULL spectrum, not just one mood
+ * bucket, so palette choice doesn't funnel into the same family (e.g. every
+ * 'calm' practice → teal). Returns mood-matched options FIRST (so the fit signal
+ * is honored) followed by a cross-mood sampling spanning warm / bold / refined /
+ * luxury, deduped. The model then picks what fits THIS practice from the whole range.
+ */
+export function getDiversePaletteSpread(mood = 'calm', limit = 10, usedIds = []) {
+  const matched = getPalettesForMood(mood, 4, usedIds);
+  const haveIds = new Set([...usedIds, ...matched.map(p => p.id)]);
+  // Pull at least one from each OTHER mood family to guarantee spectrum coverage.
+  const otherMoods = ['warm', 'bold', 'refined', 'luxury', 'editorial', 'clinical', 'calm']
+    .filter(m => !String(mood).toLowerCase().includes(m));
+  const spread = [];
+  for (const m of otherMoods) {
+    const pick = PALETTES.find(p => p.mood.includes(m) && !haveIds.has(p.id));
+    if (pick) { spread.push(pick); haveIds.add(pick.id); }
+  }
+  return [...matched, ...spread].slice(0, limit);
+}
+
+/**
  * Format palette options for injection into the design prompt.
  */
 export function formatPaletteOptions(palettes) {

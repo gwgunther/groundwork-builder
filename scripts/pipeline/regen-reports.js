@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 /**
- * Re-render audit-report.html + audit-summary.html from the JSON in
- * <audit-dir>/_data/. No re-scrape, no Claude calls, no PageSpeed —
- * just runs the report generator against existing data.
+ * Re-render audit reports from _data/*.json — no re-scrape or API calls.
  *
- * Useful when you change the report template and want to see what
- * it looks like on real data without burning $1 + 2 minutes.
+ * Writes:
+ *   audit-data.json      — source of truth
+ *   audit-summary.html   — client sales one-pager
+ *   audit-report.html    — full tabbed report
+ *   build-spec.html      — internal JSON view
  *
  * Usage:
  *   node scripts/pipeline/regen-reports.js --audit-dir _audits/springstdentistry
@@ -22,7 +23,7 @@ dotenvConfig({
 
 import { readFile, access } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
-import { generateAuditReports } from './lib/audit-report-generator.js';
+import { refreshBaselineAuditArtifacts } from './lib/audit-artifacts.js';
 
 function parseArgs() {
   const a = process.argv.slice(2);
@@ -54,24 +55,13 @@ async function main() {
   console.log(`[Regen] Loading from ${dataDir}...`);
 
   const silver    = await readJsonOrNull(join(dataDir, 'silver.json'));
+  const bronze    = await readJsonOrNull(join(dataDir, 'bronze-pages.json'));
   const pagespeed = await readJsonOrNull(join(dataDir, 'pagespeed.json'));
   const aiAudit   = await readJsonOrNull(join(dataDir, 'ai-audit.json'));
-  const techAudit = await readJsonOrNull(join(dataDir, 'tech-audit.json'));
-  const trust     = await readJsonOrNull(join(dataDir, 'trust-scan.json'));
-  const hosting   = await readJsonOrNull(join(dataDir, 'hosting-scan.json'));
-  const gbp       = await readJsonOrNull(join(dataDir, 'gbp-scan.json'));
-  const conv      = await readJsonOrNull(join(dataDir, 'conversion-scan.json'));
   const findings  = await readJsonOrNull(join(dataDir, 'findings.json'));
+  const gbp       = await readJsonOrNull(join(dataDir, 'gbp-scan.json'));
 
-  // Merge all scanner findings into one techAudit-shaped object for the
-  // report (same shape audit-site.js passes in on a live run).
-  const allFindings = findings?.findings || [
-    ...(techAudit?.findings  || []),
-    ...(trust?.findings      || []),
-    ...(hosting?.findings    || []),
-    ...(gbp?.findings        || []),
-    ...(conv?.findings       || []),
-  ];
+  const allFindings = findings?.findings || [];
   const combinedTechAudit = {
     findings: allFindings,
     summary: {
@@ -82,12 +72,10 @@ async function main() {
   };
   const findingsSummary = findings?.summary || null;
 
-  // Pull URL + practice name from silver
-  const url = silver?.practice?.url || (silver?.practice?.domain ? `https://${silver.practice.domain}` : '');
+  const url = silver?.practice?.url
+    || (silver?.practice?.domain ? `https://${silver.practice.domain}` : '');
   const practiceName = silver?.practice?.name || 'Site Audit';
 
-  // Detect a previously-captured homepage screenshot. Newer audits save it
-  // at audit-dir root; older ones may have it in _data/. Check both.
   let screenshotFile = null;
   try {
     await access(join(auditDir, 'homepage.png'));
@@ -96,25 +84,18 @@ async function main() {
     try {
       await access(join(dataDir, 'homepage.png'));
       screenshotFile = '_data/homepage.png';
-    } catch { /* none — report omits it */ }
+    } catch { /* none */ }
   }
 
-  console.log(`[Regen] Re-rendering reports for ${practiceName} (${allFindings.length} findings)...`);
+  console.log(`[Regen] Re-rendering for ${practiceName} (${allFindings.length} findings)...`);
 
-  const { fullPath, summaryPath } = await generateAuditReports(auditDir, {
-    url,
-    practiceName,
-    pagespeed,
-    techAudit: combinedTechAudit,
-    aiAudit,
-    scraped: silver,
-    findingsSummary,
-    gbpMeta: gbp?.meta || null,
-    screenshotFile,
-  });
-  console.log(`[Regen] ✓ Written:`);
-  console.log(`    ${fullPath}`);
-  console.log(`    ${summaryPath}`);
+  const paths = await refreshBaselineAuditArtifacts(auditDir);
+
+  console.log('[Regen] ✓ Written:');
+  console.log(`    ${paths.auditDataPath}`);
+  console.log(`    ${paths.summaryPath}`);
+  console.log(`    ${paths.fullPath}`);
+  console.log(`    ${paths.buildSpecPath}`);
 }
 
 main().catch(err => {

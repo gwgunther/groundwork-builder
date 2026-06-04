@@ -43,7 +43,7 @@
 // 8 archetypes × 8 dimensions × 5+ variants per dimension = thousands of
 // possible combinations, but each archetype locks one — so two sites with
 // different archetypes are visually unrecognizable as same-source.
-const ARCHETYPE_LAYOUT = {
+export const ARCHETYPE_LAYOUT = {
   // ── Editorial / bold family (5 archetypes) ──────────────────────────────
   'editorial-asymmetric': {
     heroLayout:         'split',
@@ -125,7 +125,7 @@ const ARCHETYPE_LAYOUT = {
     colorFamily:        'warm',
   },
   'warm-editorial': {
-    heroLayout:         'centered',
+    heroLayout:         'split',
     servicesLayout:     'accordion',
     testimonialsLayout: 'list-testimonials',
     aboutLayout:        'two-col-brief',

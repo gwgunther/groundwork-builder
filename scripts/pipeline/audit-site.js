@@ -306,6 +306,22 @@ async function main() {
   // Save silver data for debugging
   await writeFile(join(dataDir, 'silver.json'), JSON.stringify(_silverForSave, null, 2), 'utf-8').catch(() => {});
 
+  // Slim crawl pages for audit-data evidence + report regen (no body text).
+  const bronzePages = {
+    pageCount: bronze?.pageCount ?? 0,
+    pages: (bronze?.pages || []).map(p => ({
+      url: p.url,
+      path: p.path,
+      title: p.title,
+      metaDescription: p.metaDescription,
+      wordCount: p.wordCount,
+      canonicalUrl: p.canonicalUrl,
+      images: (p.images || []).map(img => ({ alt: img.alt })),
+      headings: p.headings,
+    })),
+  };
+  await writeFile(join(dataDir, 'bronze-pages.json'), JSON.stringify(bronzePages, null, 2), 'utf-8').catch(() => {});
+
   // ── Phase 3: PageSpeed ───────────────────────────────────────────────────
   // Always runs. Lighthouse performance scores are core to the grader's
   // value prop (LCP, CLS, mobile-perf), and the resulting findings drive
@@ -498,8 +514,9 @@ async function main() {
       passed:   allFindings.filter(f => f.severity === 'passed').length,
     },
   };
-  const { fullPath, summaryPath } = await generateAuditReports(outputDir, {
+  const reportPaths = await generateAuditReports(outputDir, {
     url: opts.url,
+    slug: canonicalSlug,
     practiceName: displayPracticeName,
     pagespeed,
     techAudit: combinedTechAudit,
@@ -509,7 +526,11 @@ async function main() {
     findingsSummary,
     gbpMeta: gbpScan.meta || null,
     screenshotFile: screenshotPath ? 'homepage.png' : null,  // relative to outputDir
+    bronze,
+    dataDir,
+    auditPageUrl: null,  // set after host step if needed; regen after host for public URL
   });
+  const { fullPath, summaryPath } = reportPaths;
   console.log('');
 
   // ── Summary ──────────────────────────────────────────────────────────────

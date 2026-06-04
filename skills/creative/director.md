@@ -58,7 +58,7 @@ chrome-variant collisions across builds.
 ```json
 {
   "archetype": "editorial-asymmetric | centered-classic | magazine-split | minimal-brutalist | warm-editorial | card-heavy | poster-hero | bold-serif-driven",
-  "heroVariant": "centered | asymmetric-left | asymmetric-right | split-image | full-bleed | poster",
+  "heroVariant": "PICK BY ASSETS+CHARACTER, not habit → full-bleed (one strong hero image / immersive), poster (type-led, bold, confident brand), asymmetric-left or asymmetric-right (editorial, dynamic), centered (restrained, clinical, minimal), split-image (ONLY when featuring a doctor/team photo beside copy is genuinely the best move). split-image is the overused dental default — do NOT choose it unless nothing else fits, and justify it in divergenceRationale if you do.",
   "servicesVariant": "cards-3up | editorial-list | accordion",
   "navVariant": "centered-logo | left-logo | split-logo | transparent-overlay | top-bar",
   "footerVariant": "minimal-dark | editorial-split | classic-4col | compact-centered | bold-cta-footer",
@@ -84,6 +84,7 @@ chrome-variant collisions across builds.
 - **Archetype matches practice personality** — classic-warm family for general/family/community; editorial-bold for specialist/premium/urban
 - **Color temperature matches archetype family** — warm tones for classic family, cool tones for editorial bold
 - **Typography personality matches archetype** — humanist serif for warm-family, grotesque/display for editorial-bold
+- **Hero variant is chosen, never defaulted** — explore ALL six (centered, asymmetric-left, asymmetric-right, split-image, full-bleed, poster) and pick the one that best expresses THIS practice. Let the inputs decide: a strong single hero image → `full-bleed`; a bold, type-led brand → `poster`; editorial character → `asymmetric-left/right`; a doctor/team photo to feature → `split-image`; restrained/clinical → `centered`. **Do NOT reflexively pick `split-image`** — it is the overused safe default. If you reach for split-image, justify why no other variant fits better in `divergenceRationale`.
 - **Diverges from own-builds** — archetype + heroVariant combo must not match any entry in `owns`
 - **Within-family novelty** — does not repeat the same archetype as a previous build, even if it matches the family
 - **Drops sections with missing data** — no stat-bar without stats, no gallery without ≥4 images, no reviews without testimonials, no doctor-intro without doctor name (caller hard-strips these regardless)

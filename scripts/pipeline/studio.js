@@ -522,6 +522,24 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // ── POST /api/audit-preview-request ─────────────────────────────────────
+  if (req.method === 'POST' && path === '/api/audit-preview-request') {
+    const { submitAuditPreviewRequest } = await import('./lib/audit-preview-request.js');
+    const body = await readBody();
+    const repoRoot = resolve(__dirname, '../..');
+    let auditDir;
+    if (body.slug) {
+      const candidate = resolve(repoRoot, '_audits', body.slug);
+      try {
+        await import('node:fs/promises').then(fs => fs.access(candidate));
+        auditDir = candidate;
+      } catch { /* no local audit folder */ }
+    }
+    const result = await submitAuditPreviewRequest(body, { auditDir });
+    json(result.status, result.ok ? { ok: true, message: result.message } : { ok: false, errors: result.errors });
+    return;
+  }
+
   // ── POST /api/reset ──────────────────────────────────────────────────────
   if (req.method === 'POST' && path === '/api/reset') {
     state.url = null; state.outputDir = null; state.preset = null;

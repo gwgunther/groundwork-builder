@@ -16,7 +16,7 @@
  */
 
 import { getFontCandidates } from './google-fonts.js';
-import { getPalettesForMood, formatPaletteOptions } from './palette-library.js';
+import { getPalettesForMood, getDiversePaletteSpread, formatPaletteOptions } from './palette-library.js';
 import { getReferences } from './impeccable.js';
 
 // Impeccable reference sections relevant to brand direction
@@ -61,8 +61,12 @@ export async function runBrandDirection(design, merged, audit, opts = {}) {
 
   const moodHint   = audit?.tone?.recommended || design?.mood || 'calm';
   const fontCands  = getFontCandidates(moodHint, usedFontPairs);
-  const palettes   = getPalettesForMood(moodHint, 6);
-  const paletteBlock = formatPaletteOptions(palettes);
+  // Show the FULL spectrum, not just the mood bucket — prevents palette
+  // funneling (e.g. every 'calm'/coastal practice → teal). The model picks what
+  // fits this specific practice from cool AND warm AND bold options.
+  const palettes   = getDiversePaletteSpread(moodHint, 10);
+  const paletteBlock = formatPaletteOptions(palettes)
+    + `\n\nThese span the full spectrum on purpose. Choose what genuinely fits THIS practice's identity — do NOT default to coastal teal/blue just because the area is near the coast. A warm, bold, or unexpected palette is preferred when it better captures who this practice is.`;
 
   // Brand extraction signals from Phase 2c
   const brandStrength    = design?.brandStrength    || 'unknown';

@@ -9,6 +9,7 @@
  */
 
 import { JSDOM } from 'jsdom';
+import { captureDesign } from './ai-silver/design-capture.js';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -102,13 +103,25 @@ function extractRawPage(doc, url, rawHtml) {
     }))
     .filter(i => i.src && !i.src.startsWith('data:'));
 
-  // Links (split internal vs external)
+  // Links (split internal vs external, plus mailto/tel)
   const internalLinks = [];
   const externalLinks = [];
+  const mailtos = new Set();
+  const tels = new Set();
   for (const a of doc.querySelectorAll('a[href]')) {
     const href = a.getAttribute('href') || '';
     const text = a.textContent.replace(/\s+/g, ' ').trim();
     if (!href || href.startsWith('#') || href.startsWith('javascript')) continue;
+    if (href.startsWith('mailto:')) {
+      // Strip mailto: prefix and any query (?subject=...)
+      const addr = href.slice(7).split('?')[0].trim();
+      if (addr) mailtos.add(addr);
+      continue;
+    }
+    if (href.startsWith('tel:')) {
+      tels.add(href.slice(4).trim());
+      continue;
+    }
     try {
       const abs = new URL(href, base);
       if (abs.hostname === base.hostname) {
@@ -118,6 +131,26 @@ function extractRawPage(doc, url, rawHtml) {
       }
     } catch { /* malformed href */ }
   }
+
+  // Also scan visible body text for emails and phone numbers — many sites
+  // print them as plain text rather than mailto:/tel: links.
+  const visibleText = (doc.body?.textContent || '').replace(/\s+/g, ' ');
+  const emails = new Set(mailtos);
+  for (const m of visibleText.matchAll(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g)) {
+    emails.add(m[0]);
+  }
+  const phones = new Set(tels);
+  // North-American style: (NNN) NNN-NNNN, NNN-NNN-NNNN, NNN.NNN.NNNN, +1 NNN NNN NNNN
+  for (const m of visibleText.matchAll(/(?:\+?1[\s.-]?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/g)) {
+    phones.add(m[0].trim());
+  }
+
+  const contactLinks = {
+    mailtos: Array.from(mailtos),
+    tels: Array.from(tels),
+    emails: Array.from(emails),
+    phones: Array.from(phones),
+  };
 
   // JSON-LD structured data (raw parsed objects)
   const structuredData = [];
@@ -147,8 +180,9 @@ function extractRawPage(doc, url, rawHtml) {
     images,
     internalLinks,
     externalLinks,
+    contactLinks,
     structuredData,
-    bodyText: bodyText.slice(0, 8000),
+    bodyText: bodyText.slice(0, 20000),
     wordCount,
   };
 }
@@ -173,6 +207,96 @@ function extractNavigation(doc, baseUrl) {
     })
     .filter(Boolean)
     .slice(0, 20);
+}
+
+/**
+ * Extract a NESTED navigation tree from the primary <nav>/<header>, preserving
+ * dropdown hierarchy (parent section → children). Walks <li> structure: a list
+ * item containing both a label and a nested <ul> becomes a parent with children.
+ * Falls back gracefully on flat navs.
+ */
+function extractNavTree(doc, baseUrl) {
+  const host = new URL(baseUrl).hostname;
+  const abs = (href) => {
+    try { const u = new URL(href, baseUrl); return u.hostname === host ? u.pathname : u.href; }
+    catch { return href || null; }
+  };
+
+  // Prefer a <nav>; else the first <header>
+  const navEl = doc.querySelector('nav') || doc.querySelector('header');
+  if (!navEl) return [];
+
+  // Find the outermost list(s) in the nav
+  const topLists = Array.from(navEl.querySelectorAll('ul, ol'))
+    .filter(ul => !ul.parentElement?.closest('ul, ol')); // only top-level lists within nav
+
+  const items = [];
+  const seen = new Set();
+
+  const processLi = (li) => {
+    // The item's own label/link: first anchor or text node not inside a nested list
+    const directAnchor = Array.from(li.children).find(c => c.tagName === 'A')
+      || li.querySelector(':scope > a')
+      || li.querySelector('a');
+    let text = '';
+    let href = null;
+    if (directAnchor) {
+      // textContent of the anchor, but strip text that belongs to nested submenus
+      text = (directAnchor.textContent || '').replace(/\s+/g, ' ').trim();
+      href = abs(directAnchor.getAttribute('href') || '');
+    } else {
+      // label may be a span/button (dropdown toggle with no href)
+      const lbl = li.querySelector(':scope > span, :scope > button, :scope > a');
+      text = (lbl?.textContent || '').replace(/\s+/g, ' ').trim();
+    }
+
+    // Children = anchors inside a nested <ul>/<ol> within this <li>
+    const subList = li.querySelector(':scope > ul, :scope > ol');
+    const children = [];
+    if (subList) {
+      for (const a of subList.querySelectorAll('a[href]')) {
+        const ct = (a.textContent || '').replace(/\s+/g, ' ').trim();
+        const ch = abs(a.getAttribute('href') || '');
+        if (ct && ch && !ct.startsWith('javascript')) children.push({ text: ct, href: ch });
+      }
+    }
+
+    // Some menus put the parent label only in the first child text — clean it
+    if (text && text.length > 80 && children.length) {
+      // text likely absorbed children; take the leading segment
+      text = text.split(children[0]?.text || ' ')[0].trim() || text.slice(0, 40);
+    }
+
+    if (!text) return null;
+    const key = text + '|' + (href || '');
+    if (seen.has(key)) return null;
+    seen.add(key);
+    return { text, href: href || null, children };
+  };
+
+  for (const ul of topLists) {
+    for (const li of Array.from(ul.children).filter(c => c.tagName === 'LI')) {
+      const item = processLi(li);
+      if (item) items.push(item);
+    }
+  }
+
+  // If the <li> walk found nothing useful (some navs are flat <a> soup),
+  // fall back to a flat anchor list.
+  if (items.length === 0) {
+    for (const a of navEl.querySelectorAll('a[href]')) {
+      const text = (a.textContent || '').replace(/\s+/g, ' ').trim();
+      const href = abs(a.getAttribute('href') || '');
+      if (!text || !href) continue;
+      const key = text + '|' + href;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      items.push({ text, href, children: [] });
+      if (items.length >= 40) break;
+    }
+  }
+
+  return items.slice(0, 40);
 }
 
 /**
@@ -325,8 +449,8 @@ export async function scrape(url, opts = {}) {
     ''
   ) : null;
 
-  // Navigation: deduplicate internal links from homepage that appear in order
-  const navigation = pages[0]
+  // Flat navigation fallback: deduplicate internal links from homepage in order
+  const navigationFlat = pages[0]
     ? [...new Map(pages[0].internalLinks.map(l => [l.href, l])).values()].slice(0, 20)
     : [];
 
@@ -337,13 +461,19 @@ export async function scrape(url, opts = {}) {
     ),
   ];
 
-  // CSS colors: find external stylesheet from homepage links, then fetch it
+  // Homepage-derived assets: nav TREE + CSS colors. One refetch, reused.
   let cssColors = [];
   let externalCssUrl = null;
-
-  // We need the homepage HTML for CSS link detection — refetch just the homepage
+  let navTree = [];
   try {
     const { html: homeHtml } = await fetchPage(baseUrl + '/');
+    // Keep <style> for nav parse but strip for color extraction separately
+    const navDom = new JSDOM(homeHtml.replace(/<script[\s\S]*?<\/script>/gi, ''));
+    navTree = extractNavTree(navDom.window.document, baseUrl);
+    if (navTree.length) {
+      const childCount = navTree.reduce((n, x) => n + (x.children?.length || 0), 0);
+      console.log(`[scraper] Nav tree: ${navTree.length} top-level, ${childCount} child links`);
+    }
     const cleanHome = homeHtml.replace(/<style[\s\S]*?<\/style>/gi, '');
     const homeDom = new JSDOM(cleanHome);
     externalCssUrl = findExternalCssUrl(homeDom.window.document, baseUrl);
@@ -355,6 +485,26 @@ export async function scrape(url, opts = {}) {
     }
   } catch { /* non-fatal */ }
 
+  // Prefer the structured nav tree; fall back to flat list if tree came up empty.
+  const navigation = navTree.length ? navTree : navigationFlat;
+
+  // Visual observation: homepage screenshots + computed design tokens.
+  // Raw visual capture belongs in bronze (it's observation, like text/images).
+  // Non-fatal: if the browser can't run, bronze just omits them and the design
+  // pass falls back to a live capture.
+  let screenshots = [];
+  let designTokens = null;
+  if (opts.captureScreenshots !== false) {
+    try {
+      const cap = await captureDesign(baseUrl, { outDir: opts.screenshotDir });
+      screenshots = (cap.screenshots || []).map(s => ({ label: s.label, path: s.path || null, mediaType: s.mediaType }));
+      designTokens = cap.tokens || null;
+      if (screenshots.length) console.log(`[scraper] Captured ${screenshots.length} design screenshot(s) + tokens`);
+    } catch (err) {
+      console.warn(`[scraper] Design capture skipped: ${err.message}`);
+    }
+  }
+
   return {
     baseUrl,
     crawledAt: new Date().toISOString(),
@@ -362,10 +512,14 @@ export async function scrape(url, opts = {}) {
     pages,
     siteAssets: {
       navigation,
+      navigationTree: navTree,
+      navigationFlat,
       socialLinks,
       cssColors,
       externalCssUrl,
       allUrls: visitedUrls.sort(),
+      screenshots,
+      designTokens,
     },
   };
 }

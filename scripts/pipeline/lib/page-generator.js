@@ -197,7 +197,7 @@ ${items}
  * @param {string} outputDir - Root of the generated Astro project
  * @param {object} [preset]  - Loaded vertical preset (from preset-loader).
  */
-export async function generatePages(data, outputDir, preset = null) {
+export async function generatePages(data, outputDir, preset = null, contentPlan = null) {
   // Hubs are disabled — delete all preset hub template pages from the template.
   // Service pages are generated fresh from scraped data only.
   const presetHubSlugs = Object.keys(preset?.hubs?.descriptions || {});
@@ -219,6 +219,18 @@ export async function generatePages(data, outputDir, preset = null) {
     await injectAboutBio(data, outputDir);
     console.log('  Injected doctor bio into about.astro.');
   }
+
+  // Inject scraped FAQs into faq.astro (replaces template placeholders).
+  await injectFaqs(data, outputDir);
+
+  // Render the content-plan's durable "rescued" about sections (evergreen
+  // additionalContent the plan placed on /about — never the ephemeral items it
+  // routed to announcements).
+  if (contentPlan) await injectAboutRescued(data, outputDir, contentPlan);
+
+  // Render the content-plan's financial sections (insurance / financing /
+  // payment) verbatim into financing.astro.
+  if (contentPlan) await injectFinancial(data, outputDir, contentPlan);
 
   // Generate a page for every scraped service
   const generatedServicePages = await generateIndividualServicePages(data, outputDir);
@@ -309,6 +321,17 @@ async function generateIndividualServicePages(data, outputDir) {
 
   const servicesDir = resolve(outputDir, 'src/pages/services');
   await mkdir(servicesDir, { recursive: true });
+
+  // Clear starter-template service pages (cosmetic-dentistry.astro, etc.).
+  // Scraped services are the source of truth — a starter placeholder must never
+  // shadow a scraped service of the same slug (it would keep generic copy and
+  // drop the practice's verbatim service facts). We regenerate every page below.
+  try {
+    const { readdir } = await import('node:fs/promises');
+    for (const f of await readdir(servicesDir)) {
+      if (f.endsWith('.astro')) await unlink(resolve(servicesDir, f)).catch(() => {});
+    }
+  } catch { /* dir was just created / empty */ }
 
   // Decide content per service (AI content map > AI rewrite of bronze >
   // hard skip), then run all rewrites in parallel before writing pages.
@@ -416,6 +439,21 @@ async function generateIndividualServicePages(data, outputDir) {
       ? intro.split(/\n\s*\n/).map(p => `      <p class="mb-4">${escapeHtml(p.trim())}</p>`).join('\n')
       : '';
 
+    // VERBATIM facts — the service's scraped details[] must always appear, never
+    // dropped in favor of the AI-optimized intro alone. This is the content-plan's
+    // `service-fact` content; rendering it here keeps the page faithful (the intro
+    // optimizes/summarizes, the facts preserve the source verbatim).
+    const facts = Array.isArray(d.svc.details)
+      ? d.svc.details.filter(x => typeof x === 'string' && x.trim().length > 1)
+      : [];
+    const factsHtml = facts.length
+      ? `\n  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+${facts.map(f => `      <p>${escapeHtml(f.trim())}</p>`).join('\n')}
+    </div>
+  </section>`
+      : '';
+
     // Build a MedicalProcedure schema for this service. Per the SEO
     // guidelines doc, every service-detail page should emit a procedure-
     // or service-typed schema in addition to the auto-emitted
@@ -454,6 +492,7 @@ const procedureSchema = ${JSON.stringify(procedureSchema, null, 2)};
   schema={[localBusinessSchema, procedureSchema]}
 >
 ${sectionsHtml}
+${factsHtml}
 </BaseLayout>
 `
       : `---
@@ -487,6 +526,7 @@ ${introHtml}
       <a href="/services" class="btn-secondary">View All Services</a>
     </div>
   </div>
+${factsHtml}
 </BaseLayout>
 `;
 
@@ -504,6 +544,91 @@ ${introHtml}
   }
 
   return count;
+}
+
+/**
+ * Replace the placeholder FAQ array in faq.astro with the practice's actual
+ * scraped FAQs (verbatim question/answer). Keeps template defaults only if none
+ * were scraped. JSON.stringify gives safe JS string literals (handles quotes).
+ */
+async function injectFaqs(data, outputDir) {
+  const filePath = resolve(outputDir, 'src/pages/faq.astro');
+  let content;
+  try { content = await readFile(filePath, 'utf-8'); } catch { return; }
+
+  const faqs = (data.content?.faqs || data.faqs || [])
+    .filter(f => f && f.question && f.answer);
+  if (!faqs.length) return;   // no scraped FAQs → leave generic template defaults
+
+  const arr = faqs
+    .map(f => `  { question: ${JSON.stringify(f.question)}, answer: ${JSON.stringify(f.answer)} },`)
+    .join('\n');
+  const newArray = `const faqs = [\n${arr}\n];`;
+  const pattern = /const\s+faqs\s*=\s*\[[\s\S]*?\];/;
+  if (!pattern.test(content)) {
+    console.warn('  Warning: could not locate faqs array in faq.astro — skipping.');
+    return;
+  }
+  content = content.replace(pattern, newArray)
+    .replace(/^\s*\/\/\s*TODO: Add practice-specific FAQs\s*\n/m, '');
+  await writeFile(filePath, content, 'utf-8');
+  console.log(`  Injected ${faqs.length} scraped FAQ(s) into faq.astro.`);
+}
+
+/**
+ * Append the content-plan's durable "rescued" about sections (evergreen
+ * additionalContent) to about.astro — verbatim, before </BaseLayout>. These are
+ * the items the plan placed on /about; ephemeral items it routed to
+ * announcements are intentionally NOT rendered.
+ */
+async function injectAboutRescued(data, outputDir, contentPlan) {
+  const aboutPlan = (contentPlan.pages || []).find(p => p.role === 'about');
+  const rescued = (aboutPlan?.sections || []).filter(s => s.type === 'rescued' && (s.body || s.heading));
+  if (!rescued.length) return;
+
+  const filePath = resolve(outputDir, 'src/pages/about.astro');
+  let content;
+  try { content = await readFile(filePath, 'utf-8'); } catch { return; }
+
+  const blocks = rescued.map(s => `  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      ${s.heading ? `<h2 class="section-heading mb-4">${escapeHtml(s.heading)}</h2>` : ''}
+      ${s.body ? `<div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">${s.body.split(/\n\s*\n/).map(p => `<p class="mb-4">${escapeHtml(p.trim())}</p>`).join('')}</div>` : ''}
+    </div>
+  </section>`).join('\n');
+
+  const idx = content.lastIndexOf('</BaseLayout>');
+  if (idx === -1) { console.warn('  Warning: no </BaseLayout> in about.astro — skipping rescued.'); return; }
+  content = content.slice(0, idx) + blocks + '\n' + content.slice(idx);
+  await writeFile(filePath, content, 'utf-8');
+  console.log(`  Injected ${rescued.length} rescued about section(s).`);
+}
+
+/**
+ * Render the content-plan's financial sections (insurance/financing/payment)
+ * verbatim into financing.astro, before </BaseLayout>.
+ */
+async function injectFinancial(data, outputDir, contentPlan) {
+  const finPlan = (contentPlan.pages || []).find(p => p.role === 'financial');
+  const secs = (finPlan?.sections || []).filter(s => s.body || s.heading);
+  if (!secs.length) return;
+
+  const filePath = resolve(outputDir, 'src/pages/financing.astro');
+  let content;
+  try { content = await readFile(filePath, 'utf-8'); } catch { return; }
+
+  const blocks = secs.map(s => `  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      ${s.heading ? `<h2 class="section-heading mb-4">${escapeHtml(s.heading)}</h2>` : ''}
+      ${s.body ? `<p class="text-neutral-mid leading-relaxed">${escapeHtml(s.body)}</p>` : ''}
+    </div>
+  </section>`).join('\n');
+
+  const idx = content.lastIndexOf('</BaseLayout>');
+  if (idx === -1) return;
+  content = content.slice(0, idx) + blocks + '\n' + content.slice(idx);
+  await writeFile(filePath, content, 'utf-8');
+  console.log(`  Injected ${secs.length} financial section(s).`);
 }
 
 /**

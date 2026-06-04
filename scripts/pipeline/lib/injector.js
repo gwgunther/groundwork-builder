@@ -604,6 +604,13 @@ export async function injectTailwindConfig(data, outputDir) {
   // failure rather than silently shipping generic defaults across builds.
   const colors = data.brand?.colors || {};
   const fonts  = data.brand?.fonts  || {};
+  // Full brand-dna roles (Step 6): real page background, divider, and body-text
+  // colors. When absent (legacy brand-direction path) we fall back to derived
+  // values so this stays backward-compatible.
+  const roles  = data.brand?.roles  || {};
+  const pageBg     = roles.background || '#FFFFFF';
+  const borderRole = roles.border     || colors.muted;
+  const textRole   = roles.text       || colors.dark;
 
   const required = ['primary', 'secondary', 'light', 'accent', 'dark', 'muted'];
   const missingColors = required.filter(k => !colors[k]);
@@ -641,18 +648,18 @@ export default {
         },
         neutral: {
           dark:   '${esc(colors.dark)}',
+          text:   '${esc(textRole)}',
           mid:    '${esc(colors.muted)}',
           light:  '${esc(colors.light)}',
-          border: '${esc(colors.muted)}',
+          border: '${esc(borderRole)}',
         },
         surface: {
-          1: '#FFFFFF',
+          1: '${esc(pageBg)}',
           2: '${esc(colors.light)}',
         },
         // Role-based border color (used as border-border-light in templates).
-        // No literal-color slots — text/dark surfaces use neutral-dark and
-        // muted text uses neutral-mid; both trace to brand.dark / brand.muted.
-        'border-light':'${esc(colors.muted)}',
+        // Traces to brand-dna's dedicated border role (falls back to muted).
+        'border-light':'${esc(borderRole)}',
       },
       fontFamily: {
         serif: ['${esc(fonts.heading)}', 'Georgia', 'serif'],
