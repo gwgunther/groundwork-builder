@@ -96,7 +96,7 @@ const PHASE_INFO = {
       'Reads the existing site\'s current design — extracts the actual colors used, the actual fonts loaded, the visual mood (warm / clinical / corporate / etc), and assesses brand strength (distinctive / generic / inconsistent). Pure extraction, NOT direction. The output feeds into Brand Direction so the rebuild can decide whether to evolve the existing brand or rebuild from scratch.',
     input:  'bronze pages + audit positioning',
     output: 'designExtraction { existingPalette, existingFonts, mood, brandStrength, evolutionSignal, rationale }',
-    tools:  ['Anthropic Sonnet 4.6', 'lib/ai-design.js'],
+    tools:  ['Anthropic Sonnet 4.6', 'lib/brand/brand-dna.js'],
     qc:     ['Brand strength rationale required', 'Evolution signal must be one of: evolve | rebuild'],
     cost:   'Sonnet — single call',
     skip:   '--skip-design',

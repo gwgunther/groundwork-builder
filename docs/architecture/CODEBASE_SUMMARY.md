@@ -26,8 +26,8 @@ src/
 
 scripts/
 └── pipeline/        # AI automation pipeline
-    ├── studio.js    # Main entry point
-    ├── prompts/     # Claude system prompts (site-audit, content-map, design-map)
+    ├── build-site.js # Main entry point (URL → built site)
+    ├── prompts/     # Claude system prompts
     └── lib/         # Scraper, AI extraction, page/blog generators, image downloader
 
 presets/

@@ -617,7 +617,7 @@ export async function injectTailwindConfig(data, outputDir) {
   if (missingColors.length > 0) {
     throw new Error(
       `[injector] Brand palette missing required keys: ${missingColors.join(', ')}. ` +
-      `The brand-direction phase (ai-brand-direction.js) must produce all of: ${required.join(', ')}. ` +
+      `The brand step (brand-dna.js → applyBrandToMerged) must produce all of: ${required.join(', ')}. ` +
       `Refusing to ship hardcoded fallback colors.`
     );
   }
