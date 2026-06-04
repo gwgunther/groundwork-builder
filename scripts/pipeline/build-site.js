@@ -32,16 +32,12 @@ import { validate } from './lib/validator.js';
 import { slugify } from './lib/utils.js';
 import { createArtifactWriter } from './lib/artifacts.js';
 import { runSiteAudit } from './lib/ai-audit.js';
-import { runDesignMapping } from './lib/ai-design.js';
 import { runContentMapping } from './lib/ai-content.js';
 import { runContentMap } from './lib/ai-content-map.js';
 import { generateMissingPage } from './lib/missing-page.js';
 import { generateReport } from './lib/report-generator.js';
-import { runCreativeDirector } from './lib/ai-director.js';
-import { runBrandDirection } from './lib/ai-brand-direction.js';
 import { scrapeReviews } from './lib/scrape-reviews.js';
 import { analyzeImages } from './lib/ai-images.js';
-import { classifyImageRoles } from './lib/ai-image-roles.js';
 import { writeDesignDna } from './lib/injector.js';
 // Clean pipeline (Step 4–7): brand-dna, content-plan, assemble-layout, image binding.
 import { defineBrandDna } from './lib/brand/brand-dna.js';
@@ -597,81 +593,12 @@ async function main() {
     console.log('');
   }
 
-  // -----------------------------------------------------------------------
-  // Phase 2d: AI Brand Direction
-  // -----------------------------------------------------------------------
-  let brandBrief = null;  // Phase 2d (legacy AI brand direction) superseded by brand-dna (Phase 2c)
-  if (false) {  // eslint-disable-line no-constant-condition — kept for reference; brand now owned by defineBrandDna
-    console.log('[Phase 2d] Running AI brand direction...');
-    const brandStart = Date.now();
-    brandBrief = await runBrandDirection(design, merged, audit, { verbose: opts.verbose });
-    if (brandBrief) {
-      // Promote brand brief palette/fonts into merged.brand — these override design mapping
-      if (!merged.brand) merged.brand = {};
-      if (brandBrief.palette) {
-        merged.brand.colors = {
-          primary:   brandBrief.palette.primary   || merged.brand.colors?.primary,
-          secondary: brandBrief.palette.secondary || merged.brand.colors?.secondary,
-          light:     brandBrief.palette.light     || merged.brand.colors?.light,
-          accent:    brandBrief.palette.accent     || merged.brand.colors?.accent,
-          dark:      brandBrief.palette.dark      || merged.brand.colors?.dark,
-          muted:     brandBrief.palette.muted     || merged.brand.colors?.muted,
-          highlight: brandBrief.palette.accent     || merged.brand.colors?.highlight,
-        };
-
-        // Deterministic WCAG contrast check on the proposed palette.
-        // The AI brand-direction step self-reports contrast but its math is
-        // unreliable (we've seen near-misses by 0.05 that fail in practice).
-        // Auto-correct primary if it doesn't pass AA, then update the
-        // brand-brief artifact so reports show the actual shipped values.
-        try {
-          const { validatePalette } = await import('./lib/contrast.js');
-          const result = validatePalette(merged.brand.colors);
-          if (result.adjustments.length > 0) {
-            for (const adj of result.adjustments) {
-              console.log(`  [contrast] auto-corrected ${adj.key}: ${adj.from} → ${adj.to}`);
-              console.log(`             ${adj.reason}`);
-              merged.brand.colors[adj.key] = adj.to;
-              if (adj.key === 'primary') {
-                merged.brand.colors.highlight = adj.to;
-                brandBrief.palette.primary = adj.to;
-              } else {
-                brandBrief.palette[adj.key] = adj.to;
-              }
-              stats.confidenceFlags.push(`brand.${adj.key}: auto-darkened from ${adj.from} to ${adj.to} for WCAG AA contrast`);
-            }
-          }
-          if (result.issuesAfter.length > 0) {
-            console.warn(`  [contrast] ${result.issuesAfter.length} issue(s) remain after auto-correct:`);
-            for (const iss of result.issuesAfter) {
-              console.warn(`    - ${iss.label}: ${iss.contrast} (need ${iss.target})`);
-              stats.confidenceFlags.push(`brand.contrast: ${iss.label} fails (${iss.contrast} < ${iss.target})`);
-            }
-          }
-        } catch (err) {
-          console.warn(`  [contrast] check failed: ${err.message}`);
-        }
-      }
-      if (brandBrief.typography) {
-        const stripDesc = s => (s || '').split('—')[0].trim();
-        merged.brand.fonts = {
-          heading: stripDesc(brandBrief.typography.heading) || merged.brand.fonts?.heading,
-          body:    stripDesc(brandBrief.typography.body)    || merged.brand.fonts?.body,
-        };
-      }
-      await artifacts.writeStep('04b-brand', {
-        input: { url: opts.url, mood: design?.mood || null },
-        output: brandBrief,
-      }, brandStart);
-      console.log(`  Mood:    ${brandBrief.mood}`);
-      console.log(`  Palette: ${brandBrief.palette?.primary} / ${brandBrief.palette?.secondary}`);
-      console.log(`  Fonts:   ${brandBrief.typography?.heading} / ${brandBrief.typography?.body}`);
-      console.log('  Brand brief artifact written.');
-    } else {
-      console.log('  Brand direction skipped or failed — using design mapping output.');
-    }
-    console.log('');
-  }
+  // Phase 2d (legacy AI brand direction) REMOVED — the brand (palette, fonts,
+  // shape, elevation) is now owned by brand-dna (Phase 2c) + applyBrandToMerged.
+  // NOTE: the old path also ran a deterministic validatePalette() WCAG
+  // auto-correct here as a safety net. brand-dna's prompt enforces AA and
+  // brand-eval verifies it, but there is no runtime auto-correct in the clean
+  // path — consider porting validatePalette into applyBrandToMerged as a guard.
 
   // -----------------------------------------------------------------------
   // Phase 2e: Content Map (audit / blueprint) — what each section needs and
