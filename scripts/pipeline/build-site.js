@@ -43,6 +43,12 @@ import { scrapeReviews } from './lib/scrape-reviews.js';
 import { analyzeImages } from './lib/ai-images.js';
 import { classifyImageRoles } from './lib/ai-image-roles.js';
 import { writeDesignDna } from './lib/injector.js';
+// Clean pipeline (Step 4–7): brand-dna, content-plan, assemble-layout, image binding.
+import { defineBrandDna } from './lib/brand/brand-dna.js';
+import { applyBrandToMerged } from './lib/assemble/brand-tokens.js';
+import { planContent } from './lib/content/plan-content.js';
+import { assembleLayout } from './lib/assemble/assemble-layout.js';
+import { bindingToImageRoles } from './lib/assemble/binding-to-image-roles.js';
 import { distillDesign } from './lib/distill-design.js';
 import { runDesignerAgent, buildAstro } from './lib/designer-agent.js';
 
@@ -562,34 +568,40 @@ async function main() {
   // -----------------------------------------------------------------------
   // Phase 2c: AI Design Mapping
   // -----------------------------------------------------------------------
+  // CLEAN PATH (Step 4): Define Brand via brand-dna — replaces legacy AI design
+  // mapping (2c) + brand direction (2d). Reads merged.currentDesign (observed) →
+  // decided visual system + curated-seeded fonts; applyBrandToMerged writes
+  // merged.brand.{colors,roles,fonts}. `design` stays null (legacy observation
+  // unused downstream; injectTemplate tolerates null).
   let design = null;
-  if (!opts.skipDesign && scraped) {
-    console.log('[Phase 2c] Running AI design mapping...');
-    const designStart = Date.now();
-    design = await runDesignMapping(scraped, merged, audit, { verbose: opts.verbose, preset });
-    if (design) {
-      stats.hasDesign = true;
-      await artifacts.writeStep('04-design', {
-        input: { url: opts.url, preset: opts.preset },
-        output: design,
-      }, designStart);
-      console.log(`  Brand strength: ${design.brandStrength || '—'} · Signal: ${design.evolutionSignal || '—'} · Mood: ${design.mood || '—'}`);
-      console.log('  Design extraction artifact written.');
-      // NOTE: merged.brand is NOT updated here. Brand Direction (Phase 2d) owns that.
-    } else {
-      console.log('  AI design extraction skipped or failed — Brand Direction will proceed without extraction signal.');
+  let brandDna = null;
+  if (scraped && !opts.skipDesign && process.env.ANTHROPIC_API_KEY) {
+    console.log('[Phase 2c/2d] Defining brand (brand-dna)...');
+    const brandStart = Date.now();
+    try {
+      brandDna = await defineBrandDna(merged);
+      if (brandDna) {
+        applyBrandToMerged(merged, brandDna);
+        stats.hasDesign = true;
+        await artifacts.writeStep('04-brand-dna', { input: { url: opts.url }, output: brandDna }, brandStart);
+        console.log(`  Palette: ${brandDna.color?.primary} / ${brandDna.color?.secondary} · Fonts: ${brandDna.typography?.headingFont} / ${brandDna.typography?.bodyFont}`);
+      } else {
+        console.warn('  brand-dna returned null — keeping scraped brand.');
+      }
+    } catch (err) {
+      console.warn(`  Brand DNA failed: ${err.message}`);
     }
     console.log('');
   } else if (opts.skipDesign) {
-    console.log('[Phase 2c] Skipping AI design mapping (--skip-design).');
+    console.log('[Phase 2c/2d] Skipping brand-dna (--skip-design).');
     console.log('');
   }
 
   // -----------------------------------------------------------------------
   // Phase 2d: AI Brand Direction
   // -----------------------------------------------------------------------
-  let brandBrief = null;
-  if (process.env.ANTHROPIC_API_KEY) {
+  let brandBrief = null;  // Phase 2d (legacy AI brand direction) superseded by brand-dna (Phase 2c)
+  if (false) {  // eslint-disable-line no-constant-condition — kept for reference; brand now owned by defineBrandDna
     console.log('[Phase 2d] Running AI brand direction...');
     const brandStart = Date.now();
     brandBrief = await runBrandDirection(design, merged, audit, { verbose: opts.verbose });
@@ -781,29 +793,30 @@ async function main() {
   // -----------------------------------------------------------------------
   // Phase 2f: Creative Director — emit design DNA
   // -----------------------------------------------------------------------
+  // CLEAN PATH (Step 5 + 6): plan content (deterministic placement) + assemble
+  // layout (archetype-authoritative variants, brand-owned tokens, deterministic
+  // image binding). Replaces the legacy Creative Director. `director` keeps its
+  // { dna } shape so downstream (writeDesignDna / generateSections) is unchanged.
   let director = null;
-  if (process.env.ANTHROPIC_API_KEY) {
-    console.log('[Phase 2f] Running Creative Director...');
+  let contentPlan = null;
+  let binding = null;
+  if (process.env.ANTHROPIC_API_KEY && brandDna) {
+    console.log('[Phase 2e/2f] Plan content + assemble layout (clean path)...');
     try {
-      director = await runCreativeDirector(merged, design, opts, brandBrief, audit);
-      console.log(`  Archetype:  ${director.dna.archetype}`);
-      console.log(`  Hero:       ${director.dna.heroVariant}`);
-      console.log(`  Sections:   ${director.dna.sectionOrder.join(' → ')}`);
-      if (director.dna.borrowedFrom) {
-        console.log(`  Borrowed:   ${director.dna.borrowedTrait} (from ${director.dna.borrowedFrom})`);
-      }
-      await artifacts.writeStep('05-director', {
-        input: {
-          libraryUsed: director._meta.libraryUsed,
-          designMood: design?.mood || null,
-          brandMood:  brandBrief?.mood || null,
-        },
-        output: director.dna,
-        _meta: director._meta,
+      contentPlan = planContent(merged);
+      const res = await assembleLayout({ merged, contentPlan, brandDna });
+      director = { dna: res.dna, _meta: res.meta || {} };
+      binding = res.binding;
+      console.log(`  Archetype:  ${res.dna.archetype}`);
+      console.log(`  Sections:   ${res.dna.sectionOrder.join(' → ')}`);
+      await artifacts.writeStep('05-assemble', {
+        input: { pages: contentPlan.pages?.length || 0, fonts: `${brandDna?.typography?.headingFont}/${brandDna?.typography?.bodyFont}` },
+        output: res.dna,
+        _meta: res.meta || {},
       });
-      console.log('  Director artifact written.');
+      console.log('  Assemble artifact written.');
     } catch (err) {
-      console.warn(`  Creative Director failed: ${err.message}`);
+      console.warn(`  Assemble layout failed: ${err.message}`);
       director = null;
     }
     console.log('');
@@ -830,7 +843,7 @@ async function main() {
 
   // 3b — Generate individual service pages (one per scraped service)
   console.log('  Generating pages...');
-  const pageResult = await generatePages({ ...merged, bronze }, outputDir, preset);
+  const pageResult = await generatePages({ ...merged, bronze }, outputDir, preset, contentPlan);
 
   // 3b-bis — Generate redirect file from migration map
   const redirectMap = merged?.migration?.redirectMap || [];
@@ -863,36 +876,25 @@ async function main() {
     console.log('  Skipping image download (--skip-images).');
   }
 
-  // 3e — Classify images via Vision → image-roles.json
-  let imageRolesResult = null;
-  if (!opts.skipImages && process.env.ANTHROPIC_API_KEY) {
-    console.log('  Classifying image roles (Vision)...');
+  // 3e — Image roles from the deterministic BINDING (replaces the Vision pass).
+  // The binding already has roles + portraits (incl. bio-page join) + per-page
+  // service images from the normalized items[]; the bridge maps its source URLs →
+  // the downloaded local paths via the downloader's image-source.json sidecar.
+  if (!opts.skipImages && binding) {
+    console.log('  Mapping image roles from binding (deterministic)...');
     try {
-      imageRolesResult = await classifyImageRoles(outputDir, {
-        // Pass silver data so the classifier can pair photos with named doctors
-        // via filename/alt-text matching (multi-doctor practices).
-        silver: {
-          doctor: merged?.doctor,
-          // X3: prefer doctors[]; fall back to doctor + additionalDoctors
-          doctors: merged?.doctors || (merged?.doctor ? [merged.doctor, ...(merged?.additionalDoctors || [])] : []),
-          additionalDoctors: merged?.additionalDoctors,  // back-compat
-        },
-      });
-
-      // Hero fallback: if classifier found no hero, promote first gallery image
-      if (!imageRolesResult.roles.hero && imageRolesResult.roles.gallery?.length > 0) {
-        const promoted = imageRolesResult.roles.gallery.shift();
-        imageRolesResult.roles.hero = promoted;
-        console.log(`  No hero classified — promoted gallery image: ${promoted}`);
-      }
-
-      console.log(`  Classified ${imageRolesResult._meta.classified} image(s). Hero: ${imageRolesResult.roles.hero || '(none)'}`);
-      await artifacts.writeStep('09-image-roles', {
-        output: imageRolesResult.roles,
-        _meta: imageRolesResult._meta,
-      });
+      const { readFileSync: rf, writeFileSync: wf, existsSync: ex } = await import('node:fs');
+      const sidecarPath = resolve(outputDir, 'public/images/image-source.json');
+      const sidecar = ex(sidecarPath) ? JSON.parse(rf(sidecarPath, 'utf-8')) : {};
+      const baseUrl = merged.practice?.domain
+        ? (/^https?:\/\//i.test(merged.practice.domain) ? merged.practice.domain : `https://${merged.practice.domain}`)
+        : null;
+      const roles = bindingToImageRoles(binding, sidecar, baseUrl);
+      wf(resolve(outputDir, 'public/images/image-roles.json'), JSON.stringify(roles, null, 2));
+      console.log(`  Image roles: hero=${roles.hero ? '✓' : '✗'} portraits=${Object.keys(roles.doctorPortraits || {}).length} gallery=${(roles.gallery || []).length} servicePages=${Object.keys(roles.byPage || {}).length}`);
+      await artifacts.writeStep('09-image-roles', { output: roles });
     } catch (err) {
-      console.warn(`  Image classification failed: ${err.message}`);
+      console.warn(`  Image-roles bridge failed: ${err.message}`);
     }
   }
 
