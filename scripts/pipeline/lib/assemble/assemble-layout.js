@@ -69,7 +69,7 @@ function brandDnaToBrief(brandDna, tokens, merged) {
   };
 }
 
-export async function assembleLayout({ merged, contentPlan, brandDna, opts = {}, audit = null }) {
+export async function assembleLayout({ merged, contentPlan, brandDna, opts = {}, audit = null, cachedDna = null }) {
   if (!brandDna) throw new Error('[assemble-layout] brandDna required (Step 4 must run first)');
   if (!contentPlan) throw new Error('[assemble-layout] contentPlan required (Step 5 must run first)');
 
@@ -77,15 +77,27 @@ export async function assembleLayout({ merged, contentPlan, brandDna, opts = {},
   const binding = bindImages(contentPlan, merged.images, { activeProviders: activeProviders(merged) });
 
   // Intelligent layout: section order + variants + archetype (diverse via exploration).
-  const brief = brandDnaToBrief(brandDna, tokens, merged);
-  const design = { mood: brief.mood, rationale: brandDna.rationale };
-  const { dna, _meta } = await runCreativeDirector(merged, design, opts, brief, audit);
+  // The director is non-deterministic (3 candidates + LLM evaluator), which would
+  // re-roll the layout on every render and CONFOUND A/B measurement of downstream
+  // changes (fonts, components). When a cachedDna is supplied (eval harness), reuse
+  // it so the layout is held FIXED and only the variable under test changes.
+  let dna, _meta;
+  if (cachedDna) {
+    dna = cachedDna;
+    _meta = { cached: true };
+  } else {
+    const brief = brandDnaToBrief(brandDna, tokens, merged);
+    const design = { mood: brief.mood, rationale: brandDna.rationale };
+    ({ dna, _meta } = await runCreativeDirector(merged, design, opts, brief, audit));
+  }
 
   // ---- Enforce ownership boundary: brand-dna owns the visual system ----------
   dna.radius = tokens.tokens.radius;
   dna.cardTreatment = tokens.tokens.cardTreatment;
   dna.borderTreatment = tokens.tokens.borderTreatment;
-  dna.density = brief._density;   // spatial density is brand/observed, not the director's
+  // spatial density is brand/observed, not the director's
+  dna.density = ['airy', 'balanced', 'dense'].includes(merged?.currentDesign?.spacingDensity)
+    ? merged.currentDesign.spacingDensity : 'balanced';
 
   // ---- Content-plan is authoritative for WHICH sections appear ---------------
   const avail = availableSections(contentPlan, binding);

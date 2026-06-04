@@ -14,6 +14,7 @@ import { readFile } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { callAnthropic, parseJsonStrict, MODELS } from '../ai-silver/shared.js';
+import { pickFontPairing } from './font-pairings.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROMPT = resolve(__dirname, 'prompts', 'brand-dna.md');
@@ -49,5 +50,21 @@ export async function defineBrandDna(merged) {
   const { text } = await callAnthropic({ model: MODELS.default, prompt, maxTokens: 2000 });
   let parsed;
   try { parsed = parseJsonStrict(text); } catch { return null; }
-  return parsed.brandDna || parsed;
+  const dna = parsed.brandDna || parsed;
+
+  // CONVERGENCE FIX: the LLM font pick collapses to its priors regardless of
+  // temperature (Nunito Sans 5/5, then Libre Franklin 5/5). Override it with a
+  // curated, vetted pairing chosen deterministically — classify the practice's
+  // type CHARACTER from the observed currentDesign, then seed a pick within that
+  // bucket (per-practice, reproducible, varied). Colors stay LLM-derived (they're
+  // grounded in the observed palette and DON'T collapse). Keep the LLM's scale/
+  // weights/tracking. See lib/brand/font-pairings.js.
+  if (dna && dna.typography) {
+    const seedKey = merged.practice?.name || merged.practice?.domain || '';
+    const pick = pickFontPairing(cd, seedKey);
+    dna.typography.headingFont = pick.headingFont;
+    dna.typography.bodyFont = pick.bodyFont;
+    dna.typography._fontBucket = pick.bucket;
+  }
+  return dna;
 }

@@ -29,8 +29,15 @@
    hairlines/whitespace. Tinted soft shadows, never gray box-shadow glows or neon.
 7. **Coherence.** Color + type + shape + spacing read as ONE system with a point of view.
 8. **Accessible by construction.** WCAG AA: 4.5:1 body, 3:1 large/UI. Visible focus states.
-9. **No AI-slop tells.** No filler verbs ("Elevate/Seamless/Unleash"), no fake-precise numbers, no generic
-   stock-photo emptiness, no emoji, no purple/neon gradients, no broken/placeholder imagery.
+9. **No AI-slop tells** (the homogeneity every model converges on — ref: impeccable). Avoid:
+   - **Type:** Inter/Roboto/Arial/system-default as the display face; oversized H1 with no supporting hierarchy.
+   - **Color:** purple→blue / neon gradients; pure black (`#000`); **gray text on a colored background**.
+   - **Layout/materiality:** **cards nested in cards**; **a rounded-square icon tile stacked above every heading**;
+     **left side-accent borders** on cards; gray drop-shadow "glows" or dark outer glows; the 3-equal-card row;
+     centered-text-over-dark-photo hero.
+   - **Motion:** bounce/elastic easing (reads dated); animating layout props instead of transform/opacity.
+   - **Content:** filler verbs ("Elevate/Seamless/Unleash"), fake-precise numbers, emoji, generic stock-photo
+     emptiness, broken/placeholder imagery.
 
 ---
 
@@ -50,7 +57,9 @@ agency; 8 = clearly above template-default; 6 = acceptable-but-generic; 4 = visi
 
 **Hard penalties (cap the relevant dimension ≤4 if present):** pure black text/bg; Inter as the display
 face on a "premium/warm" brand; centered-text-over-dark-image hero; 3 identical service cards; visible
-purple/neon gradient; emoji in content; an off-topic/wrong hero image; any placeholder/Lorem/TODO text.
+purple/neon gradient; emoji in content; an off-topic/wrong hero image; any placeholder/Lorem/TODO text;
+**cards nested inside cards**; **gray text on a colored background**; **a rounded-square icon tile above
+every heading**; **left side-accent borders on cards**; **gray drop-shadow "glows" / dark outer glows**.
 
 ---
 
