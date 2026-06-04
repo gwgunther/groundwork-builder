@@ -223,9 +223,8 @@ export async function generatePages(data, outputDir, preset = null, contentPlan 
   // Inject scraped FAQs into faq.astro (replaces template placeholders).
   await injectFaqs(data, outputDir);
 
-  // Render the content-plan's durable "rescued" about sections (evergreen
-  // additionalContent the plan placed on /about — never the ephemeral items it
-  // routed to announcements).
+  // Render the content-plan's "rescued" about sections — all additionalContent
+  // the plan placed on /about (faithful mimicry; nothing is omitted).
   if (contentPlan) await injectAboutRescued(data, outputDir, contentPlan);
 
   // Render the content-plan's financial sections (insurance / financing /
@@ -576,10 +575,9 @@ async function injectFaqs(data, outputDir) {
 }
 
 /**
- * Append the content-plan's durable "rescued" about sections (evergreen
- * additionalContent) to about.astro — verbatim, before </BaseLayout>. These are
- * the items the plan placed on /about; ephemeral items it routed to
- * announcements are intentionally NOT rendered.
+ * Append the content-plan's "rescued" about sections (all additionalContent the
+ * plan placed on /about) to about.astro — verbatim, before </BaseLayout>.
+ * Faithful mimicry: everything the practice had is reproduced, nothing omitted.
  */
 async function injectAboutRescued(data, outputDir, contentPlan) {
   const aboutPlan = (contentPlan.pages || []).find(p => p.role === 'about');

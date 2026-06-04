@@ -43,7 +43,6 @@ import { writeDesignDna } from './lib/injector.js';
 import { defineBrandDna } from './lib/brand/brand-dna.js';
 import { applyBrandToMerged } from './lib/assemble/brand-tokens.js';
 import { planContent } from './lib/content/plan-content.js';
-import { classifyContent } from './lib/content/classify-content.js';
 import { assembleLayout } from './lib/assemble/assemble-layout.js';
 import { bindingToImageRoles } from './lib/assemble/binding-to-image-roles.js';
 import { distillDesign } from './lib/distill-design.js';
@@ -731,23 +730,11 @@ async function main() {
   if (process.env.ANTHROPIC_API_KEY && brandDna) {
     console.log('[Phase 2e/2f] Plan content + assemble layout (clean path)...');
     try {
-      // Semantic provider status (Haiku) — distinguishes departing vs incoming
-      // (regex alone false-positives, e.g. a new doctor whose note mentions a
-      // colleague's retirement). content-plan routes 'departing' → announcements.
-      const classifications = await classifyContent(merged);
-      contentPlan = planContent(merged, classifications);
-      // EVERGREEN: drop departing providers from the FEATURED roster so no
-      // /team page, about bio, schema, or home feature is generated for them
-      // (they remain in contentPlan.announcements). 'active' + 'incoming' stay.
-      const provStatus = classifications?.providerStatus;
-      if (provStatus && Array.isArray(merged.doctors)) {
-        const before = merged.doctors.length;
-        merged.doctors = merged.doctors.filter((_, i) => provStatus[i] !== 'departing');
-        merged.doctor = merged.doctors[0] || merged.doctor;
-        if (merged.doctors.length !== before) {
-          console.log(`  Evergreen: featuring ${merged.doctors.length}/${before} providers (departing routed to announcements).`);
-        }
-      }
+      // Faithful mimicry: place ALL the practice's content (reorganize/optimize,
+      // never omit). No provider-status classification — whoever the practice
+      // features on their own site, we feature. The practice already made the
+      // editorial decisions; our job is to reproduce them, not re-derive them.
+      contentPlan = planContent(merged);
       const res = await assembleLayout({ merged, contentPlan, brandDna });
       director = { dna: res.dna, _meta: res.meta || {} };
       binding = res.binding;

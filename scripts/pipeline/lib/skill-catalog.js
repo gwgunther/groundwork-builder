@@ -103,11 +103,11 @@ const PHASE_INFO = {
   },
   'Plan Content': {
     summary:
-      'Deterministically PLACES every merged content item onto a page + section — no fabrication, no editorial omission. Evergreen routing: departing/retiring providers and time-sensitive items go to an announcements bucket (flagged, not featured) rather than the live roster. Coverage is guaranteed by construction.',
+      'Deterministically PLACES every merged content item onto a page + section. Faithful mimicry: reorganize/optimize, never omit and never editorialize — whoever/whatever the practice features on their own site, we feature (no "this doctor seems to be leaving" judgments). Coverage is guaranteed by construction.',
     input:  'merged practice data (+ optional Haiku content classifications)',
     output: 'contentPlan { pages[{ slug, role, sourcePath, sections[] }], announcements[], generated[], unplaced[] }',
     tools:  ['lib/content/plan-content.js (pure JS)', '(optional) Haiku classify-content (evergreen vs ephemeral)'],
-    qc:     ['100% coverage (every item placed or announced)', 'Verbatim fidelity tier preserved', 'No departing provider in the featured roster'],
+    qc:     ['100% coverage (every distinct item placed)', 'Verbatim fidelity tier preserved', 'No omission — full roster + all content featured'],
     cost:   'Free (deterministic; optional Haiku classify)',
   },
   Assemble: {

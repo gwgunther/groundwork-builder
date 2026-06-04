@@ -18,34 +18,11 @@ import { slugify } from '../utils.js';
 const VERBATIM = 'verbatim';        // never altered (names, NAP, testimonials, FAQ answers, insurance)
 const OPTIMIZABLE = 'optimizable';  // meaning-preserving polish allowed (taglines, about prose, descriptions)
 
-// ---- Evergreen policy helpers -------------------------------------------
-// We build the DURABLE site. Ephemeral content (retirement notices, "welcome
-// Dr. X", COVID banners, seasonal promos, dated letters) is still CAPTURED, but
-// routed to a flagged `announcements` bucket — not featured — so the practice
-// decides whether to surface it. Departing providers are likewise not featured.
-
-const DEPARTING_RE = /\bretir(e|ed|ing|ement)\b|stepping down|final (day|year|month)|last (day|year) (in|of) practice|no longer (be )?(practic|see)|leaving the practice/i;
-
-function isDeparting(doctor) {
-  return DEPARTING_RE.test(doctor?.statusNote || '');
-}
-
-const TIME_SENSITIVE_RE = /\bretir|happy retirement|welcome (dr|our new)|covid|coronavirus|pandemic|\bholiday\b|seasonal|this (month|week|summer|winter|spring|fall)|limited[- ]time|dear (parents|patients)|we (are|'re) (excited to )?(announce|welcom)/i;
-
-function isTimeSensitive(item) {
-  const hay = `${item?.title || ''} ${item?.type || ''} ${(item?.content || '').slice(0, 300)}`;
-  return TIME_SENSITIVE_RE.test(hay);
-}
-
-/**
- * @param {object} merged
- * @param {object} [classifications] - from classify-content.js (AI/Haiku):
- *   { providerStatus: {idx:'active|departing|incoming'}, itemLifespan: {idx:'evergreen|ephemeral'} }
- *   When provided, these AI judgments drive evergreen/provider routing. When
- *   omitted, the deterministic regex heuristic is used as a fallback. Either way
- *   the placement + coverage mechanics are deterministic (coverage stays 100%).
- */
-export function planContent(merged, classifications = null) {
+// Policy: faithful MIMICRY. Place every distinct piece of the practice's content
+// in its best spot (reorganize/optimize), but never OMIT and never editorialize
+// (no "this doctor seems to be leaving" judgments — whoever the practice features,
+// we feature). Consolidating genuinely redundant repeats is fine; dropping is not.
+export function planContent(merged) {
   const placed = new Set();          // keys of merged items that landed somewhere
   const mark = (k) => placed.add(k);
   const pages = [];
@@ -68,26 +45,16 @@ export function planContent(merged, classifications = null) {
 
   const section = (type, source, heading, body, ref) => ({ type, source, heading: heading || null, body: body || null, contentRef: ref || null });
 
-  // Partition providers into the active roster (featured) vs departing (flagged).
-  // Prefer the AI classifier's judgment; fall back to the regex heuristic.
-  const provStatus = classifications?.providerStatus || {};
-  const itemLife = classifications?.itemLifespan || {};
-  const departingByLabel = (d, i) => provStatus[i] ? provStatus[i] === 'departing' : isDeparting(d);
-  const ephemeralByLabel = (a, i) => itemLife[i] ? itemLife[i] === 'ephemeral' : isTimeSensitive(a);
-
-  const activeDoctors = [], departingDoctors = [];
-  doctors.forEach((d, i) => { (departingByLabel(d, i) ? departingDoctors : activeDoctors).push({ d, i }); });
-
   // ---- HOME ---------------------------------------------------------------
   const home = { slug: '/', title: practice.name || 'Home', role: 'home', sections: [] };
   if (content.heroTagline) { home.sections.push(section('hero', OPTIMIZABLE, content.heroTagline, content.heroSubheadline || null, 'content.heroTagline')); mark('content.heroTagline'); if (content.heroSubheadline) mark('content.heroSubheadline'); }
   if (content.valueProp || content.aboutText) { home.sections.push(section('intro', OPTIMIZABLE, content.aboutHeadline || 'Welcome', content.valueProp || content.aboutText, content.valueProp ? 'content.valueProp' : 'content.aboutText')); mark(content.valueProp ? 'content.valueProp' : 'content.aboutText'); }
   if (services.length) { home.sections.push(section('services-overview', VERBATIM, 'Our Services', services.map(s => s.name).join(', '), 'services.offered')); }
-  // Feature the ACTIVE provider roster — not an arbitrary doctors[0], and never the departing one.
-  if (activeDoctors.length === 1) {
-    home.sections.push(section('doctor-intro', VERBATIM, activeDoctors[0].d.name, activeDoctors[0].d.bio || null, `doctors[${activeDoctors[0].i}]`));
-  } else if (activeDoctors.length > 1) {
-    home.sections.push(section('providers', VERBATIM, 'Meet Our Doctors', activeDoctors.map(x => x.d.name).join(', '), activeDoctors.map(x => `doctors[${x.i}]`).join(',')));
+  // Feature the practice's full roster, exactly as they present it.
+  if (doctors.length === 1) {
+    home.sections.push(section('doctor-intro', VERBATIM, doctors[0].name, doctors[0].bio || null, 'doctors[0]'));
+  } else if (doctors.length > 1) {
+    home.sections.push(section('providers', VERBATIM, 'Meet Our Doctors', doctors.map(d => d.name).join(', '), doctors.map((_, i) => `doctors[${i}]`).join(',')));
   }
   if (testimonials.length) { home.sections.push(section('testimonials', VERBATIM, 'What Patients Say', `${testimonials.length} reviews`, 'content.testimonials')); testimonials.forEach((_, i) => mark(`content.testimonials[${i}]`)); }
   if (content.stats && Object.values(content.stats).some(Boolean)) { home.sections.push(section('stats', VERBATIM, 'By the Numbers', JSON.stringify(content.stats), 'content.stats')); mark('content.stats'); }
@@ -98,15 +65,13 @@ export function planContent(merged, classifications = null) {
   const about = { slug: '/about', title: 'About', role: 'about', sections: [] };
   if (content.aboutText) { about.sections.push(section('about', OPTIMIZABLE, content.aboutHeadline || 'About Us', content.aboutText, 'content.aboutText')); mark('content.aboutText'); }
   if (content.philosophy) { about.sections.push(section('philosophy', OPTIMIZABLE, 'Our Philosophy', content.philosophy, 'content.philosophy')); mark('content.philosophy'); }
-  // Active providers get featured bios; departing providers are captured but
-  // routed to announcements (flagged, evergreen-excluded — practice decides).
-  activeDoctors.forEach(({ d, i }) => { about.sections.push(section('doctor-bio', VERBATIM, d.name, d.bio || null, `doctors[${i}]`)); mark(`doctors[${i}]`); });
-  departingDoctors.forEach(({ d, i }) => { announcements.push({ type: 'departing-provider', heading: d.name, body: d.statusNote || d.bio || null, contentRef: `doctors[${i}]`, reason: 'provider departing/retiring' }); mark(`doctors[${i}]`); });
+  // Every doctor gets a featured bio — faithful to the practice's roster.
+  doctors.forEach((d, i) => { about.sections.push(section('doctor-bio', VERBATIM, d.name, d.bio || null, `doctors[${i}]`)); mark(`doctors[${i}]`); });
   if (staff.length) { staff.forEach((s, i) => mark(`staff[${i}]`)); about.sections.push(section('team', VERBATIM, 'Our Team', `${staff.length} team members`, 'staff')); }
-  // additionalContent: durable → featured (about/rescued); time-sensitive → announcements (flagged).
+  // additionalContent: place ALL of it verbatim (rescued) — never omit. The
+  // practice put it on their site; we reproduce it.
   additional.forEach((a, i) => {
-    if (ephemeralByLabel(a, i)) { announcements.push({ type: 'announcement', heading: a.title || a.type, body: a.content, contentRef: `content.additionalContent[${i}]`, reason: classifications?.reasons?.content?.[i] || 'time-sensitive / ephemeral' }); }
-    else { about.sections.push(section('rescued', VERBATIM, a.title || a.type, a.content, `content.additionalContent[${i}]`)); }
+    about.sections.push(section('rescued', VERBATIM, a.title || a.type, a.content, `content.additionalContent[${i}]`));
     mark(`content.additionalContent[${i}]`);
   });
   if (about.sections.length) pages.push(about);

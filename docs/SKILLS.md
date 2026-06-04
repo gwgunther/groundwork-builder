@@ -5,7 +5,7 @@
 >
 > See [`PIPELINE.md`](./PIPELINE.md) for how skills compose into the build flow.
 
-Last generated: 2026-06-04 20:40 UTC
+Last generated: 2026-06-04 22:10 UTC
 
 ## At a glance
 
