@@ -63,6 +63,14 @@ export function buildVisionMessages({ desktopPng, mobilePng, anchors }) {
     source: { type: 'base64', media_type: 'image/png', data: b64 },
   });
 
+  // The preamble + 3 anchor images are IDENTICAL on every one of the ~thousands
+  // of calls, so we mark a prompt-cache breakpoint on the last anchor image.
+  // Everything up to & including it (preamble + all 3 anchors ≈ the bulk of the
+  // input tokens) is cached: the first call writes the cache, every subsequent
+  // call reads it at ~1/10th the input cost. The target images + task text come
+  // AFTER the breakpoint, so they vary per call without breaking the cache.
+  const cachedImg = (b64) => ({ ...img(b64), cache_control: { type: 'ephemeral' } });
+
   const content = [
     { type: 'text', text: SYSTEM_PREAMBLE },
 
@@ -72,7 +80,7 @@ export function buildVisionMessages({ desktopPng, mobilePng, anchors }) {
     { type: 'text', text: '\n═══ ANCHOR: SCORE 3 (average, competent) ═══' },
     img(toB64(anchors.score_3.png)),
     { type: 'text', text: '\n═══ ANCHOR: SCORE 5 (bespoke craft) ═══' },
-    img(toB64(anchors.score_5.png)),
+    cachedImg(toB64(anchors.score_5.png)), // ← cache breakpoint (caches preamble + 3 anchors)
 
     // Target site.
     { type: 'text', text: '\n═══ TARGET — DESKTOP (1440px) ═══' },

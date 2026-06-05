@@ -99,6 +99,7 @@ export function detectHtmlFeatures({ html = '', finalUrl = '' } = {}) {
 
     booking: detectBookingWidget(html),
     serviceLinkCount: countServiceLinks(html),
+    hasContactForm: detectContactForm(html), // contactability signal (not a design signal)
 
     datedTechFlags: detectDatedTechFlags(html),
   };
@@ -107,6 +108,18 @@ export function detectHtmlFeatures({ html = '', finalUrl = '' } = {}) {
   features.datedTechPenalty = features.datedTechFlags.reduce((s, f) => s + f.weight, 0);
 
   return features;
+}
+
+// Contactability signal — does the site have a usable contact form?
+// All patterns are simple / non-backtracking (ReDoS-safe).
+function detectContactForm(html) {
+  // Known form plugins/builders/vendors
+  if (/(wpcf7|contact-form-7|gravity[ _-]?forms?|gform_|jotform|hsforms\.net|hubspotforms|formstack|wufoo|typeform|ninja[ _-]?forms)/i.test(html)) return true;
+  // An explicit email input field — strong signal of a real contact form
+  if (/<input[^>]+type=["']email["']/i.test(html)) return true;
+  // A <form> plus a <textarea> (message box) anywhere on the page
+  if (/<form[\s>]/i.test(html) && /<textarea[\s>]/i.test(html)) return true;
+  return false;
 }
 
 function detectBookingWidget(html) {
@@ -144,110 +157,175 @@ function detectDatedTechFlags(html) {
 }
 
 // ──────────────────────────────────────────────────────────────────────
-// Composite Design Score
+// Lighthouse bands — Google's own quality tiers. We consume BANDS, never the
+// raw 0–100 (per Google's variability guidance, the band is the trustworthy
+// unit). 90–100 = Good (green, ~top 8% of the web) · 50–89 = Needs Improvement
+// (orange) · 0–49 = Poor (red).
 // ──────────────────────────────────────────────────────────────────────
+
+export function lighthouseBand(score) {
+  if (score == null) return null;
+  if (score >= 90) return 'Good';
+  if (score >= 50) return 'Needs Improvement';
+  return 'Poor';
+}
+
+export function lighthouseBands(lighthouse) {
+  if (!lighthouse?.ok) return { performance: null, accessibility: null, bestPractices: null, seo: null };
+  return {
+    performance: lighthouseBand(lighthouse.performance),
+    accessibility: lighthouseBand(lighthouse.accessibility),
+    bestPractices: lighthouseBand(lighthouse.bestPractices),
+    seo: lighthouseBand(lighthouse.seo),
+  };
+}
+
+// ──────────────────────────────────────────────────────────────────────
+// Quality Checklist — the ONE computed number, a UNIFORM count (no weights).
+// Each item is a pass/fail bar grounded in an external standard (Google
+// Lighthouse band) or a verifiable HTML fact. Score = how many pass (0–11).
+// The FAILED items are the outreach pitch.
+//
+// Lighthouse band per item is chosen to be the band that DISCRIMINATES in this
+// vertical: "Good" (green) where it's achievable (a11y/best-practices/SEO),
+// "not Poor" (≥50) for performance — because Google-green mobile performance is
+// near-impossible for content-heavy dental sites (only ~3% reach it), so
+// requiring it would carry no information. Both are Google's own boundaries.
+// ──────────────────────────────────────────────────────────────────────
+
+export const QUALITY_CHECKS = [
+  { key: 'perf_not_poor',  label: 'Mobile performance not Poor (Google)',
+    test: (c) => c.lighthouse?.ok && c.lighthouse.performance >= 50 },
+  { key: 'a11y_good',      label: 'Accessibility rated Good (Google)',
+    test: (c) => c.lighthouse?.ok && c.lighthouse.accessibility >= 90 },
+  { key: 'bp_good',        label: 'Best Practices rated Good (Google)',
+    test: (c) => c.lighthouse?.ok && c.lighthouse.bestPractices >= 90 },
+  { key: 'seo_good',       label: 'SEO rated Good (Google)',
+    test: (c) => c.lighthouse?.ok && c.lighthouse.seo >= 90 },
+  { key: 'custom_build',   label: 'Custom build (not a template/mill)',
+    test: (c) => c.vendorCategory === 'modern-stack' },
+  { key: 'schema',         label: 'Structured data (schema.org)',
+    test: (c) => !!c.features?.hasSchemaOrg },
+  { key: 'booking',        label: 'Online booking',
+    test: (c) => !!c.features?.booking?.present },
+  { key: 'click_to_call',  label: 'Click-to-call',
+    test: (c) => !!c.features?.hasClickToCall },
+  { key: 'https',          label: 'HTTPS',
+    test: (c) => !!c.features?.hasHttps },
+  { key: 'viewport',       label: 'Mobile viewport',
+    test: (c) => !!c.features?.hasViewportMeta },
+  { key: 'no_dated_tech',  label: 'No dated tech',
+    test: (c) => (c.features?.datedTechFlagCount || 0) === 0 },
+];
+
+export const QUALITY_TOTAL = QUALITY_CHECKS.length; // 11
 
 /**
- * Compute the deterministic portion of the Design Score (0–85 max,
- * the remaining 15 points come from vision scoring downstream).
- *
- * @param {object} input
- * @param {object} input.lighthouse  - Result from runLighthouse()
- * @param {object} input.features    - Result from detectHtmlFeatures()
+ * Run the checklist. Returns the count passed, plus passed/failed label lists.
+ * The failed labels feed the outreach pitch ("Missing Items").
  */
-export function computeDeterministicDesignScore({ lighthouse, features }) {
-  let score = 0;
-
-  if (lighthouse?.ok) {
-    score += (lighthouse.performance / 100) * 20;
-    score += (lighthouse.accessibility / 100) * 10;
-    score += (lighthouse.bestPractices / 100) * 10;
+export function computeChecklist({ lighthouse, features, vendorCategory } = {}) {
+  const ctx = { lighthouse, features, vendorCategory };
+  const passed = [], failed = [];
+  for (const chk of QUALITY_CHECKS) {
+    (chk.test(ctx) ? passed : failed).push(chk.label);
   }
-  if (features?.hasHttps) score += 5;
-  if (features?.hasViewportMeta) score += 5;
-  if (features?.hasSchemaOrg) score += 5;
-  if (features?.hasClickToCall) score += 3;
-  if (features?.booking?.present) score += 5;
-  if (features?.serviceLinkCount >= 3) score += 5;
-
-  score -= (features?.datedTechPenalty ?? 0) * 2;
-
-  return Math.max(0, Math.min(85, Math.round(score)));
+  return {
+    qualityScore: passed.length,        // 0–11 (higher = better site)
+    weaknessScore: failed.length,       // 0–11 (higher = weaker site)
+    total: QUALITY_TOTAL,
+    passed,
+    failed,                             // = the pitch
+  };
 }
 
 // ──────────────────────────────────────────────────────────────────────
-// Business Value Score (uses only Google Places data — no fetch needed)
+// Tiers — gate-based, over two OBJECTIVE axes (no blended number).
+//   • Business strength  = review-count percentile (data-relative, per metro)
+//   • Site weakness      = failed-check count (uniform)
 // ──────────────────────────────────────────────────────────────────────
 
-const SPECIALTY_PREMIUMS = {
-  orthodontist: 20,
-  cosmetic_dentist: 20,
-  dental_implants_periodontist: 20,
-  periodontist: 18,
-  endodontist: 15,
-  oral_surgeon: 15,
-  prosthodontist: 15,
-  pediatric_dentist: 10,
-  dentist: 5,
-  dental_clinic: 5,
-};
-
-export function computeBusinessValueScore({ rating, reviewCount, primaryType, multiLocation = false, runningAds = false }) {
-  let score = 0;
-
-  // Review count (log-scaled, max 30 at ~2000 reviews)
-  if (reviewCount > 0) {
-    score += Math.min(30, Math.log10(reviewCount + 1) * 9);
-  }
-  // Rating: (rating − 3.5) × 20, clamped to 0–20
-  if (rating != null) {
-    score += Math.max(0, Math.min(20, (rating - 3.5) * 20));
-  }
-  // Specialty premium
-  score += SPECIALTY_PREMIUMS[primaryType] ?? 5;
-
-  // Multi-location signal (adds 0–15; we set a fixed 15 when present)
-  if (multiLocation) score += 15;
-
-  // Active ad spend (any platform)
-  if (runningAds) score += 10;
-
-  return Math.max(0, Math.min(100, Math.round(score)));
+export function weaknessTier(weaknessScore) {
+  if (weaknessScore >= 6) return 'Severe';
+  if (weaknessScore >= 3) return 'Moderate';
+  return 'Minor';
 }
 
-// ──────────────────────────────────────────────────────────────────────
-// Vendor multiplier
-// ──────────────────────────────────────────────────────────────────────
-
-export function vendorMultiplier({ vendorCategory, vendor }) {
-  if (vendorCategory === 'dental-mill') return 1.5;
-  if (vendorCategory === 'diy-builder') return 1.2;
-  if (vendor === 'wordpress-generic') return 1.1;
-  if (vendorCategory === 'modern-stack') return 0.3;
-  return 1.0;
+// Business tier from this practice's review count vs the metro's distribution.
+// thresholds = { p75, median } computed per metro (see computeMetroThresholds).
+export function businessTier(reviewCount, thresholds) {
+  const n = reviewCount || 0;
+  if (thresholds && n >= thresholds.p75) return 'High';
+  if (thresholds && n >= thresholds.median) return 'Med';
+  return 'Low';
 }
 
-// ──────────────────────────────────────────────────────────────────────
-// Final Opportunity Score + tier + quadrant
-// ──────────────────────────────────────────────────────────────────────
-
-export function computeOpportunity({ designScore, businessValue, multiplier }) {
-  const raw = businessValue * ((100 - designScore) / 100) * multiplier;
-  return Math.max(0, Math.min(100, Math.round(raw)));
+export function quadrantFor({ bizTier, weakTier }) {
+  const highBiz = bizTier === 'High';
+  const weakSite = weakTier === 'Severe' || weakTier === 'Moderate';
+  if (highBiz && weakSite) return 'Prime';
+  if (highBiz && !weakSite) return 'Skip — already sorted';
+  if (!highBiz && weakSite) return 'Nurture';
+  return 'Low Priority';
 }
 
-export function tierFor(opportunity) {
-  if (opportunity >= 60) return 'A';
-  if (opportunity >= 40) return 'B';
-  if (opportunity >= 20) return 'C';
+// At-a-glance tier from the two axes. A = best prospect (strong biz + very weak site).
+export function tierFor({ bizTier, weakTier }) {
+  if (bizTier === 'High' && weakTier === 'Severe') return 'A';
+  if (bizTier === 'High' && weakTier === 'Moderate') return 'B';
+  if (bizTier === 'Med' && (weakTier === 'Severe' || weakTier === 'Moderate')) return 'C';
   return 'D';
 }
 
-export function quadrantFor({ designScore, businessValue }) {
-  const goodDesign = designScore >= 60;
-  const highValue = businessValue >= 50;
-  if (highValue && !goodDesign) return 'Prime';
-  if (highValue && goodDesign) return 'Skip — already sorted';
-  if (!highValue && !goodDesign) return 'Nurture';
-  return 'Low Priority';
+// ──────────────────────────────────────────────────────────────────────
+// Per-metro percentile thresholds (data-relative — no invented absolutes).
+// Pass the metro's practices; get { reviews:{median,p75}, ratingMedian }.
+// ──────────────────────────────────────────────────────────────────────
+
+function percentile(sortedAsc, p) {
+  if (!sortedAsc.length) return 0;
+  const idx = Math.min(sortedAsc.length - 1, Math.floor((p / 100) * sortedAsc.length));
+  return sortedAsc[idx];
+}
+
+export function computeMetroThresholds(practices) {
+  const reviews = practices.map((r) => r.reviewCount || 0).sort((a, b) => a - b);
+  const ratings = practices.map((r) => r.rating || 0).filter((x) => x > 0).sort((a, b) => a - b);
+  return {
+    reviews: { median: percentile(reviews, 50), p75: percentile(reviews, 75) },
+    ratingMedian: percentile(ratings, 50),
+  };
+}
+
+// ──────────────────────────────────────────────────────────────────────
+// Exemplar ("Top Site") — pure objective GATES:
+//   independent · not a mill · custom build · Good a11y/best-practices/SEO ·
+//   "established" (review floor) · "well-liked" (rating floor)
+//
+// Why FLOORS, not percentiles, for the business gates here (unlike the prospect
+// business-tier, which IS percentile-ranked):
+//   • Reviews are right-skewed — "top quartile" measures SIZE, not whether a
+//     practice is established. A floor ("150+ patient reviews") captures the
+//     intent: proven enough that the site demonstrably works.
+//   • Dental ratings are compressed at the top (metro medians ~4.9), so
+//     "above median" is hypersensitive (a 4.8 site fails). A floor ("4.5★+")
+//     is the meaningful "strongly liked" cut.
+// Performance deliberately NOT gated — universally low / noisy in this vertical.
+// ──────────────────────────────────────────────────────────────────────
+
+export const EXEMPLAR_MIN_REVIEWS = 150; // "established" floor
+export const EXEMPLAR_MIN_RATING = 4.5;  // "well-liked" floor
+
+export function classifyExemplar({ lighthouse, vendorCategory, isChain, reviewCount, rating }) {
+  const lh = lighthouse?.ok ? lighthouse : null;
+  const reasons = [];
+  if (isChain) reasons.push('chain/DSO');
+  if (vendorCategory === 'dental-mill') reasons.push('mill template');
+  if (vendorCategory !== 'modern-stack') reasons.push('not a custom build');
+  if (!lh || lh.accessibility < 90) reasons.push('accessibility not Good');
+  if (!lh || lh.bestPractices < 90) reasons.push('best-practices not Good');
+  if (!lh || lh.seo < 90) reasons.push('SEO not Good');
+  if ((rating || 0) < EXEMPLAR_MIN_RATING) reasons.push(`rating < ${EXEMPLAR_MIN_RATING}`);
+  if ((reviewCount || 0) < EXEMPLAR_MIN_REVIEWS) reasons.push(`reviews < ${EXEMPLAR_MIN_REVIEWS}`);
+  return { isExemplar: reasons.length === 0, failedOn: reasons };
 }

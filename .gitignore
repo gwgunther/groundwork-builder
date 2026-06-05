@@ -10,3 +10,4 @@ _pipeline/
 _audits/
 output/
 .playwright-mcp/
+_sourcing/

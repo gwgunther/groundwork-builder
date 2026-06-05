@@ -64,13 +64,13 @@ _sourcing/                          # gitignored output dir
 
 ## 3. Data Sources & Pipeline Flow
 
-### 3.1 Sourcing (Google Places API New)
+### 3.1 Sourcing (Google Places API New) — metro registry + geo-radius
 
-- **Text Search** endpoint, queries like `"dentist in {city}, {state}"`.
-- Returns up to 60 results per query (3 pages of 20).
-- For 5k records: ~85–100 city queries OR a denser per-city variant set (`"orthodontist in..."`, `"pediatric dentist in..."`).
-- Stable dedup key: `place_id`.
-- **Cost:** ~$0.032/call. 5k records ≈ $50–100 in Places API.
+- **Metro registry** (`scripts/sourcing/config/metros.js`): the 100 largest US MSAs, auto-parsed from the Census list into `{ key, label, primaryCity, state, geocodeQuery, pop, radiusMeters }`. Run any metro with `--metro <key>` (`--list-metros` to see all).
+- **Geo-radius coverage** (not per-city text search): geocode the metro's primary city once → center point, then run each query term (`dentist`, `cosmetic dentist`, `orthodontist`, `dental implants`, `pediatric dentist`) **location-biased to a population-scaled radius** (22–50km). Pulls the most-prominent practices metro-wide (suburbs included) without enumerating cities.
+- Each term returns ≤60 (3 pages of 20); dedup by `place_id`; **cap 200/metro** (the most-prominent — Google ranks by prominence, which correlates with business value). Override with `--limit`.
+- **Cost:** ~$0.03/query × ~6 queries/metro ≈ trivial (~$0.20/metro). Lighthouse (PageSpeed) is free.
+- **Mega-metro caveat:** a single radius from the core city under-covers sprawl (NYC/LA/Chicago); "top 200" there skews to the urban core. Fine for a first pass; add secondary center points later if needed.
 
 ### 3.2 Two-tier enrichment economics
 
@@ -81,30 +81,37 @@ _sourcing/                          # gitignored output dir
 
 Promote-to-rich is triggered by an Airtable view, not by sourcing run. Saves ~$300 vs enriching everything.
 
-### 3.3 Pipeline order per practice
+### 3.3 Pipeline order
 
 ```
-Google Places (cheap data)
+Per practice (parallel, concurrency 4, 200s hard timeout each):
+  Google Places (cheap data: name/addr/phone/website/rating/reviews/lat-lng/maps-uri)
       ↓
-Homepage fetch (HTML, headers, final URL)
+  Playwright capture (RENDERED html + desktop & mobile screenshots)
       ↓
-[FILTER] Chain/DSO detector → if matched, mark excluded, stop
+  [FILTER] Chain/DSO detector → if matched, mark excluded
       ↓
-Vendor fingerprint → category + vendor name
+  Vendor fingerprint (rendered HTML) → category + vendor + WP theme
       ↓
-Deterministic scoring (Lighthouse via PageSpeed Insights API,
-   HTML parse for schema/booking/tel/etc., dated-tech flag count)
+  HTML feature parse (schema/booking/tel/contact-form/dated-tech/multi-loc) + email extract
       ↓
-Screenshot capture (Playwright: desktop 1440px + mobile 390px)
+  Lighthouse via PageSpeed Insights API → 4 bands
       ↓
-Vision scoring (Claude Sonnet 4.5, single call w/ 5 images)
+  Per-row: Quality Checklist (count) + Lighthouse bands
       ↓
-Ad-spend detection (Meta Ad Library API + Google Ads Transparency scrape)
+  Persist: checkpoint JSON (local + GCS) · screenshots → GCS · rendered HTML → GCS (gzip)
+
+Per metro (after all rows):
+  finalizeScores() → per-metro percentile thresholds → Business Tier,
+                     Weakness Tier, Tier/Quadrant (gates), Exemplar (gates)
       ↓
-Sync to Airtable (batched, rate-limited)
+  Sync to Airtable (batched, rate-limited, upsert by Place ID)
 ```
 
-Each step is independently re-runnable; raw HTML and screenshots are cached so re-scoring with updated rubrics doesn't require re-fetching.
+**No vision in sourcing** (deferred — §6). **No ad detection** (removed — §7).
+Everything is independently re-runnable; rendered HTML + screenshots + checkpoints are cached (local + GCS), so re-scoring with updated thresholds (`--rescore`) requires **no re-fetch** — instant and free.
+
+**Resilience:** per-practice 200s hard timeout (one hung call can't stall the run); `process.exit(0)` on completion (orphaned sockets can't hang exit); all regex detectors bounded/ReDoS-safe; checkpoints make any run resumable.
 
 ---
 
@@ -128,7 +135,7 @@ Detected via URL patterns + shared template host fingerprints. Marked `Is Chain 
 
 ### 4.2 Modern-custom practices
 
-Sites built on Webflow/Next.js/Framer/Astro with custom design. Probably have an agency. Marked low priority via `Vendor Multiplier = 0.3×`. Not excluded — some may still convert — just deprioritized.
+Sites built on Webflow/Next.js/Framer/Astro with custom design. Probably have an agency, not in pain. Not excluded, but they naturally land in the **Skip ("already sorted")** quadrant — a custom build passes the "custom build" check and usually has a low Weakness Score, so the gates deprioritize them without any special multiplier. (They're also the **exemplar** candidates — see §5.5.)
 
 ### 4.3 Unreachable / closed
 
@@ -136,110 +143,110 @@ Sites built on Webflow/Next.js/Framer/Astro with custom design. Probably have an
 
 ---
 
-## 5. Scoring System
+## 5. Scoring System — FINAL MODEL (rubric 2026.06.04)
 
-Three composite scores feed one final ranker. Roughly **95% objective overall** — only ~3–5% of the final Opportunity Score comes from AI judgment.
+> **Design principle:** no invented weights or transforms. The *only* computed
+> number is a uniform checklist count. Everything else is a raw fact, a Google
+> Lighthouse band, a binary HTML fact, a data-relative percentile, or a gate.
+> This makes the whole system **objective, reproducible, and defensible** —
+> every threshold references an external standard (Google) or the data itself.
+>
+> History: earlier rubrics used weighted composites (a "Website Quality Score",
+> "Business Value Score", "Opportunity Score", "Vendor Multiplier"). Those are
+> **retired** — the weights were arbitrary judgment dressed as numbers, and a
+> test showed they changed ~50% of exemplar picks. Replaced by the model below.
 
-### 5.1 Design Score (0–100)
-*"How bad / good does this website look?"*
+### 5.0 The three jobs (different rigor for each)
 
-| Input | Weight | Objectivity |
+| Job | Needs | Rigor |
 |---|---|---|
-| Lighthouse Performance (mobile) | 20% | Objective |
-| Lighthouse Accessibility | 10% | Objective |
-| Lighthouse Best Practices | 10% | Objective |
-| Has HTTPS | 5% | Objective |
-| Has viewport meta | 5% | Objective |
-| Has Schema.org JSON-LD | 5% | Objective |
-| Has click-to-call | 3% | Objective |
-| Has booking widget | 5% | Objective |
-| Per-service page count | 5% | Objective |
-| Dated-tech flag count | -2% each | Objective |
-| **Vision: Visual Craft (1–5)** | 5% | Subjective (AI) |
-| **Vision: Clarity & Hierarchy (1–5)** | 5% | Subjective (AI) |
-| **Vision: Modernity (1–5)** | 5% | Subjective (AI) |
+| **Rank prospects** (who to cold-email first) | a useful priority order | low — you review the A-list anyway |
+| **Define exemplars** (top sites for Product #2 + claims) | a defensible, reproducible definition | **high** — customer-facing |
+| **Generate the pitch** (per-prospect "what's wrong") | concrete, true, specific statements | **high** — said to their face |
 
-**~85% deterministic, 15% AI judgment.** The AI portion is bounded by anchor calibration, forced evidence, temp 0, and structured JSON output.
+### 5.1 The objective fact sheet (per practice — stored, never blended)
 
-### 5.2 Business Value Score (0–100)
-*"Is this a thriving practice that can afford us?"*
+- **Raw numbers:** review count, star rating (Google Places facts).
+- **Google Lighthouse bands** (the unit we use in logic, not the raw 0–100 — bands are stable per Google's variability guidance): Performance / Accessibility / Best-Practices / SEO, each **Good (≥90) / Needs Improvement (50–89) / Poor (<50)**. These thresholds are *Google's*, percentile-grounded in real web data (green ≈ top 8% of the web).
+- **Binary HTML facts:** HTTPS, viewport, schema.org, booking widget, click-to-call, dated-tech present, contact form.
+- **Categorical facts:** vendor category, chain/DSO flag, contactability (email/phone).
 
-| Input | Weight |
-|---|---|
-| Review count (log-scaled) | 30% |
-| Average rating | 20% |
-| Years in business (proxy: oldest review age) | 15% |
-| Specialty premium (ortho/cosmetic/implants/perio > general) | 20% |
-| Multi-location | 15% |
-| Ad-spend bonus (if Meta or Google ads) | +10% |
+### 5.2 Quality Checklist — the ONE computed number (uniform count, 0–11)
 
-**100% objective.**
-
-### 5.3 Vendor Multiplier (0.3×–1.5×)
-
-| Vendor category | Multiplier |
-|---|---|
-| Confirmed dental-mill (ProSites, PBHS, Officite, etc.) | 1.5× |
-| DIY builder (Wix, Squarespace, Weebly) | 1.2× |
-| Generic WordPress | 1.1× |
-| Unknown | 1.0× |
-| Modern custom (Webflow, Next.js, Astro, Framer) | 0.3× |
-
-**100% objective** (lookup based on fingerprint match).
-
-### 5.4 Opportunity Score (the final ranker)
+Each item is a pass/fail bar grounded in a Google band or a verifiable fact. **Score = how many pass.** Uniform weight (1 each) — the only non-arbitrary way to combine. The **failed items are the outreach pitch.**
 
 ```
-Opportunity = (BusinessValue × (100 − DesignScore) / 100) × VendorMultiplier
+☐ Mobile performance not Poor   (Lighthouse ≥ 50 — Google "not red")
+☐ Accessibility Good            (Lighthouse ≥ 90 — Google "green")
+☐ Best Practices Good           (Lighthouse ≥ 90)
+☐ SEO Good                      (Lighthouse ≥ 90)
+☐ Custom build (not template)   (vendor = modern-stack)
+☐ Structured data (schema.org)
+☐ Online booking
+☐ Click-to-call
+☐ HTTPS
+☐ Mobile viewport
+☐ No dated tech
 ```
 
-**Tier:** A ≥ 60, B 40–60, C 20–40, D < 20.
+- **Quality Score** = count passed (higher = better site). **Weakness Score** = count failed.
+- **Why "not Poor" for performance but "Good" elsewhere:** each Lighthouse check uses the Google band that *discriminates* in this vertical. Green mobile performance is near-impossible for content-heavy dental sites (~3% achieve it), so requiring it would carry no information; "not Poor" cleanly flags the genuinely-broken red tail. Green *is* achievable on a11y/best-practices/SEO, so it's the meaningful bar there. Both are Google's own boundaries.
 
-**Quadrant** (high/low Business × high/low Design):
-- **Prime** — high value, low design → the target
-- **Skip — already sorted** — high value, high design
-- **Nurture** — low value, low design
-- **Low priority** — low value, high design
+### 5.3 Business strength = review percentile (per metro, data-relative)
+
+- **Business Tier:** High = top quartile of the metro's review counts · Med = above median · Low = rest. Data-relative (auto-calibrates per market), no invented absolute. Used for *ranking by establishment/size* — exactly where percentiles fit.
+
+### 5.4 Tier + Quadrant = gates over two axes (no number)
+
+Two objective axes: **Business Tier** (review percentile) × **Weakness Tier** (failed-check count: Severe ≥6 / Moderate 3–5 / Minor 0–2).
+
+- **Quadrant:** High biz + weak site → **Prime** · High biz + good site → **Skip (already sorted)** · Low biz + weak → **Nurture** · Low biz + good → **Low Priority**.
+- **Tier (at-a-glance):** A = High biz + Severe weakness · B = High biz + Moderate · C = Med biz + weak · D = rest.
+- **Vendor situation is a separate facet**, NOT folded into a score — so you filter "Prime + on a dental-mill" (the hottest pitch) without us baking a multiplier judgment into a number. *You* apply that business judgment by choosing the view.
+- **Ranking within a view** = sort by review count (raw fact). No composite.
+
+### 5.5 Exemplar ("Top Site") = objective gates
+
+The sites Product #2 learns from. A practice qualifies if it passes **all**:
+
+```
+✓ Independent (not chain/DSO)
+✓ Not a mill template
+✓ Custom build (vendor = modern-stack)
+✓ Accessibility Good   (Google green)
+✓ Best Practices Good  (Google green)
+✓ SEO Good             (Google green)
+✓ Established  — reviews ≥ 150 (floor)
+✓ Well-liked  — rating ≥ 4.5  (floor)
+```
+
+**Floors, not percentiles, for the two business gates here** (deliberately different from §5.3): review counts are right-skewed, so "top quartile" measures *size* not *establishment* — a floor ("150+ reviews") captures the intent. Dental ratings are compressed at the top (metro medians ~4.9), so "above median" is hypersensitive — a floor ("4.5★+") is the meaningful "well-liked" cut. *Performance deliberately NOT gated* (universally low/noisy; would exclude genuinely great sites).
+
+Exemplar floors are **tunable post-scrape** via `--rescore` (instant, no re-crawl) to land ~1,000 across all metros. Looser is fine — a broad, geographically-diverse exemplar set makes for a better best-practices study.
+
+### 5.6 The pitch = failed checklist items (auto-generated)
+
+The unchecked boxes become the cold-email body, verbatim and true:
+> *"Google rates your site's mobile performance **Poor** and accessibility **Poor**. No online booking, no structured data, and you're on a templated platform (ProSites)."*
+
+**Pitch framing:** lead with the concrete/visible/fixable failures (no booking, rented template, no schema, not mobile-friendly); use "Google rates your performance **Poor**" as the supporting Google-backed punch, not the headline (performance is universal + hardest to fix). The builder genuinely fixes it — a clean modern build lifts a site out of the red — so "gotta fix" comes with "here's the fix."
 
 ---
 
-## 6. The AI Vision Scoring Approach
+## 6. Vision — NOT used in sourcing (deferred)
 
-**Model:** `claude-sonnet-4-5`, temperature 0, max 1500 tokens.
+Sourcing is **fully objective — no AI/vision.** Aesthetic quality can't be made objective, so vision is deferred to where it's irreplaceable and cheap:
 
-**Input per practice:**
-1. Anchor image for score = 1 (template-quality dental mill)
-2. Anchor image for score = 3 (average independent WordPress practice)
-3. Anchor image for score = 5 (bespoke modern custom build)
-4. Target site — desktop screenshot (1440px, full page)
-5. Target site — mobile screenshot (390px, full page)
+1. **Audit-on-promotion** — when a prospect is promoted to the builder/audit pipeline, that pipeline deep-audits the site (incl. visual + Lighthouse), catching any deceptively-nice false positive *right before outreach*. No vision wasted on prospects you never contact.
+2. **Exemplar pattern-extraction** (Product #2) — a one-time pass over the small confirmed-exemplar set, where vision reads aesthetic patterns (photography, typography, layout) to derive the checklist.
 
-**Anchor sites** (locked at pipeline init, cached as PNGs):
-- Score 1: ProSites template (e.g. `myriversidedentaloffice.com`)
-- Score 3: WordPress generic (e.g. `magnoliamoderndental.com`)
-- Score 5: Webflow custom (e.g. `signaturesmilesriverside.com`)
-
-**Prompt structure** (full source in `scripts/sourcing/lib/vision-prompt.js`):
-
-1. **Escape valve first** — if the screenshot is blank/broken/parked-domain, return `{unrenderable: true}` with null scores. Filtered out of aggregates.
-2. **Step 1: 5 forced observations** — concrete things visible in the screenshots. At least one must address mobile-vs-desktop. Explicit "do not comment on perf/a11y/features" exclusions to prevent double-counting with the deterministic layer.
-3. **Step 2: Three 1–5 sub-scores** — Visual Craft / Clarity & Hierarchy / Modernity. Each level has a written anchor description. Pediatric/ortho carve-out to prevent unfair "kid-themed = dated" penalty.
-4. **Step 3: Strict JSON output**, no markdown fences.
-
-**Cost:** ~$0.02–0.03/practice × 5k = $100–150 total.
-
-**Output cached** by `place_id` so re-runs (e.g. after prompt updates) only re-score the changed/new rows.
+Screenshots (desktop + mobile) **are** captured at sourcing and stored in GCS, so both later passes have them without re-crawling. The vision prompt/anchor machinery is retained in `scripts/sourcing/lib/vision-*.js` for those passes (forced-evidence, anchored, temp 0, structured JSON, prompt-cached anchors).
 
 ---
 
-## 7. Ad-Spend Detection
+## 7. Ad-Spend Detection — REMOVED
 
-| Platform | Method | Reliability | Cost |
-|---|---|---|---|
-| **Meta** (Facebook + Instagram) | Official Ad Library API | Very high (legal requirement) | Free |
-| **Google** | Playwright scrape of Ads Transparency Center | Moderate (may break) | ~$0 (reuses screenshot browser) |
-
-Either positive → bumps Business Value Score (the practice has a real marketing budget and is sending paid traffic, likely to a mediocre landing page — strong "wow" potential).
+There is no reliable **public** way to determine whether an arbitrary practice runs Meta/Google ads at scale (the Meta Ad Library token only exposes ads you have access to; the Google SERP scrape was fragile and leaked browser processes). Dropped from the pipeline. Airtable columns kept dormant in case a clean source appears.
 
 ---
 
@@ -255,17 +262,20 @@ Either positive → bumps Business Value Score (the practice has a real marketin
 - **Location** — `Address`, `City`, `State`, `Zip`, `Latitude`, `Longitude`
 - **Contact** — `Website URL`, `Final URL`, `Phone`, `Email`
 - **Google Places data** — `Primary Type`, `Types`, `Rating`, `Review Count`, `Business Status`
-- **Tech audit** — `HTTP Status`, `Vendor`, `Vendor Category`, `Is Chain / DSO`, `Chain Name`, `Lighthouse Performance/Accessibility/Best-Practices`, `Has HTTPS`, `Has Viewport Meta`, `Has Schema.org`, `Has Click-to-Call`, `Has Booking Widget`, `Booking Vendor`, `Per-Service Page Count`, `Dated-Tech Flags`, `Dated-Tech Flag List`
-- **AI vision** — `Vision: Visual Craft`, `Vision: Clarity & Hierarchy`, `Vision: Modernity`, `Vision Observations`, `Desktop Screenshot` (attachment), `Mobile Screenshot` (attachment)
-- **Ad spend** — `Running Google Ads`, `Google Ads Count`, `Running Meta Ads`, `Meta Ads Count`
-- **Computed scores** (Airtable formula fields — no code) — `Design Score`, `Business Value Score`, `Vendor Multiplier`, `Opportunity Score`, `Tier`, `Quadrant`
-- **Outreach state** — `Status`, `Notes`, `Promoted To Account` (link)
+- **Tech audit** — `HTTP Status`, `Vendor`, `Vendor Category`, `WordPress Theme`, `Is Chain / DSO`, `Chain Name`, `Multi-Location`, `Lighthouse Performance/Accessibility/Best-Practices/SEO` (raw), `Perf/Accessibility/Best-Practices/SEO Band` (Good/NI/Poor), `Has HTTPS/Viewport/Schema.org/Click-to-Call/Booking Widget/Contact Form`, `Booking Vendor`, `Dated-Tech Flags`
+- **Screenshots** — `Desktop Screenshot`, `Mobile Screenshot` (attachments; for review + later vision passes)
+- **GCS pointers** — `Rendered HTML (GCS)`
+- **Evaluation** (objective; written from Node) — `Quality Score` (0–11), `Weakness Score` (0–11), `Missing Items` (the pitch), `Business Tier`, `Weakness Tier`, `Is Exemplar`, `Exemplar Blocked By`, `Tier`, `Quadrant`
+- **Outreach state** — `Status`, `Notes`, `Promoted To Account` (link), `Google Maps / GBP`
+- **Audit metadata** — `Last Audited At`, `Rubric Version`
+- *(Retired blends — delete in UI: `Website Quality Score`, `Business Value Score`, `Vendor Multiplier`, `Opportunity Score`, and the `Vision:*`/ad-spend columns.)*
 
 **Views to create:**
-- Prime quadrant (Tier A) — main outreach list
+- Prime quadrant (Tier A) — main outreach list, sorted by Review Count
+- Prime + on a dental-mill — the hottest pitch segment
 - By vendor — grouped
 - Excluded — DSO
-- Exemplars (Design Score ≥ 85) — feeds research module
+- Exemplars (`Is Exemplar = ✓`) — feeds research module
 - Reachability issues — for cleanup
 
 **Engineering notes:**
@@ -280,11 +290,10 @@ Built **after** the sourcing pipeline has populated Airtable. Reuses the same da
 
 ### 9.1 Filter for the exemplar set
 
-Stack three filters (Airtable view):
-- Design Score top 10% (≥85)
-- Business Value Score top 25% (≥60) — high reviews + rating prove the practice is thriving
-- `Is Chain = unchecked`
-- `Vendor Category != dental-mill`
+The exemplar set is just `Is Exemplar = ✓` (the §5.5 gates):
+- Independent (not chain/DSO), not a mill template, custom build
+- Google **Good** on accessibility + best-practices + SEO
+- Established (reviews ≥ 150) + well-liked (rating ≥ 4.5)
 
 Result: ~50–150 sites. The "great + working" intersection.
 

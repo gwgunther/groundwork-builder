@@ -82,6 +82,15 @@ export async function scoreSite({ desktopPng, mobilePng, anchors }) {
     return { ok: false, error: `Anthropic API: ${e.message}` };
   }
 
+  // Cache telemetry — confirms the anchor prefix is being reused.
+  const u = response.usage || {};
+  const cacheStats = {
+    cacheCreate: u.cache_creation_input_tokens ?? 0,
+    cacheRead: u.cache_read_input_tokens ?? 0,
+    input: u.input_tokens ?? 0,
+    output: u.output_tokens ?? 0,
+  };
+
   const text = response.content?.find((c) => c.type === 'text')?.text || '';
   let parsed;
   try {
@@ -119,16 +128,23 @@ export async function scoreSite({ desktopPng, mobilePng, anchors }) {
       clarityHierarchy: parsed.clarity_hierarchy.rationale || '',
       modernity: parsed.modernity.rationale || '',
     },
+    cacheStats,
     rawText: text,
   };
 }
 
 /**
- * Map vision sub-scores (1-5 each) onto a 0-15 contribution to Design Score.
- * Linear: sum of three sub-scores (3-15) directly becomes the design-score addition.
+ * Map vision sub-scores (1-5 each) onto a 0-30 contribution to Design Score.
+ *
+ * RUBRIC v2: vision carries more weight (was 3-15). The three sub-scores sum
+ * to 3..15; we rescale (sum-3)/12 → 0..30 so an all-1s site contributes 0,
+ * all-3s contributes 15, all-5s contributes 30. This stretches the bad end
+ * downward (a templated mill scoring 2/2/2 now adds ~7.5 instead of 6) and
+ * lets the design score use its full range.
  */
 export function visionContribution({ visualCraft, clarityHierarchy, modernity }) {
-  return visualCraft + clarityHierarchy + modernity; // 3-15 range
+  const sum = visualCraft + clarityHierarchy + modernity; // 3..15
+  return Math.round(((sum - 3) / 12) * 30); // 0..30
 }
 
 function stripCodeFences(s) {

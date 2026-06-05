@@ -29,8 +29,10 @@ export const TABLE_SCHEMA = {
     'Funnel-top for the Accounts CRM — promote Tier A rows into Accounts when ready to pitch.',
   fields: [
     // Identity / source
-    { name: 'Place ID', type: 'singleLineText' },                          // primary key
+    // Practice Name is the PRIMARY field (must be first). Place ID stays the
+    // stable dedup/upsert key (findByPlaceId), it just isn't the primary.
     { name: 'Practice Name', type: 'singleLineText' },
+    { name: 'Place ID', type: 'singleLineText' },
     { name: 'Source', type: 'singleSelect',
       options: { choices: [{ name: 'google-places-text-search' }, { name: 'manual' }] } },
     { name: 'Sourced At', type: 'dateTime',
@@ -44,6 +46,7 @@ export const TABLE_SCHEMA = {
     { name: 'Zip', type: 'singleLineText' },
     { name: 'Latitude', type: 'number', options: { precision: 6 } },
     { name: 'Longitude', type: 'number', options: { precision: 6 } },
+    { name: 'Google Maps / GBP', type: 'url' }, // link to the Google Business Profile
 
     // Contact
     { name: 'Website URL', type: 'url' },
@@ -70,47 +73,58 @@ export const TABLE_SCHEMA = {
         { name: 'modern-stack' }, { name: 'unknown' }, { name: 'unreachable' },
       ] } },
     { name: 'WordPress Theme', type: 'singleLineText' }, // null if not WP
+    { name: 'Rendered HTML (GCS)', type: 'singleLineText' }, // gs:// pointer for re-scoring
     { name: 'Is Chain / DSO', type: 'checkbox', options: { icon: 'check', color: 'redBright' } },
     { name: 'Chain Name', type: 'singleLineText' },
     { name: 'Multi-Location', type: 'checkbox', options: { icon: 'check', color: 'blueBright' } },
     { name: 'Multi-Location Signals', type: 'singleLineText' },
+    // Lighthouse raw scores (detail) + Google bands (the unit we use in logic).
     { name: 'Lighthouse Performance', type: 'number', options: { precision: 0 } },
     { name: 'Lighthouse Accessibility', type: 'number', options: { precision: 0 } },
     { name: 'Lighthouse Best Practices', type: 'number', options: { precision: 0 } },
+    { name: 'Lighthouse SEO', type: 'number', options: { precision: 0 } },
+    ...['Perf Band', 'Accessibility Band', 'Best-Practices Band', 'SEO Band'].map((name) => ({
+      name, type: 'singleSelect',
+      options: { choices: [
+        { name: 'Good', color: 'greenBright' },
+        { name: 'Needs Improvement', color: 'yellowBright' },
+        { name: 'Poor', color: 'redBright' },
+      ] },
+    })),
     { name: 'Has HTTPS', type: 'checkbox', options: { icon: 'check', color: 'greenBright' } },
     { name: 'Has Viewport Meta', type: 'checkbox', options: { icon: 'check', color: 'greenBright' } },
     { name: 'Has Schema.org', type: 'checkbox', options: { icon: 'check', color: 'greenBright' } },
     { name: 'Has Click-to-Call', type: 'checkbox', options: { icon: 'check', color: 'greenBright' } },
     { name: 'Has Booking Widget', type: 'checkbox', options: { icon: 'check', color: 'greenBright' } },
     { name: 'Booking Vendor', type: 'singleLineText' },
+    { name: 'Has Contact Form', type: 'checkbox', options: { icon: 'check', color: 'greenBright' } },
     { name: 'Per-Service Page Count', type: 'number', options: { precision: 0 } },
     { name: 'Dated-Tech Flags', type: 'number', options: { precision: 0 } },
     { name: 'Dated-Tech Flag List', type: 'multilineText' },
 
-    // AI vision
-    { name: 'Vision: Visual Craft', type: 'number', options: { precision: 0 } },
-    { name: 'Vision: Clarity & Hierarchy', type: 'number', options: { precision: 0 } },
-    { name: 'Vision: Modernity', type: 'number', options: { precision: 0 } },
-    { name: 'Vision Unrenderable', type: 'checkbox', options: { icon: 'xCheckbox', color: 'grayBright' } },
-    { name: 'Vision Observations', type: 'multilineText' },
+    // Screenshots — captured at sourcing for human review + the later vision
+    // passes (audit-on-promotion, exemplar pattern-extraction). Sourcing itself
+    // runs NO vision; aesthetic sub-scores are written by those later passes,
+    // not stored on the sourcing row.
     { name: 'Desktop Screenshot', type: 'multipleAttachments' },
     { name: 'Mobile Screenshot', type: 'multipleAttachments' },
 
-    // Ad spend
-    { name: 'Running Google Ads', type: 'checkbox', options: { icon: 'check', color: 'yellowBright' } },
-    { name: 'Google Ads Count', type: 'number', options: { precision: 0 } },
-    { name: 'Running Meta Ads', type: 'checkbox', options: { icon: 'check', color: 'yellowBright' } },
-    { name: 'Meta Ads Count', type: 'number', options: { precision: 0 } },
-
-    // Computed scores (formulas — we'll set these via API after table creation,
-    // since formula creation requires a follow-up PATCH to each field).
-    // For v1 we write the computed numbers from Node so it works even if the
-    // formulas aren't set up. If formulas are later added in the UI, they'll
-    // override the written values.
-    { name: 'Design Score', type: 'number', options: { precision: 0 } },
-    { name: 'Business Value Score', type: 'number', options: { precision: 0 } },
-    { name: 'Vendor Multiplier', type: 'number', options: { precision: 2 } },
-    { name: 'Opportunity Score', type: 'number', options: { precision: 0 } },
+    // Objective evaluation — a uniform checklist count + gate-based tiers.
+    // No weighted composites (the old Website Quality / Business Value /
+    // Opportunity / Vendor Multiplier blends are RETIRED — delete in UI).
+    { name: 'Quality Score', type: 'number', options: { precision: 0 } },   // 0–11 checklist passed
+    { name: 'Weakness Score', type: 'number', options: { precision: 0 } },  // 0–11 failed (= the gaps)
+    { name: 'Missing Items', type: 'multilineText' },                       // the outreach pitch
+    { name: 'Business Tier', type: 'singleSelect',
+      options: { choices: [
+        { name: 'High', color: 'greenBright' }, { name: 'Med', color: 'yellowBright' }, { name: 'Low', color: 'grayBright' },
+      ] } },
+    { name: 'Weakness Tier', type: 'singleSelect',
+      options: { choices: [
+        { name: 'Severe', color: 'redBright' }, { name: 'Moderate', color: 'orangeBright' }, { name: 'Minor', color: 'grayBright' },
+      ] } },
+    { name: 'Is Exemplar', type: 'checkbox', options: { icon: 'star', color: 'yellowBright' } }, // top-site for best-practices
+    { name: 'Exemplar Blocked By', type: 'singleLineText' }, // why it's not an exemplar (if applicable)
     { name: 'Tier', type: 'singleSelect',
       options: { choices: [
         { name: 'A', color: 'redBright' }, { name: 'B', color: 'orangeBright' },
@@ -129,9 +143,15 @@ export const TABLE_SCHEMA = {
       options: { choices: [
         { name: 'new' }, { name: 'qualified' }, { name: 'excluded-dso' },
         { name: 'excluded-closed' }, { name: 'excluded-no-website' },
+        { name: 'excluded-unreachable' },
         { name: 'contacted' }, { name: 'replied' }, { name: 'promoted-to-accounts' },
       ] } },
     { name: 'Notes', type: 'multilineText' },
+
+    // Audit metadata — for a living DB that gets re-scored over time.
+    { name: 'Last Audited At', type: 'dateTime',
+      options: { dateFormat: { name: 'iso' }, timeFormat: { name: '24hour' }, timeZone: 'America/Los_Angeles' } },
+    { name: 'Rubric Version', type: 'singleLineText' },
   ],
 };
 
@@ -182,6 +202,9 @@ class AirtableClient {
   async createTable(schema) {
     return this.req('POST', `${META_BASE}/bases/${this.baseId}/tables`, schema);
   }
+  async createField(tableId, field) {
+    return this.req('POST', `${META_BASE}/bases/${this.baseId}/tables/${tableId}/fields`, field);
+  }
 
   // Record operations
   async findByPlaceId(tableId, placeId) {
@@ -209,23 +232,38 @@ class AirtableClient {
  * If you'd rather create the table by hand in the Airtable UI, that works too —
  * this function will just verify presence.
  */
-export async function ensureTable({ apiKey, baseId, allowCreate = false } = {}) {
+export async function ensureTable({ apiKey, baseId, allowCreate = false, tableName = TABLE_NAME } = {}) {
   const client = new AirtableClient({ apiKey, baseId });
   const { tables } = await client.listTables();
-  const existing = tables.find((t) => t.name === TABLE_NAME);
+  const existing = tables.find((t) => t.name === tableName);
+  const schema = { ...TABLE_SCHEMA, name: tableName };
 
   if (existing) {
-    return { tableId: existing.id, created: false, fieldCount: existing.fields.length };
+    // Reconcile: add any fields from the schema that don't exist yet.
+    // Lets the schema evolve without dropping the table. Requires
+    // schema.bases:write on the token; failures are reported, non-fatal.
+    const have = new Set(existing.fields.map((f) => f.name));
+    const missing = schema.fields.filter((f) => !have.has(f.name));
+    const added = [];
+    for (const f of missing) {
+      try {
+        await client.createField(existing.id, f);
+        added.push(f.name);
+      } catch (e) {
+        console.warn(`  [airtable] could not add field "${f.name}": ${e.message}`);
+      }
+    }
+    return { tableId: existing.id, created: false, fieldCount: existing.fields.length, addedFields: added };
   }
 
   if (!allowCreate) {
     throw new Error(
-      `Table "${TABLE_NAME}" does not exist in base ${baseId}. ` +
-      `Re-run with allowCreate=true (or --create flag) to create it programmatically.`,
+      `Table "${tableName}" does not exist in base ${baseId}. ` +
+      `Re-run with allowCreate=true (or --create-table flag) to create it programmatically.`,
     );
   }
 
-  const created = await client.createTable(TABLE_SCHEMA);
+  const created = await client.createTable(schema);
   return { tableId: created.id, created: true, fieldCount: created.fields.length };
 }
 
@@ -302,9 +340,11 @@ export function recordToFields(p) {
     'Zip': p.zip || '',
     'Latitude': p.lat ?? null,
     'Longitude': p.lng ?? null,
+    'Google Maps / GBP': p.gbpUrl || '',
     'Website URL': p.websiteUrl || '',
     'Final URL': p.finalUrl || '',
     'Phone': p.phone || '',
+    'Email': p.email || '',
     'Primary Type': p.primaryType || '',
     'Types': (p.types || []).join(', '),
     'Rating': p.rating ?? null,
@@ -314,6 +354,7 @@ export function recordToFields(p) {
     'Vendor': p.vendor || '',
     'Vendor Category': p.vendorCategory || 'unknown',
     'WordPress Theme': p.wpTheme?.name || '',
+    'Rendered HTML (GCS)': p.htmlGcsPath || '',
     'Is Chain / DSO': !!p.isChain,
     'Chain Name': p.chainName || '',
     'Multi-Location': !!p.multiLocation?.multiLocation,
@@ -321,30 +362,35 @@ export function recordToFields(p) {
     'Lighthouse Performance': p.lighthouse?.performance ?? null,
     'Lighthouse Accessibility': p.lighthouse?.accessibility ?? null,
     'Lighthouse Best Practices': p.lighthouse?.bestPractices ?? null,
+    'Lighthouse SEO': p.lighthouse?.seo ?? null,
+    'Perf Band': p.bands?.performance || null,
+    'Accessibility Band': p.bands?.accessibility || null,
+    'Best-Practices Band': p.bands?.bestPractices || null,
+    'SEO Band': p.bands?.seo || null,
     'Has HTTPS': !!p.features?.hasHttps,
     'Has Viewport Meta': !!p.features?.hasViewportMeta,
     'Has Schema.org': !!p.features?.hasSchemaOrg,
     'Has Click-to-Call': !!p.features?.hasClickToCall,
     'Has Booking Widget': !!p.features?.booking?.present,
     'Booking Vendor': p.features?.booking?.vendor || '',
+    'Has Contact Form': !!p.features?.hasContactForm,
     'Per-Service Page Count': p.features?.serviceLinkCount ?? 0,
     'Dated-Tech Flags': p.features?.datedTechFlagCount ?? 0,
     'Dated-Tech Flag List': (p.features?.datedTechFlags || []).map((f) => f.id).join(', '),
-    'Vision: Visual Craft': p.vision?.visualCraft ?? null,
-    'Vision: Clarity & Hierarchy': p.vision?.clarityHierarchy ?? null,
-    'Vision: Modernity': p.vision?.modernity ?? null,
-    'Vision Unrenderable': !!p.vision?.unrenderable,
-    'Vision Observations': (p.vision?.observations || []).join('\n• '),
-    'Running Google Ads': !!p.ads?.google?.running,
-    'Google Ads Count': p.ads?.google?.count ?? 0,
-    'Running Meta Ads': !!p.ads?.meta?.running,
-    'Meta Ads Count': p.ads?.meta?.count ?? 0,
-    'Design Score': p.scores?.design ?? null,
-    'Business Value Score': p.scores?.businessValue ?? null,
-    'Vendor Multiplier': p.scores?.vendorMultiplier ?? null,
-    'Opportunity Score': p.scores?.opportunity ?? null,
+    // Attachments: Airtable fetches these URLs server-side at write time.
+    ...(p.desktopUrl ? { 'Desktop Screenshot': [{ url: p.desktopUrl }] } : {}),
+    ...(p.mobileUrl ? { 'Mobile Screenshot': [{ url: p.mobileUrl }] } : {}),
+    'Quality Score': p.scores?.qualityScore ?? null,
+    'Weakness Score': p.scores?.weaknessScore ?? null,
+    'Missing Items': (p.checklist?.missing || []).join('\n• '),
+    'Business Tier': p.scores?.bizTier || null,
+    'Weakness Tier': p.scores?.weakTier || null,
+    'Is Exemplar': !!p.isExemplar,
+    'Exemplar Blocked By': (p.exemplarFailedOn || []).join(', '),
     'Tier': p.scores?.tier || null,
     'Quadrant': p.scores?.quadrant || null,
     'Status': p.status || 'new',
+    'Last Audited At': p.lastAuditedAt || null,
+    'Rubric Version': p.rubricVersion || '',
   };
 }
