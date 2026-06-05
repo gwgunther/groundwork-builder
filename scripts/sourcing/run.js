@@ -28,25 +28,32 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { chromium } from 'playwright';
-import { textSearch } from './lib/places.js';
+import { textSearch, geocodePlace } from './lib/places.js';
 import { captureSite, closeBrowser } from './lib/browser.js';
 import { detectChain } from './lib/chain-detector.js';
 import { detectVendor, extractWpTheme } from './lib/vendor-fingerprints.js';
 import { detectMultiLocation } from './lib/multi-location.js';
-import { detectMetaAds, detectGoogleAds, extractDomain } from './lib/ad-detect.js';
+import { extractEmails, findContactUrl } from './lib/email-extract.js';
+import { uploadScreenshot, gcsConfigured } from './lib/screenshots-gcs.js';
+import { uploadHtml, uploadCheckpoint } from './lib/html-gcs.js';
 import {
   runLighthouse,
   detectHtmlFeatures,
-  computeDeterministicDesignScore,
-  computeBusinessValueScore,
-  vendorMultiplier,
-  computeOpportunity,
+  lighthouseBands,
+  computeChecklist,
+  weaknessTier,
+  businessTier,
   tierFor,
   quadrantFor,
+  classifyExemplar,
+  computeMetroThresholds,
 } from './lib/scoring.js';
-import { loadAnchors, scoreSite as scoreVision, visionContribution } from './lib/vision-score.js';
+// NOTE: vision is intentionally NOT used in sourcing. Selection (prospects +
+// exemplars) is fully objective. Vision happens later: at audit-on-promotion,
+// and in the exemplar pattern-extraction pass. Screenshots are still captured
+// here so those later passes have them.
 import { ensureTable, upsertPractices, recordToFields } from './lib/airtable.js';
+import { getMetro, listMetros, QUERY_TERMS } from './config/metros.js';
 
 // ──────────────────────────────────────────────────────────────────────
 // Config
@@ -59,46 +66,55 @@ const CHECKPOINT_DIR = path.join(OUT_DIR, 'checkpoints');
 const SCREENSHOT_DIR = path.join(OUT_DIR, 'screenshots');
 const ANCHOR_DIR = path.join(OUT_DIR, 'anchors');
 
-const MSAS = {
-  'riverside-sb': {
-    label: 'Riverside–San Bernardino–Ontario, CA',
-    queries: [
-      'dentist in Riverside, CA',
-      'dentist in San Bernardino, CA',
-      'dentist in Ontario, CA',
-      'dentist in Rancho Cucamonga, CA',
-      'dentist in Corona, CA',
-      'dentist in Moreno Valley, CA',
-      'dentist in Fontana, CA',
-      'dentist in Murrieta, CA',
-      'dentist in Temecula, CA',
-      'orthodontist in Riverside, CA',
-      'pediatric dentist in Riverside, CA',
-    ],
-  },
-};
+// Metros come from the registry in config/metros.js (the 100 largest US MSAs).
+// Selected via --metro <key>; run --list-metros to see all keys.
+
+// Rubric version — bump when scoring weights or detectors change materially.
+// Stamped on every row so we can tell which rubric produced a given score
+// and re-audit stale rows after a change.
+const RUBRIC_VERSION = '2026.06.04-v2';
+
+// Vision is NOT used in sourcing. Selection (prospects AND exemplars) is fully
+// objective — see computeWebsiteQualityScore + classifyExemplar in scoring.js.
+// Vision happens later, where it's irreplaceable: at audit-on-promotion (vet a
+// prospect before outreach) and in the exemplar pattern-extraction pass.
 
 const args = parseArgs(process.argv.slice(2));
-const MSA_KEY = args.msa || 'riverside-sb';
-const LIMIT = args.limit ? parseInt(args.limit, 10) : Infinity;
-const SKIP_VISION = !!args['no-vision'];
+const METRO_KEY = args.metro || args.msa || null; // --metro is canonical; --msa kept as alias
+const LIST_METROS = !!args['list-metros'];
+// Default cap per metro = 200 most-prominent practices (Google ranks Text
+// Search by prominence, which correlates with business value). Override with
+// --limit (e.g. --limit 50 for a smoke test, --limit 1000 to go deep).
+const LIMIT = args.limit ? parseInt(args.limit, 10) : 200;
+const SKIP_SCREENSHOTS = !!args['no-screenshots']; // screenshots captured by default (for review + later passes)
 const SKIP_AIRTABLE = !!args['no-airtable'];
 const SKIP_LIGHTHOUSE = !!args['no-lighthouse']; // useful while iterating; PSI is slow
-const SKIP_ADS = !!args['no-ads']; // ad-spend detection is scrapy & slowest
-const FORCE = !!args.force; // ignore checkpoints
+const SKIP_SCREENSHOT_UPLOAD = !!args['no-upload']; // skip GCS upload of screenshots + html
+const SYNC_ONLY = !!args['sync-only'];           // re-read checkpoints, (upload + ) sync to Airtable; no scraping
+const RESCORE = !!args['rescore'];               // recompute scores from cached checkpoints (no re-crawl), then sync
+const TABLE_NAME_OVERRIDE = args.table || null;  // write to a named table instead of the default 'Sourced Practices'
+const FORCE = !!args.force;                      // ignore checkpoints
 const CONCURRENCY = parseInt(args.concurrency || '4', 10); // per-practice parallelism
 
-// Shared ad-detection browser — separate from the screenshot browser because
-// Meta/Google detect bots faster than the screenshot UA. We launch it lazily.
-let _adBrowser = null;
-async function getAdBrowser() {
-  if (_adBrowser && _adBrowser.isConnected()) return _adBrowser;
-  _adBrowser = await chromium.launch({ headless: true });
-  return _adBrowser;
+// NOTE: ad-spend detection was removed. There is no reliable PUBLIC way to
+// determine whether an arbitrary practice is running Meta ads at scale (the
+// Ad Library API token only exposes ads you have access to), and the Google
+// SERP scrape was both fragile and the source of a browser-process leak.
+// The Airtable columns (Running Google/Meta Ads) are kept dormant in case a
+// clean data source appears later.
+
+// Parse "Street, City, ST 92506, USA" → {city, state, zip}. Tolerant of the
+// trailing ", USA" and missing parts. Used both at crawl time and in rescore
+// backfill (the address string is always present even when parts weren't stored).
+function parseAddressParts(addr = '') {
+  const m = addr.match(/,\s*([^,]+),\s*([A-Z]{2})\s+(\d{5})(?:-\d{4})?/);
+  if (!m) return { city: '', state: '', zip: '' };
+  return { city: m[1].trim(), state: m[2].trim(), zip: m[3].trim() };
 }
-async function closeAdBrowser() {
-  if (_adBrowser) await _adBrowser.close().catch(() => {});
-  _adBrowser = null;
+
+// Canonical Google Maps / Business Profile link from a Place ID.
+function gbpUrl(placeId) {
+  return placeId ? `https://www.google.com/maps/place/?q=place_id:${placeId}` : '';
 }
 
 function parseArgs(argv) {
@@ -131,6 +147,12 @@ async function writeCheckpoint(placeId, data) {
     path.join(CHECKPOINT_DIR, `${placeId}.json`),
     JSON.stringify(data, null, 2),
   );
+  // Offsite backup to GCS — best-effort, non-blocking. Local file is the
+  // source of truth; this protects against disk loss. Skipped when uploads
+  // are disabled (--no-upload) or GCS isn't configured.
+  if (!SKIP_SCREENSHOT_UPLOAD) {
+    uploadCheckpoint({ placeId, record: data }).catch(() => {});
+  }
 }
 
 // ──────────────────────────────────────────────────────────────────────
@@ -142,10 +164,17 @@ async function processPractice(place, ctx) {
   const cached = await readCheckpoint(placeId);
   if (cached) return { ...cached, _fromCheckpoint: true };
 
+  const addrParts = parseAddressParts(place.formattedAddress || '');
   const r = {
     placeId,
     practiceName: place.displayName?.text || '',
     address: place.formattedAddress || '',
+    city: addrParts.city,
+    state: addrParts.state,
+    zip: addrParts.zip,
+    lat: place.location?.latitude ?? null,
+    lng: place.location?.longitude ?? null,
+    gbpUrl: place.googleMapsUri || gbpUrl(placeId),
     websiteUrl: place.websiteUri || '',
     phone: place.nationalPhoneNumber || '',
     rating: place.rating ?? null,
@@ -171,7 +200,7 @@ async function processPractice(place, ctx) {
   }
 
   // 2. Browser capture
-  const cap = await captureSite(r.websiteUrl, { skipScreenshots: SKIP_VISION });
+  const cap = await captureSite(r.websiteUrl, { skipScreenshots: SKIP_SCREENSHOTS });
   r.httpStatus = cap.status;
   r.finalUrl = cap.finalUrl;
 
@@ -183,16 +212,22 @@ async function processPractice(place, ctx) {
     return r;
   }
 
-  // Save screenshots to disk (so they can be attached to Airtable later)
+  // Save screenshots to disk + upload to GCS (signed URL for Airtable attach).
   if (cap.desktopPng) {
     const p = path.join(SCREENSHOT_DIR, `${placeId}-desktop.png`);
     await fs.writeFile(p, cap.desktopPng);
     r.desktopPath = path.relative(REPO_ROOT, p);
+    if (!SKIP_SCREENSHOT_UPLOAD) {
+      r.desktopUrl = await uploadScreenshot({ placeId, kind: 'desktop', png: cap.desktopPng });
+    }
   }
   if (cap.mobilePng) {
     const p = path.join(SCREENSHOT_DIR, `${placeId}-mobile.png`);
     await fs.writeFile(p, cap.mobilePng);
     r.mobilePath = path.relative(REPO_ROOT, p);
+    if (!SKIP_SCREENSHOT_UPLOAD) {
+      r.mobileUrl = await uploadScreenshot({ placeId, kind: 'mobile', png: cap.mobilePng });
+    }
   }
 
   // 3. Chain / DSO detection
@@ -220,20 +255,27 @@ async function processPractice(place, ctx) {
   r.features = detectHtmlFeatures({ html: cap.html, finalUrl: cap.finalUrl });
   r.multiLocation = detectMultiLocation({ html: cap.html, finalUrl: cap.finalUrl });
 
-  // 5b. Ad-spend detection (skip for excluded rows + when disabled)
-  if (!chain.isChain && !SKIP_ADS) {
-    const domain = extractDomain(r.finalUrl || r.websiteUrl);
-    const adBrowser = await getAdBrowser();
-    const [meta, google] = await Promise.all([
-      detectMetaAds({ browser: adBrowser, domain }),
-      detectGoogleAds({
-        browser: adBrowser,
-        practiceName: r.practiceName,
-        city: r.city || place._city,
-        domain,
-      }),
-    ]);
-    r.ads = { meta, google };
+  // 5b. Email extraction. Try the homepage first; if empty, do ONE bounded
+  // fetch of a contact page (emails frequently live only there).
+  let emailRes = extractEmails({ html: cap.html, siteUrl: cap.finalUrl });
+  if (!emailRes.best) {
+    const contactUrl = findContactUrl({ html: cap.html, baseUrl: cap.finalUrl });
+    if (contactUrl && contactUrl !== cap.finalUrl) {
+      const contactCap = await captureSite(contactUrl, { skipScreenshots: true });
+      if (contactCap.ok && contactCap.html) {
+        const fromContact = extractEmails({ html: contactCap.html, siteUrl: cap.finalUrl });
+        if (fromContact.best) emailRes = fromContact;
+      }
+    }
+  }
+  r.email = emailRes.best;
+  r.emailsAll = emailRes.all;
+
+  // 5c. Persist rendered HTML to GCS (gzipped) so we can re-score the whole
+  // corpus against future detectors without re-crawling. Near-zero cost.
+  if (!SKIP_SCREENSHOT_UPLOAD) {
+    const up = await uploadHtml({ placeId, html: cap.html });
+    if (up) r.htmlGcsPath = up.gcsPath;
   }
 
   // Lighthouse (skip for excluded rows + when disabled)
@@ -241,60 +283,26 @@ async function processPractice(place, ctx) {
     r.lighthouse = await runLighthouse(r.websiteUrl, { apiKey: process.env.GOOGLE_PLACES_API_KEY });
   }
 
-  // 6. Vision scoring (skip for excluded rows + when disabled)
-  if (!chain.isChain && !SKIP_VISION && cap.desktopPng && cap.mobilePng) {
-    try {
-      const anchors = await loadAnchors(ANCHOR_DIR);
-      const v = await scoreVision({
-        desktopPng: cap.desktopPng,
-        mobilePng: cap.mobilePng,
-        anchors,
-      });
-      if (v.ok) r.vision = v;
-      else r.visionError = v.error;
-    } catch (e) {
-      r.visionError = e.message;
-    }
-  }
-
-  // 7. Composite scores
-  const designDeterministic = computeDeterministicDesignScore({
-    lighthouse: r.lighthouse,
-    features: r.features,
+  // 6. Per-row OBJECTIVE scoring (no vision). The percentile-dependent parts
+  //    (business tier, exemplar review/rating gates, final tier/quadrant) are
+  //    computed in finalizeScores() once the whole metro is in — see below.
+  r.bands = lighthouseBands(r.lighthouse);
+  const checklist = computeChecklist({
+    lighthouse: r.lighthouse, features: r.features, vendorCategory: r.vendorCategory,
   });
-  const designVision = r.vision && !r.vision.unrenderable
-    ? visionContribution({
-        visualCraft: r.vision.visualCraft,
-        clarityHierarchy: r.vision.clarityHierarchy,
-        modernity: r.vision.modernity,
-      })
-    : 0;
-  const designScore = Math.min(100, designDeterministic + designVision);
-
-  const businessValue = computeBusinessValueScore({
-    rating: r.rating,
-    reviewCount: r.reviewCount,
-    primaryType: r.primaryType,
-    multiLocation: !!r.multiLocation?.multiLocation,
-    runningAds: !!(r.ads?.meta?.running || r.ads?.google?.running),
-  });
-
-  const vm = vendorMultiplier({ vendorCategory: r.vendorCategory, vendor: r.vendor });
-  const opportunity = computeOpportunity({ designScore, businessValue, multiplier: vm });
-
-  // Excluded rows don't get a tier/quadrant — they shouldn't compete in
-  // "Prime" views even if their numbers happen to look prime-y.
-  const isExcluded = chain.isChain || r.status?.startsWith('excluded-');
-  r.scores = {
-    design: designScore,
-    businessValue,
-    vendorMultiplier: vm,
-    opportunity,
-    tier: isExcluded ? null : tierFor(opportunity),
-    quadrant: isExcluded ? null : quadrantFor({ designScore, businessValue }),
+  r.checklist = {
+    qualityScore: checklist.qualityScore,   // 0–11 passed
+    weaknessScore: checklist.weaknessScore, // 0–11 failed
+    total: checklist.total,
+    missing: checklist.failed,              // = the outreach pitch
   };
 
   if (!r.status) r.status = 'new';
+
+  // Stamp the audit metadata — lets us identify stale rows + which rubric
+  // produced the scores when weights/detectors change later.
+  r.rubricVersion = RUBRIC_VERSION;
+  r.lastAuditedAt = ctx.startedAtISO;
 
   await writeCheckpoint(placeId, r);
   return r;
@@ -304,33 +312,37 @@ async function processPractice(place, ctx) {
 // Place gathering
 // ──────────────────────────────────────────────────────────────────────
 
-async function gatherPlaces(msa) {
+// Geocode the metro center once, then run each QUERY_TERM geo-biased to that
+// circle — pulling the most-prominent practices metro-wide (suburbs included),
+// deduped by Place ID, capped at LIMIT.
+async function gatherPlaces(metro) {
+  const apiKey = process.env.GOOGLE_PLACES_API_KEY;
+
+  process.stderr.write(`  geocoding "${metro.geocodeQuery}"…\n`);
+  const center = await geocodePlace({ apiKey, query: metro.geocodeQuery });
+  if (!center) throw new Error(`Could not geocode metro center: ${metro.geocodeQuery}`);
+  const locationBias = { ...center, radiusMeters: metro.radiusMeters };
+  process.stderr.write(`  center ${center.latitude.toFixed(3)},${center.longitude.toFixed(3)} · radius ${metro.radiusMeters / 1000}km\n`);
+
   const seen = new Set();
   const all = [];
-  for (const q of msa.queries) {
+  for (const term of QUERY_TERMS) {
     if (all.length >= LIMIT) break;
-    process.stderr.write(`  places: ${q}\n`);
-    const places = await textSearch({
-      apiKey: process.env.GOOGLE_PLACES_API_KEY,
-      query: q,
-      maxPages: 3,
-    });
+    process.stderr.write(`  places: "${term}" within radius\n`);
+    let places = [];
+    try {
+      places = await textSearch({ apiKey, query: term, maxPages: 3, locationBias });
+    } catch (e) {
+      process.stderr.write(`    !! query failed (${term}): ${e.message}\n`);
+      continue;
+    }
     for (const p of places) {
       if (seen.has(p.id)) continue;
       seen.add(p.id);
-      // Parse address parts (sloppy but works for US format)
       const addr = p.formattedAddress || '';
       const m = addr.match(/(.*),\s*([^,]+),\s*([A-Z]{2})\s+(\d{5})/);
-      if (m) {
-        p._city = m[2].trim();
-        p._state = m[3].trim();
-        p._zip = m[4].trim();
-      }
-      // Coordinates if available
-      if (p.location) {
-        p._lat = p.location.latitude;
-        p._lng = p.location.longitude;
-      }
+      if (m) { p._city = m[2].trim(); p._state = m[3].trim(); p._zip = m[4].trim(); }
+      if (p.location) { p._lat = p.location.latitude; p._lng = p.location.longitude; }
       all.push(p);
       if (all.length >= LIMIT) break;
     }
@@ -339,8 +351,68 @@ async function gatherPlaces(msa) {
 }
 
 // ──────────────────────────────────────────────────────────────────────
+// Finalize scoring — runs over the WHOLE batch (after per-row work) so we can
+// compute per-metro percentile thresholds, then assign business tier, weakness
+// tier, tier/quadrant (gates), and the exemplar decision. Mutates rows in place.
+// ──────────────────────────────────────────────────────────────────────
+
+function finalizeScores(rows) {
+  // Group by metro (msa label) so percentiles are per-market.
+  const byMetro = new Map();
+  for (const r of rows) {
+    const key = r.msa || 'unknown';
+    if (!byMetro.has(key)) byMetro.set(key, []);
+    byMetro.get(key).push(r);
+  }
+
+  for (const [, group] of byMetro) {
+    // Thresholds from the ACTIVE (non-excluded) practices in this metro.
+    const active = group.filter((r) => !r.status?.startsWith('excluded'));
+    const thresholds = computeMetroThresholds(active);
+
+    for (const r of group) {
+      const isExcluded = r.isChain || r.status?.startsWith('excluded-');
+      const bizTier = businessTier(r.reviewCount, thresholds.reviews);
+      const weakTier = weaknessTier(r.checklist?.weaknessScore ?? r.checklist?.total ?? 0);
+
+      const ex = classifyExemplar({
+        lighthouse: r.lighthouse, vendorCategory: r.vendorCategory, isChain: r.isChain,
+        reviewCount: r.reviewCount, rating: r.rating, thresholds,
+      });
+      r.isExemplar = !isExcluded && ex.isExemplar;
+      r.exemplarFailedOn = ex.failedOn;
+
+      r.scores = {
+        qualityScore: r.checklist?.qualityScore ?? null,   // 0–11 (count, uniform)
+        weaknessScore: r.checklist?.weaknessScore ?? null, // 0–11
+        bizTier,
+        weakTier,
+        tier: isExcluded ? null : tierFor({ bizTier, weakTier }),
+        quadrant: isExcluded ? null : quadrantFor({ bizTier, weakTier }),
+      };
+    }
+  }
+  return rows;
+}
+
+// ──────────────────────────────────────────────────────────────────────
 // Parallel worker pool
 // ──────────────────────────────────────────────────────────────────────
+
+// Hard ceiling per practice. Worst legit case ≈ Lighthouse 60s + vision ~15s +
+// captures ~20s + contact fetch ~25s + uploads ~10s ≈ 130s. 200s gives margin.
+// A single hung network call (GCS save / API with no internal timeout) must
+// NOT be able to stall the whole run — at 5k scale that's fatal. On timeout we
+// record an error for that item and move on; the orphaned promise is reaped at
+// process exit.
+const PER_PRACTICE_TIMEOUT_MS = 200_000;
+
+function withTimeout(promise, ms, label) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => setTimeout(() => reject(new Error(`timeout after ${ms}ms: ${label}`)), ms).unref()),
+  ]);
+}
 
 async function runPool(items, worker, concurrency) {
   const results = new Array(items.length);
@@ -350,9 +422,10 @@ async function runPool(items, worker, concurrency) {
       const i = cursor++;
       if (i >= items.length) return;
       try {
-        results[i] = await worker(items[i], i);
+        results[i] = await withTimeout(worker(items[i], i), PER_PRACTICE_TIMEOUT_MS, items[i]?.id || `item ${i}`);
       } catch (e) {
         results[i] = { error: e.message };
+        process.stderr.write(`  !! item ${i} failed: ${e.message}\n`);
       }
       done++;
       if (done % 5 === 0 || done === items.length) {
@@ -372,13 +445,15 @@ async function syncAirtable(rows) {
   const apiKey = process.env.AIRTABLE_API_KEY;
   const baseId = process.env.AIRTABLE_BASE_ID;
 
-  const { tableId, created } = await ensureTable({
+  const { tableId, created, addedFields } = await ensureTable({
     apiKey,
     baseId,
     allowCreate: !!args['create-table'],
+    tableName: TABLE_NAME_OVERRIDE || undefined,
   });
-  if (created) console.error(`  ✅ Created table "Sourced Practices" (${tableId})`);
-  else console.error(`  table found: ${tableId}`);
+  const label = TABLE_NAME_OVERRIDE || 'Sourced Practices';
+  if (created) console.error(`  ✅ Created table "${label}" (${tableId})`);
+  else console.error(`  table found: ${tableId}${addedFields?.length ? ` (+${addedFields.length} fields)` : ''}`);
 
   const records = rows.map((p) => ({
     placeId: p.placeId,
@@ -400,42 +475,143 @@ async function syncAirtable(rows) {
 async function main() {
   const startedAt = Date.now();
   const startedAtISO = new Date(startedAt).toISOString();
-  const msa = MSAS[MSA_KEY];
-  if (!msa) throw new Error(`Unknown MSA: ${MSA_KEY}. Known: ${Object.keys(MSAS).join(', ')}`);
+
+  // --list-metros: print the registry and exit (no metro/scrape needed).
+  if (LIST_METROS) {
+    const metros = listMetros();
+    console.error(`${metros.length} metros (largest first):\n`);
+    metros.forEach((m, i) =>
+      console.error(`  ${String(i + 1).padStart(3)}. ${m.key.padEnd(34)} ${m.label}  (${(m.pop / 1e6).toFixed(1)}M)`));
+    console.error('\nRun one:  node scripts/sourcing/run.js --metro <key>');
+    return;
+  }
 
   await fs.mkdir(CHECKPOINT_DIR, { recursive: true });
   await fs.mkdir(SCREENSHOT_DIR, { recursive: true });
 
+  // ── Sync-only mode: re-read existing checkpoints, backfill screenshot
+  //    uploads from disk, and upsert to Airtable. No scraping, no scoring. ──
+  if (SYNC_ONLY) {
+    console.error('━━━ Sync-only: checkpoints → Airtable ━━━');
+    const files = await fs.readdir(CHECKPOINT_DIR);
+    const rows = [];
+    for (const f of files.filter((x) => x.endsWith('.json'))) {
+      const r = JSON.parse(await fs.readFile(path.join(CHECKPOINT_DIR, f), 'utf8'));
+      // Backfill GCS screenshot URLs if missing but a local PNG exists.
+      if (!SKIP_SCREENSHOT_UPLOAD && gcsConfigured()) {
+        for (const kind of ['desktop', 'mobile']) {
+          const urlKey = kind === 'desktop' ? 'desktopUrl' : 'mobileUrl';
+          if (r[urlKey]) continue;
+          const pngPath = path.join(SCREENSHOT_DIR, `${r.placeId}-${kind}.png`);
+          try {
+            const png = await fs.readFile(pngPath);
+            r[urlKey] = await uploadScreenshot({ placeId: r.placeId, kind, png });
+          } catch { /* no local png — skip */ }
+        }
+        await writeCheckpoint(r.placeId, r); // persist the URLs back
+      }
+      rows.push(r);
+    }
+    console.error(`  ${rows.length} checkpoints loaded`);
+    if (!SKIP_AIRTABLE) await syncAirtable(rows);
+    console.error('Sync-only done.');
+    return;
+  }
+
+  // ── Rescore mode: recompute scores from cached checkpoints (Lighthouse +
+  //    vision + features are all stored) with the CURRENT rubric. No crawl. ──
+  if (RESCORE) {
+    console.error(`━━━ Rescore from checkpoints (rubric ${RUBRIC_VERSION}) ━━━`);
+    const files = (await fs.readdir(CHECKPOINT_DIR)).filter((x) => x.endsWith('.json'));
+    const rows = [];
+    for (const f of files) {
+      const r = JSON.parse(await fs.readFile(path.join(CHECKPOINT_DIR, f), 'utf8'));
+      // Backfill location fields that older checkpoints lack (free — no API):
+      if (!r.city && r.address) {
+        const ap = parseAddressParts(r.address);
+        r.city = ap.city; r.state = ap.state; r.zip = ap.zip;
+      }
+      if (!r.gbpUrl) r.gbpUrl = gbpUrl(r.placeId);
+      // Per-row objective recompute (checklist + bands) from cached inputs.
+      r.bands = lighthouseBands(r.lighthouse);
+      const checklist = computeChecklist({
+        lighthouse: r.lighthouse, features: r.features, vendorCategory: r.vendorCategory,
+      });
+      r.checklist = {
+        qualityScore: checklist.qualityScore, weaknessScore: checklist.weaknessScore,
+        total: checklist.total, missing: checklist.failed,
+      };
+      r.rubricVersion = RUBRIC_VERSION;
+      r.lastAuditedAt = startedAtISO;
+      rows.push(r);
+    }
+    // Per-metro percentile finalization (tiers + exemplar gates), then persist.
+    finalizeScores(rows);
+    for (const r of rows) await writeCheckpoint(r.placeId, r);
+    console.error(`  rescored ${rows.length} rows`);
+    const active = rows.filter((r) => !r.status?.startsWith('excluded'));
+    const byTier = {};
+    active.forEach((r) => { byTier[r.scores.tier] = (byTier[r.scores.tier] || 0) + 1; });
+    console.error('  tier spread (active):', JSON.stringify(byTier));
+    if (!SKIP_AIRTABLE) await syncAirtable(rows);
+    console.error('Rescore done.');
+    return;
+  }
+
+  // Resolve the metro from the registry (required for an actual sourcing run).
+  const metro = getMetro(METRO_KEY);
+  if (!metro) {
+    throw new Error(
+      METRO_KEY
+        ? `Unknown metro: "${METRO_KEY}". Run --list-metros to see valid keys.`
+        : 'No metro specified. Pass --metro <key> (see --list-metros).',
+    );
+  }
+
   console.error('━━━ Sourcing pipeline ━━━');
-  console.error(`MSA:         ${msa.label}`);
+  console.error(`Metro:       ${metro.label}  [${metro.key}]`);
   console.error(`Limit:       ${LIMIT === Infinity ? 'all' : LIMIT}`);
   console.error(`Concurrency: ${CONCURRENCY}`);
-  console.error(`Vision:      ${SKIP_VISION ? 'OFF' : 'ON'}`);
+  console.error(`Screenshots: ${SKIP_SCREENSHOTS ? 'OFF' : 'ON'}  (vision deferred to audit/extraction)`);
   console.error(`Lighthouse:  ${SKIP_LIGHTHOUSE ? 'OFF' : 'ON'}`);
   console.error(`Airtable:    ${SKIP_AIRTABLE ? 'OFF' : 'ON'}`);
   console.error(`Force:       ${FORCE ? 'YES (ignore checkpoints)' : 'no'}`);
   console.error('');
 
   console.error('Step 1: gather places');
-  const places = await gatherPlaces(msa);
+  const places = await gatherPlaces(metro);
   console.error(`  → ${places.length} unique practices\n`);
 
   console.error('Step 2-7: per-practice pipeline');
-  const ctx = { startedAtISO, msaLabel: msa.label };
+  const ctx = { startedAtISO, msaLabel: metro.label };
   const rows = await runPool(places, (p) => processPractice(p, ctx), CONCURRENCY);
 
-  // Flatten place + result for Airtable
-  const enriched = rows.filter(Boolean).map((r, i) => {
-    const p = places[i];
-    return {
-      ...r,
-      city: r.city || p._city,
-      state: r.state || p._state,
-      zip: r.zip || p._zip,
-      lat: r.lat ?? p._lat,
-      lng: r.lng ?? p._lng,
-    };
-  });
+  // Flatten place + result for Airtable. Map over rows BY ORIGINAL INDEX (so
+  // places[i] stays aligned), then drop items that have no usable record —
+  // i.e. timed-out / errored workers (runPool returns {error} for those, with
+  // no placeId). Those practices simply aren't in this run's output; since no
+  // checkpoint was written for them, a later resume run will retry them.
+  const enriched = rows
+    .map((r, i) => {
+      if (!r || !r.placeId) return null;
+      const p = places[i] || {};
+      return {
+        ...r,
+        city: r.city || p._city,
+        state: r.state || p._state,
+        zip: r.zip || p._zip,
+        lat: r.lat ?? p._lat,
+        lng: r.lng ?? p._lng,
+      };
+    })
+    .filter(Boolean);
+  const droppedCount = rows.length - enriched.length;
+  if (droppedCount) console.error(`  (dropped ${droppedCount} timed-out/errored items — re-run to retry)`);
+
+  // Finalize scoring across the whole metro (per-metro percentiles → tiers +
+  // exemplar gates), then persist the finalized scores back to each checkpoint.
+  finalizeScores(enriched);
+  for (const r of enriched) await writeCheckpoint(r.placeId, r);
 
   // Summary
   const byStatus = new Map();
@@ -447,7 +623,7 @@ async function main() {
   console.error('\n━━━ Summary ━━━');
   console.error('By status:');
   for (const [k, v] of [...byStatus.entries()].sort((a, b) => b[1] - a[1])) {
-    console.error(`  ${k.padEnd(28)} ${v}`);
+    console.error(`  ${String(k || 'unknown').padEnd(28)} ${v}`);
   }
   console.error('By tier:');
   for (const [k, v] of [...byTier.entries()].sort()) {
@@ -463,13 +639,12 @@ async function main() {
   }
 
   await closeBrowser();
-  await closeAdBrowser();
   console.error(`\nDone. ${((Date.now() - startedAt) / 1000).toFixed(1)}s elapsed.`);
+  process.exit(0); // force-exit: a timed-out item may leave an orphaned socket open
 }
 
 main().catch(async (e) => {
   console.error('Pipeline failed:', e);
   await closeBrowser();
-  await closeAdBrowser();
   process.exit(1);
 });

@@ -16,6 +16,8 @@
     "sourcing:spike": "node scripts/sourcing/spike/vendor-detect.js",
     "sourcing:run": "node scripts/sourcing/run.js",
     "sourcing:run:dry": "node scripts/sourcing/run.js --limit 10 --no-airtable",
+    "sourcing:metros": "node scripts/sourcing/run.js --list-metros",
+    "sourcing:campaign": "node scripts/sourcing/campaign.js",
     "sourcing:promote": "node scripts/sourcing/promote.js"
   },
   "dependencies": {
