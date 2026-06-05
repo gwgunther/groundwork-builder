@@ -9,7 +9,7 @@
  *   node scripts/pipeline/build-site.js --url https://old-site.com --output ../clients/smith-dental
  *   node scripts/pipeline/build-site.js --data intake.json --output ../clients/smith-dental
  *   node scripts/pipeline/build-site.js --url https://old-site.com --data intake.json --output ../clients/smith-dental
- *   node scripts/pipeline/build-site.js --client-id abc-123 --output ../clients/smith-dental
+ *   node scripts/pipeline/build-site.js --airtable-slug smith-dental --output ../clients/smith-dental
  *   node scripts/pipeline/build-site.js --preset dental --url https://old-site.com --output ../clients/smith-dental
  */
 
@@ -57,7 +57,8 @@ function parseArgs() {
   const opts = {
     url: null,
     data: null,
-    clientId: null,
+    clientId: null,       // deprecated — use airtableSlug
+    airtableSlug: null,
     output: null,
     preset: 'dental',
     skipScrape: false,
@@ -85,6 +86,10 @@ function parseArgs() {
         break;
       case '--client-id':
         opts.clientId = args[++i];
+        console.warn('  ⚠ --client-id is deprecated; use --airtable-slug <slug> instead.');
+        break;
+      case '--airtable-slug':
+        opts.airtableSlug = args[++i];
         break;
       case '--output':
         opts.output = args[++i];
@@ -161,8 +166,8 @@ function parseArgs() {
     }
   }
 
-  if (!opts.url && !opts.data && !opts.clientId) {
-    console.error('Error: At least one of --url, --data, or --client-id is required.');
+  if (!opts.url && !opts.data && !opts.clientId && !opts.airtableSlug) {
+    console.error('Error: At least one of --url, --data, or --airtable-slug is required.');
     console.error('Run with --help for usage information.');
     process.exit(1);
   }
@@ -180,7 +185,8 @@ Usage:
 Options:
   --url <url>        Existing website URL to scrape
   --data <path>      Path to intake JSON file
-  --client-id <id>   Supabase client UUID
+  --airtable-slug <slug>  Load intake from Airtable Account (Intake JSON field or clients/<slug>/intake.json)
+  --client-id <slug>      Deprecated alias for --airtable-slug
   --output <path>    Output directory for new project
   --preset <name>    Vertical preset (default: dental)
   --skip-scrape      Skip website scraping
@@ -321,7 +327,7 @@ async function main() {
       console.log('');
 
       // -----------------------------------------------------------------------
-      // Phase 1d: AI image analysis (cached in Supabase by URL + slug)
+      // Phase 1d: AI image analysis (cached in _memory/images/<slug>.json)
       // -----------------------------------------------------------------------
       console.log('[Phase 1d] Analyzing images...');
       const _imgSlug = opts.url
@@ -354,13 +360,14 @@ async function main() {
   console.log('[Phase 2] Loading intake data and merging...');
 
   let intake = null;
-  if (opts.data || opts.clientId) {
+  const intakeSlug = opts.airtableSlug || opts.clientId;
+  if (opts.data || intakeSlug) {
     try {
       intake = await loadIntake({
         filePath: opts.data,
-        clientId: opts.clientId,
+        airtableSlug: intakeSlug,
       });
-      stats.intakeFile = opts.data || `supabase:${opts.clientId}`;
+      stats.intakeFile = opts.data || `airtable:${intakeSlug}`;
       console.log('  Intake data loaded.');
     } catch (err) {
       console.error(`  Intake load failed: ${err.message}`);
@@ -1099,6 +1106,9 @@ async function main() {
           console.log(`    - [${iss.impact}] ${iss.id}: ${iss.help} (${iss.occurrences}× on ${iss.pages.length} page(s))`);
         }
       }
+      if ((c.critical || 0) + (c.serious || 0) > 0) {
+        console.warn(`  ⚠ Ship gate: axe critical/serious must be 0 before handoff (see BUILD_BEST_PRACTICES.md §10)`);
+      }
       await artifacts.writeStep('11b-a11y-audit', { output: r }, a11yStart);
       console.log('');
     } catch (err) {
@@ -1398,7 +1408,7 @@ async function main() {
     ...stats,
   });
 
-  // Persist run record to Supabase
+  // Persist run record to local _memory/runs.jsonl
   try {
     const { insertRun } = await import('./lib/db.js');
     const runRow = await insertRun({
@@ -1423,9 +1433,9 @@ async function main() {
       duration_ms:       Math.round(parseFloat(elapsed) * 1000),
       errors:            stats.errors,
     });
-    if (runRow) console.log(`  Run logged to Supabase (id: ${runRow.id})`);
+    if (runRow) console.log(`  Run logged locally (id: ${runRow.id})`);
   } catch (err) {
-    console.warn(`  Supabase run log failed: ${err.message}`);
+    console.warn(`  Local run log failed: ${err.message}`);
   }
 
   // Auto-distill the shipped build into the design library (own-build — used

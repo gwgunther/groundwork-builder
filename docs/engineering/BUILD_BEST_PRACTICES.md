@@ -108,6 +108,16 @@ When generating or migrating sites from scraped content:
 - [ ] Key inner pages link to scheduling/contact where relevant.
 - [ ] `npm run build` succeeds; spot-check sitemap and JSON-LD on representative pages.
 
+### Ship gates (contractual — enforced by `publish.js`)
+
+These are hard requirements before a build is marked **Pitched** in Airtable or the pitch page goes live. Failures write to `_pipeline/missing.html` and set Build status **Blocked**.
+
+- [ ] **Mobile PageSpeed ≥ 90** on the live preview URL (measured after deploy via PageSpeed Insights API).
+- [ ] **Lighthouse accessibility ≥ 90** on the live preview (same API run).
+- [ ] **0 axe-core critical or serious violations** on built `dist/` (see `_pipeline/11b-a11y-audit.json`).
+
+Re-run `build-site.js --publish` after fixes. Gate results are saved in `_pipeline/12-ship-gates.json`.
+
 ---
 
 ## Quick reference — key files

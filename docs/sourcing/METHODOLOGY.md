@@ -1,6 +1,6 @@
 # Dental Practice Sourcing — Methodology
 
-> **Lifecycle context:** This doc covers funnel-top sourcing (journey phase ①). Full journey map → [../lifecycle/CUSTOMER_JOURNEY.md](../lifecycle/CUSTOMER_JOURNEY.md).
+> **Lifecycle context:** This doc covers funnel-top sourcing (journey phase ①). Full journey map → [../lifecycle/CUSTOMER_JOURNEY.md](../lifecycle/CUSTOMER_JOURNEY.md). Production ops → [RUNBOOK.md](./RUNBOOK.md).
 >
 > A scored prospect database (~5k dental practices) that doubles as research input for a derived best-practices checklist. The checklist drives the builder's audit rules, template spec, and the public gap report.
 >

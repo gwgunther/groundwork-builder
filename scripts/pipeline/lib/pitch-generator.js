@@ -28,12 +28,25 @@ const DEFINITIONS = {
     'How fast your site loads on a computer. Google PageSpeed scores 0–100. Below 50 is considered poor. Above 90 is good.',
   'SEO score':
     'How well your site follows Google\'s guidelines for being found in search — things like page titles, meta descriptions, and proper heading structure.',
+  'Accessibility':
+    'How usable your site is for patients with disabilities — screen readers, keyboard navigation, color contrast. Google Lighthouse scores 0–100; 90+ is good.',
 };
 
 
 export async function generatePitchPage(pipelineDir, opts = {}) {
-  const { previewUrl = null, slug = null, ctaUrl = null, ctaLabel = 'Claim This Site', afterScores = null } = opts;
+  const {
+    previewUrl = null, slug = null, ctaUrl = null, ctaLabel = 'Claim This Site',
+    afterScores = null, a11yReport = null, shipGatesPassed = true,
+  } = opts;
   const data = await loadArtifacts(pipelineDir);
+
+  let resolvedA11y = a11yReport;
+  if (!resolvedA11y) {
+    try {
+      const raw = JSON.parse(await readFile(resolve(pipelineDir, '11b-a11y-audit.json'), 'utf-8'));
+      resolvedA11y = raw.output || raw;
+    } catch { /* not run */ }
+  }
 
   // Load after-scores from artifact if not passed directly
   let resolvedAfterScores = afterScores;
@@ -50,7 +63,11 @@ export async function generatePitchPage(pipelineDir, opts = {}) {
     aiSummary = await generateAiSummary(data, resolvedAfterScores);
   } catch { /* skip */ }
 
-  const html = buildHtml(data, { previewUrl, slug, ctaUrl, ctaLabel, afterScores: resolvedAfterScores, aiSummary });
+  const html = buildHtml(data, {
+    previewUrl, slug, ctaUrl, ctaLabel,
+    afterScores: resolvedAfterScores, aiSummary,
+    a11yReport: resolvedA11y, shipGatesPassed,
+  });
   const outPath = resolve(pipelineDir, 'pitch.html');
   await writeFile(outPath, html, 'utf-8');
   return outPath;
@@ -231,13 +248,16 @@ function buildChecklist(summary, scrape, audit, merged) {
 // ---------------------------------------------------------------------------
 
 function buildHtml(data, opts) {
-  const { previewUrl, ctaUrl, ctaLabel, afterScores, aiSummary } = opts;
+  const { previewUrl, ctaUrl, ctaLabel, afterScores, aiSummary, a11yReport, shipGatesPassed = true } = opts;
 
   // After scores — use real ones if available, otherwise show Astro defaults
   const afterMobile  = afterScores?.mobile  ?? 97;
   const afterDesktop = afterScores?.desktop ?? 99;
   const afterSeo     = afterScores?.seo     ?? 100;
+  const afterA11y    = afterScores?.accessibility ?? 100;
   const afterReasons = afterScores?.reasons || [];
+  const axeCritical  = a11yReport?.byImpact?.critical || 0;
+  const axeSerious   = a11yReport?.byImpact?.serious  || 0;
 
   const summary  = data['summary']           || {};
   const scrape   = data['01-scrape']?.output || {};
@@ -252,10 +272,11 @@ function buildHtml(data, opts) {
   const scrapedUrl   = summary.scrapedUrl || '';
   const scrapedHost  = scrapedUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
 
-  const mobileScore  = ps?.mobile?.performance  ?? null;
-  const desktopScore = ps?.desktop?.performance ?? null;
-  const seoScore     = ps?.mobile?.seo          ?? null;
-  const hasScores    = mobileScore != null || desktopScore != null;
+  const mobileScore  = ps?.mobile?.performance    ?? null;
+  const desktopScore = ps?.desktop?.performance   ?? null;
+  const seoScore     = ps?.mobile?.seo            ?? null;
+  const a11yScore    = ps?.mobile?.accessibility  ?? null;
+  const hasScores    = mobileScore != null || desktopScore != null || a11yScore != null;
 
   const palette = brand.palette || {};
   const primary = palette.primary || '#1d4ed8';
@@ -331,6 +352,10 @@ function buildHtml(data, opts) {
     .scores-col-head.after:hover  { background: #dcfce7; }
     .scores-tradeoff { margin-top: 10px; font-size: 12px; color: var(--ink-soft); line-height: 1.5; }
     .scores-tradeoff strong { color: var(--ink-mid); }
+    .a11y-badge { margin-top: 12px; padding: 12px 16px; border-radius: 8px; font-size: 13px; line-height: 1.5; }
+    .a11y-badge.pass { background: var(--green-bg); color: var(--green); border: 1px solid #bbf7d0; }
+    .a11y-badge.fail { background: var(--red-bg); color: var(--red); border: 1px solid #fecaca; }
+    .gate-banner { background: #fef3c7; border: 1px solid #fcd34d; color: #92400e; padding: 14px 18px; border-radius: 8px; margin-bottom: 20px; font-size: 13px; line-height: 1.5; }
     .scores-row { display: contents; }
     .scores-cell { padding: 12px 16px; border-bottom: 1px solid var(--line); font-size: 13px; display: flex; align-items: center; }
     .scores-row:last-child .scores-cell { border-bottom: 0; }
@@ -421,6 +446,12 @@ function buildHtml(data, opts) {
   </div>
 </header>
 
+${!shipGatesPassed ? `
+<div class="wrap" style="padding-top:20px;">
+  <div class="gate-banner"><strong>Handoff blocked.</strong> This preview is live for review, but ship gates did not pass. Fix issues in <code>_pipeline/missing.html</code> before publishing the pitch page.</div>
+</div>
+` : ''}
+
 <!-- Score comparison -->
 ${hasScores ? `
 <div class="scores-section">
@@ -436,6 +467,7 @@ ${hasScores ? `
       ${[
         mobileScore  != null ? { label: '📱 Mobile speed',  before: mobileScore,  after: afterMobile  } : null,
         desktopScore != null ? { label: '🖥 Desktop speed', before: desktopScore, after: afterDesktop } : null,
+        a11yScore    != null ? { label: '♿ Accessibility',  before: a11yScore,    after: afterA11y    } : null,
         seoScore     != null ? { label: '🔍 SEO',           before: seoScore,     after: afterSeo     } : null,
       ].filter(Boolean).map(row => `
       <div class="scores-row">
@@ -454,6 +486,13 @@ ${hasScores ? `
     ` : `
     <p class="scores-tradeoff">Rebuilt site scores are typical for Astro-built sites. Final score measured after deployment.</p>
     `}
+    ${a11yReport?.pageCount ? `
+    <div class="a11y-badge ${axeCritical + axeSerious === 0 ? 'pass' : 'fail'}">
+      <strong>WCAG audit (axe-core):</strong>
+      ${axeCritical + axeSerious === 0
+        ? ` ${a11yReport.pageCount} page(s) scanned — 0 critical/serious violations.`
+        : ` ${axeCritical} critical and ${axeSerious} serious violation(s) across ${a11yReport.pageCount} page(s) — must be 0 before handoff.`}
+    </div>` : ''}
   </div>
 </div>
 ` : ''}

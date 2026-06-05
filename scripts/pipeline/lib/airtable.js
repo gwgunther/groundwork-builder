@@ -20,6 +20,21 @@
  */
 
 const BASE        = 'https://api.airtable.com/v0';
+
+/** Account lifecycle stages — wire via upsertAccount({ lifecycleStage }). */
+export const ACCOUNT_LIFECYCLE_STAGES = [
+  'Prospect',
+  'Audited',
+  'Preview Requested',
+  'Pitched',
+  'Contacted',
+  'Signed',
+  'Onboarding',
+  'Live',
+  'Active',
+  'Churned',
+];
+
 const SOURCE_MAP  = {
   // Canonical source → existing Submission Method options in Airtable
   'self-serve': 'Customer Submission',
@@ -95,6 +110,7 @@ export async function upsertAccount(args = {}) {
 
 function buildAccountFields({
   practiceUrl, practiceName, businessEmail, contactEmail, contactName, phone, city, state, source, lifecycleStage,
+  baselineMobilePagespeed, baselineRanks, launchDate, reauditDue, intakeJson,
 }) {
   const f = {};
   if (practiceUrl)    f['Practice URL']    = practiceUrl;
@@ -107,7 +123,50 @@ function buildAccountFields({
   if (state)          f['State']           = state;
   if (source)         f['Source']          = source;
   if (lifecycleStage) f['Lifecycle Stage'] = lifecycleStage;
+  if (baselineMobilePagespeed != null) f['Baseline PageSpeed'] = baselineMobilePagespeed;
+  if (baselineRanks)  f['Baseline Ranks']  = baselineRanks;
+  if (launchDate)     f['Launch Date']     = launchDate;
+  if (reauditDue)     f['Re-audit Due']    = reauditDue;
+  if (intakeJson)     f['Intake JSON']     = typeof intakeJson === 'string' ? intakeJson : JSON.stringify(intakeJson);
   return f;
+}
+
+/**
+ * Fetch Account row by slug. Returns { id, fields } or null.
+ */
+export async function findAccountBySlug(slug) {
+  if (!enabled() || !slug) return null;
+  const c = config();
+  const filter = encodeURIComponent(`{Slug}="${slug.replace(/"/g, '\\"')}"`);
+  const search = await airReq('GET', c.accounts, `?filterByFormula=${filter}&maxRecords=1`);
+  const rec = search.records?.[0];
+  if (!rec) return null;
+  return { id: rec.id, fields: rec.fields };
+}
+
+/**
+ * Find the Queued Build row from a preview-request form (for dedup on publish).
+ */
+export async function findQueuedBuildBySlug(slug) {
+  if (!enabled() || !slug) return null;
+  const c = config();
+  const filter = encodeURIComponent(`AND({Build Slug}="${slug.replace(/"/g, '\\"')}",{Status}="Queued")`);
+  const search = await airReq(
+    'GET',
+    c.builds,
+    `?filterByFormula=${filter}&sort[0][field]=Date Added&sort[0][direction]=desc&maxRecords=1`,
+  );
+  return search.records?.[0]?.id || null;
+}
+
+/**
+ * Set Account lifecycle stage by slug.
+ */
+export async function setAccountLifecycle(slug, lifecycleStage) {
+  if (!ACCOUNT_LIFECYCLE_STAGES.includes(lifecycleStage)) {
+    throw new Error(`setAccountLifecycle: invalid stage "${lifecycleStage}"`);
+  }
+  return upsertAccount({ slug, lifecycleStage });
 }
 
 // ---------------------------------------------------------------------------
@@ -252,7 +311,7 @@ function buildBuildFields(args, accountId) {
   if (contactEmail)  f['Contact Email'] = contactEmail;
   if (contactPhone)  f['Contact Phone'] = contactPhone;
   if (contactRole)   f['Contact Role']  = contactRole;
-  if (status === 'Pitched' || status === 'Failed') {
+  if (status === 'Pitched' || status === 'Failed' || status === 'Blocked') {
     f['Completed At'] = new Date().toISOString();
   }
   if (previewUrl)       f['Preview URL']       = previewUrl;

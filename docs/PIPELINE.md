@@ -118,7 +118,7 @@ The shape of the data at each step. Most pipeline bugs are about a transformatio
 | **Skills** | [`extraction/image-roles`](../skills/extraction/image-roles.md) |
 | **Tools** | Anthropic Vision (Haiku 4.5) |
 | **Outputs** | Per-image classification with `personName` for doctor-photo pairing |
-| **Cache** | Supabase (keyed by URL+slug — same images don't re-classify across builds) |
+| **Cache** | Local `_memory/images/<slug>.json` (keyed by URL+slug — same images don't re-classify across builds) |
 
 ---
 
@@ -343,7 +343,7 @@ Independent of the linear pipeline — this is what each section's variant compo
 | `--skip-generate` | Phase 6 (section generation) |
 
 **Cached/idempotent:**
-- Image analysis (Supabase by URL+slug)
+- Image analysis (`_memory/images/<slug>.json` by URL+slug)
 - Bronze (re-uses local cache when same URL re-run)
 
 **Destructive:**
@@ -378,6 +378,7 @@ Independent of the linear pipeline — this is what each section's variant compo
 - [x] ~~Per-archetype tone calibration in content-write~~ (`buildToneGuidance()` derives a tone block from `audit.tone.recommended` enum — 5 distinct tone profiles for warm/clinical/editorial/bold/refined; mirrors brand-direction's `colorTempGuidance` pattern)
 - [x] ~~Strict mode for content-write~~ (`opts.strict` refuses fallback when blueprint expected; default permissive for back-compat)
 - [x] ~~Per-vertical section-order priors in director~~ (`detectVertical()` maps audit.serviceEmphasis → orthodontics/cosmetic/pediatric/implant/sedation/general; each vertical has a section-order prior with rationale; director gets it as a soft hint)
+- [x] ~~Supabase → local `_memory/` + Airtable CRM~~ (runs, design library, image cache on disk; intake via `--airtable-slug` + `Intake JSON` field; one-shot export: `npm run migrate:supabase`)
 - [x] ~~Cache silver per-page extractions by content hash~~ (sha256 of page content fingerprint + prompt version + model; `~/.cache/groundwork-builder/silver-pages/`; honors `GROUNDWORK_NO_CACHE=1`; cache hits skip Claude call entirely; reports hit count in extraction summary)
 - [x] ~~Auto-fuzzy-match service deduplication~~ (`fuzzyDedupServices()` two-pass merge: exact slug then Jaccard ≥0.7 OR token-set containment; `DISTINCT_MODIFIERS` allowlist preserves audience-segmented services; 10/10 unit tests pass)
 

@@ -1,5 +1,7 @@
 # Sourcing — Production Runbook
 
+> **Lifecycle context:** Phase ① of the client journey. Hub → [../lifecycle/CUSTOMER_JOURNEY.md](../lifecycle/CUSTOMER_JOURNEY.md). Scoring model → [METHODOLOGY.md](./METHODOLOGY.md).
+
 How to run the dental-practice sourcing pipeline on your own machine (stable
 network, unattended). The pipeline is self-contained; the only reason **not**
 to run it inside the Claude agent is that the agent's sandbox network is flaky

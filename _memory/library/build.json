@@ -1,26 +1,35 @@
 {
-  "palette": {
-    "primary": "#4a7c6f",
-    "secondary": "#2d5a50",
-    "accent": "#c4944a",
-    "background": "#f4faf7",
-    "mood": "calm, trustworthy"
-  },
-  "type": {
-    "display": "DM Serif Display",
-    "body": "Plus Jakarta Sans",
-    "scale": "editorial",
-    "contrast": "high"
-  },
-  "layout": {
-    "archetype": "warm-editorial",
-    "density": "balanced",
-    "grid": "12col"
-  },
+  "tag": "own",
   "hero": {
     "variant": "split-image",
     "imageTreatment": "warm-documentary"
   },
+  "note": "auto-distilled at build time",
+  "slug": "build",
+  "type": {
+    "body": "Plus Jakarta Sans",
+    "scale": "editorial",
+    "display": "DM Serif Display",
+    "contrast": "high"
+  },
+  "cards": "soft-shadow",
+  "layout": {
+    "grid": "12col",
+    "density": "balanced",
+    "archetype": "warm-editorial"
+  },
+  "motion": "subtle",
+  "radius": "md",
+  "source": "/Users/garrettgunther/Projects/clients/springs-dental-v2",
+  "palette": {
+    "mood": "calm, trustworthy",
+    "accent": "#c4944a",
+    "primary": "#4a7c6f",
+    "secondary": "#2d5a50",
+    "background": "#f4faf7"
+  },
+  "captured": "2026-04-27",
+  "fontPair": "DM Serif Display / Plus Jakarta Sans",
   "sections": [
     "hero",
     "doctor-intro",
@@ -32,20 +41,11 @@
     "cta",
     "footer"
   ],
-  "cards": "soft-shadow",
-  "motion": "subtle",
-  "radius": "md",
-  "fontPair": "DM Serif Display / Plus Jakarta Sans",
   "adjectives": [
     "warm-professional",
     "humanist-serif-led",
     "sage-grounded",
     "approachable-clinical",
     "editorial-dental"
-  ],
-  "slug": "build",
-  "source": "/Users/garrettgunther/Projects/clients/springs-dental-v2",
-  "tag": "own",
-  "captured": "2026-04-27",
-  "note": "auto-distilled at build time"
+  ]
 }

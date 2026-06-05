@@ -25,6 +25,7 @@ const EVIDENCE_ROW_CAP = 200;
  * @param {object|null} opts.scraped - silver / merged practice data
  * @param {object|null} opts.aiAudit
  * @param {object|null} opts.findingsSummary
+ * @param {object|null} opts.vendor - from buildVendorBlock()
  */
 export function assembleAuditData(opts) {
   const {
@@ -36,6 +37,7 @@ export function assembleAuditData(opts) {
     scraped = null,
     aiAudit = null,
     findingsSummary = null,
+    vendor = null,
   } = opts;
 
   const practiceName = scraped?.practice?.name || hostnameLabel(url);
@@ -93,6 +95,14 @@ export function assembleAuditData(opts) {
     },
 
     lighthouse: buildLighthouse(pagespeed, assembledFindings),
+
+    vendor: vendor || {
+      id: 'unknown',
+      category: 'unknown',
+      confidence: 0,
+      display_name: 'Unknown provider',
+      subscription_tco: null,
+    },
 
     findings: assembledFindings,
 

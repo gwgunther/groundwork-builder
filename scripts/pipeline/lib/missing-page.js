@@ -269,6 +269,21 @@ function analyzeMissing(merged, validation, imageRoles = null) {
     }));
   }
 
+  // Ship gate: axe critical/serious violations block handoff
+  const a11yImpact = validation?.a11y?.byImpact || {};
+  const axeCritical = a11yImpact.critical || 0;
+  const axeSerious  = a11yImpact.serious  || 0;
+  if (axeCritical > 0 || axeSerious > 0) {
+    const gateHint = `${axeCritical} critical and ${axeSerious} serious WCAG violation(s). Fix before handoff — guarantee requires 0 critical/serious.`;
+    if (!items.critical.some(i => i.category === 'Ship Gate' && i.field === 'axe-core violations')) {
+      items.critical.push({
+        category: 'Ship Gate',
+        field: 'axe-core violations',
+        hint: gateHint,
+      });
+    }
+  }
+
   return {
     generatedAt: new Date().toISOString(),
     summary: {
@@ -515,7 +530,7 @@ function shortFile(p) {
 // Standalone HTML (for _pipeline/missing.html)
 // ---------------------------------------------------------------------------
 
-function buildMissingHtml(missing, merged) {
+export function buildMissingHtml(missing, merged) {
   const practiceName = merged.practice?.name || 'Your Practice';
 
   const renderItems = (items, cssClass) => items.map(item => `

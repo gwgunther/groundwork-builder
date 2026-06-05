@@ -1,35 +1,35 @@
 {
   "tag": "own",
   "hero": {
-    "variant": "full-bleed",
+    "variant": "split-image",
     "imageTreatment": "warm-documentary"
   },
   "note": "auto-distilled at build time",
-  "slug": "springstdentistry",
+  "slug": "magic-fox-orthodontics",
   "type": {
     "body": "DM Sans",
     "scale": "standard",
-    "display": "Plus Jakarta Sans",
+    "display": "Playfair Display",
     "contrast": "high"
   },
   "cards": "soft-shadow",
   "layout": {
     "grid": "12col",
     "density": "balanced",
-    "archetype": "poster-hero"
+    "archetype": "warm-editorial"
   },
   "motion": "subtle",
-  "radius": "md",
-  "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/springstdentistry",
+  "radius": "sm",
+  "source": "/Users/garrettgunther/Projects/magicfox-test3",
   "palette": {
-    "mood": "professional, warm",
-    "accent": "#b8924a",
-    "primary": "#0e5c6e",
-    "secondary": "#1a3d4f",
-    "background": "#f0f7f8"
+    "mood": "warm, professional",
+    "accent": "#d49070",
+    "primary": "#b05636",
+    "secondary": "#8a3820",
+    "background": "#fdf6f2"
   },
-  "captured": "2026-06-01",
-  "fontPair": "Plus Jakarta Sans / DM Sans",
+  "captured": "2026-05-03",
+  "fontPair": "Playfair Display/DM Sans",
   "sections": [
     "hero",
     "doctor-intro",
@@ -41,10 +41,10 @@
     "cta"
   ],
   "adjectives": [
+    "warm",
     "trustworthy",
-    "accessible",
     "refined",
-    "patient-focused",
-    "locally-rooted"
+    "approachable",
+    "professional"
   ]
 }

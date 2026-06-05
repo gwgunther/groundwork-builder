@@ -1,11 +1,11 @@
 {
   "tag": "own",
   "hero": {
-    "variant": "asymmetric-right",
+    "variant": "centered",
     "imageTreatment": "warm-documentary"
   },
   "note": "auto-distilled at build time",
-  "slug": "spring-st-dentistry",
+  "slug": "chang-orthodontics",
   "type": {
     "body": "DM Sans",
     "scale": "standard",
@@ -16,19 +16,19 @@
   "layout": {
     "grid": "12col",
     "density": "balanced",
-    "archetype": "magazine-split"
+    "archetype": "poster-hero"
   },
   "motion": "subtle",
   "radius": "md",
-  "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/springstdentistry",
+  "source": "/Users/garrettgunther/Projects/output/chang-orthodontics",
   "palette": {
-    "mood": "clinical-warm",
-    "accent": "#C9A96E",
-    "primary": "#0D5F6E",
-    "secondary": "#1A4A5C",
-    "background": "#F0F7F8"
+    "mood": "sophisticated, warm",
+    "accent": "#c4915a",
+    "primary": "#7a3050",
+    "secondary": "#2a2f5e",
+    "background": "#fdf5f7"
   },
-  "captured": "2026-06-01",
+  "captured": "2026-05-14",
   "fontPair": "Plus Jakarta Sans / DM Sans",
   "sections": [
     "hero",
@@ -41,10 +41,10 @@
     "cta"
   ],
   "adjectives": [
-    "professional-approachable",
-    "teal-warm",
-    "trust-forward",
-    "locally-rooted",
-    "patient-centric"
+    "professional",
+    "warm-elegant",
+    "trustworthy",
+    "refined",
+    "accessible"
   ]
 }

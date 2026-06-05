@@ -10,6 +10,7 @@ One scan emits **`audit-data.json`** (`groundwork-audit/v1`). HTML reports are r
 |------|----------|---------|
 | `audit-data.json` | Machines + operators | Source of truth |
 | `audit-summary.html` | Prospect | Sales one-pager (hosted as `/audits/<slug>/`) |
+| `precall-brief.html` | Operator | Slim pre-call doc (`npm run audit:precall`) |
 | `audit-report.html` | Prospect | Full tabbed deep-dive |
 | `build-spec.html` | Operator / builder agent | Human-readable view of entire JSON |
 

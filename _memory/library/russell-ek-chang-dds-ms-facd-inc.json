@@ -2,10 +2,10 @@
   "tag": "own",
   "hero": {
     "variant": "asymmetric-right",
-    "imageTreatment": "clinical-bright"
+    "imageTreatment": "warm-documentary"
   },
   "note": "auto-distilled at build time",
-  "slug": "changorthodontics",
+  "slug": "russell-ek-chang-dds-ms-facd-inc",
   "type": {
     "body": "Inter",
     "scale": "standard",
@@ -16,35 +16,35 @@
   "layout": {
     "grid": "12col",
     "density": "balanced",
-    "archetype": "editorial-asymmetric"
+    "archetype": "magazine-split"
   },
   "motion": "subtle",
   "radius": "md",
-  "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/changorthodontics",
+  "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/chang-orthodontics",
   "palette": {
-    "mood": "professional, trustworthy",
-    "accent": "#C4962A",
-    "primary": "#1B3A6B",
-    "secondary": "#2D5A9E",
-    "background": "#F2F5FA"
+    "mood": "professional-warm",
+    "accent": "#c49451",
+    "primary": "#174d8f",
+    "secondary": "#0b2d5e",
+    "background": "#eef4fc"
   },
-  "captured": "2026-06-01",
+  "captured": "2026-05-07",
   "fontPair": "Space Grotesk/Inter",
   "sections": [
     "hero",
     "doctor-intro",
     "services",
-    "reviews",
     "gallery",
-    "faq",
+    "reviews",
     "stat-bar",
+    "faq",
     "cta"
   ],
   "adjectives": [
-    "clinical-refined",
-    "credible",
-    "modern-traditional",
-    "accessible",
-    "warm-authoritative"
+    "clinical-approachable",
+    "heritage-focused",
+    "trust-driven",
+    "editorial-refined",
+    "credential-forward"
   ]
 }

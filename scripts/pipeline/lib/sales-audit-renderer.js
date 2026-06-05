@@ -121,6 +121,11 @@ const SALES_CSS = `
   .preview-thanks h3 { font-size: 22px; color: var(--on-dark); margin-bottom: 10px; font-weight: 400; }
   .preview-thanks p { font-family: var(--font-ui); font-size: 14px; color: var(--on-dark-muted); line-height: 1.55; }
   .offer.is-submitted .offer-default { display: none; }
+  .vendor-card { margin-top: 28px; border: 1px solid var(--border-light); border-radius: var(--radius); padding: 18px 20px; background: var(--surface-2); }
+  .vendor-card h3 { font-family: var(--font-ui); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mid-gray); margin-bottom: 8px; }
+  .vendor-name { font-size: 18px; font-weight: 400; margin-bottom: 6px; }
+  .vendor-tco { font-family: var(--font-ui); font-size: 13.5px; line-height: 1.5; color: var(--charcoal); }
+  .vendor-tco em { font-style: normal; color: var(--danger); font-weight: 600; }
   .footer { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 14px; border-top: 1px solid var(--border-light); font-family: var(--font-ui); font-size: 11px; color: var(--mid-gray); }
   @media print { body { background: #fff; } .sheet { padding: 0; max-width: none; } .offer { -webkit-print-color-adjust: exact; print-color-adjust: exact; } .finding, .offer { page-break-inside: avoid; } }
   @media (max-width: 620px) { .headline { font-size: 23px; } .masthead { flex-direction: column; gap: 18px; } .masthead-by { text-align: left; } .subject { font-size: 26px; } }
@@ -145,6 +150,8 @@ export function renderSalesAudit(data, opts = {}) {
   const formattedDate = formatDisplayDate(meta.generated_at);
   const leadApiUrl = opts.leadApiUrl || 'https://groundworkdental.com/api/audit-preview-request';
   const slug = meta.slug || '';
+  const vendor = data.vendor || {};
+  const tco = vendor.subscription_tco;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -189,6 +196,13 @@ export function renderSalesAudit(data, opts = {}) {
     <div class="scan-stat"><div class="n">${esc(scan.images_checked)}</div><div class="l">Images checked</div></div>
     <div class="scan-stat"><div class="n flag">${esc(scan.issues_found)}</div><div class="l">Issues found</div></div>
   </div>
+
+  ${vendor.id && vendor.id !== 'unknown' ? `
+  <div class="vendor-card">
+    <h3>Current website provider</h3>
+    <div class="vendor-name">${esc(vendor.display_name || vendor.id)}</div>
+    ${tco ? `<p class="vendor-tco">${esc(tco.copy)} <em>That's money you don't own.</em></p>` : `<p class="vendor-tco">Provider category: ${esc((vendor.category || '').replace(/-/g, ' '))}.</p>`}
+  </div>` : ''}
 
   <h2 class="headline"><strong>${issueCount} issue${issueCount === 1 ? '' : 's'}</strong> that could be standing between you and <em>more ${esc(audience)}</em>.</h2>
 

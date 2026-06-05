@@ -1,16 +1,23 @@
 /**
- * Load client intake data from a JSON file or Supabase.
+ * Load client intake data from a JSON file or Airtable Account.
  * Normalizes the 8-section intake structure into the unified PracticeData shape.
  */
 import { readFile } from 'node:fs/promises';
+import { resolve, join, dirname } from 'node:path';
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 import { slugify } from './utils.js';
+import { findAccountBySlug } from './airtable.js';
 
 export async function loadIntake(optsOrFilePath, clientIdArg) {
-  // Support both: loadIntake({ filePath, clientId }) and loadIntake(filePath, clientId)
-  let filePath, clientId;
+  // Support both: loadIntake({ filePath, clientId, airtableSlug }) and loadIntake(filePath, clientId)
+  let filePath, clientId, airtableSlug;
   if (optsOrFilePath && typeof optsOrFilePath === 'object') {
     filePath = optsOrFilePath.filePath;
     clientId = optsOrFilePath.clientId;
+    airtableSlug = optsOrFilePath.airtableSlug;
   } else {
     filePath = optsOrFilePath;
     clientId = clientIdArg;
@@ -21,8 +28,11 @@ export async function loadIntake(optsOrFilePath, clientIdArg) {
   if (filePath) {
     const text = await readFile(filePath, 'utf-8');
     raw = JSON.parse(text);
+  } else if (airtableSlug) {
+    raw = await loadFromAirtable(airtableSlug);
   } else if (clientId) {
-    raw = await loadFromSupabase(clientId);
+    // Legacy alias — treat as Airtable slug lookup, not Supabase UUID
+    raw = await loadFromAirtable(clientId);
   } else {
     return {};
   }
@@ -30,34 +40,49 @@ export async function loadIntake(optsOrFilePath, clientIdArg) {
   return normalizeIntake(raw);
 }
 
-async function loadFromSupabase(clientId) {
-  const url = process.env.SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) {
-    throw new Error('SUPABASE_URL and SUPABASE_SERVICE_KEY required for --client-id mode');
+async function loadFromAirtable(slug) {
+  const account = await findAccountBySlug(slug);
+  if (!account) {
+    throw new Error(`No Airtable Account found with Slug: ${slug}`);
   }
 
-  const res = await fetch(
-    `${url}/rest/v1/clients?id=eq.${clientId}&select=intake_data,practice_name,contact_email,contact_phone`,
-    {
-      headers: {
-        apikey: key,
-        Authorization: `Bearer ${key}`,
-      },
+  const fields = account.fields || {};
+  const intakeJson = fields['Intake JSON'];
+  if (intakeJson) {
+    try {
+      const parsed = typeof intakeJson === 'string' ? JSON.parse(intakeJson) : intakeJson;
+      return {
+        _topLevel: {
+          practice_name: fields['Practice Name'] || null,
+          contact_email: fields['Contact Email'] || fields['Business Email'] || null,
+          contact_phone: fields['Phone'] || null,
+        },
+        ...parsed,
+        meta: { intakeSource: 'airtable' },
+      };
+    } catch (err) {
+      throw new Error(`Invalid Intake JSON on Account ${slug}: ${err.message}`);
     }
+  }
+
+  // Local fallback: clients/<slug>/intake.json
+  const localPath = join(REPO_ROOT, 'clients', slug, 'intake.json');
+  if (existsSync(localPath)) {
+    const text = await readFile(localPath, 'utf-8');
+    const parsed = JSON.parse(text);
+    return {
+      _topLevel: {
+        practice_name: fields['Practice Name'] || null,
+        contact_email: fields['Contact Email'] || null,
+        contact_phone: fields['Phone'] || null,
+      },
+      ...parsed,
+    };
+  }
+
+  throw new Error(
+    `Account "${slug}" has no Intake JSON field and no clients/${slug}/intake.json — add intake data first.`,
   );
-
-  const [client] = await res.json();
-  if (!client) throw new Error(`No client found with ID: ${clientId}`);
-
-  return {
-    _topLevel: {
-      practice_name: client.practice_name,
-      contact_email: client.contact_email,
-      contact_phone: client.contact_phone,
-    },
-    ...client.intake_data,
-  };
 }
 
 function normalizeIntake(raw) {
@@ -105,9 +130,11 @@ function normalizeIntake(raw) {
       insurance: ins.plans || [],
       faqs: co.faqs || [],
       testimonials: co.testimonials || [],
+      caseStudyConsent: co.case_study_consent ?? raw.case_study_consent ?? null,
+      consentScope: co.consent_scope ?? raw.consent_scope ?? null,
     },
     meta: {
-      intakeSource: raw._topLevel ? 'supabase' : 'file',
+      intakeSource: raw.meta?.intakeSource || (raw._topLevel ? 'airtable' : 'file'),
     },
   };
 }

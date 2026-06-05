@@ -58,7 +58,7 @@ export async function distillDesign({ source, slug, tag = 'inspo', note = '' }) 
     await libraryWrite(slug, fingerprintJson, outPath);
   } catch { /* non-fatal — local file remains the source of truth */ }
 
-  // Sync to Supabase design_library table
+  // Sync to local design library index (_memory/library/)
   try {
     const { upsertDesignLibrary } = await import('./db.js');
     await upsertDesignLibrary(fingerprint);
@@ -74,7 +74,7 @@ export async function distillDesign({ source, slug, tag = 'inspo', note = '' }) 
  * Also returns the full index so the director can reason about freshness/tags.
  */
 export async function sampleLibrary({ ownLimit = 5, inspoLimit = 4 } = {}) {
-  // Try Supabase first (shared across all environments); fall back to local files
+  // Load from local _memory/library/ index
   let index = null;
   try {
     const { queryDesignLibrary, loadDesignFingerprint } = await import('./db.js');

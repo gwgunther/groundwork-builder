@@ -1591,10 +1591,12 @@ export async function generateAuditReports(outputDir, {
   screenshotFile = null,
   bronze = null,
   auditData = null,
+  vendor = null,
   dataDir = null,
   slug = null,
   leadApiUrl = null,
   auditPageUrl = null,
+  precall = false,
 } = {}) {
   await mkdir(outputDir, { recursive: true });
 
@@ -1623,6 +1625,7 @@ export async function generateAuditReports(outputDir, {
       scraped,
       aiAudit,
       findingsSummary,
+      vendor,
     });
 
     const auditDataJson = JSON.stringify(resolvedAuditData, null, 2);
@@ -1640,6 +1643,12 @@ export async function generateAuditReports(outputDir, {
       writeFile(summaryPath, summaryHtml, 'utf-8'),
       writeFile(buildSpecPath, buildSpecHtml, 'utf-8'),
     );
+
+    if (precall) {
+      const { renderPrecallBrief } = await import('./precall-audit-renderer.js');
+      const precallPath = resolve(outputDir, 'precall-brief.html');
+      writes.push(writeFile(precallPath, renderPrecallBrief(resolvedAuditData), 'utf-8'));
+    }
   }
 
   const fullHtml = buildFullReport(shared);
@@ -1655,5 +1664,10 @@ export async function generateAuditReports(outputDir, {
   }
   console.log(`[AuditReport] Written: ${fullPath}`);
 
-  return { fullPath, summaryPath, buildSpecPath, auditDataPath, auditData: resolvedAuditData };
+  const precallPath = !isAfterOnly && precall ? resolve(outputDir, 'precall-brief.html') : null;
+  if (precallPath && !isAfterOnly) {
+    console.log(`[AuditReport] Written: ${precallPath}`);
+  }
+
+  return { fullPath, summaryPath, buildSpecPath, auditDataPath, precallPath, auditData: resolvedAuditData };
 }

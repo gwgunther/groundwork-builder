@@ -10,7 +10,8 @@
  *   6. Generate pitch.html (with real after-scores)
  *   7. Copy pitch.html into groundwork-dental and host updated audit folder
  *   8. Git commit + push groundwork-dental — pitch + before/after go live
- *   9. Write Airtable Build row with real diff counts + scores
+ *   5b. Evaluate ship gates (mobile perf ≥ 90, Lighthouse a11y ≥ 90, 0 axe critical/serious)
+ *   9. Write Airtable Build row — Pitched if gates pass, Blocked if not
  *
  * Earlier version had PageSpeed and rescan running BEFORE the deploy push —
  * which meant they hit an empty preview URL every time, recorded null scores
@@ -39,7 +40,14 @@ import { copyFile, mkdir, readFile }       from 'node:fs/promises';
 import { existsSync }                      from 'node:fs';
 import { resolve, dirname, basename }      from 'node:path';
 import { generatePitchPage }              from './pitch-generator.js';
-import { upsertAccount, createBuild, findLatestAuditBySlug } from './airtable.js';
+import { upsertAccount, createBuild, updateBuild, findLatestAuditBySlug, findQueuedBuildBySlug } from './airtable.js';
+import {
+  evaluateShipGates,
+  loadA11yArtifact,
+  recordShipGateResult,
+  MOBILE_PERF_MIN,
+  LIGHTHOUSE_A11Y_MIN,
+} from './ship-gates.js';
 
 // ---------------------------------------------------------------------------
 // Main entry
@@ -78,6 +86,8 @@ export async function publish(opts = {}) {
     airtable:       null,
     gitBuilder:     null,
     gitDental:      null,
+    shipGates:      null,
+    handoffBlocked: false,
   };
 
   // Repo root for `git -C` invocations. publish.js lives at
@@ -144,13 +154,14 @@ export async function publish(opts = {}) {
       const { runPageSpeed, extractScoreReasons } = await import('./pagespeed.js');
       const ps = await runPageSpeed(`https://${resolvedPreviewUrl}`);
       afterScores = {
-        mobile:  ps.mobile?.performance  ?? null,
-        desktop: ps.desktop?.performance ?? null,
-        seo:     ps.mobile?.seo          ?? null,
+        mobile:  ps.mobile?.performance    ?? null,
+        desktop: ps.desktop?.performance   ?? null,
+        seo:     ps.mobile?.seo            ?? null,
+        accessibility: ps.mobile?.accessibility ?? null,
         // Top reasons score isn't 100 (honest tradeoffs)
         reasons: extractScoreReasons(ps.mobile, 3),
       };
-      console.log(`  ✓ After scores — Mobile: ${afterScores.mobile} Desktop: ${afterScores.desktop}`);
+      console.log(`  ✓ After scores — Mobile: ${afterScores.mobile} Desktop: ${afterScores.desktop} A11y: ${afterScores.accessibility ?? '—'}`);
       // Write to pipeline so pitch can read it later
       const { writeFile } = await import('node:fs/promises');
       await writeFile(
@@ -186,6 +197,39 @@ export async function publish(opts = {}) {
     }
   }
 
+  // ── 5b. Ship gates (PageSpeed + axe + Lighthouse a11y) ──
+  const a11yReport = await loadA11yArtifact(pipelineDir);
+  const gateResult = evaluateShipGates({
+    mobilePerformance:      afterScores?.mobile ?? null,
+    lighthouseAccessibility: afterScores?.accessibility ?? null,
+    a11yReport,
+  });
+  results.shipGates = gateResult;
+  results.handoffBlocked = !gateResult.passed;
+
+  try {
+    await recordShipGateResult(outputDir, gateResult, {
+      scores: {
+        mobilePerformance: afterScores?.mobile ?? null,
+        lighthouseAccessibility: afterScores?.accessibility ?? null,
+        axeCritical: a11yReport?.byImpact?.critical ?? 0,
+        axeSerious:  a11yReport?.byImpact?.serious  ?? 0,
+      },
+    });
+  } catch (err) {
+    console.warn(`  ⚠ Ship gate artifact write failed: ${err.message}`);
+  }
+
+  if (gateResult.passed) {
+    console.log(`  ✓ Ship gates passed (mobile perf ≥ ${MOBILE_PERF_MIN}, Lighthouse a11y ≥ ${LIGHTHOUSE_A11Y_MIN}, 0 axe critical/serious)`);
+  } else {
+    console.warn(`  ✗ Ship gates FAILED — handoff blocked (${gateResult.failures.length} issue(s)):`);
+    for (const f of gateResult.failures) {
+      console.warn(`      · ${f.field}: ${f.hint}`);
+    }
+    console.warn(`    Missing report updated: _pipeline/missing.html`);
+  }
+
   // ── 6. Generate pitch.html (with the real after-scores) ──
   try {
     results.pitchHtml = await generatePitchPage(pipelineDir, {
@@ -194,15 +238,19 @@ export async function publish(opts = {}) {
       pitchUrl,
       ctaUrl,
       afterScores,
+      a11yReport,
+      shipGatesPassed: gateResult.passed,
     });
     console.log(`  ✓ Pitch page generated: ${results.pitchHtml}`);
   } catch (err) {
     console.warn(`  ⚠ Pitch generation failed: ${err.message}`);
   }
 
-  // ── 7a. Copy pitch.html to groundwork-dental ──
+  // ── 7a. Copy pitch.html to groundwork-dental (only when gates pass) ──
   try {
-    if (existsSync(dentalPath) && results.pitchHtml) {
+    if (results.handoffBlocked) {
+      console.warn(`  ⚠ Pitch not published — ship gates must pass before handoff`);
+    } else if (existsSync(dentalPath) && results.pitchHtml) {
       const destDir = resolve(dentalPath, 'public', 'pitch', slug);
       await mkdir(destDir, { recursive: true });
       const destFile = resolve(destDir, 'index.html');
@@ -233,9 +281,11 @@ export async function publish(opts = {}) {
     console.warn(`  ⚠ Host before/after failed (non-fatal): ${err.message}`);
   }
 
-  // ── 8. Git push dental — pitch page goes live ──
+  // ── 8. Git push dental — pitch page goes live (only when gates pass) ──
   try {
-    if (results.pitchLive && existsSync(dentalPath)) {
+    if (results.handoffBlocked) {
+      // pitch stays in _pipeline/pitch.html for operator review only
+    } else if (results.pitchLive && existsSync(dentalPath)) {
       gitCommitPush(dentalPath, `feat: add pitch page for ${slug}`, [
         `public/pitch/${slug}`,
       ]);
@@ -244,6 +294,23 @@ export async function publish(opts = {}) {
     }
   } catch (err) {
     console.warn(`  ⚠ groundwork-dental push failed: ${err.message}`);
+  }
+
+  // ── 8b. Handoff baseline snapshot (when gates pass) ──
+  if (!results.handoffBlocked) {
+    try {
+      const { captureHandoffBaseline } = await import('./baseline-capture.js');
+      const baseline = await captureHandoffBaseline({
+        slug,
+        practiceUrl,
+        pipelineDir,
+        repoRoot,
+        afterScores,
+      });
+      console.log(`  ✓ Baseline captured — re-audit due ${baseline.reaudit_due}`);
+    } catch (err) {
+      console.warn(`  ⚠ Baseline capture failed (non-fatal): ${err.message}`);
+    }
   }
 
   // ── 9. Airtable — Build row with real diff counts + after-scores ──
@@ -257,11 +324,14 @@ export async function publish(opts = {}) {
       gcsPrefix,
       afterScores,
       rescanCounts: rescanResult?.summary?.counts || null,
+      gateResult,
     });
     results.airtable = tracked.buildId;
     if (tracked.buildId) {
       const linked = tracked.sourceAuditId ? ` · Source Audit ${tracked.sourceAuditId}` : ' · no prior Audit found';
-      console.log(`  ✓ Airtable: Build ${tracked.buildId} created (Account ${tracked.accountId}, Lifecycle: Pitched${linked})`);
+      const status = tracked.blocked ? 'Blocked' : 'Pitched';
+      const lifecycle = tracked.blocked ? 'unchanged' : 'Pitched';
+      console.log(`  ✓ Airtable: Build ${tracked.buildId} created (Account ${tracked.accountId}, Status: ${status}, Lifecycle: ${lifecycle}${linked})`);
     } else {
       console.log(`  ⚠ Airtable disabled (env vars missing) — skipped tracking`);
     }
@@ -272,7 +342,12 @@ export async function publish(opts = {}) {
   console.log('');
   console.log('[Publish] Done.');
   console.log(`  Preview:  https://${resolvedPreviewUrl}`);
-  console.log(`  Pitch:    https://${pitchUrl}`);
+  if (results.handoffBlocked) {
+    console.log(`  Handoff:  BLOCKED — fix ship gates in _pipeline/missing.html`);
+    console.log(`  Pitch:    operator-only (_pipeline/pitch.html — not published)`);
+  } else {
+    console.log(`  Pitch:    https://${pitchUrl}`);
+  }
   console.log('');
 
   return results;
@@ -587,7 +662,8 @@ async function ensureCnameRecord({ headers, zoneName, hostname, target }) {
  * Returns { accountId, buildId, sourceAuditId } — any may be null if
  * Airtable is disabled or no prior audit exists.
  */
-async function recordBuildRun({ slug, practiceUrl, resolvedPreviewUrl, pitchUrl, pipelineDir, gcsPrefix, afterScores, rescanCounts }) {
+async function recordBuildRun({ slug, practiceUrl, resolvedPreviewUrl, pitchUrl, pipelineDir, gcsPrefix, afterScores, rescanCounts, gateResult }) {
+  const blocked = gateResult && !gateResult.passed;
   // Load merged.json for contact details to refresh on the Account
   let merged = {};
   try {
@@ -614,8 +690,8 @@ async function recordBuildRun({ slug, practiceUrl, resolvedPreviewUrl, pitchUrl,
     ? `https://console.cloud.google.com/storage/browser/${gcsBucket}/${gcsPrefix}`
     : null;
 
-  // 1. Upsert Account — flip lifecycle to Pitched
-  const accountId = await upsertAccount({
+  // 1. Upsert Account — flip lifecycle to Pitched only when gates pass
+  const accountFields = {
     slug,
     practiceUrl,
     practiceName:   merged.practice?.name  || null,
@@ -623,8 +699,9 @@ async function recordBuildRun({ slug, practiceUrl, resolvedPreviewUrl, pitchUrl,
     phone:          merged.practice?.phone || null,
     city:           merged.address?.city   || null,
     state:          merged.address?.state  || null,
-    lifecycleStage: 'Pitched',
-  });
+  };
+  if (!blocked) accountFields.lifecycleStage = 'Pitched';
+  const accountId = await upsertAccount(accountFields);
 
   if (!accountId) {
     return { accountId: null, buildId: null, sourceAuditId: null };
@@ -634,27 +711,39 @@ async function recordBuildRun({ slug, practiceUrl, resolvedPreviewUrl, pitchUrl,
   // the new Build. May be null if someone built without auditing first.
   const sourceAuditId = await findLatestAuditBySlug(slug);
 
-  // 3. Create the Build row
-  const buildId = await createBuild({
+  const gateErrorDetail = blocked
+    ? gateResult.failures.map(f => `${f.field}: ${f.hint}`).join('\n')
+    : null;
+
+  const buildPayload = {
     accountId,
     sourceAuditId,
     buildSlug:       slug,
-    status:          'Pitched',
+    status:          blocked ? 'Blocked' : 'Pitched',
     websiteUrl:      practiceUrl,
     previewUrl:      `https://${resolvedPreviewUrl}`,
-    pitchUrl:        `https://${pitchUrl}`,
+    pitchUrl:        blocked ? null : `https://${pitchUrl}`,
     githubFolderUrl,
     gcsRunFolder,
-    // After-build PageSpeed scores from the live preview
     mobileScore:     afterScores?.mobile  ?? null,
     desktopScore:    afterScores?.desktop ?? null,
-    // Rescan diff vs. the Source Audit
     fixedCount:      rescanCounts?.fixed ?? null,
     stillIssueCount: rescanCounts?.['still-issue'] ?? null,
     regressedCount:  rescanCounts?.regressed ?? null,
     rescannedAt:     (afterScores || rescanCounts) ? new Date().toISOString() : null,
     costEst,
-  });
+    errorDetail:     gateErrorDetail,
+  };
 
-  return { accountId, buildId, sourceAuditId };
+  // 3. Update Queued build from preview-request, or create new row
+  const queuedBuildId = await findQueuedBuildBySlug(slug);
+  let buildId;
+  if (queuedBuildId) {
+    buildId = await updateBuild(queuedBuildId, buildPayload);
+    console.log(`  ✓ Updated Queued build ${queuedBuildId} → ${buildPayload.status}`);
+  } else {
+    buildId = await createBuild(buildPayload);
+  }
+
+  return { accountId, buildId, sourceAuditId, blocked };
 }

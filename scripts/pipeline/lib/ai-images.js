@@ -2,8 +2,8 @@
  * AI Image Analysis — uses Claude vision to classify and describe images
  * scraped from a practice website.
  *
- * Results are cached in Supabase `images` table keyed by URL, so each image
- * is only analyzed once across all runs and environments.
+ * Results are cached in `_memory/images/<slug>.json` keyed by URL, so each image
+ * is only analyzed once across builds on this machine.
  *
  * Export:
  *   analyzeImages(bronze, opts) → { [url]: ImageAnalysis }
@@ -63,7 +63,7 @@ function collectImageUrls(bronze) {
 }
 
 /**
- * Load already-analyzed URLs from Supabase for a specific site slug.
+ * Load already-analyzed URLs from local cache for a specific site slug.
  * Returns a map of url → ImageAnalysis.
  */
 async function loadCachedAnalyses(slug, urls) {
@@ -236,7 +236,7 @@ export async function analyzeImages(bronze, slug, opts = {}) {
     }
   }
 
-  // Persist new analyses to Supabase
+  // Persist new analyses to local cache (_memory/images/)
   if (Object.keys(fresh).length > 0) {
     try {
       const { upsertImageAnalyses } = await import('./db.js');

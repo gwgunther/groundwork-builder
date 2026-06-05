@@ -1,26 +1,35 @@
 {
-  "palette": {
-    "primary": "#2D6A78",
-    "secondary": "#1A4A57",
-    "accent": "#3AAFA9",
-    "background": "#F2F9FA",
-    "mood": "calm, clinical"
-  },
-  "type": {
-    "display": "Plus Jakarta Sans",
-    "body": "DM Sans",
-    "scale": "standard",
-    "contrast": "high"
-  },
-  "layout": {
-    "archetype": "warm-editorial",
-    "density": "balanced",
-    "grid": "12col"
-  },
+  "tag": "own",
   "hero": {
     "variant": "full-bleed",
-    "imageTreatment": "editorial-muted"
+    "imageTreatment": "warm-documentary"
   },
+  "note": "auto-distilled at build time",
+  "slug": "lbpds",
+  "type": {
+    "body": "Mulish",
+    "scale": "standard",
+    "display": "Manrope",
+    "contrast": "high"
+  },
+  "cards": "soft-shadow",
+  "layout": {
+    "grid": "12col",
+    "density": "balanced",
+    "archetype": "warm-editorial"
+  },
+  "motion": "subtle",
+  "radius": "md",
+  "source": "/tmp/gates-test",
+  "palette": {
+    "mood": "professional, approachable",
+    "accent": "#f0a500",
+    "primary": "#1a9ec9",
+    "secondary": "#1e2d6b",
+    "background": "#ffffff"
+  },
+  "captured": "2026-06-04",
+  "fontPair": "Manrope/Mulish",
   "sections": [
     "hero",
     "doctor-intro",
@@ -31,20 +40,11 @@
     "stat-bar",
     "cta"
   ],
-  "cards": "soft-shadow",
-  "motion": "subtle",
-  "radius": "lg",
-  "fontPair": "Plus Jakarta Sans / DM Sans",
   "adjectives": [
-    "pediatric-focused",
     "trustworthy",
-    "approachable",
-    "professional",
-    "nurturing"
-  ],
-  "slug": "lbpds",
-  "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/lbpds",
-  "tag": "own",
-  "captured": "2026-06-01",
-  "note": "auto-distilled at build time"
+    "child-friendly",
+    "clinical-yet-warm",
+    "accessible",
+    "professional"
+  ]
 }

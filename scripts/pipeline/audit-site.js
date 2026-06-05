@@ -61,6 +61,7 @@ function parseArgs() {
     skipGbp:         false,
     email:           null,
     source:          'manual',
+    precall:         false,
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -95,6 +96,9 @@ function parseArgs() {
         break;
       case '--verbose':
         opts.verbose = true;
+        break;
+      case '--precall':
+        opts.precall = true;
         break;
       case '--help':
         printHelp();
@@ -133,10 +137,12 @@ Options:
   --business-name <q>    Business name to text-search for GBP (default: silver practice name + city)
   --skip-gbp             Skip the GBP scan entirely
   --verbose              Detailed output
+  --precall              Also write precall-brief.html (slim pre-call doc)
   --help                 Show this help
 
 Examples:
   node scripts/pipeline/audit-site.js --url https://smithdental.com
+  npm run audit:precall -- --url https://smithdental.com
   node scripts/pipeline/audit-site.js --url https://smithdental.com --output _audits/smith-dental
 `.trim());
 }
@@ -256,7 +262,23 @@ async function main() {
   }
   console.log('');
 
-  // ── Phase 1b: Image analysis (cached in Supabase by URL + slug) ────────
+  // ── Phase 1a: Vendor fingerprint (homepage HTML) ─────────────────────
+  console.log('[Phase 1a] Detecting website vendor...');
+  let vendorBlock = null;
+  try {
+    const { detectVendorFromUrl, buildVendorBlock } = await import('./lib/vendor-tco.js');
+    const vendorResult = await detectVendorFromUrl(opts.url);
+    vendorBlock = buildVendorBlock(vendorResult);
+    console.log(`  Vendor: ${vendorBlock.display_name} (${vendorBlock.category}, confidence ${vendorBlock.confidence})`);
+    if (vendorBlock.subscription_tco) {
+      console.log(`  TCO: ${vendorBlock.subscription_tco.copy}`);
+    }
+  } catch (err) {
+    console.warn(`  Vendor detection failed (non-fatal): ${err.message}`);
+  }
+  console.log('');
+
+  // ── Phase 1b: Image analysis (cached locally by URL + slug) ───────────
   console.log('[Phase 1b] Analyzing images...');
   // Derive slug from URL hostname for now — replaced by practice slug after silver
   const urlSlug = slugify(new URL(opts.url).hostname.replace(/^www\./, '').split('.')[0]);
@@ -514,6 +536,10 @@ async function main() {
       passed:   allFindings.filter(f => f.severity === 'passed').length,
     },
   };
+  if (vendorBlock) {
+    await writeFile(join(dataDir, 'vendor.json'), JSON.stringify(vendorBlock, null, 2), 'utf-8').catch(() => {});
+  }
+
   const reportPaths = await generateAuditReports(outputDir, {
     url: opts.url,
     slug: canonicalSlug,
@@ -527,10 +553,12 @@ async function main() {
     gbpMeta: gbpScan.meta || null,
     screenshotFile: screenshotPath ? 'homepage.png' : null,  // relative to outputDir
     bronze,
+    vendor: vendorBlock,
     dataDir,
     auditPageUrl: null,  // set after host step if needed; regen after host for public URL
+    precall: opts.precall,
   });
-  const { fullPath, summaryPath } = reportPaths;
+  const { fullPath, summaryPath, precallPath } = reportPaths;
   console.log('');
 
   // ── Summary ──────────────────────────────────────────────────────────────
@@ -574,6 +602,9 @@ async function main() {
   console.log(`  Output:`);
   console.log(`    Full report:    ${fullPath}`);
   console.log(`    Summary:        ${summaryPath}`);
+  if (opts.precall) {
+    console.log(`    Pre-call brief: ${resolve(outputDir, 'precall-brief.html')}`);
+  }
   console.log(`    Raw data:       ${dataDir}/`);
   console.log(`  Time: ${elapsed}s`);
   console.log('');

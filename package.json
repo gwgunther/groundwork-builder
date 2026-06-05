@@ -18,7 +18,10 @@
     "sourcing:run:dry": "node scripts/sourcing/run.js --limit 10 --no-airtable",
     "sourcing:metros": "node scripts/sourcing/run.js --list-metros",
     "sourcing:campaign": "node scripts/sourcing/campaign.js",
-    "sourcing:promote": "node scripts/sourcing/promote.js"
+    "sourcing:promote": "node scripts/sourcing/promote.js",
+    "audit": "node scripts/pipeline/audit-site.js",
+    "audit:precall": "node scripts/pipeline/audit-site.js --precall",
+    "migrate:supabase": "node scripts/pipeline/migrate-supabase-export.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
@@ -29,12 +32,12 @@
     "glob": "^13.0.6",
     "gsap": "^3.15.0",
     "jsdom": "^28.1.0",
-    "pg": "^8.20.0",
     "tailwindcss": "^4.2.4"
   },
   "devDependencies": {
     "dotenv": "^16.6.1",
     "marked": "^18.0.3",
+    "pg": "^8.20.0",
     "playwright": "^1.59.1"
   }
 }
