@@ -47,6 +47,7 @@ import { assembleLayout } from './lib/assemble/assemble-layout.js';
 import { bindingToImageRoles } from './lib/assemble/binding-to-image-roles.js';
 import { distillDesign } from './lib/distill-design.js';
 import { runDesignerAgent, buildAstro } from './lib/designer-agent.js';
+import { generateAgentFiles } from './lib/generate-agent-files.js';
 
 // ---------------------------------------------------------------------------
 // CLI argument parser
@@ -805,6 +806,29 @@ async function main() {
   console.log('  Generating blog stubs...');
   stats.blogStubs = await generateBlogStubs({ ...merged, bronze }, outputDir, preset);
 
+  // 3c-bis — Generate llms.txt + .well-known/webmcp.json for Lighthouse Agentic Browsing
+  try {
+    const { navLinks: resolvedNav } = await import(resolve(outputDir, 'src/config/navigation.ts')).catch(() => ({ navLinks: [] }));
+    const agentFileResult = await generateAgentFiles(merged, resolvedNav || [], outputDir);
+    stats.agentFilesGenerated = true;
+    stats.agentFilesTools = agentFileResult.toolCount;
+  } catch (err) {
+    console.warn(`  Agent files (llms.txt/webmcp.json): ${err.message}`);
+    // Generate with nav from merged data as fallback
+    try {
+      const fallbackNav = (merged.navigation?.primary || merged.navigation || []).map(item => ({
+        label: item.label || item.name || '',
+        href:  item.href  || item.url  || '/',
+        dropdown: item.children || item.dropdown || null,
+      }));
+      await generateAgentFiles(merged, fallbackNav, outputDir);
+      stats.agentFilesGenerated = true;
+    } catch (innerErr) {
+      console.warn(`  Agent files fallback also failed: ${innerErr.message}`);
+      stats.agentFilesGenerated = false;
+    }
+  }
+
   // 3d — Download images (unless --skip-images)
   if (!opts.skipImages) {
     console.log('  Downloading images...');
@@ -1119,6 +1143,36 @@ async function main() {
   }
 
   // -----------------------------------------------------------------------
+  // Phase 4.66: Lighthouse Agentic Browsing audit
+  // -----------------------------------------------------------------------
+  // Deterministic pass/fail check for the 4 Lighthouse 13.3+ criteria:
+  //   llms.txt · WebMCP tools · nav ARIA · CLS (img dimensions proxy)
+  // Zero AI cost. Runs even when build was skipped (partial checks).
+  if (stats.buildSuccess || stats.agentFilesGenerated) {
+    console.log('[Phase 4.66] Agentic Browsing audit...');
+    const agenticStart = Date.now();
+    try {
+      const { runAgenticAudit } = await import('./lib/audit-agentic.js');
+      const agenticReport = await runAgenticAudit(outputDir);
+      stats.agenticReport = agenticReport;
+      const icons = agenticReport.results.map(r => `${r.pass ? '✓' : '✗'} ${r.id}`).join('  ');
+      console.log(`  Score: ${agenticReport.fraction} checks pass`);
+      console.log(`  ${icons}`);
+      if (agenticReport.passed < agenticReport.total) {
+        const failures = agenticReport.results.filter(r => !r.pass);
+        for (const f of failures) {
+          console.warn(`  ✗ ${f.title}: ${f.detail}`);
+        }
+      }
+      await artifacts.writeStep('11c-agentic-audit', { output: agenticReport }, agenticStart);
+      console.log('');
+    } catch (err) {
+      console.warn(`  Agentic audit failed: ${err.message}`);
+      console.log('');
+    }
+  }
+
+  // -----------------------------------------------------------------------
   // Phase 4.7: SEO Optimizer loop — iteratively apply fixes
   // -----------------------------------------------------------------------
   // Mirrors the Designer Agent loop pattern: optimize → rebuild → re-audit
@@ -1252,6 +1306,7 @@ async function main() {
       unusedImages: imageRolesResult?.roles?.unused || [],
       seo: stats.seoReport || null,
       a11y: stats.a11yReport || null,
+      agentic: stats.agenticReport || null,
     };
     // Whether to ship /missing as a route in the deployed site. Defaults to
     // OFF — the page contains internal debug info (missing fields, broken
@@ -1313,6 +1368,11 @@ async function main() {
   console.log(`  AI Content:   ${stats.hasContent ? 'done' : 'skipped'}`);
   console.log(`  Missing:      ${stats.missingCritical} critical / ${stats.missingImportant} important`);
   console.log(`  Build:        ${stats.buildSuccess ? 'PASSED' : opts.skipBuild ? 'SKIPPED' : 'FAILED'}`);
+  if (stats.agenticReport) {
+    const ar = stats.agenticReport;
+    const icons = ar.results.map(r => r.pass ? '✓' : '✗').join('');
+    console.log(`  Agentic:      ${ar.fraction} [${icons}] llms.txt · WebMCP · A11y · CLS`);
+  }
   console.log(`  Time:         ${elapsed}s`);
 
   // Cost & token usage across all AI calls in this build

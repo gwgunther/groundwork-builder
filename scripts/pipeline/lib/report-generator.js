@@ -25,7 +25,7 @@ import { resolve } from 'node:path';
  * @param {object} [extras]    - Extra runtime data (e.g. { scraped })
  */
 export async function generateReport(pipelineDir, extras = {}) {
-  const files = ['01-scrape', '02-audit', '03-content', '04-design', '06-merge', '07-inject', '08-pages', '09-build', 'missing', 'summary'];
+  const files = ['01-scrape', '02-audit', '03-content', '04-design', '06-merge', '07-inject', '08-pages', '09-build', 'missing', 'summary', '11c-agentic-audit'];
   const data = {};
 
   await Promise.allSettled(
@@ -57,6 +57,8 @@ function buildHtml(d, extras = {}) {
   const pages     = d['08-pages']  || {};
   const build     = d['09-build']  || {};
   const missing   = d['missing']   || {};
+  const agenticWrap = d['11c-agentic-audit'] || {};
+  const agenticData = agenticWrap.output || null;
 
   const practiceName  = summary.practiceName  || scrape.output?.practice?.name || 'Unknown Practice';
   const doctorName    = summary.doctorName    || scrape.output?.doctor?.name   || '—';
@@ -140,6 +142,7 @@ function buildHtml(d, extras = {}) {
   <button class="tab-btn" data-tab="content">Generated Content</button>
   <button class="tab-btn" data-tab="pages">Page Inventory</button>
   <button class="tab-btn" data-tab="build">Build &amp; Data</button>
+  <button class="tab-btn ${agenticData && agenticData.passed < agenticData.total ? 'agentic-tab-warn' : ''}" data-tab="agentic">Agentic ${agenticData ? `<span class="badge-${agenticData.passed === agenticData.total ? 'green' : 'amber'}">${agenticData.fraction}</span>` : ''}</button>
   <button class="tab-btn missing-tab" data-tab="missing">What's Missing ${missingData.summary?.critical > 0 ? `<span class="badge-red">${missingData.summary.critical}</span>` : ''}</button>
 </nav>
 
@@ -169,6 +172,11 @@ function buildHtml(d, extras = {}) {
   <!-- ─── TAB: BUILD & DATA ─────────────────────────────────────────── -->
   <div class="tab-panel" id="tab-build">
     ${buildBuildSection(scrapeOutput, mergeOutput, pagesOutput, buildOutput, summary, confidenceFlags, placeholders, errors, buildPassed, buildSkipped)}
+  </div>
+
+  <!-- ─── TAB: AGENTIC BROWSING ───────────────────────────────────────── -->
+  <div class="tab-panel" id="tab-agentic">
+    ${buildAgenticSection(agenticData)}
   </div>
 
   <!-- ─── TAB: WHAT'S MISSING ───────────────────────────────────────── -->
@@ -605,6 +613,52 @@ function buildMissingSection(missingData) {
   </div>`;
 }
 
+function buildAgenticSection(agenticData) {
+  if (!agenticData) {
+    return `<div class="empty-state">
+      <div class="icon">🤖</div>
+      <p>No agentic browsing audit data — run a full pipeline build to generate this report.</p>
+    </div>`;
+  }
+
+  const { results = [], passed, total, fraction } = agenticData;
+  const allPass = passed === total;
+
+  const auditRows = results.map(r => `
+    <div class="agentic-row ${r.pass ? 'agentic-pass' : 'agentic-fail'}">
+      <div class="agentic-badge ${r.pass ? 'badge-pass' : 'badge-fail'}">${r.pass ? 'PASS' : 'FAIL'}</div>
+      <div class="agentic-content">
+        <div class="agentic-title">${esc(r.title)}</div>
+        <div class="agentic-desc">${esc(r.description)}</div>
+        <div class="agentic-detail">${esc(r.detail)}</div>
+      </div>
+    </div>`).join('');
+
+  return `
+  <div class="agentic-section">
+    <div class="agentic-header">
+      <div>
+        <h2>Lighthouse Agentic Browsing</h2>
+        <p class="agentic-subtitle">Chrome 150+ / Lighthouse 13.3+ — 4 pass/fail checks for AI agent compatibility</p>
+      </div>
+      <div class="agentic-score ${allPass ? 'score-pass' : 'score-partial'}">
+        <span class="score-fraction">${esc(fraction)}</span>
+        <span class="score-label">checks pass</span>
+      </div>
+    </div>
+    <div class="agentic-rows">
+      ${auditRows}
+    </div>
+    ${allPass ? `
+    <div class="agentic-all-pass">
+      ✓ All 4 Lighthouse Agentic Browsing checks pass. This site is ready for AI agent navigation.
+    </div>` : `
+    <div class="agentic-partial">
+      ${passed < total ? `${total - passed} check(s) failing. Fix the items above before handoff.` : ''}
+    </div>`}
+  </div>`;
+}
+
 // ===========================================================================
 // Helpers
 // ===========================================================================
@@ -873,6 +927,34 @@ function styles() {
   .error-list { display: flex; flex-direction: column; gap: 4px; }
   .error-item { background: #FEE8E8; color: var(--red); font-size: 12px; padding: 6px 10px; border-radius: 4px; font-family: var(--mono); }
   .no-issues { color: var(--sage); font-size: 13px; font-weight: 500; }
+
+  /* ── Agentic Browsing ── */
+  .agentic-section { display: flex; flex-direction: column; gap: 24px; }
+  .agentic-header { display: flex; align-items: flex-start; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid var(--border); gap: 16px; flex-wrap: wrap; }
+  .agentic-header h2 { font-size: 16px; font-weight: 700; }
+  .agentic-subtitle { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+  .agentic-score { text-align: center; padding: 12px 20px; border-radius: var(--radius); min-width: 110px; }
+  .agentic-score.score-pass    { background: #D4EDD9; }
+  .agentic-score.score-partial { background: #FEF3CD; }
+  .score-fraction { display: block; font-size: 28px; font-weight: 800; font-family: var(--mono); line-height: 1; }
+  .score-pass    .score-fraction { color: var(--green); }
+  .score-partial .score-fraction { color: var(--amber); }
+  .score-label { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim); margin-top: 4px; }
+  .agentic-rows { display: flex; flex-direction: column; gap: 10px; }
+  .agentic-row { display: flex; align-items: flex-start; gap: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+  .agentic-row.agentic-pass { border-left: 3px solid var(--green); }
+  .agentic-row.agentic-fail { border-left: 3px solid var(--red); }
+  .agentic-badge { font-size: 11px; font-weight: 800; letter-spacing: 1.5px; padding: 5px 10px; border-radius: 4px; flex-shrink: 0; font-family: var(--mono); }
+  .badge-pass { background: #D4EDD9; color: var(--green); }
+  .badge-fail { background: #FDDCDC; color: var(--red); }
+  .badge-green { background: #D4EDD9; color: var(--green); font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 10px; margin-left: 6px; vertical-align: middle; font-family: var(--mono); }
+  .badge-amber { background: #FEF3CD; color: var(--amber); font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 10px; margin-left: 6px; vertical-align: middle; font-family: var(--mono); }
+  .agentic-content { flex: 1; min-width: 0; }
+  .agentic-title { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+  .agentic-desc  { font-size: 12px; color: var(--text-dim); margin-bottom: 6px; }
+  .agentic-detail { font-size: 12px; font-family: var(--mono); color: var(--charcoal); background: #F5F2EE; padding: 4px 8px; border-radius: 4px; word-break: break-word; }
+  .agentic-all-pass { background: #D4EDD9; color: var(--green); font-size: 13px; font-weight: 600; padding: 14px 18px; border-radius: var(--radius); }
+  .agentic-partial  { background: #FEF3CD; color: var(--amber); font-size: 13px; font-weight: 600; padding: 14px 18px; border-radius: var(--radius); }
 
   /* ── What's Missing ── */
   .missing-link { font-size: 12px; color: var(--terracotta); text-decoration: none; font-weight: 600; }
