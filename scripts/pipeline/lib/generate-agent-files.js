@@ -99,6 +99,45 @@ export async function generateAgentFiles(merged, navLinks, outputDir) {
     'utf-8',
   );
 
-  console.log(`  Agent files: llms.txt (${llmsTxt.length}B) + .well-known/webmcp.json (${tools.length} tools) written.`);
-  return { llmsTxtBytes: llmsTxt.length, toolCount: tools.length };
+  // ------------------------------------------------------------------
+  // 3. llms-full.txt (expanded: doctor bios, hours, full service desc, FAQs)
+  // ------------------------------------------------------------------
+  const allDoctors = (merged.doctors || (merged.doctor?.name ? [merged.doctor] : [])).filter(d => d?.name);
+  const doctorsText = allDoctors
+    .map(d => `- ${d.name}${d.credentials ? `, ${d.credentials}` : ''}${d.bio ? `\n  ${d.bio.slice(0, 250)}` : ''}`)
+    .join('\n');
+
+  const fullServicesLines = services.slice(0, 30).map(s => {
+    const desc = s.description ? `\n  ${s.description.slice(0, 300)}` : '';
+    return `- ${s.name}${desc}`;
+  }).join('\n');
+
+  const hoursLines = (merged.hours?.display || []).map(h => `- ${h.day}: ${h.time}`).join('\n');
+
+  const faqs = (merged.content?.faqs || merged.content?.generatedFAQs || []).slice(0, 10);
+  const faqText = faqs.length
+    ? faqs.map(f => `**Q:** ${f.question}\n**A:** ${f.answer}`).join('\n\n')
+    : '';
+
+  const llmsFullTxt = [
+    `# ${practice.name || 'Dental Practice'} — Full Site Summary`,
+    `> ${practice.tagline || practice.description || `Quality dental care${address.city ? ` in ${address.city}` : ''}.`}`,
+    '',
+    ...(locationText ? [`**Location:** ${locationText}`]                                  : []),
+    ...(phone        ? [`**Phone:** ${phone}`]                                             : []),
+    ...(domain       ? [`**Website:** https://${domain.replace(/^https?:\/\//, '')}`]      : []),
+    '',
+    '## Key Pages',
+    pagesLines,
+    '',
+    ...(doctorsText      ? ['## Our Doctors',                 doctorsText,      ''] : []),
+    ...(hoursLines       ? ['## Hours',                       hoursLines,       ''] : []),
+    ...(fullServicesLines? ['## Services',                    fullServicesLines, ''] : []),
+    ...(faqText          ? ['## Frequently Asked Questions',  faqText             ] : []),
+  ].join('\n').trim() + '\n';
+
+  await writeFile(resolve(outputDir, 'public', 'llms-full.txt'), llmsFullTxt, 'utf-8');
+
+  console.log(`  Agent files: llms.txt (${llmsTxt.length}B) + llms-full.txt (${llmsFullTxt.length}B) + .well-known/webmcp.json (${tools.length} tools) written.`);
+  return { llmsTxtBytes: llmsTxt.length, llmsFullTxtBytes: llmsFullTxt.length, toolCount: tools.length };
 }

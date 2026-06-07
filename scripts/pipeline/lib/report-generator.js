@@ -25,7 +25,7 @@ import { resolve } from 'node:path';
  * @param {object} [extras]    - Extra runtime data (e.g. { scraped })
  */
 export async function generateReport(pipelineDir, extras = {}) {
-  const files = ['01-scrape', '02-audit', '03-content', '04-design', '06-merge', '07-inject', '08-pages', '09-build', 'missing', 'summary', '11c-agentic-audit'];
+  const files = ['01-scrape', '02-audit', '03-content', '04-design', '06-merge', '07-inject', '08-pages', '09-build', 'missing', 'summary', '11c-agentic-audit', '11d-ai-citability'];
   const data = {};
 
   await Promise.allSettled(
@@ -57,8 +57,10 @@ function buildHtml(d, extras = {}) {
   const pages     = d['08-pages']  || {};
   const build     = d['09-build']  || {};
   const missing   = d['missing']   || {};
-  const agenticWrap = d['11c-agentic-audit'] || {};
-  const agenticData = agenticWrap.output || null;
+  const agenticWrap    = d['11c-agentic-audit'] || {};
+  const agenticData    = agenticWrap.output || null;
+  const citabilityWrap = d['11d-ai-citability'] || {};
+  const citabilityData = citabilityWrap.output || null;
 
   const practiceName  = summary.practiceName  || scrape.output?.practice?.name || 'Unknown Practice';
   const doctorName    = summary.doctorName    || scrape.output?.doctor?.name   || '—';
@@ -142,7 +144,7 @@ function buildHtml(d, extras = {}) {
   <button class="tab-btn" data-tab="content">Generated Content</button>
   <button class="tab-btn" data-tab="pages">Page Inventory</button>
   <button class="tab-btn" data-tab="build">Build &amp; Data</button>
-  <button class="tab-btn ${agenticData && agenticData.passed < agenticData.total ? 'agentic-tab-warn' : ''}" data-tab="agentic">Agentic ${agenticData ? `<span class="badge-${agenticData.passed === agenticData.total ? 'green' : 'amber'}">${agenticData.fraction}</span>` : ''}</button>
+  <button class="tab-btn ${agenticData && agenticData.passed < agenticData.total ? 'agentic-tab-warn' : ''}" data-tab="agentic">Agentic ${agenticData ? `<span class="badge-${agenticData.passed === agenticData.total ? 'green' : 'amber'}">${agenticData.fraction}</span>` : ''}${citabilityData && !citabilityData.skipped ? ` <span class="badge-${citabilityData.mentioned === citabilityData.total ? 'green' : citabilityData.mentioned > 0 ? 'amber' : 'red'}">${citabilityData.fraction} cited</span>` : ''}</button>
   <button class="tab-btn missing-tab" data-tab="missing">What's Missing ${missingData.summary?.critical > 0 ? `<span class="badge-red">${missingData.summary.critical}</span>` : ''}</button>
 </nav>
 
@@ -177,6 +179,7 @@ function buildHtml(d, extras = {}) {
   <!-- ─── TAB: AGENTIC BROWSING ───────────────────────────────────────── -->
   <div class="tab-panel" id="tab-agentic">
     ${buildAgenticSection(agenticData)}
+    ${buildCitabilitySection(citabilityData)}
   </div>
 
   <!-- ─── TAB: WHAT'S MISSING ───────────────────────────────────────── -->
@@ -659,6 +662,63 @@ function buildAgenticSection(agenticData) {
   </div>`;
 }
 
+function buildCitabilitySection(citabilityData) {
+  if (!citabilityData) {
+    return `<div class="cit-placeholder">
+      <p>AI Citability audit not yet run — set ANTHROPIC_API_KEY to enable (Phase 4.67).</p>
+    </div>`;
+  }
+  if (citabilityData.skipped) {
+    return `<div class="cit-placeholder"><p>AI Citability skipped: ${esc(citabilityData.reason || '')}</p></div>`;
+  }
+
+  const { practiceName, city, state, topService, fraction, mentioned, total, results = [] } = citabilityData;
+  const allMentioned = mentioned === total;
+  const noneMentioned = mentioned === 0;
+
+  const modelRows = results.map(r => {
+    const statusClass = r.mentioned ? 'cit-pass' : 'cit-fail';
+    const badge = r.mentioned ? '<span class="cit-badge cit-badge-pass">CITED</span>' : '<span class="cit-badge cit-badge-fail">NOT CITED</span>';
+    const modelLabel = { claude: 'Claude (Anthropic)', openai: 'GPT-4o-mini (OpenAI)', gemini: 'Gemini Flash (Google)' }[r.model] || r.model;
+    const excerpt = r.error
+      ? `<span class="cit-error">Error: ${esc(r.error)}</span>`
+      : r.response_excerpt
+        ? `<blockquote class="cit-excerpt">${esc(r.response_excerpt)}${(r.response_excerpt?.length || 0) >= 400 ? '…' : ''}</blockquote>`
+        : '';
+    return `
+    <div class="cit-row ${statusClass}">
+      <div class="cit-row-header">
+        ${badge}
+        <span class="cit-model">${esc(modelLabel)}</span>
+      </div>
+      ${excerpt}
+    </div>`;
+  }).join('');
+
+  const summaryClass = allMentioned ? 'cit-summary-pass' : noneMentioned ? 'cit-summary-fail' : 'cit-summary-partial';
+  const summaryText  = allMentioned
+    ? `✓ ${practiceName} was mentioned by all ${total} LLMs for "${topService}" in ${city}, ${state}.`
+    : noneMentioned
+      ? `✗ ${practiceName} was not mentioned by any of the ${total} LLMs checked.`
+      : `${practiceName} was mentioned by ${mentioned} of ${total} LLMs for "${topService}" in ${city}, ${state}.`;
+
+  return `
+  <div class="cit-section">
+    <div class="cit-header">
+      <div>
+        <h2>AI Citability</h2>
+        <p class="cit-subtitle">Query: <em>${esc(`I'm looking for a dentist in ${city}${state ? `, ${state}` : ''} for ${topService}`)}</em></p>
+      </div>
+      <div class="cit-score ${allMentioned ? 'score-pass' : noneMentioned ? 'score-fail' : 'score-partial'}">
+        <span class="score-fraction">${esc(fraction)}</span>
+        <span class="score-label">LLMs cited</span>
+      </div>
+    </div>
+    <div class="cit-rows">${modelRows}</div>
+    <div class="${summaryClass}">${summaryText}</div>
+  </div>`;
+}
+
 // ===========================================================================
 // Helpers
 // ===========================================================================
@@ -955,6 +1015,32 @@ function styles() {
   .agentic-detail { font-size: 12px; font-family: var(--mono); color: var(--charcoal); background: #F5F2EE; padding: 4px 8px; border-radius: 4px; word-break: break-word; }
   .agentic-all-pass { background: #D4EDD9; color: var(--green); font-size: 13px; font-weight: 600; padding: 14px 18px; border-radius: var(--radius); }
   .agentic-partial  { background: #FEF3CD; color: var(--amber); font-size: 13px; font-weight: 600; padding: 14px 18px; border-radius: var(--radius); }
+
+  /* ── AI Citability ── */
+  .cit-section { display: flex; flex-direction: column; gap: 24px; margin-top: 40px; padding-top: 32px; border-top: 2px solid var(--border); }
+  .cit-header  { display: flex; align-items: flex-start; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid var(--border); gap: 16px; flex-wrap: wrap; }
+  .cit-header h2 { font-size: 16px; font-weight: 700; }
+  .cit-subtitle { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+  .cit-subtitle em { color: var(--charcoal); font-style: italic; }
+  .cit-score   { text-align: center; padding: 12px 20px; border-radius: var(--radius); min-width: 110px; }
+  .cit-score.score-pass    { background: #D4EDD9; }
+  .cit-score.score-partial { background: #FEF3CD; }
+  .cit-score.score-fail    { background: #FDECEA; }
+  .cit-rows    { display: flex; flex-direction: column; gap: 12px; }
+  .cit-row     { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+  .cit-row.cit-pass { border-left: 3px solid var(--green); }
+  .cit-row.cit-fail { border-left: 3px solid var(--red); }
+  .cit-row-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .cit-badge   { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; padding: 4px 9px; border-radius: 4px; flex-shrink: 0; font-family: var(--mono); }
+  .cit-badge-pass { background: #D4EDD9; color: var(--green); }
+  .cit-badge-fail { background: #FDECEA; color: var(--red); }
+  .cit-model   { font-size: 13px; font-weight: 600; }
+  .cit-excerpt { margin: 0; padding: 8px 12px; background: #F5F2EE; border-left: 3px solid var(--border); border-radius: 0 4px 4px 0; font-size: 12px; color: var(--charcoal); line-height: 1.6; font-family: var(--mono); white-space: pre-wrap; word-break: break-word; }
+  .cit-error   { font-size: 12px; color: var(--red); font-family: var(--mono); }
+  .cit-summary-pass    { background: #D4EDD9; color: var(--green); font-size: 13px; font-weight: 600; padding: 14px 18px; border-radius: var(--radius); }
+  .cit-summary-partial { background: #FEF3CD; color: var(--amber); font-size: 13px; font-weight: 600; padding: 14px 18px; border-radius: var(--radius); }
+  .cit-summary-fail    { background: #FDECEA; color: var(--red);   font-size: 13px; font-weight: 600; padding: 14px 18px; border-radius: var(--radius); }
+  .cit-placeholder { color: var(--text-dim); font-size: 13px; padding: 20px 0; }
 
   /* ── What's Missing ── */
   .missing-link { font-size: 12px; color: var(--terracotta); text-decoration: none; font-weight: 600; }

@@ -1173,6 +1173,34 @@ async function main() {
   }
 
   // -----------------------------------------------------------------------
+  // Phase 4.67: AI Citability audit
+  // -----------------------------------------------------------------------
+  // Prompts Claude (+ optionally OpenAI and Gemini) with a local-search
+  // query for the practice and checks whether the LLM recommends it.
+  // Uses claude-haiku to keep cost negligible (~$0.001/run).
+  // OpenAI and Gemini checks are skipped unless their API keys are set.
+  if (process.env.ANTHROPIC_API_KEY) {
+    console.log('[Phase 4.67] AI Citability audit...');
+    const citStart = Date.now();
+    try {
+      const { runAiCitabilityAudit } = await import('./lib/audit-ai-citability.js');
+      const citReport = await runAiCitabilityAudit(merged);
+      stats.citabilityReport = citReport;
+      if (citReport.skipped) {
+        console.log(`  Skipped: ${citReport.reason}`);
+      } else {
+        const icons = citReport.results.map(r => `${r.mentioned ? '✓' : '✗'} ${r.model}`).join('  ');
+        console.log(`  ${citReport.fraction} LLMs mentioned ${citReport.practiceName}: ${icons}`);
+      }
+      await artifacts.writeStep('11d-ai-citability', { output: citReport }, citStart);
+      console.log('');
+    } catch (err) {
+      console.warn(`  AI citability audit failed: ${err.message}`);
+      console.log('');
+    }
+  }
+
+  // -----------------------------------------------------------------------
   // Phase 4.7: SEO Optimizer loop — iteratively apply fixes
   // -----------------------------------------------------------------------
   // Mirrors the Designer Agent loop pattern: optimize → rebuild → re-audit
@@ -1372,6 +1400,11 @@ async function main() {
     const ar = stats.agenticReport;
     const icons = ar.results.map(r => r.pass ? '✓' : '✗').join('');
     console.log(`  Agentic:      ${ar.fraction} [${icons}] llms.txt · WebMCP · A11y · CLS`);
+  }
+  if (stats.citabilityReport && !stats.citabilityReport.skipped) {
+    const cr = stats.citabilityReport;
+    const icons = cr.results.map(r => `${r.mentioned ? '✓' : '✗'}${r.model[0].toUpperCase()}`).join(' ');
+    console.log(`  AI Cited:     ${cr.fraction} [${icons}] in "${cr.city}" for "${cr.topService}"`);
   }
   console.log(`  Time:         ${elapsed}s`);
 
