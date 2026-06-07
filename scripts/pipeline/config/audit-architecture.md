@@ -1,6 +1,10 @@
 # Audit data architecture
 
 > **Lifecycle context:** Audit + preview-request = journey phases ②–③. Full map → [../../../docs/lifecycle/CUSTOMER_JOURNEY.md](../../../docs/lifecycle/CUSTOMER_JOURNEY.md).
+>
+> **Pipeline context:** This is the PRE-BUILD audit — it runs against the client's EXISTING site. The post-build audit (Phases 6–8: SEO optimizer, A11y, Agentic 4-check, AI citability) runs against our newly built `dist/` and lives in `build-site.js`. See [../../../docs/PIPELINE.md](../../../docs/PIPELINE.md) for the full split.
+>
+> **Known gap:** This pre-build audit does NOT currently check the existing site for Agentic Browsing readiness (llms.txt, WebMCP, nav ARIA, img CLS). Adding it would let the pitch show a before/after agentic comparison (likely 0/4 → 4/4). Tracked in PIPELINE.md living notes.
 
 One scan emits **`audit-data.json`** (`groundwork-audit/v1`). HTML reports are renders only.
 
