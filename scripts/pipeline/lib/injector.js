@@ -228,6 +228,12 @@ export async function injectSiteConfig(data, outputDir, preset = null) {
     ? `[\n    site.googleProfileLink,\n${sameAs}\n  ]`
     : `[\n    site.googleProfileLink,\n  ]`;
 
+  const googleRating = data.content?.stats?.googleRating || data.reviews?.rating || null;
+  const reviewCount  = data.reviews?.reviewCount || null;
+  const ratingBlock  = (googleRating && reviewCount)
+    ? `\n  'aggregateRating': {\n    '@type': 'AggregateRating',\n    'ratingValue': ${parseFloat(googleRating)},\n    'reviewCount': ${parseInt(reviewCount)},\n    'bestRating': 5,\n  },`
+    : '';
+
   const businessType = preset?.schema?.businessType || 'Dentist';
   const defaultCredentials = preset?.schema?.defaultCredentials || 'DDS';
 
@@ -333,7 +339,7 @@ export const localBusinessSchema = {
     p.medicalSpecialty
       ? `\n  'medicalSpecialty': '${esc(p.medicalSpecialty)}',`
       : ''
-  }
+  }${ratingBlock}
   'sameAs': ${sameAsBlock},
 };
 

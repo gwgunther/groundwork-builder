@@ -202,6 +202,10 @@ function scoreSchema(html, pageType) {
           const t = Array.isArray(node['@type']) ? node['@type'].join('+') : node['@type'];
           types.push(t);
         }
+        // Detect nested AggregateRating inside LocalBusiness / Dentist schemas
+        if (node?.aggregateRating?.['@type'] === 'AggregateRating') {
+          types.push('AggregateRating');
+        }
       }
     } catch { /* invalid JSON-LD — bad but parse error means it won't help */ }
   }
