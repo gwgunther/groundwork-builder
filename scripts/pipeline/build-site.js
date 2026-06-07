@@ -570,6 +570,29 @@ async function main() {
   }
 
   // -----------------------------------------------------------------------
+  // Phase 2b3: Agentic readiness — existing site (pre-build before-state)
+  // -----------------------------------------------------------------------
+  if (opts.url) {
+    console.log('[Phase 2b3] Checking agentic readiness on existing site...');
+    const agStart = Date.now();
+    try {
+      const { runExistingAgentAudit } = await import('./lib/audit-agentic-existing.js');
+      const agResult = await runExistingAgentAudit(opts.url);
+      await artifacts.writeStep('02b-agentic-existing', { input: { url: opts.url }, output: agResult }, agStart);
+      if (agResult.skipped) {
+        console.log(`  Skipped: ${agResult.reason}`);
+      } else {
+        const icons = agResult.results.map(r => r.pass ? '✓' : '✗').join(' ');
+        console.log(`  Existing site: ${agResult.fraction} [${icons}]`);
+        stats.existingAgenticScore = agResult.fraction;
+      }
+    } catch (err) {
+      console.warn(`  Agentic existing check skipped: ${err.message}`);
+    }
+    console.log('');
+  }
+
+  // -----------------------------------------------------------------------
   // Phase 2c/2d: Define Brand (brand-dna)
   // -----------------------------------------------------------------------
   // CLEAN PATH (Step 4): Define Brand via brand-dna — replaces legacy AI design
@@ -1396,10 +1419,13 @@ async function main() {
   console.log(`  AI Content:   ${stats.hasContent ? 'done' : 'skipped'}`);
   console.log(`  Missing:      ${stats.missingCritical} critical / ${stats.missingImportant} important`);
   console.log(`  Build:        ${stats.buildSuccess ? 'PASSED' : opts.skipBuild ? 'SKIPPED' : 'FAILED'}`);
+  if (stats.existingAgenticScore) {
+    console.log(`  Agentic (before): ${stats.existingAgenticScore}`);
+  }
   if (stats.agenticReport) {
     const ar = stats.agenticReport;
     const icons = ar.results.map(r => r.pass ? '✓' : '✗').join('');
-    console.log(`  Agentic:      ${ar.fraction} [${icons}] llms.txt · WebMCP · A11y · CLS`);
+    console.log(`  Agentic (after):  ${ar.fraction} [${icons}] llms.txt · WebMCP · A11y · CLS`);
   }
   if (stats.citabilityReport && !stats.citabilityReport.skipped) {
     const cr = stats.citabilityReport;

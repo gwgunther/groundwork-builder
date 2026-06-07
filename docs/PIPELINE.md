@@ -24,7 +24,7 @@ The pipeline runs **two separate audit tracks** against two different sites. Thi
 | **Client artifact** | `external-report.html`, `one-pager.html` | Quality score in internal report |
 | **Purpose** | Show what's broken → justify rebuild | Confirm output meets all gates |
 
-**Known gap:** The pre-build audit does not yet check the existing site for Agentic Browsing readiness (llms.txt, WebMCP, nav ARIA, img CLS). The existing site almost certainly scores 0/4. Adding a pre-build agentic check would let the pitch show a before/after comparison (0/4 → 4/4) — this is a high-value sales signal that is currently unused.
+**Pre-build agentic check:** `audit-agentic-existing.js` runs as Phase 4f in `audit-site.js` and Phase 2b3 in `build-site.js`. Fetches llms.txt, webmcp.json, and homepage HTML from the live site and scores all 4 agentic criteria. Result (`_data/agentic-existing.json` / artifact `02b-agentic-existing`) is surfaced in the audit report Scorecard tab as a before-state. Existing sites typically score 0/4; the rebuilt site scores 4/4, showing the delta to prospects.
 
 ---
 
@@ -417,7 +417,7 @@ The director picks one variant per section based on archetype. Variants are dete
 
 ### Pending
 
-- [ ] Pre-build agentic check on EXISTING site — show before/after 0/4 → 4/4 in the pitch (currently only post-build)
+- [x] Pre-build agentic check on EXISTING site — Phase 4f (audit-site.js) + Phase 2b3 (build-site.js) → `_data/agentic-existing.json` → Scorecard tab before-state
 - [ ] More fixture archetypes — single-doctor general practice, sparse-content (60%+ `missing`), non-warm tone (clinical/editorial/bold/refined)
 - [ ] DataForSEO warm-lead module — SERP local-pack position, GBP completeness, review velocity, NAP consistency; trigger via manual Airtable flag
 - [ ] Cloudflare Worker self-serve "Grade My Site" — PSI + schema parse + Claude citability → Groundwork Score JSON for prospects

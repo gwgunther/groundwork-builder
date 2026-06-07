@@ -39,10 +39,11 @@ import { startAudit, updateAudit }    from './lib/airtable.js';
 import { createRunStorage }           from './lib/storage.js';
 import { slugFromUrl }                from './lib/slug.js';
 import { captureHomepageScreenshot }  from './lib/screenshot.js';
-import { runSiteAudit }           from './lib/ai-audit.js';
-import { generateAuditReports }   from './lib/audit-report-generator.js';
-import { mergeData }              from './lib/merger.js';
-import { loadPreset }             from './lib/preset-loader.js';
+import { runSiteAudit }               from './lib/ai-audit.js';
+import { generateAuditReports }       from './lib/audit-report-generator.js';
+import { mergeData }                  from './lib/merger.js';
+import { loadPreset }                 from './lib/preset-loader.js';
+import { runExistingAgentAudit }      from './lib/audit-agentic-existing.js';
 
 // ---------------------------------------------------------------------------
 // CLI argument parser
@@ -472,6 +473,23 @@ async function main() {
   await writeFile(join(dataDir, 'conversion-scan.json'), JSON.stringify(conversionScan, null, 2), 'utf-8');
   console.log('');
 
+  // ── Phase 4f: Agentic readiness check on the EXISTING site ──────────────
+  console.log('[Phase 4f] Checking agentic readiness on existing site...');
+  let existingAgentic = null;
+  try {
+    existingAgentic = await runExistingAgentAudit(opts.url);
+    if (existingAgentic.skipped) {
+      console.log(`  Skipped: ${existingAgentic.reason}`);
+    } else {
+      const icons = existingAgentic.results.map(r => r.pass ? '✓' : '✗').join(' ');
+      console.log(`  Agentic readiness: ${existingAgentic.fraction} [${icons}]`);
+    }
+    await writeFile(join(dataDir, 'agentic-existing.json'), JSON.stringify(existingAgentic, null, 2), 'utf-8');
+  } catch (err) {
+    console.warn(`  Agentic existing check failed (non-fatal): ${err.message}`);
+  }
+  console.log('');
+
   // ── Combined findings across all detector outputs ──────────────────────
   // Report shows objective counts only — no subjective composite "score."
   // Prospects can verify the numbers themselves by counting cards.
@@ -557,6 +575,7 @@ async function main() {
     dataDir,
     auditPageUrl: null,  // set after host step if needed; regen after host for public URL
     precall: opts.precall,
+    existingAgentic,
   });
   const { fullPath, summaryPath, precallPath } = reportPaths;
   console.log('');
