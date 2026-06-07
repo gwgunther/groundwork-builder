@@ -478,7 +478,7 @@ function sharedCss() {
 // Full report builder (audit-report.html)
 // ---------------------------------------------------------------------------
 
-function buildFullReport({ url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, findingsSummary = null, gbpMeta = null, diff = null }) {
+function buildFullReport({ url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, findingsSummary = null, gbpMeta = null, diff = null, existingAgentic = null }) {
   const runDate = formatDate(new Date().toISOString());
   const mobile  = pagespeed?.mobile  || null;
   const desktop = pagespeed?.desktop || null;
@@ -708,7 +708,7 @@ ${hero}
 
   <!-- ═══ TAB: Scorecard ═══════════════════════════════════════════════════ -->
   <div class="tab-panel active" id="tab-scorecard">
-    ${buildScorecardTab(mobile, desktop)}
+    ${buildScorecardTab(mobile, desktop, existingAgentic)}
   </div>
 
   <!-- ═══ TAB: What We Found / Before → After ════════════════════════════ -->
@@ -746,10 +746,60 @@ ${hero}
 }
 
 // ---------------------------------------------------------------------------
+// Agentic Readiness section (existing site — pre-build before-state)
+// ---------------------------------------------------------------------------
+
+function buildAgenticReadinessSection(existingAgentic) {
+  if (!existingAgentic || existingAgentic.skipped) return '';
+
+  const { results = [], passed, total, fraction } = existingAgentic;
+
+  const accentColor = passed === 0 ? 'var(--red)' : passed < total ? 'var(--amber)' : 'var(--green)';
+  const bgColor     = passed === 0 ? 'var(--danger-bg)' : passed < total ? 'var(--warning-bg)' : 'var(--success-bg)';
+
+  const rows = results.map(r => {
+    const icon  = r.pass ? '✓' : '✗';
+    const color = r.pass ? 'var(--green)' : 'var(--red)';
+    return `<tr>
+      <td style="padding:10px 14px;border:1px solid var(--border);font-weight:600;font-size:13px">${esc(r.title)}</td>
+      <td style="padding:10px 14px;border:1px solid var(--border);color:${color};font-weight:800;font-size:15px;text-align:center">${icon}</td>
+      <td style="padding:10px 14px;border:1px solid var(--border);font-size:12px;color:var(--text-dim)">${esc(r.detail || '')}</td>
+    </tr>`;
+  }).join('');
+
+  return `
+  <div style="margin-top:40px">
+    <div class="section-header">
+      <h2>AI &amp; Agent Readiness</h2>
+      <span class="section-note">Current site — before rebuild</span>
+    </div>
+    <div style="background:${bgColor};border-left:5px solid ${accentColor};border-radius:var(--radius);padding:18px 22px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:5px">Agentic browsing score</div>
+        <div style="font-family:var(--font);font-size:26px;font-weight:400;letter-spacing:-0.3px;color:var(--ink)">Your existing site scores <strong style="color:${accentColor}">${esc(fraction)}</strong> on AI-agent readiness checks.</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:6px">AI assistants like ChatGPT, Perplexity, and Google AI Overview use these signals to decide whether to surface your practice.</div>
+      </div>
+      <div style="font-size:42px;font-weight:800;font-family:var(--mono);color:${accentColor};line-height:1">${esc(fraction)}</div>
+    </div>
+    <table class="compare-table" style="margin-bottom:0">
+      <thead>
+        <tr>
+          <th style="width:30%">Check</th>
+          <th style="width:60px;text-align:center">Result</th>
+          <th>Detail</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <p class="source-note" style="margin-top:10px">Checked by fetching your live site. These checks mirror the Agentic Browsing criteria in Lighthouse 13.3+. After the Groundwork rebuild, your site is designed to score 4/4.</p>
+  </div>`;
+}
+
+// ---------------------------------------------------------------------------
 // Tab: Scorecard
 // ---------------------------------------------------------------------------
 
-function buildScorecardTab(mobile, desktop) {
+function buildScorecardTab(mobile, desktop, existingAgentic = null) {
   const categories = [
     {
       key: 'performance',
@@ -836,7 +886,9 @@ function buildScorecardTab(mobile, desktop) {
   ${metricsBreakdown}
 
   <p class="source-note">All metrics sourced from Google PageSpeed Insights API v5. Mobile scores are the primary signal Google uses for search ranking.</p>
-  `}`;
+  `}
+
+  ${buildAgenticReadinessSection(existingAgentic)}`;
 }
 
 /**
@@ -1597,10 +1649,11 @@ export async function generateAuditReports(outputDir, {
   leadApiUrl = null,
   auditPageUrl = null,
   precall = false,
+  existingAgentic = null,
 } = {}) {
   await mkdir(outputDir, { recursive: true });
 
-  const shared = { url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, findingsSummary, gbpMeta, diff, screenshotFile };
+  const shared = { url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, findingsSummary, gbpMeta, diff, screenshotFile, existingAgentic };
 
   const baseName = outputFilename || (diff ? 'audit-report-after' : 'audit-report');
   const isAfterOnly = baseName === 'audit-report-after';
