@@ -32,6 +32,7 @@ import { runTrustScan }                 from './trust-scanner.js';
 import { runHostingScan }               from './hosting-scanner.js';
 import { runGbpScan }                   from './gbp-scanner.js';
 import { runConversionScan }            from './conversion-scanner.js';
+import { runAgenticScan }               from './agentic-scanner.js';
 import { diffFindings, summarizeDiff }  from './findings-diff.js';
 import { generateAuditReports }         from './audit-report-generator.js';
 import { enrichFinding }                from './findings.js';
@@ -158,6 +159,20 @@ export async function runRescan({ auditDir, previewUrl, skipGbp = false, placeId
   try { conversionScan = await runConversionScan(bronze); }
   catch { /* non-fatal */ }
 
+  // Agentic browsing (Lighthouse CLI + llms.txt) on the rebuilt preview
+  let agenticScan = { findings: [], summary: { critical: 0, warnings: 0, passed: 0 }, meta: {} };
+  try {
+    agenticScan = await runAgenticScan(previewUrl);
+    await writeFile(
+      join(dataDir, 'agentic-scan-after.json'),
+      JSON.stringify(agenticScan, null, 2),
+      'utf-8',
+    );
+    if (verbose) console.log(`[Rescan] Agentic: llms.txt ${agenticScan.meta?.llmsTxtStatus || '—'}`);
+  } catch (err) {
+    console.warn(`[Rescan] Agentic scan failed (non-fatal): ${err.message}`);
+  }
+
   // 5. Combine + diff
   const afterFindings = [
     ...techAudit.findings,
@@ -165,6 +180,7 @@ export async function runRescan({ auditDir, previewUrl, skipGbp = false, placeId
     ...hostingScan.findings,
     ...gbpScan.findings,
     ...conversionScan.findings,
+    ...agenticScan.findings,
   ];
   const diff = diffFindings(beforeFindings, afterFindings);
   const summary = summarizeDiff(diff);
@@ -219,6 +235,7 @@ export async function runRescan({ auditDir, previewUrl, skipGbp = false, placeId
       },
     },
     gbpMeta: gbpScan.meta || null,
+    agenticBrowsing: agenticScan.meta || null,
     diff: { summary, diff },
     outputFilename: 'audit-report-after',
   });

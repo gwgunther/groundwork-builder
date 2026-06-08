@@ -11,7 +11,7 @@
 
 import { writeFile, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { assembleAuditData } from './audit-data-assembler.js';
+import { assembleAuditData, buildAgenticBrowsing } from './audit-data-assembler.js';
 import { renderSalesAudit } from './sales-audit-renderer.js';
 import { renderBuildSpec } from './build-spec-renderer.js';
 
@@ -478,7 +478,7 @@ function sharedCss() {
 // Full report builder (audit-report.html)
 // ---------------------------------------------------------------------------
 
-function buildFullReport({ url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, findingsSummary = null, gbpMeta = null, diff = null, existingAgentic = null }) {
+function buildFullReport({ url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, findingsSummary = null, gbpMeta = null, diff = null, existingAgentic = null, agenticBrowsing = null }) {
   const runDate = formatDate(new Date().toISOString());
   const mobile  = pagespeed?.mobile  || null;
   const desktop = pagespeed?.desktop || null;
@@ -494,6 +494,7 @@ function buildFullReport({ url, practiceName, pagespeed, techAudit, aiAudit, scr
   const findingsTabLabel = diffMode ? 'Before → After' : 'What We Found';
   const findingsTabBadgeCount = diffMode ? diff.summary.counts.fixed : criticalCount;
   const findingsTabBadgeClass = diffMode ? 'badge-green' : 'badge';
+  const agenticIssue = agenticBrowsing?.llms_txt_status && agenticBrowsing.llms_txt_status !== 'good';
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -603,6 +604,24 @@ ${sharedCss()}
 .metric-threshold { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
 .source-note { font-size: 11px; color: var(--text-dim); font-style: italic; margin-top: 8px; }
 
+/* ── Agentic browsing tab ── */
+.agentic-status-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
+@media (max-width: 700px) { .agentic-status-grid { grid-template-columns: 1fr; } }
+.agentic-stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+.agentic-stat-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim); margin-bottom: 6px; }
+.agentic-stat-value { font-size: 20px; font-weight: 800; font-family: var(--mono); }
+.agentic-headline { font-size: 14px; line-height: 1.55; padding: 14px 18px; border-radius: var(--radius); margin-bottom: 20px; }
+.agentic-headline.agentic-warn { background: #FCF4E8; border: 1px solid #E8D4A8; color: var(--amber); }
+.agentic-headline.agentic-ok { background: var(--sage-tint); border: 1px solid var(--sage); color: var(--sage-dark); }
+.agentic-evidence { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 16px; }
+.agentic-evidence-head { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 10px 14px; background: var(--surface-2); border-bottom: 1px solid var(--border); color: var(--text-dim); }
+.agentic-issues { padding: 12px 14px 12px 28px; font-size: 13px; line-height: 1.5; }
+.agentic-issues li { margin-bottom: 6px; }
+.agentic-details { margin: 12px 0; border: 1px solid var(--border); border-radius: var(--radius); }
+.agentic-details summary { cursor: pointer; padding: 10px 14px; font-size: 12px; font-weight: 700; background: var(--surface-2); }
+.agentic-pre { margin: 0; padding: 12px 14px; font-family: var(--mono); font-size: 11px; line-height: 1.45; white-space: pre-wrap; word-break: break-word; background: #FAFAF8; max-height: 240px; overflow: auto; }
+.agentic-pre-good { background: var(--sage-tint); }
+
 /* ── Technical Findings ── */
 .findings-summary { background: var(--charcoal); color: var(--on-dark); border-radius: var(--radius); padding: 16px 22px; margin-bottom: 24px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
 .fs-stat { display: flex; align-items: center; gap: 8px; }
@@ -699,6 +718,7 @@ ${hero}
 
 <nav class="tab-nav">
   <button class="tab-btn active" data-tab="scorecard">Scorecard</button>
+  <button class="tab-btn" data-tab="agentic">AI Agent Readiness ${agenticIssue ? '<span class="badge">!</span>' : ''}</button>
   <button class="tab-btn" data-tab="findings">${esc(findingsTabLabel)} ${findingsTabBadgeCount > 0 ? `<span class="${findingsTabBadgeClass}">${findingsTabBadgeCount}</span>` : ''}</button>
   <button class="tab-btn" data-tab="content">Your Messaging</button>
   <button class="tab-btn" data-tab="build">What We'd Fix</button>
@@ -709,6 +729,11 @@ ${hero}
   <!-- ═══ TAB: Scorecard ═══════════════════════════════════════════════════ -->
   <div class="tab-panel active" id="tab-scorecard">
     ${buildScorecardTab(mobile, desktop, existingAgentic)}
+  </div>
+
+  <!-- ═══ TAB: AI Agent Readiness ════════════════════════════════════════ -->
+  <div class="tab-panel" id="tab-agentic">
+    ${buildAgenticTab(agenticBrowsing, techAudit)}
   </div>
 
   <!-- ═══ TAB: What We Found / Before → After ════════════════════════════ -->
@@ -925,6 +950,95 @@ function buildMobileSpeedBreakdown(mobile) {
   return `
   <div style="font-size:13px;font-weight:700;margin-bottom:14px;color:var(--ink)">Mobile speed breakdown <span style="font-size:11px;font-weight:400;color:var(--text-dim)">— measured by Google Lighthouse on a simulated phone</span></div>
   <div class="metrics-grid">${cards}</div>`;
+}
+
+// ---------------------------------------------------------------------------
+// Tab: AI Agent Readiness (llms.txt + Lighthouse agentic-browsing)
+// ---------------------------------------------------------------------------
+
+function buildAgenticTab(agentic, techAudit) {
+  if (!agentic && !techAudit) {
+    return `<div class="empty-state"><p>Agentic browsing audit was not run for this site.</p></div>`;
+  }
+
+  const status = agentic?.llms_txt_status || 'unknown';
+  const statusLabel = { absent: 'Missing', poor: 'Present but subpar', good: 'Good', unknown: 'Not checked' }[status] || status;
+  const statusColor = status === 'good' ? 'var(--green)' : status === 'unknown' ? 'var(--text-dim)' : 'var(--amber)';
+  const ratio = agentic?.pass_ratio;
+  const ratioStr = ratio ? `${ratio.passed}/${ratio.total} checks passing` : '—';
+  const ev = agentic?.llms_evidence || {};
+  const llmsFinding = (techAudit?.findings || []).find(f =>
+    f.id === 'no-llms-txt' || f.id === 'llms-txt-poor' || f.id === 'agent-accessibility-tree-poor'
+  );
+
+  const issues = (ev.issues || []).map(i => `<li>${esc(i)}</li>`).join('');
+  const flagged = (ev.flagged_lines || []).slice(0, 6).map(f =>
+    `<li><code>${esc(f.line)}</code> — ${esc(f.reason)}</li>`
+  ).join('');
+
+  const currentExcerpt = ev.current_excerpt
+    ? `<details class="agentic-details" open>
+        <summary>What your llms.txt looks like today</summary>
+        <pre class="agentic-pre">${esc(ev.current_excerpt)}</pre>
+      </details>`
+    : (status === 'absent'
+      ? `<p class="source-note">No file found at <a href="${esc(ev.verify_url || '')}" target="_blank">${esc(ev.verify_url || '/llms.txt')}</a></p>`
+      : '');
+
+  const recommended = ev.recommended_excerpt
+    ? `<details class="agentic-details">
+        <summary>What good looks like (Groundwork rebuild)</summary>
+        <pre class="agentic-pre agentic-pre-good">${esc(ev.recommended_excerpt)}</pre>
+      </details>`
+    : '';
+
+  const verify = ev.verify_url
+    ? `<p class="source-note">Verify yourself: <a href="${esc(ev.verify_url)}" target="_blank">${esc(ev.verify_url)}</a>${ev.lighthouse_note ? ` · Lighthouse: ${esc(ev.lighthouse_note)}` : ''}</p>`
+    : '';
+
+  const findingNote = llmsFinding?.benefit
+    ? `<div class="lighthouse-callout" style="margin-top:20px"><strong>Why this matters:</strong> ${esc(llmsFinding.benefit)}</div>`
+    : '';
+
+  return `
+  <div class="section-header">
+    <h2>AI Agent Readiness</h2>
+    <span class="section-note">${esc(agentic?.source || 'Lighthouse CLI + HTTP fetch')}</span>
+  </div>
+
+  <div class="lighthouse-callout">
+    <strong>What this measures:</strong> Google Lighthouse now includes an <em>Agentic Browsing</em> category — how well AI assistants (ChatGPT, Gemini, etc.) can read and navigate your site. The <code>llms.txt</code> file is the primary signal: a machine-readable summary of your practice that agents fetch before crawling.
+  </div>
+
+  <div class="agentic-status-grid">
+    <div class="agentic-stat-card">
+      <div class="agentic-stat-label">llms.txt status</div>
+      <div class="agentic-stat-value" style="color:${esc(statusColor)}">${esc(statusLabel)}</div>
+    </div>
+    <div class="agentic-stat-card">
+      <div class="agentic-stat-label">Lighthouse agentic checks</div>
+      <div class="agentic-stat-value">${esc(ratioStr)}</div>
+    </div>
+    ${agentic?.fractional_score != null ? `<div class="agentic-stat-card">
+      <div class="agentic-stat-label">Agentic score</div>
+      <div class="agentic-stat-value">${Math.round(agentic.fractional_score * 100)}</div>
+    </div>` : ''}
+  </div>
+
+  ${agentic?.headline ? `<p class="agentic-headline ${status === 'good' ? 'agentic-ok' : 'agentic-warn'}">${esc(agentic.headline)}</p>` : ''}
+
+  ${issues || flagged ? `<div class="agentic-evidence">
+    <div class="agentic-evidence-head">llms.txt issues</div>
+    ${issues ? `<ul class="agentic-issues">${issues}</ul>` : ''}
+    ${flagged ? `<ul class="agentic-issues">${flagged}</ul>` : ''}
+  </div>` : ''}
+
+  ${currentExcerpt}
+  ${recommended}
+  ${verify}
+  ${findingNote}
+
+  <p class="source-note">Agentic browsing requires Lighthouse CLI (not PageSpeed Insights API). llms.txt is also fetched directly over HTTP to distinguish missing files from subpar content.</p>`;
 }
 
 // ---------------------------------------------------------------------------
@@ -1644,6 +1758,7 @@ export async function generateAuditReports(outputDir, {
   bronze = null,
   auditData = null,
   vendor = null,
+  agenticBrowsing = null,
   dataDir = null,
   slug = null,
   leadApiUrl = null,
@@ -1653,7 +1768,7 @@ export async function generateAuditReports(outputDir, {
 } = {}) {
   await mkdir(outputDir, { recursive: true });
 
-  const shared = { url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, findingsSummary, gbpMeta, diff, screenshotFile, existingAgentic };
+  let shared = { url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, findingsSummary, gbpMeta, diff, screenshotFile, existingAgentic, agenticBrowsing: null };
 
   const baseName = outputFilename || (diff ? 'audit-report-after' : 'audit-report');
   const isAfterOnly = baseName === 'audit-report-after';
@@ -1679,6 +1794,7 @@ export async function generateAuditReports(outputDir, {
       aiAudit,
       findingsSummary,
       vendor,
+      agenticBrowsing,
     });
 
     const auditDataJson = JSON.stringify(resolvedAuditData, null, 2);
@@ -1697,11 +1813,20 @@ export async function generateAuditReports(outputDir, {
       writeFile(buildSpecPath, buildSpecHtml, 'utf-8'),
     );
 
+    shared = { ...shared, agenticBrowsing: resolvedAuditData?.agentic_browsing || null };
+
     if (precall) {
       const { renderPrecallBrief } = await import('./precall-audit-renderer.js');
       const precallPath = resolve(outputDir, 'precall-brief.html');
       writes.push(writeFile(precallPath, renderPrecallBrief(resolvedAuditData), 'utf-8'));
     }
+  }
+
+  if (isAfterOnly && agenticBrowsing && !shared.agenticBrowsing) {
+    shared = {
+      ...shared,
+      agenticBrowsing: buildAgenticBrowsing(agenticBrowsing, techAudit?.findings || []),
+    };
   }
 
   const fullHtml = buildFullReport(shared);

@@ -380,6 +380,23 @@ async function main() {
   }
   console.log('');
 
+  // ── Phase 3b: Agentic browsing (Lighthouse CLI) ───────────────────────
+  console.log('[Phase 3b] Running agentic-browsing audit (Lighthouse CLI)...');
+  let agenticScan = { findings: [], summary: { critical: 0, warnings: 0, passed: 0 }, meta: null };
+  try {
+    const { runAgenticScan } = await import('./lib/agentic-scanner.js');
+    agenticScan = await runAgenticScan(opts.url);
+    const llmsStatus = agenticScan.meta?.llmsTxtStatus;
+    const llmsLabel = llmsStatus === 'good' ? 'good'
+      : llmsStatus === 'poor' ? 'present but subpar'
+        : llmsStatus === 'absent' ? 'missing' : 'not checked';
+    console.log(`  llms.txt: ${llmsLabel}`);
+    await writeFile(join(dataDir, 'agentic-scan.json'), JSON.stringify(agenticScan, null, 2), 'utf-8');
+  } catch (err) {
+    console.warn(`  Agentic-browsing audit failed (non-fatal): ${err.message}`);
+  }
+  console.log('');
+
   // ── Phase 4: Tech Audit ──────────────────────────────────────────────────
   console.log('[Phase 4] Running tech audit...');
   const techAudit = runTechAudit(bronze, pagespeed, { city: scraped?.address?.city || '' });
@@ -499,6 +516,7 @@ async function main() {
     ...hostingScan.findings,
     ...gbpScan.findings,
     ...conversionScan.findings,
+    ...agenticScan.findings,
   ];
   const findingsSummary = summarizeFindings(allFindings);
   console.log(`  Checks: ${findingsSummary.total} total · ${findingsSummary.passed} passed · ${findingsSummary.critical} critical · ${findingsSummary.warnings} warnings`);
@@ -572,6 +590,7 @@ async function main() {
     screenshotFile: screenshotPath ? 'homepage.png' : null,  // relative to outputDir
     bronze,
     vendor: vendorBlock,
+    agenticBrowsing: agenticScan.meta,
     dataDir,
     auditPageUrl: null,  // set after host step if needed; regen after host for public URL
     precall: opts.precall,

@@ -29,6 +29,7 @@ export async function loadAuditContext(auditDir) {
   const findings = await readJsonOrNull(join(dataDir, 'findings.json'));
   const gbp = await readJsonOrNull(join(dataDir, 'gbp-scan.json'));
   const vendor = await readJsonOrNull(join(dataDir, 'vendor.json'));
+  const agenticScan = await readJsonOrNull(join(dataDir, 'agentic-scan.json'));
 
   if (!findings?.findings?.length) return null;
 
@@ -63,6 +64,7 @@ export async function loadAuditContext(auditDir) {
     findingsSummary: findings.summary || null,
     gbpMeta: gbp?.meta || null,
     vendor,
+    agenticBrowsing: agenticScan?.meta || null,
     screenshotFile,
     techAudit: {
       findings: allFindings,
@@ -99,6 +101,7 @@ export async function refreshBaselineAuditArtifacts(auditDir, opts = {}) {
     aiAudit: ctx.aiAudit,
     findingsSummary: ctx.findingsSummary,
     vendor: ctx.vendor,
+    agenticBrowsing: ctx.agenticBrowsing,
   });
 
   return generateAuditReports(ctx.auditDir, {
@@ -114,6 +117,7 @@ export async function refreshBaselineAuditArtifacts(auditDir, opts = {}) {
     screenshotFile: ctx.screenshotFile,
     bronze: ctx.bronze,
     vendor: ctx.vendor,
+    agenticBrowsing: ctx.agenticBrowsing,
     auditData,
     dataDir: ctx.dataDir,
     leadApiUrl: opts.leadApiUrl,

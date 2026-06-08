@@ -6,6 +6,8 @@
 // the same score. The AI vision layer (vision-score.js) is the only
 // non-deterministic part of the system.
 
+import { auditLlmsTxt } from '../../pipeline/lib/llms-txt-analyzer.js';
+
 const PSI_BASE = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed';
 
 // ──────────────────────────────────────────────────────────────────────
@@ -52,6 +54,19 @@ export async function runLighthouse(url, { apiKey, strategy = 'mobile', timeoutM
     return { ok: false, error: e.message };
   } finally {
     clearTimeout(t);
+  }
+}
+
+/**
+ * HTTP fetch + content analysis for /llms.txt — fast signal for agent readiness.
+ * Full Lighthouse agentic-browsing runs in the audit pipeline; sourcing uses
+ * this lightweight check so we can score thousands of practices per metro.
+ */
+export async function runLlmsTxtAudit(url) {
+  try {
+    return await auditLlmsTxt(url);
+  } catch (e) {
+    return { status: 'unknown', error: e.message };
   }
 }
 
@@ -183,7 +198,7 @@ export function lighthouseBands(lighthouse) {
 // ──────────────────────────────────────────────────────────────────────
 // Quality Checklist — the ONE computed number, a UNIFORM count (no weights).
 // Each item is a pass/fail bar grounded in an external standard (Google
-// Lighthouse band) or a verifiable HTML fact. Score = how many pass (0–11).
+// Lighthouse band) or a verifiable HTML fact. Score = how many pass (0–12).
 // The FAILED items are the outreach pitch.
 //
 // Lighthouse band per item is chosen to be the band that DISCRIMINATES in this
@@ -216,16 +231,18 @@ export const QUALITY_CHECKS = [
     test: (c) => !!c.features?.hasViewportMeta },
   { key: 'no_dated_tech',  label: 'No dated tech',
     test: (c) => (c.features?.datedTechFlagCount || 0) === 0 },
+  { key: 'llms_txt_good',  label: 'llms.txt agent-ready',
+    test: (c) => c.llms?.status === 'good' },
 ];
 
-export const QUALITY_TOTAL = QUALITY_CHECKS.length; // 11
+export const QUALITY_TOTAL = QUALITY_CHECKS.length; // 12
 
 /**
  * Run the checklist. Returns the count passed, plus passed/failed label lists.
  * The failed labels feed the outreach pitch ("Missing Items").
  */
-export function computeChecklist({ lighthouse, features, vendorCategory } = {}) {
-  const ctx = { lighthouse, features, vendorCategory };
+export function computeChecklist({ lighthouse, features, vendorCategory, llms } = {}) {
+  const ctx = { lighthouse, features, vendorCategory, llms };
   const passed = [], failed = [];
   for (const chk of QUALITY_CHECKS) {
     (chk.test(ctx) ? passed : failed).push(chk.label);
@@ -328,4 +345,43 @@ export function classifyExemplar({ lighthouse, vendorCategory, isChain, reviewCo
   if ((rating || 0) < EXEMPLAR_MIN_RATING) reasons.push(`rating < ${EXEMPLAR_MIN_RATING}`);
   if ((reviewCount || 0) < EXEMPLAR_MIN_REVIEWS) reasons.push(`reviews < ${EXEMPLAR_MIN_REVIEWS}`);
   return { isExemplar: reasons.length === 0, failedOn: reasons };
+}
+
+// ──────────────────────────────────────────────────────────────────────
+// Research tiers — for the public gap report / best-practices pool.
+//
+//   Tier A — strict exemplar gates (classifyExemplar above): modern-stack,
+//            Lighthouse Good on a11y/bp/seo, established + well-liked.
+//   Tier B — strong sites the vendor fingerprint under-counts: independent,
+//            not a mill, Quality Score ≥ 9, same business floors as Tier A.
+//
+// "Top 1,000 dental websites" in marketing = Tier A ∪ Tier B (isResearchPool).
+// Tier A alone stays the checkbox for the tightest "gold standard" set.
+// ──────────────────────────────────────────────────────────────────────
+
+export const RESEARCH_TIER_B_MIN_QUALITY = 9;
+export const RESEARCH_TIER_B_MIN_REVIEWS = EXEMPLAR_MIN_REVIEWS;
+export const RESEARCH_TIER_B_MIN_RATING = EXEMPLAR_MIN_RATING;
+
+export function classifyResearchTier({
+  lighthouse, vendorCategory, isChain, reviewCount, rating, qualityScore,
+} = {}) {
+  const tierA = classifyExemplar({ lighthouse, vendorCategory, isChain, reviewCount, rating });
+  if (tierA.isExemplar) {
+    return { researchTier: 'A', isResearchPool: true, failedOn: [] };
+  }
+
+  const reasons = [];
+  if (isChain) reasons.push('chain/DSO');
+  if (vendorCategory === 'dental-mill') reasons.push('mill template');
+  if ((qualityScore ?? 0) < RESEARCH_TIER_B_MIN_QUALITY) {
+    reasons.push(`quality score < ${RESEARCH_TIER_B_MIN_QUALITY}`);
+  }
+  if ((rating || 0) < RESEARCH_TIER_B_MIN_RATING) reasons.push(`rating < ${RESEARCH_TIER_B_MIN_RATING}`);
+  if ((reviewCount || 0) < RESEARCH_TIER_B_MIN_REVIEWS) reasons.push(`reviews < ${RESEARCH_TIER_B_MIN_REVIEWS}`);
+
+  if (reasons.length === 0) {
+    return { researchTier: 'B', isResearchPool: true, failedOn: [] };
+  }
+  return { researchTier: null, isResearchPool: false, failedOn: reasons };
 }

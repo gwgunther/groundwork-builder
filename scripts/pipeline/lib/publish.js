@@ -173,6 +173,27 @@ export async function publish(opts = {}) {
     }
   }
 
+  // ── 4b. Agentic-browsing on the now-live preview (llms.txt gate) ──
+  let agenticAfter = null;
+  if (previewLive) {
+    try {
+      console.log(`  Running agentic-browsing audit on rebuilt site (${resolvedPreviewUrl})...`);
+      const { auditAgenticUrl } = await import('./agentic-scanner.js');
+      agenticAfter = await auditAgenticUrl(`https://${resolvedPreviewUrl}`);
+      const llmsLabel = agenticAfter.llmsTxtStatus === 'good' ? 'good'
+        : agenticAfter.llmsTxtStatus === 'poor' ? 'present but subpar'
+          : agenticAfter.llmsTxtStatus === 'absent' ? 'missing' : 'not checked';
+      console.log(`  ✓ Agentic — llms.txt: ${llmsLabel}`);
+      const { writeFile } = await import('node:fs/promises');
+      await writeFile(
+        resolve(pipelineDir, '03-agentic-after.json'),
+        JSON.stringify({ step: '03-agentic-after', timestamp: new Date().toISOString(), output: agenticAfter }, null, 2)
+      );
+    } catch (err) {
+      console.warn(`  ⚠ After agentic-browsing audit skipped: ${err.message}`);
+    }
+  }
+
   // ── 5. Rescan against the now-live preview ──
   // Re-runs every scanner against the deployed site, diffs vs original
   // findings.json, writes audit-report-after.html. Counts go to Airtable.
@@ -203,6 +224,8 @@ export async function publish(opts = {}) {
     mobilePerformance:      afterScores?.mobile ?? null,
     lighthouseAccessibility: afterScores?.accessibility ?? null,
     a11yReport,
+    llmsTxtPresent:         agenticAfter?.llmsTxtPresent ?? null,
+    llmsTxtStatus:          agenticAfter?.llmsTxtStatus ?? null,
   });
   results.shipGates = gateResult;
   results.handoffBlocked = !gateResult.passed;
@@ -212,6 +235,8 @@ export async function publish(opts = {}) {
       scores: {
         mobilePerformance: afterScores?.mobile ?? null,
         lighthouseAccessibility: afterScores?.accessibility ?? null,
+        llmsTxtPresent: agenticAfter?.llmsTxtPresent ?? null,
+        llmsTxtStatus:  agenticAfter?.llmsTxtStatus ?? null,
         axeCritical: a11yReport?.byImpact?.critical ?? 0,
         axeSerious:  a11yReport?.byImpact?.serious  ?? 0,
       },
@@ -221,7 +246,7 @@ export async function publish(opts = {}) {
   }
 
   if (gateResult.passed) {
-    console.log(`  ✓ Ship gates passed (mobile perf ≥ ${MOBILE_PERF_MIN}, Lighthouse a11y ≥ ${LIGHTHOUSE_A11Y_MIN}, 0 axe critical/serious)`);
+    console.log(`  ✓ Ship gates passed (mobile perf ≥ ${MOBILE_PERF_MIN}, Lighthouse a11y ≥ ${LIGHTHOUSE_A11Y_MIN}, llms.txt present, 0 axe critical/serious)`);
   } else {
     console.warn(`  ✗ Ship gates FAILED — handoff blocked (${gateResult.failures.length} issue(s)):`);
     for (const f of gateResult.failures) {

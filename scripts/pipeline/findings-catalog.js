@@ -83,6 +83,28 @@ export const FINDINGS_CATALOG = {
     fix_action: { kind: 'generator', target: 'image-roles' },
   },
 
+  // ── Agentic browsing (Lighthouse agentic-browsing category) ───────────
+  'no-llms-txt': {
+    weight: 1.2,
+    fixed_copy: 'Added llms.txt — a machine-readable summary for AI assistants.',
+    fix_action: { kind: 'generator', target: 'llms-txt' },
+  },
+  'llms-txt-poor': {
+    weight: 1.3,
+    fixed_copy: 'Replaced auto-generated llms.txt with a curated agent-readable summary.',
+    fix_action: { kind: 'generator', target: 'llms-txt' },
+  },
+  'agent-accessibility-tree-poor': {
+    weight: 1.0,
+    fixed_copy: 'Improved semantic HTML and labels so AI agents can navigate the site.',
+    fix_action: { kind: 'generator', target: 'astro-build' },
+  },
+  'agentic-browsing-unchecked': {
+    weight: 0.5,
+    fixed_copy: 'Agentic-browsing audit completed.',
+    fix_action: { kind: 'manual', target: 'agentic-browsing-audit' },
+  },
+
   // ── Content / trust ─────────────────────────────────────────────────────
   'no-testimonials': {
     weight: 1.4,

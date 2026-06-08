@@ -38,6 +38,7 @@ import { uploadScreenshot, gcsConfigured } from './lib/screenshots-gcs.js';
 import { uploadHtml, uploadCheckpoint } from './lib/html-gcs.js';
 import {
   runLighthouse,
+  runLlmsTxtAudit,
   detectHtmlFeatures,
   lighthouseBands,
   computeChecklist,
@@ -46,6 +47,7 @@ import {
   tierFor,
   quadrantFor,
   classifyExemplar,
+  classifyResearchTier,
   computeMetroThresholds,
 } from './lib/scoring.js';
 // NOTE: vision is intentionally NOT used in sourcing. Selection (prospects +
@@ -72,7 +74,7 @@ const ANCHOR_DIR = path.join(OUT_DIR, 'anchors');
 // Rubric version — bump when scoring weights or detectors change materially.
 // Stamped on every row so we can tell which rubric produced a given score
 // and re-audit stale rows after a change.
-const RUBRIC_VERSION = '2026.06.04-v2';
+const RUBRIC_VERSION = '2026.06.07-v4';
 
 // Vision is NOT used in sourcing. Selection (prospects AND exemplars) is fully
 // objective — see computeWebsiteQualityScore + classifyExemplar in scoring.js.
@@ -278,9 +280,14 @@ async function processPractice(place, ctx) {
     if (up) r.htmlGcsPath = up.gcsPath;
   }
 
-  // Lighthouse (skip for excluded rows + when disabled)
+  // Lighthouse + llms.txt (skip for excluded rows + when disabled)
   if (!chain.isChain && !SKIP_LIGHTHOUSE) {
-    r.lighthouse = await runLighthouse(r.websiteUrl, { apiKey: process.env.GOOGLE_PLACES_API_KEY });
+    const [lighthouse, llms] = await Promise.all([
+      runLighthouse(r.websiteUrl, { apiKey: process.env.GOOGLE_PLACES_API_KEY }),
+      runLlmsTxtAudit(r.websiteUrl),
+    ]);
+    r.lighthouse = lighthouse;
+    r.llms = llms;
   }
 
   // 6. Per-row OBJECTIVE scoring (no vision). The percentile-dependent parts
@@ -288,11 +295,11 @@ async function processPractice(place, ctx) {
   //    computed in finalizeScores() once the whole metro is in — see below.
   r.bands = lighthouseBands(r.lighthouse);
   const checklist = computeChecklist({
-    lighthouse: r.lighthouse, features: r.features, vendorCategory: r.vendorCategory,
+    lighthouse: r.lighthouse, features: r.features, vendorCategory: r.vendorCategory, llms: r.llms,
   });
   r.checklist = {
-    qualityScore: checklist.qualityScore,   // 0–11 passed
-    weaknessScore: checklist.weaknessScore, // 0–11 failed
+    qualityScore: checklist.qualityScore,   // 0–12 passed
+    weaknessScore: checklist.weaknessScore, // 0–12 failed
     total: checklist.total,
     missing: checklist.failed,              // = the outreach pitch
   };
@@ -377,10 +384,18 @@ function finalizeScores(rows) {
 
       const ex = classifyExemplar({
         lighthouse: r.lighthouse, vendorCategory: r.vendorCategory, isChain: r.isChain,
-        reviewCount: r.reviewCount, rating: r.rating, thresholds,
+        reviewCount: r.reviewCount, rating: r.rating,
+      });
+      const research = classifyResearchTier({
+        lighthouse: r.lighthouse, vendorCategory: r.vendorCategory, isChain: r.isChain,
+        reviewCount: r.reviewCount, rating: r.rating,
+        qualityScore: r.checklist?.qualityScore,
       });
       r.isExemplar = !isExcluded && ex.isExemplar;
       r.exemplarFailedOn = ex.failedOn;
+      r.researchTier = !isExcluded ? research.researchTier : null;
+      r.isResearchPool = !isExcluded && research.isResearchPool;
+      r.researchFailedOn = research.failedOn;
 
       r.scores = {
         qualityScore: r.checklist?.qualityScore ?? null,   // 0–11 (count, uniform)
@@ -535,7 +550,7 @@ async function main() {
       // Per-row objective recompute (checklist + bands) from cached inputs.
       r.bands = lighthouseBands(r.lighthouse);
       const checklist = computeChecklist({
-        lighthouse: r.lighthouse, features: r.features, vendorCategory: r.vendorCategory,
+        lighthouse: r.lighthouse, features: r.features, vendorCategory: r.vendorCategory, llms: r.llms,
       });
       r.checklist = {
         qualityScore: checklist.qualityScore, weaknessScore: checklist.weaknessScore,

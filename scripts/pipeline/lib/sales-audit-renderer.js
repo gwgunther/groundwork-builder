@@ -56,6 +56,17 @@ const SALES_CSS = `
   .scan-stat .n { font-family: var(--mono); font-size: 22px; font-weight: 600; color: var(--charcoal); line-height: 1; }
   .scan-stat .n.flag { color: var(--danger); }
   .scan-stat .l { font-family: var(--font-ui); font-size: 11px; color: var(--mid-gray); margin-top: 6px; line-height: 1.3; }
+  .agentic-line { font-family: var(--font-ui); font-size: 13px; line-height: 1.5; color: var(--charcoal); margin-top: 14px; padding: 12px 16px; background: var(--surface-2); border: 1px solid var(--border-light); border-radius: var(--radius); }
+  .agentic-line.warn { background: #FCF4E8; border-color: #E8D4A8; color: var(--warning); }
+  .agentic-line.ok { background: var(--sage-tint); border-color: var(--sage); color: var(--sage-darker); }
+  .llms-evidence { margin-top: 12px; border: 1px solid var(--border-light); border-radius: var(--radius); overflow: hidden; }
+  .llms-evidence-head { font-family: var(--font-ui); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 10px 14px; background: var(--surface-2); border-bottom: 1px solid var(--border-light); color: var(--mid-gray); }
+  .llms-issues { padding: 12px 14px; font-family: var(--font-ui); font-size: 13px; line-height: 1.5; }
+  .llms-issues li { margin: 0 0 6px 1.1em; }
+  .llms-pre { margin: 0; padding: 12px 14px; font-family: var(--mono); font-size: 11px; line-height: 1.45; white-space: pre-wrap; word-break: break-word; background: #FAFAF8; color: var(--charcoal); max-height: 220px; overflow: auto; }
+  .llms-pre.good { background: var(--sage-tint); }
+  .llms-verify { font-family: var(--font-ui); font-size: 11px; padding: 8px 14px 12px; color: var(--mid-gray); }
+  .llms-verify a { color: var(--sage-dark); }
   .finding { padding: 20px 0; border-bottom: 1px solid var(--border-light); }
   .finding-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
   .finding-num { font-family: var(--mono); font-size: 12px; color: var(--sage); }
@@ -140,6 +151,7 @@ export function renderSalesAudit(data, opts = {}) {
   const meta = data.meta || {};
   const scan = data.scan || {};
   const lh = data.lighthouse || {};
+  const agentic = data.agentic_browsing || {};
   const summaryFindings = (data.findings || [])
     .filter(f => f.show_in_summary)
     .sort((a, b) => (a.summary_rank || 99) - (b.summary_rank || 99));
@@ -196,6 +208,8 @@ export function renderSalesAudit(data, opts = {}) {
     <div class="scan-stat"><div class="n">${esc(scan.images_checked)}</div><div class="l">Images checked</div></div>
     <div class="scan-stat"><div class="n flag">${esc(scan.issues_found)}</div><div class="l">Issues found</div></div>
   </div>
+
+  ${agentic.headline ? `<p class="agentic-line ${agentic.llms_txt_status === 'good' ? 'ok' : 'warn'}">${esc(agentic.headline)}</p>` : ''}
 
   ${vendor.id && vendor.id !== 'unknown' ? `
   <div class="vendor-card">
@@ -343,6 +357,7 @@ function renderFinding(f, num) {
   const evidence = f.evidence_rows?.rows?.length
     ? renderEvidence(f.evidence_rows)
     : '';
+  const llmsBlock = f.llms_evidence ? renderLlmsFindingEvidence(f.llms_evidence) : '';
 
   return `<div class="finding">
     <div class="finding-head">
@@ -360,7 +375,46 @@ function renderFinding(f, num) {
         <div class="compare-text">${esc(f.consumer?.good || '')}</div>
       </div>
     </div>
+    ${llmsBlock}
     ${evidence}
+  </div>`;
+}
+
+function renderLlmsFindingEvidence(ev, opts = {}) {
+  if (!ev || (ev.status !== 'absent' && ev.status !== 'poor')) return '';
+
+  const issues = (ev.issues || []).map(i => `<li>${esc(i)}</li>`).join('');
+  const flagged = (ev.flagged_lines || []).slice(0, 4).map(f =>
+    `<li><code>${esc(f.line)}</code> — ${esc(f.reason)}</li>`
+  ).join('');
+
+  const current = ev.current_excerpt
+    ? `<details class="evidence" open>
+        <summary>What your llms.txt looks like today</summary>
+        <pre class="llms-pre">${esc(ev.current_excerpt)}</pre>
+      </details>`
+    : `<p class="llms-verify">No file found at <a href="${esc(ev.verify_url || '')}" target="_blank" rel="noopener">${esc(ev.verify_url || '/llms.txt')}</a></p>`;
+
+  const recommended = ev.recommended_excerpt
+    ? `<details class="evidence">
+        <summary>What good looks like (Groundwork rebuild)</summary>
+        <pre class="llms-pre good">${esc(ev.recommended_excerpt)}</pre>
+      </details>`
+    : '';
+
+  const verify = ev.verify_url
+    ? `<p class="llms-verify">Verify yourself: <a href="${esc(ev.verify_url)}" target="_blank" rel="noopener">${esc(ev.verify_url)}</a>${ev.lighthouse_note ? ` · Lighthouse: ${esc(ev.lighthouse_note)}` : ''}</p>`
+    : '';
+
+  const head = opts.compact ? '' : '<div class="llms-evidence-head">llms.txt evidence</div>';
+
+  return `<div class="llms-evidence">
+    ${head}
+    ${issues ? `<ul class="llms-issues">${issues}</ul>` : ''}
+    ${flagged ? `<ul class="llms-issues">${flagged}</ul>` : ''}
+    ${current}
+    ${recommended}
+    ${verify}
   </div>`;
 }
 

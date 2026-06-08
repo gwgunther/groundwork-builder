@@ -125,6 +125,57 @@ app.appendChild(kvBlock('scan', D.scan));
   b.appendChild(body); app.appendChild(b);
 }
 
+if (D.agentic_browsing) {
+  const ab = D.agentic_browsing;
+  const b = el('div','block');
+  b.appendChild(el('div','bh','agentic_browsing'));
+  const body = el('div','body');
+  const summaryGrid = el('div','kv');
+  for (const [k,v] of Object.entries({
+    source: ab.source,
+    llms_txt_status: ab.llms_txt_status,
+    llms_txt_present: ab.llms_txt_present,
+    pass_ratio: ab.pass_ratio ? ab.pass_ratio.passed+'/'+ab.pass_ratio.total : null,
+    fractional_score: ab.fractional_score,
+    headline: ab.headline,
+  })) {
+    summaryGrid.appendChild(el('div','k',esc(k)));
+    const d = el('div','v');
+    d.textContent = v==null?'':String(v);
+    summaryGrid.appendChild(d);
+  }
+  body.appendChild(summaryGrid);
+  if (ab.llms_evidence) {
+    body.appendChild(el('div','fsub','llms_evidence'));
+    const ev = ab.llms_evidence;
+    const evGrid = el('div','kv');
+    for (const [k,v] of Object.entries(ev)) {
+      if (k === 'current_excerpt' || k === 'recommended_excerpt') continue;
+      evGrid.appendChild(el('div','k',esc(k)));
+      const d = el('div','v');
+      if (Array.isArray(v)) d.textContent = v.join('; ');
+      else d.textContent = v==null?'':String(v);
+      evGrid.appendChild(d);
+    }
+    body.appendChild(evGrid);
+    if (ev.current_excerpt) {
+      body.appendChild(el('div','fsub','current_excerpt'));
+      const pre = el('pre','ftext soft');
+      pre.style.whiteSpace = 'pre-wrap';
+      pre.textContent = ev.current_excerpt;
+      body.appendChild(pre);
+    }
+    if (ev.recommended_excerpt) {
+      body.appendChild(el('div','fsub','recommended_excerpt'));
+      const pre = el('pre','ftext');
+      pre.style.whiteSpace = 'pre-wrap';
+      pre.textContent = ev.recommended_excerpt;
+      body.appendChild(pre);
+    }
+  }
+  b.appendChild(body); app.appendChild(b);
+}
+
 {
   const b = el('div','block');
   b.appendChild(el('div','bh','findings <span class="count">'+(D.findings?.length||0)+'</span>'));

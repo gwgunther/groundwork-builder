@@ -57,18 +57,42 @@ export function gcsConfigured() {
  * @param {Buffer} args.png
  * @returns {Promise<string|null>} signed URL, or null if GCS unavailable / failed
  */
+// Limit concurrent uploads — with concurrency=4 workers each pushing desktop +
+// mobile, unbounded parallel uploads saturate the connection and trip the
+// per-upload timeout. A small queue keeps throughput without the false-null
+// race where the timeout fires but the upload completes a moment later.
+const MAX_CONCURRENT_UPLOADS = 2;
+let _inFlight = 0;
+const _uploadQueue = [];
+
+function acquireUploadSlot() {
+  if (_inFlight < MAX_CONCURRENT_UPLOADS) {
+    _inFlight++;
+    return Promise.resolve();
+  }
+  return new Promise((resolve) => _uploadQueue.push(resolve));
+}
+
+function releaseUploadSlot() {
+  _inFlight--;
+  const next = _uploadQueue.shift();
+  if (next) { _inFlight++; next(); }
+}
+
 // Hard cap on any single upload so GCS slowness can't eat the per-practice
-// budget. If it can't finish in time, we proceed without the URL (backfillable
-// later via --sync-only); a stray background retry is harmless.
-const UPLOAD_TIMEOUT_MS = 25_000;
+// budget. Backfillable later via --sync-only.
+const UPLOAD_TIMEOUT_MS = 45_000;
+
 function withUploadTimeout(promise, label) {
   return Promise.race([
     promise,
-    new Promise((resolve) => setTimeout(() => {
-      console.warn(`  [gcs] upload timed out (${label})`);
-      resolve(null);
+    new Promise((_, reject) => setTimeout(() => {
+      reject(new Error(`upload timed out after ${UPLOAD_TIMEOUT_MS}ms`));
     }, UPLOAD_TIMEOUT_MS).unref()),
-  ]);
+  ]).catch((e) => {
+    console.warn(`  [gcs] ${e.message} (${label})`);
+    return null;
+  });
 }
 
 export async function uploadScreenshot({ placeId, kind, png }) {
@@ -76,18 +100,22 @@ export async function uploadScreenshot({ placeId, kind, png }) {
   if (!client || !png) return null;
 
   const objectPath = `${GCS_PREFIX}/${placeId}-${kind}.png`;
-  const work = (async () => {
-    try {
-      const file = client.bucket(BUCKET).file(objectPath);
-      await file.save(png, { metadata: { contentType: 'image/png' }, resumable: false });
-      const [url] = await file.getSignedUrl({
-        version: 'v4', action: 'read', expires: Date.now() + SIGNED_URL_TTL_MS,
-      });
-      return url;
-    } catch (e) {
-      console.warn(`  [screenshots-gcs] upload failed (${objectPath}): ${e.message}`);
-      return null;
-    }
-  })();
-  return withUploadTimeout(work, objectPath);
+  await acquireUploadSlot();
+  try {
+    return await withUploadTimeout((async () => {
+      try {
+        const file = client.bucket(BUCKET).file(objectPath);
+        await file.save(png, { metadata: { contentType: 'image/png' }, resumable: false });
+        const [url] = await file.getSignedUrl({
+          version: 'v4', action: 'read', expires: Date.now() + SIGNED_URL_TTL_MS,
+        });
+        return url;
+      } catch (e) {
+        console.warn(`  [screenshots-gcs] upload failed (${objectPath}): ${e.message}`);
+        return null;
+      }
+    })(), objectPath);
+  } finally {
+    releaseUploadSlot();
+  }
 }

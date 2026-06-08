@@ -11,6 +11,7 @@ import {
   CONSUMER_COPY,
   BUILD_HINTS,
 } from './audit-data-copy.js';
+import { previewLlmsTxt } from './generate-llms-txt.js';
 
 const SCHEMA = 'groundwork-audit/v1';
 const MAX_SUMMARY = 5;
@@ -26,6 +27,7 @@ const EVIDENCE_ROW_CAP = 200;
  * @param {object|null} opts.aiAudit
  * @param {object|null} opts.findingsSummary
  * @param {object|null} opts.vendor - from buildVendorBlock()
+ * @param {object|null} opts.agenticBrowsing - from runAgenticScan().meta
  */
 export function assembleAuditData(opts) {
   const {
@@ -38,6 +40,7 @@ export function assembleAuditData(opts) {
     aiAudit = null,
     findingsSummary = null,
     vendor = null,
+    agenticBrowsing = null,
   } = opts;
 
   const practiceName = scraped?.practice?.name || hostnameLabel(url);
@@ -50,6 +53,8 @@ export function assembleAuditData(opts) {
   );
   const summaryIds = pickSummaryIds(issueFindings, pagespeed);
 
+  const recommendedLlmsTxt = buildRecommendedLlmsPreview(scraped, url);
+
   const assembledFindings = findings.map(f =>
     transformFinding(f, {
       bronze,
@@ -59,6 +64,7 @@ export function assembleAuditData(opts) {
       audienceNoun,
       inSummary: summaryIds.has(f.id),
       summaryRank: summaryIds.get(f.id) ?? null,
+      recommendedLlmsTxt,
     }),
   );
 
@@ -95,6 +101,8 @@ export function assembleAuditData(opts) {
     },
 
     lighthouse: buildLighthouse(pagespeed, assembledFindings),
+
+    agentic_browsing: buildAgenticBrowsing(agenticBrowsing, assembledFindings, recommendedLlmsTxt),
 
     vendor: vendor || {
       id: 'unknown',
@@ -135,7 +143,7 @@ function pickSummaryIds(issueFindings, pagespeed) {
 }
 
 function transformFinding(f, ctx) {
-  const { bronze, pagespeed, city, audienceNoun, inSummary, summaryRank } = ctx;
+  const { bronze, pagespeed, city, audienceNoun, inSummary, summaryRank, recommendedLlmsTxt } = ctx;
   const entry = getCatalogEntry(f.id);
   const workstream = WORKSTREAMS[f.id] || categoryToWorkstream(f.category);
   const category = CATEGORY_LABELS[f.id] || f.title;
@@ -147,7 +155,12 @@ function transformFinding(f, ctx) {
     ? buildConsumer(f, { city, audienceNoun, pagespeed, measurement })
     : null;
 
-  return {
+  let llms_evidence = f.llmsEvidence || null;
+  if (llms_evidence && recommendedLlmsTxt) {
+    llms_evidence = { ...llms_evidence, recommended_excerpt: recommendedLlmsTxt };
+  }
+
+  const out = {
     id: f.id,
     category,
     workstream,
@@ -161,6 +174,8 @@ function transformFinding(f, ctx) {
     technical,
     evidence_rows,
   };
+  if (llms_evidence) out.llms_evidence = llms_evidence;
+  return out;
 }
 
 function duplicateTitlePageCount(bronze) {
@@ -215,6 +230,13 @@ function buildMeasurement(f, pagespeed, bronze) {
     if (m) {
       return { type: 'metric', value: `${m[1]}%`, label: 'profile complete', tone };
     }
+  }
+
+  if (f.id === 'no-llms-txt' && f.severity !== 'passed') {
+    return { type: 'status', value: 'Missing', tone };
+  }
+  if (f.id === 'llms-txt-poor' && f.severity !== 'passed') {
+    return { type: 'status', value: 'Subpar', tone };
   }
 
   const statusIds = new Set([
@@ -370,6 +392,59 @@ function evidenceValueColumn(id) {
   if (id === 'missing-meta') return 'meta';
   if (id === 'duplicate-titles' || id === 'missing-title' || id === 'title-no-city') return 'title';
   return 'detail';
+}
+
+function buildRecommendedLlmsPreview(scraped, url) {
+  if (!scraped?.practice?.name) return null;
+  try {
+    let domain = scraped.practice.domain || scraped.practice.url || url;
+    if (domain && !/^https?:\/\//i.test(domain) && url) {
+      try { domain = new URL(url).origin; } catch { domain = url; }
+    }
+    return previewLlmsTxt({
+      practice: { ...scraped.practice, url: domain, domain },
+      address: scraped.address || {},
+      doctor: scraped.doctor || {},
+      services: scraped.services || { offered: [] },
+    });
+  } catch {
+    return null;
+  }
+}
+
+export function buildAgenticBrowsing(agenticScan, findings, recommendedLlmsTxt = null) {
+  const llmsFinding = findings.find(f => f.id === 'llms-txt-poor' || f.id === 'no-llms-txt');
+  const status = agenticScan?.llmsTxtStatus
+    ?? agenticScan?.llms?.status
+    ?? (llmsFinding?.id === 'no-llms-txt' ? 'absent' : llmsFinding?.id === 'llms-txt-poor' ? 'poor' : null);
+
+  const ratio = agenticScan?.passRatio || null;
+  let headline = null;
+  if (status === 'absent') {
+    headline = 'No llms.txt — AI assistants cannot reliably discover your site content.';
+  } else if (status === 'poor') {
+    headline = 'llms.txt exists but does not follow best practices — AI assistants may get the wrong summary of your practice.';
+  } else if (status === 'good') {
+    headline = 'llms.txt is present and follows agent-readiness best practices.';
+  }
+
+  const llms_evidence = {
+    ...(agenticScan?.llms || {}),
+    ...(llmsFinding?.llms_evidence || {}),
+    status,
+    recommended_excerpt: recommendedLlmsTxt || llmsFinding?.llms_evidence?.recommended_excerpt || null,
+    verify_url: agenticScan?.llms?.verifyUrl || agenticScan?.llms?.url || llmsFinding?.llms_evidence?.verify_url,
+  };
+
+  return {
+    source: 'Lighthouse CLI + HTTP fetch',
+    llms_txt_status: status,
+    llms_txt_present: status === 'good',
+    pass_ratio: ratio,
+    fractional_score: agenticScan?.fractionalScore ?? null,
+    headline,
+    llms_evidence,
+  };
 }
 
 function buildLighthouse(pagespeed, findings) {

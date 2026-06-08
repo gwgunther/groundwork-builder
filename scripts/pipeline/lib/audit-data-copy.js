@@ -33,6 +33,9 @@ export const CATEGORY_LABELS = {
   'gbp-low-review-count': 'Google reviews',
   'using-third-party-domain': 'Domain ownership',
   'fractured-web-presence': 'Web presence',
+  'no-llms-txt':           'AI agent readiness',
+  'llms-txt-poor':         'AI agent readiness',
+  'agent-accessibility-tree-poor': 'AI agent readiness',
 };
 
 /** @type {Record<string, 'foundation'|'performance'|'content'|'conversion'>} */
@@ -72,6 +75,9 @@ export const WORKSTREAMS = {
   'gbp-website-mismatches-audit-url': 'conversion',
   'using-third-party-domain': 'foundation',
   'fractured-web-presence': 'foundation',
+  'no-llms-txt': 'content',
+  'llms-txt-poor': 'content',
+  'agent-accessibility-tree-poor': 'foundation',
 };
 
 /** Finding IDs that must never appear on the sales one-pager. */
@@ -114,6 +120,8 @@ export const CUSTOMER_IMPACT = {
   'gbp-no-description': 0.85,
   'gbp-incomplete-profile': 1.0,
   'gbp-low-review-count': 1.0,
+  'no-llms-txt': 1.15,
+  'llms-txt-poor': 1.35,
 };
 
 /**
@@ -144,6 +152,18 @@ export const CONSUMER_COPY = {
   'no-faq': {
     now: 'No pages use FAQ markup — the structured format Google reads to show questions directly in search results.',
     good: 'Service pages use FAQ markup, making them eligible for Google\'s expandable question results.',
+  },
+  'no-llms-txt': {
+    now: 'No llms.txt file — AI assistants cannot reliably discover what your practice offers or which pages to cite.',
+    good: 'A machine-readable llms.txt at your domain root lists your services, key pages, and contact info for ChatGPT, Gemini, and Perplexity.',
+  },
+  'llms-txt-poor': {
+    now: 'Your llms.txt exists but reads like a CMS dump — popup pages, plugin boilerplate, or missing services — so AI assistants get the wrong summary of your practice.',
+    good: 'A curated llms.txt with your practice name, a short summary, linked services, and contact info — no popups or internal CMS noise.',
+  },
+  'agent-accessibility-tree-poor': {
+    now: 'The accessibility tree AI agents use to navigate your site is malformed — unlabeled buttons and broken structure block reliable machine interaction.',
+    good: 'Semantic HTML and proper labels give AI assistants a clean map of your pages and forms.',
   },
   'no-testimonials': {
     now: 'No patient reviews or testimonials are visible on the site — new visitors have little social proof.',

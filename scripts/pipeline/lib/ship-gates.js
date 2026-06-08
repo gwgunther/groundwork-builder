@@ -5,6 +5,7 @@
  *   1. Mobile PageSpeed performance ≥ 90 (measured on live preview)
  *   2. axe-core: 0 critical + 0 serious violations (measured on built dist/)
  *   3. Lighthouse accessibility ≥ 90 on live preview (PageSpeed API)
+ *   4. llms.txt present and passes quality checks (HTTP + Lighthouse on live preview)
  */
 
 import { readFile, writeFile } from 'node:fs/promises';
@@ -18,9 +19,11 @@ export const LIGHTHOUSE_A11Y_MIN = 90;
  * @param {number|null} args.mobilePerformance     — Lighthouse perf, mobile
  * @param {number|null} args.lighthouseAccessibility — Lighthouse a11y, mobile
  * @param {object|null} args.a11yReport            — output of auditA11y()
+ * @param {boolean|null} args.llmsTxtPresent       — true only when llms.txt status is 'good'
+ * @param {'absent'|'poor'|'good'|null} [args.llmsTxtStatus]
  * @returns {{ passed: boolean, failures: object[] }}
  */
-export function evaluateShipGates({ mobilePerformance, lighthouseAccessibility, a11yReport } = {}) {
+export function evaluateShipGates({ mobilePerformance, lighthouseAccessibility, a11yReport, llmsTxtPresent, llmsTxtStatus } = {}) {
   const failures = [];
 
   if (mobilePerformance == null) {
@@ -71,6 +74,31 @@ export function evaluateShipGates({ mobilePerformance, lighthouseAccessibility, 
       category: 'Accessibility',
       field: 'Lighthouse accessibility',
       hint: `Lighthouse accessibility is ${lighthouseAccessibility}/100 (need ≥ ${LIGHTHOUSE_A11Y_MIN}). Address contrast, labels, and ARIA before handoff.`,
+    });
+  }
+
+  const llmsStatus = llmsTxtStatus ?? (llmsTxtPresent == null ? null : llmsTxtPresent ? 'good' : 'absent');
+
+  if (llmsStatus == null) {
+    failures.push({
+      id: 'llms-txt-missing-audit',
+      category: 'Agentic browsing',
+      field: 'llms.txt',
+      hint: 'Agentic-browsing audit did not run on the live preview. Re-run publish after the preview is live.',
+    });
+  } else if (llmsStatus === 'absent') {
+    failures.push({
+      id: 'llms-txt-absent',
+      category: 'Agentic browsing',
+      field: 'llms.txt',
+      hint: 'llms.txt is not reachable at the site root. Ensure public/llms.txt is generated and deployed before handoff.',
+    });
+  } else if (llmsStatus === 'poor') {
+    failures.push({
+      id: 'llms-txt-poor',
+      category: 'Agentic browsing',
+      field: 'llms.txt quality',
+      hint: 'llms.txt is present but fails agent-readiness checks. Review _pipeline/03-agentic-after.json and fix before handoff.',
     });
   }
 

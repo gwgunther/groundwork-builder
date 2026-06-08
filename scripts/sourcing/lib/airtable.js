@@ -91,6 +91,15 @@ export const TABLE_SCHEMA = {
         { name: 'Poor', color: 'redBright' },
       ] },
     })),
+    { name: 'llms.txt Status', type: 'singleSelect',
+      options: { choices: [
+        { name: 'good', color: 'greenBright' },
+        { name: 'poor', color: 'yellowBright' },
+        { name: 'absent', color: 'redBright' },
+        { name: 'unknown', color: 'grayBright' },
+      ] },
+    },
+    { name: 'llms.txt URL', type: 'url' },
     { name: 'Has HTTPS', type: 'checkbox', options: { icon: 'check', color: 'greenBright' } },
     { name: 'Has Viewport Meta', type: 'checkbox', options: { icon: 'check', color: 'greenBright' } },
     { name: 'Has Schema.org', type: 'checkbox', options: { icon: 'check', color: 'greenBright' } },
@@ -123,8 +132,14 @@ export const TABLE_SCHEMA = {
       options: { choices: [
         { name: 'Severe', color: 'redBright' }, { name: 'Moderate', color: 'orangeBright' }, { name: 'Minor', color: 'grayBright' },
       ] } },
-    { name: 'Is Exemplar', type: 'checkbox', options: { icon: 'star', color: 'yellowBright' } }, // top-site for best-practices
-    { name: 'Exemplar Blocked By', type: 'singleLineText' }, // why it's not an exemplar (if applicable)
+    { name: 'Is Exemplar', type: 'checkbox', options: { icon: 'star', color: 'yellowBright' } }, // Tier A — strict gold standard
+    { name: 'Exemplar Blocked By', type: 'singleLineText' }, // why it's not Tier A (if applicable)
+    { name: 'Research Tier', type: 'singleSelect',
+      options: { choices: [
+        { name: 'A', color: 'yellowBright' }, { name: 'B', color: 'greenBright' },
+      ] } }, // A = strict exemplar · B = strong non-mill (report pool)
+    { name: 'Is Research Pool', type: 'checkbox', options: { icon: 'check', color: 'greenBright' } }, // Tier A ∪ B
+    { name: 'Research Blocked By', type: 'singleLineText' },
     { name: 'Tier', type: 'singleSelect',
       options: { choices: [
         { name: 'A', color: 'redBright' }, { name: 'B', color: 'orangeBright' },
@@ -367,6 +382,8 @@ export function recordToFields(p) {
     'Accessibility Band': p.bands?.accessibility || null,
     'Best-Practices Band': p.bands?.bestPractices || null,
     'SEO Band': p.bands?.seo || null,
+    'llms.txt Status': p.llms?.status || null,
+    'llms.txt URL': p.llms?.url || null,
     'Has HTTPS': !!p.features?.hasHttps,
     'Has Viewport Meta': !!p.features?.hasViewportMeta,
     'Has Schema.org': !!p.features?.hasSchemaOrg,
@@ -387,6 +404,9 @@ export function recordToFields(p) {
     'Weakness Tier': p.scores?.weakTier || null,
     'Is Exemplar': !!p.isExemplar,
     'Exemplar Blocked By': (p.exemplarFailedOn || []).join(', '),
+    'Research Tier': p.researchTier || null,
+    'Is Research Pool': !!p.isResearchPool,
+    'Research Blocked By': (p.researchFailedOn || []).join(', '),
     'Tier': p.scores?.tier || null,
     'Quadrant': p.scores?.quadrant || null,
     'Status': p.status || 'new',

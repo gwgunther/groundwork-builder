@@ -970,6 +970,15 @@ async function main() {
     },
   });
 
+  // 3f — llms.txt for AI agent discoverability (Lighthouse agentic-browsing)
+  try {
+    const { generateLlmsTxt } = await import('./lib/generate-llms-txt.js');
+    const llms = await generateLlmsTxt(merged, outputDir);
+    console.log(`  Wrote llms.txt (${llms.bytes} bytes)`);
+  } catch (err) {
+    console.warn(`  llms.txt generation failed (non-fatal): ${err.message}`);
+  }
+
   console.log('');
 
   // -----------------------------------------------------------------------
@@ -1166,11 +1175,8 @@ async function main() {
   }
 
   // -----------------------------------------------------------------------
-  // Phase 4.66: Lighthouse Agentic Browsing audit
+  // Phase 4.66: Agentic Browsing audit (deterministic file/HTML checks)
   // -----------------------------------------------------------------------
-  // Deterministic pass/fail check for the 4 Lighthouse 13.3+ criteria:
-  //   llms.txt · WebMCP tools · nav ARIA · CLS (img dimensions proxy)
-  // Zero AI cost. Runs even when build was skipped (partial checks).
   if (stats.buildSuccess || stats.agentFilesGenerated) {
     console.log('[Phase 4.66] Agentic Browsing audit...');
     const agenticStart = Date.now();
@@ -1196,14 +1202,34 @@ async function main() {
   }
 
   // -----------------------------------------------------------------------
-  // Phase 4.67: AI Citability audit
+  // Phase 4.67: Lighthouse agentic-browsing CLI (live preview of dist/)
   // -----------------------------------------------------------------------
-  // Prompts Claude (+ optionally OpenAI and Gemini) with a local-search
-  // query for the practice and checks whether the LLM recommends it.
-  // Uses claude-haiku to keep cost negligible (~$0.001/run).
-  // OpenAI and Gemini checks are skipped unless their API keys are set.
+  if (stats.buildSuccess) {
+    console.log('[Phase 4.67] Agentic-browsing audit (Lighthouse CLI)...');
+    const lhAgenticStart = Date.now();
+    try {
+      const { runAgenticBrowsingAuditOnProject } = await import('./lib/agentic-browsing-audit.js');
+      const agenticLhResult = await runAgenticBrowsingAuditOnProject(outputDir);
+      stats.agenticLhReport = agenticLhResult;
+      const ratio = agenticLhResult.passRatio;
+      const llmsLabel = agenticLhResult.llmsTxtStatus === 'good' ? 'good'
+        : agenticLhResult.llmsTxtStatus === 'poor' ? 'present but subpar'
+          : agenticLhResult.llmsTxtStatus === 'absent' ? 'missing' : 'not checked';
+      console.log(`  llms.txt: ${llmsLabel}${ratio ? ` · checks ${ratio.passed}/${ratio.total}` : ''}`);
+      await artifacts.writeStep('11c-agentic-browsing', { output: agenticLhResult }, lhAgenticStart);
+      console.log('');
+    } catch (err) {
+      console.warn(`  Agentic-browsing audit failed: ${err.message}`);
+      stats.agenticLhReport = null;
+      console.log('');
+    }
+  }
+
+  // -----------------------------------------------------------------------
+  // Phase 4.68: AI Citability audit
+  // -----------------------------------------------------------------------
   if (process.env.ANTHROPIC_API_KEY) {
-    console.log('[Phase 4.67] AI Citability audit...');
+    console.log('[Phase 4.68] AI Citability audit...');
     const citStart = Date.now();
     try {
       const { runAiCitabilityAudit } = await import('./lib/audit-ai-citability.js');

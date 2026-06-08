@@ -16,7 +16,9 @@ export function formatPhone(digits) {
 }
 
 export function esc(str) {
-  return String(str || '').replace(/'/g, "\\'").replace(/\\/g, '\\\\');
+  // Backslashes first, then quotes — reversing the order double-escapes apostrophes
+  // (e.g. Bachelor's → Bachelor\\'s) and breaks generated site.ts.
+  return String(str || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 }
 
 export function mostFrequent(arr) {
