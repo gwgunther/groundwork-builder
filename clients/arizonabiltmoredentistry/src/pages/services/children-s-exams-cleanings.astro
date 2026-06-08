@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Children's Exams & Cleanings",
+  "description": "Going to the dentist for the first time can be scary. That's why at Arizona Biltmore Dentistry, we specialize in pediatric dentistry to make a child's first visit as easy as possible.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Arizona Biltmore Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Phoenix"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Children's Exams & Cleanings Phoenix | ${site.name}`}
+  description="Going to the dentist for the first time can be scary. That's why at Arizona Biltmore Dentistry, we specialize in pediatric dentistry to make a child's first visit as easy as possible."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Children's Exams &amp; Cleanings
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Going to the dentist for the first time can be scary. That's why at Arizona Biltmore Dentistry, we specialize in pediatric dentistry to make a child's first visit as easy as possible.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">According to the American Academy of Pediatric Dentistry, kids should visit a dentist when their first tooth comes in or no later than their first birthday. Early visits establish healthy habits, allow the team to monitor development, and help children feel at ease in a dental setting — so that care never becomes something to fear. At Arizona Biltmore Dentistry, we welcome patients from their very first tooth through adolescence and beyond.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Reserve Your Child's Appointment</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>First visit includes a comprehensive oral exam with a risk assessment for cavities to identify risk factors and early signs of dental decay.</p>
+      <p>Parents are guided on the best way to encourage healthy oral hygiene habits at home.</p>
+      <p>Team is trained in the unique needs of infants, children and adolescents, including children with special needs.</p>
+      <p>Children will never be pressured into a dental cleaning if they become anxious or afraid.</p>
+    </div>
+  </section>
+</BaseLayout>

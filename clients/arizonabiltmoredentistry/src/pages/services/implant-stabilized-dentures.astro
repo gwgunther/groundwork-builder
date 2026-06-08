@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Implant-Stabilized Dentures",
+  "description": "Dentures anchored in place using implant posts inserted into the jaw bone, providing a more permanent and stable solution than traditional dentures.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Arizona Biltmore Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Phoenix"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Implant-Stabilized Dentures Phoenix | ${site.name}`}
+  description="Dentures anchored in place using implant posts inserted into the jaw bone, providing a more permanent and stable solution than traditional dentures."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Implant-Stabilized Dentures
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Dentures anchored in place using implant posts inserted into the jaw bone, providing a more permanent and stable solution than traditional dentures.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Implant-stabilized dentures combine the comprehensive coverage of a full denture with the security of dental implant anchoring. At Arizona Biltmore Dentistry, this option is recommended for patients who want a stable, well-fitting restoration without the movement or adhesive dependence of a conventional removable denture. Implants are placed to support and retain the denture, improving both comfort and function.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Anchored in place using screw-like posts inserted into the jaw bone for stabilization.</p>
+      <p>No slipping, sliding, or sticky adhesives required.</p>
+      <p>All-on-4® denture support is available, completely replacing an entire arch of teeth with only four implants.</p>
+      <p>For qualifying patients, All-On-4 implants can be ready for immediate use.</p>
+    </div>
+  </section>
+</BaseLayout>

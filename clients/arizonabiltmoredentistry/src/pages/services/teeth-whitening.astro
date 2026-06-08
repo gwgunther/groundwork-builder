@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Teeth Whitening in Phoenix, AZ",
+  "description": "Get the whiter, brighter, beautiful smile you always wanted at Arizona Biltmore Dentistry.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Arizona Biltmore Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Phoenix"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Teeth Whitening Phoenix | ${site.name}`}
+  description="Get the whiter, brighter, beautiful smile you always wanted at Arizona Biltmore Dentistry."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Teeth Whitening in Phoenix, AZ
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Get the whiter, brighter, beautiful smile you always wanted at Arizona Biltmore Dentistry.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Our natural teeth are meant to be white, bright, and attractive. But over the years, the color of our enamel shifts — stained by coffee, tea, wine, and the passage of time. At Arizona Biltmore Dentistry, professional teeth whitening is available as an in-office treatment or a custom take-home program, both using professional-grade whitening agents that deliver results store-bought products simply cannot match.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Reserve Your Appointment</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>In-Office Teeth Whitening Treatment comes with custom trays fit to your smile and an extra tube of whitening bleach for you to bring home for touch-ups.</p>
+      <p>Take-Home Teeth Whitening Trays are available for patients who prefer to avoid office visits.</p>
+      <p>In as little as an hour, in-office services can remove years of stains and discoloration.</p>
+      <p>Custom-made whitening trays and professional-strength gel can be used in the comfort of your own home.</p>
+      <p>Impressions of the teeth are taken in-office and sent to the lab to have custom whitening trays created.</p>
+      <p>When used with custom trays at home, results can last for years.</p>
+      <p>Any type of teeth whitening can cause teeth to feel temporarily more sensitive; strategies have been created to reduce discomfort.</p>
+      <p>Professional whitening uses state-of-the-art professional strength whitening formulas from trusted sources that adhere to top safety standards.</p>
+    </div>
+  </section>
+</BaseLayout>

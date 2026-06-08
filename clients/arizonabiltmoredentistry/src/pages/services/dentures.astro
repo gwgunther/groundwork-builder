@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Full & Partial Dentures in Phoenix, AZ",
+  "description": "Arizona Biltmore Dentistry can restore your smile with All-On-4 dentures, implant-stabilized dentures, and more.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Arizona Biltmore Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Phoenix"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Dentures Phoenix | ${site.name}`}
+  description="Arizona Biltmore Dentistry can restore your smile with All-On-4 dentures, implant-stabilized dentures, and more."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Full &amp; Partial Dentures in Phoenix, AZ
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Arizona Biltmore Dentistry can restore your smile with All-On-4 dentures, implant-stabilized dentures, and more.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">At Arizona Biltmore Dentistry, we offer fully customized dentures that can restore your smile and return you to confident daily living. Whether you are missing several teeth or a full arch, our team will evaluate your situation and recommend the denture solution best suited to your needs — from traditional removable appliances to implant-supported options that offer greater stability and comfort.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Traditional dentures are oral prostheses made of gum-colored acrylic and false teeth.</p>
+      <p>Dentures for the bottom arch lay comfortably in place on the floor of the mouth; top arch dentures use a dental adhesive to stay in place.</p>
+      <p>Dentures come in both full and partial options.</p>
+      <p>Partial dentures can fill gaps for patients missing a large cluster of teeth but still having some remaining natural teeth.</p>
+      <p>Implant-supported dentures are anchored in place using screw-like posts inserted into the jaw bone for stabilization.</p>
+      <p>All-on-4® denture support completely replaces an entire arch of teeth with only four implants.</p>
+      <p>For qualifying patients, All-On-4 implants can be ready for immediate use, whereas traditional implants can take anywhere from six months to a year to heal.</p>
+    </div>
+  </section>
+</BaseLayout>

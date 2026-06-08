@@ -1,0 +1,57 @@
+---
+/**
+ * Doctor Intro Minimal Text — No portrait. Pure typography.
+ * Name as large design element, bio in 2-column layout.
+ */
+import type { DoctorIntroContent } from '../types';
+import { designDNA } from '../../../config/design-dna';
+import { resolveTokens } from '../token-utils';
+
+const { content } = Astro.props;
+
+const tokens = (designDNA as any).designTokens ?? {};
+const t = resolveTokens(tokens);
+
+const bioParagraphs = content.bio ? content.bio.split('\n\n').filter(Boolean) : [];
+---
+
+<section
+  data-section="doctor-intro"
+  class={`bg-brand-light ${t.spacingClass}`}
+>
+  <div class={`${t.containerClass} max-w-4xl`}>
+
+    <!-- Eyebrow -->
+    {content.eyebrow && (
+      <span class={t.eyebrowClass}>{content.eyebrow}</span>
+    )}
+
+    <!-- Name — large typographic element -->
+    <h2 class="font-serif text-4xl md:text-6xl font-bold text-neutral-dark leading-tight">
+      {content.name}
+    </h2>
+
+    <!-- Credentials -->
+    <p class="text-brand-primary text-sm font-bold uppercase tracking-widest mt-2 mb-8">
+      {content.credentials}
+    </p>
+
+    <!-- Decorative rule -->
+    <div class="w-16 h-1 bg-brand-primary mb-8" aria-hidden="true"></div>
+
+    <!-- Bio — 2 columns on desktop -->
+    {bioParagraphs.length > 0 && (
+      <div class="md:columns-2 gap-12 font-sans text-neutral-mid text-base leading-relaxed space-y-4 mb-10">
+        {bioParagraphs.map((para) => (
+          <p class="break-inside-avoid">{para}</p>
+        ))}
+      </div>
+    )}
+
+    <!-- CTA -->
+    <a href={content.ctaHref} class={t.btnPrimary}>
+      {content.ctaLabel}
+    </a>
+
+  </div>
+</section>

@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "All-on-4 in Phoenix",
+  "description": "Are you considering dental implants? You may want to consider All-on-4, a faster way to replace all of your teeth. Give us a call today to schedule your consultation.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Arizona Biltmore Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Phoenix"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`All-on-4 Phoenix | ${site.name}`}
+  description="Are you considering dental implants? You may want to consider All-on-4, a faster way to replace all of your teeth. Give us a call today to schedule your consultation."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      All-on-4 in Phoenix
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Are you considering dental implants? You may want to consider All-on-4, a faster way to replace all of your teeth. Give us a call today to schedule your consultation.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Arizona Biltmore Dentistry provides innovative full mouth dental implant therapy known as All-on-4 — a comfortable, secure, and attractive way to replace all of your missing teeth. All-on-4 treatment utilizes four strategically placed implants to support a full-arch restoration that is permanently affixed in place. There are no bulky plates across the roof of your mouth, no appliances to remove at night. Everything is naturally designed and anchored to your jaw, allowing you to eat, speak, and live without the limitations of conventional dentures.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Completely replaces an entire arch of teeth with only four implants.</p>
+      <p>For qualifying patients, the All-On-4 implant process is much shorter than its traditional counterpart.</p>
+      <p>In some cases, All-On-4 implants can be ready for immediate use.</p>
+      <p>Traditional implants can take anywhere from six months to a year to heal in comparison.</p>
+    </div>
+  </section>
+</BaseLayout>

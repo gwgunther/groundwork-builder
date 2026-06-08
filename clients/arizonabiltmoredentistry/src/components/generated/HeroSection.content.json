@@ -1,0 +1,16 @@
+{
+  "variant": "split",
+  "eyebrow": "Complete care. One practice. Camelback Road.",
+  "headline": "Phoenix's Premier Dentistry Near the Biltmore",
+  "subheadline": "Arizona Biltmore Dentistry delivers comprehensive, personalized dental care steps from the iconic Biltmore corridor — from routine cleanings to full smile transformations.",
+  "primaryCta": {
+    "label": "Schedule Your Appointment",
+    "href": "/schedule"
+  },
+  "secondaryCta": {
+    "label": "Explore Our Services",
+    "href": "/services"
+  },
+  "phone": "(602) 957-8200",
+  "hasImage": true
+}

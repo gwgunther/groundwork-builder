@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Brushing & Flossing Instruction",
+  "description": "Oral hygiene instruction for pediatric patients and their parents on proper brushing and flossing techniques.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Arizona Biltmore Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Phoenix"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Brushing & Flossing Instruction Phoenix | ${site.name}`}
+  description="Oral hygiene instruction for pediatric patients and their parents on proper brushing and flossing techniques."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Brushing &amp; Flossing Instruction
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Oral hygiene instruction for pediatric patients and their parents on proper brushing and flossing techniques.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Effective home care is the foundation of lasting oral health. At Arizona Biltmore Dentistry, our clinical team takes time at each preventive visit to review brushing and flossing technique — ensuring every patient, at every age, has the skills and tools to maintain their smile between appointments.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Reserve Your Appointment</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Parents are guided on the best way to encourage healthy oral hygiene habits at home.</p>
+      <p>Team also advises on how to be on the lookout for dental and developmental concerns associated with thumbsucking or pacifier use.</p>
+    </div>
+  </section>
+</BaseLayout>

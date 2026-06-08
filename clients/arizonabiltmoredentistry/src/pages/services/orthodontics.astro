@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Orthodontics in Phoenix, AZ",
+  "description": "Your smile is an important part of your oral health. Our team can help you regain your confidence.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Arizona Biltmore Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Phoenix"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Orthodontics Phoenix | ${site.name}`}
+  description="Your smile is an important part of your oral health. Our team can help you regain your confidence."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Orthodontics in Phoenix, AZ
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Your smile is an important part of your oral health. Our team can help you regain your confidence.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Crooked, crowded, or misaligned teeth — and the bite issues that accompany them — affect both appearance and function. At Arizona Biltmore Dentistry, orthodontic treatment is available for adults and teens through clear aligner systems including Invisalign, ClearCorrect, and CandidPro. Treatment is planned digitally, and care is delivered in-office without the need for a separate orthodontist referral.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Healthy teeth can be moved at any age; adults account for one in every five orthodontic patients.</p>
+      <p>Crooked teeth or spaces between teeth are hard to keep clean and healthy.</p>
+      <p>Improperly aligned teeth and jaws can lead to tooth decay, periodontal disease, jaw joint issues, and have even been linked to heart problems.</p>
+      <p>Misalignments have been known to cause eroded tooth enamel, difficulty in chewing and/or speaking, and excess stress on supporting bone and gum tissue.</p>
+      <p>Clear aligners and ClearCorrect™ allow patients to straighten teeth without noticeable bars and brackets of traditional metal, ceramic, or lingual braces.</p>
+      <p>Benefits of aligner appliances include clear design that makes the aligners virtually invisible, smooth plastic material that won't cut or irritate cheeks and gums, removable trays, fewer check-in appointments, and faster treatment times compared to conventional braces.</p>
+      <p>Orthodontic treatment will adjust and improve the functional relationship between teeth and jaws, resulting in a better bite.</p>
+    </div>
+  </section>
+</BaseLayout>

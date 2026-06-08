@@ -1,0 +1,49 @@
+{
+  "variant": "alternating-rows",
+  "eyebrow": "What We Offer",
+  "heading": "Advanced Dental Care Tailored to Every Stage of Your Smile",
+  "subheading": "From children's first cleanings to full-arch implant restorations, we bring precision and comfort to every visit.",
+  "items": [
+    {
+      "name": "3Shape Digital Scanner",
+      "slug": "3shape-digital-scanner",
+      "desc": "Captures precise digital impressions comfortably, eliminating messy traditional molds for faster, more accurate treatment."
+    },
+    {
+      "name": "All-on-4",
+      "slug": "all-on-4",
+      "desc": "Restore a full arch of teeth permanently using just four implants for a confident, natural-looking smile."
+    },
+    {
+      "name": "Bone Grafts",
+      "slug": "bone-grafts",
+      "desc": "Rebuilds jawbone density so you can qualify for dental implants and enjoy lasting tooth replacement."
+    },
+    {
+      "name": "Bridges",
+      "slug": "bridges",
+      "desc": "Fill gaps from missing teeth with a natural-looking bridge anchored securely to surrounding healthy teeth."
+    },
+    {
+      "name": "Brushing & Flossing Instruction",
+      "slug": "brushing-flossing-instruction",
+      "desc": "Teaches children and parents effective home hygiene habits that prevent cavities and support lifelong oral health."
+    },
+    {
+      "name": "CandidPro",
+      "slug": "candidpro",
+      "desc": "Straighten your smile discreetly with CandidPro clear aligners, monitored closely by our experienced dental team."
+    },
+    {
+      "name": "Children's Exams & Cleanings",
+      "slug": "children-s-exams-cleanings",
+      "desc": "Gentle, thorough exams and cleanings help kids build healthy smiles and catch cavity risks early."
+    },
+    {
+      "name": "Clear Aligners",
+      "slug": "clear-aligners",
+      "desc": "Discreetly align your teeth at any age using removable, nearly invisible aligners that fit your lifestyle."
+    }
+  ],
+  "ctaLabel": "View All Services"
+}

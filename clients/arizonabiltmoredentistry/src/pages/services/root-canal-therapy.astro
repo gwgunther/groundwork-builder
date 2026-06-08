@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Root Canal Therapy in Phoenix, AZ",
+  "description": "Get relief from tooth pain with root canal therapy. Arizona Biltmore Dentistry provides gentle dental care during every step of the process.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Arizona Biltmore Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Phoenix"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Root Canal Therapy Phoenix | ${site.name}`}
+  description="Get relief from tooth pain with root canal therapy. Arizona Biltmore Dentistry provides gentle dental care during every step of the process."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Root Canal Therapy in Phoenix, AZ
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Get relief from tooth pain with root canal therapy. Arizona Biltmore Dentistry provides gentle dental care during every step of the process.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">A tooth infection, deep decay, or dental trauma can cause a problem deep within the tooth that leaves you in pain. In an effort to save your natural tooth and relieve that pain, our team can perform root canal therapy — carefully removing the affected tissue, cleaning and sealing the canal, and restoring the tooth to full function. The procedure is considerably more comfortable than its reputation suggests.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Performed for tooth infection, deep decay, or dental trauma.</p>
+      <p>Digital X-rays of the teeth and jaw are taken to pinpoint the location of the problem.</p>
+      <p>The immediate area is numbed and the tooth is isolated before treatment begins.</p>
+      <p>Nitrous oxide sedation is available to help patients relax during the procedure.</p>
+      <p>A small access hole is made in the tooth to remove damaged or infected pulp from the root canals.</p>
+      <p>A second set of X-rays is taken to ensure all affected tissue has been removed.</p>
+      <p>The canals are filled with medication to kill any remaining bacteria.</p>
+      <p>A filling is placed in the tooth to keep bacteria out.</p>
+      <p>A dental crown is often recommended after root canal therapy to give the tooth extra strength and protection.</p>
+      <p>Root canal signs include new and/or sudden pain, lingering pain that may wake you up at night, new sensitivity to hot or cold, swollen gums, abscesses (sores) on gums, and pain that radiates from a single tooth.</p>
+      <p>After treatment, the mouth may feel sore and tender for a couple of days.</p>
+      <p>Over-the-counter pain medication like ibuprofen can help with post-treatment pain.</p>
+      <p>Intermittent icing (ice pack against the cheek for 15 minutes at a time) is recommended to help with pain and swelling.</p>
+      <p>Patients should avoid chewing, especially anything hard or sticky, for a week or so after treatment.</p>
+      <p>Antibiotics or a steroid may be prescribed depending on symptoms.</p>
+      <p>An endodontist specialist is not always needed for most cases.</p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Smile Makeovers in Phoenix, AZ",
+  "description": "Comprehensive cosmetic treatment plans combining multiple procedures to completely transform a patient's smile.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Arizona Biltmore Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Phoenix"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Smile Makeovers Phoenix | ${site.name}`}
+  description="Comprehensive cosmetic treatment plans combining multiple procedures to completely transform a patient's smile."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Smile Makeovers in Phoenix, AZ
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Comprehensive cosmetic treatment plans combining multiple procedures to completely transform a patient's smile.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">A smile makeover at Arizona Biltmore Dentistry is a coordinated sequence of cosmetic and restorative treatments designed around a single goal: the smile you want. Treatment may combine whitening, veneers, bonding, crowns, aligners, or implants — selected and sequenced based on your specific concerns and anatomy. The process begins with a thorough consultation and honest conversation about what is achievable and what it will involve.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Listed as one of the cosmetic procedures performed at Arizona Biltmore Dentistry.</p>
+      <p>From dental veneers and orthodontics to teeth whitening and complete smile restorations.</p>
+      <p>Initial smile consultation involves discussing treatment options, taking digital X-rays and 3-D images, taking dental impressions, and devising a customized treatment plan.</p>
+    </div>
+  </section>
+</BaseLayout>

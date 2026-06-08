@@ -1,0 +1,36 @@
+{
+  "tools": [
+    {
+      "name": "book_appointment",
+      "description": "Book an appointment with Arizona Biltmore Dentistry",
+      "action": {
+        "type": "navigate",
+        "href": "/schedule"
+      }
+    },
+    {
+      "name": "call_practice",
+      "description": "Call Arizona Biltmore Dentistry at (602) 957-8200",
+      "action": {
+        "type": "navigate",
+        "href": "tel:6029578200"
+      }
+    },
+    {
+      "name": "contact_practice",
+      "description": "Send a message or inquiry to Arizona Biltmore Dentistry",
+      "action": {
+        "type": "navigate",
+        "href": "/contact"
+      }
+    },
+    {
+      "name": "view_services",
+      "description": "Browse all dental services offered by Arizona Biltmore Dentistry",
+      "action": {
+        "type": "navigate",
+        "href": "/services"
+      }
+    }
+  ]
+}

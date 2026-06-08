@@ -1,0 +1,11 @@
+{
+  "variant": "split-image",
+  "headline": "Your Brightest Smile Awaits in the Heart of Phoenix",
+  "subheadline": "Whether it's a routine cleaning or a complete smile makeover, our Biltmore team makes every visit comfortable and unhurried. Come see why neighbors have trusted us for years.",
+  "primaryCta": {
+    "label": "Schedule Your Smile Appointment",
+    "href": "/schedule"
+  },
+  "phone": "(602) 957-8200",
+  "hasImage": true
+}

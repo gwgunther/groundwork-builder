@@ -1,0 +1,165 @@
+---
+/**
+ * Per-doctor deep-link pages — `/team/<slug>/` for each doctor in `doctors[]`.
+ *
+ * One page per doctor with full bio, portrait, credentials, schema.org Person
+ * entity, and a CTA to schedule. Same pattern as `/services/<slug>/`.
+ *
+ * SEO win: each doctor becomes individually indexable. Search engines see a
+ * dedicated Person entity per page. Patients searching for a doctor by name
+ * get a direct landing page instead of a generic about page.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTABlock from '../../components/CTABlock.astro';
+import { site, doctors, address, localBusinessSchema, personSchemas } from '../../config/site';
+import { readFileSync } from 'node:fs';
+
+export function getStaticPaths() {
+  // Astro's getStaticPaths runs in an isolated context — helpers must be
+  // declared INSIDE this function, not in module scope. Generates one route
+  // per doctor.
+  const slugify = (doc: any, idx: number): string => {
+    const base = (doc.name || '').toLowerCase()
+      .replace(/^dr\.?\s+/i, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+    return base || `doctor-${idx + 1}`;
+  };
+  return doctors.map((doc, idx) => ({
+    params: { slug: slugify(doc, idx) },
+    props: { doctor: doc, schema: personSchemas[idx] || null, idx },
+  }));
+}
+
+// Same logic as inside getStaticPaths — needed at render time too for
+// generating cross-links. Kept in module scope; renderer DOES see this one.
+const slugifyDoctor = (doc: any, idx: number): string => {
+  const base = (doc.name || '').toLowerCase()
+    .replace(/^dr\.?\s+/i, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  return base || `doctor-${idx + 1}`;
+};
+
+const { doctor, schema } = Astro.props;
+
+// Resolve image-roles for portrait lookup (token-fuzzy match — names may
+// differ slightly between site.ts and image-roles.json keys)
+let imageRoles: any = { doctorPortraits: {} };
+try {
+  imageRoles = JSON.parse(readFileSync(`${process.cwd()}/public/images/image-roles.json`, 'utf8'));
+} catch { /* manifest missing in dev */ }
+const normalize = (s: string) => String(s || '').toLowerCase().replace(/^dr\.?\s+/i, '').replace(/[^a-z\s]/g, '').trim();
+function portraitFor(name: string): string | null {
+  const portraits = imageRoles.doctorPortraits || {};
+  if (portraits[name]) return `/images/${portraits[name]}`;
+  const want = new Set(normalize(name).split(/\s+/).filter(t => t.length >= 3));
+  if (want.size === 0) return null;
+  for (const [key, path] of Object.entries(portraits)) {
+    const have = new Set(normalize(key).split(/\s+/).filter(t => t.length >= 3));
+    let ok = true;
+    for (const t of want) if (!have.has(t)) { ok = false; break; }
+    if (ok) return `/images/${path}`;
+  }
+  return null;
+}
+
+const portrait = portraitFor(doctor.name);
+const bioParagraphs = doctor.bio ? doctor.bio.split('\n\n').filter(Boolean) : [];
+const otherDoctors = doctors.filter((d) => d.name !== doctor.name).slice(0, 3);
+---
+
+<BaseLayout
+  title={`${doctor.name}, ${doctor.credentials} — ${site.name}`}
+  description={doctor.bio ? doctor.bio.slice(0, 160) : `Meet ${doctor.name}, ${doctor.credentials} at ${site.name} in ${address.city}.`}
+  schema={[localBusinessSchema, ...(schema ? [schema] : [])]}
+>
+  <!-- Hero -->
+  <section class="bg-surface-2 py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="text-sm text-neutral-mid mb-8">
+        <a href="/about" class="hover:text-brand-primary">About</a>
+        <span class="mx-2">/</span>
+        <span class="text-neutral-dark">{doctor.name}</span>
+      </nav>
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+        <div class="md:col-span-5">
+          {portrait ? (
+            <img src={portrait} alt={doctor.name} class="w-full aspect-[4/5] object-cover object-top rounded-2xl" loading="eager" />
+          ) : (
+            <div class="w-full aspect-[4/5] rounded-2xl bg-neutral-light flex items-center justify-center">
+              <p class="text-neutral-mid text-sm">Doctor Photo</p>
+            </div>
+          )}
+        </div>
+        <div class="md:col-span-7">
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-highlight mb-4">Meet Your Doctor</p>
+          <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-dark leading-tight mb-2">{doctor.name}</h1>
+          {doctor.credentials && (
+            <p class="text-base font-semibold uppercase tracking-widest text-brand-primary mb-6 pb-6 border-b border-neutral-dark/10">{doctor.credentials}</p>
+          )}
+          {bioParagraphs.length > 0 ? (
+            <div class="prose-dental space-y-4">
+              {bioParagraphs.map((p) => <p>{p}</p>)}
+            </div>
+          ) : (
+            <p class="text-neutral-mid leading-relaxed">
+              {doctor.name} provides exceptional dental care to patients in {address.city}.
+            </p>
+          )}
+          {doctor.education && (
+            <p class="text-sm text-neutral-mid mt-6 italic">{doctor.education}</p>
+          )}
+          {doctor.specialties && doctor.specialties.length > 0 && (
+            <div class="mt-8">
+              <h2 class="text-sm font-semibold uppercase tracking-widest text-brand-primary mb-3">Specialties</h2>
+              <ul class="flex flex-wrap gap-2">
+                {doctor.specialties.map((s: string) => (
+                  <li class="px-3 py-1 bg-surface-1 border border-neutral-dark/10 rounded-full text-sm text-neutral-mid">{s}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Other doctors — encourage cross-navigation -->
+  {otherDoctors.length > 0 && (
+    <section class="py-16 bg-surface-1">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="section-subheading text-center mb-12">Meet Our Other Doctors</h2>
+        <div class={`grid gap-6 ${otherDoctors.length === 1 ? 'md:grid-cols-1 max-w-md mx-auto' : otherDoctors.length === 2 ? 'md:grid-cols-2 max-w-3xl mx-auto' : 'md:grid-cols-3'}`}>
+          {otherDoctors.map((d) => {
+            const p = portraitFor(d.name);
+            const slug = slugifyDoctor(d, 0);
+            return (
+              <a href={`/team/${slug}/`} class="group block">
+                <div class="aspect-[4/5] rounded-2xl overflow-hidden bg-neutral-light mb-4">
+                  {p ? (
+                    <img src={p} alt={d.name} class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                  ) : (
+                    <div class="w-full h-full flex items-center justify-center text-neutral-mid">Photo</div>
+                  )}
+                </div>
+                <h3 class="font-serif text-xl font-bold text-neutral-dark group-hover:text-brand-primary transition-colors">{d.name}</h3>
+                {d.credentials && <p class="text-xs text-brand-primary uppercase tracking-widest mt-1">{d.credentials}</p>}
+              </a>
+            );
+          })}
+        </div>
+        <div class="text-center mt-12">
+          <a href="/about" class="text-brand-primary hover:underline">← Back to About</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <CTABlock phone={site.phone} />
+    </div>
+  </section>
+</BaseLayout>

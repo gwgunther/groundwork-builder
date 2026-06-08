@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "ClearCorrect Aligners in Phoenix, AZ",
+  "description": "ClearCorrect clear aligners are one of the best alternatives to traditional braces.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Arizona Biltmore Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Phoenix"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`ClearCorrect Aligners Phoenix | ${site.name}`}
+  description="ClearCorrect clear aligners are one of the best alternatives to traditional braces."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      ClearCorrect Aligners in Phoenix, AZ
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      ClearCorrect clear aligners are one of the best alternatives to traditional braces.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">ClearCorrect uses removable, transparent aligners to straighten your teeth — with no metal wires, no brackets, and no dietary restrictions. Each set of trays is made from smooth, BPA-free plastic, custom-fitted to your smile. ClearCorrect is digitally mapped using 3D scanning technology, allowing precise planning of each stage of tooth movement. Trays are changed out as directed, and check-in appointments are brief — typically every other month.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Uses removable, transparent aligners to straighten teeth with no irritating metal wires or brackets.</p>
+      <p>Uses 3D scanning technology to plan tooth movement.</p>
+      <p>Every set of trays is made from transparent, BPA-free plastic material that's smooth and customized to each patient's smile.</p>
+      <p>Benefits include fewer and shorter trips to the dentist's office, transparent aligners no one can see, freedom to eat all favorite foods, zero modification to daily brushing and flossing routine, discreet for social and professional interactions, improved comfort, and digital design.</p>
+      <p>ClearCorrect aligners need to be worn for a minimum of 22 hours per day.</p>
+      <p>Aligners are changed out as directed, usually every two weeks.</p>
+      <p>Patients stop by the office for a brief check-in about every other month.</p>
+      <p>Active decay/cavities or gum disease must be addressed before initiating ClearCorrect treatment.</p>
+      <p>ClearCorrect can be used alongside gum therapy to help reduce the risk of recurring infection.</p>
+      <p>A series of photographs, digital scans, impressions, or X-rays are taken during the initial evaluation.</p>
+      <p>Backed by over 15 years of success.</p>
+      <p>Only remove trays for meals, brushing, flossing, or if drinking anything other than water.</p>
+      <p>Alternatives include traditional braces and clear aligners.</p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,608 @@
+{
+  "branding/logo.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2018/02/logo-header.png",
+    "alt": "",
+    "originalFilename": "logo-header.png",
+    "category": "logo"
+  },
+  "team/team-1-unnamed-landscape-landscape-f28ac6e5194a2ff7c4a64b8cbbfe5f0f-1xgeo6wtsvi7.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/bb-plugin/cache/unnamed-1-1-landscape-landscape-f28ac6e5194a2ff7c4a64b8cbbfe5f0f-1xgeo6wtsvi7.jpg",
+    "alt": "unnamed-1-1-landscape",
+    "originalFilename": "unnamed-1-1-landscape-landscape-f28ac6e5194a2ff7c4a64b8cbbfe5f0f-1xgeo6wtsvi7.jpg",
+    "category": "team"
+  },
+  "team/team-2-landscape-landscape-1444392b69b42a1b71923d17455d92cc-kf9sn4j7a81h.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/bb-plugin/cache/IMG_4158-landscape-landscape-1444392b69b42a1b71923d17455d92cc-kf9sn4j7a81h.jpg",
+    "alt": "IMG_4158-landscape",
+    "originalFilename": "IMG_4158-landscape-landscape-1444392b69b42a1b71923d17455d92cc-kf9sn4j7a81h.jpg",
+    "category": "team"
+  },
+  "team/team-3-resumephoto-landscape-landscape-030a1cbc3db1788f66e727e331dcaf03-nfezs71hyodu.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/bb-plugin/cache/ResumePhoto-1-1-landscape-landscape-030a1cbc3db1788f66e727e331dcaf03-nfezs71hyodu.jpg",
+    "alt": "ResumePhoto-1-1-landscape",
+    "originalFilename": "ResumePhoto-1-1-landscape-landscape-030a1cbc3db1788f66e727e331dcaf03-nfezs71hyodu.jpg",
+    "category": "team"
+  },
+  "team/team-4-dr.-rozita-esbah-dmd-arizona-biltmore.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/bb-plugin/cache/Dr.-Rozita-Esbah-DMD-Arizona-Biltmore-Dentistry-2-portrait-1597f363f8cc763d9f1f90964704d49c-bzxk4sejwlaq.jpg",
+    "alt": "Dr.-Rozita-Esbah-DMD-Arizona-Biltmore-Dentistry",
+    "originalFilename": "Dr.-Rozita-Esbah-DMD-Arizona-Biltmore-Dentistry-2-portrait-1597f363f8cc763d9f1f90964704d49c-bzxk4sejwlaq.jpg",
+    "category": "team"
+  },
+  "team/team-5-stacy-circle.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/bb-plugin/cache/stacy-circle.jpg",
+    "alt": "Employee, Stacey, of Arizona Biltmore Dentistry",
+    "originalFilename": "stacy-circle.jpg",
+    "category": "team"
+  },
+  "team/team-6-dentist-square-5202f9b42f0e3ad564d48003bd668e78.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/bb-plugin/cache/dentist-square-5202f9b42f0e3ad564d48003bd668e78-60c145831cf59.jpg",
+    "alt": "dentist",
+    "originalFilename": "dentist-square-5202f9b42f0e3ad564d48003bd668e78-60c145831cf59.jpg",
+    "category": "team"
+  },
+  "heroes/office-1-officeslide.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2018/02/officeslide-4.jpg",
+    "alt": "Bobblehead of dentist holding dentures",
+    "originalFilename": "officeslide-4.jpg",
+    "category": "hero"
+  },
+  "heroes/office-2-azbd-r5972.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2020/05/AZBD-R5972-1-2-1.jpg",
+    "alt": "AZBD - R5972 (1) (2)",
+    "originalFilename": "AZBD-R5972-1-2-1.jpg",
+    "category": "hero"
+  },
+  "heroes/office-3-row6.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2020/03/row6.jpg",
+    "alt": "row6",
+    "originalFilename": "row6.jpg",
+    "category": "hero"
+  },
+  "gallery/office-4-azbd-r5978-square-d7e5abf2090c3358dbedd9369be4f561.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/bb-plugin/cache/AZBD-R5978-square-d7e5abf2090c3358dbedd9369be4f561-60c13e416ce7a.jpg",
+    "alt": "AZBD - R5978",
+    "originalFilename": "AZBD-R5978-square-d7e5abf2090c3358dbedd9369be4f561-60c13e416ce7a.jpg",
+    "category": "office"
+  },
+  "gallery/office-5-azbd-r5981.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2020/04/AZBD-R5981-1-3.jpg",
+    "alt": "AZBD - R5981 (1)",
+    "originalFilename": "AZBD-R5981-1-3.jpg",
+    "category": "office"
+  },
+  "gallery/office-6-azbd-r5968.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2020/06/AZBD-R5968.jpg",
+    "alt": "AZBD - R5968",
+    "originalFilename": "AZBD-R5968.jpg",
+    "category": "office"
+  },
+  "gallery/office-7-pxl-164147634.mp-scaled-panorama-93f7908592ea7c2030698af7e474e90c.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/bb-plugin/cache/PXL_20210625_164147634.MP_-scaled-panorama-93f7908592ea7c2030698af7e474e90c-610bc486aa619.jpg",
+    "alt": "PXL_20210625_164147634.MP",
+    "originalFilename": "PXL_20210625_164147634.MP_-scaled-panorama-93f7908592ea7c2030698af7e474e90c-610bc486aa619.jpg",
+    "category": "office"
+  },
+  "gallery/office-8-pxl-164147634.mp-scaled-panorama-93f7908592ea7c2030698af7e474e90c-l4aqpk7trn8x.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/bb-plugin/cache/PXL_20210625_164147634.MP_-scaled-panorama-93f7908592ea7c2030698af7e474e90c-l4aqpk7trn8x.jpg",
+    "alt": "PXL_20210625_164147634.MP",
+    "originalFilename": "PXL_20210625_164147634.MP_-scaled-panorama-93f7908592ea7c2030698af7e474e90c-l4aqpk7trn8x.jpg",
+    "category": "office"
+  },
+  "gallery/gallery-1-az-biltmore.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2021/07/az-biltmore.png",
+    "alt": "az-biltmore",
+    "originalFilename": "az-biltmore.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-2-quotes.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2021/06/quotes.png",
+    "alt": "Image is not available",
+    "originalFilename": "quotes.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-3-n.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2020/06/83353729_2584892401759313_4685135704382553549_n-1.jpg",
+    "alt": "83353729_2584892401759313_4685135704382553549_n (1)",
+    "originalFilename": "83353729_2584892401759313_4685135704382553549_n-1.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-4-120s.jpg": {
+    "sourceUrl": "https://s3-media0.fl.yelpcdn.com/photo/gAf-zSmuTam2eaw1svsguw/120s.jpg",
+    "alt": "Kathy Holden P. Avatar",
+    "originalFilename": "120s.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-5-120s.jpg": {
+    "sourceUrl": "https://s3-media0.fl.yelpcdn.com/photo/AMVEJ1g1djfCuiQTfKzEIQ/120s.jpg",
+    "alt": "Yezan H. Avatar",
+    "originalFilename": "120s.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-6-120s.jpg": {
+    "sourceUrl": "https://s3-media0.fl.yelpcdn.com/photo/-94JK_Cgx6mV06s1L7OBtA/120s.jpg",
+    "alt": "Andrew W. Avatar",
+    "originalFilename": "120s.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-7-user-square.png": {
+    "sourceUrl": "https://s3-media0.fl.yelpcdn.com/assets/srv0/yelp_styleguide/514f6997a318/assets/img/default_avatars/user_60_square.png",
+    "alt": "Lacandace D. Avatar",
+    "originalFilename": "user_60_square.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-8-120s.jpg": {
+    "sourceUrl": "https://s3-media0.fl.yelpcdn.com/photo/Ky_e3GVSbIWWkJS7HNeUwg/120s.jpg",
+    "alt": "Kelly B. Avatar",
+    "originalFilename": "120s.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-9.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1626144062_154.png",
+    "alt": "Zoe W. Avatar",
+    "originalFilename": "1626144062_154.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-10.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1625281076_152.png",
+    "alt": "Edel O. Avatar",
+    "originalFilename": "1625281076_152.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-11.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1625083762_151.png",
+    "alt": "Skylar D. Avatar",
+    "originalFilename": "1625083762_151.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-12.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1624847785_150.png",
+    "alt": "Carla h. Avatar",
+    "originalFilename": "1624847785_150.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-13.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1624248095_148.png",
+    "alt": "Vizsla M. Avatar",
+    "originalFilename": "1624248095_148.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-14.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1621910787_147.png",
+    "alt": "Winnie B. Avatar",
+    "originalFilename": "1621910787_147.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-15.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1621144589_146.png",
+    "alt": "Kenya E. Avatar",
+    "originalFilename": "1621144589_146.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-16.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1620275843_145.png",
+    "alt": "Jarick W. Avatar",
+    "originalFilename": "1620275843_145.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-17.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1619145830_143.jpg",
+    "alt": "Lisa G. Avatar",
+    "originalFilename": "1619145830_143.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-18.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1618552812_142.jpg",
+    "alt": "Janaiya D. Avatar",
+    "originalFilename": "1618552812_142.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-19.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1618424027_141.png",
+    "alt": "George P. Avatar",
+    "originalFilename": "1618424027_141.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-20.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1614743117_139.png",
+    "alt": "Theresa F. Avatar",
+    "originalFilename": "1614743117_139.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-21.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1613609195_137.jpg",
+    "alt": "Brandan G. Avatar",
+    "originalFilename": "1613609195_137.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-22.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1611601344_136.png",
+    "alt": "Carleton G. Avatar",
+    "originalFilename": "1611601344_136.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-23.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1611257059_140.png",
+    "alt": "Lashes a. Avatar",
+    "originalFilename": "1611257059_140.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-24.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1611257059_134.png",
+    "alt": "Mae C. Avatar",
+    "originalFilename": "1611257059_134.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-25.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1611246191_135.jpg",
+    "alt": "Vicki W. Avatar",
+    "originalFilename": "1611246191_135.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-26.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1610509174_133.jpg",
+    "alt": "SAMUEL F. Avatar",
+    "originalFilename": "1610509174_133.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-27.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1610421919_131.png",
+    "alt": "Suzanne L. Avatar",
+    "originalFilename": "1610421919_131.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-28.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1610418000_132.png",
+    "alt": "Heather S. Avatar",
+    "originalFilename": "1610418000_132.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-29.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1607050022_129.png",
+    "alt": "Candace H. Avatar",
+    "originalFilename": "1607050022_129.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-30.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1606967816_128.png",
+    "alt": "Karla M. Avatar",
+    "originalFilename": "1606967816_128.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-31.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1606923043_127.jpg",
+    "alt": "alley y. Avatar",
+    "originalFilename": "1606923043_127.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-32.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1604734085_125.png",
+    "alt": "Robert L. Avatar",
+    "originalFilename": "1604734085_125.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-33.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/wprevslider/avatars/1604379372_124.jpg",
+    "alt": "Hannah K. Avatar",
+    "originalFilename": "1604379372_124.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-34-girl.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2018/03/girl-1461626_1280.jpg",
+    "alt": "Young woman looking over her shoulder and smiling",
+    "originalFilename": "girl-1461626_1280.jpg",
+    "category": "gallery"
+  },
+  "team/headshot-1-dr-jeziorski.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2018/02/dr-jeziorski.jpg",
+    "alt": "Headshot of Dr. Jeziorski",
+    "originalFilename": "dr-jeziorski.jpg",
+    "category": "headshot"
+  },
+  "heroes/hero-2-carousel2.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2020/03/carousel2.jpg",
+    "alt": "",
+    "originalFilename": "carousel2.jpg",
+    "category": "hero"
+  },
+  "heroes/hero-3-carousel3.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2020/03/carousel3.jpg",
+    "alt": "",
+    "originalFilename": "carousel3.jpg",
+    "category": "hero"
+  },
+  "heroes/hero-4-carousel4.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2020/03/carousel4.jpg",
+    "alt": "",
+    "originalFilename": "carousel4.jpg",
+    "category": "hero"
+  },
+  "heroes/hero-5-carousel1.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2020/03/carousel1.jpg",
+    "alt": "",
+    "originalFilename": "carousel1.jpg",
+    "category": "hero"
+  },
+  "branding/badge-6-phoenix-colored-300x300.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/08/Phoenix-Colored-300x300.png",
+    "alt": "Phoenix - Colored",
+    "originalFilename": "Phoenix-Colored-300x300.png",
+    "category": "badge"
+  },
+  "gallery/beforeAfter-7-768x1024.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/05/IMG_3429-768x1024-1-1.png",
+    "alt": "",
+    "originalFilename": "IMG_3429-768x1024-1-1.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-8-768x1024.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/05/IMG_3429-768x1024-2.png",
+    "alt": "",
+    "originalFilename": "IMG_3429-768x1024-2.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-9-2a.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/05/image-2a-1.png",
+    "alt": "",
+    "originalFilename": "image-2a-1.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-10-2a.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/05/image-2a-2.png",
+    "alt": "",
+    "originalFilename": "image-2a-2.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-11-478x1024.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/05/20220510_091328-478x1024-4.png",
+    "alt": "",
+    "originalFilename": "20220510_091328-478x1024-4.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-12-478x1024.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/05/20220510_091328-478x1024-1-2.png",
+    "alt": "",
+    "originalFilename": "20220510_091328-478x1024-1-2.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-13-whitefillings-300x225.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/05/whitefillings-300x225.png",
+    "alt": "",
+    "originalFilename": "whitefillings-300x225.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-14-whitefillings-300x225.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/05/whitefillings-1-300x225.png",
+    "alt": "",
+    "originalFilename": "whitefillings-1-300x225.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-15-whitefillings-300x292.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/05/whitefillings-2-300x292.png",
+    "alt": "",
+    "originalFilename": "whitefillings-2-300x292.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-16-whitefillings-300x292.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/05/whitefillings-1-1-300x292.png",
+    "alt": "",
+    "originalFilename": "whitefillings-1-1-300x292.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-17-implantsandcrownsfailedduetofailedbridge-240x300.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/05/implantsandcrownsfailedduetofailedbridge-1-240x300.png",
+    "alt": "",
+    "originalFilename": "implantsandcrownsfailedduetofailedbridge-1-240x300.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-18-implantsandcrownsfailedduetofailedbridge-240x300.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/05/implantsandcrownsfailedduetofailedbridge-2-240x300.png",
+    "alt": "",
+    "originalFilename": "implantsandcrownsfailedduetofailedbridge-2-240x300.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-19-full-upper-rehab.png.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/05/Full-upper-rehab.png.png",
+    "alt": "",
+    "originalFilename": "Full-upper-rehab.png.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-20-full-upper-rehab.png.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/05/Full-upper-rehab.png-1.png",
+    "alt": "",
+    "originalFilename": "Full-upper-rehab.png-1.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-21-carlabeforeandafter.png.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/05/carlabeforeandafter.png-2.png",
+    "alt": "",
+    "originalFilename": "carlabeforeandafter.png-2.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-22-carlabeforeandafter.png.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/05/carlabeforeandafter.png-1.png",
+    "alt": "",
+    "originalFilename": "carlabeforeandafter.png-1.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-23-jaybeforeandafter2.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/05/jaybeforeandafter2-1.png",
+    "alt": "",
+    "originalFilename": "jaybeforeandafter2-1.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-24-jaybeforeandafter2.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/05/jaybeforeandafter2.png",
+    "alt": "",
+    "originalFilename": "jaybeforeandafter2.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-25-traumarestoredwithimplant.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/05/traumarestoredwithimplant.png",
+    "alt": "",
+    "originalFilename": "traumarestoredwithimplant.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-26-traumarestoredwithimplant.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2024/05/traumarestoredwithimplant-1.png",
+    "alt": "",
+    "originalFilename": "traumarestoredwithimplant-1.png",
+    "category": "beforeAfter"
+  },
+  "branding/badge-27-yelp-stars.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/plugins/wp-review-slider-pro-premium/public/partials/imgs/yelp_stars_5.png",
+    "alt": "5 star rating",
+    "originalFilename": "yelp_stars_5.png",
+    "category": "badge"
+  },
+  "branding/badge-28-yelp-outline.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/plugins/wp-review-slider-pro-premium/public/partials/imgs/yelp_outline.png",
+    "alt": "Yelp Logo",
+    "originalFilename": "yelp_outline.png",
+    "category": "badge"
+  },
+  "branding/badge-29-yelp-stars.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/plugins/wp-review-slider-pro-premium/public/partials/imgs/yelp_stars_4.png",
+    "alt": "4 star rating",
+    "originalFilename": "yelp_stars_4.png",
+    "category": "badge"
+  },
+  "branding/badge-30-google-icon.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/plugins/wp-review-slider-pro-premium/public/partials/imgs/google_small_icon.png",
+    "alt": "Google Logo",
+    "originalFilename": "google_small_icon.png",
+    "category": "badge"
+  },
+  "team/headshot-31-dr-jeziorski-landscape-d3cfba5193b0cef0a5a9182972504da5.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/bb-plugin/cache/dr-jeziorski-landscape-d3cfba5193b0cef0a5a9182972504da5-60c0be9a238af.jpg",
+    "alt": "Headshot of Dr. Jeziorski",
+    "originalFilename": "dr-jeziorski-landscape-d3cfba5193b0cef0a5a9182972504da5-60c0be9a238af.jpg",
+    "category": "headshot"
+  },
+  "team/headshot-32-dr-hood-landscape-0e3b9d191ff4c51d265b9be627706afe.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/bb-plugin/cache/dr-hood-landscape-0e3b9d191ff4c51d265b9be627706afe-60c0bf49d30e4.jpg",
+    "alt": "Headshot of Dr. Hood",
+    "originalFilename": "dr-hood-landscape-0e3b9d191ff4c51d265b9be627706afe-60c0bf49d30e4.jpg",
+    "category": "headshot"
+  },
+  "gallery/treatment-33-teeth-whitening.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2019/06/teeth-whitening.jpg",
+    "alt": "teeth-whitening",
+    "originalFilename": "teeth-whitening.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-34-orthodontist.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2019/06/orthodontist.jpg",
+    "alt": "orthodontist",
+    "originalFilename": "orthodontist.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-35-veneers.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2019/07/veneers.jpg",
+    "alt": "veneers",
+    "originalFilename": "veneers.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-36-rootcanal-woman.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2018/02/rootcanal-woman.jpg",
+    "alt": "A woman touching the side of her cheek",
+    "originalFilename": "rootcanal-woman.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-37-dental-crown.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2018/10/dental-crown.jpg",
+    "alt": "dental-crown",
+    "originalFilename": "dental-crown.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-38-restorative-dentures.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2018/10/restorative-dentures-img.jpg",
+    "alt": "",
+    "originalFilename": "restorative-dentures-img.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-39-implant-example-min-square-e0e2e303cb703fa4e5a134de220817b0.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/bb-plugin/cache/implant-example-min-square-e0e2e303cb703fa4e5a134de220817b0-60c16ee525290.jpg",
+    "alt": "Dental Implants Phoenix",
+    "originalFilename": "implant-example-min-square-e0e2e303cb703fa4e5a134de220817b0-60c16ee525290.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-40-row4-square-3e1c14f3797fd3ae2cd5771cfd3408be.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/bb-plugin/cache/row4-square-3e1c14f3797fd3ae2cd5771cfd3408be-60c1ac0a9e7c5.jpg",
+    "alt": "Phoenix Dental Implants",
+    "originalFilename": "row4-square-3e1c14f3797fd3ae2cd5771cfd3408be-60c1ac0a9e7c5.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-41-denture-stabilization-min-landscape-c0481ff3cacbe2a2294ac4de15fe7169.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/bb-plugin/cache/denture-stabilization-min-landscape-c0481ff3cacbe2a2294ac4de15fe7169-60c1afb71bb55.jpg",
+    "alt": "Dentures Phoenix",
+    "originalFilename": "denture-stabilization-min-landscape-c0481ff3cacbe2a2294ac4de15fe7169-60c1afb71bb55.jpg",
+    "category": "treatment"
+  },
+  "gallery/beforeAfter-42-cadeimplantsduetotrauma-1024x589.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2019/03/cadeimplantsduetotrauma-1024x589.png",
+    "alt": "Dental Implants and Implant Bridge",
+    "originalFilename": "cadeimplantsduetotrauma-1024x589.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-43-marybeforeandafter2.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2019/03/marybeforeandafter2.png",
+    "alt": "Implants and Implant Bridge",
+    "originalFilename": "marybeforeandafter2.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-44-carlabeforeandafter-668x1024.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2019/03/carlabeforeandafter-668x1024.png",
+    "alt": "Implant and Implant Crown",
+    "originalFilename": "carlabeforeandafter-668x1024.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-45-bethafter-implant-and-restoration.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2019/03/bethafter-implant-and-restoration.png",
+    "alt": "Dental Implant and Implant Bridge",
+    "originalFilename": "bethafter-implant-and-restoration.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-46-traumarestoredwithimplant-1024x657.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2019/03/traumarestoredwithimplant-1024x657.png",
+    "alt": "Dental Implant and Implant Crown",
+    "originalFilename": "traumarestoredwithimplant-1024x657.png",
+    "category": "beforeAfter"
+  },
+  "gallery/beforeAfter-47-implantsandcrownsfailedduetofailedbridge-1024x441.png": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2019/03/implantsandcrownsfailedduetofailedbridge-1024x441.png",
+    "alt": "Implants, Implant Bridge, Implant Crown, and Single Crown",
+    "originalFilename": "implantsandcrownsfailedduetofailedbridge-1024x441.png",
+    "category": "beforeAfter"
+  },
+  "gallery/treatment-48-denture-stabilization-min-landscape.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/2021/08/denture-stabilization-min-landscape.jpg",
+    "alt": "denture-stabilization-min-landscape",
+    "originalFilename": "denture-stabilization-min-landscape.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-49-invisalign-phoenix-az-square-c16ea70fa8d931f2c3914703660d9b6c.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/bb-plugin/cache/Invisalign-Phoenix-AZ-square-c16ea70fa8d931f2c3914703660d9b6c-60e8537b66c20.jpg",
+    "alt": "Invisalign Phoenix AZ",
+    "originalFilename": "Invisalign-Phoenix-AZ-square-c16ea70fa8d931f2c3914703660d9b6c-60e8537b66c20.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-50-teeth-straighetning-arizona-biltmore-dentistry-square.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/bb-plugin/cache/Teeth-Straighetning-Arizona-Biltmore-Dentistry-square-c78e558fcb9f77e7a284a6972fa7e36b-60e9995416f95.jpg",
+    "alt": "Teeth Straighetning Arizona Biltmore Dentistry",
+    "originalFilename": "Teeth-Straighetning-Arizona-Biltmore-Dentistry-square-c78e558fcb9f77e7a284a6972fa7e36b-60e9995416f95.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-51-teeth-straighetning-arizona-biltmore-dentistry-square.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/bb-plugin/cache/Teeth-Straighetning-Arizona-Biltmore-Dentistry-square-c78e558fcb9f77e7a284a6972fa7e36b-60e8537b66c20.jpg",
+    "alt": "Teeth Straighetning Arizona Biltmore Dentistry",
+    "originalFilename": "Teeth-Straighetning-Arizona-Biltmore-Dentistry-square-c78e558fcb9f77e7a284a6972fa7e36b-60e8537b66c20.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-52-orthodontist-square-227e72e7a5c1f1382478355b249af4c1.jpg": {
+    "sourceUrl": "https://www.arizonabiltmoredentistry.com/wp-content/uploads/bb-plugin/cache/orthodontist-square-227e72e7a5c1f1382478355b249af4c1-60c1733b46300.jpg",
+    "alt": "orthodontist",
+    "originalFilename": "orthodontist-square-227e72e7a5c1f1382478355b249af4c1-60c1733b46300.jpg",
+    "category": "treatment"
+  }
+}

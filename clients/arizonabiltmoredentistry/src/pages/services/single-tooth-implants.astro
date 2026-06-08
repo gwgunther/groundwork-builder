@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Single-Tooth Dental Implants in Phoenix",
+  "description": "Are you considering a single-tooth implant? Give us a call today to schedule your consultation.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Arizona Biltmore Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Phoenix"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Single-Tooth Implants Phoenix | ${site.name}`}
+  description="Are you considering a single-tooth implant? Give us a call today to schedule your consultation."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Single-Tooth Dental Implants in Phoenix
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Are you considering a single-tooth implant? Give us a call today to schedule your consultation.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Arizona Biltmore Dentistry provides single-tooth dental implant treatment in Phoenix, AZ. When a single tooth is lost to decay, injury, or infection, an implant offers a permanent replacement that looks and functions like a natural tooth — without altering the adjacent teeth as a bridge would. A titanium post is placed into the jawbone, allowed to integrate, and topped with a custom crown matched to the surrounding smile.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+</BaseLayout>
