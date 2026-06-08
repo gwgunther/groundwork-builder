@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Dental Implants – DFW Metroplex",
+  "description": "Replace any number of missing teeth with dental implant tooth replacement at Bear Creek Family Dentistry, your trusted DFW Metroplex office.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Bear Creek Family Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Dallas"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Dental Implants Dallas | ${site.name}`}
+  description="Replace any number of missing teeth with dental implant tooth replacement at Bear Creek Family Dentistry, your trusted DFW Metroplex office."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Dental Implants – DFW Metroplex
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Replace any number of missing teeth with dental implant tooth replacement at Bear Creek Family Dentistry, your trusted DFW Metroplex office.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Dental implants have changed the way our DFW Metroplex team replaces missing teeth. Rather than just replace a tooth's crown, they let us replace roots and crowns alike for more natural-looking results. Dental implants are small, durable posts made of titanium that are placed directly in the jaw's empty sockets. Because of their material, the implants then fuse with the surrounding bone through a process called osseointegration — giving them the sturdy, lasting hold that makes them the gold standard of modern tooth replacement. Whether you're missing one tooth or many, implants can support a single crown, an implant bridge, or implant-supported dentures. Our team includes experienced oral surgeons and prosthodontists who handle the full implant process right here in our DFW Metroplex offices, so you won't need to be referred elsewhere.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Dental implants are small, durable posts made of titanium placed directly in the jaw's empty sockets.</p>
+      <p>Implants fuse with the jawbone and become permanent parts of the mouth (osseointegration).</p>
+      <p>Can replace a single tooth to an entire arch of missing teeth.</p>
+      <p>The 4-step process includes: initial consultation, dental implant surgery, osseointegration and abutment placement, and delivery of final restorations.</p>
+      <p>Patients need healthy gums and a dense jawbone to be a good candidate.</p>
+      <p>Some patients need preliminary procedures like gum disease treatment or bone grafting before getting dental implants.</p>
+      <p>Dental implant surgery is performed in-house; no need to go to an outside doctor.</p>
+      <p>Local anesthetic is used; an incision is made in the gum tissue, implants placed at strategic angles, gums closed, and protective caps placed.</p>
+      <p>Osseointegration (fusing to jawbone) takes three to six months.</p>
+      <p>After osseointegration, abutments are attached to the ends of dental implants; impressions are taken for restoration crafting.</p>
+      <p>For a single missing tooth, one dental implant and a crown is used.</p>
+      <p>For several adjacent missing teeth, an implant bridge is the ideal option.</p>
+      <p>For extensive tooth loss, four to six dental implant posts support a partial or full denture.</p>
+      <p>Dental implants preserve the jawbone and prevent deterioration.</p>
+      <p>With daily care, dental implants can last upward of 30 years.</p>
+      <p>Most dental professionals will not place dental implants in patients younger than 18.</p>
+      <p>Most patients only need to take one or two days off to get dental implants; those with physically demanding jobs should take at least three or four days off.</p>
+      <p>Preliminary treatments like bone grafting and gum disease therapy are typically separate from dental implant surgery costs.</p>
+      <p>Most dental insurance policies offer partial coverage for dental implant treatments.</p>
+      <p>Financing available through CareCredit and Sunbit.</p>
+      <p>Benefits include a gorgeous grin, a younger face appearance, easier eating, and long-lasting results (twenty years or more with daily care).</p>
+      <p>Dental implants stimulate the jawbone, ensuring the face stays full and youthful.</p>
+      <p>Dental implants restore bite force, allowing patients to chew tough foods.</p>
+    </div>
+  </section>
+</BaseLayout>

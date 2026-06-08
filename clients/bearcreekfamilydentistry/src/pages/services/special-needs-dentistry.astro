@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Special Needs Dentistry – DFW Metroplex",
+  "description": "Do you or your child have special needs that make getting dental care difficult? We are happy to provide accommodation to meet your needs.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Bear Creek Family Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Dallas"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Special Needs Dentistry Dallas | ${site.name}`}
+  description="Do you or your child have special needs that make getting dental care difficult? We are happy to provide accommodation to meet your needs."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Special Needs Dentistry – DFW Metroplex
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Do you or your child have special needs that make getting dental care difficult? We are happy to provide accommodation to meet your needs.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Do you, your child, or another loved one have difficulty receiving traditional dental care due to special needs? At Bear Creek Family Dentistry, we have extensive experience providing high-quality, compassionate care for patients who require a little extra attention and accommodation. People with special needs often experience oral health issues — like cavities and bruxism — more frequently, and our team is trained to meet each patient where they are. Our dentists love working with parents and patients to ensure the most positive visit possible. We pride ourselves in our ability to cater to unique requirements, providing gentle care in a welcoming environment where every patient feels respected and at ease.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Book Your Visit</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>People with special needs often experience oral health issues like cavities and bruxism more often due to difficulty receiving traditional dental care, lack of knowledge of accessible dental products, and limited mobility.</p>
+      <p>Team provides gentle care, never rushing, and commits to a step-by-step approach to make treatment as comfortable as possible.</p>
+      <p>Personalized approach is taken for each patient.</p>
+      <p>It is recommended that children see a dentist by the time their first tooth erupts.</p>
+      <p>Using an appropriate amount of fluoride helps combat tooth decay and strengthen enamel for special needs patients.</p>
+      <p>Many special needs patients benefit from using an electric toothbrush for a more effective clean.</p>
+      <p>Services available for babies, toddlers, young children, teenagers, young adults, and older adults.</p>
+    </div>
+  </section>
+</BaseLayout>

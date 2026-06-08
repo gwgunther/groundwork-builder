@@ -1,0 +1,25 @@
+{
+  "variant": "pull-quotes",
+  "eyebrow": "Patient Stories",
+  "heading": "What Our Patients Say About Bear Creek Family Dentistry",
+  "items": [
+    {
+      "quote": "Fun, friendly staff and atmosphere!! My 4 kids had a great time! They have an indoor playground, movie theatre and we took pictures with Mr. Bear & got balloon animals! My daughter had a cavity and they made the process, that could have been scary, easy, comfortable and even proud that she didn't cry! We will never go to another dentist office!",
+      "author": "Jennifer F.",
+      "rating": 5
+    },
+    {
+      "quote": "They were awesome! The staff were just so sweet… not one unhappy face. They made my babies comfortable at all times. Thank you very much. I also got a call next morning making sure everything went well and to ask how were my angels were doing.",
+      "author": "Chisa E.",
+      "rating": 5
+    },
+    {
+      "quote": "Love this place. Staff is super friendly. They're extremely accommodating… I have called a few times to change appointments last minute and they always take care of me. The wait time is no more than a few minutes, the dentists are super knowledgeable and really nice. The waiting area is clean and has tons of fun activities for your kiddos to be entertained while you wait. Definitely recommend this location.",
+      "author": "Diana C.",
+      "rating": 5
+    }
+  ],
+  "aggregateRating": 5,
+  "reviewCount": 2629,
+  "googleUrl": "https://www.google.com/maps/place/Bear+Creek+Family+Dentistry+-+Mesquite/@32.7946929,-96.612542,17z/data=!3m1!4b1!4m5!3m4!1s0x864ea5c7d582168d:0xd11b21413971c1dc!8m2!3d32.7946929!4d-96.6103533"
+}

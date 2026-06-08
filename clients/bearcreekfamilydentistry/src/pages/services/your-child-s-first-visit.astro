@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Your Child's First Visit",
+  "description": "Help your child start their dental journey on the right foot with a warm, welcoming first visit at Bear Creek Family Dentistry.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Bear Creek Family Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Dallas"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Your Child's First Visit Dallas | ${site.name}`}
+  description="Help your child start their dental journey on the right foot with a warm, welcoming first visit at Bear Creek Family Dentistry."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Your Child's First Visit
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Help your child start their dental journey on the right foot with a warm, welcoming first visit at Bear Creek Family Dentistry.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">We believe that a child's first dental visit sets the tone for a lifetime of healthy habits — and we work hard to make it a positive experience from start to finish. During your child's first appointment, we'll take time to make them feel right at home. We answer all of their questions, take them on a tour of the office, and make sure they get to meet all of our friendly team members before any treatment begins. Our board-certified pediatric dentists are specially trained to work with young patients, and our kid-friendly offices are designed to feel fun, not frightening. Most dental professionals recommend scheduling your child's first visit around their first birthday or when their first tooth appears. Starting early helps us catch any developing concerns and build the foundation for a healthy smile that lasts.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Book Your Child's First Visit</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>During first appointments, children are given a tour of the office and introduced to team members.</p>
+      <p>Necessary digital X-rays and images are captured.</p>
+      <p>Teeth are cleaned and oral hygiene routine is discussed.</p>
+      <p>Designed to make children develop positive associations with the dental office.</p>
+    </div>
+  </section>
+</BaseLayout>

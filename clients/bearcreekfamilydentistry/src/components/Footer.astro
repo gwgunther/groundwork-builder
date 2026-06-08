@@ -1,0 +1,165 @@
+---
+import { site, doctor, address as addr } from '../config/site'
+import { designDNA } from '../config/design-dna'
+
+
+
+const currentYear = new Date().getFullYear()
+
+const navLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Services', href: '/services' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Schedule', href: '/schedule' },
+]
+
+const socialLinks = [
+  {
+    label: 'Google Reviews',
+    href: 'https://www.google.com/maps/place/Bear+Creek+Family+Dentistry+-+Mesquite/@32.7946929,-96.612542,17z/data=!3m1!4b1!4m5!3m4!1s0x864ea5c7d582168d:0xd11b21413971c1dc!8m2!3d32.7946929!4d-96.6103533',
+    icon: 'google',
+  },
+  {
+    label: 'Yelp',
+    href: 'https://www.yelp.com/biz/bear-creek-family-dentistry-dallas-3',
+    icon: 'yelp',
+  },
+  {
+    label: 'Facebook',
+    href: 'https://www.facebook.com/Bear-Creek-Family-Dentistry-1657390287895980/',
+    icon: 'facebook',
+  },
+]
+---
+
+<footer class="w-full bg-neutral-dark text-white">
+
+  <!-- Editorial split: large name left, structured content right -->
+  <div class="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
+
+      <!-- LEFT COLUMN: Practice identity -->
+      <div class="flex flex-col gap-8">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary mb-3">
+            Dallas, TX
+          </p>
+          <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-white">
+            {site.name}
+          </h2>
+        </div>
+
+        <address class="not-italic flex flex-col gap-1">
+          <span class="text-base leading-relaxed text-neutral-300">{addr.street}</span>
+          {addr.suite && (
+            <span class="text-base leading-relaxed text-neutral-300">{addr.suite}</span>
+          )}
+          <span class="text-base leading-relaxed text-neutral-300">
+            {addr.city}, {addr.state} {addr.zip}
+          </span>
+        </address>
+
+        <a
+          href={`tel:${site.phone.replace(/\D/g, '')}`}
+          class="inline-flex items-center gap-2 text-brand-primary font-semibold text-lg hover:opacity-80 transition-all duration-200"
+          aria-label={`Call ${site.name} at ${site.phone}`}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.27l.19.65z"/>
+          </svg>
+          {site.phone}
+        </a>
+
+        <!-- Social links -->
+        <div class="flex items-center gap-4">
+          {socialLinks.map((s) => (
+            <a
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Visit ${site.name} on ${s.label}`}
+              class="w-10 h-10 rounded-lg border border-white/20 flex items-center justify-center text-neutral-300 hover:border-brand-primary hover:text-brand-primary transition-all duration-200"
+            >
+              {s.icon === 'google' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                  <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                  <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                  <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                </svg>
+              )}
+              {s.icon === 'yelp' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M20.16 12.73l-4.79-1.27c-.47-.12-.94.2-1.03.67-.02.1-.02.2 0 .3l1.27 4.79c.14.52.68.82 1.2.68l.09-.03c1.38-.46 2.38-1.68 2.56-3.14.04-.42-.12-.84-.44-1.04l-.86-.96zm-7.67 6.54l-1.27-4.79c-.12-.47-.61-.75-1.08-.63-.1.03-.2.07-.28.13l-3.9 2.93c-.4.3-.5.86-.22 1.28l.06.08c.88 1.12 2.2 1.78 3.61 1.78.46 0 .92-.07 1.36-.21.49-.16.78-.67.63-1.16l-.91-.41zm-5.92-7.15l4.79 1.27c.47.12.94-.2 1.03-.67.02-.1.02-.2 0-.3L11.12 7.63c-.14-.52-.68-.82-1.2-.68l-.09.03C8.45 7.44 7.45 8.66 7.27 10.12c-.04.42.12.84.44 1.04l-.86.96 1.72-.96v-.04zm2.18-5.65l2.93 3.9c.3.4.86.5 1.28.22.08-.06.15-.13.21-.21l1.27-4.79c.14-.52-.16-1.06-.68-1.2l-.09-.02C12.19 4.02 10.73 4.5 9.72 5.5c-.32.31-.38.8-.17 1.19l.2.78z"/>
+                </svg>
+              )}
+              {s.icon === 'facebook' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                </svg>
+              )}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: Nav + hours + CTA -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-10">
+
+        <!-- Navigation -->
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary mb-5">
+            Navigate
+          </p>
+          <nav aria-label="Footer navigation">
+            <ul class="flex flex-col gap-3">
+              {navLinks.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="text-base leading-relaxed text-neutral-300 hover:text-white transition-all duration-200"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Visit / CTA -->
+        <div class="flex flex-col gap-6">
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary mb-5">
+              Plan Your Visit
+            </p>
+            <p class="text-base leading-relaxed text-neutral-300">
+              New and returning patients are always welcome. Call or schedule online — we'll take care of the rest.
+            </p>
+          </div>
+          <a
+            href="/schedule"
+            class="inline-block bg-brand-primary text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 text-center hover:opacity-90 self-start"
+          >
+            Book Appointment
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-sm text-neutral-400 text-center sm:text-left">
+        &copy; {currentYear} {site.name}. All rights reserved.
+      </p>
+      <p class="text-sm text-neutral-500 text-center sm:text-right">
+        {addr.city}, {addr.state}
+      </p>
+    </div>
+  </div>
+
+</footer>

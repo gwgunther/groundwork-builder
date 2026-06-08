@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Bone Grafting – DFW Metroplex",
+  "description": "Rebuild and strengthen your jawbone to support dental implants and protect your long-term oral health.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Bear Creek Family Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Dallas"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Bone Grafting Dallas | ${site.name}`}
+  description="Rebuild and strengthen your jawbone to support dental implants and protect your long-term oral health."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Bone Grafting – DFW Metroplex
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Rebuild and strengthen your jawbone to support dental implants and protect your long-term oral health.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">When tooth loss occurs, the jawbone in that area can begin to lose density over time due to lack of stimulation — a process called resorption. Bone grafting is a procedure that rebuilds and strengthens that bone structure, creating a stable foundation for dental implants and helping to preserve your facial structure. At Bear Creek Family Dentistry, our oral surgeons perform bone grafting right here in our DFW Metroplex offices, so you won't need a separate referral or a trip to an unfamiliar specialist for this important preparatory step.</p>
+      <p class="mb-4">If you've been told you don't have enough bone to support an implant, bone grafting is typically the path forward. It's one of the most common preparatory procedures in implant dentistry, and for most patients it's a straightforward outpatient appointment.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Why Jawbone Loss Happens</h2>
+      <p class="mb-4">The roots of your natural teeth do more than anchor them in place — they transmit chewing forces into the jawbone, which keeps the bone dense and healthy. When a tooth is lost or extracted, that stimulation stops. The bone in that area begins to shrink within the first few months and can continue to resorb over years. This affects more than implant eligibility: significant bone loss can change the contour of your face, cause neighboring teeth to shift, and make future restorations more difficult.</p>
+      <p class="mb-4">Patients in Dallas who waited years after an extraction before pursuing an implant often need grafting before placement can proceed. The earlier bone loss is addressed, the more options remain available.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who Needs a Bone Graft</h2>
+      <p class="mb-4">Not every implant patient requires a graft, but it's frequently needed in these situations:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>A tooth was extracted months or years ago and the site has already lost volume</li>
+        <li>A tooth was lost due to infection or periodontal disease, which can damage surrounding bone</li>
+        <li>A traumatic injury caused bone damage at the extraction site</li>
+        <li>A dental evaluation reveals insufficient bone height or width for a standard implant</li>
+      </ul>
+      <p class="mb-4">A cone-beam CT scan or detailed X-rays taken during your consultation will show exactly how much bone is present and whether grafting is indicated before implant placement.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What the Procedure Involves</h2>
+      <p class="mb-4">Bone grafting is typically performed under local anesthesia, and sedation options are available if you'd prefer to be more relaxed during the procedure. The area is numbed, a small incision is made in the gum tissue, and the graft material is placed at the site where bone volume needs to be restored.</p>
+      <p class="mb-4">Graft material may be sourced from your own body, from a donor (processed and sterilized bone), or from a synthetic material — your care team will discuss which option makes sense given your case. The gum tissue is then closed over the graft, and the site is left to heal. Over the following weeks to months, your body integrates the graft material and new bone forms in its place.</p>
+      <p class="mb-4">Healing timelines vary depending on the size of the graft. A small socket preservation graft placed at the time of extraction may require three to four months before implant placement. Larger grafts for more significant bone loss can take longer. Your provider will give you a realistic timeline based on your specific situation.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect During Recovery</h2>
+      <p class="mb-4">Most patients manage post-procedure discomfort with over-the-counter pain medication and report that the first two to three days are the most uncomfortable. Swelling and mild soreness are normal and typically resolve within a week. You'll receive specific aftercare instructions, including dietary guidance (soft foods initially), oral hygiene adjustments around the graft site, and any prescribed medication.</p>
+      <p class="mb-4">Follow-up appointments allow the care team to monitor healing and determine when the site is ready for implant placement.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**Does bone grafting hurt?** The procedure itself is done under local anesthesia, so you shouldn't feel pain during it. Post-operative soreness is common for a few days and is typically manageable with over-the-counter pain relievers.</p>
+      <p class="mb-4">**How long does a bone graft take to heal before I can get an implant?** Most grafts require three to six months of healing before implant placement. Smaller grafts, like socket preservation done at the time of extraction, tend to be on the shorter end of that range.</p>
+      <p class="mb-4">**Is bone grafting always required before an implant?** No. Patients who have sufficient bone density and volume may be able to proceed directly to implant placement. A CT scan or detailed X-rays during your consultation will determine whether grafting is needed.</p>
+      <p class="mb-4">**What is the graft material made of?** Graft material options include bone from your own body, processed donor bone (allograft), animal-derived bone (xenograft), or synthetic materials. Each has different clinical applications, and your provider will recommend the appropriate type based on your case.</p>
+      <p class="mb-4">**Can I get a bone graft at the same time as a tooth extraction?** Yes, in many cases. Placing a graft at the time of extraction — called socket preservation — is often recommended specifically to minimize bone loss and reduce the amount of reconstruction needed before an implant.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>May be necessary before dental implant placement if patient lacks sufficient jawbone density.</p>
+      <p>Helps promote the success and longevity of dental implants.</p>
+      <p>Cost is typically separate from dental implant surgery.</p>
+    </div>
+  </section>
+</BaseLayout>

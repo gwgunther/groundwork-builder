@@ -1,0 +1,11 @@
+{
+  "variant": "split-image",
+  "headline": "Your Healthiest Smile Starts in Bear Creek",
+  "subheadline": "Whether it's been six months or six years, our team is ready to welcome you with judgment-free, gentle care. Getting started takes just a few clicks.",
+  "primaryCta": {
+    "label": "Schedule Your Family Appointment",
+    "href": "/schedule"
+  },
+  "phone": "(888) 676-2327",
+  "hasImage": true
+}

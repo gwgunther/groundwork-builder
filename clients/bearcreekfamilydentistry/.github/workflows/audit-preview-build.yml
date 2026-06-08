@@ -1,0 +1,56 @@
+# Triggered when a prospect requests a preview from the audit one-pager.
+# Requires repository secrets: ANTHROPIC_API_KEY, CLOUDFLARE_API_TOKEN, etc. (same as manual build-site).
+
+name: Audit preview build
+
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: 'Practice slug (clients/<slug> and _audits/<slug>)'
+        required: true
+      practice_url:
+        description: 'Original practice website URL'
+        required: true
+      contact_email:
+        description: 'Prospect email (for notifications)'
+        required: false
+      contact_name:
+        description: 'Prospect name'
+        required: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site from audit
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_PAGESPEED_API_KEY: ${{ secrets.GOOGLE_PAGESPEED_API_KEY }}
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+          AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
+          AIRTABLE_ACCOUNTS_TABLE: ${{ secrets.AIRTABLE_ACCOUNTS_TABLE }}
+          AIRTABLE_AUDITS_TABLE: ${{ secrets.AIRTABLE_AUDITS_TABLE }}
+          AIRTABLE_BUILDS_TABLE: ${{ secrets.AIRTABLE_BUILDS_TABLE }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node scripts/pipeline/build-site.js \
+            --url "${{ inputs.practice_url }}" \
+            --output "clients/${{ inputs.slug }}" \
+            --publish

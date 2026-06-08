@@ -1,0 +1,16 @@
+{
+  "variant": "split",
+  "eyebrow": "Every smile. Every age. All in one place.",
+  "headline": "Dallas Families Trust Bear Creek for Exceptional Dental Care",
+  "subheadline": "From your child's first visit to complete family care, Bear Creek Family Dentistry delivers comfortable, compassionate dentistry for every generation under one roof.",
+  "primaryCta": {
+    "label": "Schedule Your Family's Visit",
+    "href": "/schedule"
+  },
+  "secondaryCta": {
+    "label": "Explore Our Services",
+    "href": "/services"
+  },
+  "phone": "(888) 676-2327",
+  "hasImage": true
+}

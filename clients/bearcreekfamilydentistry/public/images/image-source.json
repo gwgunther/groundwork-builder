@@ -1,0 +1,2546 @@
+{
+  "branding/logo.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/logo.png",
+    "alt": "",
+    "originalFilename": "logo.png",
+    "category": "logo"
+  },
+  "team/team-1-section-team.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/section-team-2025.jpg",
+    "alt": "",
+    "originalFilename": "section-team-2025.jpg",
+    "category": "team"
+  },
+  "team/team-2-section-team.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/section-team-1018.jpg",
+    "alt": "",
+    "originalFilename": "section-team-1018.jpg",
+    "category": "team"
+  },
+  "team/team-3.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/04/image.png",
+    "alt": "Dental technicians wearing masks and giving peace signs, smiling",
+    "originalFilename": "image.png",
+    "category": "team"
+  },
+  "team/team-4.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/04/image-1.png",
+    "alt": "Dentist chatting with colleague",
+    "originalFilename": "image-1.png",
+    "category": "team"
+  },
+  "team/team-5.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/04/image-2.png",
+    "alt": "Dental technician giving peace sign and smiling while wearing sunglasses with \"Bear Creek\" written on them",
+    "originalFilename": "image-2.png",
+    "category": "team"
+  },
+  "team/team-6.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/07/image-2.png",
+    "alt": "Dentist giving peace sign and performing procedure",
+    "originalFilename": "image-2.png",
+    "category": "team"
+  },
+  "team/team-7.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/07/image-1.png",
+    "alt": "Dental team performing surgery",
+    "originalFilename": "image-1.png",
+    "category": "team"
+  },
+  "team/team-8-es9a0986-200x300.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/06/ES9A0986__1750278881_77485-200x300.jpg",
+    "alt": "Dental hygienist preparing to educate her patient on gum care",
+    "originalFilename": "ES9A0986__1750278881_77485-200x300.jpg",
+    "category": "team"
+  },
+  "team/team-9-es9a0026-683x1024.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/06/ES9A0026-683x1024.jpg",
+    "alt": "Bear Creek team working on patient in exam room",
+    "originalFilename": "ES9A0026-683x1024.jpg",
+    "category": "team"
+  },
+  "team/team-10-es9a7353-200x300.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/04/ES9A7353__1745936841_58109-200x300.jpg",
+    "alt": "a friendly front desk staff member at Bear Creek Family Dentistry",
+    "originalFilename": "ES9A7353__1745936841_58109-200x300.jpg",
+    "category": "team"
+  },
+  "team/team-11-es9a9229-1024x683.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/05/ES9A9229-1024x683.jpg",
+    "alt": "Bear Creek Family Dentistry bear mascot giving 2 thumbs up",
+    "originalFilename": "ES9A9229-1024x683.jpg",
+    "category": "team"
+  },
+  "team/team-12-dental-hygienist-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/05/dental-hygienist-22-300x200.jpg",
+    "alt": "Smiling female dental hygienist",
+    "originalFilename": "dental-hygienist-22-300x200.jpg",
+    "category": "team"
+  },
+  "heroes/office-1-location-cockrell.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/location-cockrell.jpg",
+    "alt": "",
+    "originalFilename": "location-cockrell.jpg",
+    "category": "hero"
+  },
+  "heroes/office-2-location-westcliff.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/location-westcliff.jpg",
+    "alt": "",
+    "originalFilename": "location-westcliff.jpg",
+    "category": "hero"
+  },
+  "heroes/office-3-location-pecan.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/location-pecan.jpg",
+    "alt": "",
+    "originalFilename": "location-pecan.jpg",
+    "category": "hero"
+  },
+  "gallery/office-4-location-springvalley.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/location-springvalley.jpg",
+    "alt": "",
+    "originalFilename": "location-springvalley.jpg",
+    "category": "office"
+  },
+  "gallery/office-5-location-buckner.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/location-buckner.jpg",
+    "alt": "",
+    "originalFilename": "location-buckner.jpg",
+    "category": "office"
+  },
+  "gallery/office-6-location-torrevista.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/location-torrevista.jpg",
+    "alt": "",
+    "originalFilename": "location-torrevista.jpg",
+    "category": "office"
+  },
+  "gallery/office-7-main-duncanville-location.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/main-duncanville-location.jpg",
+    "alt": "",
+    "originalFilename": "main-duncanville-location.jpg",
+    "category": "office"
+  },
+  "gallery/office-8-location-townnorth.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/location-townnorth.jpg",
+    "alt": "",
+    "originalFilename": "location-townnorth.jpg",
+    "category": "office"
+  },
+  "gallery/office-9-location-pioneer.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/location-pioneer.jpg",
+    "alt": "",
+    "originalFilename": "location-pioneer.jpg",
+    "category": "office"
+  },
+  "gallery/office-10-location-mesquite.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/location-mesquite.jpg",
+    "alt": "",
+    "originalFilename": "location-mesquite.jpg",
+    "category": "office"
+  },
+  "gallery/office-11-location-grapevine.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/location-grapevine.jpg",
+    "alt": "",
+    "originalFilename": "location-grapevine.jpg",
+    "category": "office"
+  },
+  "gallery/office-12-location-fortworth.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/location-fortworth.jpg",
+    "alt": "",
+    "originalFilename": "location-fortworth.jpg",
+    "category": "office"
+  },
+  "gallery/office-13-location-n-buckner.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/location-n-buckner.jpg",
+    "alt": "",
+    "originalFilename": "location-n-buckner.jpg",
+    "category": "office"
+  },
+  "gallery/office-14-duncanville-location.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/duncanville-location.jpg",
+    "alt": "",
+    "originalFilename": "duncanville-location.jpg",
+    "category": "office"
+  },
+  "gallery/office-15-sp-pecan.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-pecan-1.jpg",
+    "alt": "",
+    "originalFilename": "sp-pecan-1.jpg",
+    "category": "office"
+  },
+  "gallery/office-16-sp-pecan.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-pecan-2.jpg",
+    "alt": "",
+    "originalFilename": "sp-pecan-2.jpg",
+    "category": "office"
+  },
+  "gallery/office-17-sp-pecan.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-pecan-3.jpg",
+    "alt": "",
+    "originalFilename": "sp-pecan-3.jpg",
+    "category": "office"
+  },
+  "gallery/office-18-sp-pecan.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-pecan-4.jpg",
+    "alt": "",
+    "originalFilename": "sp-pecan-4.jpg",
+    "category": "office"
+  },
+  "gallery/office-19-sp-westcliff.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-westcliff-1.jpg",
+    "alt": "",
+    "originalFilename": "sp-westcliff-1.jpg",
+    "category": "office"
+  },
+  "gallery/office-20-sp-westcliff.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-westcliff-2.jpg",
+    "alt": "",
+    "originalFilename": "sp-westcliff-2.jpg",
+    "category": "office"
+  },
+  "gallery/office-21-sp-westcliff.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-westcliff-3.jpg",
+    "alt": "",
+    "originalFilename": "sp-westcliff-3.jpg",
+    "category": "office"
+  },
+  "gallery/office-22-sp-cockrell.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-cockrell-1.jpg",
+    "alt": "",
+    "originalFilename": "sp-cockrell-1.jpg",
+    "category": "office"
+  },
+  "gallery/office-23-sp-cockrell.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-cockrell-2.jpg",
+    "alt": "",
+    "originalFilename": "sp-cockrell-2.jpg",
+    "category": "office"
+  },
+  "gallery/office-24-sp-cockrell.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-cockrell-3.jpg",
+    "alt": "",
+    "originalFilename": "sp-cockrell-3.jpg",
+    "category": "office"
+  },
+  "gallery/office-25-sp-cockrell.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-cockrell-4.jpg",
+    "alt": "",
+    "originalFilename": "sp-cockrell-4.jpg",
+    "category": "office"
+  },
+  "gallery/office-26-sp-springvalley.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-springvalley-1.jpg",
+    "alt": "",
+    "originalFilename": "sp-springvalley-1.jpg",
+    "category": "office"
+  },
+  "gallery/office-27-sp-springvalley.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-springvalley-2.jpg",
+    "alt": "",
+    "originalFilename": "sp-springvalley-2.jpg",
+    "category": "office"
+  },
+  "gallery/office-28-sp-springvalley.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-springvalley-3.jpg",
+    "alt": "",
+    "originalFilename": "sp-springvalley-3.jpg",
+    "category": "office"
+  },
+  "gallery/office-29-sp-springvalley.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-springvalley-4.jpg",
+    "alt": "",
+    "originalFilename": "sp-springvalley-4.jpg",
+    "category": "office"
+  },
+  "gallery/office-30-main-duncanville.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/main-duncanville.jpg",
+    "alt": "",
+    "originalFilename": "main-duncanville.jpg",
+    "category": "office"
+  },
+  "gallery/office-31-sp-mesquite.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-mesquite-1.jpg",
+    "alt": "",
+    "originalFilename": "sp-mesquite-1.jpg",
+    "category": "office"
+  },
+  "gallery/office-32-sp-mesquite.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-mesquite-3.jpg",
+    "alt": "",
+    "originalFilename": "sp-mesquite-3.jpg",
+    "category": "office"
+  },
+  "gallery/office-33-sp-mesquite.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-mesquite-4.jpg",
+    "alt": "",
+    "originalFilename": "sp-mesquite-4.jpg",
+    "category": "office"
+  },
+  "gallery/office-34-sp-buckner.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-buckner-1.jpg",
+    "alt": "",
+    "originalFilename": "sp-buckner-1.jpg",
+    "category": "office"
+  },
+  "gallery/office-35-sp-buckner.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-buckner-2.jpg",
+    "alt": "",
+    "originalFilename": "sp-buckner-2.jpg",
+    "category": "office"
+  },
+  "gallery/office-36-sp-buckner.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-buckner-3.jpg",
+    "alt": "",
+    "originalFilename": "sp-buckner-3.jpg",
+    "category": "office"
+  },
+  "gallery/office-37-sp-buckner.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-buckner-4.jpg",
+    "alt": "",
+    "originalFilename": "sp-buckner-4.jpg",
+    "category": "office"
+  },
+  "gallery/office-38-sp-torrevista.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-torrevista-1.jpg",
+    "alt": "",
+    "originalFilename": "sp-torrevista-1.jpg",
+    "category": "office"
+  },
+  "gallery/office-39-sp-torrevista.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-torrevista-2.jpg",
+    "alt": "",
+    "originalFilename": "sp-torrevista-2.jpg",
+    "category": "office"
+  },
+  "gallery/office-40-sp-torrevista.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-torrevista-3.jpg",
+    "alt": "",
+    "originalFilename": "sp-torrevista-3.jpg",
+    "category": "office"
+  },
+  "gallery/office-41-sp-euless.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-euless-1.jpg",
+    "alt": "",
+    "originalFilename": "sp-euless-1.jpg",
+    "category": "office"
+  },
+  "gallery/office-42-sp-euless.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-euless-2.jpg",
+    "alt": "",
+    "originalFilename": "sp-euless-2.jpg",
+    "category": "office"
+  },
+  "gallery/office-43-sp-euless.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-euless-3.jpg",
+    "alt": "",
+    "originalFilename": "sp-euless-3.jpg",
+    "category": "office"
+  },
+  "gallery/office-44-sp-townnorth.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-townnorth-1.jpg",
+    "alt": "",
+    "originalFilename": "sp-townnorth-1.jpg",
+    "category": "office"
+  },
+  "gallery/office-45-sp-townnorth.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-townnorth-2.jpg",
+    "alt": "",
+    "originalFilename": "sp-townnorth-2.jpg",
+    "category": "office"
+  },
+  "gallery/office-46-sp-townnorth.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-townnorth-3.jpg",
+    "alt": "",
+    "originalFilename": "sp-townnorth-3.jpg",
+    "category": "office"
+  },
+  "gallery/office-47-sp-townnorth.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-townnorth-4.jpg",
+    "alt": "",
+    "originalFilename": "sp-townnorth-4.jpg",
+    "category": "office"
+  },
+  "gallery/office-48-sp-mesquite.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-mesquite-2.jpg",
+    "alt": "",
+    "originalFilename": "sp-mesquite-2.jpg",
+    "category": "office"
+  },
+  "gallery/office-49-sp-pioneer.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-pioneer-1.jpg",
+    "alt": "",
+    "originalFilename": "sp-pioneer-1.jpg",
+    "category": "office"
+  },
+  "gallery/office-50-sp-pioneer.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-pioneer-2.jpg",
+    "alt": "",
+    "originalFilename": "sp-pioneer-2.jpg",
+    "category": "office"
+  },
+  "gallery/office-51-sp-pioneer.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-pioneer-3.jpg",
+    "alt": "",
+    "originalFilename": "sp-pioneer-3.jpg",
+    "category": "office"
+  },
+  "gallery/office-52-sp-fortworth.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-fortworth-1.jpg",
+    "alt": "",
+    "originalFilename": "sp-fortworth-1.jpg",
+    "category": "office"
+  },
+  "gallery/office-53-sp-fortworth.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-fortworth-2.jpg",
+    "alt": "",
+    "originalFilename": "sp-fortworth-2.jpg",
+    "category": "office"
+  },
+  "gallery/office-54-sp-fortworth.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-fortworth-3.jpg",
+    "alt": "",
+    "originalFilename": "sp-fortworth-3.jpg",
+    "category": "office"
+  },
+  "gallery/office-55-office-cockrell.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/office-cockrell-1.jpg",
+    "alt": "",
+    "originalFilename": "office-cockrell-1.jpg",
+    "category": "office"
+  },
+  "gallery/office-56-office-cockrell.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/office-cockrell-2.jpg",
+    "alt": "",
+    "originalFilename": "office-cockrell-2.jpg",
+    "category": "office"
+  },
+  "gallery/office-57-office-cockrell.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/office-cockrell-3.jpg",
+    "alt": "",
+    "originalFilename": "office-cockrell-3.jpg",
+    "category": "office"
+  },
+  "gallery/office-58-office-cockrell.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/office-cockrell-4.jpg",
+    "alt": "",
+    "originalFilename": "office-cockrell-4.jpg",
+    "category": "office"
+  },
+  "gallery/office-59-office-cockrell.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/office-cockrell-5.jpg",
+    "alt": "",
+    "originalFilename": "office-cockrell-5.jpg",
+    "category": "office"
+  },
+  "gallery/office-60-office-cockrell.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/office-cockrell-6.jpg",
+    "alt": "",
+    "originalFilename": "office-cockrell-6.jpg",
+    "category": "office"
+  },
+  "gallery/office-61-office-cockrell.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/office-cockrell-7.jpg",
+    "alt": "",
+    "originalFilename": "office-cockrell-7.jpg",
+    "category": "office"
+  },
+  "gallery/office-62-office-cockrell.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/office-cockrell-8.jpg",
+    "alt": "",
+    "originalFilename": "office-cockrell-8.jpg",
+    "category": "office"
+  },
+  "gallery/office-63-dsc-1024x678.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/04/DSC_0286-1024x678.jpg",
+    "alt": "A nature-themed play area in a dental practice",
+    "originalFilename": "DSC_0286-1024x678.jpg",
+    "category": "office"
+  },
+  "gallery/gallery-1-section-detail.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/section-detail.jpg",
+    "alt": "",
+    "originalFilename": "section-detail.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-2-emergency-section.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/emergency-section-2025.jpg",
+    "alt": "",
+    "originalFilename": "emergency-section-2025.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-3-no-detail-too.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/no-detail-too-small.jpg",
+    "alt": "",
+    "originalFilename": "no-detail-too-small.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-4-about.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/about-2.jpg",
+    "alt": "",
+    "originalFilename": "about-2.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-5-about.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/about-3.jpg",
+    "alt": "",
+    "originalFilename": "about-3.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-6.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/05/image-1.png",
+    "alt": "Woman with Bear Creek written on her orange sunglasses smiling and doing peace sign",
+    "originalFilename": "image-1.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-7.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/05/image.png",
+    "alt": "",
+    "originalFilename": "image.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-8.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/05/image-2.png",
+    "alt": "Bear mascot in dental chair doing finger guns",
+    "originalFilename": "image-2.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-9.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/05/image-3.png",
+    "alt": "Bear mascot standing outside pumping muscles",
+    "originalFilename": "image-3.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-10-261a2855-300x200.jpeg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/03/261A2855-1-300x200.jpeg",
+    "alt": "Dentist treating his patient",
+    "originalFilename": "261A2855-1-300x200.jpeg",
+    "category": "gallery"
+  },
+  "gallery/gallery-11.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/03/image.png",
+    "alt": "",
+    "originalFilename": "image.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-12-adult-dentistry.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/adult-dentistry-1.jpg",
+    "alt": "patient hugging cute bear mascot",
+    "originalFilename": "adult-dentistry-1.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-13.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/img-thumbnail-2.jpg",
+    "alt": "Paths of Opportunities in Dentistry",
+    "originalFilename": "img-thumbnail-2.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-14-employ-hiring.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/employ-hiring.jpg",
+    "alt": "Person in bear suit holding sign saying we are hiring",
+    "originalFilename": "employ-hiring.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-15-vid-default.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/vid-default-1.jpg",
+    "alt": "Bear Creek Family Dentistry logo above text saying your dental home",
+    "originalFilename": "vid-default-1.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-16-es9a7318.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/03/ES9A7318-2-2.jpg",
+    "alt": "",
+    "originalFilename": "ES9A7318-2-2.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-17.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/03/image-1.png",
+    "alt": "",
+    "originalFilename": "image-1.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-18.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/02/image-1.png",
+    "alt": "",
+    "originalFilename": "image-1.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-19.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/02/image-3.png",
+    "alt": "Dental emergency bag, giant tooth, and stethoscope",
+    "originalFilename": "image-3.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-20-300x200.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/02/image-300x200.png",
+    "alt": "a child smiling during a dental visit",
+    "originalFilename": "image-300x200.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-21.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/02/image-2.png",
+    "alt": "Tooth on forceps",
+    "originalFilename": "image-2.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-22-adobestock-300x200.jpeg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/01/AdobeStock_396811891-2-300x200.jpeg",
+    "alt": "Adult man smiling with braces.",
+    "originalFilename": "AdobeStock_396811891-2-300x200.jpeg",
+    "category": "gallery"
+  },
+  "gallery/gallery-23-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/01/AdobeStock_376088952__1749078917_30585.jpg",
+    "alt": "Lady thinks something over",
+    "originalFilename": "AdobeStock_376088952__1749078917_30585.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-24-adobestock-300x207.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/01/AdobeStock_310849300__9___1769193700_90986-300x207.jpg",
+    "alt": "Senior woman smiling with dentures.",
+    "originalFilename": "AdobeStock_310849300__9___1769193700_90986-300x207.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-25-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/01/AdobeStock_280639707__1___1769529199_47555-300x200.jpg",
+    "alt": "Dentist performing root canal.",
+    "originalFilename": "AdobeStock_280639707__1___1769529199_47555-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-26-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/12/AdobeStock_271227717__1734482290_16925.jpg",
+    "alt": "Lady thinks something over",
+    "originalFilename": "AdobeStock_271227717__1734482290_16925.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-27-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/12/AdobeStock_617109402__1___1766415416_46215-300x200.jpg",
+    "alt": "Dentist showing patient X-ray of wisdom teeth.",
+    "originalFilename": "AdobeStock_617109402__1___1766415416_46215-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-28-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/01/AdobeStock_113813282__1761869034_10643-300x200.jpg",
+    "alt": "Dentist holding wisdom tooth with dental forceps",
+    "originalFilename": "AdobeStock_113813282__1761869034_10643-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-29-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/12/AdobeStock_394831981__16___1766414954_46868-300x200.jpg",
+    "alt": "Senior smiling and showing off dentures.",
+    "originalFilename": "AdobeStock_394831981__16___1766414954_46868-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-30-adobestock.jpeg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/01/AdobeStock_1157868729-1.jpeg",
+    "alt": "Young woman looking unhappy due to bitter taste",
+    "originalFilename": "AdobeStock_1157868729-1.jpeg",
+    "category": "gallery"
+  },
+  "gallery/gallery-31-adobestock-300x200.jpeg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/11/AdobeStock_415487091-19-300x200.jpeg",
+    "alt": "Gloved hands holding dentures.",
+    "originalFilename": "AdobeStock_415487091-19-300x200.jpeg",
+    "category": "gallery"
+  },
+  "gallery/gallery-32-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/11/AdobeStock_357294600__24___1763996899_47582-300x200.jpg",
+    "alt": "Dentist performing root canal.",
+    "originalFilename": "AdobeStock_357294600__24___1763996899_47582-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-33.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/10/image.png",
+    "alt": "Dental implant model",
+    "originalFilename": "image.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-34-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/10/AdobeStock_289131155__1760941685_89503.jpg",
+    "alt": "Colorful Halloween sweets with a mask and toothbrush",
+    "originalFilename": "AdobeStock_289131155__1760941685_89503.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-35-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/10/AdobeStock_500977872__1758225302_76275.jpg",
+    "alt": "Lady rests on couch",
+    "originalFilename": "AdobeStock_500977872__1758225302_76275.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-36-adobestock-1024x683.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/10/AdobeStock_280868133-1024x683.jpg",
+    "alt": "Dentist pointing to sample implant held by patient",
+    "originalFilename": "AdobeStock_280868133-1024x683.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-37-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/09/AdobeStock_194071069-2.jpg",
+    "alt": "A woman with a dental implant",
+    "originalFilename": "AdobeStock_194071069-2.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-38-crown-1024x1024.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/09/Crown-1-Small-1024x1024.jpg",
+    "alt": "Tooth putting on a crown",
+    "originalFilename": "Crown-1-Small-1024x1024.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-39-es9a7310-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/08/ES9A7310__1755124583_25276-300x200.jpg",
+    "alt": "Dental assistant getting her patient ready for root canal",
+    "originalFilename": "ES9A7310__1755124583_25276-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-40-261a3428-200x300.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/08/261A3428_2__1755098449_18147-200x300.jpg",
+    "alt": "Dentist getting ready to clean her patient's dentures",
+    "originalFilename": "261A3428_2__1755098449_18147-200x300.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-41-adobe-express-file.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/06/Adobe-Express-file.jpg",
+    "alt": "",
+    "originalFilename": "Adobe-Express-file.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-42-261a2670-200x300.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/06/261A2670-1-200x300.jpg",
+    "alt": "",
+    "originalFilename": "261A2670-1-200x300.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-43-emergency-section.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/04/emergency-section-2025.jpg",
+    "alt": "",
+    "originalFilename": "emergency-section-2025.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-44-300x201.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/03/image-1-300x201.png",
+    "alt": "Man smiling while on the phone in his home",
+    "originalFilename": "image-1-300x201.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-45-adobestock-1024x682.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/02/AdobeStock_496864913-1024x682.jpg",
+    "alt": "A man with a toothache",
+    "originalFilename": "AdobeStock_496864913-1024x682.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-46-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2025/02/AdobeStock_178641210__1734991643_156791.jpg",
+    "alt": "Illustration of gums with dental implants",
+    "originalFilename": "AdobeStock_178641210__1734991643_156791.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-47-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/12/AdobeStock_468852455__1734651218_56431-1.jpg",
+    "alt": "A spread of holiday foods that are bad for oral health",
+    "originalFilename": "AdobeStock_468852455__1734651218_56431-1.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-48-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/12/AdobeStock_127655811__1734645049_97893-1.jpg",
+    "alt": "A large table filled with dentist-approved holiday meals",
+    "originalFilename": "AdobeStock_127655811__1734645049_97893-1.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-49-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/12/AdobeStock_413347520__1733330467_89471.jpg",
+    "alt": "six cups filled with different foods containing probiotics",
+    "originalFilename": "AdobeStock_413347520__1733330467_89471.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-50-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/12/AdobeStock_338299260__1733247749_13682-300x200.jpg",
+    "alt": "new dental crown next to a mold of teeth",
+    "originalFilename": "AdobeStock_338299260__1733247749_13682-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-51-adobestock-1024x683.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/11/AdobeStock_109168811-1024x683.jpg",
+    "alt": "Extracted tooth held by forceps next to dental instruments on wooden surface",
+    "originalFilename": "AdobeStock_109168811-1024x683.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-52-adobestock-1024x659.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/11/AdobeStock_126229153-1024x659.jpg",
+    "alt": "X-ray image showing wisdom teeth growing in red",
+    "originalFilename": "AdobeStock_126229153-1024x659.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-53-bridge-and-crowns-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/09/bridge-and-crowns-300x200.jpg",
+    "alt": "Dental bridges on black background",
+    "originalFilename": "bridge-and-crowns-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-54-adobestock-1024x683.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/09/AdobeStock_506952377-1024x683.jpg",
+    "alt": "Woman with white hair in workout clothes eating salad on yoga mat",
+    "originalFilename": "AdobeStock_506952377-1024x683.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-55-smiling.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/08/Smiling_44__1667337892_10448.jpg",
+    "alt": "Man smiling",
+    "originalFilename": "Smiling_44__1667337892_10448.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-56-toothache.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/08/toothache.jpg",
+    "alt": "A woman holding her jaw in pain.",
+    "originalFilename": "toothache.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-57-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/08/AdobeStock_608103840-300x200.jpg",
+    "alt": "Man in blue shirt brushing his teeth in the bathroom with a boy in a gray shirt",
+    "originalFilename": "AdobeStock_608103840-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-58-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/08/AdobeStock_506312292-300x200.jpg",
+    "alt": "Profile view of a woman with brown hair and periwinkle nails brushing her braces",
+    "originalFilename": "AdobeStock_506312292-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-59-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/06/AdobeStock_241616512__1739463153_95969.jpg",
+    "alt": "The word “Deductible” underlined with marker",
+    "originalFilename": "AdobeStock_241616512__1739463153_95969.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-60-adobestock-150x150.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/06/AdobeStock_37787753__1739463257_15595-150x150.jpg",
+    "alt": "doctor reviewing brain scans",
+    "originalFilename": "AdobeStock_37787753__1739463257_15595-150x150.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-61-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/06/AdobeStock_136066183__1___1648749371_59361.jpg",
+    "alt": "person experiencing dental emergency holding cheek",
+    "originalFilename": "AdobeStock_136066183__1___1648749371_59361.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-62-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/06/AdobeStock_275185033__1739463034_73273.jpg",
+    "alt": "closeup of someone who’s been sunburned",
+    "originalFilename": "AdobeStock_275185033__1739463034_73273.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-63-adobestock-300x168.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/06/AdobeStock_223819518-300x168.jpg",
+    "alt": "Woman in blue suit swimming in a pool",
+    "originalFilename": "AdobeStock_223819518-300x168.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-64-adobestock-300x190.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/06/AdobeStock_2517533__1718214303_63589-300x190.jpg",
+    "alt": "Woman with braces smiling and holding money",
+    "originalFilename": "AdobeStock_2517533__1718214303_63589-300x190.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-65-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/06/AdobeStock_201348733-300x200.jpg",
+    "alt": "Man, woman, and two little girls laughing while closing a brown suitcase together",
+    "originalFilename": "AdobeStock_201348733-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-66-adobestock-300x225.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/06/AdobeStock_249724033__1718131900_38250-300x225.jpg",
+    "alt": "medical and dental insurance cards",
+    "originalFilename": "AdobeStock_249724033__1718131900_38250-300x225.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-67-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/05/AdobeStock_430458207__1709070164_22950.jpg",
+    "alt": "Dentist treats patient",
+    "originalFilename": "AdobeStock_430458207__1709070164_22950.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-68-adobestock-300x180.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/05/AdobeStock_646824068-300x180.jpg",
+    "alt": "Man with dark hair and grey shirt having oral examination done by dentist with blue gloves",
+    "originalFilename": "AdobeStock_646824068-300x180.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-69-adobestock-300x300.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/05/AdobeStock_778223739-300x300.jpg",
+    "alt": "World Autism Awareness Day ribbon",
+    "originalFilename": "AdobeStock_778223739-300x300.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-70-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/04/AdobeStock_193044420__1708115522_21989.jpg",
+    "alt": "Man reaching for vape despite oral health risks",
+    "originalFilename": "AdobeStock_193044420__1708115522_21989.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-71-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/04/AdobeStock_253944033__1710525566_51746.jpg",
+    "alt": "Patient smiling at their dental hygiene appointment",
+    "originalFilename": "AdobeStock_253944033__1710525566_51746.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-72-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/04/AdobeStock_343556859__1712168930_13220.jpg",
+    "alt": "Patient smiling at their dental checkup",
+    "originalFilename": "AdobeStock_343556859__1712168930_13220.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-73-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/04/AdobeStock_107756819__1710339815_24183.jpg",
+    "alt": "Dentist giving a thumbs up at an emergency dental appointment",
+    "originalFilename": "AdobeStock_107756819__1710339815_24183.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-74-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/03/AdobeStock_264395936__1695935158_27501.jpg",
+    "alt": "Patient smiles at dentist",
+    "originalFilename": "AdobeStock_264395936__1695935158_27501.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-75-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/03/AdobeStock_175198219__2___1708467945_78541.jpg",
+    "alt": "Lady smiles with braces",
+    "originalFilename": "AdobeStock_175198219__2___1708467945_78541.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-76-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/03/AdobeStock_207035142__1___1697236041_25643-1.jpg",
+    "alt": "Lady smiles",
+    "originalFilename": "AdobeStock_207035142__1___1697236041_25643-1.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-77-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/03/AdobeStock_54965647__1695679050_74708.jpg",
+    "alt": "Little girl smiles",
+    "originalFilename": "AdobeStock_54965647__1695679050_74708.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-78-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/02/AdobeStock_622294883__4___1707981296_88708.jpg",
+    "alt": "An older woman getting a dental checkup early in the year",
+    "originalFilename": "AdobeStock_622294883__4___1707981296_88708.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-79-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/02/AdobeStock_237786209__1___1707938448_66429.jpg",
+    "alt": "A blurred woman pouring mouthwash into a cup",
+    "originalFilename": "AdobeStock_237786209__1___1707938448_66429.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-80-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/02/AdobeStock_306950534-300x200.jpg",
+    "alt": "Woman framing her smile with her fingers",
+    "originalFilename": "AdobeStock_306950534-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-81-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/01/AdobeStock_136670320-300x200.jpg",
+    "alt": "Lined paper with New Year's Resolutions on a wooden surface with other office items",
+    "originalFilename": "AdobeStock_136670320-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-82-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/01/AdobeStock_551214337__1701975435_64300.jpg",
+    "alt": "A small girl with braces smiling under a holiday tree",
+    "originalFilename": "AdobeStock_551214337__1701975435_64300.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-83-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/12/AdobeStock_237750720__1701296420_93473.jpg",
+    "alt": "Friends meeting up for the holidays after traveling with good oral health",
+    "originalFilename": "AdobeStock_237750720__1701296420_93473.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-84-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2024/01/AdobeStock_203677035__1648749272_96272.jpg",
+    "alt": "person experiencing tooth pain holding their cheek",
+    "originalFilename": "AdobeStock_203677035__1648749272_96272.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-85-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/12/AdobeStock_676257518__1701894357_17855.jpg",
+    "alt": "A family with good dental health celebrating the holidays",
+    "originalFilename": "AdobeStock_676257518__1701894357_17855.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-86-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/12/AdobeStock_319418244-300x200.jpg",
+    "alt": "Man wearing a hoodie and baseball cap smoking a vape in red and purple lighting",
+    "originalFilename": "AdobeStock_319418244-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-87-thanksgiving.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/12/Thanksgiving.jpg",
+    "alt": "Thanksgiving dinner set up on table",
+    "originalFilename": "Thanksgiving.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-88-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/11/AdobeStock_123597713-300x200.jpg",
+    "alt": "A group of people laughing together over the Thanksgiving table full of food and drinks",
+    "originalFilename": "AdobeStock_123597713-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-89-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/12/AdobeStock_352232709-1-300x200.jpg",
+    "alt": "Large model tooth covered in fractures on a gray background",
+    "originalFilename": "AdobeStock_352232709-1-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-90-dentist-200x300.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/11/dentist-23-200x300.jpg",
+    "alt": "Smiling female dental patient looking in handheld mirror",
+    "originalFilename": "dentist-23-200x300.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-91-family-dentist-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/11/family-dentist-300x200.jpg",
+    "alt": "Patents beside young girl speaking with a dentist",
+    "originalFilename": "family-dentist-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-92-blue-and-white-toothpaste-on-toothbrush.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/11/blue-and-white-toothpaste-on-toothbrush-216729-300x200.jpg",
+    "alt": "In honor of National Dental Hygiene Month, here are 5 easy tips to keep your mouth clean and healthy for a lifetime.",
+    "originalFilename": "blue-and-white-toothpaste-on-toothbrush-216729-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-93-halloween-300x186.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/11/halloween-3-300x186.jpg",
+    "alt": "Three smiling children in Halloween costumes",
+    "originalFilename": "halloween-3-300x186.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-94-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/10/AdobeStock_95489929__1698189503_66549.jpg",
+    "alt": "A closeup of a woman's open mouth",
+    "originalFilename": "AdobeStock_95489929__1698189503_66549.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-95-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/10/AdobeStock_204802985-300x200.jpg",
+    "alt": "Birds eye view of a white cup of coffee on a white saucer with 2 cubes of brown sugar with a tooth design in the coffee foam",
+    "originalFilename": "AdobeStock_204802985-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-96-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/10/AdobeStock_118631093__1697777860_22610.jpg",
+    "alt": "A closeup of a smile with white teeth",
+    "originalFilename": "AdobeStock_118631093__1697777860_22610.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-97-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/10/AdobeStock_543725614__2___1697756332_24727.jpg",
+    "alt": "A closeup shot of a woman’s gum disease",
+    "originalFilename": "AdobeStock_543725614__2___1697756332_24727.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-98-red-velvet-cupcake-1024x772.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/09/red-velvet-cupcake-1024x772.jpg",
+    "alt": "red velvet cupcake",
+    "originalFilename": "red-velvet-cupcake-1024x772.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-99-kids-smiling.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/09/kids-smiling.jpg",
+    "alt": "group of kids smiling",
+    "originalFilename": "kids-smiling.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-100-closeup-of-dental-crown-being-placed.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/09/closeup-of-dental-crown-being-placed-1024x628.jpg",
+    "alt": "illustration of dental crown placement",
+    "originalFilename": "closeup-of-dental-crown-being-placed-1024x628.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-101-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/09/AdobeStock_427032931__1694206280_55267.jpg",
+    "alt": "Laughing friends hug",
+    "originalFilename": "AdobeStock_427032931__1694206280_55267.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-102-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/08/AdobeStock_283663210__1692388125_45522.jpg",
+    "alt": "Person lifting empty water bottle up to their face",
+    "originalFilename": "AdobeStock_283663210__1692388125_45522.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-103-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/08/AdobeStock_600663366__1692132222_90818.jpg",
+    "alt": "Man and woman smiles lakeside.",
+    "originalFilename": "AdobeStock_600663366__1692132222_90818.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-104-gums.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/07/gums.jpg",
+    "alt": "person pointing to their gums",
+    "originalFilename": "gums.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-105-woman-smiling-in-the-sun.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/08/Woman-Smiling-in-the-Sun.jpg",
+    "alt": "Woman wearing headband smiles with teeth outside in the summer sun",
+    "originalFilename": "Woman-Smiling-in-the-Sun.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-106-person-smiling-while-shaking-a-other.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/08/person-smiling-while-shaking-a-other-persons-hand.png",
+    "alt": "person smiling while shaking other person’s hand",
+    "originalFilename": "person-smiling-while-shaking-a-other-persons-hand.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-107-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/07/AdobeStock_552300608__1689151520_97353.jpg",
+    "alt": "A woman facing a dental emergency on summer vacation",
+    "originalFilename": "AdobeStock_552300608__1689151520_97353.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-108-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/07/AdobeStock_562624325__1689144151_17519.jpg",
+    "alt": "A smiling woman having fun on the beach",
+    "originalFilename": "AdobeStock_562624325__1689144151_17519.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-109-eating-icecream-1024x682.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/07/eating-icecream-1024x682.jpg",
+    "alt": "person eating ice cream",
+    "originalFilename": "eating-icecream-1024x682.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-110-smiling-on-beach-1024x682.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/06/smiling-on-beach-1024x682.jpg",
+    "alt": "person on summer vacation smiling on a beach",
+    "originalFilename": "smiling-on-beach-1024x682.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-111-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/06/AdobeStock_316558318__6___1648663507_68076.jpg",
+    "alt": "woman smiling while talking to dentist",
+    "originalFilename": "AdobeStock_316558318__6___1648663507_68076.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-112-parent-and-child-visiting-orthodontist-1024x682.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/06/parent-and-child-visiting-orthodontist-1024x682.jpg",
+    "alt": "parent and child visiting orthodontist",
+    "originalFilename": "parent-and-child-visiting-orthodontist-1024x682.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-113-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/06/AdobeStock_210654708__1648663262_16080.jpg",
+    "alt": "dentist talking to patient about dental implants",
+    "originalFilename": "AdobeStock_210654708__1648663262_16080.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-114-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/05/AdobeStock_146509893__1683901764_33636.jpg",
+    "alt": "a woman sneezing due to spring allergies in Mesquite",
+    "originalFilename": "AdobeStock_146509893__1683901764_33636.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-115-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/05/AdobeStock_211170901__1683833770_41745.jpg",
+    "alt": "a person holding an oral cancer awareness ribbon",
+    "originalFilename": "AdobeStock_211170901__1683833770_41745.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-116-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/05/AdobeStock_151473395__1683901407_20006.jpg",
+    "alt": "a dental hygienist helping a patient in Love Field",
+    "originalFilename": "AdobeStock_151473395__1683901407_20006.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-117-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/05/AdobeStock_133013600__1683822925_57203.jpg",
+    "alt": "a woman smiling about her tax refund in Duncanville",
+    "originalFilename": "AdobeStock_133013600__1683822925_57203.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-118-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/04/AdobeStock_175564448__1680326119_40559.jpg",
+    "alt": "seniors in an assisted living home",
+    "originalFilename": "AdobeStock_175564448__1680326119_40559.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-119-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/04/AdobeStock_458042225__4___1680803970_78588-300x200.jpg",
+    "alt": "a woman with a fresh smile holding spring flowers",
+    "originalFilename": "AdobeStock_458042225__4___1680803970_78588-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-120-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/04/AdobeStock_571845233__1680806292_79338__1680815390_40368-300x200.jpg",
+    "alt": "a dental assistant happily helping a patient",
+    "originalFilename": "AdobeStock_571845233__1680806292_79338__1680815390_40368-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-121-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/04/AdobeStock_481347955__1680321726_10307-300x200.jpg",
+    "alt": "a woman smiling and celebrating St. Patrick’s Day",
+    "originalFilename": "AdobeStock_481347955__1680321726_10307-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-122-picture1-1024x683.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/02/Picture1-1-1024x683.jpg",
+    "alt": "Closeup of girl in yellow shirt brushing her teeth",
+    "originalFilename": "Picture1-1-1024x683.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-123-picture1-1024x683.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/02/Picture1-3-1024x683.jpg",
+    "alt": "Man holding cut out heart over his chest",
+    "originalFilename": "Picture1-3-1024x683.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-124-picture1-1024x684.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/02/Picture1-2-1024x684.jpg",
+    "alt": "Smiling woman with white teeth flossing in bathroom",
+    "originalFilename": "Picture1-2-1024x684.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-125-picture1-1024x683.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/02/Picture1-1024x683.jpg",
+    "alt": "Person wrapping red bow on heart box",
+    "originalFilename": "Picture1-1024x683.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-126-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/01/AdobeStock_256590924__1674669274_94730.jpg",
+    "alt": "how-to-build-a-dental-emergency-kit",
+    "originalFilename": "AdobeStock_256590924__1674669274_94730.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-127-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/01/AdobeStock_181225534__1674668853_61038.jpg",
+    "alt": "a man and his son flossing",
+    "originalFilename": "AdobeStock_181225534__1674668853_61038.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-128-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/01/AdobeStock_56438402__1674668602_32722.jpg",
+    "alt": "The split image of a woman both with and without braces",
+    "originalFilename": "AdobeStock_56438402__1674668602_32722.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-129-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2023/01/AdobeStock_430458207__1___1674668357_42963.jpg",
+    "alt": "patient sitting in a chair at a checkup",
+    "originalFilename": "AdobeStock_430458207__1___1674668357_42963.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-130-stockings1-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/12/stockings1-300x200.jpg",
+    "alt": "stockings hanging over a fireplace in Love Field",
+    "originalFilename": "stockings1-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-131-dental-visit3-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/12/dental-visit3-300x200.jpg",
+    "alt": "a patient visiting her dentist in Mesquite",
+    "originalFilename": "dental-visit3-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-132-dental-implants4-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/12/dental-implants4-300x200.jpg",
+    "alt": "a patient holding a model of dental implants in North Dallas",
+    "originalFilename": "dental-implants4-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-133-dental-patient-receiving-treatment-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/12/dental-patient-receiving-treatment-300x200.jpg",
+    "alt": "a patient receiving emergency dental care in Duncanville",
+    "originalFilename": "dental-patient-receiving-treatment-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-134-child-brushing3-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/11/child-brushing3-300x200.jpg",
+    "alt": "a child brushing his teeth during flu season in Duncanville",
+    "originalFilename": "child-brushing3-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-135-dental-insruance2-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/11/dental-insruance2-300x200.jpg",
+    "alt": "a patient filling out dental insurance forms in Love Field",
+    "originalFilename": "dental-insruance2-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-136-thanksgiving3-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/11/thanksgiving3-300x200.jpg",
+    "alt": "An assortment of Thanksgiving foods in North Dallas",
+    "originalFilename": "thanksgiving3-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-137-dental-implants5-300x180.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/11/dental-implants5-300x180.jpg",
+    "alt": "a closeup of dental implants against a blue background",
+    "originalFilename": "dental-implants5-300x180.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-138-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/10/AdobeStock_249028721__1666297513_81418.jpg",
+    "alt": "A spooky dentist in Mesquite treating a patient",
+    "originalFilename": "AdobeStock_249028721__1666297513_81418.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-139-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/10/AdobeStock_222135901__1666306576_79272.jpg",
+    "alt": "A dentist in love field treating a patient",
+    "originalFilename": "AdobeStock_222135901__1666306576_79272.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-140-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/10/AdobeStock_192962491__1666304571_98172.jpg",
+    "alt": "A dentist in North Dallas holding toothpaste",
+    "originalFilename": "AdobeStock_192962491__1666304571_98172.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-141-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/10/AdobeStock_148155082__1666300627_23358.jpg",
+    "alt": "A dentist in Duncanville holding a piggy bank",
+    "originalFilename": "AdobeStock_148155082__1666300627_23358.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-142-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/09/AdobeStock_87284071__1664484262_72527.jpg",
+    "alt": "children eating lunch at school in Far North Dallas",
+    "originalFilename": "AdobeStock_87284071__1664484262_72527.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-143-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/09/AdobeStock_430818182__1664474077_92113.jpg",
+    "alt": "woman worried and needing to visit the dentist in Mesquite",
+    "originalFilename": "AdobeStock_430818182__1664474077_92113.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-144-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/09/AdobeStock_122486797__3___1664468644_52603.jpg",
+    "alt": "dental insurance forms for a dentist in Love Field",
+    "originalFilename": "AdobeStock_122486797__3___1664468644_52603.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-145-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/09/AdobeStock_80798614__2___1664463296_86903.jpg",
+    "alt": "a patient visiting their dentist in Duncanville",
+    "originalFilename": "AdobeStock_80798614__2___1664463296_86903.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-146-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/09/AdobeStock_317299537__1662068672_65488.jpg",
+    "alt": "A child brushing his teeth",
+    "originalFilename": "AdobeStock_317299537__1662068672_65488.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-147-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/09/AdobeStock_323711107__1662064625_93019.jpg",
+    "alt": "A dentist in Far North Dallas working with a patient",
+    "originalFilename": "AdobeStock_323711107__1662064625_93019.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-148-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/09/AdobeStock_111774771__1662052276_76155.jpg",
+    "alt": "Foods that benefit your oral health",
+    "originalFilename": "AdobeStock_111774771__1662052276_76155.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-149-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/09/AdobeStock_112836383__2___1662048635_25707.jpg",
+    "alt": "A dentist in Duncanville performing an implant treatment",
+    "originalFilename": "AdobeStock_112836383__2___1662048635_25707.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-150-wisdom-teeth.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/08/Wisdom-Teeth.jpg",
+    "alt": "X-ray of wisdom teeth in Mesquite",
+    "originalFilename": "Wisdom-Teeth.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-151-summer-activity.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/08/Summer-activity.jpg",
+    "alt": "A family swimming in Love Field",
+    "originalFilename": "Summer-activity.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-152-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/08/AdobeStock_74948576__1656112180_27923.jpg",
+    "alt": "Woman smiling under the summer sun in North Dallas",
+    "originalFilename": "AdobeStock_74948576__1656112180_27923.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-153-kombucha.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/08/Kombucha.jpg",
+    "alt": "Kombucha, one of the popular trends that are bad for your teeth",
+    "originalFilename": "Kombucha.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-154-pregnant.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/07/pregnant.jpg",
+    "alt": "pregnant person speaking to dentist",
+    "originalFilename": "pregnant.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-155-picture1.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/07/Picture1.jpg",
+    "alt": "Woman drinking water on hot summer day",
+    "originalFilename": "Picture1.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-156-adobestock-1024x678.jpeg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2020/02/AdobeStock_96599625-1024x678.jpeg",
+    "alt": "Smile-friendly foods like fish, broccoli, milk, and more on a table",
+    "originalFilename": "AdobeStock_96599625-1024x678.jpeg",
+    "category": "gallery"
+  },
+  "gallery/gallery-157-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2020/06/AdobeStock_107483982__1582563426_15982.jpg",
+    "alt": "Man pouring mouthwash into small cup",
+    "originalFilename": "AdobeStock_107483982__1582563426_15982.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-158-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/06/AdobeStock_102841398__1654275868_58994.jpg",
+    "alt": "girl brushing her teeth too hard in Love Field",
+    "originalFilename": "AdobeStock_102841398__1654275868_58994.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-159-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/06/AdobeStock_85016040__1654272040_64561.jpg",
+    "alt": "patient getting a dental checkup in Mesquite",
+    "originalFilename": "AdobeStock_85016040__1654272040_64561.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-160-kids-eating-watermelon.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/06/kids-eating-watermelon.jpg",
+    "alt": "Children enjoying summer on the beach.",
+    "originalFilename": "kids-eating-watermelon.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-161-smiling-woman-wearing-beach-hat.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/06/smiling-woman-wearing-beach-hat.jpg",
+    "alt": "Smiling woman wearing beach hat.",
+    "originalFilename": "smiling-woman-wearing-beach-hat.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-162-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/04/AdobeStock_122463088__1651273555_42770-300x200.jpg",
+    "alt": "",
+    "originalFilename": "AdobeStock_122463088__1651273555_42770-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-163-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/04/AdobeStock_85865020__1651181373_51221-300x200.jpg",
+    "alt": "wallet of money",
+    "originalFilename": "AdobeStock_85865020__1651181373_51221-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-164-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/04/AdobeStock_206899298__1651180320_99083-300x200.jpg",
+    "alt": "people drinking cups of coffee",
+    "originalFilename": "AdobeStock_206899298__1651180320_99083-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-165-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/04/AdobeStock_62317663__1651180940_72046-300x200.jpg",
+    "alt": "jellybeans",
+    "originalFilename": "AdobeStock_62317663__1651180940_72046-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-166-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/04/AdobeStock_102303370__1650573756_95628.jpg",
+    "alt": "man brushing his teeth in Duncanville",
+    "originalFilename": "AdobeStock_102303370__1650573756_95628.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-167-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/04/AdobeStock_100531134__1650565963_11416.jpg",
+    "alt": "family smiling in Love Field",
+    "originalFilename": "AdobeStock_100531134__1650565963_11416.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-168-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/04/AdobeStock_326888293__1650577755_85843.jpg",
+    "alt": "one new and one old toothbrush in North Dallas",
+    "originalFilename": "AdobeStock_326888293__1650577755_85843.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-169-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/04/AdobeStock_489560079__1650554640_92715.jpg",
+    "alt": "woman smiling in Mesquite",
+    "originalFilename": "AdobeStock_489560079__1650554640_92715.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-170-screen-shot-at-2.43.03-pm-1024x682.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/03/Screen-Shot-2022-03-04-at-2.43.03-PM-1024x682.png",
+    "alt": "little boy brushing teeth",
+    "originalFilename": "Screen-Shot-2022-03-04-at-2.43.03-PM-1024x682.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-171-screen-shot-at-2.25.07-pm-1024x696.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/03/Screen-Shot-2022-03-04-at-2.25.07-PM-1024x696.png",
+    "alt": "little girl smiling after seeing dentist in far north Dallas",
+    "originalFilename": "Screen-Shot-2022-03-04-at-2.25.07-PM-1024x696.png",
+    "category": "gallery"
+  },
+  "gallery/gallery-172-adobestock-300x169.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/02/AdobeStock_478395596__1644372500_28391-300x169.jpg",
+    "alt": "happy couple exchanging Valentine’s Day gifts",
+    "originalFilename": "AdobeStock_478395596__1644372500_28391-300x169.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-173-adobestock-193x300.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/02/AdobeStock_51062083__1644371875_36796-193x300.jpg",
+    "alt": "bad breath illustration",
+    "originalFilename": "AdobeStock_51062083__1644371875_36796-193x300.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-174-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/02/AdobeStock_236392652__1___1644371235_23990-300x200.jpg",
+    "alt": "juice cleanse",
+    "originalFilename": "AdobeStock_236392652__1___1644371235_23990-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-175-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/02/AdobeStock_177121112__1644370575_22445-300x200.jpg",
+    "alt": "Woman flossing",
+    "originalFilename": "AdobeStock_177121112__1644370575_22445-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-176-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/02/AdobeStock_460744998__1644370144_66878-300x200.jpg",
+    "alt": "",
+    "originalFilename": "AdobeStock_460744998__1644370144_66878-300x200.jpg",
+    "category": "gallery"
+  },
+  "gallery/gallery-177-adobestock-300x200.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2022/01/AdobeStock_402647900__1642540447_34230-300x200.jpg",
+    "alt": "child with pulled tooth",
+    "originalFilename": "AdobeStock_402647900__1642540447_34230-300x200.jpg",
+    "category": "gallery"
+  },
+  "heroes/hero-1-pager.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/banner-pager-1.jpg",
+    "alt": "",
+    "originalFilename": "banner-pager-1.jpg",
+    "category": "hero"
+  },
+  "heroes/hero-2-pager.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/banner-pager-2.jpg",
+    "alt": "",
+    "originalFilename": "banner-pager-2.jpg",
+    "category": "hero"
+  },
+  "heroes/hero-3-pager.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/banner-pager-3.jpg",
+    "alt": "",
+    "originalFilename": "banner-pager-3.jpg",
+    "category": "hero"
+  },
+  "heroes/hero-4.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/banner-1.jpg",
+    "alt": "",
+    "originalFilename": "banner-1.jpg",
+    "category": "hero"
+  },
+  "heroes/hero-5.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/banner-2.jpg",
+    "alt": "",
+    "originalFilename": "banner-2.jpg",
+    "category": "hero"
+  },
+  "heroes/hero-6.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/banner-3.jpg",
+    "alt": "",
+    "originalFilename": "banner-3.jpg",
+    "category": "hero"
+  },
+  "branding/badge-7-logo-aetna.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/logo-aetna.png",
+    "alt": "",
+    "originalFilename": "logo-aetna.png",
+    "category": "badge"
+  },
+  "branding/badge-8-logo-assurant.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/logo-assurant.png",
+    "alt": "",
+    "originalFilename": "logo-assurant.png",
+    "category": "badge"
+  },
+  "branding/badge-9-logo-bxbs.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/logo-bxbs.png",
+    "alt": "",
+    "originalFilename": "logo-bxbs.png",
+    "category": "badge"
+  },
+  "branding/badge-10-logo-cigna.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/logo-cigna.png",
+    "alt": "",
+    "originalFilename": "logo-cigna.png",
+    "category": "badge"
+  },
+  "branding/badge-11-logo-delta.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/logo-delta.png",
+    "alt": "",
+    "originalFilename": "logo-delta.png",
+    "category": "badge"
+  },
+  "branding/badge-12-logo-guardian.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/logo-guardian.png",
+    "alt": "",
+    "originalFilename": "logo-guardian.png",
+    "category": "badge"
+  },
+  "branding/badge-13-logo-uhc.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/logo-uhc.png",
+    "alt": "",
+    "originalFilename": "logo-uhc.png",
+    "category": "badge"
+  },
+  "branding/badge-14-logo-ameritas.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/logo-ameritas.png",
+    "alt": "",
+    "originalFilename": "logo-ameritas.png",
+    "category": "badge"
+  },
+  "branding/badge-15-logo-mcna.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/logo-mcna.png",
+    "alt": "",
+    "originalFilename": "logo-mcna.png",
+    "category": "badge"
+  },
+  "branding/badge-16-logo-metlife.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/logo-metlife.png",
+    "alt": "",
+    "originalFilename": "logo-metlife.png",
+    "category": "badge"
+  },
+  "branding/badge-17-logo-principal.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/logo-principal.png",
+    "alt": "",
+    "originalFilename": "logo-principal.png",
+    "category": "badge"
+  },
+  "branding/badge-18-logo-dentaquest.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/logo-dentaquest.png",
+    "alt": "",
+    "originalFilename": "logo-dentaquest.png",
+    "category": "badge"
+  },
+  "branding/badge-19-sunbit-logo.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sunbit-logo.png",
+    "alt": "",
+    "originalFilename": "sunbit-logo.png",
+    "category": "badge"
+  },
+  "branding/badge-20-logo-carecredit.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/logo-carecredit.png",
+    "alt": "",
+    "originalFilename": "logo-carecredit.png",
+    "category": "badge"
+  },
+  "heroes/hero-21-sp-pecan.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-pecan-banner.jpg",
+    "alt": "",
+    "originalFilename": "sp-pecan-banner.jpg",
+    "category": "hero"
+  },
+  "heroes/hero-22-sp-westcliff.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-westcliff-banner.jpg",
+    "alt": "",
+    "originalFilename": "sp-westcliff-banner.jpg",
+    "category": "hero"
+  },
+  "heroes/hero-23-sp.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-banner.jpg",
+    "alt": "",
+    "originalFilename": "sp-banner.jpg",
+    "category": "hero"
+  },
+  "heroes/hero-24-sp-springvalley.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-springvalley-banner.jpg",
+    "alt": "",
+    "originalFilename": "sp-springvalley-banner.jpg",
+    "category": "hero"
+  },
+  "heroes/hero-25-sp-buckner.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-buckner-banner.jpg",
+    "alt": "",
+    "originalFilename": "sp-buckner-banner.jpg",
+    "category": "hero"
+  },
+  "heroes/hero-26-east-dallas.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/east-dallas-banner.jpg",
+    "alt": "",
+    "originalFilename": "east-dallas-banner.jpg",
+    "category": "hero"
+  },
+  "heroes/hero-27-sp-torrevista.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-torrevista-banner.jpg",
+    "alt": "",
+    "originalFilename": "sp-torrevista-banner.jpg",
+    "category": "hero"
+  },
+  "heroes/hero-28-sp-grapevine.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-grapevine-banner.jpg",
+    "alt": "",
+    "originalFilename": "sp-grapevine-banner.jpg",
+    "category": "hero"
+  },
+  "heroes/hero-29-sp-townnorth.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-townnorth-banner.jpg",
+    "alt": "",
+    "originalFilename": "sp-townnorth-banner.jpg",
+    "category": "hero"
+  },
+  "heroes/hero-30-mesquite-temp.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/mesquite-banner-temp.jpg",
+    "alt": "",
+    "originalFilename": "mesquite-banner-temp.jpg",
+    "category": "hero"
+  },
+  "heroes/hero-31-sp-pioneer.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-pioneer-banner.jpg",
+    "alt": "",
+    "originalFilename": "sp-pioneer-banner.jpg",
+    "category": "hero"
+  },
+  "gallery/treatment-32-services.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/services-1.jpg",
+    "alt": "",
+    "originalFilename": "services-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-33-services.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/services-2.jpg",
+    "alt": "",
+    "originalFilename": "services-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-34-services.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/services-3.jpg",
+    "alt": "",
+    "originalFilename": "services-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-35-services.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/services-5.jpg",
+    "alt": "",
+    "originalFilename": "services-5.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-36-services.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/services-6.jpg",
+    "alt": "",
+    "originalFilename": "services-6.jpg",
+    "category": "treatment"
+  },
+  "heroes/hero-37-sp-fortworth.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/sp-fortworth-banner.jpg",
+    "alt": "",
+    "originalFilename": "sp-fortworth-banner.jpg",
+    "category": "hero"
+  },
+  "gallery/treatment-38-specialists.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/specialists-1.jpg",
+    "alt": "",
+    "originalFilename": "specialists-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-39-specialists.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/specialists-2.jpg",
+    "alt": "",
+    "originalFilename": "specialists-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-40-specialists.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/specialists-3.jpg",
+    "alt": "",
+    "originalFilename": "specialists-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-41-specialists.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/specialists-4.jpg",
+    "alt": "",
+    "originalFilename": "specialists-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-42-restorative.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/restorative-1.jpg",
+    "alt": "",
+    "originalFilename": "restorative-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-43-preventative-new.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/preventative-1-new.jpg",
+    "alt": "team members cleaning patient's teeth",
+    "originalFilename": "preventative-1-new.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-44-preventive.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/preventive-2.jpg",
+    "alt": "",
+    "originalFilename": "preventive-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-45-preventative-new.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/preventative-3-new.jpg",
+    "alt": "team member using camera and computer",
+    "originalFilename": "preventative-3-new.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-46-preventive.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/preventive-4.jpg",
+    "alt": "",
+    "originalFilename": "preventive-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-47-preventive.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/preventive-5.jpg",
+    "alt": "",
+    "originalFilename": "preventive-5.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-48-crowns.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/crowns-1.jpg",
+    "alt": "Tweezers holding dental crown over cast model of teeth",
+    "originalFilename": "crowns-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-49-crowns.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/crowns-2.jpg",
+    "alt": "Illustration of a dental crown levitating over shaved tooth with black background",
+    "originalFilename": "crowns-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-50-crowns.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/crowns-3.jpg",
+    "alt": "Woman smiling as dentist holds shade guide to her teeth",
+    "originalFilename": "crowns-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-51-crowns.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/crowns-4.jpg",
+    "alt": "Dentist wearing blue gloves showing how model dental crown works",
+    "originalFilename": "crowns-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-52-crown-cost.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/crown-cost-1.jpg",
+    "alt": "",
+    "originalFilename": "crown-cost-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-53-crown-cost.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/crown-cost-2.jpg",
+    "alt": "",
+    "originalFilename": "crown-cost-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-54-crown-cost.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/crown-cost-3.jpg",
+    "alt": "",
+    "originalFilename": "crown-cost-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-55-crown-cost.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/crown-cost-4.jpg",
+    "alt": "",
+    "originalFilename": "crown-cost-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-56-checkups.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/checkups-1.jpg",
+    "alt": "A man, woman, and little girl wearing shades of blue posing for a family photo",
+    "originalFilename": "checkups-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-57-checkups.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/checkups-2.jpg",
+    "alt": "Dentist standing behind smiling woman in dental chair with dark hair",
+    "originalFilename": "checkups-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-58-checkups.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/checkups-3.jpg",
+    "alt": "Blue-gloved hands performing dental exam reflecting teeth in mirror",
+    "originalFilename": "checkups-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-59-checkups.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/checkups-4.jpg",
+    "alt": "Dentist polishing woman’s teeth during routine visit",
+    "originalFilename": "checkups-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-60-gum-disease-new.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/gum-disease-1-new.jpg",
+    "alt": "dental assistants at work",
+    "originalFilename": "gum-disease-1-new.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-61-gum-treatment.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/gum-treatment-1.jpg",
+    "alt": "A woman holding an illustration of gum disease over her face",
+    "originalFilename": "gum-treatment-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-62-gum-treatment.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/gum-treatment-2.jpg",
+    "alt": "A woman revealing her red and inflamed gums",
+    "originalFilename": "gum-treatment-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-63-gum-treatment.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/gum-treatment-3.jpg",
+    "alt": "A young woman about to receive treatment for gum disease",
+    "originalFilename": "gum-treatment-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-64-planing.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/planing-1.jpg",
+    "alt": "a 3D illustration of scaling and root planing being performed",
+    "originalFilename": "planing-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-65-planing.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/planing-2.jpg",
+    "alt": "a close-up of a man with swollen gums",
+    "originalFilename": "planing-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-66-planing.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/planing-3.jpg",
+    "alt": "a patient smiling while chatting with her dentist",
+    "originalFilename": "planing-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-67-planing.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/planing-4.jpg",
+    "alt": "a woman brushing her teeth and examining her smile",
+    "originalFilename": "planing-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-68-restorative.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/restorative-2.jpg",
+    "alt": "",
+    "originalFilename": "restorative-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-69-restorative.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/restorative-3.jpg",
+    "alt": "",
+    "originalFilename": "restorative-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-70-restorative.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/restorative-4.jpg",
+    "alt": "",
+    "originalFilename": "restorative-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-71-bridges.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/bridges-1.jpg",
+    "alt": "an example of a traditional dental bridge",
+    "originalFilename": "bridges-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-72-bridges.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/bridges-2.jpg",
+    "alt": "a patient smiling while getting her teeth checked",
+    "originalFilename": "bridges-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-73-bridges.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/bridges-3.jpg",
+    "alt": "a 3D illustration of a traditional dental bridge",
+    "originalFilename": "bridges-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-74-bridges.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/bridges-4.jpg",
+    "alt": "a 3D illustration of an implant dental bridge",
+    "originalFilename": "bridges-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-75-bridges.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/bridges-5.jpg",
+    "alt": "a patient checking his smile with a mirror",
+    "originalFilename": "bridges-5.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-76-pediatric-new.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/pediatric-1-new.jpg",
+    "alt": "child brushing teeth near team member",
+    "originalFilename": "pediatric-1-new.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-77-child-sealants.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/child-sealants.jpg",
+    "alt": "child with toothbrush",
+    "originalFilename": "child-sealants.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-78-child-tooth-colored-fillings.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/child-tooth-colored-fillings.jpg",
+    "alt": "child giving a thumbs up next to dental assistant",
+    "originalFilename": "child-tooth-colored-fillings.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-79-pediatric-new.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/pediatric-4-new.jpg",
+    "alt": "mother and daughter hugging",
+    "originalFilename": "pediatric-4-new.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-80-root.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/root-1.jpg",
+    "alt": "Lady has dental pain?",
+    "originalFilename": "root-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-81-root.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/root-2.jpg",
+    "alt": "Illustration of infected pulp?",
+    "originalFilename": "root-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-82-root.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/root-3.jpg",
+    "alt": "Dentist treats patient?",
+    "originalFilename": "root-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-83-root.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/root-4.jpg",
+    "alt": "Lady smiles at dentist",
+    "originalFilename": "root-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-84-root-cost.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/root-cost-1.jpg",
+    "alt": "Cost written on wooden blocks",
+    "originalFilename": "root-cost-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-85-root-cost.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/root-cost-2.jpg",
+    "alt": "Coins next to a piggy bank",
+    "originalFilename": "root-cost-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-86-root-cost.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/root-cost-3.jpg",
+    "alt": "Dentist holding an extracted tooth",
+    "originalFilename": "root-cost-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-87-root-cost.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/root-cost-4.jpg",
+    "alt": "Health and dental insurance cards",
+    "originalFilename": "root-cost-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-88-root-cost.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/root-cost-5.jpg",
+    "alt": "Woman using a credit card",
+    "originalFilename": "root-cost-5.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-89-fillings.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/fillings-1.jpg",
+    "alt": "closeup of woman smiling",
+    "originalFilename": "fillings-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-90-fillings.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/fillings-2.jpg",
+    "alt": "dentist hardening a tooth colored filling",
+    "originalFilename": "fillings-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-91-fillings.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/fillings-3.jpg",
+    "alt": "woman getting dental checkup",
+    "originalFilename": "fillings-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-92-fillings.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/fillings-4.jpg",
+    "alt": "man smiling after getting tooth colored fillings",
+    "originalFilename": "fillings-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-93-dentures.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/dentures-1.jpg",
+    "alt": "a dentist showing a patient a model of dentures",
+    "originalFilename": "dentures-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-94-dentures.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/dentures-2.jpg",
+    "alt": "a person holding their cheeks and smiling",
+    "originalFilename": "dentures-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-95-dentures.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/dentures-3.jpg",
+    "alt": "partial dentures on a wax model of teeth",
+    "originalFilename": "dentures-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-96-dentures.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/dentures-4.jpg",
+    "alt": "an example of full dentures",
+    "originalFilename": "dentures-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-97-dentures.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/dentures-5.jpg",
+    "alt": "an example of implant dentures",
+    "originalFilename": "dentures-5.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-98-dentures-ben.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/dentures-ben-1.jpg",
+    "alt": "Dentures have a number of important benefits that can improve your quality of life",
+    "originalFilename": "dentures-ben-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-99-dentures-ben.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/dentures-ben-2.jpg",
+    "alt": "The psychological benefits of a beautiful smile are important to your mental health",
+    "originalFilename": "dentures-ben-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-100-dentures-ben.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/dentures-ben-3.jpg",
+    "alt": "Dentures can help promote clearer speech and enunciation",
+    "originalFilename": "dentures-ben-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-101-dentures-ben.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/dentures-ben-4.jpg",
+    "alt": "Dentures allow you to eat a healthier, more nutritious diet",
+    "originalFilename": "dentures-ben-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-102-dentures-ben.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/dentures-ben-5.jpg",
+    "alt": "Dentures can help protect your oral health and any existing teeth",
+    "originalFilename": "dentures-ben-5.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-103-dentures-ben.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/dentures-ben-6.jpg",
+    "alt": "Having a complete smile can boost your confidence and help you expand your professional opportunities.",
+    "originalFilename": "dentures-ben-6.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-104-dentures-made.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/dentures-made-1.jpg",
+    "alt": "Older woman learning how dentures are made in Far North Dallas",
+    "originalFilename": "dentures-made-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-105-dentures-made.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/dentures-made-2.jpg",
+    "alt": "Person holding an upper denture",
+    "originalFilename": "dentures-made-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-106-dentures-made.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/dentures-made-3.jpg",
+    "alt": "Lab technician creating a denture in the lab",
+    "originalFilename": "dentures-made-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-107-dentures-made.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/dentures-made-4.jpg",
+    "alt": "Older couple showing off new dentures",
+    "originalFilename": "dentures-made-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-108-special-needs.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/special-needs-1.jpg",
+    "alt": "Child playing with letters",
+    "originalFilename": "special-needs-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-109-special-needs.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/special-needs-2.jpg",
+    "alt": "Boy in a wheelchair at the doctor",
+    "originalFilename": "special-needs-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-110-special-needs.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/special-needs-3.jpg",
+    "alt": "Disabled child playing at a desk",
+    "originalFilename": "special-needs-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-111-special-needs.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/special-needs-4.jpg",
+    "alt": "Mother holding her daughter with down syndrome",
+    "originalFilename": "special-needs-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-112-ortho.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/ortho-1.jpg",
+    "alt": "",
+    "originalFilename": "ortho-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-113-ortho.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/ortho-2.jpg",
+    "alt": "girl smiling with braces",
+    "originalFilename": "ortho-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-114-ortho-new.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/ortho-3-new.jpg",
+    "alt": "close up of young man with braces",
+    "originalFilename": "ortho-3-new.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-115-trad-braces.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/trad-braces-1.jpg",
+    "alt": "Illustration of overbite?",
+    "originalFilename": "trad-braces-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-116-trad-braces.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/trad-braces-2.jpg",
+    "alt": "Crooked teeth",
+    "originalFilename": "trad-braces-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-117-trad-braces.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/trad-braces-3.jpg",
+    "alt": "Lady has gap in teeth",
+    "originalFilename": "trad-braces-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-118-trad-braces.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/trad-braces-4.jpg",
+    "alt": "Teen smiles with braces",
+    "originalFilename": "trad-braces-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-119-implants.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/implants-4.jpg",
+    "alt": "A dental patient holding a model of a dental implant",
+    "originalFilename": "implants-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-120-implants.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/implants-5.jpg",
+    "alt": "A dentist showing a dental implant to his patient",
+    "originalFilename": "implants-5.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-121-implants.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/implants-6.jpg",
+    "alt": "A 3D illustration of a dental implant set in a patient’s jaw",
+    "originalFilename": "implants-6.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-122-step.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/4-step-1.jpg",
+    "alt": "Woman at a consultation",
+    "originalFilename": "4-step-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-123-step.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/4-step-2.jpg",
+    "alt": "Dentists performing a procedure",
+    "originalFilename": "4-step-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-124-step.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/4-step-3.jpg",
+    "alt": "Closeup of a dental implant",
+    "originalFilename": "4-step-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-125-step.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/4-step-4.jpg",
+    "alt": "Woman smiling at the dentist",
+    "originalFilename": "4-step-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-126-implants.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/implants-7.jpg",
+    "alt": "An elderly woman admiring her restored smile in a hand mirror",
+    "originalFilename": "implants-7.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-127-implants.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/implants-8.jpg",
+    "alt": "A woman holding an enlarged model of a dental implant",
+    "originalFilename": "implants-8.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-128-implants.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/implants-9.jpg",
+    "alt": "A dental patient calculating the cost of dental implants",
+    "originalFilename": "implants-9.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-129-cost-dental-implants.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/1-cost-dental-implants.jpg",
+    "alt": "Woman in patient’s chair smiling in the mirror",
+    "originalFilename": "1-cost-dental-implants.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-130-cost-dental-implants.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/2-cost-dental-implants.jpg",
+    "alt": "Digital image of the three parts of an implant crown",
+    "originalFilename": "2-cost-dental-implants.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-131-cost-dental-implants.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/3-cost-dental-implants.jpg",
+    "alt": "Woman smiling while on a boat",
+    "originalFilename": "3-cost-dental-implants.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-132-cost-dental-implants.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/4-cost-dental-implants.jpg",
+    "alt": "Dental insurance form on a desk",
+    "originalFilename": "4-cost-dental-implants.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-133-cost-dental-implants.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/5-cost-dental-implants.jpg",
+    "alt": "Jar full of money",
+    "originalFilename": "5-cost-dental-implants.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-134-maintain-dental-implants.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/1-maintain-dental-implants.jpg",
+    "alt": "Your new dental implants can provide a lifetime of smiles",
+    "originalFilename": "1-maintain-dental-implants.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-135-maintain-dental-implants.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/2-maintain-dental-implants.jpg",
+    "alt": "Maintain your oral hygiene to protect your dental implants",
+    "originalFilename": "2-maintain-dental-implants.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-136-maintain-dental-implants.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/3-maintain-dental-implants.jpg",
+    "alt": "Eating a healthy diet will help protect your dental implants",
+    "originalFilename": "3-maintain-dental-implants.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-137-maintain-dental-implants.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/4-maintain-dental-implants.jpg",
+    "alt": "Quit bad habits like smoking to protect your dental implants",
+    "originalFilename": "4-maintain-dental-implants.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-138-maintain-dental-implants.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/5-maintain-dental-implants.jpg",
+    "alt": "Wear a protective mouthguard if you play sports",
+    "originalFilename": "5-maintain-dental-implants.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-139-maintain-dental-implants.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/6-maintain-dental-implants.jpg",
+    "alt": "Be sure to stay on top of your dental checkups",
+    "originalFilename": "6-maintain-dental-implants.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-140-oral-surgery-new.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/oral-surgery-1-new.jpg",
+    "alt": "team members working on patient",
+    "originalFilename": "oral-surgery-1-new.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-141-oral-surgery.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/oral-surgery-3.jpg",
+    "alt": "",
+    "originalFilename": "oral-surgery-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-142-oral-surgery.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/oral-surgery-2.jpg",
+    "alt": "",
+    "originalFilename": "oral-surgery-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-143-emer.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/emer-1.jpg",
+    "alt": "Woman with glasses and white shirt with tooth pain",
+    "originalFilename": "emer-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-144-emer.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/emer-2.jpg",
+    "alt": "Smiling man in blue shirt sitting in dental chair",
+    "originalFilename": "emer-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-145-prev-emer.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/prev-emer-1.jpg",
+    "alt": "Woman in dental office looking at x-ray holding hand to face in pain",
+    "originalFilename": "prev-emer-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-146-prev-emer.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/prev-emer-2.jpg",
+    "alt": "Closeup of patient undergoing dental exam",
+    "originalFilename": "prev-emer-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-147-prev-emer.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/prev-emer-3.jpg",
+    "alt": "A family brushing their teeth together in the bathroom",
+    "originalFilename": "prev-emer-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-148-prev-emer.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/prev-emer-4.jpg",
+    "alt": "A woman cutting apple slices for her toddler",
+    "originalFilename": "prev-emer-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-149-prev-emer.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/prev-emer-5.jpg",
+    "alt": "Man in white t-shirt with blue mouthguard outside",
+    "originalFilename": "prev-emer-5.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-150-prev-emer.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/prev-emer-6.jpg",
+    "alt": "Woman cutting plastic mail package with a pair of orange scissors",
+    "originalFilename": "prev-emer-6.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-151-extracted-tooth-sitting-on-wood-table.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/extracted-tooth-sitting-on-wood-table-next-to-dental-equipment-v1.jpg",
+    "alt": "Extracted tooth sitting on wood table next to dental equipment",
+    "originalFilename": "extracted-tooth-sitting-on-wood-table-next-to-dental-equipment-v1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-152-dentist-and-patient-reviewing-x-ray.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/dentist-and-patient-reviewing-x-ray-v1.jpg",
+    "alt": "Dentist and patient reviewing X-ray",
+    "originalFilename": "dentist-and-patient-reviewing-x-ray-v1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-153-illustration-of-tooth-being-extracted-from.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/illustration-of-tooth-being-extracted-from-a-dental-line-up-v1.jpg",
+    "alt": "Illustration of tooth being extracted from a dental line up",
+    "originalFilename": "illustration-of-tooth-being-extracted-from-a-dental-line-up-v1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-154-woman-sleeping-peacefully-on-couch-during.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/woman-sleeping-peacefully-on-couch-during-tooth-extraction-recovery-v1.jpg",
+    "alt": "Woman sleeping peacefully on couch during tooth extraction recovery",
+    "originalFilename": "woman-sleeping-peacefully-on-couch-during-tooth-extraction-recovery-v1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-155-extractions-cost.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/extractions-cost-1.jpg",
+    "alt": "Closeup of forceps holding an extracted tooth",
+    "originalFilename": "extractions-cost-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-156-extractions-cost.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/extractions-cost-2.jpg",
+    "alt": "Closeup of forceps grasping woman’s tooth",
+    "originalFilename": "extractions-cost-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-157-extractions-cost.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/extractions-cost-3.jpg",
+    "alt": "Top of dental insurance form with x-ray, glasses, money, and pen",
+    "originalFilename": "extractions-cost-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-158-extractions-cost.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/extractions-cost-4.jpg",
+    "alt": "Woman in blue scrubs handing application on clipboard to patient",
+    "originalFilename": "extractions-cost-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-159-wisdom.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/wisdom-1.jpg",
+    "alt": "Wisdom Tooth Extraction in Dallas, TX",
+    "originalFilename": "wisdom-1.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-160-wisdom.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/wisdom-2.jpg",
+    "alt": "Choose Bear Creek Family nDentistry for Your Wisdom Tooth Extraction in Dallas, TX",
+    "originalFilename": "wisdom-2.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-161-wisdom.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/wisdom-3.jpg",
+    "alt": "Wisdom teeth are extra molars in Dallas, TX",
+    "originalFilename": "wisdom-3.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-162-wisdom.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/wisdom-4.jpg",
+    "alt": "Wisdom teeth can cause pain and tooth damage in Dallas, TX",
+    "originalFilename": "wisdom-4.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-163-wisdom.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/wisdom-5.jpg",
+    "alt": "Wisdom tooth removal is easy in Dallas, TX",
+    "originalFilename": "wisdom-5.jpg",
+    "category": "treatment"
+  },
+  "gallery/treatment-164-employ-logo.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/employ-logo-1.png",
+    "alt": "Animated dollar bill",
+    "originalFilename": "employ-logo-1.png",
+    "category": "treatment"
+  },
+  "gallery/treatment-165-employ-logo.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/employ-logo-2.png",
+    "alt": "Animated three people",
+    "originalFilename": "employ-logo-2.png",
+    "category": "treatment"
+  },
+  "gallery/treatment-166-employ-logo.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/employ-logo-3.png",
+    "alt": "Animated side profile of a person's head showing their brain",
+    "originalFilename": "employ-logo-3.png",
+    "category": "treatment"
+  },
+  "gallery/treatment-167-employ-logo.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/employ-logo-4.png",
+    "alt": "Animated umbrella sun and water",
+    "originalFilename": "employ-logo-4.png",
+    "category": "treatment"
+  },
+  "gallery/treatment-168-employ-logo.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/employ-logo-5.png",
+    "alt": "Animated star",
+    "originalFilename": "employ-logo-5.png",
+    "category": "treatment"
+  },
+  "gallery/treatment-169-employ-logo.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/employ-logo-6.png",
+    "alt": "Animated map drop pin",
+    "originalFilename": "employ-logo-6.png",
+    "category": "treatment"
+  },
+  "gallery/treatment-170-employ-logo.png": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/assets/images/employ-logo-7.png",
+    "alt": "Animated dental chair",
+    "originalFilename": "employ-logo-7.png",
+    "category": "treatment"
+  },
+  "gallery/treatment-171-adobestock.jpg": {
+    "sourceUrl": "https://www.bearcreekfamilydentistry.com/blog/wp-content/uploads/2026/01/AdobeStock_294397425-3.jpg",
+    "alt": "Illustration of root canal treatment for tooth in lower arch",
+    "originalFilename": "AdobeStock_294397425-3.jpg",
+    "category": "treatment"
+  }
+}

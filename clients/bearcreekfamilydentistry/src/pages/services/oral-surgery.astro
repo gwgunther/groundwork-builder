@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Comprehensive Oral Surgery",
+  "description": "Find out more about oral surgery solutions available from Bear Creek Family Dentistry with several convenient locations in the DFW Metroplex.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Bear Creek Family Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Dallas"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Oral Surgery Dallas | ${site.name}`}
+  description="Find out more about oral surgery solutions available from Bear Creek Family Dentistry with several convenient locations in the DFW Metroplex."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Comprehensive Oral Surgery
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Find out more about oral surgery solutions available from Bear Creek Family Dentistry with several convenient locations in the DFW Metroplex.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">At most general dentistry practices, you'll be referred out for advanced surgical needs. At Bear Creek Family Dentistry, we have skilled oral surgeons available in the comfortable, convenient offices you already know and trust. In most cases, we'll work hard to avoid removing teeth by providing advanced restorative solutions that look, feel, and function just like natural teeth. However, there are some situations where tooth removal is the safest and most effective path forward. The most commonly extracted teeth are the third molars — often referred to as wisdom teeth — which erupt between the ages of 17 and 25. Our oral surgery services also include dental implant placement and bone grafting, giving our patients access to a full range of surgical care without having to travel elsewhere.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Oral and maxillofacial surgeons are trained in a hospital-based residency training program for a minimum of four years.</p>
+      <p>Training includes internal medicine, general surgery, anesthesiology, otolaryngology, plastic surgery, emergency medicine, and other specialty areas.</p>
+      <p>Focuses on bone, skin, and muscle of the face, mouth, and jaw.</p>
+      <p>Services available include tooth extractions, wisdom tooth extractions, and dental implant placement.</p>
+      <p>All oral surgery is performed in-house at Bear Creek Family Dentistry locations.</p>
+    </div>
+  </section>
+</BaseLayout>

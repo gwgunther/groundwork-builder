@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Root Canal Treatment – DFW Metroplex",
+  "description": "Root canal treatment may be the best way to keep your tooth healthy and functional. Here's how Bear Creek Family Dental can repair your grin after severe decay.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Bear Creek Family Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Dallas"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Root Canal Treatment Dallas | ${site.name}`}
+  description="Root canal treatment may be the best way to keep your tooth healthy and functional. Here's how Bear Creek Family Dental can repair your grin after severe decay."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Root Canal Treatment – DFW Metroplex
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Root canal treatment may be the best way to keep your tooth healthy and functional. Here's how Bear Creek Family Dental can repair your grin after severe decay.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">If a decayed tooth is left untreated, the infection will eventually spread to the soft pulp at its center, resulting in a miserably painful toothache. Such severe cases of tooth decay will only get worse without professional treatment. Dentists use root canal treatments to restore teeth after severe tooth decay or dental injuries and minimize the likelihood of further infection. A few signs that you may need a root canal include persistent toothache, prolonged sensitivity to heat or cold, tooth discoloration, and swelling or tenderness in nearby gums. Root canals work by eliminating the infected tissue and sanitizing and sealing the affected tooth. This can bring an immediate end to a miserable toothache and help a troubled tooth stay functional for years to come.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Visit</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Signs that a root canal may be needed include toothache, swollen tissue around the tooth, dental discoloration, pain or discomfort when chewing, and a severe toothache suddenly disappearing.</p>
+      <p>The process begins with administering a local anesthetic to ensure no pain during treatment.</p>
+      <p>Infected matter is removed from the tooth, the interior is sanitized, the inner chamber is filled with gutta-percha, and the tooth is sealed to prevent further infection.</p>
+      <p>A temporary dental restoration is placed after the root canal while a customized permanent crown is being made.</p>
+      <p>Patient returns to the office a few weeks later for a permanent crown placement.</p>
+      <p>Root canal treatment is usually considered by insurance providers to be a 'major restorative procedure' covered up to 50% after annual deductible.</p>
+      <p>Practice accepts Medicaid and CHIP for children.</p>
+      <p>Financing available through CareCredit and Sunbit.</p>
+      <p>If a toothache suddenly disappears, the infection may have killed the nerve — root canal may still be necessary.</p>
+      <p>Antibiotics cannot be taken in lieu of getting a root canal because medication traveling through the bloodstream does not reach the pulp of the tooth.</p>
+      <p>After a root canal, normal recovery symptoms include soreness, sensitivity, and discomfort.</p>
+      <p>Cost factors include the location of the tooth (molars cost more), difficulty of the procedure, and whether additional treatment like a dental crown is needed.</p>
+      <p>Molars have more roots than front teeth and take longer to treat, increasing cost.</p>
+      <p>The longer treatment is delayed, the less likely the tooth can be saved.</p>
+      <p>Root canal therapy is necessary when tooth decay or damage reaches the innermost layers of teeth containing the nerve system.</p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Partial Dentures – DFW Metroplex",
+  "description": "Replace select missing teeth with custom partial dentures designed to blend naturally with your existing smile.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Bear Creek Family Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Dallas"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Partial Dentures Dallas | ${site.name}`}
+  description="Replace select missing teeth with custom partial dentures designed to blend naturally with your existing smile."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Partial Dentures – DFW Metroplex
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Replace select missing teeth with custom partial dentures designed to blend naturally with your existing smile.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">If you're missing some — but not all — of your teeth, a partial denture may be the right solution to restore your smile and your ability to chew comfortably. Partial dentures are removable prosthetics that fill in the gaps left by missing teeth while clasping onto your remaining natural teeth for support. At Bear Creek Family Dentistry, our prosthodontists craft partial dentures to match the look and feel of your natural smile as closely as possible. During your consultation, we'll discuss your options and help you find the restoration that best fits your needs and lifestyle.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Designed to fit the smile like a puzzle piece, blending seamlessly with remaining natural teeth.</p>
+      <p>Supported via metal clips that clasp to nearby teeth.</p>
+      <p>Metal framework incorporated for clasps or clips to attach to healthy abutment teeth.</p>
+      <p>Can be used when patients have lost some but not all teeth.</p>
+    </div>
+  </section>
+</BaseLayout>

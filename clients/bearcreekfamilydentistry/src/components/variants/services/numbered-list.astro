@@ -1,0 +1,72 @@
+---
+/**
+ * Services Numbered List — Full-width stacked items with large decorative numbers.
+ * Each row: number / title / description. Horizontal rules between items.
+ */
+import type { ServicesContent } from '../types';
+import { designDNA } from '../../../config/design-dna';
+import { resolveTokens } from '../token-utils';
+
+const { content } = Astro.props;
+
+const tokens = (designDNA as any).designTokens ?? {};
+const t = resolveTokens(tokens);
+---
+
+<section data-section="services" class={`bg-surface-1 ${t.spacingClass}`}>
+  <div class={t.containerClass}>
+
+    <!-- Header — left-aligned -->
+    <div class="max-w-2xl mb-12 md:mb-16">
+      {content.eyebrow && (
+        <span class={t.eyebrowClass}>{content.eyebrow}</span>
+      )}
+      <h2 class="font-serif text-3xl md:text-4xl font-bold text-neutral-dark mb-4">
+        {content.heading}
+      </h2>
+      {content.subheading && (
+        <p class="font-sans text-lg text-neutral-mid leading-relaxed">
+          {content.subheading}
+        </p>
+      )}
+    </div>
+
+    <!-- Numbered rows -->
+    {content.items && content.items.length > 0 && (
+      <ul class="list-none p-0" role="list">
+        {content.items.map((service, i) => (
+          <li>
+            <a
+              href={`/services/${service.slug}`}
+              class="group grid grid-cols-12 gap-4 py-8 border-b border-border-light items-start no-underline"
+              aria-label={`Learn about ${service.name}`}
+            >
+              <!-- Large decorative number -->
+              <span class="col-span-2 md:col-span-1 font-serif text-4xl md:text-5xl font-bold text-brand-primary/20 leading-none tabular-nums group-hover:text-brand-primary/40 transition-colors" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+
+              <!-- Service title -->
+              <h3 class="col-span-10 md:col-span-4 font-serif text-xl font-bold text-neutral-dark group-hover:text-brand-primary transition-colors pt-1">
+                {service.name}
+              </h3>
+
+              <!-- Description -->
+              <p class="col-span-12 md:col-span-7 text-neutral-mid text-sm leading-relaxed md:pt-1">
+                {service.desc}
+              </p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+
+    <!-- CTA -->
+    <div class="mt-10">
+      <a href="/services" class={t.btnPrimary}>
+        {content.ctaLabel || 'View All Services'}
+      </a>
+    </div>
+
+  </div>
+</section>

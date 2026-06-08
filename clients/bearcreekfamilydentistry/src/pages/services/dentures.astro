@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Dentures",
+  "description": "Are you missing some or all of your teeth? At Bear Creek Family Dentistry, we can provide custom dentures in the DFW Metroplex to restore smiles.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Bear Creek Family Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Dallas"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Dentures Dallas | ${site.name}`}
+  description="Are you missing some or all of your teeth? At Bear Creek Family Dentistry, we can provide custom dentures in the DFW Metroplex to restore smiles."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Dentures
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Are you missing some or all of your teeth? At Bear Creek Family Dentistry, we can provide custom dentures in the DFW Metroplex to restore smiles.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Dentures are one of the most reliable tooth replacement solutions out there, having been used for decades to help people renew their bites. With modern dental technology, these prosthetics have only improved. For those who have lost one, some, or all of their teeth, dentures are an excellent option to restore their smile. Tooth loss often brings a range of complications to daily life, such as difficulty eating and speaking, and can affect confidence as well. Depending on your unique needs, we can offer different types of dentures — each with its own purpose. We can discuss which kind will best suit you during your consultation.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Available as partial dentures, full dentures, and implant dentures.</p>
+      <p>Partial dentures are designed for patients missing some teeth; supported via metal clips that clasp to nearby teeth.</p>
+      <p>Full dentures replace an entire arch of missing teeth and stay in position via natural suction on the gum line.</p>
+      <p>Implant dentures are directly supported to the jawbone via dental implants.</p>
+      <p>Implant dentures can help regain more than 80% of natural biting power.</p>
+      <p>Implant dentures are designed to last for decades to even a lifetime with proper care.</p>
+      <p>Denture base can be crafted from acrylic, nylon, or resin; acrylic is most popular as it can be fabricated to match natural gum tissue.</p>
+      <p>Artificial teeth are usually made out of porcelain or resin.</p>
+      <p>Denture creation process involves taking jaw measurements and mouth impressions, sending to a lab for fabrication, a first fitting appointment, finalization at the lab, and a final fitting appointment.</p>
+      <p>After final fitting, a short adjustment phase is required during which patients may feel some slight soreness.</p>
+      <p>Patients may develop a lisp or have difficulty eating certain foods during the adjustment phase.</p>
+      <p>For patients who have gone without teeth for a long time, preliminary treatments like gum disease therapy or bone grafts may be necessary before fitting.</p>
+      <p>Benefits include psychological benefits (restoring confidence and reducing anxiety), clearer enunciation, improved nutrition, preserved oral health, and expanded opportunity.</p>
+    </div>
+  </section>
+</BaseLayout>

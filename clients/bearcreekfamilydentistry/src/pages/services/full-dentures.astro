@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Full Dentures – DFW Metroplex",
+  "description": "Restore your complete smile with custom full dentures crafted to fit comfortably and look natural at Bear Creek Family Dentistry.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Bear Creek Family Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Dallas"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Full Dentures Dallas | ${site.name}`}
+  description="Restore your complete smile with custom full dentures crafted to fit comfortably and look natural at Bear Creek Family Dentistry."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Full Dentures – DFW Metroplex
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Restore your complete smile with custom full dentures crafted to fit comfortably and look natural at Bear Creek Family Dentistry.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">If you've lost all of your teeth on the upper or lower arch — or both — full dentures offer a reliable, time-tested way to restore your ability to eat, speak, and smile with confidence. At Bear Creek Family Dentistry, our prosthodontists work with you to create custom full dentures that fit your mouth precisely. Modern denture materials look more natural than ever, and with proper care, your full dentures can serve you well for many years.</p>
+      <p class="mb-4">Full dentures are removable prosthetics that replace an entire arch of missing teeth. They rest on the gum tissue and, in the case of upper dentures, use suction against the palate for stability. They are one of the most established tooth-replacement options available, and they remain a practical choice for patients across the Dallas area who want to restore function without surgical intervention.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who Full Dentures Are For</h2>
+      <p class="mb-4">Full dentures are appropriate when all of the natural teeth on the upper arch, the lower arch, or both have been lost or need to be extracted. Common reasons patients reach this point include advanced periodontal disease, severe decay, injury, or a combination of long-term dental health challenges.</p>
+      <p class="mb-4">Age is not the defining factor — patients of varying ages choose full dentures. What matters most is that the remaining gum and bone tissue is healthy enough to support the prosthetic. During your consultation, we'll evaluate your oral health to confirm full dentures are the right fit for your situation and discuss alternatives such as implant-supported dentures if that's worth exploring.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">How the Process Works</h2>
+      <p class="mb-4">Getting full dentures typically unfolds over several appointments. Here is what that sequence generally looks like:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>**Initial consultation and exam.** We review your oral health, take X-rays if needed, and discuss your goals. If extractions are required, we plan that step first.</li>
+        <li>**Extractions and healing.** When teeth need to be removed, the gums require time to heal and reshape — usually several weeks to a few months — before a permanent denture can be fitted accurately.</li>
+        <li>**Impressions and measurements.** We take detailed impressions of your gums and record measurements of your bite and jaw relationship. These guide the fabrication of your dentures.</li>
+        <li>**Wax try-in.** A preliminary version of your dentures is created in wax so you can evaluate the fit, appearance, and how your bite comes together before the final version is made.</li>
+        <li>**Delivery and adjustments.** Once the finished dentures arrive, we seat them and make any immediate refinements. Follow-up appointments for minor adjustments are normal and expected.</li>
+      </ul>
+      <p class="mb-4">The total timeline from consultation to final delivery varies depending on whether extractions are involved and how your tissue heals, but patients should generally plan for a process that spans two to four months.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What Your Dentures Will Look and Feel Like</h2>
+      <p class="mb-4">Modern denture teeth are made from acrylic resin or porcelain and are selected to match the shape and shade that suits your face and complexion. The base — the pink portion that sits against your gums — is also acrylic and is crafted to mimic the appearance of natural gum tissue.</p>
+      <p class="mb-4">A well-fitted denture should feel stable during normal speaking and chewing. Some adjustment period is expected: your tongue and cheek muscles adapt over a few weeks, and minor soreness in the early days is common. Most patients find that eating softer foods at first and gradually introducing firmer textures helps the transition.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Caring for Full Dentures</h2>
+      <p class="mb-4">Dentures require daily cleaning but should not be brushed with regular toothpaste, which is abrasive enough to scratch the surface. Use a soft denture brush and a denture-specific cleaner. Remove them at night to give your gum tissue a rest and soak them in water or a denture solution to prevent warping.</p>
+      <p class="mb-4">Even without natural teeth, regular dental visits remain important. We check the fit of your dentures, examine your gum and bone tissue, and screen for oral changes including tissue abnormalities. Bone naturally resorbs over time after tooth loss, which means dentures may need to be relined or replaced after several years of use.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**How long do full dentures last?** With proper care and regular professional checkups, full dentures typically last seven to ten years before they need to be replaced. Changes in the shape of your jawbone over time can affect fit sooner, which is why periodic relining may be recommended along the way.</p>
+      <p class="mb-4">**Will I be able to eat normally with full dentures?** Most patients return to a wide range of foods, though some adjustments are permanent. Very hard or sticky foods — like hard candies, tough crusty bread, or chewing gum — can be more difficult to manage with removable dentures. Starting with softer foods and building up gradually is the standard approach.</p>
+      <p class="mb-4">**Do full dentures require adhesive?** A well-fitted denture should not require adhesive to stay in place. Some patients use a small amount for added confidence, especially early on, but reliance on adhesive to hold dentures in is usually a sign the fit needs to be evaluated.</p>
+      <p class="mb-4">**What is the difference between conventional and immediate dentures?** Conventional dentures are made after the gum tissue has fully healed following extractions — typically the better-fitting option. Immediate dentures are fabricated in advance and placed the same day as extractions, so you are not without teeth during healing. They often require more adjustments as the tissue changes shape.</p>
+      <p class="mb-4">**Does Bear Creek Family Dentistry serve patients from across the DFW area?** Yes. Patients come to our Dallas practice from throughout the DFW Metroplex. If you are considering full dentures and want to schedule a consultation, contact our office to discuss timing, insurance, and what to expect at your first appointment.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Replace an entire arch of missing teeth.</p>
+      <p>Stays in position via natural suction on the gum line.</p>
+      <p>Denture adhesive can be used for additional support.</p>
+      <p>Removable prosthetic; must be taken out before sleeping and when cleaning.</p>
+      <p>A full denture fits against the gum line where friction between denture base and gums creates suction.</p>
+    </div>
+  </section>
+</BaseLayout>

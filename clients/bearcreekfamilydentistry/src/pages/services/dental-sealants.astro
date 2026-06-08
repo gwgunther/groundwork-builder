@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Dental Sealants – DFW Metroplex",
+  "description": "Protect your child's teeth from cavities with fast and comfortable dental sealants at Bear Creek Family Dentistry.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Bear Creek Family Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Dallas"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Dental Sealants Dallas | ${site.name}`}
+  description="Protect your child's teeth from cavities with fast and comfortable dental sealants at Bear Creek Family Dentistry."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Dental Sealants – DFW Metroplex
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Protect your child's teeth from cavities with fast and comfortable dental sealants at Bear Creek Family Dentistry.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Dental sealants are a thin, protective coating applied to the chewing surfaces of back teeth — primarily the molars — to block out the bacteria, plaque, and food particles that cause cavities. At Bear Creek Family Dentistry, we use sealants as a straightforward preventive tool, most often for children and teens whose newly erupted permanent molars are especially vulnerable. The application is quick, requires no drilling, and can significantly reduce the chance of decay forming in those hard-to-clean grooves.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Why Back Teeth Need Extra Protection</h2>
+      <p class="mb-4">The molars have deep pits and fissures on their biting surfaces that a toothbrush bristle often can't fully reach. Food and bacteria settle into those grooves and stay there, which is exactly how cavities start. Even kids who brush consistently can develop decay in these spots simply because of the tooth's shape — not because of poor habits.</p>
+      <p class="mb-4">Sealants fill in those pits and fissures, creating a smooth surface that's much easier to clean. For children in the Dallas area who are still developing their brushing routines, this added layer of protection can make a real difference over the years between the first permanent molar erupting and adulthood.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who Should Get Dental Sealants</h2>
+      <p class="mb-4">Sealants are most commonly recommended for:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>**Children ages 6–12**, once the first and second permanent molars come in</li>
+        <li>**Teens** who haven't yet developed cavities in their back teeth</li>
+        <li>**Adults** with deep grooves in their molars who have no existing fillings or decay in those areas</li>
+      </ul>
+      <p class="mb-4">They're not a universal requirement, but they're worth discussing at a routine checkup, especially if a child's exam shows deep fissures or early signs of plaque accumulation in the molar area.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What the Application Process Looks Like</h2>
+      <p class="mb-4">The entire procedure typically takes 30–45 minutes and is completed in a single visit. Here's the basic sequence:</p>
+      <p class="mb-4">1. **Cleaning** — The tooth surface is cleaned and dried thoroughly. 2. **Preparation** — A mild acidic solution is applied briefly to roughen the enamel, which helps the sealant bond properly. 3. **Rinsing and drying** — The tooth is rinsed and dried again. 4. **Application** — The liquid sealant material is painted onto the chewing surface, where it flows into the grooves. 5. **Curing** — A curing light hardens the sealant within a few seconds.</p>
+      <p class="mb-4">There's no anesthesia involved, no drilling, and most patients — including younger kids — find the process easy to sit through. Once the sealant hardens, the tooth can be used normally right away.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">How Long Sealants Last and What to Expect Afterward</h2>
+      <p class="mb-4">Sealants typically hold up for several years with normal chewing. We check their condition at each routine exam and can reapply them if a section chips or wears down over time. Sealants don't replace brushing, flossing, or fluoride — they work alongside those habits rather than substituting for them. Your child should continue their regular hygiene routine and six-month checkups as usual.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**Do dental sealants hurt?** No. The process involves no drilling or injections. Most children describe it as nothing more than having a slightly odd taste or texture in their mouth for a few moments during application.</p>
+      <p class="mb-4">**At what age should my child get sealants?** The most common timing is around age 6, when the first permanent molars erupt, and again around age 12 when the second permanent molars come in. Your dentist will assess readiness during a routine exam.</p>
+      <p class="mb-4">**Are sealants covered by dental insurance?** Many dental insurance plans cover sealants for children up to a certain age, often 14 or 16. Coverage varies by plan, so it's worth checking your specific benefits before the appointment.</p>
+      <p class="mb-4">**Can adults get dental sealants?** Yes, though they're less commonly applied in adults. If an adult has deep molar grooves with no existing fillings or decay, sealants can still be a reasonable preventive option.</p>
+      <p class="mb-4">**Do sealants mean my child won't get cavities?** Sealants protect the chewing surfaces of the back teeth, which is where a large percentage of childhood cavities occur. They don't cover the sides of teeth or spaces between teeth, so regular brushing and flossing remain important.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Book Your Child's Visit</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Applied during a regular office visit; the procedure is completely painless.</p>
+      <p>A coat of sealant liquid is painted onto the surfaces of teeth.</p>
+      <p>A curing light is used to harden the sealant in place.</p>
+      <p>Once in position, sealants can remain for years protecting teeth from damage.</p>
+      <p>Protects against bacteria, plaque, and tartar.</p>
+    </div>
+  </section>
+</BaseLayout>

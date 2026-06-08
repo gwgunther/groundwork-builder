@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Wisdom Tooth Extraction Dallas, TX",
+  "description": "Wisdom tooth removal can prevent breakage, cavities, gum disease and unsightly crowding that could cause painful bite problems.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Bear Creek Family Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Dallas"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Wisdom Tooth Extraction Dallas | ${site.name}`}
+  description="Wisdom tooth removal can prevent breakage, cavities, gum disease and unsightly crowding that could cause painful bite problems."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Wisdom Tooth Extraction Dallas, TX
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Wisdom tooth removal can prevent breakage, cavities, gum disease and unsightly crowding that could cause painful bite problems.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Wisdom teeth were once spares that came in during young adulthood to replace molars that were worn down due to early man's diet. Today, however, they are no longer necessary, and often cause many oral health problems. Wisdom teeth are four molars that come in at the very back of your mouth beginning around the ages of 17 to 26. Because modern human jaws are often too small to accommodate them, these teeth frequently become impacted, push neighboring teeth out of alignment, or become difficult to keep clean — raising the risk of cavities and gum disease. Thankfully, protecting your healthy adult teeth from damage doesn't have to be a challenge. Your oral surgeon can skillfully remove these teeth in our comfortable DFW Metroplex offices, helping to safeguard your smile for the long term.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Wisdom teeth are four molars that come in at the very back of the mouth beginning around ages 17 to 26.</p>
+      <p>Most commonly extracted teeth are the third molars.</p>
+      <p>Wisdom teeth often cause problems including impaction, cavities, crowding, and gum disease.</p>
+      <p>Impacted wisdom teeth can grow in sideways and break neighboring teeth or cause crowding, brushing/flossing problems, and gum disease.</p>
+      <p>Patients are sedated before the procedure so they cannot feel any discomfort.</p>
+      <p>Incision sites are stitched closed with a dissolving suture that dissolves within about a week.</p>
+      <p>Mouth is packed with gauze to stop any bleeding after the procedure.</p>
+      <p>Recovery includes staying on schedule with pain medication, avoiding hot beverages for the first 24 hours, avoiding caffeine for two to three days, and not drinking from a straw for at least one week.</p>
+      <p>Soft foods or liquids are recommended for the first few days.</p>
+      <p>Cold compresses should be applied to cheeks over extraction sites for pain relief.</p>
+      <p>Patients should avoid strenuous activity for at least two to three days after.</p>
+      <p>The procedure takes about fifteen to twenty minutes per tooth on average; removing all four often takes about ninety minutes.</p>
+      <p>Extraction is recommended in early stages of eruption to minimize difficulty or discomfort.</p>
+      <p>Between 5% and 37% of people are born with three or fewer third molars.</p>
+      <p>Sedation options available.</p>
+    </div>
+  </section>
+</BaseLayout>

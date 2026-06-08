@@ -1,0 +1,75 @@
+---
+/**
+ * Doctor Intro Editorial Full — Portrait fills entire section background.
+ * Text floats in a card on the right side. Very dramatic.
+ */
+import type { DoctorIntroContent } from '../types';
+import { designDNA } from '../../../config/design-dna';
+import { imagePath } from '../../../config/design-dna';
+import { resolveTokens } from '../token-utils';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+const { content } = Astro.props;
+
+const tokens = (designDNA as any).designTokens ?? {};
+const t = resolveTokens(tokens);
+
+// Load doctor portrait
+let imageRoles = {};
+try {
+  const p = `${process.cwd()}/public/images/image-roles.json`;
+  imageRoles = JSON.parse(readFileSync(p, 'utf8'));
+} catch {}
+const portraitImg = imagePath(imageRoles.doctorPortrait ?? null);
+
+const bioParagraphs = content.bio ? content.bio.split('\n\n').filter(Boolean).slice(0, 2) : [];
+---
+
+<section
+  data-section="doctor-intro"
+  class="relative min-h-[600px] md:min-h-[700px] overflow-hidden"
+>
+  {portraitImg ? (
+    <>
+      <!-- Full-bleed portrait -->
+      <img
+        src={portraitImg}
+        alt={`${content.name}, ${content.credentials}`}
+        class="absolute inset-0 w-full h-full object-cover object-top"
+        loading="lazy"
+      />
+      <!-- Gradient overlay — left transparent, right darkens behind card -->
+      <div class="absolute inset-0 bg-gradient-to-r from-transparent md:from-transparent to-neutral-dark/80" aria-hidden="true"></div>
+    </>
+  ) : (
+    <!-- No portrait fallback -->
+    <div class="absolute inset-0 bg-neutral-dark" aria-hidden="true"></div>
+  )}
+
+  <!-- Right-side content card -->
+  <div class="absolute inset-y-0 right-0 w-full md:w-1/2 flex items-center p-8 md:p-16">
+    <div class={`bg-surface-1/95 backdrop-blur-sm p-8 md:p-10 ${t.radiusClass} w-full`}>
+      {content.eyebrow && (
+        <span class={t.eyebrowClass}>{content.eyebrow}</span>
+      )}
+      <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-dark leading-tight mb-2">
+        {content.name}
+      </h2>
+      <p class="font-sans text-sm font-bold uppercase tracking-widest text-brand-primary mb-6 pb-6 border-b border-neutral-dark/10">
+        {content.credentials}
+      </p>
+      {bioParagraphs.length > 0 && (
+        <div class="font-sans text-neutral-mid text-sm md:text-base leading-relaxed space-y-3 mb-8">
+          {bioParagraphs.map((para) => (
+            <p>{para}</p>
+          ))}
+        </div>
+      )}
+      <a href={content.ctaHref} class={t.btnPrimary}>
+        {content.ctaLabel}
+      </a>
+    </div>
+  </div>
+
+</section>

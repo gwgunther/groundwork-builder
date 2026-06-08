@@ -1,0 +1,48 @@
+{
+  "variant": "simple-stack",
+  "eyebrow": "What Patients Ask Us",
+  "heading": "Your Questions About Bear Creek Family Dentistry, Answered",
+  "subheading": "From your first visit to ongoing care, here's what Dallas families most often want to know before they come see us.",
+  "items": [
+    {
+      "q": "How do I schedule an appointment at Bear Creek Family Dentistry?",
+      "a": "You can reach our team by calling (888) 676-2327 to book an appointment at any of our twelve Dallas-Fort Worth locations. We welcome patients of all ages — from young children to seniors — so the whole family can be seen under one roof. If you speak Spanish, we're happy to assist you; se habla español.",
+      "category": "Scheduling"
+    },
+    {
+      "q": "When Should I Arrive at My Appointment?",
+      "a": "You may arrive at your appointment time but if you would like to come 15 minutes before your scheduled appointment, this will allow us to finalize any paper work you may need.",
+      "category": "Scheduling"
+    },
+    {
+      "q": "Do you see patients with dental emergencies or offer same-day care?",
+      "a": "We understand that dental pain and unexpected problems can't always wait. Please call us at (888) 676-2327 as soon as possible so our team can find the earliest available time to see you. With twelve offices across the DFW Metroplex, we do our best to get you the prompt, comfortable care you need.",
+      "category": "Scheduling"
+    },
+    {
+      "q": "What Should I Bring to My First Appointment?",
+      "a": "Identification - photo identification, such as a driver's license. Insurance card - if you plan on using insurance. List of current medications - if any.",
+      "category": "First Visit"
+    },
+    {
+      "q": "How Much Will Treatment Cost?",
+      "a": "The cost of orthodontic care is primarily determined by the type of treatment and the duration of the treatment plan. Due to the significant variation in orthodontic costs, many practices collaborate with multiple insurance providers to offer coverage options. Additionally, to ease the financial burden associated with orthodontic treatment, many practices provide other payment options, such as financing. Dental financing options are available to help individuals manage the cost of dental treatments and procedures by providing flexible payment plans.",
+      "category": "Insurance & Payment"
+    },
+    {
+      "q": "What Treatment Options Are Available?",
+      "a": "At your child's initial orthodontic appointment, the orthodontist will carefully assess their smile and discuss the available treatment options to determine the most suitable one. Various solutions are available to address a wide range of dental issues, such as traditional metal braces. Additionally, the rising popularity of clear aligners has introduced another viable treatment choice in recent years. Following a thorough examination, the orthodontist will guide you through the different options and help you make an informed decision for your child's orthodontic treatment.",
+      "category": "Treatment"
+    },
+    {
+      "q": "Am I a candidate for dental implants, and what is involved in the process?",
+      "a": "Dental implants are small titanium posts placed in the jawbone to replace the roots and crowns of missing teeth, making them a long-lasting solution for most adults with good overall health. Some patients may first need a bone grafting procedure to build up insufficient jawbone density before implants can be placed. Our team will evaluate your smile and medical history to determine whether implants are right for you and walk you through every step of the process.",
+      "category": "Treatment"
+    },
+    {
+      "q": "Do Dental Crowns Feel Natural?",
+      "a": "After several days of receiving your brand-new dental crowns, your restoration should start to feel increasingly more natural. Your dental cap will be constructed out of durable materials like composite resin and porcelain, which can withstand the everyday pressures of chewing, similar to your natural pearly whites. This means it shouldn't feel strange to eat with your dental crowns, especially since your restorations will be created to match the rest of your smile. With a comfortable and personalized fit, you will hardly tell the difference!",
+      "category": "Aftercare"
+    }
+  ]
+}

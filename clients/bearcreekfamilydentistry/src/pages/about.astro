@@ -1,0 +1,270 @@
+---
+/**
+ * About page — uniform iteration over doctors[].
+ *
+ * doctors[0] is the featured doctor (full hero treatment with bio).
+ * doctors.slice(1) get the team-section card treatment.
+ *
+ * For single-doctor practices, doctors.length === 1 → only the hero renders,
+ * the team section is conditional.
+ *
+ * Doctor data + portraits flow through:
+ *   silver.doctors[]                      ← extraction
+ *   → merged.doctors[]                    ← merger
+ *   → injector writes doctors[] in site.ts
+ *   → image-roles.json doctorPortraits[]  ← Vision-classifier paired by name
+ *   → this template iterates doctors[]
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTABlock from '../components/CTABlock.astro';
+import { site, doctors, address, localBusinessSchema, personSchemas, staff } from '../config/site';
+import { readFileSync } from 'node:fs';
+
+// Resolve image-roles for doctor portraits (paired by name in ai-image-roles).
+// Names from site.ts may differ slightly from image-roles keys (e.g. "Dr. Russell
+// Chang" in site.ts vs "Dr. Russell EK Chang" in image-roles when the injector
+// strips middle initials). Match progressively: exact → first+last token →
+// last-name only. Stops at the first hit.
+let imageRoles: any = { doctorPortraits: {} };
+try {
+  imageRoles = JSON.parse(readFileSync(`${process.cwd()}/public/images/image-roles.json`, 'utf8'));
+} catch { /* manifest missing in dev */ }
+const normalize = (s: string) => String(s || '').toLowerCase().replace(/^dr\.?\s+/i, '').replace(/[^a-z\s]/g, '').trim();
+const portraitFor = (name: string): string | null => {
+  const portraits = imageRoles.doctorPortraits || {};
+  // 1. Exact match
+  if (portraits[name]) return `/images/${portraits[name]}`;
+  // 2. Token-set fuzzy match — every meaningful (3+ char) token in the
+  //    look-up name must appear in the candidate key.
+  const want = new Set(normalize(name).split(/\s+/).filter(t => t.length >= 3));
+  if (want.size === 0) return null;
+  for (const [key, path] of Object.entries(portraits)) {
+    const have = new Set(normalize(key).split(/\s+/).filter(t => t.length >= 3));
+    let ok = true;
+    for (const t of want) if (!have.has(t)) { ok = false; break; }
+    if (ok) return `/images/${path}`;
+  }
+  return null;
+};
+
+const featured = doctors[0];
+const supporting = doctors.slice(1);
+---
+
+<BaseLayout
+  title={`About ${featured.name} — ${site.name}`}
+  description={`Meet ${featured.name}, ${featured.credentials}. Learn about our practice, philosophy, and commitment to exceptional dental care in ${address.city}.`}
+  schema={[localBusinessSchema, ...personSchemas]}
+>
+  <!-- Hero — featured (primary) doctor -->
+  <section class="bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-highlight mb-4">About Our Practice</p>
+          <h1 class="section-heading mb-6">Meet {featured.name}</h1>
+          {featured.bio ? (
+            <div class="text-lg text-neutral-mid leading-relaxed space-y-4 mb-4">
+              {featured.bio.split('\n\n').slice(0, 2).map((p) => <p>{p}</p>)}
+            </div>
+          ) : (
+            <p class="text-lg text-neutral-mid leading-relaxed mb-4">
+              {featured.name} provides exceptional dental care to patients in {address.city}.
+            </p>
+          )}
+          {featured.education && (
+            <p class="text-neutral-mid leading-relaxed">
+              {featured.credentials}{featured.education ? ` — ${featured.education}` : ''}
+            </p>
+          )}
+        </div>
+        {(() => {
+          const photo = portraitFor(featured.name);
+          return photo ? (
+            <div class="rounded-2xl overflow-hidden aspect-[4/5]">
+              <img src={photo} alt={featured.name} class="w-full h-full object-cover object-top" loading="lazy" />
+            </div>
+          ) : (
+            <div class="bg-neutral-light rounded-2xl aspect-[4/5] flex items-center justify-center">
+              <p class="text-neutral-mid text-sm">Doctor Photo</p>
+            </div>
+          );
+        })()}
+      </div>
+    </div>
+  </section>
+
+  <!-- Team section — supporting doctors. Conditional on length > 0. -->
+  {supporting.length > 0 && (
+    <section class="py-16 md:py-24 bg-surface-1">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 md:mb-16">
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-highlight mb-4">Our Team</p>
+          <h2 class="section-subheading">Meet Our Doctors</h2>
+        </div>
+        <div class={`grid gap-12 md:gap-16 ${supporting.length === 1 ? 'md:grid-cols-1 max-w-4xl mx-auto' : supporting.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'}`}>
+          {supporting.map((d) => {
+            const photo = portraitFor(d.name);
+            return (
+              <article class="grid grid-cols-1 sm:grid-cols-3 gap-6 items-start">
+                <div class="sm:col-span-1">
+                  {photo ? (
+                    <img src={photo} alt={d.name} class="w-full aspect-[4/5] object-cover object-top rounded-2xl" loading="lazy" />
+                  ) : (
+                    <div class="w-full aspect-[4/5] rounded-2xl bg-neutral-light flex items-center justify-center text-neutral-mid text-xs">
+                      {d.firstName?.charAt(0) || '?'}
+                    </div>
+                  )}
+                </div>
+                <div class="sm:col-span-2">
+                  <h3 class="font-serif text-2xl md:text-3xl font-bold text-neutral-dark mb-2">{d.name}</h3>
+                  {d.credentials && (
+                    <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary mb-4">{d.credentials}</p>
+                  )}
+                  {d.bio && (
+                    <p class="text-neutral-mid leading-relaxed">{d.bio}</p>
+                  )}
+                  {d.education && (
+                    <p class="text-sm text-neutral-mid mt-3 italic">{d.education}</p>
+                  )}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Staff — non-doctor team members. Visually distinct from the doctor
+       grid above (smaller cards, "Our Team" framing) so doctors stay primary. -->
+  {staff && staff.length > 0 && (
+    <section class="py-16 md:py-24 bg-surface-2 border-t border-border-light">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-highlight mb-4">Our Team</p>
+          <h2 class="section-subheading">Meet the People Who Care for You</h2>
+        </div>
+        <div class={`grid gap-8 ${staff.length === 1 ? 'md:grid-cols-1 max-w-sm mx-auto' : staff.length === 2 ? 'md:grid-cols-2 max-w-3xl mx-auto' : staff.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2 lg:grid-cols-4'}`}>
+          {staff.map((member) => (
+            <div class="text-center">
+              <div class="aspect-square rounded-2xl bg-neutral-light mb-4 overflow-hidden flex items-center justify-center">
+                {member.photoPath ? (
+                  <img src={`/images/${member.photoPath}`} alt={member.name} class="w-full h-full object-cover object-top" loading="lazy" />
+                ) : (
+                  <span class="text-2xl font-serif text-neutral-mid">{member.name?.charAt(0) || '?'}</span>
+                )}
+              </div>
+              <h3 class="font-serif text-lg font-bold text-neutral-dark">{member.name}</h3>
+              {member.role && member.role !== 'other' && (
+                <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mt-1">
+                  {member.role.replace(/_/g, ' ')}
+                </p>
+              )}
+              {member.credentials && (
+                <p class="text-xs text-neutral-mid mt-1">{member.credentials}</p>
+              )}
+              {member.bio && (
+                <p class="text-sm text-neutral-mid mt-3 leading-relaxed">{member.bio}</p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Philosophy -->
+  <section class="py-16">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-subheading text-center mb-8">Our Philosophy</h2>
+      <div class="prose-dental">
+        <p>
+          We believe every patient deserves honest, transparent dental care without pressure. Our goal is to educate you about your options and help you make the best decision for your smile and your budget.
+        </p>
+        <p>
+          Whether you need a simple cleaning or a complex restoration, we treat every patient with the same attention to detail and commitment to excellence.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <CTABlock phone={site.phone} />
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">Board Certified Dental Specialists</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">One of the features that makes Bear Creek Family Dentistry a dental office of choice for so many people in Dallas and Tarrant Counties is the presence of the strong team of Bear Creek Family Dentistry specialists.</p><p class="mb-4">In dentistry, a specialist is a dentist who, after completing a four-year dental school and receiving a dental license, applies for admission and is accepted into an accredited dental school specialty residency program. These full-time residency programs generally last at least two years, and provide the resident with advanced training and experience in one area of dentistry. Upon successful completion, the graduate is awarded a specialty certificate in their field.</p><p class="mb-4">A dentist who graduates from a specialist program may become board certified through a voluntary examination process. Bear Creek is fortunate to have multiple specialists who have gone through this voluntary process to become board certified. Our dentists have put that same time and dedication into their patients. We are fortunate to have a team of specialists who are able to bounce ideas off of each other and give our patients the best treatment plan possible.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">Kid-Friendly, Mom-Approved Dental Visits</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">Our friendly team serves everyone — from pediatric to geriatric — and we cannot wait to be your dentist for life. We're a one-stop-shop for all dental services! Whether we are providing simple checkups and cleanings for the whole family, replacing missing teeth with dental implants, or straightening smiles with braces… you can trust our team of experts to always deliver dentistry that is rich in quality, service, and affordability. Our offices offer family-friendly entertainment, too! Play gyms, big-screen TVs, movie theatres, and fun games all await at Bear Creek Family Dentistry to keep little ones happy and calm.</p><p class="mb-4">We pride ourselves on being a &quot;mom-friendly&quot; business that works hard to alleviate their stress. When a child comes to see us, they will be assigned two dental assistants—one is focused on their treatment, and the other one stays with their kid (or kids) and basically becomes their &quot;BFF,&quot; ensuring they are attended to and comfortable. For parents, this lets them breathe easy because they can trust that their child is being watched throughout the entire appointment, meaning they can chill out in the fun waiting room rather than need to come to the back.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">A Team Approach to Great Dental Care</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">Our team consists of general dentists paired with in-house, board-certified specialists in pediatric dentistry, oral surgery, orthodontics, and prosthodontics. We bring the experts to you, resulting in fewer referrals, no running around town — and most importantly — better coordinated, high-quality dentistry. Visit one of our 13 convenient locations in Dallas, Arlington, Mesquite, Grapevine, and Fort Worth today to discover the difference! Each office is run like a private, local practice, so you and your family will see the same dentist and team at each visit so you can always feel relaxed.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">NO DETAIL IS TOO SMALL WHEN IT COMES TO MAKING YOU SMILE</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">When we meet a patient for the first time, they need us. When they come back the next time, it's because they WANT to. Why? Because we understand that it's both the big things and little things that make a difference in the patient experience. On top of offering stellar dental care, we also have our Bear Essentials Program, in which our team members are trained to take care of our office in a way that resembles a 5-star resort. Our space is absolutely pristine at all times, and we frequently get comments about how clean and tidy our bathrooms are. Yes, our bathrooms (we even fold the toilet paper like in hotels)! Life is messy, but Bear Creek Family Dentistry is always spotless because our patients deserve it.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">EMERGENCIES WELCOME — THE IMMEDIATE CARE YOU DESERVE</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">Many dental practices claim to offer a lot of different services, but the one thing they won't give you is their attention. Rather than making you wait days, weeks, or months for an appointment, we pay attention to our patients RIGHT NOW. We're here to take care of you without delay and get rid of your pain, both physical and mental. We're open six days a week, including Saturdays and evenings, so you can count on us to be your emergency dentist if you're dealing with toothaches or dental injuries.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">Special Needs Dentistry – DFW Metroplex</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">Do you, your child, or another loved one have difficulty receiving traditional dental care due to special needs? At Bear Creek Family Dentistry, we have extensive experience to provide high-quality, comfortable dental care for children and adults who have physical and/or intellectual disabilities. If you are looking for a welcoming dental home for everyone in your family, we've got your back.</p><p class="mb-4">Our dentists love working with parents and patients to ensure that we offer the most positive visit that we can. We pride ourselves in our ability to cater to unique requirements, providing gentle care, never rushing, and committing to a step-by step approach to make the treatment as comfortable as possible. Because everyone's needs are unique, we take a personalized approach for each patient to provide the essential dental care they require to maintain a healthy smile.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">Adult Dentistry Services Available at Bear Creek Family Dentistry</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">Because of our kid-friendly decor, many patients think Bear Creek Family Dentistry is just for children. We have great news for adults looking for family-friendly dentistry services in the DFW Metroplex - our office welcomes patients of all ages! We want to make dental care a convenient part of your family's busy schedule. That's why we're happy to offer block scheduling to see your family all on one day. We also have a full team of General Dentists and Board Certified specialists in Oral Surgery, Prosthodontics, Orthodontics and Pediatric Dentistry so you and your family are less likely to experience the hassle of being referred out of our office. If you're looking for a dental practice with a focus on preventive dentistry with a family-centered atmosphere, look no further than Bear Creek Family Dentistry.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">Dentistry with Purpose</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">Bear Creek Family Dentistry is a rapidly growing, dentist-owned, family-oriented, multi-disciplinary private dental practice that has been serving the Dallas-Fort Worth Metroplex for over 30 years. We have twelve beautiful dental offices with state-of-the-art equipment incorporating the latest technology. Because of our many years of service with strong clinical and customer reputation, we are welcomed as a neighborhood dental practice of choice.</p><p class="mb-4">In addition to focusing on great patient care and great customer service, part of the culture over the years at Bear Creek Family Dentistry is to create a work environment where our employees enjoy working. We believe that happy employees who are pleased with their work will foster a better experience in the dental office for both patients and employees. Bear Creek is offering the best for its staff so they in turn can offer the best to our patients.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">Dental Implants – DFW Metroplex — The Gold Standard of Modern Tooth Replacement</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">Dental implants have changed the way our DFW Metroplex team replaces missing teeth. Rather than just replace a tooth's crown, they let us replace roots and crowns alike for more natural-looking results. That means they can &quot;bring back&quot; any number of missing teeth – from a single tooth to an entire arch! So, reach out and book a consultation if you want a full smile again. We have many convenient locations across the Metroplex, including Dallas, Arlington, Mesquite, and other communities.</p><p class="mb-4">With our practice's dental implants, you'll enjoy upsides like: A Gorgeous Grin – Dental implants are capped with porcelain, so they blend well with your smile. Most folks won't even notice that they aren't &quot;natural.&quot; A Younger Face – Dental implants stimulate your jawbone, ensuring your face stays full and youthful. Easier Eating – As dental implants restore your bite force, they let you chew your favorite tough foods. Long-Lasting Results – With daily care, dental implants can last twenty years or more.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">New Patient Information</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">We understand that in life and in our dental practice we only get one chance to make a good first impression. We want your first visit to Bear Creek Family Dentistry, and every subsequent visit, to be a positive impression. We also realize that your time is valuable. Accordingly, we draw upon our 25+ years of dental practice experience to get you in and out of the office as promptly, comfortably, and courteously as possible.</p><p class="mb-4">We understand that for all of us the cost of dental care is an important factor. At Bear Creek Family Dentistry, we work to make our services financially accessible to our patients. We also accept Medicaid &amp; CHIP for children. We accept virtually all major fee-for-service insurance, and we are in-network with most major dental insurance plans.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">A Passionate, Gentle &amp; Caring Staff</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">Our goal is to treat each patient as we would an important member of our family. We do that by providing great clinical care as well as great customer service. Our modern, beautiful offices have state-of-the-art equipment and well-trained, friendly, caring staff.</p><p class="mb-4">We understand that you are coming to see us for a reason. Our staff listens to you, and works hard to be responsive to your needs and wishes. Whether you come in for a simple exam and cleaning, or for more complex restorative work, we explain the treatment options and you make the decision on what you would like to do.</p><p class="mb-4">Many of our offices offer family entertainment, usually in the form of a play gym, big screen televisions, and a movie theatre. We are happy to have you bring your family with you when you come for your dental visit.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">Se Habla Español</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">Se Habla Español</p></div>
+    </div>
+  </section>
+</BaseLayout>

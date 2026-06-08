@@ -1,0 +1,36 @@
+{
+  "tools": [
+    {
+      "name": "book_appointment",
+      "description": "Book an appointment with Bear Creek Family Dentistry",
+      "action": {
+        "type": "navigate",
+        "href": "/schedule"
+      }
+    },
+    {
+      "name": "call_practice",
+      "description": "Call Bear Creek Family Dentistry at (888) 676-2327",
+      "action": {
+        "type": "navigate",
+        "href": "tel:8886762327"
+      }
+    },
+    {
+      "name": "contact_practice",
+      "description": "Send a message or inquiry to Bear Creek Family Dentistry",
+      "action": {
+        "type": "navigate",
+        "href": "/contact"
+      }
+    },
+    {
+      "name": "view_services",
+      "description": "Browse all dental services offered by Bear Creek Family Dentistry",
+      "action": {
+        "type": "navigate",
+        "href": "/services"
+      }
+    }
+  ]
+}

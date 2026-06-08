@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Children's Dentistry",
+  "description": "Trust your child's smile to the skilled DFW Metroplex dentists and team at Bear Creek Family Dentistry.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Bear Creek Family Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Dallas"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Pediatric Dentistry Dallas | ${site.name}`}
+  description="Trust your child's smile to the skilled DFW Metroplex dentists and team at Bear Creek Family Dentistry."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Children's Dentistry
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Trust your child's smile to the skilled DFW Metroplex dentists and team at Bear Creek Family Dentistry.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">We love working with patients of all ages at Bear Creek Family Dentistry, and our dentists and team members all look forward to every opportunity to work with young patients. We take the time to make kids feel right at home from the moment they walk through our doors. During your children's first appointments, we'll take time to make them feel comfortable — answering all of their questions, taking them on a tour of the office, and making sure they get to meet all of our friendly team members. Whether it's a first visit, a routine cleaning, or a more involved procedure, you can trust that our board-certified pediatric dentists will treat your child with the gentleness and care they deserve. Kid-Friendly, Mom-Approved — that's the Bear Creek way.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Book Your Child's Visit</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Pediatric dentists complete four years of dental school plus two or three additional years of rigorous specialized training.</p>
+      <p>Prepares pediatric dentists to meet the needs of infants, children, and adolescents, including persons with special health care needs.</p>
+      <p>During first visits, digital X-rays and images are captured, smiles are carefully examined, teeth are cleaned, and oral hygiene routines are discussed.</p>
+      <p>Two dental assistants are assigned when a child comes in — one focused on treatment and one dedicated to staying with the child.</p>
+      <p>Services include first visit, dental sealants, tooth-colored fillings, and special needs care.</p>
+    </div>
+  </section>
+</BaseLayout>
