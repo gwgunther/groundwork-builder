@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "CEREC Same Day Crowns",
+  "description": "Dentiq Dentistry specializes in Cosmetic & Restorative Dentistry and offers CEREC Same Day Crowns in Houston, TX.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Dentiq Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Houston"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`CEREC Same Day Crowns Houston | ${site.name}`}
+  description="Dentiq Dentistry specializes in Cosmetic & Restorative Dentistry and offers CEREC Same Day Crowns in Houston, TX."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      CEREC Same Day Crowns
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Dentiq Dentistry specializes in Cosmetic &amp; Restorative Dentistry and offers CEREC Same Day Crowns in Houston, TX.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">CEREC same-day crowns let Dentiq Dentistry design, mill, and place a permanent crown in a single appointment — typically two to three hours from start to finish. There is no temporary crown to manage at home and no second visit to schedule. If you need a crown, you leave the same day with a finished, permanent restoration already seated.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">How the CEREC Process Works</h2>
+      <p class="mb-4">The appointment follows a straightforward sequence. First, Dr. Sista numbs the area with a local anesthetic so the preparation is comfortable. Once you're numb, the tooth is shaped to receive the crown — the same preparation step used in any crown procedure.</p>
+      <p class="mb-4">From there, the process diverges from a traditional approach. Instead of taking a putty impression and sending it to an outside lab, a small intraoral camera captures a precise digital scan of the prepared tooth and the surrounding bite. That scan feeds directly into the CEREC software, where the crown is designed on-screen. Once the design is confirmed, a ceramic block is loaded into the in-office milling unit. The machine carves the crown from that block in roughly 15–20 minutes. After minor finishing adjustments and shade refinement, the crown is bonded in place and your bite is checked.</p>
+      <p class="mb-4">The result is a tooth-colored ceramic crown made and placed without any lab waiting period.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who Is a Candidate for a Same-Day Crown</h2>
+      <p class="mb-4">Same-day crowns work well for most standard crown situations, including:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>A tooth that has a large cavity too extensive for a filling</li>
+        <li>A cracked or fractured tooth that needs full coverage</li>
+        <li>A tooth that has broken around an older, large filling</li>
+        <li>A tooth that has had a root canal and needs protection</li>
+        <li>Replacement of an old crown that has failed or worn down</li>
+      </ul>
+      <p class="mb-4">Patients in Houston who find it difficult to take multiple days off work often find the single-visit format practical. That said, not every situation calls for a CEREC crown. Implant crowns, crowns that are part of a larger reconstruction, or cases where the gum tissue needs time to heal before a final impression may still be handled in two appointments. During your exam, the clinical picture determines which path makes sense.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What the Ceramic Material Is Like</h2>
+      <p class="mb-4">CEREC crowns are milled from blocks of dental ceramic — a material that mimics the look and hardness of natural tooth enamel. The shade is matched to the surrounding teeth before milling. Because the crown is solid ceramic rather than a composite patch, it resists staining and holds up to normal chewing forces the same way a lab-fabricated porcelain crown does.</p>
+      <p class="mb-4">One practical note: ceramic crowns, like any crown, can chip if subjected to excessive force — habits like chewing ice or grinding teeth without a nightguard increase that risk regardless of how the crown was made.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect After the Appointment</h2>
+      <p class="mb-4">Some sensitivity around the newly crowned tooth is normal for a few days, particularly to temperature. This settles on its own in most cases. The gum tissue around the preparation site may be slightly tender for a day or two as well.</p>
+      <p class="mb-4">There is no special care protocol for a CEREC crown beyond standard oral hygiene. Brushing, flossing at the margin, and routine cleanings apply the same way they do to natural teeth. If your bite feels off after the anesthetic wears off, a quick adjustment appointment can correct it.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**How long does a CEREC crown appointment take at Dentiq Dentistry?** Most single-visit crown appointments run approximately two to three hours, including time for anesthesia, tooth preparation, scanning, milling, and final placement.</p>
+      <p class="mb-4">**Is the crown made of the same material as a lab crown?** CEREC crowns are milled from dental ceramic blocks and are comparable in strength and appearance to porcelain crowns made in an outside lab.</p>
+      <p class="mb-4">**Does a same-day crown hurt?** The preparation is done under local anesthetic, so the procedure itself should not be painful. Post-appointment sensitivity is common for a few days and typically mild.</p>
+      <p class="mb-4">**Why skip the temporary crown?** With in-office milling, the permanent crown is ready the same day, so there is no window of time that requires a temporary. This removes the risk of a temporary coming loose or breaking before a second visit.</p>
+      <p class="mb-4">**Does insurance cover CEREC crowns?** Most dental insurance plans cover crowns based on the tooth position and clinical need — the same criteria used for lab-made crowns. Whether the crown was milled in-office or at a lab generally does not affect coverage. Checking with your insurer before the appointment is the most reliable way to confirm your benefits.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>CEREC technology and an in-office lab are used to ensure a more comfortable patient experience, improved accuracy, and reduced chair time</p>
+    </div>
+  </section>
+</BaseLayout>

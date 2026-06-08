@@ -1,0 +1,48 @@
+{
+  "variant": "two-column",
+  "eyebrow": "What Patients Ask Us",
+  "heading": "Your Questions About Dentiq Dentistry, Answered",
+  "subheading": "From your first visit to long-term care, here's what Houston patients ask us most.",
+  "items": [
+    {
+      "q": "How do I schedule an appointment at Dentiq Dentistry?",
+      "a": "You can reach our Houston office by calling (713) 526-2904, and our team will help you find a time that works for your schedule. We welcome new patients and families, and no referral is needed for most services. If you have an urgent concern, let us know when you call so we can prioritize your visit.",
+      "category": "Scheduling"
+    },
+    {
+      "q": "Does Dentiq Dentistry accept dental insurance?",
+      "a": "We work with many dental insurance plans and will help you understand your coverage before treatment begins. Our team is happy to review your benefits and explain any out-of-pocket costs in plain language. Please call us at (713) 526-2904 to confirm whether your specific plan is accepted.",
+      "category": "Insurance & Payment"
+    },
+    {
+      "q": "What can I expect at my first visit to Dentiq Dentistry?",
+      "a": "At Dentiq Dentistry, we start by listening — we want to understand your goals, concerns, and comfort level before anything else. Dr. Sista and the team will conduct a thorough examination, explain what they're seeing in plain language, and build a personalized care plan around you. Our office is equipped with modern technology, including a CBCT scanner and in-house lab, so we can often gather everything we need in a single visit.",
+      "category": "First Visit"
+    },
+    {
+      "q": "How long does the first Invisalign consultation take?",
+      "a": "The initial consultation typically lasts about 60 to 90 minutes, depending on the complexity of your case and the thoroughness of the examination.",
+      "category": "First Visit"
+    },
+    {
+      "q": "What are dental implants, and how do they work?",
+      "a": "Dental implants are artificial tooth roots that are surgically placed into your jawbone. They provide a sturdy base for replacement teeth or bridges. Implants are typically made of titanium, which is biocompatible and integrates with the bone to create a strong foundation for the replacement teeth. After placement, the surrounding bone gradually grows around the implant in a process called osseointegration, after which the replacement teeth or bridge can be securely attached.",
+      "category": "Treatment"
+    },
+    {
+      "q": "Who is a good candidate for dental implants?",
+      "a": "To be a good candidate for dental implants, you need to have good oral health and enough bone in your jaw to support the implant. If you have gum disease or other dental problems, your dentist may recommend treatment before the implant procedure. You also need to be committed to maintaining good oral hygiene and regular dental checkups to ensure the success of the implant.",
+      "category": "Treatment"
+    },
+    {
+      "q": "What is a CEREC same-day crown, and am I a candidate?",
+      "a": "A CEREC same-day crown is a custom dental crown designed and placed in a single visit using in-office technology — no temporary crown or second appointment needed. Dr. Sista uses this technology to provide precise, efficient restorations for patients who need a damaged or decayed tooth repaired quickly. Most patients who need a standard crown are candidates; Dr. Sista will confirm during your exam whether same-day fabrication is right for your situation.",
+      "category": "Treatment"
+    },
+    {
+      "q": "How long do dental implants last, and how do I care for them?",
+      "a": "Dental implants are designed to last a lifetime with proper care. However, the longevity of the implant can depend on several factors, including the patient's overall health, oral hygiene, and the quality of the implant. In some cases, implants may need to be replaced or repaired after several years. Brushing, flossing, and keeping up with regular checkups at our Houston office are the best ways to protect your investment.",
+      "category": "Aftercare"
+    }
+  ]
+}

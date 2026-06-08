@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Bone and Soft Tissue Grafting in Houston TX",
+  "description": "Restore your tissues to their original form after tooth loss, gum disease, or trauma.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Dentiq Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Houston"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Bone and Soft Tissue Grafting Houston | ${site.name}`}
+  description="Restore your tissues to their original form after tooth loss, gum disease, or trauma."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Bone and Soft Tissue Grafting in Houston TX
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Restore your tissues to their original form after tooth loss, gum disease, or trauma.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Bone and soft tissue grafting restores the foundation that supports teeth and dental implants. When a tooth is lost or extracted, the jawbone underneath begins to shrink — a process called resorption — and the gum tissue above follows, losing volume and contour. Grafting procedures rebuild that lost structure, making it possible to place implants, improve aesthetics, and protect neighboring teeth. At Dentiq Dentistry in Houston, Dr. Sista takes a proactive approach, using advances in grafting and bioengineering to preserve tissue from the moment a tooth is removed rather than waiting to repair damage after the fact.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Why Bone and Gum Tissue Are Lost After Extraction</h2>
+      <p class="mb-4">The jawbone exists, in large part, because teeth stimulate it. When a tooth is removed and that stimulation stops, the bone begins to resorb — shrinking in both height and width. Studies have shown that the most significant bone loss occurs in the first few months after extraction, which is why timing matters. The gum tissue above the bone follows the same pattern, collapsing inward and losing the natural ridge shape that gives a smile its proper appearance. Left unaddressed, this loss can rule out implant placement entirely, or make the final result look unnatural even when an implant is placed later.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Types of Grafts Used</h2>
+      <p class="mb-4">Two main categories of grafting address these problems:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>**Bone grafts** replace lost bone volume in the jaw. Graft material — which may be derived from your own body, a processed donor source, or a synthetic biocompatible material — is placed at the extraction site or along a deficient ridge. Over several months, the body integrates the graft and lays down new bone.</li>
+        <li>**Soft tissue grafts** restore gum volume and contour. These procedures address areas where the gum has receded or where tissue was lost after an extraction. A soft tissue graft can improve both the function and the appearance of the gumline around existing teeth or future implants.</li>
+      </ul>
+      <p class="mb-4">The choice of graft material and technique depends on the size of the defect, the patient's health history, and the planned restoration. Dr. Sista discusses these options during the consultation so patients understand what is being placed and why.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What a Grafting Appointment Looks Like</h2>
+      <p class="mb-4">Most grafting procedures at Dentiq Dentistry are completed in a single outpatient visit. The area is numbed with local anesthetic before any work begins. For a socket preservation graft — the most common type, placed immediately after an extraction — graft material is packed into the empty socket and covered with a membrane or protective barrier to hold everything in place. The gum is then sutured closed or partially closed over the site.</p>
+      <p class="mb-4">The appointment itself typically takes 45 minutes to an hour, depending on the number of sites being treated. Patients drive themselves home in most cases. Expect some swelling and mild soreness for the first few days; most people manage this with over-the-counter pain relievers and a soft diet. The bone integration process takes several months, after which implant placement or other restorative work can proceed.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who Is a Candidate for Grafting?</h2>
+      <p class="mb-4">Grafting is most commonly recommended for patients who:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>Are planning to have a tooth extracted and want to preserve the site for a future implant</li>
+        <li>Have already lost bone at an edentulous (toothless) site and need volume restored before implant placement</li>
+        <li>Are experiencing gum recession that has exposed root surfaces or created cosmetic concerns</li>
+        <li>Need ridge augmentation to support a well-fitting denture or bridge</li>
+      </ul>
+      <p class="mb-4">Patients in Houston who have been told they "don't have enough bone" for an implant are often good candidates for a grafting procedure followed by implant placement once healing is complete. A cone-beam CT scan is typically used to assess the exact amount of bone available and plan the approach.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**Does a bone graft hurt?** The procedure itself is done under local anesthesia, so you should not feel pain during the appointment. Soreness and swelling in the days following are normal and usually manageable with over-the-counter medications.</p>
+      <p class="mb-4">**How long does it take for a bone graft to heal?** Bone integration generally takes three to six months, depending on the size of the graft and the individual patient's healing. Your provider will monitor progress with X-rays before proceeding to the next stage of treatment.</p>
+      <p class="mb-4">**Can a graft fail?** Grafts do not always integrate successfully, though failure is uncommon when post-operative instructions are followed. Smoking significantly increases the risk of poor healing and is the most common controllable factor that leads to graft complications.</p>
+      <p class="mb-4">**Do I need a graft if I'm getting an implant?** Not always. Some patients have sufficient bone volume at the time of implant placement. However, if bone loss has occurred — which is common after even a few months without a tooth — grafting is often necessary to ensure the implant has adequate support.</p>
+      <p class="mb-4">**Is a socket preservation graft done at the same appointment as the extraction?** Yes. Socket preservation is typically performed immediately after the tooth is removed, before the patient leaves the chair. This is the most predictable way to minimize bone loss and reduce the amount of grafting needed later.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+</BaseLayout>

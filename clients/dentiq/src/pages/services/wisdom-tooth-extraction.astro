@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Wisdom Teeth Removal",
+  "description": "Impacted wisdom teeth causing pain? Safe and gentle removal by Dr. Sista. IV Sedation available for comfort.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Dentiq Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Houston"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Wisdom Tooth Extraction Houston | ${site.name}`}
+  description="Impacted wisdom teeth causing pain? Safe and gentle removal by Dr. Sista. IV Sedation available for comfort."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Wisdom Teeth Removal
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Impacted wisdom teeth causing pain? Safe and gentle removal by Dr. Sista. IV Sedation available for comfort.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Wisdom teeth usually show up in the late teens or early twenties. If there isn't enough space, they can get trapped under the gums or come in at the wrong angle — leading to pain, swelling, infection, and damage to nearby teeth. When wisdom teeth get stuck and can't come in the way they're supposed to, they're harder to keep clean, which accelerates decay and infection risk. Early removal prevents those complications. IV sedation is available for a more comfortable experience.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Wisdom teeth typically begin to develop around the time a person reaches adulthood</p>
+      <p>If there isn't enough room for the teeth to come in properly, they become impacted underneath the gums</p>
+    </div>
+  </section>
+</BaseLayout>

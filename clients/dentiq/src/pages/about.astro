@@ -1,0 +1,270 @@
+---
+/**
+ * About page — uniform iteration over doctors[].
+ *
+ * doctors[0] is the featured doctor (full hero treatment with bio).
+ * doctors.slice(1) get the team-section card treatment.
+ *
+ * For single-doctor practices, doctors.length === 1 → only the hero renders,
+ * the team section is conditional.
+ *
+ * Doctor data + portraits flow through:
+ *   silver.doctors[]                      ← extraction
+ *   → merged.doctors[]                    ← merger
+ *   → injector writes doctors[] in site.ts
+ *   → image-roles.json doctorPortraits[]  ← Vision-classifier paired by name
+ *   → this template iterates doctors[]
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTABlock from '../components/CTABlock.astro';
+import { site, doctors, address, localBusinessSchema, personSchemas, staff } from '../config/site';
+import { readFileSync } from 'node:fs';
+
+// Resolve image-roles for doctor portraits (paired by name in ai-image-roles).
+// Names from site.ts may differ slightly from image-roles keys (e.g. "Dr. Russell
+// Chang" in site.ts vs "Dr. Russell EK Chang" in image-roles when the injector
+// strips middle initials). Match progressively: exact → first+last token →
+// last-name only. Stops at the first hit.
+let imageRoles: any = { doctorPortraits: {} };
+try {
+  imageRoles = JSON.parse(readFileSync(`${process.cwd()}/public/images/image-roles.json`, 'utf8'));
+} catch { /* manifest missing in dev */ }
+const normalize = (s: string) => String(s || '').toLowerCase().replace(/^dr\.?\s+/i, '').replace(/[^a-z\s]/g, '').trim();
+const portraitFor = (name: string): string | null => {
+  const portraits = imageRoles.doctorPortraits || {};
+  // 1. Exact match
+  if (portraits[name]) return `/images/${portraits[name]}`;
+  // 2. Token-set fuzzy match — every meaningful (3+ char) token in the
+  //    look-up name must appear in the candidate key.
+  const want = new Set(normalize(name).split(/\s+/).filter(t => t.length >= 3));
+  if (want.size === 0) return null;
+  for (const [key, path] of Object.entries(portraits)) {
+    const have = new Set(normalize(key).split(/\s+/).filter(t => t.length >= 3));
+    let ok = true;
+    for (const t of want) if (!have.has(t)) { ok = false; break; }
+    if (ok) return `/images/${path}`;
+  }
+  return null;
+};
+
+const featured = doctors[0];
+const supporting = doctors.slice(1);
+---
+
+<BaseLayout
+  title={`About ${featured.name} — ${site.name}`}
+  description={`Meet ${featured.name}, ${featured.credentials}. Learn about our practice, philosophy, and commitment to exceptional dental care in ${address.city}.`}
+  schema={[localBusinessSchema, ...personSchemas]}
+>
+  <!-- Hero — featured (primary) doctor -->
+  <section class="bg-surface-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-highlight mb-4">About Our Practice</p>
+          <h1 class="section-heading mb-6">Meet {featured.name}</h1>
+          {featured.bio ? (
+            <div class="text-lg text-neutral-mid leading-relaxed space-y-4 mb-4">
+              {featured.bio.split('\n\n').slice(0, 2).map((p) => <p>{p}</p>)}
+            </div>
+          ) : (
+            <p class="text-lg text-neutral-mid leading-relaxed mb-4">
+              {featured.name} provides exceptional dental care to patients in {address.city}.
+            </p>
+          )}
+          {featured.education && (
+            <p class="text-neutral-mid leading-relaxed">
+              {featured.credentials}{featured.education ? ` — ${featured.education}` : ''}
+            </p>
+          )}
+        </div>
+        {(() => {
+          const photo = portraitFor(featured.name);
+          return photo ? (
+            <div class="rounded-2xl overflow-hidden aspect-[4/5]">
+              <img src={photo} alt={featured.name} class="w-full h-full object-cover object-top" loading="lazy" />
+            </div>
+          ) : (
+            <div class="bg-neutral-light rounded-2xl aspect-[4/5] flex items-center justify-center">
+              <p class="text-neutral-mid text-sm">Doctor Photo</p>
+            </div>
+          );
+        })()}
+      </div>
+    </div>
+  </section>
+
+  <!-- Team section — supporting doctors. Conditional on length > 0. -->
+  {supporting.length > 0 && (
+    <section class="py-16 md:py-24 bg-surface-1">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 md:mb-16">
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-highlight mb-4">Our Team</p>
+          <h2 class="section-subheading">Meet Our Doctors</h2>
+        </div>
+        <div class={`grid gap-12 md:gap-16 ${supporting.length === 1 ? 'md:grid-cols-1 max-w-4xl mx-auto' : supporting.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'}`}>
+          {supporting.map((d) => {
+            const photo = portraitFor(d.name);
+            return (
+              <article class="grid grid-cols-1 sm:grid-cols-3 gap-6 items-start">
+                <div class="sm:col-span-1">
+                  {photo ? (
+                    <img src={photo} alt={d.name} class="w-full aspect-[4/5] object-cover object-top rounded-2xl" loading="lazy" />
+                  ) : (
+                    <div class="w-full aspect-[4/5] rounded-2xl bg-neutral-light flex items-center justify-center text-neutral-mid text-xs">
+                      {d.firstName?.charAt(0) || '?'}
+                    </div>
+                  )}
+                </div>
+                <div class="sm:col-span-2">
+                  <h3 class="font-serif text-2xl md:text-3xl font-bold text-neutral-dark mb-2">{d.name}</h3>
+                  {d.credentials && (
+                    <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary mb-4">{d.credentials}</p>
+                  )}
+                  {d.bio && (
+                    <p class="text-neutral-mid leading-relaxed">{d.bio}</p>
+                  )}
+                  {d.education && (
+                    <p class="text-sm text-neutral-mid mt-3 italic">{d.education}</p>
+                  )}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Staff — non-doctor team members. Visually distinct from the doctor
+       grid above (smaller cards, "Our Team" framing) so doctors stay primary. -->
+  {staff && staff.length > 0 && (
+    <section class="py-16 md:py-24 bg-surface-2 border-t border-border-light">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-highlight mb-4">Our Team</p>
+          <h2 class="section-subheading">Meet the People Who Care for You</h2>
+        </div>
+        <div class={`grid gap-8 ${staff.length === 1 ? 'md:grid-cols-1 max-w-sm mx-auto' : staff.length === 2 ? 'md:grid-cols-2 max-w-3xl mx-auto' : staff.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2 lg:grid-cols-4'}`}>
+          {staff.map((member) => (
+            <div class="text-center">
+              <div class="aspect-square rounded-2xl bg-neutral-light mb-4 overflow-hidden flex items-center justify-center">
+                {member.photoPath ? (
+                  <img src={`/images/${member.photoPath}`} alt={member.name} class="w-full h-full object-cover object-top" loading="lazy" />
+                ) : (
+                  <span class="text-2xl font-serif text-neutral-mid">{member.name?.charAt(0) || '?'}</span>
+                )}
+              </div>
+              <h3 class="font-serif text-lg font-bold text-neutral-dark">{member.name}</h3>
+              {member.role && member.role !== 'other' && (
+                <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mt-1">
+                  {member.role.replace(/_/g, ' ')}
+                </p>
+              )}
+              {member.credentials && (
+                <p class="text-xs text-neutral-mid mt-1">{member.credentials}</p>
+              )}
+              {member.bio && (
+                <p class="text-sm text-neutral-mid mt-3 leading-relaxed">{member.bio}</p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Philosophy -->
+  <section class="py-16">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-subheading text-center mb-8">Our Philosophy</h2>
+      <div class="prose-dental">
+        <p>
+          We believe every patient deserves honest, transparent dental care without pressure. Our goal is to educate you about your options and help you make the best decision for your smile and your budget.
+        </p>
+        <p>
+          Whether you need a simple cleaning or a complex restoration, we treat every patient with the same attention to detail and commitment to excellence.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <CTABlock phone={site.phone} />
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">Why Dentiq Dentistry Houston is uniquely qualified to meet all your dental implant, teeth replacement, and comfort needs – all in one office.</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">Work Exclusively With Houston's Premier Implantologist: You will work exclusively with Dr. Sista, a top-rated, award-winning implantologist, who will deliver and oversee every phase of your procedure. You can feel confident you'll receive his undivided attention and expertise, unmatched by other practices in the area.</p><p class="mb-4">All Our Work Is Done Under One Roof: Few practices in the area offer such comprehensive expertise, technology, and comfort to every implant patient and are prepared to solve even the most complex dental issues all under one roof. There's no need to travel to different offices, meeting with multiple doctors, and receiving numerous bills. Instead, you can often receive your entire treatment in just one office, in one day.</p><p class="mb-4">Dr. Sista Works In A State-of-the-art Dental Center: Our office features some of the most advanced technology available, including a 3D cone beam scanner integrated with a state-of-the-art digital workflow. This specialized digital and 3D imaging technology helps preplan the procedure to ensure the actual surgery is delivered with impeccable precision, predictability, and speed.</p><p class="mb-4">5-star Reviews On Google &amp; Facebook: Over the years, more than 80% of our patients have come from referrals. There is no higher compliment than to have a current patient refer a friend or family member to us.</p><p class="mb-4">Our Services Are Surprisingly Affordable: Our treatment coordinators will walk you through the entire sequence of care. You will receive up-front and transparent pricing. Because everything is kept in-house, your treatment costs are likely lower than you think. We also offer special financing plans to meet your financial needs.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">Get a Permanent Smile in Just 24 hrs with All-on-4 Implants.</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">At Dentiq, we specialize in full-mouth restoration using advanced All-on-4 dental implants — so you can eat, smile, and live with confidence again.</p><p class="mb-4">Meet Our Team: From the moment you arrive, you'll be welcomed by a team experienced in full-mouth restoration. We'll take the time to understand your concerns, answer your questions, and walk you through how All-on-4 implants can transform your smile and quality of life.</p><p class="mb-4">Get Your Personalized Smile Plan: Every smile is different. That's why we use advanced 3D imaging and a comprehensive evaluation to design a custom All-on-4 treatment plan tailored to you. You'll leave knowing exactly what's possible—and how we'll get you there.</p><p class="mb-4">Review Pricing &amp; Flexible Payment Options: We believe in total transparency. You'll receive a clear breakdown of your investment along with flexible financing options—so you can move forward with confidence and no surprises.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">The Dentiq Difference</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">Dr. Sista believes that oral medicine, like all disciplines of medicine, is ever-changing and that it is his responsibility to both himself and his patients to stay at the forefront of the advancements in dentistry. He is dedicated to continuing his education and has taken a multitude of advanced post-graduate studies in both the surgical and restorative disciplines of implant dentistry.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">Committed to Your Oral Health &amp; Happiness</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">At Dentiq Dentistry Houston, our mission is to bring JOY to your dental experience through exceptional care and service. We strive to create a welcoming dental home where you are our top priority. Our philosophy is simple: we treat our patients the way we would want to be treated.</p><p class="mb-4">Come in and experience a different kind of dental visit—one where you leave feeling like you've just spent time with friends.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">Smile Care Built Around You.</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">Dentiq Dentistry offers comprehensive care for the whole family with a patient-first approach. We start by listening, explain what we're seeing in plain language, and build a personalized plan that fits your goals and comfort level.</p><p class="mb-4">Our office is equipped with modern technology and an in-house lab to support precise, efficient care with fewer surprises and, in many cases, fewer visits. Dr. Sista and Dr. Tag provide everything from routine checkups to full-mouth rehabilitation, with the same focus every time: calm visits, clear options, and results you can trust.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">The Smile You Want, Without The Guesswork</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">At Dentiq Dentistry Houston, cosmetic dentistry shouldn't feel like a gamble. We use simple, proven solutions and a clear plan to take the guesswork out of improving your smile.</p><p class="mb-4">Whether you want to brighten stained teeth or fix chips, gaps, cracks, or worn edges, we will walk you through the best options for your goals and comfort level. Dr. Sara Tag and our team focus on results that look natural, not overdone.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">Is Your Smile Holding You Back?</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">Living with failing teeth or loose dentures can affect more than just your oral health — it can impact your confidence, comfort, and daily life.</p><p class="mb-4">At the core, this isn't only about teeth. It's about dignity. Security. Feeling like yourself again.</p><p class="mb-4">You deserve a smile that feels strong, natural, and fully yours — especially here in Houston, where life is busy, social, and full of opportunity.</p><p class="mb-4">You deserve dental care that feels clear, respectful, and genuinely human — not rushed, confusing, or intimidating.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">Change Your Life With Dental Implants.</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">Missing teeth can change how you eat, speak, and feel about your smile. For patients with missing teeth in Houston, Dental implants are a long-term option that replaces those teeth. However, unlike dentures, it restores both function and appearance, so you can move forward with confidence.</p><p class="mb-4">Dental implants are built in three parts: the implant post, an abutment, and a custom crown or tooth. Unlike bridges that depend on nearby teeth for support, implants stand on their own and keep surrounding teeth intact. And unlike dentures that can shift or feel bulky, implants are anchored in the jawbone for stability that feels closer to natural teeth.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">For A Smile You'll Want To Show Off</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">A full mouth reconstruction, often called a smile makeover, is a personalized way to rebuild your smile when it no longer looks or feels like you.</p><p class="mb-4">If chips, stains, wear, or missing teeth have you holding back, the team creates a clear plan and recommends only what you need. Some patients need one or two treatments, others need a few more, depending on what your smile needs to feel stable and look natural again. You'll know your options in plain English before you move forward.</p><p class="mb-4">Your full mouth reconstruction starts with a conversation, not a sales pitch. We'll listen to what you want to change, examine your smile, and walk you through a clear smile makeover plan in plain English. Next, we schedule treatment in the right order and at a pace that fits your comfort and calendar.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">Dentiq Savings Plan</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">No insurance, No problem!</p><p class="mb-4">Discounts: Cash &amp; Self-Pay Patients receive 10% discount</p><p class="mb-4">Senior Citizens: Receive 15% discount (cannot be combined with insurance plans)</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">Straight Smile. No Braces.</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">Invisalign uses a series of clear, custom aligners to gently move teeth into better position over time, without brackets or wires. The trays are smooth and removable, so you can eat, drink, brush, and floss like normal.</p><p class="mb-4">Most patients wear their aligners 20–22 hours a day, switching to the next set as directed based on the treatment plan and level of correction needed. For teens, some aligners include a small wear-time indicator that helps track consistent daily use.</p></div>
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading mb-4">Sleep Apnea Treatment at DENTIQ</h2>
+      <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed"><p class="mb-4">At DENTIQ, we offer custom oral appliances designed to help keep your airway open while you sleep, reducing snoring and improving breathing throughout the night. Better sleep may be closer than you think.</p><p class="mb-4">Patients Choose Oral Appliance Therapy Because It Is: Custom-made for a comfortable fit. Small, quiet, and easy to wear. Portable and travel-friendly. Non-invasive and simple to use. Designed to reduce snoring and improve airflow.</p></div>
+    </div>
+  </section>
+</BaseLayout>

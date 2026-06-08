@@ -1,0 +1,38 @@
+# Dentiq Dentistry
+
+> Reinventing The Way You Feel About The Dentist
+
+## Key pages
+
+- [Homepage](https://www.dentiq.dental/)
+- [About](https://www.dentiq.dental/about/)
+- [Services](https://www.dentiq.dental/services/)
+- [Schedule an appointment](https://www.dentiq.dental/schedule/)
+- [FAQ](https://www.dentiq.dental/faq/)
+- [Gallery](https://www.dentiq.dental/gallery/)
+- [Blog](https://www.dentiq.dental/blog/)
+
+## Services
+
+- [3D Printing](https://www.dentiq.dental/services/3d-printing/)
+- [All-On-4 Dental Implants](https://www.dentiq.dental/services/all-on-4-dental-implants/)
+- [Bone and Soft Tissue Grafting](https://www.dentiq.dental/services/bone-and-soft-tissue-grafting/)
+- [Bone Grafting](https://www.dentiq.dental/services/bone-grafting/)
+- [CBCT Scanner](https://www.dentiq.dental/services/cbct-scanner/)
+- [CEREC Same Day Crowns](https://www.dentiq.dental/services/cerec-same-day-crowns/)
+- [Clear Aligners](https://www.dentiq.dental/services/clear-aligners/)
+- [Dental Bonding](https://www.dentiq.dental/services/dental-bonding/)
+- [Dental Bridges](https://www.dentiq.dental/services/dental-bridges/)
+- [Dental Cleaning & Exam](https://www.dentiq.dental/services/dental-cleaning-exam/)
+- [Dental Crowns](https://www.dentiq.dental/services/dental-crowns/)
+- [Dental Fillings](https://www.dentiq.dental/services/dental-fillings/)
+- [Dental Implant Surgery](https://www.dentiq.dental/services/dental-implant-surgery/)
+- [Dental Sealants](https://www.dentiq.dental/services/dental-sealants/)
+- [Dental X-Rays](https://www.dentiq.dental/services/dental-x-rays/)
+- [Digital Dentures](https://www.dentiq.dental/services/digital-dentures/)
+
+## Contact
+
+- Phone: (713) 526-2904
+- Location: Houston, TX
+- Email: date@dentiq.net

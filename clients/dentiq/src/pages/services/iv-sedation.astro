@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "IV Sedation Dentistry",
+  "description": "Dentiq Dentistry offers IV Sedation in Houston, TX — the best way to experience stress-free dentistry.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Dentiq Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Houston"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`IV Sedation Houston | ${site.name}`}
+  description="Dentiq Dentistry offers IV Sedation in Houston, TX — the best way to experience stress-free dentistry."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      IV Sedation Dentistry
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Dentiq Dentistry offers IV Sedation in Houston, TX — the best way to experience stress-free dentistry.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">IV sedation is often a good option for longer or more complex treatments, including many oral surgery procedures. A calming medication is delivered through a small IV line, helping you feel deeply relaxed and comfortable while we work. Our team monitors you throughout the visit, and we'll review your health history first to make sure IV sedation is a safe fit for you. If you want a calmer, easier appointment, ask about IV sedation at your consultation.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Ask About IV Sedation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Sedation is administered through an intravenous (IV) line that allows you to sleep during the procedure</p>
+      <p>An Anesthesia Provider administers IV Sedation during All-On-4 surgery day</p>
+      <p>IV Sedation is available to sleep during the procedure and wake up with new teeth</p>
+      <p>Available for patients who have a low pain threshold, very sensitive teeth, a gag reflex, or moderate-to-severe anxiety</p>
+    </div>
+  </section>
+</BaseLayout>

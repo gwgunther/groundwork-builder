@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Get A Straighter Smile With Invisalign In Houston",
+  "description": "The world's most advanced clear aligner system in Houston. Straighten your smile discreetly. Financing available.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Dentiq Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Houston"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Invisalign® Houston | ${site.name}`}
+  description="Get A Straighter Smile With Invisalign In Houston at Dentiq Dentistry in Houston."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Get A Straighter Smile With Invisalign In Houston
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      The world's most advanced clear aligner system in Houston. Straighten your smile discreetly. Financing available.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Metal braces are uncomfortable and inconvenient — but there is a better option for many patients. Invisalign uses a series of clear, custom aligners to gently move teeth into better position over time, without brackets or wires. The trays are smooth and removable, so you can eat, drink, brush, and floss like normal. Most patients wear their aligners 20–22 hours a day, switching to the next set as directed. For teens, some aligners include a small wear-time indicator that helps track consistent daily use.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Start Now</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Invisalign uses a series of clear, custom aligners to gently move teeth into better position over time, without brackets or wires</p>
+      <p>Most patients wear their aligners 20–22 hours a day</p>
+      <p>For teens, some aligners include a small wear-time indicator that helps track consistent daily use</p>
+      <p>Great fit for crowding, spacing, overbites, underbites, and crossbites</p>
+      <p>Most patients achieve their desired results within 12 to 18 months</p>
+      <p>Aligners are virtually invisible, removable, and custom-made for a comfortable fit</p>
+      <p>$500 OFF Invisalign promotional offer available</p>
+      <p>Priced at $4,500 - $5,850</p>
+      <p>Free Whitening Kit After Treatment included in promotional offer</p>
+      <p>One-Time Free Retainer included in promotional offer</p>
+      <p>Complimentary Consultation available</p>
+      <p>Each set of aligners is typically worn for two weeks before switching to the next set</p>
+      <p>Regular check-ups are scheduled every 6-8 weeks</p>
+    </div>
+  </section>
+</BaseLayout>

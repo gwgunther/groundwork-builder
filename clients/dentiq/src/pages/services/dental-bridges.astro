@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Dental Bridges",
+  "description": "Missing teeth? A dental bridge can restore your bite and smile. Affordable options available at Dentiq Houston.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Dentiq Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Houston"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Dental Bridges Houston | ${site.name}`}
+  description="Missing teeth? A dental bridge can restore your bite and smile. Affordable options available at Dentiq Houston."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Dental Bridges
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Missing teeth? A dental bridge can restore your bite and smile. Affordable options available at Dentiq Houston.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">A dental bridge is a fixed restoration that replaces one or more missing teeth by anchoring to the teeth on either side of the gap. Because it's cemented in place, you don't remove it like a partial denture — it functions and feels more like a natural tooth. Each bridge is custom-made to match your surrounding teeth in shape, size, and color, so it blends into your smile while restoring your ability to chew and speak comfortably.</p>
+      <p class="mb-4">For patients in Houston dealing with one or more missing teeth, a bridge is often one of the most practical options available — especially when the neighboring teeth are healthy enough to serve as anchors.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who Is a Good Candidate for a Dental Bridge</h2>
+      <p class="mb-4">A bridge works best when you have one to three consecutive missing teeth with stable, healthy teeth on both sides of the gap. Those neighboring teeth — called abutment teeth — support the artificial tooth (or teeth) in the middle, which is called a pontic.</p>
+      <p class="mb-4">You may be a good candidate if you:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>Have one or more missing teeth in a row</li>
+        <li>Have healthy enough surrounding teeth and gums to support the bridge</li>
+        <li>Want a fixed solution rather than a removable partial denture</li>
+        <li>Are not currently a candidate for, or prefer not to pursue, dental implants</li>
+      </ul>
+      <p class="mb-4">If significant bone loss or gum disease is present, that typically needs to be addressed before a bridge can be placed.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">How the Dental Bridge Process Works</h2>
+      <p class="mb-4">Getting a bridge usually takes two appointments spaced a few weeks apart.</p>
+      <p class="mb-4">**First appointment:** The abutment teeth are prepared by removing a layer of enamel to make room for the crowns that will anchor the bridge. Impressions (or a digital scan) of your teeth are taken and sent to a dental lab. A temporary bridge is placed to protect the prepared teeth while your permanent bridge is being made.</p>
+      <p class="mb-4">**Second appointment:** The temporary bridge is removed, and the permanent bridge is checked for fit, bite, and appearance. Once everything looks right, it's cemented into place.</p>
+      <p class="mb-4">The entire process from first appointment to final placement typically spans two to three weeks. Each individual appointment generally runs about 60 to 90 minutes.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect After Placement</h2>
+      <p class="mb-4">Most patients adjust to a new bridge within a week or two. Some sensitivity around the abutment teeth in the first few days is normal, particularly to temperature. Over-the-counter pain relievers are usually enough to manage any initial discomfort.</p>
+      <p class="mb-4">With proper care, a dental bridge can last 10 to 15 years or longer. To protect it:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>Brush twice daily and floss once daily — special floss threaders or water flossers make cleaning under the pontic easier</li>
+        <li>Avoid chewing ice, hard candy, or other very hard foods that could crack the porcelain</li>
+        <li>Keep regular dental checkups so the fit and surrounding gum tissue can be monitored</li>
+      </ul>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Materials Used in Dental Bridges</h2>
+      <p class="mb-4">Bridges are most commonly made from porcelain fused to metal, all-ceramic, or zirconia. All-ceramic and zirconia options offer the most natural appearance and are typically recommended for bridges visible when you smile. Porcelain-fused-to-metal bridges are durable and may be suggested for teeth further back in the mouth where chewing forces are greater. The right material depends on where in the mouth the bridge will sit and your individual bite.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**How long does a dental bridge last?** With regular care and checkups, most bridges last between 10 and 15 years. Some last longer. The lifespan depends largely on oral hygiene habits and the health of the supporting teeth and gums.</p>
+      <p class="mb-4">**Does getting a bridge hurt?** The teeth are prepared under local anesthetic, so the appointment itself shouldn't be painful. Some soreness or sensitivity afterward is common and typically resolves within a few days.</p>
+      <p class="mb-4">**Can a bridge replace multiple missing teeth?** Yes, a bridge can replace more than one tooth, as long as there are solid anchor teeth on each side of the gap. Replacing three or more teeth in a row may require a discussion about whether implants are a better long-term option.</p>
+      <p class="mb-4">**How do I clean under a dental bridge?** Standard floss can't pass between the bridge and your gum the usual way. A floss threader, dental tape, or a water flosser lets you clean underneath the pontic, which is important for preventing gum problems.</p>
+      <p class="mb-4">**Is a bridge better than an implant?** Neither is universally better — it depends on your situation. A bridge is faster and less costly upfront, but requires reshaping healthy adjacent teeth. An implant stands alone without affecting neighboring teeth and may last longer, but involves a surgical process. Both are worth discussing based on your bone health, budget, and timeline.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+</BaseLayout>

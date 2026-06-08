@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Bone Grafting",
+  "description": "Building a strong foundation for your implants. Expert bone grafting and sinus lift procedures by Dr. Sista.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Dentiq Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Houston"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Bone Grafting Houston | ${site.name}`}
+  description="Building a strong foundation for your implants. Expert bone grafting and sinus lift procedures by Dr. Sista."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Bone Grafting
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Building a strong foundation for your implants. Expert bone grafting and sinus lift procedures by Dr. Sista.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Bone grafting is a procedure used to rebuild jaw bone that has been lost or damaged over time. At Dentiq Dentistry in Houston, it's one of the more common preparatory steps we take before placing dental implants — because without enough bone volume, an implant simply doesn't have a stable foundation to anchor into. If you've had a tooth extracted, dealt with gum disease, or left a gap untreated for months or years, bone grafting may be part of your treatment plan before moving forward with replacement options.</p>
+      <p class="mb-4">The jaw bone depends on tooth roots to stay dense. When a tooth is gone, the bone in that area begins to resorb — meaning the body gradually reabsorbs it because there's no longer a root stimulating it. This process can start within weeks of a tooth loss and continues over time, eventually changing the contour of the face and narrowing the options for restoring that tooth.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Why Bone Loss Happens</h2>
+      <p class="mb-4">Bone loss in the jaw has a few common causes:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>**Tooth extractions** — especially when the socket isn't grafted at the time of removal</li>
+        <li>**Periodontal (gum) disease** — bacterial infection that destroys the bone supporting teeth</li>
+        <li>**Long-term tooth loss** — the longer a gap goes untreated, the more bone volume is lost</li>
+        <li>**Trauma** — injury to the jaw can damage bone structure directly</li>
+      </ul>
+      <p class="mb-4">In some cases, patients who come in for implant consultations aren't aware they've lost bone until imaging is done. A cone beam CT scan or dental X-ray can show exactly how much bone is present and whether grafting is needed before proceeding.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What Bone Grafting Involves</h2>
+      <p class="mb-4">A bone graft places material into the area where bone is missing, giving your body a scaffold to grow new bone around. Most graft material used today is either processed bone from a donor source (allograft) or a synthetic bone substitute. In some cases, bone taken from another site in your own body (autograft) is used, though this is less common for routine implant preparation.</p>
+      <p class="mb-4">The procedure itself is done in the dental office under local anesthesia, so the area is numb throughout. After the graft material is placed, the site is usually covered with a membrane and sutured closed. The entire appointment typically takes between 45 minutes and 90 minutes depending on how much grafting is needed and the complexity of the site.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Recovery and Healing Timeline</h2>
+      <p class="mb-4">Healing from a bone graft takes longer than most dental procedures. The graft material needs time to integrate with your existing bone — a process called osseointegration. For most patients, that means waiting **three to six months** before the site is ready for an implant.</p>
+      <p class="mb-4">During the first few days, swelling and mild discomfort are normal. Most patients manage well with over-the-counter pain relievers and ice. You'll be asked to avoid hard foods, smoking, and anything that could disturb the graft site while it heals. Follow-up visits allow us to monitor how the bone is developing before making any decisions about next steps.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Socket Preservation at the Time of Extraction</h2>
+      <p class="mb-4">One of the most effective ways to avoid significant bone grafting later is a procedure called socket preservation — placing graft material into an extraction socket immediately after a tooth is removed. Patients in Houston who are planning for implants down the road often benefit from this approach because it minimizes the amount of bone that resorbs during the waiting period. It doesn't eliminate the wait, but it can reduce the complexity of what's needed before implant placement.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**Is bone grafting painful?** The procedure is done under local anesthesia, so you shouldn't feel pain during it. Afterward, there's typically soreness and swelling for a few days that responds well to standard pain management. Most patients find it more manageable than they expected.</p>
+      <p class="mb-4">**How long does a bone graft take to heal before I can get an implant?** Most grafts require three to six months of healing before the bone is dense enough to support an implant. Your provider will use imaging to confirm the site is ready before proceeding.</p>
+      <p class="mb-4">**Will my body reject the graft material?** Rejection in the traditional sense is rare with modern graft materials. Donor bone and synthetic substitutes are processed to minimize immune response. Infection is a more common concern, which is why post-operative care instructions matter.</p>
+      <p class="mb-4">**Do I always need a bone graft before an implant?** Not always. If there's adequate bone volume and density at the implant site, grafting may not be necessary. An evaluation with imaging is the only way to know for certain.</p>
+      <p class="mb-4">**Does insurance cover bone grafting?** Coverage varies by plan. Some dental insurance plans cover bone grafting when it's medically necessary, while others treat it as elective. It's worth checking with your insurance provider before your appointment so there are no surprises.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Bone grafting is a surgical procedure that is essential for patients who have areas of bone loss around the jaw</p>
+      <p>May be recommended before implant-supported denture placement if bone loss is limiting support</p>
+      <p>A bone graft may be done on surgery day if necessary during the All-On-4 procedure</p>
+      <p>Bone grafting might be necessary in cases of significant bone loss to create sufficient bone volume for implant placement</p>
+    </div>
+  </section>
+</BaseLayout>

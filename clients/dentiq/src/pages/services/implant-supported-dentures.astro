@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Implant Supported Dentures",
+  "description": "Secure your dentures with implants. No more slipping or adhesive. Eat what you love again.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Dentiq Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Houston"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Implant Supported Dentures Houston | ${site.name}`}
+  description="Secure your dentures with implants. No more slipping or adhesive. Eat what you love again."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Implant Supported Dentures
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Secure your dentures with implants. No more slipping or adhesive. Eat what you love again.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Implant-supported dentures are made for people who are tired of dentures that slip, rub, or feel loose during the day. Instead of relying on creams, gels, or adhesive strips, small implants can be placed to anchor and stabilize the denture, providing greater stability and support than traditional dentures. If your denture feels loose, you're not imagining it — changes in weight, gums, and aging can all affect the fit, and that usually turns into a daily cycle of adjustments and adhesives.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Small implants are placed to help your denture snap into place and stay secure</p>
+      <p>If bone loss is limiting support, a bone graft may be recommended first so your implants have a strong foundation to heal and last</p>
+      <p>The healing phase after implant placement takes about three to six months, depending on how the body responds</p>
+      <p>The overdenture is removable for easy cleaning but snaps firmly onto the implants</p>
+      <p>The implant-supported overdenture provides a high level of stability and retention by securely attaching the removable denture to a minimum of two dental implants</p>
+      <p>4 Implant Retained Overdenture priced at $10,495</p>
+      <p>2 Implant Snap-On Overdenture priced at $6,495</p>
+      <p>Finance options available at $209/mo for 4-implant overdenture</p>
+      <p>Patients who were previously told they couldn't have traditional dental implants due to bone loss may still be candidates for implant-supported dentures</p>
+      <p>Implant-supported dentures prevent further bone loss by providing necessary stimulation to the jawbone</p>
+      <p>Same-day options are offered, allowing transition from extractions to new teeth in just one visit</p>
+    </div>
+  </section>
+</BaseLayout>

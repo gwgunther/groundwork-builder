@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Permanent Dental Implants & Restoration in Houston, TX",
+  "description": "Dr. Sista specializes in single and full-mouth implants. Sedation available. Schedule a visit.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Dentiq Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Houston"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Dental Implant Surgery Houston | ${site.name}`}
+  description="Dr. Sista specializes in single and full-mouth implants. Sedation available. Schedule a visit."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Permanent Dental Implants &amp; Restoration in Houston, TX
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Dr. Sista specializes in single and full-mouth implants. Sedation available. Schedule a visit.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Missing teeth can change how you eat, speak, and feel about your smile. Dental implants are a long-term solution that replaces those teeth from root to crown — unlike dentures or bridges, implants integrate with the jawbone to provide a stable, permanent foundation. At Dentiq Dentistry in Houston, Dr. Sista handles the full implant process in one location: consultation, surgery, and final restoration.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What Dental Implants Actually Are</h2>
+      <p class="mb-4">A dental implant is a small titanium post placed into the jawbone where a tooth root once was. Over several weeks, the bone fuses to that post through a process called osseointegration. Once the implant is stable, a connector piece (called an abutment) is attached, and a custom crown is placed on top. The result looks, feels, and functions like a natural tooth.</p>
+      <p class="mb-4">Because the implant sits in the bone rather than resting on the gumline like a denture or relying on neighboring teeth like a bridge, it preserves the underlying bone structure. When a tooth is lost and nothing replaces the root, the jawbone in that area gradually shrinks — a process called bone resorption. Implants are the only tooth replacement option that prevents this.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who Is a Good Candidate</h2>
+      <p class="mb-4">Most adults who have lost one or more teeth are potential candidates for implants. The two most important factors are sufficient bone density to support the implant post and healthy gum tissue. Patients with controlled systemic conditions such as diabetes or a history of smoking can still be candidates, though the timeline or preparation steps may differ.</p>
+      <p class="mb-4">The best way to find out is a consultation where bone volume, gum health, and bite are evaluated. Some patients need a bone graft before implant placement if significant resorption has already occurred.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Treatment Options Available at Dentiq</h2>
+      <p class="mb-4">Dentiq Dentistry offers the full range of implant-based restorations:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>**Single-tooth implants** — one implant post topped with one crown; used when one or a few teeth are missing with healthy neighbors on either side</li>
+        <li>**Implant-supported bridges** — two or more implant posts support a multi-tooth bridge without involving healthy adjacent teeth as anchors</li>
+        <li>**Implant-supported dentures** — a full arch of teeth that snaps onto implant posts, far more stable than conventional removable dentures</li>
+        <li>**All-on-4 full-arch restorations** — four strategically placed implants support an entire arch of teeth; often completed in fewer appointments than traditional full-arch implant approaches</li>
+      </ul>
+      <p class="mb-4">For patients who feel anxious about surgery or who are undergoing more involved procedures, IV sedation is available.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What the Process Looks Like Step by Step</h2>
+      <p class="mb-4">The implant process typically unfolds in stages, with healing time built in between them.</p>
+      <p class="mb-4">1. **Consultation and imaging** — X-rays or a cone beam CT scan maps the bone and nerve locations so placement can be planned precisely. 2. **Implant placement** — the titanium post is placed under local anesthesia (or IV sedation if preferred). Most patients report mild soreness for a few days managed with over-the-counter medication. 3. **Healing period** — osseointegration takes roughly three to six months depending on the individual and the location in the mouth. 4. **Abutment and crown placement** — once the implant is stable, the abutment is attached and impressions are taken for the custom crown or other restoration. The crown is typically placed one to two weeks after that.</p>
+      <p class="mb-4">Because Dentiq handles every stage of this process in one Houston location, patients don't need to be referred out to a separate oral surgeon or prosthodontist.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**How long do dental implants last?** With good oral hygiene and regular cleanings, the implant post itself can last decades. The crown on top may need to be replaced after 10–15 years depending on wear.</p>
+      <p class="mb-4">**Does implant surgery hurt?** The procedure is performed under local anesthesia, so patients don't feel pain during placement. Soreness and mild swelling afterward are normal and typically resolve within a few days.</p>
+      <p class="mb-4">**How much do dental implants cost in Houston?** Costs vary depending on how many implants are needed, whether bone grafting is required, and which type of restoration is placed. A consultation is the most accurate way to get a figure for your specific situation.</p>
+      <p class="mb-4">**Will my insurance cover implants?** Some dental insurance plans cover part of the restoration (the crown), while the surgical portion is less commonly covered. It's worth checking your specific plan details before your consultation.</p>
+      <p class="mb-4">**Can I get implants if I've had bone loss?** Often yes, but a bone graft may be needed first to build up the area. This adds time to the overall process but does not disqualify most patients from eventually getting implants.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Implants are a long-lasting solution that do not decay and do not harm your other teeth</p>
+      <p>Implants help you regain the ability to eat, speak, and smile with ease</p>
+      <p>3D cone beam scanner integrated with a state-of-the-art digital workflow is used to preplan the procedure</p>
+    </div>
+  </section>
+</BaseLayout>

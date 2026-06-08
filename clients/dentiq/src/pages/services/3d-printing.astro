@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "3D Dental Printing in Houston TX",
+  "description": "Dentiq Dentistry specializes in Cosmetic & Restorative Dentistry and offers 3D Printing in Houston, TX.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Dentiq Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Houston"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`3D Printing Houston | ${site.name}`}
+  description="Dentiq Dentistry specializes in Cosmetic & Restorative Dentistry and offers 3D Printing in Houston, TX."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      3D Dental Printing in Houston TX
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Dentiq Dentistry specializes in Cosmetic &amp; Restorative Dentistry and offers 3D Printing in Houston, TX.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">3D dental printing lets us turn a digital scan of your mouth into a physical, precise model or surgical guide — often within the same day. At Dentiq Dentistry in Houston, we use this technology to make complex treatments more accurate and to reduce the guesswork that used to come with traditional impressions and plaster molds.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What 3D Dental Printing Actually Is</h2>
+      <p class="mb-4">Traditional dental planning relied on physical impressions — trays filled with putty pressed against your teeth. 3D printing replaces much of that process with digital scans that capture the exact shape of your teeth, gums, and jaw structure. That data is used to print highly accurate physical models or custom surgical guides using dental-grade materials.</p>
+      <p class="mb-4">The result is a level of fit and precision that's difficult to achieve by hand. Models are built layer by layer from the digital file, which means measurements stay consistent from the scan through to the final product.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">When We Use 3D Printing at Dentiq</h2>
+      <p class="mb-4">We may recommend 3D printing as part of your care in several situations:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>**Implant placement** — A printed surgical guide helps position an implant at exactly the right angle and depth, reducing chair time and improving predictability.</li>
+        <li>**Bone grafting** — A detailed model of your jaw lets us plan the graft site before we begin, so there are fewer surprises during surgery.</li>
+        <li>**Complex oral surgery** — Seeing a three-dimensional model of your anatomy helps us anticipate challenges and prepare for them in advance.</li>
+        <li>**Orthodontic planning** — Printed models can be used to track tooth movement or fabricate appliances.</li>
+      </ul>
+      <p class="mb-4">Not every patient needs 3D-printed models, but when treatment involves your bone structure or surgical precision, the technology makes a meaningful difference in outcomes.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect During the Scanning Process</h2>
+      <p class="mb-4">Getting a 3D scan at our Houston office is quick and comfortable. A small handheld wand moves around your mouth, capturing thousands of data points in a matter of minutes. There's no impression material, no gagging, and no waiting for molds to set.</p>
+      <p class="mb-4">Most scans take under 10 minutes. Children typically do just as well with the process as adults — the wand is compact and the procedure is completely non-invasive. Once the scan is complete, we can review the digital model with you on screen before anything is printed.</p>
+      <p class="mb-4">Printing happens separately and may take place before a follow-up appointment, depending on what the model or guide is being used for.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">How This Compares to Traditional Methods</h2>
+      <p class="mb-4">Conventional impressions can introduce small errors — material that shifts before it sets, or a model that doesn't quite capture the margins of a tooth. Those small inaccuracies compound when you're planning something like an implant that needs to land in a specific position within a narrow margin.</p>
+      <p class="mb-4">Digital scans eliminate most of those variables. The file doesn't shift or degrade. It can be stored, referenced later, and compared to future scans to track changes over time. For patients in Houston who are managing ongoing dental work or staged surgical treatment, that continuity is genuinely useful.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Who Is a Good Candidate</h2>
+      <p class="mb-4">Most patients are candidates for digital scanning. The process is suitable for:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>Adults planning implants or oral surgery</li>
+        <li>Children who need orthodontic records or appliances</li>
+        <li>Patients with a strong gag reflex who struggle with traditional impressions</li>
+        <li>Anyone undergoing phased treatment where accurate records matter at each stage</li>
+      </ul>
+      <p class="mb-4">If you're not sure whether 3D printing will be part of your specific treatment plan, ask during your consultation — we'll explain exactly what role it plays and why.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**Is the 3D scan safe?** Yes. Intraoral scanning uses optical light, not radiation. It's safe for children and adults alike.</p>
+      <p class="mb-4">**How long does a 3D scan take?** Most scans are completed in under 10 minutes. The process is non-invasive and requires no special preparation.</p>
+      <p class="mb-4">**Will my insurance cover 3D printing?** Coverage varies by plan. Some insurance providers cover the scanning process as part of a covered procedure; the printed model or guide may or may not be separately billed. We recommend confirming with your carrier before your appointment.</p>
+      <p class="mb-4">**Do I need a referral to have 3D printing done at Dentiq?** No referral is needed. If 3D printing is relevant to your treatment, we'll incorporate it as part of your care plan at Dentiq Dentistry.</p>
+      <p class="mb-4">**Can 3D printing be used for cosmetic work, or only surgical cases?** Primarily surgical and restorative cases, though printed models are also used in orthodontics and appliance fabrication depending on the situation.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+</BaseLayout>

@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Digital 3D Printed Dentures",
+  "description": "Dentiq Dentistry offers Digital Dentures in Houston, TX — precise, comfortable, and made with the latest technology.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Dentiq Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Houston"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Digital Dentures Houston | ${site.name}`}
+  description="Dentiq Dentistry offers Digital Dentures in Houston, TX — precise, comfortable, and made with the latest technology."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Digital 3D Printed Dentures
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Dentiq Dentistry offers Digital Dentures in Houston, TX — precise, comfortable, and made with the latest technology.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Digital dentures are the latest technology available to patients and use computer-aided design tools to create accurate and comfortable dentures that fit perfectly. This technology eliminates the traditional process of uncomfortable molds and multiple adjustment visits. Digital impressions are sent directly to the lab and, using 3D printing technology, dentures can be made quickly. Patients return for one final appointment to have their dentures fitted and confirmed comfortable.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Digital dentures use computer-aided design tools to create accurate and comfortable dentures that fit perfectly</p>
+    </div>
+  </section>
+</BaseLayout>

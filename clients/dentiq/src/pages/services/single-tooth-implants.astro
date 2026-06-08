@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Single-Tooth Implants",
+  "description": "Replace a missing tooth permanently. Includes implant, abutment, and crown. Match your natural smile with Dr. Sista.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Dentiq Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Houston"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Single Tooth Implants Houston | ${site.name}`}
+  description="Replace a missing tooth permanently. Includes implant, abutment, and crown. Match your natural smile with Dr. Sista."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Single-Tooth Implants
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Replace a missing tooth permanently. Includes implant, abutment, and crown. Match your natural smile with Dr. Sista.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Dental implants are a reliable way to replace a missing tooth from root to crown. A single-tooth implant is designed to replace one tooth without involving the teeth next to it — unlike a bridge, which requires grinding down adjacent teeth for support. The implant is placed into the jawbone, integrates with the bone over time, and is then topped with a custom crown that matches your natural smile.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>An implant is a titanium post that is surgically inserted into the jawbone, where it fuses with the bone over time to provide a stable foundation for a replacement tooth</p>
+      <p>A custom-made crown is then attached to the implant, restoring both function and appearance</p>
+      <p>Dental implants help maintain jawbone health and prevent the shifting of adjacent teeth</p>
+    </div>
+  </section>
+</BaseLayout>

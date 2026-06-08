@@ -1,0 +1,49 @@
+{
+  "variant": "two-col-feature",
+  "eyebrow": "What We Offer",
+  "heading": "Advanced Dental Care, From Implants to Same-Day Restorations",
+  "subheading": "Dentiq combines cutting-edge technology with comprehensive treatments to restore, align, and perfect your smile.",
+  "items": [
+    {
+      "name": "3D Printing",
+      "slug": "3d-printing",
+      "desc": "In-office 3D printing delivers precise dental restorations and appliances faster than ever before."
+    },
+    {
+      "name": "All-On-4 Dental Implants",
+      "slug": "all-on-4-dental-implants",
+      "desc": "Restore a full arch of teeth with just four strategically placed implants, often without bone grafting."
+    },
+    {
+      "name": "Bone and Soft Tissue Grafting",
+      "slug": "bone-and-soft-tissue-grafting",
+      "desc": "Rebuild lost bone and tissue to create a healthy, stable foundation for implants and a natural appearance."
+    },
+    {
+      "name": "Bone Grafting",
+      "slug": "bone-grafting",
+      "desc": "Restore jawbone volume lost to disease or extraction so implants can be placed with lasting success."
+    },
+    {
+      "name": "CBCT Scanner",
+      "slug": "cbct-scanner",
+      "desc": "3D cone beam imaging gives your dentist a complete view of your jaw for safer, more accurate implant planning."
+    },
+    {
+      "name": "CEREC Same Day Crowns",
+      "slug": "cerec-same-day-crowns",
+      "desc": "Get a custom-fitted, permanent crown designed and placed in a single appointment — no temporary needed."
+    },
+    {
+      "name": "Clear Aligners",
+      "slug": "clear-aligners",
+      "desc": "Straighten your teeth discreetly with removable, nearly invisible aligners tailored to your smile."
+    },
+    {
+      "name": "Dental Bonding",
+      "slug": "dental-bonding",
+      "desc": "Repair chips, close gaps, and smooth edges in one quick visit using tooth-colored resin."
+    }
+  ],
+  "ctaLabel": "View All Services"
+}

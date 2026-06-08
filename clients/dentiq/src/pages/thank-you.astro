@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config/site';
+---
+
+<BaseLayout
+  title={`Thank You — ${site.name}`}
+  description="Thank you for reaching out. We'll be in touch soon."
+  noindex={true}
+>
+  <section class="py-24 text-center">
+    <div class="max-w-3xl mx-auto px-4">
+      <h1 class="section-heading mb-6">Thank You!</h1>
+      <p class="text-lg text-neutral-mid mb-8">
+        We've received your message and will be in touch shortly. If you need immediate assistance, call us at
+        <a href={`tel:${site.phone.replace(/\D/g, '')}`} class="text-brand-primary font-semibold">{site.phone}</a>.
+      </p>
+      <a href="/" class="btn-secondary">Back to Home</a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Frustrated With Loose Dentures or Failing Teeth? Time to Fix It for Good.",
+  "description": "Get a permanent smile in just 24 hours with All-on-4 implants. Comprehensive consultation and smile evaluation — $99.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Dentiq Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Houston"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`All-On-4 Dental Implants Houston | ${site.name}`}
+  description="Get a permanent smile in just 24 hours with All-on-4 implants. Comprehensive consultation and smile evaluation — \$99."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Frustrated With Loose Dentures or Failing Teeth? Time to Fix It for Good.
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Get a permanent smile in just 24 hours with All-on-4 implants. Comprehensive consultation and smile evaluation — $99.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Living with failing teeth or loose dentures can affect more than just your oral health — it can impact your confidence, comfort, and daily life. The All-on-4® solution uses four implants per arch to permanently anchor a full set of teeth, delivered in a single day. No hidden fees. All-inclusive pricing includes extractions and final acrylic teeth. Financing available at zero down.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Get Your All-On-4</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>Two implants are placed in the front of the mouth and two in the back</p>
+      <p>The front implants are placed straight into the jaw, while the back implants are inserted at a 45-degree angle to avoid the need for a bone graft</p>
+      <p>New teeth can be delivered in as little as one day</p>
+      <p>20% Off All-On-4 promotional offer available</p>
+      <p>All-On-4 with Fixed Acrylic Denture priced at $13,495</p>
+      <p>All-On-4 with Fixed Zirconia Denture priced at $16,996</p>
+      <p>All-On-4 with Fixed Zirconia Double Denture priced at $33,495</p>
+      <p>Treatment fee includes complete oral evaluation, cone-beam CT scan, all extractions if needed, 4 implants per arch, and fixed new teeth</p>
+      <p>Finance options available as low as $295/mo for acrylic, $345/mo for zirconia</p>
+      <p>Procedure involves complimentary consultation, smile design appointment, surgery day, post-op evaluation, and delivery of final prosthesis</p>
+      <p>Surgery day includes IV sedation, tooth extractions if required, bone graft if necessary, implant placement, digital scan, and attachment of temporary non-removable full set of teeth</p>
+      <p>Post-op evaluation occurs 1 week following surgery</p>
+      <p>Final restoration is permanently attached 3-6 months following post-op evaluation</p>
+    </div>
+  </section>
+</BaseLayout>

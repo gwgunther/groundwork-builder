@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Root Canals",
+  "description": "Stop the toothache and save your tooth. Dr. Sista performs gentle root canal therapy to eliminate infection.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Dentiq Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Houston"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Root Canal Houston | ${site.name}`}
+  description="Stop the toothache and save your tooth. Dr. Sista performs gentle root canal therapy to eliminate infection."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Root Canals
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Stop the toothache and save your tooth. Dr. Sista performs gentle root canal therapy to eliminate infection.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">A root canal treats an infected or inflamed tooth from the inside. We gently remove the irritated tissue, clean and seal the tooth, and help you keep your natural smile instead of losing the tooth. A root canal is often needed when deep decay reaches the nerve, or a crack or break exposes it — that's when sensitivity can turn into lingering pain. By removing the infected tissue inside the tooth and sealing it, we stop the infection and protect the tooth long-term.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>A root canal treats an infected or inflamed tooth from the inside</p>
+      <p>Often needed when deep decay reaches the nerve, or a crack or break exposes it</p>
+      <p>The procedure involves numbing the area, cleaning out the infected tissue, disinfecting the space, and sealing it to protect it from future infection</p>
+      <p>Most patients leave with a temporary filling</p>
+      <p>Many teeth need a crown afterward to keep the tooth strong long-term</p>
+      <p>It is normal to feel a little sore for a few days after the procedure</p>
+      <p>Getting a root canal done sooner helps prevent bigger problems</p>
+    </div>
+  </section>
+</BaseLayout>

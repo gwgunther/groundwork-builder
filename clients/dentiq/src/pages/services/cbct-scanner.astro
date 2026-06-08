@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Cone Beam CT Scan",
+  "description": "Discover the future of dental imaging with Cone Beam (CBCT) in Houston, TX — more accurate scans for better diagnoses.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Dentiq Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Houston"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`CBCT Scanner Houston | ${site.name}`}
+  description="Discover the future of dental imaging with Cone Beam (CBCT) in Houston, TX — more accurate scans for better diagnoses."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Cone Beam CT Scan
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Discover the future of dental imaging with Cone Beam (CBCT) in Houston, TX — more accurate scans for better diagnoses.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">A cone beam CT (CBCT) scan is a specialized type of X-ray that produces a three-dimensional image of your teeth, jawbone, nerve pathways, and surrounding soft tissue in a single, rapid scan. Unlike a standard dental X-ray, which captures a flat, two-dimensional picture, a cone beam CT rotates around your head to collect hundreds of images at once, then assembles them into a detailed 3D model. At Dentiq Dentistry in Houston, this technology helps the clinical team see exactly what's happening beneath the surface before any treatment begins — making diagnoses more accurate and treatment planning more precise.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What a Cone Beam CT Scan Shows</h2>
+      <p class="mb-4">Standard X-rays are useful, but they have limits. A cone beam CT goes significantly further by capturing structures that don't show up clearly in traditional imaging. The scan can reveal:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>The precise location of nerves and nerve canals</li>
+        <li>Bone density and the quality of jaw structure</li>
+        <li>The position of impacted or unerupted teeth</li>
+        <li>Sinus anatomy and airway dimensions</li>
+        <li>Root shape, length, and any unusual curvature</li>
+        <li>Early signs of infection, cysts, or abnormal growths</li>
+      </ul>
+      <p class="mb-4">This level of detail matters most when there's a complex problem to solve or when a procedure carries meaningful risk without complete anatomical information.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">When a CBCT Scan Is Typically Needed</h2>
+      <p class="mb-4">Most patients at a general dental visit will never need a cone beam CT. It's ordered when a standard X-ray doesn't provide enough information — or when the stakes of getting it wrong are high. Common reasons include:</p>
+      <ul class="list-disc pl-6 my-4 space-y-2">
+        <li>**Before oral surgery**, such as wisdom tooth removal or jaw surgery, to map nerve location and bone structure</li>
+        <li>**Implant planning**, where knowing exact bone volume and density prevents complications during placement</li>
+        <li>**Diagnosing unexplained pain or symptoms** that haven't shown up on conventional imaging</li>
+        <li>**Orthodontic assessment**, particularly for complex cases involving jaw positioning or impacted teeth</li>
+        <li>**Root canal evaluation**, especially on teeth with unusual anatomy</li>
+        <li>**TMJ assessment**, to look at how the jaw joint is functioning</li>
+      </ul>
+      <p class="mb-4">If you've been told you need a CT scan and aren't sure why, it's worth asking specifically what the scan will help the doctor see that they can't see on a standard X-ray.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">What to Expect During the Scan</h2>
+      <p class="mb-4">The scan itself takes only seconds. You'll stand or sit beside the cone beam unit while it rotates around your head in a single sweep — there's no need to bite down on anything or hold an uncomfortable position for long. The machine doesn't touch you during the scan.</p>
+      <p class="mb-4">The entire appointment, including any prep and positioning, typically takes under 15 minutes. No injection, no numbing, and no recovery time afterward. Radiation exposure from a CBCT scan is low — significantly less than a medical CT scan, though slightly more than a standard set of dental X-rays — which is one reason it's reserved for cases where the diagnostic benefit clearly justifies it.</p>
+      <p class="mb-4">You can drive yourself to and from the appointment, and there are no restrictions on eating or activity before or after.</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">How the Images Are Used in Treatment Planning</h2>
+      <p class="mb-4">Once the scan is complete, the images are reviewed digitally. The 3D model can be rotated, sliced, and measured from any angle, which lets the doctor plan a procedure with a level of specificity that wasn't possible with older imaging methods. For implant cases in particular, this can mean pre-selecting implant dimensions, identifying the ideal placement angle, and even generating a surgical guide — all before the patient is in the chair for the procedure itself.</p>
+      <p class="mb-4">For patients in Houston dealing with complex dental issues, having this kind of imaging done in-office at Dentiq Dentistry means fewer referrals and a faster path from diagnosis to treatment.</p>
+      <p class="mb-4">---</p>
+      <h2 class="font-serif text-2xl font-semibold text-neutral-dark mt-8 mb-4">Frequently Asked Questions</h2>
+      <p class="mb-4">**Is a cone beam CT scan safe?** Yes. The radiation dose is low — considerably lower than a medical CT scan. It's used selectively when the clinical benefit outweighs the minimal exposure.</p>
+      <p class="mb-4">**Does the scan hurt?** No. The machine rotates around your head without making contact. Most patients find it easier than a standard bite-wing X-ray.</p>
+      <p class="mb-4">**How long does the scan take?** The actual image capture takes seconds. Plan for the full appointment to run about 10–15 minutes.</p>
+      <p class="mb-4">**Do I need to prepare for a CBCT scan?** Generally, no special preparation is required. You may be asked to remove earrings, glasses, or any removable dental appliances before the scan.</p>
+      <p class="mb-4">**Will my insurance cover a cone beam CT scan?** Coverage varies by plan. Some dental insurance policies cover CBCT imaging when it's considered medically necessary; others do not. It's worth checking with your insurance provider or asking the front desk at Dentiq Dentistry about your specific coverage before the appointment.</p>
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>3D cone beam scanner integrated with a state-of-the-art digital workflow</p>
+      <p>Used to preplan procedures to ensure surgery is delivered with impeccable precision, predictability, and speed</p>
+      <p>Cone-Beam CT Scan included in All-On-4 treatment packages</p>
+      <p>Used during initial consultation to assess jaw bone structure and plan aesthetic and functional aspects of new teeth</p>
+    </div>
+  </section>
+</BaseLayout>

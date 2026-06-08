@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Intra-Oral Camera System",
+  "description": "Dentiq Dentistry offers Intraoral Cameras in Houston, TX — a clearer view of your oral health.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Dentiq Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Houston"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`Intraoral Cameras Houston | ${site.name}`}
+  description="Dentiq Dentistry offers Intraoral Cameras in Houston, TX — a clearer view of your oral health."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      Intra-Oral Camera System
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Dentiq Dentistry offers Intraoral Cameras in Houston, TX — a clearer view of your oral health.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">Intra-oral cameras allow us to see everything going on inside your mouth with far more detail than a standard exam. The camera magnifies what it's looking at — showing areas of decay, cracks, breaks, and fractures on screen in real time. This means we can show you exactly what we're seeing, so you understand the treatment we're recommending. The camera is safe, effective, and can be used on patients of all ages.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Visit</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+</BaseLayout>

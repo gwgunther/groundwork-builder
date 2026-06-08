@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, localBusinessSchema } from '../../config/site';
+
+const procedureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "TMJ Therapy",
+  "description": "Suffering from jaw clicking or headaches? Dr. Sista offers non-invasive therapies for TMJ disorder relief.",
+  "procedureType": "https://schema.org/Therapeutic",
+  "provider": {
+    "@type": "Dentist",
+    "name": "Dentiq Dentistry",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Houston"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`TMJ Therapy Houston | ${site.name}`}
+  description="Suffering from jaw clicking or headaches? Dr. Sista offers non-invasive therapies for TMJ disorder relief."
+  schema={[localBusinessSchema, procedureSchema]}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+      <a href="/services" class="hover:underline">Services</a>
+    </p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-neutral-dark mb-4 leading-tight">
+      TMJ Therapy
+    </h1>
+    <p class="text-xl text-neutral-mid mb-8 leading-relaxed">
+      Suffering from jaw clicking or headaches? Dr. Sista offers non-invasive therapies for TMJ disorder relief.
+    </p>
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed">
+      <p class="mb-4">The TMJ, or temporomandibular joint, is the hardworking hinge that connects your lower jaw to your skull. When it's functioning properly, you don't even notice it's there. But when pain, swelling, or dysfunction sets in, it can affect eating, speaking, and daily comfort. We believe you shouldn't have to struggle with constant tension just to eat, speak, or laugh — that's why we offer a variety of effective treatments designed to ease the pressure and get your jaw moving freely again.</p>
+      
+    </div>
+    <div class="mt-10 flex gap-4 flex-wrap">
+      <a href="/schedule" class="btn-primary">Schedule a Consultation</a>
+      <a href="/services" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <div class="prose prose-lg max-w-none text-neutral-mid leading-relaxed space-y-4">
+      <p>The TMJ (temporomandibular joint) is the joint that connects your lower jaw to your skull</p>
+      <p>The TMJ can experience pain, discomfort, swelling, and limited range of movement that gets in the way of quality of life</p>
+      <p>Correcting misalignment can alleviate issues such as jaw pain and uneven wear on teeth</p>
+    </div>
+  </section>
+</BaseLayout>
