@@ -36,7 +36,7 @@ const socialLinks = [
     <!-- Left column: practice identity -->
     <div class="flex flex-col gap-6">
       <div>
-        <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary mb-3">
+        <p class="text-sm font-semibold uppercase tracking-widest text-white/70 mb-3">
           Houston's Neighborhood Practice
         </p>
         <h2 class="font-serif text-3xl md:text-4xl font-bold leading-tight tracking-tight text-white">
@@ -44,17 +44,17 @@ const socialLinks = [
         </h2>
       </div>
 
-      <p class="text-base leading-relaxed text-neutral-400 max-w-sm">
+      <p class="text-base leading-relaxed text-white/70 max-w-sm">
         Thoughtful, unhurried dental care in the heart of Houston — where your comfort and long-term health come first.
       </p>
 
       <!-- Address block -->
-      <address class="not-italic flex flex-col gap-1 text-base leading-relaxed text-neutral-400">
+      <address class="not-italic flex flex-col gap-1 text-base leading-relaxed text-white/70">
         <span>{addr.street}</span>
         <span>{addr.city}, {addr.state} {addr.zip}</span>
         <a
           href={`tel:${site.phone.replace(/\D/g, '')}`}
-          class="mt-2 text-white font-semibold hover:text-brand-primary transition-all duration-200 inline-block min-h-[44px] flex items-center"
+          class="mt-2 text-white font-semibold underline underline-offset-2 hover:text-white/80 transition-all duration-200 inline-block min-h-[44px] flex items-center"
           aria-label={`Call Dentiq Dentistry at ${site.phone}`}
         >
           {site.phone}
@@ -95,7 +95,7 @@ const socialLinks = [
 
       <!-- Navigation -->
       <nav aria-label="Footer navigation">
-        <p class="text-sm font-semibold uppercase tracking-widest text-brand-primary mb-4">
+        <p class="text-sm font-semibold uppercase tracking-widest text-white/70 mb-4">
           Navigate
         </p>
         <ul class="flex flex-col gap-3">
@@ -117,7 +117,7 @@ const socialLinks = [
 
       <!-- Schedule CTA -->
       <div class="flex flex-col gap-4">
-        <p class="text-base leading-relaxed text-neutral-400">
+        <p class="text-base leading-relaxed text-white/70">
           Ready to book your next visit? We're accepting new patients at our West Gray location.
         </p>
         <a
@@ -134,14 +134,14 @@ const socialLinks = [
   <!-- Bottom bar -->
   <div class="border-t border-neutral-700">
     <div class="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <p class="text-sm text-neutral-500 text-center sm:text-left">
+      <p class="text-sm text-white/60 text-center sm:text-left">
         &copy; {currentYear} {site.name}. All rights reserved.
       </p>
-      <p class="text-sm text-neutral-500 text-center sm:text-right">
+      <p class="text-sm text-white/60 text-center sm:text-right">
         1355 W Gray St &middot; Houston, TX &middot;
         <a
           href={`tel:${site.phone.replace(/\D/g, '')}`}
-          class="text-neutral-400 hover:text-brand-primary transition-all duration-200"
+          class="text-white/70 underline underline-offset-2 hover:text-white transition-all duration-200"
         >
           {site.phone}
         </a>
