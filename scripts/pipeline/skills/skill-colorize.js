@@ -10,12 +10,15 @@
  */
 
 import { renderDesignContext } from '../lib/render-design-context.js';
+import { renderFixerDirectives } from '../lib/reference-audit.js';
 
 const MODEL = 'claude-sonnet-4-6';
 
-export async function run({ dna, practice, files = {}, screenshots = [] }) {
+export async function run({ dna, practice, files = {}, screenshots = [], referenceAudit = null }) {
   const start   = Date.now();
-  const context = renderDesignContext(dna, practice);
+  // Curated builds: sanctioned palette moves (e.g. gradient-accent, pure-black)
+  // are deliberate — improve their execution, never "fix" them away.
+  const context = renderDesignContext(dna, practice) + renderFixerDirectives(referenceAudit);
 
   const tailwindContent = files['tailwind.config.mjs'] || files['tailwind.config.js'] || '(not provided)';
   const indexContent    = files['src/pages/index.astro'] || '(not provided)';

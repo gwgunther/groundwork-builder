@@ -17,15 +17,18 @@ import { join, dirname }       from 'node:path';
 import { fileURLToPath }       from 'node:url';
 import { renderDesignContext } from '../lib/render-design-context.js';
 import { getAllReferences }     from '../lib/impeccable.js';
+import { renderJudgeDirectives, normalizeReferenceAudit } from '../lib/reference-audit.js';
 
 const MODEL   = 'claude-sonnet-4-6';
 const __dir   = dirname(fileURLToPath(import.meta.url));
 const RUBRIC  = JSON.parse(await readFile(join(__dir, '../config/rubric.json'), 'utf8'));
 
-export async function run({ dna, practice, screenshots = [], files = {} }) {
+export async function run({ dna, practice, screenshots = [], files = {}, referenceAudit = null }) {
   const start   = Date.now();
   const context = renderDesignContext(dna, practice);
   const allRefs = await getAllReferences();
+  const refAudit = normalizeReferenceAudit(referenceAudit);
+  const judgeDirectives = renderJudgeDirectives(referenceAudit);
 
   // Build image content blocks — cap at 6 screenshots to stay within token budget
   const shots = screenshots.slice(0, 6);
@@ -65,6 +68,7 @@ You must score each dimension against these standards — not generic taste. Cit
 For each dimension score below 7, you MUST cite at least one specific, measurable violation from the Impeccable standards above (e.g. 'nav items wrap at 1280px viewport — spatial-design rule: never allow overflow text in navigation').
 
 ${allRefs}
+${judgeDirectives}
 
 ## Rubric Dimensions
 ${rubricDims}
@@ -88,13 +92,19 @@ ${Object.entries(RUBRIC.calibration.anchors).map(([k,v]) => `${k}: ${v}`).join('
     }
   },
   "overall": <weighted average, 1 decimal>,
-  "gate_pass": <boolean — true if ALL of (typography, color_contrast, spatial_layout, information_hierarchy, craft, ux_writing) score ≥ 7. imagery, distinctiveness, and trust_signals do NOT affect gate_pass.>,
+  "gate_pass": <boolean — true if ALL of (typography, color_contrast, spatial_layout, information_hierarchy, craft, ux_writing) score ≥ 7. imagery, distinctiveness, and trust_signals do NOT affect gate_pass.>,${refAudit?.fidelityChecks?.length ? `
+  "fidelity": [
+    { "check": "<the fidelity check, verbatim>", "pass": <boolean>, "evidence": "<concrete observation>" }
+  ],` : ''}
   "next_action": {
     "skill": "<skill id or 'none'>",
     "target": "<file or section>",
     "reason": "<1 sentence>"
   }
-}
+}${refAudit?.fidelityChecks?.length ? `
+
+next_action rules for this curated build: target a failed fidelity check or a correctness ban first.
+Never propose an action whose effect would remove a sanctioned pattern.` : ''}
 
 IMPORTANT: Every score must have at least one concrete observation. Never give a score without evidence. Penalize template-fill output heavily on distinctiveness.`,
         },
@@ -121,13 +131,22 @@ IMPORTANT: Every score must have at least one concrete observation. Never give a
     score.overall = wsum ? Math.round((sum / wsum) * 10) / 10 : 0;
   }
 
+  // Fidelity gate (curated builds only): all reference fidelityChecks must pass.
+  // Missing/unparsable fidelity rows count as failed — never silently pass.
+  if (score && refAudit?.fidelityChecks?.length) {
+    const rows = Array.isArray(score.fidelity) ? score.fidelity : [];
+    score.fidelity_pass = refAudit.fidelityChecks.length <= rows.length
+      && rows.every(r => r?.pass === true);
+  }
+
   const lowestDim = score?.dimensions
     ? Object.entries(score.dimensions).sort((a,b) => a[1].score - b[1].score)[0]
     : null;
 
+  const fidelityNote = score?.fidelity_pass !== undefined ? ` fidelity_pass=${score.fidelity_pass}.` : '';
   return {
     skill:   'critique',
-    summary: `Overall ${score?.overall ?? '?'}/10, gate_pass=${score?.gate_pass}. Lowest: ${lowestDim?.[0]} (${lowestDim?.[1]?.score}).`,
+    summary: `Overall ${score?.overall ?? '?'}/10, gate_pass=${score?.gate_pass}.${fidelityNote} Lowest: ${lowestDim?.[0]} (${lowestDim?.[1]?.score}).`,
     score,
     meta: { model: MODEL, duration_ms: Date.now() - start, tokens: res.usage },
   };

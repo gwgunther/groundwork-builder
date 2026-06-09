@@ -44,6 +44,9 @@ export async function runDesignerAgent({
   practice,
   maxIterations = 6,
   buildFn,        // async (projectDir) => void  — rebuilds the Astro project
+  referenceAudit = null, // catalog entry's audit block ({sanctionedPatterns, fidelityChecks})
+                         // — re-points critique+skills from taste-audit to fidelity-audit
+                         // (docs/design-catalog/SCHEMA.md §5). null → unchanged behavior.
 } = {}) {
   if (!projectDir) throw new Error('designer-agent: projectDir required');
   if (!buildFn)    throw new Error('designer-agent: buildFn required');
@@ -69,15 +72,17 @@ export async function runDesignerAgent({
     const files = await loadKeyFiles(projectDir);
 
     // ── 3. Critique ─────────────────────────────────────────────────────────
-    const critiqueResult = await runSkill('critique', { dna, practice, screenshots, files });
+    const critiqueResult = await runSkill('critique', { dna, practice, screenshots, files, referenceAudit });
     const score          = critiqueResult.score;
     // Gate passes when all agent-fixable dimensions reach ≥ 7
-    // Human dims (imagery, distinctiveness, trust_signals) don't block shipping
+    // Human dims (imagery, distinctiveness, trust_signals) don't block shipping.
+    // Curated builds additionally require fidelity_pass (faithful to the reference).
     const agentDims = ['typography','color_contrast','spatial_layout','information_hierarchy','craft','ux_writing'];
     const dims = score?.dimensions || {};
-    gate_pass = agentDims.every(d => (dims[d]?.score ?? dims[d] ?? 0) >= 7);
+    gate_pass = agentDims.every(d => (dims[d]?.score ?? dims[d] ?? 0) >= 7)
+      && score?.fidelity_pass !== false;
 
-    console.log(`[designer-agent] score=${score?.overall} gate=${gate_pass}`);
+    console.log(`[designer-agent] score=${score?.overall} gate=${gate_pass}${score?.fidelity_pass !== undefined ? ` fidelity=${score.fidelity_pass}` : ''}`);
 
     // ── 4. Log trace entry ──────────────────────────────────────────────────
     const entry = {
@@ -144,7 +149,7 @@ export async function runDesignerAgent({
     // ── 7. Run skill ────────────────────────────────────────────────────────
     let skillResult;
     try {
-      skillResult = await runSkill(targetSkill, { dna, practice, screenshots, files });
+      skillResult = await runSkill(targetSkill, { dna, practice, screenshots, files, referenceAudit });
     } catch (err) {
       console.error(`[designer-agent] skill ${targetSkill} failed:`, err.message);
       entry.action_taken = `${targetSkill}:failed`;
@@ -188,7 +193,7 @@ export async function runDesignerAgent({
           projectDir, routes: ['/'], viewports: [{ w: 1280, h: 900 }], narrate: false,
         });
         const postFiles = await loadKeyFiles(projectDir);
-        const postCritique = await runSkill('critique', { dna, practice, screenshots: newShots, files: postFiles });
+        const postCritique = await runSkill('critique', { dna, practice, screenshots: newShots, files: postFiles, referenceAudit });
         if (postCritique?.score) postSkillScore = postCritique.score;
       } catch (err) {
         console.warn(`[designer-agent] post-skill re-score failed:`, err.message);

@@ -55,15 +55,32 @@ agency; 8 = clearly above template-default; 6 = acceptable-but-generic; 4 = visi
 | **polish** | refined materiality (tinted soft shadows, hairlines), custom feel, considered imagery | template-generic; gray box-shadows; neon/purple; off/irrelevant hero image; placeholder vibes |
 | **overall** | reads as a real, custom, on-brand practice site | reads as an AI/template default |
 
-**Hard penalties (cap the relevant dimension ≤4 if present):** pure black text/bg; Inter as the display
-face on a "premium/warm" brand; centered-text-over-dark-image hero; 3 identical service cards; visible
-purple/neon gradient; emoji in content; an off-topic/wrong hero image; any placeholder/Lorem/TODO text;
-**cards nested inside cards**; **gray text on a colored background**; **a rounded-square icon tile above
-every heading**; **left side-accent borders on cards**; **gray drop-shadow "glows" / dark outer glows**.
+**Hard penalties (cap the relevant dimension ≤4 if present)** — split into two tiers
+(machine partition: `lib/reference-audit.js`; rationale: `docs/design-catalog/SCHEMA.md` §5):
+
+**Correctness bans — always enforced, never suppressible:**
+an off-topic/wrong hero image; any placeholder/Lorem/TODO text; **gray text on a colored background**
+(AA failure); WCAG AA violations (§A8).
+
+**Taste bans — enforced by default; suppressible per-build when a curated catalog reference
+legitimately uses the pattern** (via the entry's `audit.sanctionedPatterns`, id in parentheses):
+pure black text/bg (`pure-black`); Inter as the display face on a "premium/warm" brand
+(`inter-display`); centered-text-over-dark-image hero (`centered-over-dark-hero`); 3 identical
+service cards (`three-equal-cards`); visible purple/neon gradient (`gradient-accent`); emoji in
+content (`emoji-in-content`); **cards nested inside cards** (`nested-cards`); **a rounded-square
+icon tile above every heading** (`icon-tile-above-heading`); **left side-accent borders on cards**
+(`side-accent-border`); **gray drop-shadow "glows" / dark outer glows** (`gray-glow-shadow`).
+
+When a build follows a catalog reference, a sanctioned pattern is judged on EXECUTION quality only
+— and the reference's `fidelityChecks` become additional pass/fail gates (the judge's question
+shifts from "is this good taste?" to "is this faithful to the reference and technically sound?").
 
 ---
 
 ## §C — Notes for the refine loop
+
+**Reference-led builds:** fix-skills fire only on a failed `fidelityCheck` or a correctness ban —
+never on a sanctioned taste pattern. They enforce the reference's design; they do not redesign it.
 
 When the judge flags a low dimension, route the fix to its OWNER (never patch the render layer):
 - brandCoherence/contrast → **brand-dna** tokens
