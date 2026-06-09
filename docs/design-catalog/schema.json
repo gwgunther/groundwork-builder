@@ -1,0 +1,204 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://groundwork.build/design-catalog/schema.json",
+  "title": "Design Catalog Entry",
+  "description": "A curated reference design system the builder can select and tailor to a practice. See SCHEMA.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "name", "tag", "selection", "tokens", "layout", "fidelity", "audit"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "kebab-case, unique = catalog key" },
+    "name": { "type": "string" },
+    "tag": { "const": "reference" },
+
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "url": { "type": "string" },
+        "screenshot": { "type": "string" },
+        "ingestedVia": { "type": "string", "enum": ["claude-design", "custom-ingest", "manual"] },
+        "captured": { "type": "string" }
+      }
+    },
+
+    "selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["archetype", "moods", "adjectives"],
+      "properties": {
+        "archetype": {
+          "type": "string",
+          "enum": ["editorial-asymmetric", "magazine-split", "poster-hero", "bold-serif-driven", "minimal-brutalist", "centered-classic", "warm-editorial", "card-heavy"],
+          "description": "NEAREST existing archetype label — keeps sampleLibrary/ai-director back-compatible. Not the source of layout."
+        },
+        "moods": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["warm-neighborhood", "modern-premium", "clean-clinical", "soft-gentle"] },
+          "minItems": 1
+        },
+        "adjectives": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "bestFor": { "type": "string" },
+        "verticalBias": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+
+    "tokens": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["color", "type", "shape", "elevation", "border", "density", "motion"],
+      "properties": {
+        "color": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["strategy"],
+          "properties": {
+            "strategy": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["theme", "contrast", "saturation", "accentUsage"],
+              "description": "REMAPPABLE — applied to the practice's own elevated hues.",
+              "properties": {
+                "theme": { "type": "string", "enum": ["light", "dark"] },
+                "background": { "type": "string" },
+                "contrast": { "type": "string", "enum": ["low", "medium", "medium-high", "high"] },
+                "saturation": { "type": "string", "enum": ["muted", "moderate", "vivid"] },
+                "accentUsage": { "type": "string", "enum": ["sparing", "moderate", "prominent"] },
+                "surfaceStrategy": { "type": "string" }
+              }
+            },
+            "reference": {
+              "type": "object",
+              "description": "The SOURCE's literal hexes — for the gallery + as a sanity anchor. NOT shipped verbatim.",
+              "additionalProperties": { "type": "string" }
+            }
+          }
+        },
+        "type": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["pairing", "heading", "body", "scale"],
+          "properties": {
+            "pairing": { "type": "string" },
+            "heading": { "type": "object" },
+            "body": { "type": "object" },
+            "scale": { "type": "string", "enum": ["compact", "standard", "editorial"] },
+            "headingScale": { "type": "string", "enum": ["sm", "md", "lg", "xl"] },
+            "contrast": { "type": "string", "enum": ["low", "medium", "high"] }
+          }
+        },
+        "shape": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["cornerRadius"],
+          "properties": { "cornerRadius": { "type": "string", "enum": ["sharp", "sm", "md", "lg", "pill"] } }
+        },
+        "elevation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["system"],
+          "properties": { "system": { "type": "string", "enum": ["flat", "soft-shadow", "layered"] } }
+        },
+        "border": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["treatment"],
+          "properties": { "treatment": { "type": "string", "enum": ["hairline", "standard", "none"] } }
+        },
+        "density": { "type": "string", "enum": ["airy", "balanced", "dense"] },
+        "motion": { "type": "string", "enum": ["none", "subtle", "expressive"] }
+      }
+    },
+
+    "layout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sections", "variants"],
+      "properties": {
+        "sections": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "variants": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Each value MUST be an existing on-disk component (Phase A renderable).",
+          "properties": {
+            "heroLayout": { "enum": ["centered", "poster", "split-offset", "split", "text-only"] },
+            "servicesLayout": { "enum": ["accordion", "alternating-rows", "card-grid", "numbered-list", "two-col-feature"] },
+            "aboutLayout": { "enum": ["editorial-full", "full-width-card", "minimal-text", "split-photo", "two-col-brief"] },
+            "testimonialsLayout": { "enum": ["card-row", "grid-mosaic", "list-testimonials", "pull-quotes", "single-featured"] },
+            "ctaLayout": { "enum": ["centered-banner", "floating-card", "inline-minimal", "split-image", "two-button"] },
+            "faqLayout": { "enum": ["accordion-expandable", "cards-grid", "simple-stack", "split-by-category", "two-column"] },
+            "navVariant": { "enum": ["centered-logo", "split-logo", "transparent-overlay", "left-logo", "top-bar"] },
+            "footerVariant": { "enum": ["minimal-dark", "editorial-split", "classic-4col", "bold-cta-footer"] },
+            "galleryVariant": { "enum": ["editorial-2col", "full-bleed-row", "filmstrip", "masonry-3col", "featured-grid"] }
+          }
+        },
+        "composition": {
+          "type": "object",
+          "description": "Per-section prose that the variant pick cannot encode (hero anatomy, floating elements, etc.).",
+          "additionalProperties": { "type": "string" }
+        },
+        "novel": {
+          "type": "array",
+          "description": "PHASE B — section designs NOT expressible by any existing variant.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["section", "name", "spec", "requiresNewComponent"],
+            "properties": {
+              "section": { "type": "string" },
+              "name": { "type": "string" },
+              "spec": { "type": "string" },
+              "requiresNewComponent": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
+
+    "fidelity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["layout", "theme", "phase"],
+      "description": "Two independent axes (revealed by the dark-reference pressure test): does the LAYOUT map to existing variants, AND can the RENDERER produce the look (theme/tokens).",
+      "properties": {
+        "layout": { "type": "string", "enum": ["full", "partial", "none"], "description": "do sections map to existing variant components?" },
+        "theme": { "type": "string", "enum": ["light-native", "needs-dark-support", "needs-token-extension"], "description": "can the current renderer/token system produce this look?" },
+        "phase": { "type": "string", "enum": ["A", "B"], "description": "A = ships on current capabilities; B = needs a new capability (variant, theme, or token)" },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "detail"],
+            "properties": {
+              "type": { "type": "string", "enum": ["variant", "theme", "token"] },
+              "detail": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sanctionedPatterns", "fidelityChecks"],
+      "properties": {
+        "sanctionedPatterns": {
+          "type": "array",
+          "description": "Taste-bans this reference legitimately uses → critique suppresses them for ITS builds. Enum is the 10 suppressible taste ids ONLY; correctness bans cannot be named here. NOTE: a sanctioned pattern that implies a rendering capability (gradient-accent → gradient token; pure-black → dark theme) MUST also appear in fidelity.gaps if that capability is not yet built.",
+          "items": {
+            "type": "string",
+            "enum": ["pure-black", "inter-display", "centered-over-dark-hero", "three-equal-cards", "gradient-accent", "emoji-in-content", "nested-cards", "icon-tile-above-heading", "side-accent-border", "gray-glow-shadow"]
+          }
+        },
+        "fidelityChecks": {
+          "type": "array",
+          "description": "Positive, reference-specific pass/fail gates appended to the critique rubric for this build.",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

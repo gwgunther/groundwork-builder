@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "1.0",
+  "id": "groomify-boutique-warm",
+  "name": "Groomify — Boutique Warm",
+  "tag": "reference",
+  "source": {
+    "url": "(pressure-test fixture — from supplied screenshot)",
+    "screenshot": "source.png",
+    "ingestedVia": "claude-design",
+    "captured": "2026-06-09"
+  },
+
+  "selection": {
+    "archetype": "warm-editorial",
+    "moods": ["warm-neighborhood", "soft-gentle"],
+    "adjectives": ["boutique", "calm", "premium-soft", "editorial-warm"],
+    "bestFor": "warm, premium, boutique personality with strong imagery",
+    "verticalBias": ["general", "cosmetic"]
+  },
+
+  "tokens": {
+    "color": {
+      "strategy": {
+        "theme": "light",
+        "background": "warm-offwhite",
+        "contrast": "medium-high",
+        "saturation": "muted",
+        "accentUsage": "sparing",
+        "surfaceStrategy": "tonal-cards-on-tinted-ground"
+      },
+      "reference": {
+        "primary": "#6b7257",
+        "secondary": "#3f4534",
+        "accent": "#c4b89a",
+        "background": "#eef0ea",
+        "text": "#2b2e26"
+      }
+    },
+    "type": {
+      "pairing": "humanist-grotesque display + grotesque body",
+      "heading": { "familyHint": "large humanist grotesque", "weights": [400, 500, 700], "tracking": "-0.02em", "case": "sentence", "mixedWeightHeadline": true },
+      "body": { "familyHint": "neutral grotesque", "weight": 400, "lineHeight": 1.6 },
+      "scale": "editorial",
+      "headingScale": "xl",
+      "contrast": "high"
+    },
+    "shape": { "cornerRadius": "lg" },
+    "elevation": { "system": "soft-shadow" },
+    "border": { "treatment": "none" },
+    "density": "airy",
+    "motion": "subtle"
+  },
+
+  "layout": {
+    "sections": ["hero", "services", "reviews", "faq", "cta", "contact"],
+    "variants": {
+      "heroLayout": "split",
+      "servicesLayout": "two-col-feature",
+      "testimonialsLayout": "grid-mosaic",
+      "faqLayout": "simple-stack",
+      "ctaLayout": "split-image",
+      "aboutLayout": "split-photo",
+      "navVariant": "left-logo",
+      "footerVariant": "minimal-dark",
+      "galleryVariant": "editorial-2col"
+    },
+    "composition": {
+      "hero": "text block left ~45%; large lg-radius image right; floating avatar cluster bottom-left of image; small circular camera chip top-right; mixed-weight headline emphasising one phrase",
+      "reviews": "masonry of short quote cards + one single-featured testimonial with full-bleed image"
+    },
+    "novel": [
+      {
+        "section": "services",
+        "name": "tabbed-package-selector",
+        "spec": "horizontal tab bar of 3 package tiers; selected tier renders an image + a checklist card; an a-la-carte icon row sits below",
+        "requiresNewComponent": true
+      }
+    ]
+  },
+
+  "fidelity": {
+    "layout": "partial",
+    "theme": "light-native",
+    "phase": "B",
+    "gaps": [
+      { "type": "variant", "detail": "services: tabbed-package-selector has no equivalent in the pool (closest fallback two-col-feature)" },
+      { "type": "variant", "detail": "contact section (map + action cards) has no variant in the pool at all" }
+    ]
+  },
+
+  "audit": {
+    "sanctionedPatterns": [],
+    "fidelityChecks": [
+      "hero is split with image right + floating avatar cluster (not centered)",
+      "package selector renders as tabs, not a 3-card grid",
+      "card radius reads as lg, surfaces are tonal on a warm ground"
+    ]
+  }
+}

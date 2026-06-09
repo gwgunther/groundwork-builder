@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "1.0",
+  "id": "aurelia-dark-luxe",
+  "name": "Aurelia — Dark Luxe Clinical",
+  "tag": "reference",
+  "source": {
+    "url": "(pressure-test fixture — not a real ingest)",
+    "screenshot": "source.png",
+    "ingestedVia": "claude-design",
+    "captured": "2026-06-09"
+  },
+
+  "selection": {
+    "archetype": "poster-hero",
+    "moods": ["modern-premium"],
+    "adjectives": ["dark-luxe", "clinical-precise", "high-contrast", "champagne-accent", "restrained"],
+    "bestFor": "high-end cosmetic / med-spa dentistry; premium authority; strong dark imagery",
+    "verticalBias": ["cosmetic", "med-spa"]
+  },
+
+  "tokens": {
+    "color": {
+      "strategy": {
+        "theme": "dark",
+        "background": "near-black",
+        "contrast": "high",
+        "saturation": "muted",
+        "accentUsage": "sparing",
+        "surfaceStrategy": "elevated-cards-on-black-with-hairline-glow"
+      },
+      "reference": {
+        "primary": "#c9a96e",
+        "secondary": "#1a1a1e",
+        "accent": "#e8d6a8",
+        "background": "#0a0a0c",
+        "text": "#f5f3ee"
+      }
+    },
+    "type": {
+      "pairing": "grotesque display (light weight) + grotesque body",
+      "heading": { "familyHint": "tight grotesque", "weights": [300, 400], "tracking": "-0.03em", "case": "sentence", "mixedWeightHeadline": false },
+      "body": { "familyHint": "neutral grotesque", "weight": 400, "lineHeight": 1.65 },
+      "scale": "editorial",
+      "headingScale": "xl",
+      "contrast": "high"
+    },
+    "shape": { "cornerRadius": "sm" },
+    "elevation": { "system": "layered" },
+    "border": { "treatment": "hairline" },
+    "density": "airy",
+    "motion": "subtle"
+  },
+
+  "layout": {
+    "sections": ["hero", "services", "reviews", "faq", "cta"],
+    "variants": {
+      "heroLayout": "centered",
+      "servicesLayout": "numbered-list",
+      "testimonialsLayout": "single-featured",
+      "faqLayout": "simple-stack",
+      "ctaLayout": "centered-banner",
+      "aboutLayout": "minimal-text",
+      "navVariant": "transparent-overlay",
+      "footerVariant": "minimal-dark",
+      "galleryVariant": "full-bleed-row"
+    },
+    "composition": {
+      "hero": "centered headline + sub over a scrimmed dark image; single champagne gradient sweep behind the headline; one ghost-outline CTA",
+      "services": "numbered list, gold index numerals, hairline dividers, no card chrome",
+      "reviews": "one large single-featured quote, light-weight serif-free, centered on black"
+    },
+    "novel": []
+  },
+
+  "fidelity": {
+    "layout": "full",
+    "theme": "needs-dark-support",
+    "phase": "B",
+    "gaps": [
+      { "type": "theme", "detail": "existing variants are untested on a near-black background / inverted text roles; light-theme assumptions may be hardcoded in component CSS" },
+      { "type": "token", "detail": "champagne gradient sweep — brand-tokens.js emits flat hexes only; no gradient token exists to render the accent sweep" }
+    ]
+  },
+
+  "audit": {
+    "sanctionedPatterns": [
+      "pure-black",
+      "gradient-accent",
+      "centered-over-dark-hero",
+      "inter-display",
+      "gray-glow-shadow"
+    ],
+    "fidelityChecks": [
+      "background stays near-black / dark theme is preserved (not auto-lightened)",
+      "champagne accent appears as a single restrained sweep, not a full neon wash",
+      "hero remains centered over a scrimmed image (do not penalize as cliche)",
+      "card borders read as hairline-glow on black (not flat gray boxes)"
+    ]
+  }
+}
