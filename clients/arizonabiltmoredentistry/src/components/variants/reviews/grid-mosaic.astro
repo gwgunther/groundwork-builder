@@ -45,7 +45,7 @@ const [featured, ...rest] = items;
         {featured && (
           <div class={`md:col-span-2 bg-surface-1 border border-border-light p-6 md:p-8 ${t.radiusClass} flex flex-col`}>
             <!-- Stars -->
-            <div class="flex items-center gap-0.5 mb-4" aria-label={`${featured.rating ?? 5} out of 5 stars`}>
+            <div class="flex items-center gap-0.5 mb-4" role="img" aria-label={`${featured.rating ?? 5} out of 5 stars`}>
               {Array.from({ length: 5 }, (_, i) => (
                 <svg
                   class={`w-5 h-5 ${i < (featured.rating ?? 5) ? 'text-brand-primary' : 'text-neutral-dark/20'}`}
@@ -72,7 +72,7 @@ const [featured, ...rest] = items;
         {rest.map((review) => (
           <div class={`bg-surface-1 border border-border-light p-6 ${t.radiusClass} flex flex-col`}>
             <!-- Stars -->
-            <div class="flex items-center gap-0.5 mb-3" aria-label={`${review.rating ?? 5} out of 5 stars`}>
+            <div class="flex items-center gap-0.5 mb-3" role="img" aria-label={`${review.rating ?? 5} out of 5 stars`}>
               {Array.from({ length: 5 }, (_, i) => (
                 <svg
                   class={`w-4 h-4 ${i < (review.rating ?? 5) ? 'text-brand-primary' : 'text-neutral-dark/20'}`}

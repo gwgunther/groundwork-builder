@@ -48,7 +48,7 @@ function renderStars(rating: number = 5) {
     <ul class="grid grid-cols-1 md:grid-cols-3 gap-6 list-none p-0" role="list">
       {content.items.slice(0, 3).map((review) => (
         <li class={`flex flex-col p-6 md:p-8 ${t.radiusClass} ${cardClass}`}>
-          <div class="text-brand-primary text-xl mb-4 tracking-widest" aria-label={`${review.rating ?? 5} out of 5 stars`}>
+          <div class="text-brand-primary text-xl mb-4 tracking-widest" role="img" aria-label={`${review.rating ?? 5} out of 5 stars`}>
             {renderStars(review.rating)}
           </div>
           <blockquote class="font-sans text-neutral-mid text-sm leading-relaxed italic flex-grow mb-4">
