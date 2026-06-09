@@ -231,7 +231,7 @@
           "description": "Taste-bans this reference legitimately uses → critique suppresses them for ITS builds. Enum is the 10 suppressible taste ids ONLY; correctness bans cannot be named here. NOTE: a sanctioned pattern that implies a rendering capability (gradient-accent → gradient token; pure-black → dark theme) MUST also appear in fidelity.gaps if that capability is not yet built.",
           "items": {
             "type": "string",
-            "enum": ["pure-black", "inter-display", "centered-over-dark-hero", "three-equal-cards", "gradient-accent", "emoji-in-content", "nested-cards", "icon-tile-above-heading", "side-accent-border", "gray-glow-shadow"]
+            "enum": ["pure-black", "inter-display", "centered-over-dark-hero", "three-equal-cards", "gradient-accent", "emoji-in-content", "nested-cards", "icon-tile-above-heading", "eyebrow-above-heading", "side-accent-border", "gray-glow-shadow"]
           }
         },
         "fidelityChecks": {

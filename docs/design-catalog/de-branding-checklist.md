@@ -19,6 +19,12 @@ Identity has **two axes**, and both get stripped:
    dropped, and every free-text field is written in practice vocabulary. We are borrowing the
    source's design *language*, never its *subject matter*.
 
+**De-branding ≠ neutralization.** Stripping identity does NOT mean outputting a neutral/
+grayscale "base system" — that replaces the source's character with generic AI defaults
+(grotesque display, gray palette, eyebrow kickers, pill buttons). The character — type
+classification, temperature, emphasis devices, materiality — IS the system being captured.
+An entry that loses the source's feel fails just as hard as one that keeps its brand.
+
 **Portability test** — apply to every transferable field: *could this value render a
 pediatric dentist, a luxury med-spa, AND a family practice without looking wrong?*
 If a value only makes sense for the source brand, it's identity → move to `reference` or drop.

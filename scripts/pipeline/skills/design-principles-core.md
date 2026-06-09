@@ -68,8 +68,10 @@ pure black text/bg (`pure-black`); Inter as the display face on a "premium/warm"
 (`inter-display`); centered-text-over-dark-image hero (`centered-over-dark-hero`); 3 identical
 service cards (`three-equal-cards`); visible purple/neon gradient (`gradient-accent`); emoji in
 content (`emoji-in-content`); **cards nested inside cards** (`nested-cards`); **a rounded-square
-icon tile above every heading** (`icon-tile-above-heading`); **left side-accent borders on cards**
-(`side-accent-border`); **gray drop-shadow "glows" / dark outer glows** (`gray-glow-shadow`).
+icon tile above every heading** (`icon-tile-above-heading`); **an uppercase eyebrow/kicker label
+above every heading** (`eyebrow-above-heading` — the device is legitimate; the reflex-on-every-
+section is the AI tell); **left side-accent borders on cards** (`side-accent-border`);
+**gray drop-shadow "glows" / dark outer glows** (`gray-glow-shadow`).
 
 When a build follows a catalog reference, a sanctioned pattern is judged on EXECUTION quality only
 — and the reference's `fidelityChecks` become additional pass/fail gates (the judge's question

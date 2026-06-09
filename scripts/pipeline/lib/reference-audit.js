@@ -35,6 +35,7 @@ export const TASTE_PATTERNS = {
   'emoji-in-content':        'emoji in content',
   'nested-cards':            'cards nested inside cards',
   'icon-tile-above-heading': 'a rounded-square icon tile stacked above every heading',
+  'eyebrow-above-heading':   'an uppercase eyebrow/kicker label above every heading (the device is fine; the reflex-on-every-section is the tell)',
   'side-accent-border':      'left side-accent borders on cards',
   'gray-glow-shadow':        'gray drop-shadow "glows" / dark outer glows',
 };

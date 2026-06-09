@@ -40,7 +40,7 @@
       "classification": "modern-grotesque",
       "substitutionCriteria": "warm humanist character at display sizes; supports 400/500/700; tight-but-soft tracking; tall x-height for small-size legibility",
       "pairing": "humanist-grotesque display + grotesque body",
-      "heading": { "familyHint": "large humanist grotesque", "weights": [400, 500, 700], "tracking": "-0.02em", "case": "sentence", "mixedWeightHeadline": true },
+      "heading": { "familyHint": "large humanist grotesque", "weights": [400, 500, 700], "tracking": "-0.02em", "case": "sentence", "mixedWeightHeadline": true, "eyebrow": "every-section", "emphasisDevice": "weight/color shift on one phrase; soft pill eyebrow chips label each section" },
       "body": { "familyHint": "neutral grotesque", "weight": 400, "lineHeight": 1.6 },
       "scale": "editorial",
       "headingScale": "xl",
@@ -106,11 +106,12 @@
   },
 
   "audit": {
-    "sanctionedPatterns": [],
+    "sanctionedPatterns": ["eyebrow-above-heading"],
     "fidelityChecks": [
       "hero is split with image right + floating avatar cluster (not centered)",
       "package selector renders as tabs, not a 3-card grid",
-      "card radius reads as lg, surfaces are tonal on a warm ground"
+      "card radius reads as lg, surfaces are tonal on a warm ground",
+      "section eyebrows are soft tonal pill chips (the reference's deliberate device), not bare uppercase text"
     ]
   }
 }

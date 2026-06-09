@@ -66,6 +66,24 @@ COLOR — separate strategy from reference:
     accentUsage, surfaceStrategy). Describe relationships, do NOT lock to the source hexes.
   - tokens.color.reference = the source's literal hexes (preview/anchor only).
 
+DE-BRANDING ≠ NEUTRALIZATION — the most common failure mode. Do NOT output a neutral/
+grayscale "base system for any brand" — that replaces the source's character with generic
+AI defaults (grotesque display, gray palette, eyebrow kickers, pill buttons). Strip ONLY
+the literal brand values (hexes, font names, photos, copy). The source's CHARACTER — type
+classification, color temperature, saturation, emphasis devices, materiality — IS the
+system. If your output would look the same for a serif-editorial source and a geometric-
+minimal source, you have failed.
+
+HEADING ANATOMY — capture the source's actual emphasis system inside tokens.type.heading:
+  - "eyebrow": "none" | "sparing" | "every-section"  — does the source use uppercase
+    kicker labels above headings? Record what IT does; never add eyebrows by default.
+  - "emphasisDevice": how headlines create emphasis (e.g. "italic serif phrase mixed into
+    roman", "weight shift on one phrase", "color shift on key word", "none — scale only").
+  - If eyebrow is "none", add a fidelityCheck like "headings carry no uppercase kicker;
+    emphasis via <the source's actual device>".
+  - If the source genuinely uses eyebrows on every section, sanction "eyebrow-above-heading"
+    in audit.sanctionedPatterns.
+
 TYPE — classify, don't name:
   - tokens.type.classification ∈ editorial-serif | display-serif | humanist-trust |
     modern-grotesque | geometric-clean  (the builder's font-pairing buckets — pick the one
@@ -99,7 +117,8 @@ FIDELITY — be honest, this is the most important part:
 AUDIT — sanction taste-bans this design legitimately uses:
   - sanctionedPatterns[] may ONLY contain: pure-black, inter-display,
     centered-over-dark-hero, three-equal-cards, gradient-accent, emoji-in-content,
-    nested-cards, icon-tile-above-heading, side-accent-border, gray-glow-shadow.
+    nested-cards, icon-tile-above-heading, eyebrow-above-heading, side-accent-border,
+    gray-glow-shadow.
   - Add a pattern ONLY if this reference uses it deliberately and well.
   - If a sanctioned pattern implies a rendering capability we may lack (gradient-accent →
     gradient token; pure-black/dark theme → dark support), ALSO add the matching

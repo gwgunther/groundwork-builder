@@ -40,7 +40,7 @@
       "classification": "geometric-clean",
       "substitutionCriteria": "credible at weight 300 in display sizes; tight tracking without collapsing counters; cool, precise personality",
       "pairing": "grotesque display (light weight) + grotesque body",
-      "heading": { "familyHint": "tight grotesque", "weights": [300, 400], "tracking": "-0.03em", "case": "sentence", "mixedWeightHeadline": false },
+      "heading": { "familyHint": "tight grotesque", "weights": [300, 400], "tracking": "-0.03em", "case": "sentence", "mixedWeightHeadline": false, "eyebrow": "none", "emphasisDevice": "scale + light weight against negative space; no kickers, no mixed weights" },
       "body": { "familyHint": "neutral grotesque", "weight": 400, "lineHeight": 1.65 },
       "scale": "editorial",
       "headingScale": "xl",
@@ -111,7 +111,8 @@
       "background stays near-black / dark theme is preserved (not auto-lightened)",
       "champagne accent appears as a single restrained sweep, not a full neon wash",
       "hero remains centered over a scrimmed image (do not penalize as cliche)",
-      "card borders read as hairline-glow on black (not flat gray boxes)"
+      "card borders read as hairline-glow on black (not flat gray boxes)",
+      "headings carry no uppercase eyebrow/kicker — emphasis comes from scale and light weight only"
     ]
   }
 }
