@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.1",
+  "schemaVersion": "1.2",
   "id": "aurelia-dark-luxe",
   "name": "Aurelia — Dark Luxe Clinical",
   "tag": "reference",
@@ -49,6 +49,8 @@
     "shape": { "cornerRadius": "sm" },
     "elevation": { "system": "layered" },
     "border": { "treatment": "hairline" },
+    "button": { "treatment": "outline", "character": "ghost outline in champagne hairline, sharp-sm radius; filled used at most once per page" },
+    "label": { "style": "inline", "character": "rare; when present, letterspaced small caps in muted champagne — never a chip" },
     "density": "airy",
     "motion": "subtle"
   },
@@ -68,6 +70,8 @@
     },
     "composition": {
       "hero": "centered headline + sub over a scrimmed dark image; single champagne gradient sweep behind the headline; one ghost-outline CTA",
+      "nav": "transparent overlay on the hero; letterspaced wordmark center-left; sparse links; ghost-outline book CTA; gains a near-black backdrop on scroll",
+      "footer": "near-black, single hairline rule above; one row — wordmark, three links, phone; no columns, no form, maximal restraint",
       "services": "numbered list, gold index numerals, hairline dividers, no card chrome",
       "reviews": "one large single-featured quote, light-weight serif-free, centered on black"
     },

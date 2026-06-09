@@ -45,10 +45,23 @@ existing component; never invent a value):
   footerVariant:      minimal-dark | editorial-split | classic-4col | bold-cta-footer
   galleryVariant:     editorial-2col | full-bleed-row | filmstrip | masonry-3col | featured-grid
 
+COVERAGE — every entry must fully specify the buildable surface:
+  - ALL NINE layout.variants picks are REQUIRED (hero, services, about, testimonials, cta,
+    faq, nav, footer, gallery). If the source's screenshots don't show a section (e.g. no
+    footer visible), INFER the pick most coherent with the source's system — never omit it.
+  - layout.composition MUST include "hero", "nav", and "footer" entries. Chrome is where
+    generic AI defaults sneak back in — describe what the source's nav and footer actually
+    look like (footer: structure, ground color, link treatment, CTA presence; nav: logo
+    position, link style, scroll behavior if observable). The gray 4-column mega-footer is
+    a default, not an observation — only describe it if the source truly has one.
+  - tokens.button and tokens.label are REQUIRED — the component atoms.
+
 Other enums:
   tokens.shape.cornerRadius   ∈ sharp | sm | md | lg | pill
   tokens.elevation.system     ∈ flat | soft-shadow | layered
   tokens.border.treatment     ∈ hairline | standard | none
+  tokens.button.treatment     ∈ filled | outline | soft-fill
+  tokens.label.style          ∈ badge | inline
   tokens.density              ∈ airy | balanced | dense
   tokens.motion               ∈ none | subtle | expressive
   selection.archetype         ∈ editorial-asymmetric | magazine-split | poster-hero |

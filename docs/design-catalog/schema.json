@@ -7,7 +7,7 @@
   "additionalProperties": false,
   "required": ["schemaVersion", "id", "name", "tag", "selection", "tokens", "layout", "imagery", "voice", "fidelity", "audit"],
   "properties": {
-    "schemaVersion": { "const": "1.1" },
+    "schemaVersion": { "const": "1.2" },
     "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "kebab-case, unique = catalog key" },
     "name": { "type": "string" },
     "tag": { "const": "reference" },
@@ -47,7 +47,7 @@
     "tokens": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["color", "type", "shape", "elevation", "border", "density", "motion"],
+      "required": ["color", "type", "shape", "elevation", "border", "button", "label", "density", "motion"],
       "properties": {
         "color": {
           "type": "object",
@@ -120,6 +120,26 @@
           "required": ["treatment"],
           "properties": { "treatment": { "type": "string", "enum": ["hairline", "standard", "none"] } }
         },
+        "button": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["treatment"],
+          "description": "Component-atom tokens — consumed by derive-design-tokens.js (buttonTreatment).",
+          "properties": {
+            "treatment": { "type": "string", "enum": ["filled", "outline", "soft-fill"] },
+            "character": { "type": "string", "description": "prose the enum can't carry, e.g. 'pill-radius filled primary + ghost secondary; generous x-padding'" }
+          }
+        },
+        "label": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["style"],
+          "description": "Section label/eyebrow atom — consumed by derive-design-tokens.js (labelStyle).",
+          "properties": {
+            "style": { "type": "string", "enum": ["badge", "inline"] },
+            "character": { "type": "string", "description": "e.g. 'soft tonal pill chips with icon' or 'plain small-caps inline'" }
+          }
+        },
         "density": { "type": "string", "enum": ["airy", "balanced", "dense"] },
         "motion": { "type": "string", "enum": ["none", "subtle", "expressive"] }
       }
@@ -128,13 +148,14 @@
     "layout": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["sections", "variants"],
+      "required": ["sections", "variants", "composition"],
       "properties": {
         "sections": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
         "variants": {
           "type": "object",
           "additionalProperties": false,
-          "description": "Each value MUST be an existing on-disk component (Phase A renderable).",
+          "description": "Each value MUST be an existing on-disk component (Phase A renderable). ALL nine picks are required — the builder renders chrome (nav/footer) and every core section for every site; an unspecified pick would silently fall back to a default and lose the reference's character.",
+          "required": ["heroLayout", "servicesLayout", "aboutLayout", "testimonialsLayout", "ctaLayout", "faqLayout", "navVariant", "footerVariant", "galleryVariant"],
           "properties": {
             "heroLayout": { "enum": ["centered", "poster", "split-offset", "split", "text-only"] },
             "servicesLayout": { "enum": ["accordion", "alternating-rows", "card-grid", "numbered-list", "two-col-feature"] },
@@ -149,7 +170,13 @@
         },
         "composition": {
           "type": "object",
-          "description": "Per-section prose that the variant pick cannot encode (hero anatomy, floating elements, etc.).",
+          "description": "Per-section prose that the variant pick cannot encode (hero anatomy, floating elements, etc.). hero, nav, and footer entries are REQUIRED — chrome is where generic defaults sneak back in.",
+          "required": ["hero", "nav", "footer"],
+          "properties": {
+            "hero": { "type": "string" },
+            "nav": { "type": "string" },
+            "footer": { "type": "string" }
+          },
           "additionalProperties": { "type": "string" }
         },
         "novel": {

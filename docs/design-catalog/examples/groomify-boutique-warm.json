@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.1",
+  "schemaVersion": "1.2",
   "id": "groomify-boutique-warm",
   "name": "Groomify — Boutique Warm",
   "tag": "reference",
@@ -49,6 +49,8 @@
     "shape": { "cornerRadius": "lg" },
     "elevation": { "system": "soft-shadow" },
     "border": { "treatment": "none" },
+    "button": { "treatment": "filled", "character": "dark olive filled primary with lg radius; quiet text/arrow secondary links; generous x-padding" },
+    "label": { "style": "badge", "character": "soft tonal pill chips, sentence case, occasionally with a small icon" },
     "density": "airy",
     "motion": "subtle"
   },
@@ -68,6 +70,8 @@
     },
     "composition": {
       "hero": "text block left ~45%; large lg-radius image right; floating avatar cluster bottom-left of image; small circular camera chip top-right; mixed-weight headline emphasising one phrase",
+      "nav": "left logo with icon mark; quiet center links; single filled dark-olive Book CTA right; floats on the warm ground with no border",
+      "footer": "minimal dark band on the deep olive; logo + short link row; no mega-columns, no newsletter form; quiet legal line",
       "reviews": "masonry of short quote cards + one single-featured testimonial with full-bleed image"
     },
     "novel": [

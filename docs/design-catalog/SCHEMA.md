@@ -1,4 +1,4 @@
-# Design Catalog — Reference Schema (v1.1)
+# Design Catalog — Reference Schema (v1.2)
 
 > **Status:** design spec + machine-validatable schema (`schema.json`) + extraction prompt
 > (`extraction-prompt.md`) + de-branding checklist (`de-branding-checklist.md`) + two worked
@@ -9,6 +9,12 @@
 > **v1.1 additions** (de-branding completeness — see the checklist): `tokens.type.classification`
 > (font-pairing bucket — classify, don't name) + `substitutionCriteria`; top-level `imagery`
 > (treatment recipe, not photos); top-level `voice` (tone system, not copy).
+>
+> **v1.2 additions** (full buildable-surface coverage): all nine `layout.variants` picks are
+> REQUIRED (chrome included — an unspecified footer/nav would silently fall back to a default);
+> `layout.composition` requires `hero`, `nav`, `footer` prose (chrome is where generic AI
+> defaults sneak back in); `tokens.button` + `tokens.label` component atoms (map to the
+> pipeline's existing `buttonTreatment`/`labelStyle` enums).
 
 ## What this is
 
