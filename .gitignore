@@ -11,3 +11,4 @@ _audits/
 output/
 .playwright-mcp/
 _sourcing/
+docs/design-catalog/_paste-prompt.txt

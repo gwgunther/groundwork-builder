@@ -21,7 +21,8 @@
     "sourcing:promote": "node scripts/sourcing/promote.js",
     "audit": "node scripts/pipeline/audit-site.js",
     "audit:precall": "node scripts/pipeline/audit-site.js --precall",
-    "migrate:supabase": "node scripts/pipeline/migrate-supabase-export.js"
+    "migrate:supabase": "node scripts/pipeline/migrate-supabase-export.js",
+    "catalog:prompt": "node scripts/design-catalog/make-paste-prompt.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
