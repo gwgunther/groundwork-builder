@@ -37,10 +37,32 @@ Other enums:
                                 warm-editorial | card-heavy   (pick the NEAREST)
   selection.moods[]           ∈ warm-neighborhood | modern-premium | clean-clinical | soft-gentle
 
+DE-BRANDING — the one rule (see de-branding-checklist.md): separate IDENTITY from SYSTEM.
+Transferable fields carry rules/relationships/classifications that would work for ANY practice
+(pediatric, luxury med-spa, family). The source's literal values (hexes, font names, photos,
+copy, brand name) go ONLY in *.reference fields — or are dropped entirely.
+
 COLOR — separate strategy from reference:
   - tokens.color.strategy = the RE-SKINNABLE system (theme, contrast, saturation,
     accentUsage, surfaceStrategy). Describe relationships, do NOT lock to the source hexes.
   - tokens.color.reference = the source's literal hexes (preview/anchor only).
+
+TYPE — classify, don't name:
+  - tokens.type.classification ∈ editorial-serif | display-serif | humanist-trust |
+    modern-grotesque | geometric-clean  (the builder's font-pairing buckets — pick the one
+    whose character matches the source's display face)
+  - tokens.type.substitutionCriteria = what a substitute font must preserve to keep the feel
+    (x-height, tracking, available weights, personality).
+  - The source's literal font names go in tokens.type.reference ONLY.
+
+IMAGERY — recipe, not photos (top-level "imagery" block):
+  - crop, grading, framing, subjectTreatment, imageTextRatio (image-dominant|balanced|text-dominant).
+  - Describe the TREATMENT a new practice's own photos should receive. Never reference the
+    source's actual subjects/products.
+
+VOICE — tone, not copy (top-level "voice" block):
+  - formality ∈ casual | conversational | professional | formal; rhythm (sentence rhythm);
+    favors[] / avoids[] = KINDS of vocabulary, never the source's actual headlines or product names.
 
 FIDELITY — be honest, this is the most important part:
   - If a section maps cleanly to an enum variant, use it.

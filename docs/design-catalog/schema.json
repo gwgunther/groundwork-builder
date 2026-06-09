@@ -5,9 +5,9 @@
   "description": "A curated reference design system the builder can select and tailor to a practice. See SCHEMA.md.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schemaVersion", "id", "name", "tag", "selection", "tokens", "layout", "fidelity", "audit"],
+  "required": ["schemaVersion", "id", "name", "tag", "selection", "tokens", "layout", "imagery", "voice", "fidelity", "audit"],
   "properties": {
-    "schemaVersion": { "const": "1.0" },
+    "schemaVersion": { "const": "1.1" },
     "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "kebab-case, unique = catalog key" },
     "name": { "type": "string" },
     "tag": { "const": "reference" },
@@ -78,14 +78,28 @@
         "type": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["pairing", "heading", "body", "scale"],
+          "required": ["classification", "pairing", "heading", "body", "scale"],
           "properties": {
+            "classification": {
+              "type": "string",
+              "enum": ["editorial-serif", "display-serif", "humanist-trust", "modern-grotesque", "geometric-clean"],
+              "description": "De-branding: classify, don't name. Resolves to the builder's font-pairing buckets so any practice gets a real, license-clean pairing. The literal source font belongs in reference, never here."
+            },
+            "substitutionCriteria": {
+              "type": "string",
+              "description": "What a substitute font must preserve to keep the reference's feel (e.g. 'tight tracking, tall x-height, light display weights available')."
+            },
             "pairing": { "type": "string" },
             "heading": { "type": "object" },
             "body": { "type": "object" },
             "scale": { "type": "string", "enum": ["compact", "standard", "editorial"] },
             "headingScale": { "type": "string", "enum": ["sm", "md", "lg", "xl"] },
-            "contrast": { "type": "string", "enum": ["low", "medium", "high"] }
+            "contrast": { "type": "string", "enum": ["low", "medium", "high"] },
+            "reference": {
+              "type": "object",
+              "description": "The SOURCE's literal font names — preview/anchor only, never shipped.",
+              "additionalProperties": { "type": "string" }
+            }
           }
         },
         "shape": {
@@ -153,6 +167,33 @@
             }
           }
         }
+      }
+    },
+
+    "imagery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["grading", "subjectTreatment"],
+      "description": "Image treatment RECIPE — transfers; the actual photos never do. The most brand-agnostic layer: a practice's own photos get this treatment.",
+      "properties": {
+        "crop": { "type": "string", "description": "e.g. 'tight subject crops, generous headroom, rounded-lg containers'" },
+        "grading": { "type": "string", "description": "color grading, e.g. 'warm, slightly desaturated, lifted blacks'" },
+        "framing": { "type": "string", "description": "e.g. 'subjects offset right, environmental context kept'" },
+        "subjectTreatment": { "type": "string", "description": "e.g. 'candid documentary, never posed-clinical; one human focal subject per image'" },
+        "imageTextRatio": { "type": "string", "enum": ["image-dominant", "balanced", "text-dominant"] }
+      }
+    },
+
+    "voice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["formality", "rhythm"],
+      "description": "Tone system — transfers; the source's actual copy never does. Steers content generation (and can feed copy tooling).",
+      "properties": {
+        "formality": { "type": "string", "enum": ["casual", "conversational", "professional", "formal"] },
+        "rhythm": { "type": "string", "description": "sentence rhythm, e.g. 'short declaratives; one-line paragraphs; headline carries one emphasized phrase'" },
+        "favors": { "type": "array", "items": { "type": "string" }, "description": "vocabulary kinds to lean into, e.g. 'sensory comfort words', 'plain-spoken verbs'" },
+        "avoids": { "type": "array", "items": { "type": "string" }, "description": "vocabulary kinds to ban, e.g. 'clinical jargon', 'filler superlatives'" }
       }
     },
 

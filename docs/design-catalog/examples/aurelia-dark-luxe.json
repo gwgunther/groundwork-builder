@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.0",
+  "schemaVersion": "1.1",
   "id": "aurelia-dark-luxe",
   "name": "Aurelia — Dark Luxe Clinical",
   "tag": "reference",
@@ -37,6 +37,8 @@
       }
     },
     "type": {
+      "classification": "geometric-clean",
+      "substitutionCriteria": "credible at weight 300 in display sizes; tight tracking without collapsing counters; cool, precise personality",
       "pairing": "grotesque display (light weight) + grotesque body",
       "heading": { "familyHint": "tight grotesque", "weights": [300, 400], "tracking": "-0.03em", "case": "sentence", "mixedWeightHeadline": false },
       "body": { "familyHint": "neutral grotesque", "weight": 400, "lineHeight": 1.65 },
@@ -70,6 +72,21 @@
       "reviews": "one large single-featured quote, light-weight serif-free, centered on black"
     },
     "novel": []
+  },
+
+  "imagery": {
+    "crop": "full-bleed and wide cinematic crops; sharp sm-radius containers when contained",
+    "grading": "high-contrast, deep shadows, desaturated cool tones with warm skin preserved; scrim-friendly",
+    "framing": "subjects emerge from darkness; negative space dominates; single light source feel",
+    "subjectTreatment": "editorial and composed, not candid; confident direct expressions; macro detail shots as texture",
+    "imageTextRatio": "image-dominant"
+  },
+
+  "voice": {
+    "formality": "formal",
+    "rhythm": "spare, declarative, unhurried; short headlines with no qualifier words; whitespace does the persuading",
+    "favors": ["precision vocabulary", "understated authority", "craft-and-artistry words"],
+    "avoids": ["exclamation energy", "discount/deal language", "folksy warmth", "filler superlatives"]
   },
 
   "fidelity": {

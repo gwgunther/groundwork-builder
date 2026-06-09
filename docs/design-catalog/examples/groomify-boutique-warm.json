@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.0",
+  "schemaVersion": "1.1",
   "id": "groomify-boutique-warm",
   "name": "Groomify — Boutique Warm",
   "tag": "reference",
@@ -37,6 +37,8 @@
       }
     },
     "type": {
+      "classification": "modern-grotesque",
+      "substitutionCriteria": "warm humanist character at display sizes; supports 400/500/700; tight-but-soft tracking; tall x-height for small-size legibility",
       "pairing": "humanist-grotesque display + grotesque body",
       "heading": { "familyHint": "large humanist grotesque", "weights": [400, 500, 700], "tracking": "-0.02em", "case": "sentence", "mixedWeightHeadline": true },
       "body": { "familyHint": "neutral grotesque", "weight": 400, "lineHeight": 1.6 },
@@ -76,6 +78,21 @@
         "requiresNewComponent": true
       }
     ]
+  },
+
+  "imagery": {
+    "crop": "generous rounded-lg containers; subjects fill the frame with soft headroom",
+    "grading": "warm, natural light, slightly muted greens; no clinical white-balance",
+    "framing": "one hero subject offset in-frame; supporting imagery environmental and candid",
+    "subjectTreatment": "warm candid portraits of subjects mid-care; never posed-clinical; human (or pet) gaze toward camera in hero only",
+    "imageTextRatio": "balanced"
+  },
+
+  "voice": {
+    "formality": "conversational",
+    "rhythm": "short warm declaratives; one emphasized phrase per headline; benefit-first sentence openers",
+    "favors": ["sensory comfort words", "care-and-pampering vocabulary", "plain-spoken verbs"],
+    "avoids": ["clinical jargon", "filler superlatives", "urgency/sales pressure"]
   },
 
   "fidelity": {
