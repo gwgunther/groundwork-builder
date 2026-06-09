@@ -50,6 +50,10 @@
     @apply text-neutral-mid leading-relaxed;
   }
 
+  .prose-dental a {
+    @apply text-brand-primary underline underline-offset-2 decoration-brand-primary/40 hover:decoration-brand-primary;
+  }
+
   .prose-dental p {
     @apply mb-4;
   }
