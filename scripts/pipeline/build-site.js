@@ -917,6 +917,8 @@ async function main() {
   // The binding already has roles + portraits (incl. bio-page join) + per-page
   // service images from the normalized items[]; the bridge maps its source URLs →
   // the downloaded local paths via the downloader's image-source.json sidecar.
+  // Declared in outer scope so Phase 5 (missing-page report) can read .roles.unused.
+  let imageRolesResult = null;
   if (!opts.skipImages && binding) {
     console.log('  Mapping image roles from binding (deterministic)...');
     try {
@@ -931,6 +933,7 @@ async function main() {
         city: merged.address?.city || merged.practice?.city,
       };
       const roles = bindingToImageRoles(binding, sidecar, baseUrl, altCtx);
+      imageRolesResult = { roles }; // hoist into outer scope for Phase 5
       wf(resolve(outputDir, 'public/images/image-roles.json'), JSON.stringify(roles, null, 2));
       console.log(`  Image roles: hero=${roles.hero ? '✓' : '✗'} portraits=${Object.keys(roles.doctorPortraits || {}).length} gallery=${(roles.gallery || []).length} servicePages=${Object.keys(roles.byPage || {}).length} alts=${Object.keys(roles.alts || {}).length}`);
       await artifacts.writeStep('09-image-roles', { output: roles });
