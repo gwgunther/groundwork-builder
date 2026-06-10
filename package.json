@@ -25,7 +25,12 @@
     "catalog:prompt": "node scripts/design-catalog/make-paste-prompt.mjs",
     "catalog:ingest": "node scripts/design-catalog/ingest-reference.mjs",
     "catalog:eval": "node scripts/design-catalog/eval-entry.mjs",
-    "catalog:fixture": "node scripts/design-catalog/make-fixture.mjs"
+    "catalog:fixture": "node scripts/design-catalog/make-fixture.mjs",
+    "db:migrate": "node scripts/pipeline/migrate-to-d1.mjs",
+    "db:schema": "npx wrangler d1 execute groundwork-ops --file=scripts/pipeline/lib/d1-schema.sql --remote",
+    "ops:deploy": "cd workers/ops-dashboard && npx wrangler deploy",
+    "ops:dev": "cd workers/ops-dashboard && npx wrangler dev",
+    "dashboard": "node scripts/generate-practice-dashboard.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
@@ -43,6 +48,7 @@
     "lighthouse": "^13.3.0",
     "marked": "^18.0.3",
     "pg": "^8.20.0",
-    "playwright": "^1.59.1"
+    "playwright": "^1.59.1",
+    "wrangler": "^3.0.0"
   }
 }

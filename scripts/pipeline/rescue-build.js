@@ -40,7 +40,7 @@ dotenvConfig({
 import { runPageSpeed, extractScoreReasons } from './lib/pagespeed.js';
 import { runRescan } from './lib/rescan-core.js';
 import { hostAuditReport } from './lib/host-reports.js';
-import { updateBuild } from './lib/airtable.js';
+import { updateBuild } from './lib/d1.js';
 
 function parseArgs() {
   const args = process.argv.slice(2);

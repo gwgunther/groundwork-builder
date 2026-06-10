@@ -10,7 +10,7 @@ import {
   findLatestAuditBySlug,
   createBuild,
   updateAudit,
-} from './airtable.js';
+} from './d1.js';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

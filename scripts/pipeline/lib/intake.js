@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 import { slugify } from './utils.js';
-import { findAccountBySlug } from './airtable.js';
+import { findAccountBySlug } from './d1.js';
 
 export async function loadIntake(optsOrFilePath, clientIdArg) {
   // Support both: loadIntake({ filePath, clientId, airtableSlug }) and loadIntake(filePath, clientId)

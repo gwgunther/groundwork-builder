@@ -40,7 +40,7 @@ import { copyFile, mkdir, readFile }       from 'node:fs/promises';
 import { existsSync }                      from 'node:fs';
 import { resolve, dirname, basename }      from 'node:path';
 import { generatePitchPage }              from './pitch-generator.js';
-import { upsertAccount, createBuild, updateBuild, findLatestAuditBySlug, findQueuedBuildBySlug } from './airtable.js';
+import { upsertAccount, createBuild, updateBuild, findLatestAuditBySlug, findQueuedBuildBySlug } from './d1.js';
 import {
   evaluateShipGates,
   loadA11yArtifact,

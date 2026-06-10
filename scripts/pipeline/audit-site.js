@@ -35,7 +35,7 @@ import { runGbpScan }             from './lib/gbp-scanner.js';
 import { runConversionScan }      from './lib/conversion-scanner.js';
 import { summarizeFindings, enrichFinding } from './lib/findings.js';
 import { buildFixWorklist, summarizeWorklist } from './lib/fix-worklist.js';
-import { startAudit, updateAudit }    from './lib/airtable.js';
+import { startAudit, updateAudit }    from './lib/d1.js';
 import { createRunStorage }           from './lib/storage.js';
 import { slugFromUrl }                from './lib/slug.js';
 import { captureHomepageScreenshot }  from './lib/screenshot.js';
@@ -678,7 +678,7 @@ async function main() {
   // local report is still written even if Airtable rejects.
   if (airtableAuditId) {
     try {
-      const { upsertAccount } = await import('./lib/airtable.js');
+      const { upsertAccount } = await import('./lib/d1.js');
       await upsertAccount({
         slug:           canonicalSlug,
         practiceUrl:    opts.url,

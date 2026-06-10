@@ -6,7 +6,7 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 import { existsSync } from 'node:fs';
-import { upsertAccount } from './airtable.js';
+import { upsertAccount } from './d1.js';
 
 const REAUDIT_DAYS = 75; // ~60–90 day window
 
