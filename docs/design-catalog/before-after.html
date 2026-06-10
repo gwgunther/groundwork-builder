@@ -3,17 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Design Catalog — Source → Adaptation</title>
+<title>Design Catalog — Source → Adaptation × 3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;1,400&family=Schibsted+Grotesk:wght@400;500;700&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#26241f; --ink-soft:#6d685e; --ground:#faf8f2; --line:#ddd7c8;
     --accent:#5f6c4a; --accent-deep:#3c452f; --good:#4d6b4a; --bad:#8a4a3a;
     --serif:'Fraunces',Georgia,serif; --sans:'Hanken Grotesk',-apple-system,sans-serif;
-    /* ── extracted system (entry.json: aesop-apothecary-warm) ── */
-    --e-ground:#fffef2; --e-card:#f6f5e8; --e-dark:#252525; --e-head:#333333;
-    --e-text:#666666; --e-light:#fffef2; --e-amber:#945c26; --e-hairline:rgba(51,51,51,.18);
   }
   *{margin:0;padding:0;box-sizing:border-box}
   body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
@@ -22,240 +19,329 @@
   h1{font-family:var(--serif);font-weight:380;font-size:clamp(36px,5vw,56px);line-height:1.08;letter-spacing:-.015em;margin:14px 0 16px}
   h1 em,h2 em{font-style:italic;color:var(--accent-deep)}
   h2{font-family:var(--serif);font-weight:420;font-size:30px;letter-spacing:-.01em;margin-bottom:8px}
-  .sub{color:var(--ink-soft);max-width:68ch}
-  header.hero{padding:72px 0 44px}
-  section{padding:56px 0;border-top:1px solid var(--line)}
+  .sub{color:var(--ink-soft);max-width:70ch}
+  header.hero{padding:68px 0 40px}
+  section.case{padding:54px 0;border-top:1px solid var(--line)}
   code{font-family:ui-monospace,SFMono-Regular,monospace;font-size:.88em;background:rgba(0,0,0,.05);padding:1px 5px}
-
-  /* ════ the side-by-side ════ */
-  .pair{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:30px}
-  .pane-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
-  .pane-label .t{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
-  .pane-label .d{font-size:12px;color:var(--ink-soft)}
-  .pane{border:1px solid var(--line);height:760px;overflow-y:auto;background:#fff}
+  .jump{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+  .jump a{font-size:12.5px;border:1px solid var(--line);padding:6px 14px;text-decoration:none;color:var(--ink)}
+  .jump a:hover{border-color:var(--accent);color:var(--accent-deep)}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:26px}
+  .pane-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;gap:10px}
+  .pane-label .t{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+  .pane-label .d{font-size:11.5px;color:var(--ink-soft);text-align:right}
+  .pane{border:1px solid var(--line);height:700px;overflow-y:auto;background:#fff}
   .pane::-webkit-scrollbar{width:10px}.pane::-webkit-scrollbar-thumb{background:var(--line)}
   .pane img{width:100%;display:block}
-  .arrownote{text-align:center;font-size:13px;color:var(--ink-soft);margin-top:14px}
-
-  /* ════ the adaptation mock — styled ONLY from entry.json values ════ */
-  .mock{background:var(--e-ground);color:var(--e-text);font-family:var(--sans);font-size:13px;line-height:1.55}
-  .mock .bar{background:var(--e-dark);color:var(--e-light);text-align:center;font-size:10.5px;padding:7px 12px;letter-spacing:.02em}
-  .mock nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:14px 22px;border-bottom:1px solid var(--e-hairline);background:var(--e-ground)}
-  .mock nav .links{display:flex;gap:14px;font-size:11.5px;color:var(--e-head)}
-  .mock nav .links.r{justify-content:flex-end}
-  .mock nav .wordmark{font-weight:600;font-size:16px;letter-spacing:.01em;color:var(--e-dark);padding:0 26px}
-  .mock .hero{background:linear-gradient(160deg,#20251f 0%,#161a16 60%,#101310 100%);color:var(--e-light);padding:74px 38px 64px;position:relative}
-  .mock .hero .ph{position:absolute;top:10px;right:12px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,254,242,.35);border:1px solid rgba(255,254,242,.2);padding:2px 7px}
-  .mock .hero h3{font-weight:400;font-size:26px;line-height:1.25;max-width:18ch;letter-spacing:-.005em;color:var(--e-light)}
-  .mock .hero p{margin:12px 0 22px;max-width:44ch;font-size:12.5px;color:rgba(255,254,242,.78)}
-  .mock .btn-ghost{display:inline-block;border:1px solid rgba(255,254,242,.65);color:var(--e-light);padding:9px 22px;font-size:11.5px;letter-spacing:.02em;text-decoration:none}
-  .mock section{padding:38px 26px;border-top:none}
-  .mock h4{font-weight:400;font-size:21px;color:var(--e-head);text-align:center;margin-bottom:6px;letter-spacing:-.005em}
-  .mock .lede{text-align:center;font-size:12px;max-width:52ch;margin:0 auto 26px}
-  .mock .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  .mock .tcard{background:var(--e-card);display:flex;flex-direction:column}
-  .mock .tcard .img{height:96px;background:linear-gradient(150deg,#3a4035,#586051);position:relative}
-  .mock .tcard .img::after{content:"IMAGE";position:absolute;inset:auto 6px 5px auto;font-size:8px;letter-spacing:.14em;color:rgba(255,254,242,.4)}
-  .mock .tcard .pad{padding:14px 14px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
-  .mock .tcard b{font-weight:600;font-size:12.5px;color:var(--e-head)}
-  .mock .tcard small{font-size:11px;line-height:1.5}
-  .mock .btn-fill{margin-top:auto;display:block;background:var(--e-dark);color:var(--e-light);text-align:center;padding:9px 0;font-size:11px;letter-spacing:.02em;text-decoration:none}
-  .mock .eyebrow{display:block;font-size:10.5px;color:var(--e-amber);margin-bottom:8px}
-  .mock .split{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:center}
-  .mock .split .img{height:170px;background:linear-gradient(135deg,#494f42,#2c302a);position:relative}
-  .mock .split .img::after{content:"IMAGE — clinic still";position:absolute;inset:auto 8px 7px auto;font-size:8px;letter-spacing:.13em;color:rgba(255,254,242,.4)}
-  .mock .split h4{text-align:left}
-  .mock .split p{font-size:12px;margin:8px 0 18px}
-  .mock .btn-line{display:inline-block;border:1px solid var(--e-head);color:var(--e-head);padding:8px 20px;font-size:11px;text-decoration:none}
-  .mock .btn-line::after{content:" →"}
-  .mock .tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-  .mock .tile .sq{aspect-ratio:1;background:linear-gradient(140deg,#56503f,#393428)}
-  .mock .tile:nth-child(2) .sq{background:linear-gradient(140deg,#4a5244,#2e332b)}
-  .mock .tile:nth-child(3) .sq{background:linear-gradient(140deg,#6b5a41,#473b2b)}
-  .mock .tile:nth-child(4) .sq{background:linear-gradient(140deg,#52575c,#33373b)}
-  .mock .tile:nth-child(5) .sq{background:linear-gradient(140deg,#5d524a,#3b342f)}
-  .mock .tile figcaption{font-size:10.5px;color:var(--e-head);margin-top:6px}
-  .mock .novel-tag{display:block;text-align:center;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--e-amber);margin-top:14px}
-  .mock .quote{background:var(--e-ground);text-align:center;padding:48px 30px}
-  .mock .quote p{font-family:var(--serif);font-style:italic;font-weight:380;font-size:19px;line-height:1.45;color:var(--e-head);max-width:34ch;margin:0 auto 10px}
-  .mock .quote cite{font-style:normal;font-size:10.5px;letter-spacing:.06em;color:var(--e-text)}
-  .mock footer{background:var(--e-dark);color:rgba(255,254,242,.65);padding:30px 26px 22px;font-size:10.5px}
-  .mock footer .cols{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:22px}
-  .mock footer b{display:block;color:var(--e-light);font-weight:600;font-size:11px;margin-bottom:7px}
-  .mock footer span{display:block;padding:2.5px 0}
-  .mock footer .legal{border-top:1px solid rgba(255,254,242,.15);padding-top:12px;font-size:9.5px}
-
-  /* ════ system sheet ════ */
-  .sheet{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:30px}
-  .cell{background:var(--ground);padding:20px 22px}
-  .cell h5{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin-bottom:12px}
-  .cell .row{display:flex;align-items:center;gap:9px;font-size:12px;padding:4px 0;font-family:ui-monospace,monospace}
-  .cell .sw{width:15px;height:15px;border:1px solid rgba(0,0,0,.15);flex:none}
-  .cell p{font-size:12.5px;color:var(--ink-soft)}
-  .cell .demo-fill{display:inline-block;background:#252525;color:#fffef2;padding:7px 18px;font-size:11px;margin:4px 6px 4px 0}
-  .cell .demo-line{display:inline-block;border:1px solid #333;color:#333;padding:6px 16px;font-size:11px}
-  .cell .demo-label{display:block;font-size:11px;color:#945c26;margin-top:10px}
-  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
-  .chip{font-size:10.5px;padding:3px 9px;border:1px solid var(--line);color:var(--ink-soft)}
-
-  .scores{margin-top:26px;border:1px solid var(--line)}
-  .scores table{width:100%;border-collapse:collapse;font-size:13px}
-  .scores th,.scores td{padding:9px 13px;text-align:left;border-top:1px solid var(--line)}
-  .scores th{background:#f1eee4;border-top:none;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:500}
-  .v-bad{color:var(--bad)} .v-good{color:var(--good);font-weight:500}
+  .caption{font-size:13px;color:var(--ink-soft);margin-top:14px;max-width:84ch}
+  .caption b{color:var(--ink);font-weight:500}
+  .tokenline{display:flex;gap:7px;align-items:center;margin-top:10px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-soft);font-family:ui-monospace,monospace}
+  .tokenline .sw{display:inline-block;width:13px;height:13px;border:1px solid rgba(0,0,0,.15);vertical-align:-2px;margin-right:3px}
   .todo li{list-style:none;display:flex;gap:14px;padding:11px 0;border-top:1px solid var(--line);font-size:14.5px}
   .todo .n{font-family:var(--serif);font-style:italic;color:var(--accent);min-width:22px}
-  footer.page{padding:42px 0 64px;font-size:13px;color:var(--ink-soft);border-top:1px solid var(--line)}
-  @media(max-width:900px){.pair{grid-template-columns:1fr}.sheet{grid-template-columns:1fr 1fr}}
+  footer.page{padding:40px 0 64px;font-size:13px;color:var(--ink-soft);border-top:1px solid var(--line)}
+  @media(max-width:900px){.pair{grid-template-columns:1fr}}
+
+  /* ═══════════ AESOP mock (entry: aesop-apothecary-warm) ═══════════ */
+  .ae{background:#fffef2;color:#666;font-family:var(--sans);font-size:13px;line-height:1.55}
+  .ae .bar{background:#252525;color:#fffef2;text-align:center;font-size:10.5px;padding:7px 12px}
+  .ae nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:14px 22px;border-bottom:1px solid rgba(51,51,51,.18)}
+  .ae nav .links{display:flex;gap:14px;font-size:11.5px;color:#333}
+  .ae nav .links.r{justify-content:flex-end}
+  .ae nav .wm{font-weight:600;font-size:16px;color:#252525;padding:0 26px}
+  .ae .hero{background:linear-gradient(160deg,#20251f,#161a16 60%,#101310);color:#fffef2;padding:72px 38px 62px;position:relative}
+  .ae .ph{position:absolute;top:10px;right:12px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,254,242,.35);border:1px solid rgba(255,254,242,.2);padding:2px 7px}
+  .ae .hero h3{font-weight:400;font-size:25px;line-height:1.25;max-width:18ch;color:#fffef2}
+  .ae .hero p{margin:12px 0 22px;max-width:44ch;font-size:12.5px;color:rgba(255,254,242,.78)}
+  .ae .bg{display:inline-block;border:1px solid rgba(255,254,242,.65);color:#fffef2;padding:9px 22px;font-size:11.5px;text-decoration:none}
+  .ae .sec{padding:36px 26px}
+  .ae h4{font-weight:400;font-size:20px;color:#333;text-align:center;margin-bottom:6px}
+  .ae .lede{text-align:center;font-size:12px;max-width:52ch;margin:0 auto 24px}
+  .ae .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .ae .tc{background:#f6f5e8;display:flex;flex-direction:column}
+  .ae .tc .img{height:92px;background:linear-gradient(150deg,#3a4035,#586051)}
+  .ae .tc .pad{padding:13px 13px 15px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .ae .tc b{font-weight:600;font-size:12.5px;color:#333}
+  .ae .tc small{font-size:11px}
+  .ae .bf{margin-top:auto;display:block;background:#252525;color:#fffef2;text-align:center;padding:9px 0;font-size:11px;text-decoration:none}
+  .ae .eyebrow{display:block;font-size:10.5px;color:#945c26;margin-bottom:8px}
+  .ae .split{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:center}
+  .ae .split .img{height:160px;background:linear-gradient(135deg,#494f42,#2c302a)}
+  .ae .split h4{text-align:left}
+  .ae .split p{font-size:12px;margin:8px 0 16px}
+  .ae .bl{display:inline-block;border:1px solid #333;color:#333;padding:8px 20px;font-size:11px;text-decoration:none}
+  .ae .bl::after{content:" →"}
+  .ae .tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px}
+  .ae .tile .sq{aspect-ratio:1;background:linear-gradient(140deg,#56503f,#393428)}
+  .ae .tile:nth-child(2) .sq{background:linear-gradient(140deg,#4a5244,#2e332b)}
+  .ae .tile:nth-child(3) .sq{background:linear-gradient(140deg,#6b5a41,#473b2b)}
+  .ae .tile:nth-child(4) .sq{background:linear-gradient(140deg,#52575c,#33373b)}
+  .ae .tile:nth-child(5) .sq{background:linear-gradient(140deg,#5d524a,#3b342f)}
+  .ae .tile figcaption{font-size:10.5px;color:#333;margin-top:6px}
+  .ae .novel{display:block;text-align:center;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#945c26;margin-top:14px}
+  .ae .quote{text-align:center;padding:44px 30px}
+  .ae .quote p{font-family:var(--serif);font-style:italic;font-weight:380;font-size:18px;line-height:1.45;color:#333;max-width:34ch;margin:0 auto 10px}
+  .ae .quote cite{font-style:normal;font-size:10.5px;color:#666}
+  .ae footer{background:#252525;color:rgba(255,254,242,.65);padding:28px 26px 20px;font-size:10.5px}
+  .ae footer .cols{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:20px}
+  .ae footer b{display:block;color:#fffef2;font-weight:600;font-size:11px;margin-bottom:7px}
+  .ae footer span{display:block;padding:2.5px 0}
+  .ae footer .legal{border-top:1px solid rgba(255,254,242,.15);padding-top:11px;font-size:9.5px}
+
+  /* ═══════════ GROOMIFY mock (entry: groomify-boutique-warm) ═══════════ */
+  .gm{background:#eef0ea;color:#4f5448;font-family:'Schibsted Grotesk',var(--sans);font-size:13px;line-height:1.58}
+  .gm nav{display:flex;justify-content:space-between;align-items:center;padding:16px 24px}
+  .gm nav .wm{font-weight:700;font-size:15px;color:#2b2e26}
+  .gm nav .links{display:flex;gap:16px;font-size:11.5px;color:#4f5448;align-items:center}
+  .gm .bk{background:#3f4534;color:#f4f5ef;padding:8px 18px;border-radius:14px;font-size:11px}
+  .gm .chip{display:inline-block;background:rgba(107,114,87,.14);color:#5b614c;font-size:10px;padding:4px 12px;border-radius:999px;margin-bottom:12px}
+  .gm .hero{display:grid;grid-template-columns:46% 1fr;gap:24px;align-items:center;padding:38px 24px 44px}
+  .gm .hero h3{font-size:25px;line-height:1.18;color:#2b2e26;font-weight:500;letter-spacing:-.01em}
+  .gm .hero h3 b{font-weight:700;color:#6b7257}
+  .gm .hero p{font-size:12px;margin:12px 0 18px;max-width:38ch}
+  .gm .bf{display:inline-block;background:#3f4534;color:#f4f5ef;padding:10px 24px;border-radius:14px;font-size:11.5px;text-decoration:none}
+  .gm .hero .imgwrap{position:relative}
+  .gm .hero .img{height:250px;border-radius:18px;background:linear-gradient(140deg,#aeb6a2,#8b937e);position:relative;box-shadow:0 12px 32px rgba(63,69,52,.16)}
+  .gm .hero .img::after{content:"IMAGE — patient portrait";position:absolute;inset:auto 10px 9px auto;font-size:8px;letter-spacing:.12em;color:rgba(43,46,38,.45)}
+  .gm .avs{position:absolute;left:-14px;bottom:16px;background:#fdfdfb;border-radius:999px;padding:7px 14px 7px 8px;display:flex;align-items:center;gap:8px;box-shadow:0 8px 22px rgba(63,69,52,.18);font-size:10px;color:#2b2e26}
+  .gm .avs .a{width:18px;height:18px;border-radius:50%;border:2px solid #fdfdfb;margin-left:-7px;background:#9aa18c}
+  .gm .avs .a:nth-child(1){margin-left:0;background:#7d8470}.gm .avs .a:nth-child(2){background:#b4ad94}.gm .avs .a:nth-child(3){background:#6b7257}
+  .gm .cam{position:absolute;top:12px;right:12px;width:26px;height:26px;border-radius:50%;background:#fdfdfb;box-shadow:0 6px 16px rgba(63,69,52,.2)}
+  .gm .sec{padding:34px 24px}
+  .gm h4{font-size:19px;color:#2b2e26;font-weight:500;text-align:center;margin-bottom:4px}
+  .gm h4 b{font-weight:700;color:#6b7257}
+  .gm .lede{text-align:center;font-size:11.5px;max-width:48ch;margin:0 auto 20px}
+  .gm .tabs{display:flex;justify-content:center;gap:8px;margin-bottom:18px}
+  .gm .tab{font-size:10.5px;padding:7px 16px;border-radius:999px;background:#fdfdfb;color:#4f5448;box-shadow:0 4px 14px rgba(63,69,52,.08)}
+  .gm .tab.on{background:#3f4534;color:#f4f5ef}
+  .gm .pkg{display:grid;grid-template-columns:1fr 1.1fr;gap:16px;background:#fdfdfb;border-radius:18px;padding:16px;box-shadow:0 10px 28px rgba(63,69,52,.1)}
+  .gm .pkg .img{border-radius:12px;background:linear-gradient(135deg,#a8b09a,#7e8671);min-height:150px}
+  .gm .pkg h5{font-size:13.5px;color:#2b2e26;font-weight:700;margin-bottom:8px}
+  .gm .pkg li{list-style:none;font-size:11px;padding:4px 0 4px 18px;position:relative}
+  .gm .pkg li::before{content:"✓";position:absolute;left:0;color:#6b7257;font-size:10px}
+  .gm .pkg .bf{margin-top:12px;padding:8px 20px;font-size:10.5px}
+  .gm .alc{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px}
+  .gm .alc div{text-align:center;font-size:10.5px}
+  .gm .alc .ic{width:34px;height:34px;border-radius:50%;background:rgba(107,114,87,.16);margin:0 auto 7px}
+  .gm .feat{background:#fdfdfb;border-radius:18px;padding:18px;display:grid;grid-template-columns:1fr 1.4fr;gap:18px;align-items:center;box-shadow:0 10px 28px rgba(63,69,52,.1)}
+  .gm .feat .img{border-radius:12px;min-height:130px;background:linear-gradient(135deg,#9d9785,#6e6a5b)}
+  .gm .feat p{font-size:12px;color:#2b2e26;line-height:1.6;margin-bottom:8px}
+  .gm .feat cite{font-style:normal;font-size:10.5px;color:#4f5448}
+  .gm .stars{color:#6b7257;font-size:10px;letter-spacing:2px;margin-bottom:8px}
+  .gm .contact{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .gm .ccard{background:#fdfdfb;border-radius:14px;padding:16px;font-size:11px;box-shadow:0 8px 22px rgba(63,69,52,.08)}
+  .gm .ccard b{display:block;color:#2b2e26;font-size:12px;margin-bottom:5px;font-weight:700}
+  .gm .ccard .bf{margin-top:10px;padding:7px 16px;font-size:10px}
+  .gm footer{background:#2b2e26;color:rgba(244,245,239,.6);padding:20px 24px;font-size:10px;display:flex;justify-content:space-between;align-items:center}
+  .gm footer b{color:#f4f5ef;font-weight:700;font-size:11px}
+
+  /* ═══════════ AURELIA mock (entry: aurelia-dark-luxe) ═══════════ */
+  .au{background:#0a0a0c;color:#b9b6ac;font-family:'Outfit',var(--sans);font-size:13px;line-height:1.65;font-weight:300}
+  .au nav{display:flex;justify-content:space-between;align-items:center;padding:18px 26px;position:relative;z-index:2}
+  .au nav .wm{letter-spacing:.32em;font-size:12px;color:#f5f3ee;font-weight:400;text-transform:uppercase}
+  .au nav .links{display:flex;gap:18px;font-size:10.5px;color:rgba(245,243,238,.65);align-items:center;letter-spacing:.06em}
+  .au .bg{border:1px solid rgba(201,169,110,.55);color:#e8d6a8;padding:8px 20px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;text-decoration:none}
+  .au .hero{margin-top:-58px;padding:120px 30px 90px;text-align:center;position:relative;background:
+    radial-gradient(ellipse 70% 45% at 50% 38%, rgba(201,169,110,.16), transparent 70%),
+    linear-gradient(170deg,#131316,#0a0a0c 70%)}
+  .au .ph{position:absolute;top:68px;right:14px;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,243,238,.25);border:1px solid rgba(245,243,238,.15);padding:2px 7px}
+  .au .hero h3{font-weight:300;font-size:27px;letter-spacing:-.01em;color:#f5f3ee;max-width:20ch;margin:0 auto}
+  .au .hero p{font-size:11.5px;max-width:42ch;margin:16px auto 26px;color:rgba(245,243,238,.6)}
+  .au .sec{padding:44px 30px}
+  .au h4{font-weight:300;font-size:20px;color:#f5f3ee;margin-bottom:22px}
+  .au .num{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:baseline;padding:15px 0;border-top:1px solid rgba(201,169,110,.22);font-size:12px}
+  .au .num:last-child{border-bottom:1px solid rgba(201,169,110,.22)}
+  .au .num .n{font-size:11px;color:#c9a96e;letter-spacing:.08em}
+  .au .num b{color:#f5f3ee;font-weight:400;display:block;font-size:13px}
+  .au .num small{font-size:11px;color:rgba(245,243,238,.5)}
+  .au .num .go{color:#c9a96e;font-size:11px}
+  .au .quote{text-align:center;padding:54px 30px}
+  .au .quote p{font-weight:300;font-size:19px;line-height:1.5;color:#f5f3ee;max-width:30ch;margin:0 auto 14px}
+  .au .quote cite{font-style:normal;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:#c9a96e}
+  .au .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .au .lc{background:#1a1a1e;border-radius:2px;box-shadow:0 0 0 1px rgba(201,169,110,.22);padding:18px}
+  .au .lc .img{height:84px;background:linear-gradient(150deg,#23232a,#101014);margin:-18px -18px 14px;border-bottom:1px solid rgba(201,169,110,.2)}
+  .au .lc b{color:#f5f3ee;font-weight:400;font-size:12.5px;display:block;margin-bottom:5px}
+  .au .lc small{font-size:10.5px;color:rgba(245,243,238,.5)}
+  .au .cta{text-align:center;padding:50px 30px;background:radial-gradient(ellipse 60% 60% at 50% 100%, rgba(201,169,110,.1), transparent 70%)}
+  .au .cta h4{margin-bottom:8px}
+  .au .cta p{font-size:11px;color:rgba(245,243,238,.55);margin-bottom:22px}
+  .au footer{padding:22px 26px;border-top:1px solid rgba(201,169,110,.18);display:flex;justify-content:space-between;align-items:center;font-size:9.5px;letter-spacing:.1em;color:rgba(245,243,238,.45)}
+  .au footer .wm{letter-spacing:.3em;color:#f5f3ee;font-size:10px;text-transform:uppercase}
 </style>
 </head>
 <body>
 
 <header class="hero"><div class="wrap">
-  <div class="kicker">Groundwork · Design Catalog · Worked Example</div>
-  <h1>Source → <em>dental adaptation,</em><br>same design system.</h1>
-  <p class="sub">Left: the actual capture of aesop.com that went into <code>catalog:ingest --url</code>. Right: the extracted design system (<code>aesop-apothecary-warm</code>) rendered as a dental practice page — every color, type rule, corner, button, label and section device on the right comes from <code>entry.json</code>, none from the source's brand or industry.</p>
+  <div class="kicker">Groundwork · Design Catalog · The Three Entries</div>
+  <h1>Three sources, three <em>dental adaptations.</em></h1>
+  <p class="sub">Each pair: the source (a real capture where one exists, otherwise a reconstruction rendered from the entry itself) beside the same design system re-expressed as a dental practice. Everything on the right comes from <code>entry.json</code> — none of the source's brand, none of its industry.</p>
+  <div class="jump"><a href="#aesop">01 · Aesop — machine-ingested</a><a href="#groomify">02 · Groomify — from screenshot</a><a href="#aurelia">03 · Aurelia — dark fixture</a></div>
 </div></header>
 
-<section style="border-top:none;padding-top:8px"><div class="wrap">
+<!-- ═══════════════════ 01 AESOP ═══════════════════ -->
+<section class="case" id="aesop"><div class="wrap">
+  <div class="kicker">01 · aesop-apothecary-warm — machine-generated · probe-grounded · PASS iter 2</div>
+  <h2>Apothecary skincare → <em>unhurried dentistry</em></h2>
   <div class="pair">
     <div>
-      <div class="pane-label"><span class="t" style="color:var(--ink-soft)">Before — the source</span><span class="d">aesop.com · captured by the agent · scroll ↓</span></div>
+      <div class="pane-label"><span class="t" style="color:var(--ink-soft)">Before — the source</span><span class="d">aesop.com · actual capture from catalog:ingest --url</span></div>
       <div class="pane"><img src="test-refs/aesop.jpeg" alt="Aesop homepage capture"></div>
     </div>
     <div>
-      <div class="pane-label"><span class="t" style="color:var(--accent)">After — the adaptation</span><span class="d">rendered from entry.json tokens · fixture practice content · scroll ↓</span></div>
-      <div class="pane"><div class="mock">
-
+      <div class="pane-label"><span class="t" style="color:var(--accent)">After — Aldergate Dental</span><span class="d">rendered from entry.json · fixture content</span></div>
+      <div class="pane"><div class="ae">
         <div class="bar">Now welcoming new patients — complimentary consultations through June 30</div>
-
-        <nav>
-          <div class="links"><span>New patients</span><span>Treatments</span><span>About</span></div>
-          <div class="wordmark">Aldergate Dental.</div>
-          <div class="links r"><span>Contact</span><span style="font-weight:600;color:#252525">Book a visit</span></div>
-        </nav>
-
-        <div class="hero">
-          <span class="ph">image — botanical clinical still</span>
-          <h3>The quiet confidence of a well-kept smile</h3>
-          <p>Preventive care delivered with patience and precision — unhurried appointments, meticulous attention, formulating long-term oral health.</p>
-          <a class="btn-ghost" href="#">Discover preventive care</a>
-        </div>
-
-        <section>
-          <h4>New and notable</h4>
-          <p class="lede">A collection of considered treatments and recent additions to our care — each likely to make a lasting difference.</p>
-          <div class="grid3">
-            <div class="tcard"><div class="img"></div><div class="pad"><b>Comprehensive Exam Trio</b><small>A trio of assessment, cleaning and personal care planning.</small><a class="btn-fill" href="#">Book this treatment</a></div></div>
-            <div class="tcard"><div class="img"></div><div class="pad"><b>Gentle Whitening</b><small>Conservative, enamel-safe brightening, calibrated to you.</small><a class="btn-fill" href="#">Book this treatment</a></div></div>
-            <div class="tcard"><div class="img"></div><div class="pad"><b>Restorative Care Visit</b><small>Repairs the appearance and strength of worn teeth.</small><a class="btn-fill" href="#">Book this treatment</a></div></div>
-          </div>
-        </section>
-
-        <section style="background:#f6f5e8">
-          <div class="split">
-            <div class="img"></div>
-            <div>
-              <span class="eyebrow">Enlightening assistance</span>
-              <h4>The Treatment Finder</h4>
-              <p>To discover the most suitable care for your circumstances — our brief questionnaire will take the lead.</p>
-              <a class="btn-line" href="#">Find your regimen</a>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <h4>Browse by specialty</h4>
-          <div class="tiles" style="margin-top:20px">
-            <figure class="tile"><div class="sq"></div><figcaption>Preventive</figcaption></figure>
-            <figure class="tile"><div class="sq"></div><figcaption>Cosmetic</figcaption></figure>
-            <figure class="tile"><div class="sq"></div><figcaption>Orthodontics</figcaption></figure>
-            <figure class="tile"><div class="sq"></div><figcaption>Children</figcaption></figure>
-            <figure class="tile"><div class="sq"></div><figcaption>Implants</figcaption></figure>
-          </div>
-          <span class="novel-tag">novel component — phase-b mint queued</span>
-        </section>
-
-        <div class="quote">
-          <p>“Your best and wisest refuge from all troubles is in your <em>own good health.</em>”</p>
-          <cite>— a patient of twelve years</cite>
-        </div>
-
-        <footer>
-          <div class="cols">
-            <div><b>Appointments</b><span>Book online</span><span>New patients</span><span>Insurance</span></div>
-            <div><b>About</b><span>Our practice</span><span>Philosophy</span><span>Careers</span></div>
-            <div><b>Care</b><span>Preventive</span><span>Cosmetic</span><span>Children</span></div>
-            <div><b>Visit</b><span>Hours &amp; location</span><span>Contact</span><span>Accessibility</span></div>
-          </div>
-          <div class="legal">© 2026 Aldergate Dental — fixture content · rendered from aesop-apothecary-warm entry.json</div>
-        </footer>
-
+        <nav><div class="links"><span>New patients</span><span>Treatments</span><span>About</span></div><div class="wm">Aldergate Dental.</div><div class="links r"><span>Contact</span><span style="font-weight:600;color:#252525">Book a visit</span></div></nav>
+        <div class="hero"><span class="ph">image — botanical clinical still</span><h3>The quiet confidence of a well-kept smile</h3><p>Preventive care delivered with patience and precision — unhurried appointments, meticulous attention, formulating long-term oral health.</p><a class="bg" href="#">Discover preventive care</a></div>
+        <div class="sec"><h4>New and notable</h4><p class="lede">A collection of considered treatments and recent additions to our care — each likely to make a lasting difference.</p>
+          <div class="g3">
+            <div class="tc"><div class="img"></div><div class="pad"><b>Comprehensive Exam Trio</b><small>A trio of assessment, cleaning and personal care planning.</small><a class="bf" href="#">Book this treatment</a></div></div>
+            <div class="tc"><div class="img" style="background:linear-gradient(150deg,#46493c,#62685a)"></div><div class="pad"><b>Gentle Whitening</b><small>Conservative, enamel-safe brightening, calibrated to you.</small><a class="bf" href="#">Book this treatment</a></div></div>
+            <div class="tc"><div class="img" style="background:linear-gradient(150deg,#544c3c,#3a352a)"></div><div class="pad"><b>Restorative Care Visit</b><small>Repairs the appearance and strength of worn teeth.</small><a class="bf" href="#">Book this treatment</a></div></div>
+          </div></div>
+        <div class="sec" style="background:#f6f5e8"><div class="split"><div class="img"></div><div><span class="eyebrow">Enlightening assistance</span><h4>The Treatment Finder</h4><p>To discover the most suitable care for your circumstances — our brief questionnaire will take the lead.</p><a class="bl" href="#">Find your regimen</a></div></div></div>
+        <div class="sec"><h4>Browse by specialty</h4><div class="tiles">
+          <figure class="tile"><div class="sq"></div><figcaption>Preventive</figcaption></figure>
+          <figure class="tile"><div class="sq"></div><figcaption>Cosmetic</figcaption></figure>
+          <figure class="tile"><div class="sq"></div><figcaption>Orthodontics</figcaption></figure>
+          <figure class="tile"><div class="sq"></div><figcaption>Children</figcaption></figure>
+          <figure class="tile"><div class="sq"></div><figcaption>Implants</figcaption></figure></div>
+          <span class="novel">novel component — phase-b mint queued</span></div>
+        <div class="quote"><p>“Your best and wisest refuge from all troubles is in your <em>own good health.</em>”</p><cite>— a patient of twelve years</cite></div>
+        <footer><div class="cols">
+          <div><b>Appointments</b><span>Book online</span><span>New patients</span><span>Insurance</span></div>
+          <div><b>About</b><span>Our practice</span><span>Philosophy</span><span>Careers</span></div>
+          <div><b>Care</b><span>Preventive</span><span>Cosmetic</span><span>Children</span></div>
+          <div><b>Visit</b><span>Hours &amp; location</span><span>Contact</span><span>Accessibility</span></div></div>
+          <div class="legal">© 2026 Aldergate Dental — fixture content · rendered from aesop-apothecary-warm</div></footer>
       </div></div>
     </div>
   </div>
-  <p class="arrownote">Both panes scroll. The adaptation is hand-rendered from the entry's tokens to demonstrate the translation — automating exactly this render is roadmap item #1 (build-time selection) and #3 (preview gallery).</p>
+  <p class="caption"><b>What carried over:</b> parchment ground + tinted card surface (measured <code>#fffef2</code>/<code>#f6f5e8</code>), near-black chrome <code>#252525</code>, single-family grotesque at weight 400, sharp corners, flat elevation, full-width filled card CTAs, hairline-outline secondary with arrow, <b>sparing</b> amber eyebrow, the serif-italic pull-quote moment, and the specialty tile browser honestly tagged as a Phase-B novel component.</p>
+  <div class="tokenline"><span><span class="sw" style="background:#fffef2"></span>#fffef2</span><span><span class="sw" style="background:#f6f5e8"></span>#f6f5e8</span><span><span class="sw" style="background:#252525"></span>#252525</span><span><span class="sw" style="background:#945c26"></span>#945c26</span><span>· modern-grotesque · sharp · flat · eyebrow:sparing · 12 fidelity checks · M7 ✓</span></div>
 </div></section>
 
-<section><div class="wrap">
-  <div class="kicker">The bridge — what the agent extracted</div>
-  <h2>The system sheet that <em>connects</em> them</h2>
-  <div class="sheet">
-    <div class="cell">
-      <h5>Color · measured (M7 ✓)</h5>
-      <div class="row"><span class="sw" style="background:#fffef2"></span>#fffef2 page ground</div>
-      <div class="row"><span class="sw" style="background:#f6f5e8"></span>#f6f5e8 card surface</div>
-      <div class="row"><span class="sw" style="background:#252525"></span>#252525 dark chrome</div>
-      <div class="row"><span class="sw" style="background:#333333"></span>#333333 heading</div>
-      <div class="row"><span class="sw" style="background:#666666"></span>#666666 secondary</div>
-      <div class="row"><span class="sw" style="background:#945c26"></span>#945c26 amber label</div>
+<!-- ═══════════════════ 02 GROOMIFY ═══════════════════ -->
+<section class="case" id="groomify"><div class="wrap">
+  <div class="kicker">02 · groomify-boutique-warm — hand-extracted from your screenshot</div>
+  <h2>Boutique pet grooming → <em>gentle family dentistry</em></h2>
+  <div class="pair">
+    <div>
+      <div class="pane-label"><span class="t" style="color:var(--ink-soft)">Before — reconstruction</span><span class="d">source screenshot not on disk — rebuilt FROM the entry (the fidelity claim, demonstrated)</span></div>
+      <div class="pane"><div class="gm">
+        <nav><div class="wm">🐾 Groomify</div><div class="links"><span>About</span><span>Services</span><span>Gallery</span><span>FAQs</span><span class="bk">Book Appointment</span></div></nav>
+        <div class="hero">
+          <div><h3>Treat your pet to a luxurious <b>grooming experience.</b></h3><p>Luxury pet grooming tailored to pamper your furry companion with care, style, and comfort.</p><a class="bf" href="#">Book Appointment</a></div>
+          <div class="imgwrap"><div class="img"></div><div class="cam"></div><div class="avs"><span class="a"></span><span class="a"></span><span class="a"></span>+456 Happy Pets</div></div>
+        </div>
+        <div class="sec"><span class="chip" style="display:table;margin:0 auto 10px">📦 Packages</span><h4>Tailored packages <b>for every pet</b></h4><p class="lede">Whether your pet needs a quick refresh or a full spa day, we've got the perfect package.</p>
+          <div class="tabs"><span class="tab on">The Essential Elegance</span><span class="tab">The Signature Spa Day</span><span class="tab">The Royal Retreat</span></div>
+          <div class="pkg"><div class="img"></div><div><h5>The Essential Elegance</h5><ul><li>Gentle bath with pet-safe shampoo</li><li>Nail trimming &amp; filing</li><li>Ear cleaning</li><li>Paw pad moisturizing</li><li>Complimentary bowtie or floral collar</li></ul><a class="bf" href="#">Book Now</a></div></div>
+        </div>
+        <div class="sec" style="padding-top:8px"><span class="chip" style="display:table;margin:0 auto 10px">À la Carte</span><h4>Customize your <b>pet's perfect day</b></h4>
+          <div class="alc"><div><div class="ic"></div>Blueberry Facial</div><div><div class="ic"></div>Pawdicure Plus</div><div><div class="ic"></div>Teeth Brushing</div></div>
+        </div>
+        <div class="sec"><span class="chip" style="display:table;margin:0 auto 10px">Featured Testimonial</span>
+          <div class="feat"><div class="img"></div><div><div class="stars">★★★★★</div><p>“Jackie used to hate grooming, but ever since we found your salon, she can't wait for her spa days! Now she struts out like a little diva every time!”</p><cite>Naila Porter — Jackie's Owner</cite></div></div>
+        </div>
+        <div class="sec" style="padding-top:6px"><span class="chip" style="display:table;margin:0 auto 10px">Contact Us</span><h4>How to <b>get in touch</b> with us</h4>
+          <div class="contact"><div class="ccard"><b>Book online</b>Choose your date and book online now.<a class="bf" href="#">Book Now</a></div><div class="ccard"><b>Call us</b>Speak to us over the phone.<a class="bf" href="#">Call Us</a></div><div class="ccard"><b>Visit us</b>Monday to Friday 8am – 5pm.<a class="bf" href="#">Get Directions</a></div></div>
+        </div>
+        <footer><b>🐾 Groomify</b><span>© 2026 — reconstruction from groomify-boutique-warm entry.json</span></footer>
+      </div></div>
     </div>
-    <div class="cell">
-      <h5>Type · modern-grotesque</h5>
-      <p>Single-family grotesque (source: Suisse Intl — measured, not guessed). Hierarchy by size + weight, never by pairing. Display weight 400. Serif appears only as a rare italic accent (the pull-quote).</p>
-      <p style="margin-top:10px">Eyebrow policy: <b style="color:var(--ink)">sparing</b> — select sections only, amber inline, never a chip.</p>
-    </div>
-    <div class="cell">
-      <h5>Shape · atoms</h5>
-      <p>Corners <b style="color:var(--ink)">sharp</b> everywhere · elevation <b style="color:var(--ink)">flat</b> (hairlines, no shadows).</p>
-      <span class="demo-fill">Book this treatment</span><span class="demo-line">Find your regimen →</span>
-      <span class="demo-label">Enlightening assistance ← inline label, no badge</span>
-    </div>
-    <div class="cell">
-      <h5>Honesty layer</h5>
-      <p><b style="color:var(--ink)">4 novel components</b> queued for Phase-B (carousel, finder panel, tile browser, comparison row) · 7 typed gaps · 12 fidelity checks.</p>
-      <div class="chips"><span class="chip">centered-over-dark-hero ✓ sanctioned</span><span class="chip">three-equal-cards ✓</span><span class="chip">eyebrow-above-heading ✓</span></div>
+    <div>
+      <div class="pane-label"><span class="t" style="color:var(--accent)">After — Brightleaf Dental</span><span class="d">same entry · dental fixture content</span></div>
+      <div class="pane"><div class="gm">
+        <nav><div class="wm">☘ Brightleaf Dental</div><div class="links"><span>About</span><span>Treatments</span><span>Smile Gallery</span><span>FAQs</span><span class="bk">Book a Visit</span></div></nav>
+        <div class="hero">
+          <div><h3>Treat your smile to gentle, <b>unhurried care.</b></h3><p>Family dentistry tailored to put you at ease — comfort-first visits with care, patience, and warmth.</p><a class="bf" href="#">Book a Visit</a></div>
+          <div class="imgwrap"><div class="img"></div><div class="cam"></div><div class="avs"><span class="a"></span><span class="a"></span><span class="a"></span>+456 Happy Patients</div></div>
+        </div>
+        <div class="sec"><span class="chip" style="display:table;margin:0 auto 10px">Care Plans</span><h4>Tailored plans <b>for every smile</b></h4><p class="lede">Whether you need a quick check-up or a complete smile refresh, there's a plan that fits.</p>
+          <div class="tabs"><span class="tab on">The Essential Care</span><span class="tab">The Signature Whitening</span><span class="tab">The Complete Smile</span></div>
+          <div class="pkg"><div class="img"></div><div><h5>The Essential Care</h5><ul><li>Gentle cleaning with comfort-first technique</li><li>Full examination &amp; digital imaging</li><li>Fluoride treatment</li><li>Personal care plan</li><li>Complimentary comfort kit to take home</li></ul><a class="bf" href="#">Book Now</a></div></div>
+        </div>
+        <div class="sec" style="padding-top:8px"><span class="chip" style="display:table;margin:0 auto 10px">Individual Treatments</span><h4>Customize your <b>perfect visit</b></h4>
+          <div class="alc"><div><div class="ic"></div>Gentle Whitening</div><div><div class="ic"></div>Sealants &amp; Polish</div><div><div class="ic"></div>Night Guard Fitting</div></div>
+        </div>
+        <div class="sec"><span class="chip" style="display:table;margin:0 auto 10px">Featured Story</span>
+          <div class="feat"><div class="img"></div><div><div class="stars">★★★★★</div><p>“Maya used to dread the dentist, but ever since we found this practice she actually looks forward to her visits. The team is so patient and kind — she walks out beaming every time!”</p><cite>Naila Porter — Maya's Mom</cite></div></div>
+        </div>
+        <div class="sec" style="padding-top:6px"><span class="chip" style="display:table;margin:0 auto 10px">Contact Us</span><h4>How to <b>get in touch</b> with us</h4>
+          <div class="contact"><div class="ccard"><b>Book online</b>Choose your time and book online now.<a class="bf" href="#">Book Now</a></div><div class="ccard"><b>Call us</b>Speak with our front desk.<a class="bf" href="#">Call Us</a></div><div class="ccard"><b>Visit us</b>Monday to Friday 8am – 5pm.<a class="bf" href="#">Get Directions</a></div></div>
+        </div>
+        <footer><b>☘ Brightleaf Dental</b><span>© 2026 — fixture content · rendered from groomify-boutique-warm</span></footer>
+      </div></div>
     </div>
   </div>
+  <p class="caption"><b>What carried over:</b> warm tinted ground <code>#eef0ea</code> with tonal cards, deep-olive filled CTAs at <b>lg radius</b>, soft tinted shadows, mixed-weight headline with one emphasized phrase, the <b>sanctioned eyebrow chips on every section</b> (the reference's deliberate device — with a fidelity check that they stay soft tonal pills), the floating avatar cluster, and the tabbed package selector → care-plan selector (the Phase-B novel component, shown built). Note the contact section — flagged in this entry as a missing variant for the whole pool.</p>
+  <div class="tokenline"><span><span class="sw" style="background:#eef0ea"></span>#eef0ea</span><span><span class="sw" style="background:#6b7257"></span>#6b7257</span><span><span class="sw" style="background:#3f4534"></span>#3f4534</span><span><span class="sw" style="background:#c4b89a"></span>#c4b89a</span><span>· modern-grotesque · lg · soft-shadow · eyebrow:every-section (sanctioned) · phase B</span></div>
 </div></section>
 
-<section><div class="wrap">
-  <div class="kicker">Why URL beats screenshot — same site, two runs</div>
-  <h2>What the probe <em>corrected</em></h2>
-  <div class="scores"><table>
-    <tr><th></th><th>Run 1 · screenshot only (passed 6×5/5!)</th><th>Run 2 · URL + computed-style probe</th></tr>
-    <tr><td>Display face</td><td class="v-bad">“Caslon or Garamond variant” — hallucinated serif</td><td class="v-good">Suisse Intl, grotesque — measured</td></tr>
-    <tr><td>Dark chrome</td><td class="v-bad">#2B3A2E “forest green” — read off a photograph</td><td class="v-good">#252525 near-black — the actual surface</td></tr>
-    <tr><td>Phantom token</td><td class="v-bad">oliveAccent #4A5E3A invented from the hero photo</td><td class="v-good">gone · amber measured #945c26</td></tr>
-    <tr><td>Novel components</td><td>2 found</td><td class="v-good">4 found</td></tr>
-    <tr><td>Result</td><td>PASS iter 2 · $0.43 · J2 color 4/5</td><td class="v-good">PASS iter 2 · $0.53 · J2 5/5 · M7 ✓</td></tr>
-  </table></div>
+<!-- ═══════════════════ 03 AURELIA ═══════════════════ -->
+<section class="case" id="aurelia"><div class="wrap">
+  <div class="kicker">03 · aurelia-dark-luxe — hand-built pressure-test fixture (no real source)</div>
+  <h2>Dark-luxe atelier → <em>cosmetic dentistry</em></h2>
+  <div class="pair">
+    <div>
+      <div class="pane-label"><span class="t" style="color:var(--ink-soft)">Before — the imagined source</span><span class="d">med-spa register · rendered from the same entry</span></div>
+      <div class="pane"><div class="au">
+        <nav><div class="wm">Aurelia</div><div class="links"><span>Treatments</span><span>The Atelier</span><span>Journal</span><a class="bg" href="#">Reserve</a></div></nav>
+        <div class="hero"><span class="ph">image — scrimmed editorial still</span><h3>The artistry of skin, practiced quietly</h3><p>Precise, unhurried aesthetic treatments in a private atelier — measured in results, never in noise.</p><a class="bg" href="#">Begin a consultation</a></div>
+        <div class="sec"><h4>The treatment index</h4>
+          <div class="num"><span class="n">01</span><div><b>Signature Renewal</b><small>A measured course of resurfacing and repair.</small></div><span class="go">→</span></div>
+          <div class="num"><span class="n">02</span><div><b>Contour Refinement</b><small>Subtle structure, architectural restraint.</small></div><span class="go">→</span></div>
+          <div class="num"><span class="n">03</span><div><b>The Quiet Glow</b><small>Luminosity without announcement.</small></div><span class="go">→</span></div>
+        </div>
+        <div class="quote"><p>Luxury is the absence of effort — and the evidence of care.</p><cite>The Atelier</cite></div>
+        <div class="sec"><h4>Private studies</h4><div class="cards">
+          <div class="lc"><div class="img"></div><b>The Consultation</b><small>An hour of attention before any recommendation is made.</small></div>
+          <div class="lc"><div class="img"></div><b>The Follow-through</b><small>Outcomes reviewed at thirty, sixty, ninety days.</small></div>
+        </div></div>
+        <div class="cta"><h4>Reserve a private consultation</h4><p>Limited appointments, by design.</p><a class="bg" href="#">Reserve</a></div>
+        <footer><span class="wm">Aurelia</span><span>fixture · rendered from aurelia-dark-luxe entry.json</span></footer>
+      </div></div>
+    </div>
+    <div>
+      <div class="pane-label"><span class="t" style="color:var(--accent)">After — Aurelia Dental Atelier</span><span class="d">same entry · cosmetic-dentistry fixture content</span></div>
+      <div class="pane"><div class="au">
+        <nav><div class="wm">Aurelia Dental</div><div class="links"><span>Treatments</span><span>The Practice</span><span>Results</span><a class="bg" href="#">Reserve</a></div></nav>
+        <div class="hero"><span class="ph">image — scrimmed clinical still</span><h3>The artistry of a quiet smile</h3><p>Precise, unhurried cosmetic dentistry in a private practice — measured in results, never in noise.</p><a class="bg" href="#">Begin a consultation</a></div>
+        <div class="sec"><h4>The treatment index</h4>
+          <div class="num"><span class="n">01</span><div><b>Signature Whitening</b><small>A measured course of brightening and enamel care.</small></div><span class="go">→</span></div>
+          <div class="num"><span class="n">02</span><div><b>Porcelain Refinement</b><small>Veneers with architectural restraint.</small></div><span class="go">→</span></div>
+          <div class="num"><span class="n">03</span><div><b>The Quiet Alignment</b><small>Discreet orthodontics without announcement.</small></div><span class="go">→</span></div>
+        </div>
+        <div class="quote"><p>A fine smile is the absence of effort — and the evidence of care.</p><cite>The Practice</cite></div>
+        <div class="sec"><h4>Private studies</h4><div class="cards">
+          <div class="lc"><div class="img"></div><b>The Consultation</b><small>An hour of attention before any treatment is proposed.</small></div>
+          <div class="lc"><div class="img"></div><b>The Follow-through</b><small>Outcomes reviewed at thirty, sixty, ninety days.</small></div>
+        </div></div>
+        <div class="cta"><h4>Reserve a private consultation</h4><p>Limited appointments, by design.</p><a class="bg" href="#">Reserve</a></div>
+        <footer><span class="wm">Aurelia Dental</span><span>fixture · rendered from aurelia-dark-luxe entry.json</span></footer>
+      </div></div>
+    </div>
+  </div>
+  <p class="caption"><b>What carried over:</b> near-black ground <code>#0a0a0c</code> with elevated <code>#1a1a1e</code> cards in <b>hairline-glow</b> borders, champagne accent used sparingly, light-weight (300) display with no kickers anywhere (eyebrow:<b>none</b> — fidelity check bans them), letterspaced small-caps labels, ghost-outline CTAs at sharp-sm radius, gold-numeral numbered list with hairline dividers, the single restrained gradient sweep behind the hero (<b>sanctioned</b> <code>gradient-accent</code> — linked to its token gap), and the one-row maximal-restraint footer. This is the entry that proves dark themes ride the same contract — and why <code>needs-dark-support</code> is a typed gap.</p>
+  <div class="tokenline"><span><span class="sw" style="background:#0a0a0c"></span>#0a0a0c</span><span><span class="sw" style="background:#1a1a1e"></span>#1a1a1e</span><span><span class="sw" style="background:#c9a96e"></span>#c9a96e</span><span><span class="sw" style="background:#e8d6a8"></span>#e8d6a8</span><span>· geometric-clean · sharp-sm · layered glow · eyebrow:none · 5 sanctions · theme+token gaps</span></div>
 </div></section>
 
-<section><div class="wrap">
+<section class="case"><div class="wrap">
   <div class="kicker">Roadmap</div>
-  <h2>What turns this mock into a <em>build</em></h2>
+  <h2>What turns these mocks into <em>builds</em></h2>
   <ul class="todo">
-    <li><span class="n">1</span><b>Build-time selection</b>&nbsp;— practice mood → entry → tokens/variants/audit into the builder (automates the right-hand pane)</li>
+    <li><span class="n">1</span><b>Build-time selection</b>&nbsp;— practice mood → entry → tokens/variants/audit into the builder (automates every right-hand pane above)</li>
     <li><span class="n">2</span>Catalog storage in <code>_memory/library</code> + director sampling</li>
-    <li><span class="n">3</span>Preview gallery — every entry × fixture practice (this page, generated, for the whole catalog)</li>
-    <li><span class="n">4</span>Phase-B variant minting — crop → recreate section → adapt to tokens (the 4 novel components above)</li>
+    <li><span class="n">3</span>Preview gallery — this page, generated, for every entry × fixture practice</li>
+    <li><span class="n">4</span>Phase-B variant minting — crop → recreate section → adapt to tokens (tile browser, package tabs, comparison row, contact cards…)</li>
     <li><span class="n">5</span>Hardening — layout-skeleton probe, judge calibration, batch ingestion</li>
   </ul>
 </div></section>
 
 <footer class="page"><div class="wrap">
-  Branch <code>design-catalog-schema</code> · entry: <code>examples/aesop-apothecary-warm.json</code> · source capture: <code>test-refs/aesop.jpeg</code> · June 10, 2026
+  Branch <code>design-catalog-schema</code> · entries: <code>examples/*.json</code> · adaptations hand-rendered from entry tokens — automating them is roadmap #1/#3 · June 10, 2026
 </div></footer>
 
 </body>
