@@ -96,11 +96,11 @@ async function handleApi(url, env) {
 async function serveUI(env) {
   // Fetch everything in parallel before rendering
   let stats = { totalBuilds: 0, successRate: 0, practices: 0, weekRuns: 0, sourced: 0 };
-  let runs = [], accounts = [], practices = [], builds = [], sourced = [];
+  let runs = [], accounts = [], practices = [], builds = [], sourced = [], audits = [];
   let dbError = null;
   try {
     const [totals, successes, practiceCount, week, sourcedCount,
-           runsRows, accountRows, practiceRows, buildRows, sourcedRows] =
+           runsRows, accountRows, practiceRows, buildRows, sourcedRows, auditRows] =
       await Promise.all([
         env.DB.prepare('SELECT COUNT(*) AS n FROM runs').first(),
         env.DB.prepare('SELECT COUNT(*) AS n FROM runs WHERE build_success = 1').first(),
@@ -134,6 +134,10 @@ async function serveUI(env) {
            lighthouse_performance, lighthouse_accessibility, lighthouse_seo, sourced_at
            FROM sourced_practices
            ORDER BY weakness_score DESC NULLS LAST LIMIT 1000`).all(),
+        env.DB.prepare(`SELECT id, slug, status, website_url, source, contact_email,
+           total_checks, passed, critical, warnings, mobile_score, desktop_score,
+           gbp_reviews, gbp_rating, audit_report_url, error_detail, completed_at, date_added
+           FROM audits ORDER BY date_added DESC LIMIT 200`).all(),
       ]);
     stats = {
       totalBuilds: totals?.n ?? 0,
@@ -147,6 +151,7 @@ async function serveUI(env) {
     practices = practiceRows?.results ?? [];
     builds    = buildRows?.results    ?? [];
     sourced   = sourcedRows?.results  ?? [];
+    audits    = auditRows?.results    ?? [];
   } catch (e) {
     console.error('serveUI D1 error:', e.message);
     dbError = e.message;
@@ -598,27 +603,29 @@ async function serveUI(env) {
 ${dbError ? `<div style="background:var(--danger-bg);color:var(--danger-text);padding:10px 24px;font-size:13px;font-weight:500">Database error: ${dbError.replace(/</g, '&lt;')}</div>` : ''}
 
 <div class="stats-bar">
+  <div class="stat"><div class="stat-val">${stats.sourced}</div><div class="stat-label">Sourced</div></div>
   <div class="stat"><div class="stat-val">${stats.totalBuilds}</div><div class="stat-label">Total Builds</div></div>
   <div class="stat"><div class="stat-val">${stats.successRate}%</div><div class="stat-label">Success Rate</div></div>
-  <div class="stat"><div class="stat-val">${stats.practices}</div><div class="stat-label">Practices</div></div>
   <div class="stat"><div class="stat-val">${stats.weekRuns}</div><div class="stat-label">This Week</div></div>
-  <div class="stat"><div class="stat-val">${stats.sourced}</div><div class="stat-label">Sourced</div></div>
+  <div class="stat"><div class="stat-val">${stats.practices}</div><div class="stat-label">Design Profiles</div></div>
 </div>
 
 <div class="tabs">
-  <button class="tab-btn active" data-tab="runs">Runs</button>
-  <button class="tab-btn" data-tab="practices">Practices</button>
+  <button class="tab-btn active" data-tab="sourced">Sourced</button>
   <button class="tab-btn" data-tab="accounts">Accounts</button>
+  <button class="tab-btn" data-tab="audits">Audits</button>
   <button class="tab-btn" data-tab="builds">Builds</button>
-  <button class="tab-btn" data-tab="sourced">Sourced</button>
+  <button class="tab-btn" data-tab="runs">Runs</button>
+  <button class="tab-btn" data-tab="practices">Design Library</button>
 </div>
 
 <div class="content">
-  <div class="panel active" id="tab-runs"></div>
-  <div class="panel" id="tab-practices"></div>
+  <div class="panel active" id="tab-sourced"></div>
   <div class="panel" id="tab-accounts"></div>
+  <div class="panel" id="tab-audits"></div>
   <div class="panel" id="tab-builds"></div>
-  <div class="panel" id="tab-sourced"></div>
+  <div class="panel" id="tab-runs"></div>
+  <div class="panel" id="tab-practices"></div>
 </div>
 
 <script>
@@ -630,6 +637,7 @@ const PRACTICES = ${safeJson(practices)};
 const ACCOUNTS  = ${safeJson(accounts)};
 const BUILDS    = ${safeJson(builds)};
 const SOURCED   = ${safeJson(sourced)};
+const AUDITS    = ${safeJson(audits)};
 
 // ---------------------------------------------------------------------------
 // Helpers (NOTE: no backslash escapes allowed — this lives in a server template)
@@ -747,6 +755,22 @@ const COLS = {
     { key: 'created_at',      label: 'Created',        on: false, nowrap: true, html: function (r) { return dimDate(r.created_at); } },
     { key: 'last_build_at',   label: 'Last Build',     on: true,  nowrap: true, html: function (r) { return dimDate(r.last_build_at); } },
   ],
+  audits: [
+    { key: 'date_added',       label: 'Date',      on: true,  nowrap: true, html: function (r) { return dimDate(r.date_added); } },
+    { key: 'slug',             label: 'Slug',      on: true,  primary: true, html: function (r) { return serif(r.slug); } },
+    { key: 'status',           label: 'Status',    on: true,  html: function (r) { return lcBadge(r.status); } },
+    { key: 'website_url',      label: 'Site',      on: true,  html: function (r) { return siteLink(r.website_url); } },
+    { key: 'checks',           label: 'Checks',    on: true,  nowrap: true, html: function (r) { return (r.passed != null && r.total_checks != null) ? mono(esc(r.passed + ' / ' + r.total_checks)) : dim('—'); } },
+    { key: 'critical',         label: 'Critical',  on: true,  html: function (r) { return r.critical != null ? (r.critical > 0 ? '<span class="lc-badge" style="background:var(--danger-bg);color:var(--danger-text)">' + esc(r.critical) + '</span>' : mono('0')) : dim('—'); } },
+    { key: 'warnings',         label: 'Warnings',  on: false, html: function (r) { return monoNum(r.warnings); } },
+    { key: 'scores',           label: 'Scores',    on: true,  nowrap: true, html: function (r) { return (r.mobile_score != null || r.desktop_score != null) ? mono(esc((r.mobile_score != null ? r.mobile_score : '–') + ' / ' + (r.desktop_score != null ? r.desktop_score : '–'))) : dim('—'); } },
+    { key: 'gbp',              label: 'GBP',       on: false, nowrap: true, html: function (r) { return r.gbp_rating != null ? mono(esc(r.gbp_rating)) + ' ' + dim('(' + (r.gbp_reviews != null ? r.gbp_reviews : 0) + ')') : dim('—'); } },
+    { key: 'source',           label: 'Source',    on: false, html: function (r) { return dimText(r.source); } },
+    { key: 'contact_email',    label: 'Email',     on: false, html: function (r) { return dimText(r.contact_email); } },
+    { key: 'audit_report_url', label: 'Report',    on: true,  html: function (r) { return namedLink(r.audit_report_url, 'Report'); } },
+    { key: 'error_detail',     label: 'Error',     on: false, html: function (r) { return dimText(r.error_detail); } },
+    { key: 'completed_at',     label: 'Completed', on: false, nowrap: true, html: function (r) { return dimDate(r.completed_at); } },
+  ],
   builds: [
     { key: 'date_added',        label: 'Date',       on: true,  nowrap: true, html: function (r) { return dimDate(r.date_added); } },
     { key: 'build_slug',        label: 'Slug',       on: true,  primary: true, html: function (r) { return serif(r.build_slug); } },
@@ -790,15 +814,16 @@ const COLS = {
   ],
 };
 
-const DATA = { runs: RUNS, practices: PRACTICES, accounts: ACCOUNTS, builds: BUILDS, sourced: SOURCED };
+const DATA = { runs: RUNS, practices: PRACTICES, accounts: ACCOUNTS, builds: BUILDS, sourced: SOURCED, audits: AUDITS };
 const EMPTY = {
   runs: 'No runs yet.',
-  practices: 'No practices yet.',
-  accounts: 'No accounts yet.',
+  practices: 'No design profiles yet.',
+  accounts: 'No accounts yet — promote a sourced practice to create one.',
+  audits: 'No audits yet — rows appear when audit-site.js runs.',
   builds: 'No builds yet — rows appear when the pipeline creates preview builds.',
   sourced: 'No sourced practices match.',
 };
-const queries = { runs: '', practices: '', accounts: '', builds: '', sourced: '' };
+const queries = { runs: '', practices: '', accounts: '', builds: '', sourced: '', audits: '' };
 
 // ---------------------------------------------------------------------------
 // Preferences (view + visible columns) — persisted in localStorage
@@ -967,7 +992,7 @@ document.querySelectorAll('.tab-btn').forEach(function (btn) {
   });
 });
 
-['runs', 'practices', 'accounts', 'builds', 'sourced'].forEach(function (t) {
+['sourced', 'accounts', 'audits', 'builds', 'runs', 'practices'].forEach(function (t) {
   buildPanel(t);
   render(t);
 });
