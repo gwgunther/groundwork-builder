@@ -103,7 +103,14 @@ const ALL_SECTIONS      = ['hero', 'doctor-intro', 'stat-bar', 'services', 'gall
  */
 export async function runCreativeDirector(merged, design, opts = {}, brandBrief = null, audit = null) {
   const start = Date.now();
-  const [library, dentalIA] = await Promise.all([sampleLibrary(), loadDentalIA()]);
+  const moodHint = brandBrief?.mood
+    || (Array.isArray(design?.mood) ? design.mood.join(', ') : design?.mood)
+    || merged?.currentDesign?.mood?.join?.(', ')
+    || '';
+  const [library, dentalIA] = await Promise.all([
+    sampleLibrary({ moodHint }),
+    loadDentalIA(),
+  ]);
   const dataSignals = summarizeSignals(merged);
   const prompt = await buildPrompt({ merged, design, library, dataSignals, brandBrief, audit, dentalIA });
 

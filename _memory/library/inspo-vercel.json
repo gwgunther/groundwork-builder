@@ -1,0 +1,55 @@
+{
+  "palette": {
+    "primary": "#000000",
+    "secondary": "#171717",
+    "accent": "#0070F3",
+    "background": "#FAFAFA",
+    "mood": "monochrome precise"
+  },
+  "type": {
+    "display": "Geist",
+    "body": "Geist",
+    "scale": "standard",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "minimal-brutalist",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "poster",
+    "imageTreatment": "none"
+  },
+  "sections": [
+    "hero",
+    "services",
+    "doctor-intro",
+    "cta"
+  ],
+  "cards": "ghost",
+  "motion": "subtle",
+  "radius": "sm",
+  "fontPair": "Geist/Geist",
+  "adjectives": [
+    "monochrome",
+    "confident",
+    "technical-premium",
+    "sparse",
+    "sharp"
+  ],
+  "slug": "inspo-vercel",
+  "tag": "inspo",
+  "source": "https://getdesign.md/vercel/design-md",
+  "captured": "2026-06-09",
+  "note": "inspo from awesome-design-md / Vercel",
+  "dentalMoods": [
+    "modern-premium"
+  ],
+  "borrowableTraits": [
+    "black-white precision",
+    "monochrome CTA band",
+    "tight typographic hierarchy"
+  ],
+  "avoidPatterns": []
+}

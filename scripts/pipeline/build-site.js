@@ -40,13 +40,14 @@ import { scrapeReviews } from './lib/scrape-reviews.js';
 import { analyzeImages } from './lib/ai-images.js';
 import { writeDesignDna } from './lib/injector.js';
 // Clean pipeline (Step 4–7): brand-dna, content-plan, assemble-layout, image binding.
-import { defineBrandDna } from './lib/brand/brand-dna.js';
+import { defineBrandDna, fallbackBrandDnaFromMerged } from './lib/brand/brand-dna.js';
 import { applyBrandToMerged } from './lib/assemble/brand-tokens.js';
 import { planContent } from './lib/content/plan-content.js';
 import { assembleLayout } from './lib/assemble/assemble-layout.js';
 import { bindingToImageRoles } from './lib/assemble/binding-to-image-roles.js';
 import { distillDesign } from './lib/distill-design.js';
 import { runDesignerAgent, buildAstro } from './lib/designer-agent.js';
+import { loadReferenceEntry, applyReferenceToBrandDna, applyReferenceToDirector } from './lib/reference-entry.js';
 import { generateAgentFiles } from './lib/generate-agent-files.js';
 
 // ---------------------------------------------------------------------------
@@ -134,6 +135,12 @@ function parseArgs() {
       case '--agent-iterations':
         opts.agentIterations = args[++i];
         break;
+      case '--reference':
+        // Design-catalog entry id (docs/design-catalog/examples/<id>.json) or
+        // a path to an entry. Reference owns structure (variant map, atoms,
+        // type character, audit gates); practice keeps identity (colors, content).
+        opts.reference = args[++i];
+        break;
       case '--include-debug-pages':
         // Ship internal debug pages (currently /missing) into the deployed
         // dist/. By default these are operator-only and live in _pipeline/.
@@ -194,6 +201,9 @@ Options:
   --skip-images      Skip image downloading
   --skip-audit       Skip AI site audit
   --skip-build       Skip build validation
+  --reference <id>   Build with a design-catalog entry (docs/design-catalog/examples/<id>.json
+                     or a path). Entry owns variant map + atoms + type bucket + audit gates;
+                     practice keeps its colors and content.
   --dry-run          Scrape + merge only, print JSON
   --verbose          Detailed output
   --help             Show this help message
@@ -211,6 +221,14 @@ Examples:
 
 async function main() {
   const opts = parseArgs();
+
+  // --reference: load + validate the catalog entry up front — fail fast
+  // (schema problems or unrenderable themes) before any API spend.
+  let referenceEntry = null;
+  if (opts.reference) {
+    referenceEntry = await loadReferenceEntry(opts.reference);
+    console.log(`[reference] ${referenceEntry.id} — variants locked, audit gates active (${(referenceEntry.audit?.fidelityChecks || []).length} fidelity checks, ${(referenceEntry.audit?.sanctionedPatterns || []).length} sanctioned patterns)`);
+  }
   const startTime = Date.now();
 
   console.log('');
@@ -496,8 +514,8 @@ async function main() {
 
   // Create run-scoped storage (GCS + local) and artifact writer
   const { createRunStorage, storageStatus } = await import('./lib/storage.js');
-  const clientSlug = (merged?.practice?.name || 'build')
-    .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'build';
+  // Canonical URL slug for runs/GCS — matches Airtable, CF Pages, clients/<slug>/
+  const clientSlug = slug;
   const runStorage = createRunStorage(clientSlug);
   const artifacts  = createArtifactWriter(outputDir, runStorage);
 
@@ -607,16 +625,26 @@ async function main() {
     const brandStart = Date.now();
     try {
       brandDna = await defineBrandDna(merged);
-      if (brandDna) {
-        applyBrandToMerged(merged, brandDna);
-        stats.hasDesign = true;
-        await artifacts.writeStep('04-brand-dna', { input: { url: opts.url }, output: brandDna }, brandStart);
-        console.log(`  Palette: ${brandDna.color?.primary} / ${brandDna.color?.secondary} · Fonts: ${brandDna.typography?.headingFont} / ${brandDna.typography?.bodyFont}`);
-      } else {
-        console.warn('  brand-dna returned null — keeping scraped brand.');
-      }
     } catch (err) {
       console.warn(`  Brand DNA failed: ${err.message}`);
+    }
+    if (!brandDna) {
+      brandDna = fallbackBrandDnaFromMerged(merged);
+      console.warn('  brand-dna unavailable — using scraped-brand fallback palette.');
+    }
+    if (brandDna && referenceEntry) {
+      // Catalog reference: structure + type character from the entry; the
+      // practice's elevated colors stay (reference owns structure, practice
+      // owns identity — docs/design-catalog/SCHEMA.md).
+      const seedKey = merged.practice?.name || merged.practice?.domain || '';
+      applyReferenceToBrandDna(brandDna, referenceEntry, seedKey);
+      console.log(`  Reference: ${referenceEntry.id} → shape/elevation/border + type bucket ${brandDna.typography?._fontBucket}`);
+    }
+    if (brandDna) {
+      applyBrandToMerged(merged, brandDna);
+      stats.hasDesign = true;
+      await artifacts.writeStep('04-brand-dna', { input: { url: opts.url, reference: referenceEntry?.id || null }, output: brandDna }, brandStart);
+      console.log(`  Palette: ${brandDna.color?.primary} / ${brandDna.color?.secondary} · Fonts: ${brandDna.typography?.headingFont} / ${brandDna.typography?.bodyFont}`);
     }
     console.log('');
   } else if (opts.skipDesign) {
@@ -769,6 +797,13 @@ async function main() {
       const res = await assembleLayout({ merged, contentPlan, brandDna });
       director = { dna: res.dna, _meta: res.meta || {} };
       binding = res.binding;
+      if (referenceEntry) {
+        // The entry's hand-curated variant map replaces the archetype bundle
+        // ("each reference is its own archetype") — section order stays
+        // content-plan owned.
+        applyReferenceToDirector(director.dna, referenceEntry);
+        console.log(`  Reference:  variant map ← ${referenceEntry.id} (${Object.values(referenceEntry.layout.variants).join(', ')})`);
+      }
       console.log(`  Archetype:  ${res.dna.archetype}`);
       console.log(`  Sections:   ${res.dna.sectionOrder.join(' → ')}`);
       await artifacts.writeStep('05-assemble', {
@@ -852,6 +887,23 @@ async function main() {
     }
   }
 
+  // 3c-ter — Ensure image alt text before download (a11y)
+  if (!opts.skipImages && merged?.images) {
+    try {
+      const { ensureImageAlts } = await import('./lib/ensure-image-alts.js');
+      const altCtx = {
+        practiceName: merged.practice?.name,
+        city: merged.address?.city || merged.practice?.city,
+      };
+      const altStats = ensureImageAlts(merged.images, altCtx);
+      if (altStats.filled > 0) {
+        console.log(`  Alt text: filled ${altStats.filled} missing description(s).`);
+      }
+    } catch (err) {
+      console.warn(`  Alt text enrichment failed: ${err.message}`);
+    }
+  }
+
   // 3d — Download images (unless --skip-images)
   if (!opts.skipImages) {
     console.log('  Downloading images...');
@@ -874,12 +926,38 @@ async function main() {
       const baseUrl = merged.practice?.domain
         ? (/^https?:\/\//i.test(merged.practice.domain) ? merged.practice.domain : `https://${merged.practice.domain}`)
         : null;
-      const roles = bindingToImageRoles(binding, sidecar, baseUrl);
+      const altCtx = {
+        practiceName: merged.practice?.name,
+        city: merged.address?.city || merged.practice?.city,
+      };
+      const roles = bindingToImageRoles(binding, sidecar, baseUrl, altCtx);
       wf(resolve(outputDir, 'public/images/image-roles.json'), JSON.stringify(roles, null, 2));
-      console.log(`  Image roles: hero=${roles.hero ? '✓' : '✗'} portraits=${Object.keys(roles.doctorPortraits || {}).length} gallery=${(roles.gallery || []).length} servicePages=${Object.keys(roles.byPage || {}).length}`);
+      console.log(`  Image roles: hero=${roles.hero ? '✓' : '✗'} portraits=${Object.keys(roles.doctorPortraits || {}).length} gallery=${(roles.gallery || []).length} servicePages=${Object.keys(roles.byPage || {}).length} alts=${Object.keys(roles.alts || {}).length}`);
       await artifacts.writeStep('09-image-roles', { output: roles });
     } catch (err) {
       console.warn(`  Image-roles bridge failed: ${err.message}`);
+    }
+  }
+
+  // 3f — Pre-build a11y optimizations (gallery page + sidecar alt patch)
+  if (!opts.skipImages && stats.imagesDownloaded > 0) {
+    console.log('  Applying a11y optimizations...');
+    try {
+      const { runA11yOptimize } = await import('./lib/a11y-optimize.js');
+      const a11yOpt = await runA11yOptimize(outputDir, {
+        practice: {
+          name: merged.practice?.name,
+          city: merged.address?.city || merged.practice?.city,
+        },
+      });
+      if (a11yOpt.sidecarFilled > 0) {
+        console.log(`  Sidecar alts: filled ${a11yOpt.sidecarFilled} missing.`);
+      }
+      if (a11yOpt.galleryInjected) {
+        console.log(`  Gallery page: injected ${a11yOpt.galleryCount} image(s) with alt text.`);
+      }
+    } catch (err) {
+      console.warn(`  A11y optimize failed: ${err.message}`);
     }
   }
 
@@ -1059,6 +1137,9 @@ async function main() {
         practice,
         maxIterations: parseInt(opts.agentIterations || '6', 10),
         buildFn: buildAstro,
+        // Catalog builds: auditors become fidelity-QA for the reference —
+        // sanctioned taste patterns suppressed, fidelityChecks gate the loop.
+        referenceAudit: referenceEntry?.audit || null,
       });
       stats.agentGatePass = agentResult.gate_pass;
       stats.agentIterations = agentResult.iterations;

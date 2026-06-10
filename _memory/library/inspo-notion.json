@@ -1,0 +1,57 @@
+{
+  "palette": {
+    "primary": "#37352F",
+    "secondary": "#2F2F2F",
+    "accent": "#D9730D",
+    "background": "#FBFBFA",
+    "mood": "warm minimal"
+  },
+  "type": {
+    "display": "Notion Serif",
+    "body": "Inter",
+    "scale": "editorial",
+    "contrast": "medium"
+  },
+  "layout": {
+    "archetype": "warm-editorial",
+    "density": "airy",
+    "grid": "asymmetric"
+  },
+  "hero": {
+    "variant": "asymmetric-left",
+    "imageTreatment": "editorial-muted"
+  },
+  "sections": [
+    "hero",
+    "services",
+    "doctor-intro",
+    "reviews",
+    "cta"
+  ],
+  "cards": "ghost",
+  "motion": "subtle",
+  "radius": "sm",
+  "fontPair": "Notion Serif/Inter",
+  "adjectives": [
+    "warm",
+    "editorial",
+    "approachable",
+    "paper-soft",
+    "readable"
+  ],
+  "slug": "inspo-notion",
+  "tag": "inspo",
+  "source": "https://getdesign.md/notion/design-md",
+  "captured": "2026-06-09",
+  "note": "inspo from awesome-design-md / Notion",
+  "dentalMoods": [
+    "warm-neighborhood",
+    "soft-gentle"
+  ],
+  "borrowableTraits": [
+    "warm serif headline rhythm",
+    "soft off-white section bands",
+    "generous editorial whitespace"
+  ],
+  "avoidPatterns": []
+}

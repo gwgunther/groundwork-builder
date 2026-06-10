@@ -114,12 +114,16 @@ export async function publish(opts = {}) {
   // Capture pushTime BEFORE the push so waitForCfDeploy can identify
   // OUR deployment (any deployment.created_on > pushTime).
   const pushTime = Date.now();
+  const previewHttps = `https://${resolvedPreviewUrl}`;
+  let pushedNewDeploy = false;
   try {
-    gitCommitPush(repoRoot, `feat: add ${slug} client site`, [
+    pushedNewDeploy = gitCommitPush(repoRoot, `feat: add ${slug} client site`, [
       `clients/${slug}`,
     ]);
-    results.gitBuilder = 'pushed';
-    console.log(`  ✓ Monorepo pushed → CF Pages auto-deploying ${slug}`);
+    if (pushedNewDeploy) {
+      results.gitBuilder = 'pushed';
+      console.log(`  ✓ Monorepo pushed → CF Pages auto-deploying ${slug}`);
+    }
   } catch (err) {
     console.warn(`  ⚠ Monorepo push failed: ${err.message}`);
   }
@@ -128,15 +132,26 @@ export async function publish(opts = {}) {
   // Polls the deployments endpoint directly rather than probing the URL —
   // avoids the DNS/SSL/522-cache lag that caused earlier runs to time out
   // even after the deploy was actually live. Detects failures immediately.
+  // When git had nothing new to commit, skip the 15-min deploy poll and
+  // verify the existing preview URL instead (re-publish / gate re-check).
   let previewLive = false;
   try {
-    previewLive = await waitForCfDeploy({
-      accountId: process.env.CLOUDFLARE_ACCOUNT_ID,
-      apiToken:  process.env.CLOUDFLARE_API_TOKEN,
-      slug,
-      url:       `https://${resolvedPreviewUrl}`,
-      pushTime,
-    });
+    if (!pushedNewDeploy) {
+      console.log(`  No new monorepo deploy — checking if preview is already live...`);
+      previewLive = await verifyUrl(previewHttps);
+    } else {
+      previewLive = await waitForCfDeploy({
+        accountId: process.env.CLOUDFLARE_ACCOUNT_ID,
+        apiToken:  process.env.CLOUDFLARE_API_TOKEN,
+        slug,
+        url:       previewHttps,
+        pushTime,
+      });
+    }
+    if (!previewLive) {
+      console.log(`  Deploy wait missed — final HTTP check on ${previewHttps}...`);
+      previewLive = await verifyUrl(previewHttps);
+    }
     if (previewLive) {
       console.log(`  ✓ Preview live — proceeding with PageSpeed + rescan`);
     } else {
@@ -219,7 +234,26 @@ export async function publish(opts = {}) {
   }
 
   // ── 5b. Ship gates (PageSpeed + axe + Lighthouse a11y) ──
-  const a11yReport = await loadA11yArtifact(pipelineDir);
+  let a11yReport = await loadA11yArtifact(pipelineDir);
+  // Builds that finished in a sandbox often skip axe (Playwright binary missing).
+  // Re-run against dist/ at publish time when the preview is live.
+  if ((!a11yReport || a11yReport.pageCount === 0) && existsSync(resolve(outputDir, 'dist', 'index.html'))) {
+    try {
+      console.log('  Running axe-core audit on built dist/ (artifact missing from build)...');
+      const { auditA11y } = await import('./a11y-audit.js');
+      a11yReport = await auditA11y(outputDir);
+      const { writeFile } = await import('node:fs/promises');
+      await writeFile(
+        resolve(pipelineDir, '11b-a11y-audit.json'),
+        JSON.stringify({ step: '11b-a11y-audit', timestamp: new Date().toISOString(), output: a11yReport }, null, 2),
+        'utf-8',
+      );
+      const c = a11yReport.byImpact || {};
+      console.log(`  ✓ axe-core — ${a11yReport.pageCount} page(s), critical=${c.critical || 0} serious=${c.serious || 0}`);
+    } catch (err) {
+      console.warn(`  ⚠ axe-core re-run failed: ${err.message}`);
+    }
+  }
   const gateResult = evaluateShipGates({
     mobilePerformance:      afterScores?.mobile ?? null,
     lighthouseAccessibility: afterScores?.accessibility ?? null,
@@ -354,7 +388,7 @@ export async function publish(opts = {}) {
     results.airtable = tracked.buildId;
     if (tracked.buildId) {
       const linked = tracked.sourceAuditId ? ` · Source Audit ${tracked.sourceAuditId}` : ' · no prior Audit found';
-      const status = tracked.blocked ? 'Blocked' : 'Pitched';
+      const status = tracked.blocked ? 'Failed' : 'Pitched';
       const lifecycle = tracked.blocked ? 'unchanged' : 'Pitched';
       console.log(`  ✓ Airtable: Build ${tracked.buildId} created (Account ${tracked.accountId}, Status: ${status}, Lifecycle: ${lifecycle}${linked})`);
     } else {
@@ -486,6 +520,7 @@ async function verifyUrl(url, { maxAttempts = 12, intervalMs = 5_000 } = {}) {
   return false;
 }
 
+/** @returns {boolean} true when a commit was pushed (new CF Pages deploy expected) */
 function gitCommitPush(repoPath, message, paths = []) {
   const addTargets = paths.length > 0 ? paths.join(' ') : '.';
   execSync(`git -C "${repoPath}" add ${addTargets}`, { stdio: 'pipe' });
@@ -494,11 +529,12 @@ function gitCommitPush(repoPath, message, paths = []) {
   const status = execSync(`git -C "${repoPath}" status --porcelain`, { stdio: 'pipe' }).toString().trim();
   if (!status) {
     console.log(`    (nothing new to commit in ${basename(repoPath)})`);
-    return;
+    return false;
   }
 
   execSync(`git -C "${repoPath}" commit -m "${message.replace(/"/g, '\\"')}"`, { stdio: 'pipe' });
   execSync(`git -C "${repoPath}" push`, { stdio: 'pipe' });
+  return true;
 }
 
 // ---------------------------------------------------------------------------
@@ -744,7 +780,7 @@ async function recordBuildRun({ slug, practiceUrl, resolvedPreviewUrl, pitchUrl,
     accountId,
     sourceAuditId,
     buildSlug:       slug,
-    status:          blocked ? 'Blocked' : 'Pitched',
+    status:          blocked ? 'Failed' : 'Pitched',
     websiteUrl:      practiceUrl,
     previewUrl:      `https://${resolvedPreviewUrl}`,
     pitchUrl:        blocked ? null : `https://${pitchUrl}`,

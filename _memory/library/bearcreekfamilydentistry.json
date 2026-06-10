@@ -1,0 +1,51 @@
+{
+  "palette": {
+    "primary": "#2a6b5e",
+    "secondary": "#3d8c7a",
+    "accent": "#c9a96e",
+    "background": "#f3f7f5",
+    "mood": "calm, trustworthy"
+  },
+  "type": {
+    "display": "Epilogue",
+    "body": "Public Sans",
+    "scale": "standard",
+    "contrast": "medium"
+  },
+  "layout": {
+    "archetype": "warm-editorial",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "asymmetric-right",
+    "imageTreatment": "warm-documentary"
+  },
+  "sections": [
+    "hero",
+    "doctor-intro",
+    "services",
+    "reviews",
+    "gallery",
+    "faq",
+    "stat-bar",
+    "cta"
+  ],
+  "cards": "soft-shadow",
+  "motion": "subtle",
+  "radius": "md",
+  "fontPair": "Epilogue/Public Sans",
+  "adjectives": [
+    "professional",
+    "approachable",
+    "warm",
+    "clinical-yet-human",
+    "family-focused",
+    "trustworthy"
+  ],
+  "slug": "bearcreekfamilydentistry",
+  "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/bearcreekfamilydentistry",
+  "tag": "own",
+  "captured": "2026-06-08",
+  "note": "auto-distilled at build time"
+}

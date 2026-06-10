@@ -97,7 +97,7 @@ export function analyzeLlmsTxtContent(content, llmsUrl = '') {
     issues.push(`Only ${linkCount} markdown link(s) — agents need linked key pages and services.`);
   }
 
-  if (!/^##\s+services/m.test(content) && !/^##\s+key pages/m.test(content)) {
+  if (!/^##\s+services/im.test(content) && !/^##\s+key pages/im.test(content)) {
     issues.push('No Services or Key pages section — agents cannot see what you offer.');
   }
 

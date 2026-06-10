@@ -1,0 +1,57 @@
+{
+  "palette": {
+    "primary": "#6B5B95",
+    "secondary": "#2D2D2D",
+    "accent": "#E8A87C",
+    "background": "#FDF8F3",
+    "mood": "soft organic"
+  },
+  "type": {
+    "display": "Fraunces",
+    "body": "DM Sans",
+    "scale": "editorial",
+    "contrast": "medium"
+  },
+  "layout": {
+    "archetype": "warm-editorial",
+    "density": "airy",
+    "grid": "asymmetric"
+  },
+  "hero": {
+    "variant": "asymmetric-right",
+    "imageTreatment": "warm-documentary"
+  },
+  "sections": [
+    "hero",
+    "doctor-intro",
+    "gallery",
+    "services",
+    "cta"
+  ],
+  "cards": "soft-shadow",
+  "motion": "subtle",
+  "radius": "lg",
+  "fontPair": "Fraunces/DM Sans",
+  "adjectives": [
+    "organic",
+    "soft",
+    "art-directed",
+    "warm",
+    "gentle"
+  ],
+  "slug": "inspo-clay",
+  "tag": "inspo",
+  "source": "https://getdesign.md/clay/design-md",
+  "captured": "2026-06-09",
+  "note": "inspo from awesome-design-md / Clay",
+  "dentalMoods": [
+    "soft-gentle",
+    "warm-neighborhood"
+  ],
+  "borrowableTraits": [
+    "organic shape accents",
+    "soft gradient backgrounds",
+    "art-directed asymmetric layout"
+  ],
+  "avoidPatterns": []
+}

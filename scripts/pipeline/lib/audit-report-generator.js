@@ -11,9 +11,12 @@
 
 import { writeFile, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { assembleAuditData, buildAgenticBrowsing } from './audit-data-assembler.js';
+import { assembleAuditData, buildAgenticBrowsing, buildLighthouseChecks } from './audit-data-assembler.js';
+import { buildFindingEvidenceRows, renderFindingEvidenceHtml } from './finding-evidence.js';
+import { LIGHTHOUSE_METRICS } from './metric-glossary.js';
 import { renderSalesAudit } from './sales-audit-renderer.js';
 import { renderBuildSpec } from './build-spec-renderer.js';
+import { previewScanCallout } from './preview-rescan.js';
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -96,9 +99,12 @@ function scoreLabel(score) {
 function buildDiffHero(diff) {
   if (!diff?.summary) return '';
   const { counts } = diff.summary;
-  const fixed     = counts.fixed || 0;
-  const stillIss  = counts['still-issue'] || 0;
-  const regressed = counts.regressed || 0;
+  const fixed        = counts.fixed || 0;
+  const stillIss     = counts['still-issue'] || 0;
+  const regressed    = counts.regressed || 0;
+  const previewLim   = counts['preview-limited'] || 0;
+  const notMeasured  = counts['not-measured'] || 0;
+  const deferred     = previewLim + notMeasured;
   // Green if the build cleaned everything up; amber if some issues remain;
   // red if anything regressed (rare — would mean the rebuild was worse).
   const accent = regressed > 0 ? '#C0392B' : stillIss > 0 ? '#C07A1A' : '#2E7D4F';
@@ -108,40 +114,63 @@ function buildDiffHero(diff) {
     ? `${fixed} fixed, but ${regressed} regressed in the rebuild.`
     : stillIss > 0
       ? `${fixed} fixed. ${stillIss} ${stillIss === 1 ? 'issue' : 'issues'} still need attention.`
-      : `All ${fixed} previously-failing checks are now passing.`;
+      : fixed > 0
+        ? `${fixed} previously-failing checks are now passing.`
+        : 'Before → after comparison on rebuilt preview.';
+
+  const subline = deferred > 0
+    ? `${deferred} check${deferred === 1 ? '' : 's'} deferred (preview-only or not measured) — see below.`
+    : '';
 
   return `
 <section class="growth-hero diff-hero" style="background:${bg};border-left:6px solid ${accent}">
   <div class="growth-hero-left">
     <div class="growth-hero-eyebrow">Before → After</div>
     <div class="growth-hero-headline" style="color:var(--ink)">${esc(headline)}</div>
+    ${subline ? `<div class="growth-hero-sub" style="font-size:13px;color:var(--text-dim);margin-top:8px;line-height:1.45">${esc(subline)}</div>` : ''}
   </div>
   <div class="growth-hero-right">
     <div class="growth-stat"><span class="growth-stat-num" style="color:var(--green)">${fixed}</span><span class="growth-stat-label">Fixed</span></div>
     <div class="growth-stat"><span class="growth-stat-num" style="color:var(--amber)">${stillIss}</span><span class="growth-stat-label">Still issue</span></div>
     <div class="growth-stat"><span class="growth-stat-num" style="color:var(--red)">${regressed}</span><span class="growth-stat-label">Regressed</span></div>
+    ${deferred > 0 ? `<div class="growth-stat"><span class="growth-stat-num" style="color:var(--text-dim)">${deferred}</span><span class="growth-stat-label">Deferred</span></div>` : ''}
   </div>
 </section>`;
 }
 
 function diffTransitionMeta(transition) {
   return {
-    fixed:         { label: 'Fixed',         color: 'var(--green)',  symbol: '✓' },
-    'still-issue': { label: 'Still issue',   color: 'var(--amber)',  symbol: '!' },
-    regressed:     { label: 'Regressed',     color: 'var(--red)',    symbol: '↓' },
-    unchanged:     { label: 'Still passing', color: 'var(--green)',  symbol: '✓' },
-    new:           { label: 'New finding',   color: 'var(--amber)',  symbol: '+' },
-    removed:       { label: 'Not re-scanned', color: 'var(--text-dim)', symbol: '—' },
+    fixed:             { label: 'Fixed',              color: 'var(--green)',     symbol: '✓' },
+    'still-issue':     { label: 'Still issue',        color: 'var(--amber)',     symbol: '!' },
+    regressed:         { label: 'Regressed',          color: 'var(--red)',       symbol: '↓' },
+    unchanged:         { label: 'Still passing',      color: 'var(--green)',     symbol: '✓' },
+    new:               { label: 'New finding',        color: 'var(--amber)',     symbol: '+' },
+    removed:           { label: 'Not re-scanned',     color: 'var(--text-dim)',  symbol: '—' },
+    'not-measured':    { label: 'Not measured',       color: 'var(--text-dim)',  symbol: '?' },
+    'preview-limited': { label: 'Preview / go-live',  color: 'var(--text-dim)',  symbol: '◇' },
   }[transition] || { label: transition, color: 'var(--text-dim)', symbol: '·' };
 }
 
-function buildDiffCard(d) {
+function buildDiffCard(d, productionDomain = '') {
   const meta = diffTransitionMeta(d.transition);
   const beforeDetail = d.before?.detail || '—';
-  const afterDetail  = d.after?.detail  || (d.transition === 'removed' ? 'Not re-scanned' : '—');
+  const afterDetail  = d.after?.detail
+    || (d.transition === 'removed' ? 'Not included in the after scan.' : '—');
   const fixedLine = d.transition === 'fixed' && d.fixed_copy
     ? `<div class="diff-fixed-line">${esc(d.fixed_copy)}</div>`
     : '';
+  const defaultNotMeasuredNote = d.transition === 'not-measured'
+    ? 'This check was not measured on the preview rescan (typically because PageSpeed did not run). Re-run with GOOGLE_PAGESPEED_API_KEY set for a full before/after comparison.'
+    : '';
+  const prod = productionDomain || 'your practice domain';
+  const defaultGoLiveNote = d.resolves_on_go_live && d.transition === 'preview-limited'
+    ? `Resolves at go-live when <strong>${esc(prod)}</strong> is connected to this site and Google Business Profile is updated to match.`
+    : '';
+  const previewNote = d.preview_note
+    ? `<div class="diff-preview-note"><strong>Preview note:</strong> ${esc(d.preview_note)}</div>`
+    : (defaultGoLiveNote || defaultNotMeasuredNote
+      ? `<div class="diff-preview-note">${defaultGoLiveNote || esc(defaultNotMeasuredNote)}</div>`
+      : '');
 
   return `
 <article class="diff-card diff-card-${d.transition}">
@@ -164,6 +193,7 @@ function buildDiffCard(d) {
       <div class="diff-side-detail">${esc(afterDetail)}</div>
     </div>
   </div>
+  ${previewNote}
   ${d.benefit ? `<div class="diff-card-benefit">Why this matters: ${esc(d.benefit)}</div>` : ''}
 </article>`;
 }
@@ -172,8 +202,9 @@ function buildDiffFindings(diff) {
   if (!diff?.diff?.length) {
     return `<div class="empty-state"><p>No diff data available.</p></div>`;
   }
+  const callout = `<div class="lighthouse-callout" style="margin-bottom:24px">${previewScanCallout(diff.productionDomain)}</div>`;
   // Order groups for narrative: wins first, then problems, then context.
-  const ORDER = ['fixed', 'regressed', 'still-issue', 'new', 'unchanged', 'removed'];
+  const ORDER = ['fixed', 'regressed', 'still-issue', 'preview-limited', 'not-measured', 'new', 'unchanged', 'removed'];
   const byTransition = {};
   for (const d of diff.diff) {
     (byTransition[d.transition] ||= []).push(d);
@@ -188,11 +219,11 @@ function buildDiffFindings(diff) {
 <section class="diff-group">
   <h3 class="diff-group-title" style="color:${meta.color}">${esc(meta.label)} (${items.length})</h3>
   <div class="diff-group-list">
-    ${items.map(buildDiffCard).join('\n')}
+    ${items.map(d => buildDiffCard(d, diff.productionDomain)).join('\n')}
   </div>
 </section>`);
   }
-  return groups.join('\n');
+  return callout + groups.join('\n');
 }
 
 function metricStatus(value, metric) {
@@ -471,6 +502,31 @@ function sharedCss() {
   .finding-pages-inline .pages-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim); margin-bottom: 4px; }
   .finding-pages-inline ul { list-style: none; display: flex; flex-direction: column; gap: 2px; }
   .finding-pages-inline li { font-family: var(--mono); font-size: 11px; padding: 2px 0; word-break: break-all; color: var(--ink); }
+
+  .finding-page-evidence { margin-top: 14px; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .finding-page-evidence summary { cursor: pointer; padding: 10px 14px; font-size: 12px; font-weight: 700; background: var(--surface-2); color: var(--sage-dark); list-style: none; }
+  .finding-page-evidence summary::-webkit-details-marker { display: none; }
+  .page-evidence-list { display: flex; flex-direction: column; }
+  .page-evidence-card { padding: 14px 16px; border-bottom: 1px solid var(--border); }
+  .page-evidence-card:last-child { border-bottom: none; }
+  .page-evidence-path { font-size: 12px; font-weight: 700; font-family: var(--mono); color: var(--sage-dark); text-decoration: none; display: inline-block; margin-bottom: 10px; }
+  .page-evidence-path:hover { text-decoration: underline; }
+  .page-evidence-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pe-side { border-radius: 6px; padding: 10px 12px; font-size: 12px; line-height: 1.5; }
+  .pe-side.pe-now { background: #FCF4E8; border: 1px solid #E8D4A8; }
+  .pe-side.pe-good { background: var(--sage-tint); border: 1px solid var(--sage); }
+  .pe-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; color: var(--text-dim); }
+  .pe-value { color: var(--ink); }
+  .pe-detail { margin-top: 6px; font-size: 11px; color: var(--text-dim); }
+  .page-evidence-foot { font-size: 11px; color: var(--text-dim); padding: 8px 14px; background: var(--surface-2); border-top: 1px solid var(--border); }
+  .finding-page-evidence .evidence-scroll { max-height: 280px; overflow-y: auto; }
+  .finding-page-evidence .evidence-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; font-family: var(--mono); font-size: 11.5px; border-bottom: 1px solid var(--border); }
+  .finding-page-evidence .evidence-row.head { background: var(--surface-2); position: sticky; top: 0; font-family: var(--font-ui); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-dim); }
+  .finding-page-evidence .evidence-row span { padding: 8px 12px; word-break: break-word; }
+  .finding-page-evidence .evidence-row .url { border-right: 1px solid var(--border); }
+  .finding-page-evidence .evidence-row .url a { color: var(--sage-dark); text-decoration: none; }
+  .finding-page-evidence .evidence-row .url a:hover { text-decoration: underline; }
+  @media (max-width: 700px) { .page-evidence-compare { grid-template-columns: 1fr; } }
   `;
 }
 
@@ -478,7 +534,7 @@ function sharedCss() {
 // Full report builder (audit-report.html)
 // ---------------------------------------------------------------------------
 
-function buildFullReport({ url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, findingsSummary = null, gbpMeta = null, diff = null, existingAgentic = null, agenticBrowsing = null }) {
+function buildFullReport({ url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, findingsSummary = null, gbpMeta = null, diff = null, existingAgentic = null, agenticBrowsing = null, bronze = null }) {
   const runDate = formatDate(new Date().toISOString());
   const mobile  = pagespeed?.mobile  || null;
   const desktop = pagespeed?.desktop || null;
@@ -490,7 +546,7 @@ function buildFullReport({ url, practiceName, pagespeed, techAudit, aiAudit, scr
     : buildCountsHero(findingsSummary, gbpMeta);
   const findingsTabContent = diffMode
     ? buildDiffFindings(diff)
-    : buildFindingsTab(techAudit);
+    : buildFindingsTab(techAudit, { bronze, scraped });
   const findingsTabLabel = diffMode ? 'Before → After' : 'What We Found';
   const findingsTabBadgeCount = diffMode ? diff.summary.counts.fixed : criticalCount;
   const findingsTabBadgeClass = diffMode ? 'badge-green' : 'badge';
@@ -560,8 +616,11 @@ ${sharedCss()}
 .diff-card-fixed { border-left: 4px solid var(--green); }
 .diff-card-regressed { border-left: 4px solid var(--red); }
 .diff-card-still-issue { border-left: 4px solid var(--amber); }
+.diff-card-preview-limited,
+.diff-card-not-measured { border-left: 4px solid var(--border); }
 .diff-card-new { border-left: 4px solid var(--amber); }
 .diff-card-unchanged { border-left: 4px solid var(--green); opacity: 0.7; }
+.diff-preview-note { font-size: 12px; line-height: 1.5; color: var(--text-dim); background: var(--surface-2); border-radius: var(--radius); padding: 10px 12px; margin-top: 10px; }
 .diff-card-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
 .diff-card-symbol { font-size: 18px; font-weight: 800; line-height: 1.2; }
 .diff-card-titles { flex: 1; }
@@ -602,6 +661,7 @@ ${sharedCss()}
 .metric-sublabel { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim); margin-bottom: 6px; }
 .metric-value { font-size: 22px; font-weight: 800; font-family: var(--mono); line-height: 1; }
 .metric-threshold { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+.metric-desc { font-size: 11px; line-height: 1.45; color: var(--text-dim); margin-top: 6px; }
 .source-note { font-size: 11px; color: var(--text-dim); font-style: italic; margin-top: 8px; }
 
 /* ── Agentic browsing tab ── */
@@ -609,7 +669,9 @@ ${sharedCss()}
 @media (max-width: 700px) { .agentic-status-grid { grid-template-columns: 1fr; } }
 .agentic-stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
 .agentic-stat-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim); margin-bottom: 6px; }
-.agentic-stat-value { font-size: 20px; font-weight: 800; font-family: var(--mono); }
+.agentic-stat-value { font-size: 20px; font-weight: 800; font-family: var(--mono); line-height: 1.1; }
+.agentic-stat-outof { font-size: 14px; font-weight: 600; color: var(--text-dim); }
+.agentic-stat-sublabel { font-size: 11px; line-height: 1.45; color: var(--text-dim); margin-top: 8px; }
 .agentic-headline { font-size: 14px; line-height: 1.55; padding: 14px 18px; border-radius: var(--radius); margin-bottom: 20px; }
 .agentic-headline.agentic-warn { background: #FCF4E8; border: 1px solid #E8D4A8; color: var(--amber); }
 .agentic-headline.agentic-ok { background: var(--sage-tint); border: 1px solid var(--sage); color: var(--sage-dark); }
@@ -621,6 +683,20 @@ ${sharedCss()}
 .agentic-details summary { cursor: pointer; padding: 10px 14px; font-size: 12px; font-weight: 700; background: var(--surface-2); }
 .agentic-pre { margin: 0; padding: 12px 14px; font-family: var(--mono); font-size: 11px; line-height: 1.45; white-space: pre-wrap; word-break: break-word; background: #FAFAF8; max-height: 240px; overflow: auto; }
 .agentic-pre-good { background: var(--sage-tint); }
+.agentic-checks { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 24px; }
+.agentic-checks-head { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 10px 14px; background: var(--surface-2); border-bottom: 1px solid var(--border); color: var(--text-dim); }
+.agentic-check-row { display: flex; gap: 14px; padding: 14px 16px; border-bottom: 1px solid var(--border); align-items: flex-start; }
+.agentic-check-row:last-child { border-bottom: none; }
+.agentic-check-badge { flex-shrink: 0; font-size: 10px; font-weight: 800; letter-spacing: 0.04em; padding: 4px 8px; border-radius: 4px; font-family: var(--mono); margin-top: 2px; }
+.agentic-check-badge.pass { background: var(--sage-tint); color: var(--sage-dark); border: 1px solid var(--sage); }
+.agentic-check-badge.fail { background: #FCE8E8; color: var(--red); border: 1px solid #E8B4B4; }
+.agentic-check-badge.na { background: var(--surface-2); color: var(--text-dim); border: 1px solid var(--border); }
+.agentic-check-badge.unknown { background: var(--surface-2); color: var(--text-dim); border: 1px solid var(--border); }
+.agentic-check-body { flex: 1; min-width: 0; }
+.agentic-check-title { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.agentic-check-summary { font-size: 12px; line-height: 1.5; color: var(--text-dim); margin-bottom: 6px; }
+.agentic-check-note { font-size: 12px; line-height: 1.5; color: var(--charcoal); padding: 8px 10px; background: var(--surface-2); border-radius: 4px; }
+.agentic-check-note.future { background: #F5F5F3; color: var(--text-dim); font-style: italic; }
 
 /* ── Technical Findings ── */
 .findings-summary { background: var(--charcoal); color: var(--on-dark); border-radius: var(--radius); padding: 16px 22px; margin-bottom: 24px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
@@ -929,22 +1005,29 @@ function buildMobileSpeedBreakdown(mobile) {
   if (!mobile) return '';
   const mMetrics = mobile.metrics || {};
   const metricDefs = [
-    { key: 'lcp', label: 'Time to See Your Page',     sublabel: 'LCP', threshold: 'Goal: under 2.5 sec' },
-    { key: 'fcp', label: 'Time to First Content',     sublabel: 'FCP', threshold: 'Goal: under 1.8 sec' },
-    { key: 'tbt', label: 'Page Responsiveness',       sublabel: 'TBT', threshold: 'Goal: under 200ms' },
-    { key: 'cls', label: 'Visual Stability',          sublabel: 'CLS — does content jump around', threshold: 'Goal: under 0.1' },
-    { key: 'si',  label: 'How Fast It Looks Loaded',  sublabel: 'SI',  threshold: 'Goal: under 3.4 sec' },
-    { key: 'tti', label: 'Time Until Fully Interactive', sublabel: 'TTI', threshold: 'Goal: under 3.8 sec' },
+    { key: 'lcp', label: 'Time to See Your Page' },
+    { key: 'fcp', label: 'Time to First Content' },
+    { key: 'tbt', label: 'Page Responsiveness' },
+    { key: 'cls', label: 'Visual Stability' },
+    { key: 'si',  label: 'How Fast It Looks Loaded' },
+    { key: 'tti', label: 'Time Until Fully Interactive' },
   ];
   const cards = metricDefs.map(m => {
+    const def    = LIGHTHOUSE_METRICS[m.key];
     const val    = mMetrics[m.key] ?? null;
     const status = metricStatus(val, m.key);
     const color  = { pass: 'var(--green)', warn: 'var(--amber)', fail: 'var(--red)', na: 'var(--text-dim)' }[status];
+    const threshold = def
+      ? `Goal: under ${def.thresholds.good}`
+      : '';
+    const sublabel = def ? `${def.name} (${def.acronym})` : m.key.toUpperCase();
+    const desc = def?.shortDesc || '';
     return `<div class="metric-card">
       <div class="metric-label">${esc(m.label)}</div>
-      <div class="metric-sublabel">${esc(m.sublabel)}</div>
+      <div class="metric-sublabel">${esc(sublabel)}</div>
       <div class="metric-value metric-status-${esc(status)}" style="color:${esc(color)}">${esc(formatMetric(val, m.key))}</div>
-      <div class="metric-threshold">${esc(m.threshold)}</div>
+      <div class="metric-threshold">${esc(threshold)}</div>
+      ${desc ? `<div class="metric-desc">${esc(desc)}</div>` : ''}
     </div>`;
   }).join('');
   return `
@@ -955,6 +1038,31 @@ function buildMobileSpeedBreakdown(mobile) {
 // ---------------------------------------------------------------------------
 // Tab: AI Agent Readiness (llms.txt + Lighthouse agentic-browsing)
 // ---------------------------------------------------------------------------
+
+function buildAgenticChecksList(checks = []) {
+  if (!checks.length) return '';
+
+  const badgeLabel = { pass: 'PASS', fail: 'FAIL', na: 'N/A', unknown: '—' };
+  const rows = checks.map(c => {
+    const noteClass = c.priority === 'future' && c.status !== 'fail' ? 'future' : '';
+    const note = c.note
+      ? `<div class="agentic-check-note ${noteClass}">${esc(c.note)}</div>`
+      : '';
+    return `<div class="agentic-check-row">
+      <div class="agentic-check-badge ${esc(c.status)}">${badgeLabel[c.status] || '—'}</div>
+      <div class="agentic-check-body">
+        <div class="agentic-check-title">${esc(c.title)}</div>
+        <div class="agentic-check-summary">${esc(c.summary)}</div>
+        ${note}
+      </div>
+    </div>`;
+  }).join('');
+
+  return `<div class="agentic-checks">
+    <div class="agentic-checks-head">All Lighthouse agentic checks (${checks.length})</div>
+    ${rows}
+  </div>`;
+}
 
 function buildAgenticTab(agentic, techAudit) {
   if (!agentic && !techAudit) {
@@ -1000,6 +1108,19 @@ function buildAgenticTab(agentic, techAudit) {
     ? `<div class="lighthouse-callout" style="margin-top:20px"><strong>Why this matters:</strong> ${esc(llmsFinding.benefit)}</div>`
     : '';
 
+  const lhScore = agentic?.lighthouse_score;
+  const scoreValue = lhScore?.value ?? (agentic?.fractional_score != null ? Math.round(agentic.fractional_score * 100) : null);
+  const scoreOutOf = lhScore?.out_of ?? 100;
+  const scoreNote = lhScore?.note
+    || 'Agentic Browsing category — Google\'s 0–100 rating for AI agent readiness (experimental).';
+  const scoreCard = scoreValue != null
+    ? `<div class="agentic-stat-card">
+      <div class="agentic-stat-label">Google Lighthouse agentic score</div>
+      <div class="agentic-stat-value">${scoreValue}<span class="agentic-stat-outof">/${scoreOutOf}</span></div>
+      <div class="agentic-stat-sublabel">${esc(scoreNote)}</div>
+    </div>`
+    : '';
+
   return `
   <div class="section-header">
     <h2>AI Agent Readiness</h2>
@@ -1016,16 +1137,20 @@ function buildAgenticTab(agentic, techAudit) {
       <div class="agentic-stat-value" style="color:${esc(statusColor)}">${esc(statusLabel)}</div>
     </div>
     <div class="agentic-stat-card">
-      <div class="agentic-stat-label">Lighthouse agentic checks</div>
+      <div class="agentic-stat-label">Lighthouse checks passing</div>
       <div class="agentic-stat-value">${esc(ratioStr)}</div>
+      <div class="agentic-stat-sublabel">How many of the 6 Agentic Browsing audits scored a full pass</div>
     </div>
-    ${agentic?.fractional_score != null ? `<div class="agentic-stat-card">
-      <div class="agentic-stat-label">Agentic score</div>
-      <div class="agentic-stat-value">${Math.round(agentic.fractional_score * 100)}</div>
-    </div>` : ''}
+    ${scoreCard}
   </div>
 
   ${agentic?.headline ? `<p class="agentic-headline ${status === 'good' ? 'agentic-ok' : 'agentic-warn'}">${esc(agentic.headline)}</p>` : ''}
+
+  ${buildAgenticChecksList(
+    agentic?.lighthouse_checks?.length
+      ? agentic.lighthouse_checks
+      : buildLighthouseChecks(agentic?.audits ? { audits: agentic.audits } : null),
+  )}
 
   ${issues || flagged ? `<div class="agentic-evidence">
     <div class="agentic-evidence-head">llms.txt issues</div>
@@ -1045,7 +1170,7 @@ function buildAgenticTab(agentic, techAudit) {
 // Tab: What We Found (Technical Findings)
 // ---------------------------------------------------------------------------
 
-function buildFindingsTab(techAudit) {
+function buildFindingsTab(techAudit, { bronze = null, scraped = null } = {}) {
   if (!techAudit) {
     return `<div class="empty-state"><p>Tech audit data not available.</p></div>`;
   }
@@ -1056,27 +1181,15 @@ function buildFindingsTab(techAudit) {
   const passed    = findings.filter(f => f.severity === 'passed');
 
   const renderFinding = (f) => {
-    const isCritical = f.severity === 'critical';
     // Determine source citation based on category
     const isPerf = f.category === 'Performance' || f.id?.startsWith('low-') || f.id === 'high-cls';
     const sourceText = isPerf
       ? '(Measured by Google Lighthouse)'
       : '(Detected by crawling your site)';
 
-    // For criticals, show affected pages inline; for warnings use disclosure.
-    // URLs are hyperlinked so the reader can click directly to the page
-    // exhibiting the issue — far more useful than a wall of plaintext URLs.
-    const linkLi = (u) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a></li>`;
-    const pagesHtml = f.affectedPages?.length > 0
-      ? isCritical
-        ? `<div class="finding-pages-inline">
-            <div class="pages-label">Affected pages (${f.affectedPages.length})</div>
-            <ul>${f.affectedPages.slice(0, 10).map(linkLi).join('')}${f.affectedPages.length > 10 ? `<li style="color:var(--text-dim)">… and ${f.affectedPages.length - 10} more</li>` : ''}</ul>
-           </div>`
-        : `<details class="finding-pages">
-            <summary>${f.affectedPages.length} affected page${f.affectedPages.length !== 1 ? 's' : ''} (click to expand)</summary>
-            <ul>${f.affectedPages.map(linkLi).join('')}</ul>
-           </details>`
+    const evidenceRows = buildFindingEvidenceRows(f, bronze, scraped);
+    const pageEvidenceHtml = evidenceRows
+      ? renderFindingEvidenceHtml(evidenceRows, esc, { open: f.severity === 'critical' })
       : '';
 
     return `
@@ -1091,7 +1204,7 @@ function buildFindingsTab(techAudit) {
     <div class="finding-evidence">${esc(f.detail)}</div>
     ${f.benefit ? `<div class="finding-impact">Why this matters to patients: ${esc(f.benefit)}</div>` : ''}
     <div class="finding-source">${esc(sourceText)}</div>
-    ${pagesHtml}
+    ${pageEvidenceHtml}
   </div>`;
   };
 
@@ -1768,7 +1881,7 @@ export async function generateAuditReports(outputDir, {
 } = {}) {
   await mkdir(outputDir, { recursive: true });
 
-  let shared = { url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, findingsSummary, gbpMeta, diff, screenshotFile, existingAgentic, agenticBrowsing: null };
+  let shared = { url, practiceName, pagespeed, techAudit, aiAudit, scraped, previewUrl, findingsSummary, gbpMeta, diff, screenshotFile, existingAgentic, agenticBrowsing: null, bronze };
 
   const baseName = outputFilename || (diff ? 'audit-report-after' : 'audit-report');
   const isAfterOnly = baseName === 'audit-report-after';

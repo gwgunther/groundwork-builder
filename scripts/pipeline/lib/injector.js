@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url';
 import { glob } from 'glob';
 import { DEFAULT_HOURS, DEFAULT_COLORS } from './schema.js';
 import { esc } from './utils.js';
+import { ensureContrast } from './contrast.js';
 import { upsertManagedFile } from './managed-file.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -620,6 +621,8 @@ export async function injectTailwindConfig(data, outputDir) {
 
   const required = ['primary', 'secondary', 'light', 'accent', 'dark', 'muted'];
   const missingColors = required.filter(k => !colors[k]);
+  // Accent-as-highlight on light surfaces (eyebrow labels) must meet AA 4.5:1.
+  const highlight = ensureContrast(colors.accent, colors.light, 4.5).hex;
   if (missingColors.length > 0) {
     throw new Error(
       `[injector] Brand palette missing required keys: ${missingColors.join(', ')}. ` +
@@ -650,7 +653,7 @@ export default {
           secondary: '${esc(colors.secondary)}',
           light:     '${esc(colors.light)}',
           accent:    '${esc(colors.accent)}',
-          highlight: '${esc(colors.accent)}',
+          highlight: '${esc(highlight)}',
         },
         neutral: {
           dark:   '${esc(colors.dark)}',
@@ -798,6 +801,10 @@ export async function injectGlobalCss(dna, outputDir) {
 
   .prose-dental {
     @apply text-neutral-mid leading-relaxed;
+  }
+
+  .prose-dental a {
+    @apply text-brand-primary underline underline-offset-2 decoration-brand-primary/40 hover:decoration-brand-primary;
   }
 
   .prose-dental p {
@@ -973,10 +980,11 @@ export async function injectPagePlaceholders(data, outputDir, design = null) {
   const doctorBio = data.doctor?.bio
     || (doctorFullName ? `${doctorFullName} is dedicated to providing exceptional dental care to patients in ${city || 'the community'}.` : '');
 
-  // Build Google Fonts URL from brand fonts (preferred — produced by the
-  // brand step) with the design-detection fonts as a backstop only
-  // when the brand step didn't run. We never fall back to a hardcoded family.
-  const googleFontsUrl = buildGoogleFontsUrl(data.brand?.fonts || design?.fonts);
+  // Build the fonts CSS URL (provider-aware: google | fontshare) from brand
+  // fonts (preferred — produced by the brand step) with the design-detection
+  // fonts as a backstop only when the brand step didn't run. We never fall
+  // back to a hardcoded family.
+  const fontsCss = buildFontsCssUrl(data.brand?.fonts || design?.fonts);
 
   const replacements = [
     // Exact bracket placeholders
@@ -993,7 +1001,8 @@ export async function injectPagePlaceholders(data, outputDir, design = null) {
     [/\[ZIP\]/g, zip],
     [/\[YOUR_GOOGLE_REVIEW_ID\]/g, extractGoogleId(data.practice?.googleReviewLink) || 'YOUR_GOOGLE_REVIEW_ID'],
     [/\[YOUR_GOOGLE_PROFILE_ID\]/g, extractGoogleId(data.practice?.googleProfileLink) || 'YOUR_GOOGLE_PROFILE_ID'],
-    [/\[GOOGLE_FONTS_URL\]/g, googleFontsUrl],
+    [/\[GOOGLE_FONTS_URL\]/g, fontsCss.url],
+    [/\[FONTS_PRECONNECT\]/g, fontsCss.preconnect],
   ];
 
   for (const filePath of files) {
@@ -1060,19 +1069,45 @@ function extractGoogleId(url) {
 }
 
 /**
- * Build a Google Fonts URL from brand-dna font choices.
+ * Build a fonts CSS URL from brand-dna font choices — provider-aware
+ * (google | fontshare; see lib/brand/font-pairings.js for the curation +
+ * license notes). Returns { url, preconnect } so the template's preconnect
+ * hints match the provider actually used.
  * Strict — fails loudly if fonts aren't provided. We never ship a default
  * typeface across builds; that's exactly the contamination we're avoiding.
  */
-function buildGoogleFontsUrl(fonts) {
+function buildFontsCssUrl(fonts) {
   const heading = fonts?.heading || fonts?.display;
   const body    = fonts?.body;
   if (!heading || !body) {
     throw new Error(
-      `[buildGoogleFontsUrl] Brand fonts missing: heading=${heading || '(missing)'}, body=${body || '(missing)'}. ` +
+      `[buildFontsCssUrl] Brand fonts missing: heading=${heading || '(missing)'}, body=${body || '(missing)'}. ` +
       `The brand step (brand-dna) must produce both.`
     );
   }
+
+  if ((fonts?.provider || 'google') === 'fontshare') {
+    // Fontshare v2 CSS API: family slug lowercase-hyphenated; weights comma
+    // list; italics = weight+1 (401 = 400 italic). Serif display faces get an
+    // italic (the emphasis device many references rely on); sans don't.
+    const slug = (n) => n.toLowerCase().replace(/\s+/g, '-');
+    const SERIF_HEADINGS = new Set(['sentient', 'erode', 'zodiak', 'boska', 'gambetta']);
+    const headingWeights = SERIF_HEADINGS.has(slug(heading)) ? '400,401,500,700' : '400,500,700';
+    const fams = heading === body
+      ? [`f[]=${slug(heading)}@${headingWeights}`]
+      : [`f[]=${slug(heading)}@${headingWeights}`, `f[]=${slug(body)}@400,500,700`];
+    return {
+      url: `https://api.fontshare.com/v2/css?${fams.join('&')}&display=swap`,
+      preconnect: `<link rel="preconnect" href="https://api.fontshare.com" />\n    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />`,
+    };
+  }
+  return {
+    url: buildGoogleFontsUrl(heading, body),
+    preconnect: `<link rel="preconnect" href="https://fonts.googleapis.com" />\n    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />`,
+  };
+}
+
+function buildGoogleFontsUrl(heading, body) {
 
   // Map font names → Google Fonts API param strings
   const fontParams = {

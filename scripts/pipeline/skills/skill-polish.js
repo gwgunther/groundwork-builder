@@ -10,12 +10,13 @@
  */
 
 import { renderDesignContext } from '../lib/render-design-context.js';
+import { renderFixerDirectives } from '../lib/reference-audit.js';
 
 const MODEL = 'claude-sonnet-4-6';
 
-export async function run({ dna, practice, files = {}, screenshots = [] }) {
+export async function run({ dna, practice, files = {}, screenshots = [], referenceAudit = null }) {
   const start   = Date.now();
-  const context = renderDesignContext(dna, practice);
+  const context = renderDesignContext(dna, practice) + renderFixerDirectives(referenceAudit);
 
   const indexContent = files['src/pages/index.astro'] || '(not provided)';
 

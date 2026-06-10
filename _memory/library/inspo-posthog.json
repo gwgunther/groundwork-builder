@@ -1,0 +1,56 @@
+{
+  "palette": {
+    "primary": "#F54E00",
+    "secondary": "#1D1F27",
+    "accent": "#F54E00",
+    "background": "#F3F4EF",
+    "mood": "warm playful"
+  },
+  "type": {
+    "display": "Matter SQ",
+    "body": "Matter SQ",
+    "scale": "standard",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "card-heavy",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "split-image",
+    "imageTreatment": "warm-documentary"
+  },
+  "sections": [
+    "hero",
+    "stat-bar",
+    "services",
+    "reviews",
+    "cta"
+  ],
+  "cards": "soft-shadow",
+  "motion": "subtle",
+  "radius": "md",
+  "fontPair": "Matter SQ/Matter SQ",
+  "adjectives": [
+    "playful-controlled",
+    "warm",
+    "data-forward",
+    "approachable",
+    "distinctive"
+  ],
+  "slug": "inspo-posthog",
+  "tag": "inspo",
+  "source": "https://getdesign.md/posthog/design-md",
+  "captured": "2026-06-09",
+  "note": "inspo from awesome-design-md / PostHog",
+  "dentalMoods": [
+    "warm-neighborhood"
+  ],
+  "borrowableTraits": [
+    "controlled playful accent",
+    "developer-friendly warmth",
+    "data-forward stat presentation"
+  ],
+  "avoidPatterns": []
+}

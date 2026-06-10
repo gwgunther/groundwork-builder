@@ -61,11 +61,12 @@ flowchart TB
     H6[Offboard]
   end
 
-  S1 --> S2 --> S3
+  S1 --> S2
+  S2 --> A1 --> A2
   S4 --> A1 --> A2
+  A2 --> S3
   A2 --> A3
   A3 --> B1
-  S3 --> A1
   B1 --> B2 --> H1 --> H2 --> H3 --> H4 --> H5 --> H6
 ```
 

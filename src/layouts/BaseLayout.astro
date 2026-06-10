@@ -130,9 +130,8 @@ const websiteSchema = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/images/branding/logo.png" />
 
-    <!-- Google Fonts — injected by pipeline from design phase -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Web fonts — injected by pipeline from design phase (google | fontshare) -->
+    [FONTS_PRECONNECT]
     <link href="[GOOGLE_FONTS_URL]" rel="stylesheet" />
 
     <!-- JSON-LD Schema -->
@@ -254,8 +253,9 @@ const websiteSchema = {
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
   <body class="bg-white">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <Header />
-    <main>
+    <main id="main-content" tabindex="-1">
       <slot />
     </main>
     <Footer />

@@ -55,6 +55,15 @@ Use this as the single reference for:
 - Keep touch targets usable (about 44px minimum).
 - Eliminate obvious glitches (broken images, alignment cracks, console-visible issues).
 
+### 7) Accessibility (template + pipeline)
+
+Built into every generated site:
+- Skip link to `#main-content` in `BaseLayout.astro`
+- Keyboard-only `:focus-visible` rings (not mouse-click outlines)
+- `prefers-reduced-motion: reduce` — no smooth-scroll or long transitions for users who request it
+- Descriptive `alt` on content images (pipeline fills missing alts by role before build)
+- Post-build axe-core audit (WCAG 2.1 AA) — ship gate: 0 critical/serious violations
+
 ## Trust and Conversion Requirements
 
 For local service sites, trust and clarity outrank novelty.

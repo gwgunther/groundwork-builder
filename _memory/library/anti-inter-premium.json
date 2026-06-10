@@ -1,0 +1,57 @@
+{
+  "palette": {
+    "primary": "#334155",
+    "secondary": "#1E293B",
+    "accent": "#64748B",
+    "background": "#F8FAFC",
+    "mood": "inter-premium-fake"
+  },
+  "type": {
+    "display": "Inter",
+    "body": "Inter",
+    "scale": "compact",
+    "contrast": "low"
+  },
+  "layout": {
+    "archetype": "centered-classic",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "centered",
+    "imageTreatment": "none"
+  },
+  "sections": [
+    "hero",
+    "services",
+    "doctor-intro",
+    "cta"
+  ],
+  "cards": "bordered-flat",
+  "motion": "none",
+  "radius": "md",
+  "fontPair": "Inter/Inter",
+  "adjectives": [
+    "inter-display",
+    "flat-hierarchy",
+    "premium-fake",
+    "generic-sans",
+    "no-character"
+  ],
+  "slug": "anti-inter-premium",
+  "tag": "anti",
+  "source": "taste-frontend.md Rule 1 ANTI-SLOP",
+  "captured": "2026-06-09",
+  "note": "anti-pattern: Inter for headlines on luxury positioning; Roboto/Open Sans pairing; flat type hierarchy",
+  "dentalMoods": [
+    "warm-neighborhood",
+    "soft-gentle",
+    "modern-premium"
+  ],
+  "borrowableTraits": [],
+  "avoidPatterns": [
+    "Inter for headlines on luxury positioning",
+    "Roboto/Open Sans pairing",
+    "flat type hierarchy"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "palette": {
+    "primary": "#FFFFFF",
+    "secondary": "#0A0A0A",
+    "accent": "#FFFFFF",
+    "background": "#0A0A0A",
+    "mood": "minimal dark-premium"
+  },
+  "type": {
+    "display": "Inter",
+    "body": "Inter",
+    "scale": "standard",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "minimal-brutalist",
+    "density": "airy",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "poster",
+    "imageTreatment": "none"
+  },
+  "sections": [
+    "hero",
+    "services",
+    "cta"
+  ],
+  "cards": "ghost",
+  "motion": "subtle",
+  "radius": "md",
+  "fontPair": "Inter/IBM Plex Mono",
+  "adjectives": [
+    "minimal",
+    "dark-premium",
+    "developer",
+    "sparse",
+    "confident"
+  ],
+  "slug": "inspo-resend",
+  "tag": "inspo",
+  "source": "https://getdesign.md/resend/design-md",
+  "captured": "2026-06-09",
+  "note": "inspo from awesome-design-md / Resend",
+  "dentalMoods": [
+    "modern-premium",
+    "clean-clinical"
+  ],
+  "borrowableTraits": [
+    "minimal dark CTA band",
+    "monospace accent labels",
+    "sparse premium whitespace"
+  ],
+  "avoidPatterns": []
+}

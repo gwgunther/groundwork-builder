@@ -50,7 +50,8 @@ export async function defineBrandDna(merged) {
   const { text } = await callAnthropic({ model: MODELS.default, prompt, maxTokens: 2000 });
   let parsed;
   try { parsed = parseJsonStrict(text); } catch { return null; }
-  const dna = parsed.brandDna || parsed;
+  const dna = parsed?.brandDna ?? parsed;
+  if (!dna || typeof dna !== 'object') return null;
 
   // CONVERGENCE FIX: the LLM font pick collapses to its priors regardless of
   // temperature (Nunito Sans 5/5, then Libre Franklin 5/5). Override it with a
@@ -59,12 +60,43 @@ export async function defineBrandDna(merged) {
   // bucket (per-practice, reproducible, varied). Colors stay LLM-derived (they're
   // grounded in the observed palette and DON'T collapse). Keep the LLM's scale/
   // weights/tracking. See lib/brand/font-pairings.js.
-  if (dna && dna.typography) {
-    const seedKey = merged.practice?.name || merged.practice?.domain || '';
-    const pick = pickFontPairing(cd, seedKey);
-    dna.typography.headingFont = pick.headingFont;
-    dna.typography.bodyFont = pick.bodyFont;
-    dna.typography._fontBucket = pick.bucket;
-  }
+  dna.typography = dna.typography || {};
+  const seedKey = merged.practice?.name || merged.practice?.domain || '';
+  const pick = pickFontPairing(cd || {}, seedKey);
+  dna.typography.headingFont = pick.headingFont;
+  dna.typography.bodyFont = pick.bodyFont;
+  dna.typography.fontProvider = pick.provider;
+  dna.typography._fontBucket = pick.bucket;
   return dna;
+}
+
+/** When brand-dna AI fails, derive a minimal palette from scraped brand colors. */
+export function fallbackBrandDnaFromMerged(merged) {
+  const c = merged.brand?.colors || {};
+  const fonts = merged.brand?.fonts || {};
+  const seedKey = merged.practice?.name || merged.practice?.domain || '';
+  const pick = pickFontPairing(merged.currentDesign || {}, seedKey);
+  return {
+    color: {
+      primary: c.primary || '#1B3A5C',
+      secondary: c.secondary || c.primary || '#2E6DA4',
+      accent: c.accent || '#C9A84C',
+      neutralDark: c.dark || '#1c1a1a',
+      neutralLight: c.light || '#EBF2FA',
+      background: '#ffffff',
+      text: '#2e2c2c',
+      border: '#d6e8ed',
+    },
+    typography: {
+      headingFont: fonts.heading || pick.headingFont,
+      bodyFont: fonts.body || pick.bodyFont,
+      // provider only applies when the PICK's fonts are used — scraped brand
+      // fonts (fonts.heading/body) are assumed Google-resolvable as before.
+      fontProvider: (fonts.heading || fonts.body) ? 'google' : pick.provider,
+      _fontBucket: pick.bucket,
+    },
+    shape: { cornerRadius: 'md', borderTreatment: 'standard' },
+    elevation: { system: 'soft-shadow' },
+    rationale: 'Fallback palette from scraped brand (brand-dna step unavailable).',
+  };
 }

@@ -1,0 +1,57 @@
+{
+  "palette": {
+    "primary": "#0D99FF",
+    "secondary": "#1E1E1E",
+    "accent": "#FF7262",
+    "background": "#FFFFFF",
+    "mood": "playful professional"
+  },
+  "type": {
+    "display": "Inter",
+    "body": "Inter",
+    "scale": "standard",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "magazine-split",
+    "density": "balanced",
+    "grid": "broken"
+  },
+  "hero": {
+    "variant": "asymmetric-left",
+    "imageTreatment": "editorial-muted"
+  },
+  "sections": [
+    "hero",
+    "services",
+    "gallery",
+    "reviews",
+    "cta"
+  ],
+  "cards": "elevated",
+  "motion": "expressive",
+  "radius": "lg",
+  "fontPair": "Inter/Inter",
+  "adjectives": [
+    "playful",
+    "professional",
+    "colorful-disciplined",
+    "creative",
+    "confident"
+  ],
+  "slug": "inspo-figma",
+  "tag": "inspo",
+  "source": "https://getdesign.md/figma/design-md",
+  "captured": "2026-06-09",
+  "note": "inspo from awesome-design-md / Figma",
+  "dentalMoods": [
+    "modern-premium",
+    "warm-neighborhood"
+  ],
+  "borrowableTraits": [
+    "multi-color accent discipline",
+    "playful yet professional balance",
+    "bold section color blocks"
+  ],
+  "avoidPatterns": []
+}

@@ -1,0 +1,50 @@
+{
+  "palette": {
+    "primary": "#2a6b5e",
+    "secondary": "#1d4d43",
+    "accent": "#c9a96e",
+    "background": "#f2f7f6",
+    "mood": "warm, professional"
+  },
+  "type": {
+    "display": "Epilogue",
+    "body": "Public Sans",
+    "scale": "standard",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "editorial-asymmetric",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "asymmetric-right",
+    "imageTreatment": "warm-documentary"
+  },
+  "sections": [
+    "hero",
+    "doctor-intro",
+    "services",
+    "reviews",
+    "gallery",
+    "faq",
+    "stat-bar",
+    "cta"
+  ],
+  "cards": "soft-shadow",
+  "motion": "subtle",
+  "radius": "md",
+  "fontPair": "Epilogue/Public Sans",
+  "adjectives": [
+    "refined",
+    "trustworthy",
+    "warm-earthy",
+    "clinical-approachable",
+    "editorial-modern"
+  ],
+  "slug": "arizonabiltmoredentistry",
+  "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/arizonabiltmoredentistry",
+  "tag": "own",
+  "captured": "2026-06-08",
+  "note": "auto-distilled at build time"
+}

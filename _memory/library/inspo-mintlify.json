@@ -1,0 +1,57 @@
+{
+  "palette": {
+    "primary": "#16A34A",
+    "secondary": "#1E293B",
+    "accent": "#16A34A",
+    "background": "#FAFAFA",
+    "mood": "calm readable"
+  },
+  "type": {
+    "display": "Inter",
+    "body": "Inter",
+    "scale": "standard",
+    "contrast": "medium"
+  },
+  "layout": {
+    "archetype": "warm-editorial",
+    "density": "airy",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "asymmetric-left",
+    "imageTreatment": "editorial-muted"
+  },
+  "sections": [
+    "hero",
+    "services",
+    "faq",
+    "reviews",
+    "cta"
+  ],
+  "cards": "bordered-flat",
+  "motion": "subtle",
+  "radius": "md",
+  "fontPair": "Inter/Inter",
+  "adjectives": [
+    "calm",
+    "readable",
+    "green-accent",
+    "documentation-clean",
+    "gentle"
+  ],
+  "slug": "inspo-mintlify",
+  "tag": "inspo",
+  "source": "https://getdesign.md/mintlify/design-md",
+  "captured": "2026-06-09",
+  "note": "inspo from awesome-design-md / Mintlify",
+  "dentalMoods": [
+    "soft-gentle",
+    "clean-clinical"
+  ],
+  "borrowableTraits": [
+    "reading-optimized spacing",
+    "green accent restraint",
+    "calm documentation rhythm"
+  ],
+  "avoidPatterns": []
+}

@@ -1,0 +1,55 @@
+{
+  "palette": {
+    "primary": "#0055FF",
+    "secondary": "#000000",
+    "accent": "#0055FF",
+    "background": "#FFFFFF",
+    "mood": "design-forward bold"
+  },
+  "type": {
+    "display": "Inter",
+    "body": "Inter",
+    "scale": "editorial",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "poster-hero",
+    "density": "airy",
+    "grid": "broken"
+  },
+  "hero": {
+    "variant": "full-bleed",
+    "imageTreatment": "editorial-muted"
+  },
+  "sections": [
+    "hero",
+    "services",
+    "gallery",
+    "cta"
+  ],
+  "cards": "elevated",
+  "motion": "expressive",
+  "radius": "lg",
+  "fontPair": "Inter/Inter",
+  "adjectives": [
+    "bold",
+    "motion-led",
+    "design-forward",
+    "high-impact",
+    "confident"
+  ],
+  "slug": "inspo-framer",
+  "tag": "inspo",
+  "source": "https://getdesign.md/framer/design-md",
+  "captured": "2026-06-09",
+  "note": "inspo from awesome-design-md / Framer",
+  "dentalMoods": [
+    "modern-premium"
+  ],
+  "borrowableTraits": [
+    "motion-first section reveals",
+    "bold black-blue contrast",
+    "design-forward hero"
+  ],
+  "avoidPatterns": []
+}

@@ -1,0 +1,56 @@
+{
+  "palette": {
+    "primary": "#FF385C",
+    "secondary": "#222222",
+    "accent": "#FF385C",
+    "background": "#FFFFFF",
+    "mood": "warm inviting"
+  },
+  "type": {
+    "display": "Cereal",
+    "body": "Cereal",
+    "scale": "standard",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "card-heavy",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "full-bleed",
+    "imageTreatment": "warm-documentary"
+  },
+  "sections": [
+    "hero",
+    "gallery",
+    "services",
+    "reviews",
+    "cta"
+  ],
+  "cards": "soft-shadow",
+  "motion": "subtle",
+  "radius": "lg",
+  "fontPair": "Cereal/Cereal",
+  "adjectives": [
+    "warm",
+    "photography-led",
+    "community",
+    "rounded",
+    "hospitable"
+  ],
+  "slug": "inspo-airbnb",
+  "tag": "inspo",
+  "source": "https://getdesign.md/airbnb/design-md",
+  "captured": "2026-06-09",
+  "note": "inspo from awesome-design-md / Airbnb",
+  "dentalMoods": [
+    "warm-neighborhood"
+  ],
+  "borrowableTraits": [
+    "photography-forward hero",
+    "rounded-lg card corners",
+    "warm coral accent restraint"
+  ],
+  "avoidPatterns": []
+}

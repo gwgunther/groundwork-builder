@@ -17,6 +17,7 @@ import { readFile, writeFile, mkdir, readdir, stat } from 'node:fs/promises';
 import { join, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { JSDOM } from 'jsdom';
+import { selectInspoEntries } from './design-library-catalog.js';
 
 const __dirname   = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = resolve(__dirname, '..', '..', '..');
@@ -73,7 +74,27 @@ export async function distillDesign({ source, slug, tag = 'inspo', note = '' }) 
  *   - inspos: external references to pull toward
  * Also returns the full index so the director can reason about freshness/tags.
  */
-export async function sampleLibrary({ ownLimit = 5, inspoLimit = 4 } = {}) {
+/**
+ * @param {object} opts
+ * @param {number} [opts.ownLimit=5]
+ * @param {number} [opts.inspoLimit=4]
+ * @param {string} [opts.moodHint] - brand/design mood for mood-aware inspo selection
+ */
+export async function sampleLibrary({ ownLimit = 5, inspoLimit = 4, moodHint = '' } = {}) {
+  const pickEntries = (index) => {
+    const owns = index.entries.filter(e => e.tag === 'own')
+      .sort((a, b) => (b.captured || '').localeCompare(a.captured || ''))
+      .slice(0, ownLimit);
+
+    const inspoPool = index.entries.filter(e => e.tag === 'inspo');
+    const inspos = inspoPool.some(e => Array.isArray(e.dentalMoods) && e.dentalMoods.length)
+      ? selectInspoEntries(inspoPool, moodHint, inspoLimit)
+      : inspoPool.sort(() => Math.random() - 0.5).slice(0, inspoLimit);
+
+    const antis = index.entries.filter(e => e.tag === 'anti');
+    return { owns, inspos, antis };
+  };
+
   // Load from local _memory/library/ index
   let index = null;
   try {
@@ -81,13 +102,7 @@ export async function sampleLibrary({ ownLimit = 5, inspoLimit = 4 } = {}) {
     const dbIndex = await queryDesignLibrary();
     if (dbIndex) {
       index = dbIndex;
-      const owns  = index.entries.filter(e => e.tag === 'own')
-                                 .sort((a, b) => (b.captured || '').localeCompare(a.captured || ''))
-                                 .slice(0, ownLimit);
-      const inspos = index.entries.filter(e => e.tag === 'inspo')
-                                  .sort(() => Math.random() - 0.5)
-                                  .slice(0, inspoLimit);
-      const antis = index.entries.filter(e => e.tag === 'anti');
+      const { owns, inspos, antis } = pickEntries(index);
 
       const loadDb = (e) => loadDesignFingerprint(e.slug);
       const [ownFP, inspoFP, antiFP] = await Promise.all([
@@ -106,13 +121,7 @@ export async function sampleLibrary({ ownLimit = 5, inspoLimit = 4 } = {}) {
 
   // Local fallback
   index = await readIndex();
-  const owns  = index.entries.filter(e => e.tag === 'own')
-                             .sort((a, b) => (b.captured || '').localeCompare(a.captured || ''))
-                             .slice(0, ownLimit);
-  const inspos = index.entries.filter(e => e.tag === 'inspo')
-                              .sort(() => Math.random() - 0.5)   // rotate on each run
-                              .slice(0, inspoLimit);
-  const antis = index.entries.filter(e => e.tag === 'anti');
+  const { owns, inspos, antis } = pickEntries(index);
 
   const load = async (e) => {
     try { return JSON.parse(await readFile(join(LIBRARY_DIR, `${e.slug}.json`), 'utf8')); }

@@ -107,6 +107,7 @@ When generating or migrating sites from scraped content:
 - [ ] Homepage links into major hubs (about, services, proof/resources—adapt to the project).
 - [ ] Key inner pages link to scheduling/contact where relevant.
 - [ ] `npm run build` succeeds; spot-check sitemap and JSON-LD on representative pages.
+- [ ] **Accessibility baseline** (built into template + pipeline): skip link to `#main-content`, keyboard `:focus-visible` rings, `prefers-reduced-motion` respected, descriptive image `alt` on content images (pipeline fills gaps in Phase 3c-ter/3f).
 
 ### Ship gates (contractual — enforced by `publish.js`)
 
@@ -127,7 +128,10 @@ Re-run `build-site.js --publish` after fixes. Gate results are saved in `_pipeli
 | Business + primary entity schema | `src/config/site.ts` |
 | Nav labels & URLs | `src/config/navigation.ts` |
 | Global chrome | `src/components/Header.astro`, `Footer.astro` |
-| Meta, breadcrumbs, WebSite schema | `src/layouts/BaseLayout.astro` |
+| Meta, breadcrumbs, WebSite schema, skip link | `src/layouts/BaseLayout.astro` |
+| Global focus + reduced-motion | `src/styles/global.css` |
+| Alt enrichment + gallery inject | `scripts/pipeline/lib/ensure-image-alts.js`, `a11y-optimize.js` |
+| Design library (inspo/anti) | `scripts/pipeline/config/design-library-catalog.json`, `_memory/library/` |
 | Sitemap | `astro.config.mjs` |
 | Robots | `public/robots.txt` |
 | Homepage IA | `src/pages/index.astro` |

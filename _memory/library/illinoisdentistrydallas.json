@@ -1,0 +1,50 @@
+{
+  "palette": {
+    "primary": "#1a8fc1",
+    "secondary": "#0f6a96",
+    "accent": "#e85d00",
+    "background": "#ffffff",
+    "mood": "professional, approachable"
+  },
+  "type": {
+    "display": "Albert Sans",
+    "body": "Work Sans",
+    "scale": "standard",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "warm-editorial",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "full-bleed",
+    "imageTreatment": "warm-documentary"
+  },
+  "sections": [
+    "hero",
+    "doctor-intro",
+    "services",
+    "reviews",
+    "gallery",
+    "faq",
+    "stat-bar",
+    "cta"
+  ],
+  "cards": "soft-shadow",
+  "motion": "subtle",
+  "radius": "md",
+  "fontPair": "Albert Sans / Work Sans",
+  "adjectives": [
+    "trustworthy",
+    "clinical-yet-warm",
+    "family-focused",
+    "accessible",
+    "modern-professional"
+  ],
+  "slug": "illinoisdentistrydallas",
+  "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/illinois-family-dentistry",
+  "tag": "own",
+  "captured": "2026-06-06",
+  "note": "auto-distilled at build time"
+}

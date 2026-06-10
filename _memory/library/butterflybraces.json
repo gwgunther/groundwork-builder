@@ -1,0 +1,50 @@
+{
+  "palette": {
+    "primary": "#2e6a9a",
+    "secondary": "#71b8e3",
+    "accent": "#d4a030",
+    "background": "#f0f6fb",
+    "mood": "professional, warm"
+  },
+  "type": {
+    "display": "Manrope",
+    "body": "Mulish",
+    "scale": "standard",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "warm-editorial",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "asymmetric-right",
+    "imageTreatment": "warm-documentary"
+  },
+  "sections": [
+    "hero",
+    "doctor-intro",
+    "services",
+    "reviews",
+    "gallery",
+    "faq",
+    "stat-bar",
+    "cta"
+  ],
+  "cards": "soft-shadow",
+  "motion": "subtle",
+  "radius": "md",
+  "fontPair": "Manrope/Mulish",
+  "adjectives": [
+    "clinical-approachable",
+    "trust-forward",
+    "modern-dental",
+    "patient-centric",
+    "accessible"
+  ],
+  "slug": "butterflybraces",
+  "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/butterfly-orthodontics",
+  "tag": "own",
+  "captured": "2026-06-06",
+  "note": "auto-distilled at build time"
+}

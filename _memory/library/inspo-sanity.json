@@ -1,0 +1,55 @@
+{
+  "palette": {
+    "primary": "#F03E2F",
+    "secondary": "#101112",
+    "accent": "#F03E2F",
+    "background": "#FFFFFF",
+    "mood": "editorial bold"
+  },
+  "type": {
+    "display": "Inter",
+    "body": "Inter",
+    "scale": "editorial",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "editorial-asymmetric",
+    "density": "balanced",
+    "grid": "asymmetric"
+  },
+  "hero": {
+    "variant": "poster",
+    "imageTreatment": "none"
+  },
+  "sections": [
+    "hero",
+    "services",
+    "gallery",
+    "cta"
+  ],
+  "cards": "bordered-flat",
+  "motion": "expressive",
+  "radius": "sm",
+  "fontPair": "Inter/IBM Plex Mono",
+  "adjectives": [
+    "editorial",
+    "bold-type",
+    "dark-first",
+    "coral-accent",
+    "confident"
+  ],
+  "slug": "inspo-sanity",
+  "tag": "inspo",
+  "source": "https://getdesign.md/sanity/design-md",
+  "captured": "2026-06-09",
+  "note": "inspo from awesome-design-md / Sanity",
+  "dentalMoods": [
+    "modern-premium"
+  ],
+  "borrowableTraits": [
+    "oversized display type accent",
+    "mono technical eyebrows",
+    "coral CTA singularity"
+  ],
+  "avoidPatterns": []
+}

@@ -1,0 +1,57 @@
+{
+  "palette": {
+    "primary": "#5E6AD2",
+    "secondary": "#1A1B26",
+    "accent": "#5E6AD2",
+    "background": "#F7F8FA",
+    "mood": "cool precise"
+  },
+  "type": {
+    "display": "Inter",
+    "body": "Inter",
+    "scale": "compact",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "minimal-brutalist",
+    "density": "dense",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "poster",
+    "imageTreatment": "none"
+  },
+  "sections": [
+    "hero",
+    "services",
+    "stat-bar",
+    "reviews",
+    "cta"
+  ],
+  "cards": "bordered-flat",
+  "motion": "subtle",
+  "radius": "sm",
+  "fontPair": "Inter/Inter",
+  "adjectives": [
+    "precise",
+    "minimal",
+    "engineered",
+    "cool-neutral",
+    "high-contrast"
+  ],
+  "slug": "inspo-linear",
+  "tag": "inspo",
+  "source": "https://getdesign.md/linear.app/design-md",
+  "captured": "2026-06-09",
+  "note": "inspo from awesome-design-md / Linear",
+  "dentalMoods": [
+    "modern-premium",
+    "clean-clinical"
+  ],
+  "borrowableTraits": [
+    "precise grid alignment",
+    "restrained heading scale",
+    "hairline section dividers"
+  ],
+  "avoidPatterns": []
+}

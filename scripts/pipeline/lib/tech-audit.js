@@ -12,6 +12,7 @@
  */
 
 import { enrichFindings } from './findings.js';
+import { formatMetricFindingDetail } from './metric-glossary.js';
 
 // Paths that should be excluded from "thin content" checks
 const UTILITY_PATH_PATTERNS = [
@@ -68,8 +69,12 @@ function buildDetail(id, count, affectedPages, thresholds) {
     'missing-schema':     count === 0 ? 'All pages include structured data.' : `${base} have no JSON-LD structured data.`,
     'missing-canonical':  count === 0 ? 'All pages have canonical URLs.' : `${base} are missing a canonical tag.`,
     'low-performance':    count === 0 ? 'Mobile performance score is good.' : `Mobile performance score is ${thresholds?.score ?? '—'}/100.`,
-    'low-lcp':            count === 0 ? 'Largest Contentful Paint is within threshold.' : `LCP is ${thresholds?.lcp != null ? (thresholds.lcp / 1000).toFixed(2) + 's' : '—'} (threshold: 2.5s good, 4.0s poor).`,
-    'high-cls':           count === 0 ? 'Cumulative Layout Shift is within threshold.' : `CLS is ${thresholds?.cls ?? '—'} (threshold: 0.1 good, 0.25 poor).`,
+    'low-lcp':            count === 0
+      ? 'Largest Contentful Paint (LCP) is within threshold.'
+      : (formatMetricFindingDetail('lcp', thresholds?.lcp) || 'Largest Contentful Paint (LCP) could not be measured.'),
+    'high-cls':           count === 0
+      ? 'Cumulative Layout Shift (CLS) is within threshold.'
+      : (formatMetricFindingDetail('cls', thresholds?.cls) || 'Cumulative Layout Shift (CLS) could not be measured.'),
     'missing-alt':        count === 0 ? 'All images have alt text.' : `${count} image${count !== 1 ? 's' : ''} across the site are missing alt text.`,
     'no-testimonials':    count === 0 ? 'Testimonials found on the site.' : 'No testimonials or reviews found on the site.',
     'no-faq':             count === 0 ? 'FAQ content found on the site.' : 'No FAQ content found anywhere on the site.',
@@ -88,8 +93,23 @@ function buildDetail(id, count, affectedPages, thresholds) {
  * @param {object|null} pagespeed - { mobile, desktop } from runPageSpeed, or null
  * @returns {{ findings: object[], summary: { critical: number, warnings: number, passed: number } }}
  */
+function unmeasuredPerfFinding({ id, title, detail, benefit }) {
+  return {
+    id,
+    category: 'performance',
+    severity: 'passed',
+    state: 'not_applicable',
+    title,
+    detail,
+    benefit,
+    affectedPages: [],
+    count: 0,
+  };
+}
+
 export function runTechAudit(bronze, pagespeed = null, opts = {}) {
   const city = (opts.city || '').trim();
+  const markUnmeasured = opts.markUnmeasured === true;
   const pages = bronze?.pages || [];
   const total = pages.length;
 
@@ -255,7 +275,12 @@ export function runTechAudit(bronze, pagespeed = null, opts = {}) {
   // low-performance
   {
     if (mobilePerfScore === null) {
-      findings.push({
+      findings.push(markUnmeasured ? unmeasuredPerfFinding({
+        id: 'low-performance',
+        title: 'Mobile performance score',
+        detail: 'PageSpeed was not run on this scan — no before/after comparison available.',
+        benefit: 'Google uses Core Web Vitals as a ranking signal. A fast site also reduces bounce rate and improves conversions.',
+      }) : {
         id: 'low-performance',
         category: 'performance',
         severity: 'warning',
@@ -287,13 +312,18 @@ export function runTechAudit(bronze, pagespeed = null, opts = {}) {
   // low-lcp
   {
     if (mobileLcp === null) {
-      findings.push({
+      findings.push(markUnmeasured ? unmeasuredPerfFinding({
+        id: 'low-lcp',
+        title: 'Largest Contentful Paint (LCP)',
+        detail: 'LCP was not measured on this scan (PageSpeed not run).',
+        benefit: 'LCP measures how quickly the main visible content loads. Slow LCP is a top reason users bounce from pages.',
+      }) : {
         id: 'low-lcp',
         category: 'performance',
         severity: 'warning',
         title: 'Largest Contentful Paint not measured',
-        detail: 'LCP was not measured (PageSpeed not run).',
-        benefit: 'LCP measures how quickly the main content loads. Slow LCP is a top reason users bounce from pages.',
+        detail: 'Largest Contentful Paint (LCP) was not measured (PageSpeed not run).',
+        benefit: 'LCP measures how quickly the main visible content loads. Slow LCP is a top reason users bounce from pages.',
         affectedPages: [],
         count: 0,
       });
@@ -307,7 +337,7 @@ export function runTechAudit(bronze, pagespeed = null, opts = {}) {
         id: 'low-lcp',
         category: 'performance',
         title: 'Largest Contentful Paint (LCP)',
-        benefit: 'LCP measures how quickly the main content loads. Slow LCP is a top reason users bounce from pages and a direct ranking factor.',
+        benefit: 'Largest Contentful Paint (LCP) measures how quickly the main visible content loads. Slow LCP is a top reason users bounce and a direct Google ranking factor.',
         affectedPages: [],
         count: mobileLcp > 2500 ? 1 : 0,
         forceSeverity,
@@ -319,13 +349,18 @@ export function runTechAudit(bronze, pagespeed = null, opts = {}) {
   // high-cls
   {
     if (mobileCls === null) {
-      findings.push({
+      findings.push(markUnmeasured ? unmeasuredPerfFinding({
+        id: 'high-cls',
+        title: 'Cumulative Layout Shift (CLS)',
+        detail: 'CLS was not measured on this scan (PageSpeed not run).',
+        benefit: 'CLS measures visual stability — whether content jumps while the page loads. Shifts frustrate users and hurt Google rankings.',
+      }) : {
         id: 'high-cls',
         category: 'performance',
         severity: 'warning',
         title: 'Cumulative Layout Shift not measured',
-        detail: 'CLS was not measured (PageSpeed not run).',
-        benefit: 'CLS measures visual stability. Unexpected layout shifts frustrate users and hurt Google rankings.',
+        detail: 'Cumulative Layout Shift (CLS) was not measured (PageSpeed not run).',
+        benefit: 'CLS measures visual stability — whether content jumps while the page loads. Shifts frustrate users and hurt Google rankings.',
         affectedPages: [],
         count: 0,
       });
@@ -339,7 +374,7 @@ export function runTechAudit(bronze, pagespeed = null, opts = {}) {
         id: 'high-cls',
         category: 'performance',
         title: 'Cumulative Layout Shift (CLS)',
-        benefit: 'CLS measures visual stability. Unexpected layout shifts frustrate users clicking buttons that move and hurt Google rankings.',
+        benefit: 'Cumulative Layout Shift (CLS) measures visual stability. Unexpected shifts frustrate users clicking buttons that move and hurt Google rankings.',
         affectedPages: [],
         count: mobileCls > 0.1 ? 1 : 0,
         forceSeverity,

@@ -19,7 +19,8 @@ import { getCatalogEntry } from '../findings-catalog.js';
  * Detectors today emit severity ('critical' | 'warning' | 'passed').
  * The grader thinks in states ('issue' | 'fixed' | 'not_applicable').
  */
-function deriveState(severity) {
+function deriveState(severity, explicitState) {
+  if (explicitState) return explicitState;
   if (severity === 'passed') return 'fixed';
   if (severity === 'critical' || severity === 'warning') return 'issue';
   return 'not_applicable';
@@ -33,7 +34,7 @@ export function enrichFinding(raw) {
   const entry = getCatalogEntry(raw.id);
   return {
     ...raw,
-    state:      raw.state      || deriveState(raw.severity),
+    state:      deriveState(raw.severity, raw.state),
     weight:     raw.weight     ?? entry.weight,
     fixed_copy: raw.fixed_copy ?? entry.fixed_copy,
     fix_action: raw.fix_action ?? entry.fix_action,

@@ -1,0 +1,444 @@
+{
+  "version": "1.0.0",
+  "purpose": "Curated inspo + anti design fingerprints for the Creative Director library. Sources: awesome-design-md (VoltAgent), design-principles-core.md anti-slop tells. Import via: node scripts/pipeline/import-design-library-cli.js",
+  "dentalMoods": {
+    "warm-neighborhood": {
+      "label": "Warm Neighborhood",
+      "keywords": ["warm", "neighbor", "community", "family", "approachable", "personal"]
+    },
+    "modern-premium": {
+      "label": "Modern Premium",
+      "keywords": ["premium", "luxury", "cosmetic", "sleek", "modern", "confident", "bold"]
+    },
+    "clean-clinical": {
+      "label": "Clean Clinical",
+      "keywords": ["clinical", "clean", "precise", "trust", "professional", "navy", "teal"]
+    },
+    "soft-gentle": {
+      "label": "Soft & Gentle",
+      "keywords": ["soft", "gentle", "calm", "family", "pediatric", "low-anxiety", "muted"]
+    }
+  },
+  "entries": [
+    {
+      "slug": "inspo-notion",
+      "tag": "inspo",
+      "source": "https://getdesign.md/notion/design-md",
+      "reference": "awesome-design-md / Notion",
+      "dentalMoods": ["warm-neighborhood", "soft-gentle"],
+      "borrowableTraits": ["warm serif headline rhythm", "soft off-white section bands", "generous editorial whitespace"],
+      "fingerprint": {
+        "palette": { "primary": "#37352F", "secondary": "#2F2F2F", "accent": "#D9730D", "background": "#FBFBFA", "mood": "warm minimal" },
+        "type": { "display": "Notion Serif", "body": "Inter", "scale": "editorial", "contrast": "medium" },
+        "layout": { "archetype": "warm-editorial", "density": "airy", "grid": "asymmetric" },
+        "hero": { "variant": "asymmetric-left", "imageTreatment": "editorial-muted" },
+        "sections": ["hero", "services", "doctor-intro", "reviews", "cta"],
+        "cards": "ghost",
+        "motion": "subtle",
+        "radius": "sm",
+        "fontPair": "Notion Serif/Inter",
+        "adjectives": ["warm", "editorial", "approachable", "paper-soft", "readable"]
+      }
+    },
+    {
+      "slug": "inspo-cal",
+      "tag": "inspo",
+      "source": "https://getdesign.md/cal/design-md",
+      "reference": "awesome-design-md / Cal.com",
+      "dentalMoods": ["warm-neighborhood", "clean-clinical"],
+      "borrowableTraits": ["thin-rule section dividers", "inline-minimal CTA", "neutral high-clarity layout"],
+      "fingerprint": {
+        "palette": { "primary": "#111827", "secondary": "#374151", "accent": "#2563EB", "background": "#FFFFFF", "mood": "clean neutral" },
+        "type": { "display": "Cal Sans", "body": "Inter", "scale": "standard", "contrast": "high" },
+        "layout": { "archetype": "centered-classic", "density": "balanced", "grid": "12col" },
+        "hero": { "variant": "centered", "imageTreatment": "none" },
+        "sections": ["hero", "services", "reviews", "faq", "cta"],
+        "cards": "bordered-flat",
+        "motion": "subtle",
+        "radius": "md",
+        "fontPair": "Cal Sans/Inter",
+        "adjectives": ["developer-clean", "neutral", "trustworthy", "uncluttered", "functional"]
+      }
+    },
+    {
+      "slug": "inspo-airbnb",
+      "tag": "inspo",
+      "source": "https://getdesign.md/airbnb/design-md",
+      "reference": "awesome-design-md / Airbnb",
+      "dentalMoods": ["warm-neighborhood"],
+      "borrowableTraits": ["photography-forward hero", "rounded-lg card corners", "warm coral accent restraint"],
+      "fingerprint": {
+        "palette": { "primary": "#FF385C", "secondary": "#222222", "accent": "#FF385C", "background": "#FFFFFF", "mood": "warm inviting" },
+        "type": { "display": "Cereal", "body": "Cereal", "scale": "standard", "contrast": "high" },
+        "layout": { "archetype": "card-heavy", "density": "balanced", "grid": "12col" },
+        "hero": { "variant": "full-bleed", "imageTreatment": "warm-documentary" },
+        "sections": ["hero", "gallery", "services", "reviews", "cta"],
+        "cards": "soft-shadow",
+        "motion": "subtle",
+        "radius": "lg",
+        "fontPair": "Cereal/Cereal",
+        "adjectives": ["warm", "photography-led", "community", "rounded", "hospitable"]
+      }
+    },
+    {
+      "slug": "inspo-linear",
+      "tag": "inspo",
+      "source": "https://getdesign.md/linear.app/design-md",
+      "reference": "awesome-design-md / Linear",
+      "dentalMoods": ["modern-premium", "clean-clinical"],
+      "borrowableTraits": ["precise grid alignment", "restrained heading scale", "hairline section dividers"],
+      "fingerprint": {
+        "palette": { "primary": "#5E6AD2", "secondary": "#1A1B26", "accent": "#5E6AD2", "background": "#F7F8FA", "mood": "cool precise" },
+        "type": { "display": "Inter", "body": "Inter", "scale": "compact", "contrast": "high" },
+        "layout": { "archetype": "minimal-brutalist", "density": "dense", "grid": "12col" },
+        "hero": { "variant": "poster", "imageTreatment": "none" },
+        "sections": ["hero", "services", "stat-bar", "reviews", "cta"],
+        "cards": "bordered-flat",
+        "motion": "subtle",
+        "radius": "sm",
+        "fontPair": "Inter/Inter",
+        "adjectives": ["precise", "minimal", "engineered", "cool-neutral", "high-contrast"]
+      }
+    },
+    {
+      "slug": "inspo-vercel",
+      "tag": "inspo",
+      "source": "https://getdesign.md/vercel/design-md",
+      "reference": "awesome-design-md / Vercel",
+      "dentalMoods": ["modern-premium"],
+      "borrowableTraits": ["black-white precision", "monochrome CTA band", "tight typographic hierarchy"],
+      "fingerprint": {
+        "palette": { "primary": "#000000", "secondary": "#171717", "accent": "#0070F3", "background": "#FAFAFA", "mood": "monochrome precise" },
+        "type": { "display": "Geist", "body": "Geist", "scale": "standard", "contrast": "high" },
+        "layout": { "archetype": "minimal-brutalist", "density": "balanced", "grid": "12col" },
+        "hero": { "variant": "poster", "imageTreatment": "none" },
+        "sections": ["hero", "services", "doctor-intro", "cta"],
+        "cards": "ghost",
+        "motion": "subtle",
+        "radius": "sm",
+        "fontPair": "Geist/Geist",
+        "adjectives": ["monochrome", "confident", "technical-premium", "sparse", "sharp"]
+      }
+    },
+    {
+      "slug": "inspo-stripe",
+      "tag": "inspo",
+      "source": "https://getdesign.md/stripe/design-md",
+      "reference": "awesome-design-md / Stripe",
+      "dentalMoods": ["modern-premium"],
+      "borrowableTraits": ["gradient accent restraint", "editorial split sections", "weight-300 display elegance"],
+      "fingerprint": {
+        "palette": { "primary": "#635BFF", "secondary": "#0A2540", "accent": "#00D4FF", "background": "#F6F9FC", "mood": "premium confident" },
+        "type": { "display": "sohne", "body": "sohne", "scale": "editorial", "contrast": "medium" },
+        "layout": { "archetype": "magazine-split", "density": "airy", "grid": "broken" },
+        "hero": { "variant": "asymmetric-right", "imageTreatment": "editorial-muted" },
+        "sections": ["hero", "services", "reviews", "stat-bar", "cta"],
+        "cards": "soft-shadow",
+        "motion": "subtle",
+        "radius": "md",
+        "fontPair": "sohne/sohne",
+        "adjectives": ["premium", "gradient-accent", "editorial", "confident", "refined"]
+      }
+    },
+    {
+      "slug": "inspo-sanity",
+      "tag": "inspo",
+      "source": "https://getdesign.md/sanity/design-md",
+      "reference": "awesome-design-md / Sanity",
+      "dentalMoods": ["modern-premium"],
+      "borrowableTraits": ["oversized display type accent", "mono technical eyebrows", "coral CTA singularity"],
+      "fingerprint": {
+        "palette": { "primary": "#F03E2F", "secondary": "#101112", "accent": "#F03E2F", "background": "#FFFFFF", "mood": "editorial bold" },
+        "type": { "display": "Inter", "body": "Inter", "scale": "editorial", "contrast": "high" },
+        "layout": { "archetype": "editorial-asymmetric", "density": "balanced", "grid": "asymmetric" },
+        "hero": { "variant": "poster", "imageTreatment": "none" },
+        "sections": ["hero", "services", "gallery", "cta"],
+        "cards": "bordered-flat",
+        "motion": "expressive",
+        "radius": "sm",
+        "fontPair": "Inter/IBM Plex Mono",
+        "adjectives": ["editorial", "bold-type", "dark-first", "coral-accent", "confident"]
+      }
+    },
+    {
+      "slug": "inspo-framer",
+      "tag": "inspo",
+      "source": "https://getdesign.md/framer/design-md",
+      "reference": "awesome-design-md / Framer",
+      "dentalMoods": ["modern-premium"],
+      "borrowableTraits": ["motion-first section reveals", "bold black-blue contrast", "design-forward hero"],
+      "fingerprint": {
+        "palette": { "primary": "#0055FF", "secondary": "#000000", "accent": "#0055FF", "background": "#FFFFFF", "mood": "design-forward bold" },
+        "type": { "display": "Inter", "body": "Inter", "scale": "editorial", "contrast": "high" },
+        "layout": { "archetype": "poster-hero", "density": "airy", "grid": "broken" },
+        "hero": { "variant": "full-bleed", "imageTreatment": "editorial-muted" },
+        "sections": ["hero", "services", "gallery", "cta"],
+        "cards": "elevated",
+        "motion": "expressive",
+        "radius": "lg",
+        "fontPair": "Inter/Inter",
+        "adjectives": ["bold", "motion-led", "design-forward", "high-impact", "confident"]
+      }
+    },
+    {
+      "slug": "inspo-supabase",
+      "tag": "inspo",
+      "source": "https://getdesign.md/supabase/design-md",
+      "reference": "awesome-design-md / Supabase",
+      "dentalMoods": ["clean-clinical", "modern-premium"],
+      "borrowableTraits": ["emerald trust accent", "code-forward clarity", "dark CTA band contrast"],
+      "fingerprint": {
+        "palette": { "primary": "#3ECF8E", "secondary": "#1C1C1C", "accent": "#3ECF8E", "background": "#F8F9FA", "mood": "technical trustworthy" },
+        "type": { "display": "Circular", "body": "Circular", "scale": "standard", "contrast": "high" },
+        "layout": { "archetype": "centered-classic", "density": "balanced", "grid": "12col" },
+        "hero": { "variant": "split-image", "imageTreatment": "clinical-bright" },
+        "sections": ["hero", "services", "stat-bar", "reviews", "cta"],
+        "cards": "bordered-flat",
+        "motion": "subtle",
+        "radius": "md",
+        "fontPair": "Circular/Circular",
+        "adjectives": ["technical", "trustworthy", "emerald-accent", "developer-clean", "structured"]
+      }
+    },
+    {
+      "slug": "inspo-ibm",
+      "tag": "inspo",
+      "source": "https://getdesign.md/ibm/design-md",
+      "reference": "awesome-design-md / IBM",
+      "dentalMoods": ["clean-clinical"],
+      "borrowableTraits": ["structured blue hierarchy", "grid discipline", "enterprise-readable measure"],
+      "fingerprint": {
+        "palette": { "primary": "#0F62FE", "secondary": "#161616", "accent": "#0F62FE", "background": "#F4F4F4", "mood": "structured clinical" },
+        "type": { "display": "IBM Plex Sans", "body": "IBM Plex Sans", "scale": "standard", "contrast": "high" },
+        "layout": { "archetype": "centered-classic", "density": "dense", "grid": "12col" },
+        "hero": { "variant": "centered", "imageTreatment": "clinical-bright" },
+        "sections": ["hero", "services", "doctor-intro", "faq", "cta"],
+        "cards": "bordered-flat",
+        "motion": "none",
+        "radius": "sm",
+        "fontPair": "IBM Plex Sans/IBM Plex Sans",
+        "adjectives": ["structured", "enterprise", "precise", "clinical", "authoritative"]
+      }
+    },
+    {
+      "slug": "inspo-hashicorp",
+      "tag": "inspo",
+      "source": "https://getdesign.md/hashicorp/design-md",
+      "reference": "awesome-design-md / HashiCorp",
+      "dentalMoods": ["clean-clinical"],
+      "borrowableTraits": ["black-white enterprise clarity", "minimal chrome", "documentation-style sections"],
+      "fingerprint": {
+        "palette": { "primary": "#000000", "secondary": "#1A1A1A", "accent": "#FFD814", "background": "#FFFFFF", "mood": "enterprise clean" },
+        "type": { "display": "Inter", "body": "Inter", "scale": "standard", "contrast": "high" },
+        "layout": { "archetype": "minimal-brutalist", "density": "balanced", "grid": "12col" },
+        "hero": { "variant": "centered", "imageTreatment": "none" },
+        "sections": ["hero", "services", "stat-bar", "cta"],
+        "cards": "ghost",
+        "motion": "none",
+        "radius": "sm",
+        "fontPair": "Inter/Inter",
+        "adjectives": ["enterprise", "monochrome", "precise", "no-nonsense", "trustworthy"]
+      }
+    },
+    {
+      "slug": "inspo-mintlify",
+      "tag": "inspo",
+      "source": "https://getdesign.md/mintlify/design-md",
+      "reference": "awesome-design-md / Mintlify",
+      "dentalMoods": ["soft-gentle", "clean-clinical"],
+      "borrowableTraits": ["reading-optimized spacing", "green accent restraint", "calm documentation rhythm"],
+      "fingerprint": {
+        "palette": { "primary": "#16A34A", "secondary": "#1E293B", "accent": "#16A34A", "background": "#FAFAFA", "mood": "calm readable" },
+        "type": { "display": "Inter", "body": "Inter", "scale": "standard", "contrast": "medium" },
+        "layout": { "archetype": "warm-editorial", "density": "airy", "grid": "12col" },
+        "hero": { "variant": "asymmetric-left", "imageTreatment": "editorial-muted" },
+        "sections": ["hero", "services", "faq", "reviews", "cta"],
+        "cards": "bordered-flat",
+        "motion": "subtle",
+        "radius": "md",
+        "fontPair": "Inter/Inter",
+        "adjectives": ["calm", "readable", "green-accent", "documentation-clean", "gentle"]
+      }
+    },
+    {
+      "slug": "inspo-clay",
+      "tag": "inspo",
+      "source": "https://getdesign.md/clay/design-md",
+      "reference": "awesome-design-md / Clay",
+      "dentalMoods": ["soft-gentle", "warm-neighborhood"],
+      "borrowableTraits": ["organic shape accents", "soft gradient backgrounds", "art-directed asymmetric layout"],
+      "fingerprint": {
+        "palette": { "primary": "#6B5B95", "secondary": "#2D2D2D", "accent": "#E8A87C", "background": "#FDF8F3", "mood": "soft organic" },
+        "type": { "display": "Fraunces", "body": "DM Sans", "scale": "editorial", "contrast": "medium" },
+        "layout": { "archetype": "warm-editorial", "density": "airy", "grid": "asymmetric" },
+        "hero": { "variant": "asymmetric-right", "imageTreatment": "warm-documentary" },
+        "sections": ["hero", "doctor-intro", "gallery", "services", "cta"],
+        "cards": "soft-shadow",
+        "motion": "subtle",
+        "radius": "lg",
+        "fontPair": "Fraunces/DM Sans",
+        "adjectives": ["organic", "soft", "art-directed", "warm", "gentle"]
+      }
+    },
+    {
+      "slug": "inspo-resend",
+      "tag": "inspo",
+      "source": "https://getdesign.md/resend/design-md",
+      "reference": "awesome-design-md / Resend",
+      "dentalMoods": ["modern-premium", "clean-clinical"],
+      "borrowableTraits": ["minimal dark CTA band", "monospace accent labels", "sparse premium whitespace"],
+      "fingerprint": {
+        "palette": { "primary": "#FFFFFF", "secondary": "#0A0A0A", "accent": "#FFFFFF", "background": "#0A0A0A", "mood": "minimal dark-premium" },
+        "type": { "display": "Inter", "body": "Inter", "scale": "standard", "contrast": "high" },
+        "layout": { "archetype": "minimal-brutalist", "density": "airy", "grid": "12col" },
+        "hero": { "variant": "poster", "imageTreatment": "none" },
+        "sections": ["hero", "services", "cta"],
+        "cards": "ghost",
+        "motion": "subtle",
+        "radius": "md",
+        "fontPair": "Inter/IBM Plex Mono",
+        "adjectives": ["minimal", "dark-premium", "developer", "sparse", "confident"]
+      }
+    },
+    {
+      "slug": "inspo-posthog",
+      "tag": "inspo",
+      "source": "https://getdesign.md/posthog/design-md",
+      "reference": "awesome-design-md / PostHog",
+      "dentalMoods": ["warm-neighborhood"],
+      "borrowableTraits": ["controlled playful accent", "developer-friendly warmth", "data-forward stat presentation"],
+      "fingerprint": {
+        "palette": { "primary": "#F54E00", "secondary": "#1D1F27", "accent": "#F54E00", "background": "#F3F4EF", "mood": "warm playful" },
+        "type": { "display": "Matter SQ", "body": "Matter SQ", "scale": "standard", "contrast": "high" },
+        "layout": { "archetype": "card-heavy", "density": "balanced", "grid": "12col" },
+        "hero": { "variant": "split-image", "imageTreatment": "warm-documentary" },
+        "sections": ["hero", "stat-bar", "services", "reviews", "cta"],
+        "cards": "soft-shadow",
+        "motion": "subtle",
+        "radius": "md",
+        "fontPair": "Matter SQ/Matter SQ",
+        "adjectives": ["playful-controlled", "warm", "data-forward", "approachable", "distinctive"]
+      }
+    },
+    {
+      "slug": "inspo-figma",
+      "tag": "inspo",
+      "source": "https://getdesign.md/figma/design-md",
+      "reference": "awesome-design-md / Figma",
+      "dentalMoods": ["modern-premium", "warm-neighborhood"],
+      "borrowableTraits": ["multi-color accent discipline", "playful yet professional balance", "bold section color blocks"],
+      "fingerprint": {
+        "palette": { "primary": "#0D99FF", "secondary": "#1E1E1E", "accent": "#FF7262", "background": "#FFFFFF", "mood": "playful professional" },
+        "type": { "display": "Inter", "body": "Inter", "scale": "standard", "contrast": "high" },
+        "layout": { "archetype": "magazine-split", "density": "balanced", "grid": "broken" },
+        "hero": { "variant": "asymmetric-left", "imageTreatment": "editorial-muted" },
+        "sections": ["hero", "services", "gallery", "reviews", "cta"],
+        "cards": "elevated",
+        "motion": "expressive",
+        "radius": "lg",
+        "fontPair": "Inter/Inter",
+        "adjectives": ["playful", "professional", "colorful-disciplined", "creative", "confident"]
+      }
+    },
+    {
+      "slug": "anti-ai-dental-template",
+      "tag": "anti",
+      "source": "design-principles-core.md §A.9",
+      "reference": "Generic AI dental template convergence",
+      "dentalMoods": ["warm-neighborhood", "modern-premium", "clean-clinical", "soft-gentle"],
+      "avoidPatterns": ["Inter display + hospital blue", "3-equal service cards", "centered hero over stock photo", "gradient purple CTA"],
+      "fingerprint": {
+        "palette": { "primary": "#2563EB", "secondary": "#1E40AF", "accent": "#8B5CF6", "background": "#FFFFFF", "mood": "generic template" },
+        "type": { "display": "Inter", "body": "Inter", "scale": "standard", "contrast": "low" },
+        "layout": { "archetype": "card-heavy", "density": "balanced", "grid": "12col" },
+        "hero": { "variant": "centered", "imageTreatment": "clinical-bright" },
+        "sections": ["hero", "services", "services", "reviews", "cta"],
+        "cards": "elevated",
+        "motion": "subtle",
+        "radius": "lg",
+        "fontPair": "Inter/Inter",
+        "adjectives": ["generic", "template-default", "ai-generated", "interchangeable", "safe-bland"]
+      }
+    },
+    {
+      "slug": "anti-purple-gradient",
+      "tag": "anti",
+      "source": "taste-frontend.md LILA BAN",
+      "reference": "AI purple-blue gradient aesthetic",
+      "dentalMoods": ["warm-neighborhood", "modern-premium", "clean-clinical", "soft-gentle"],
+      "avoidPatterns": ["purple-to-pink gradients", "neon button glows", "electric blue accents on white"],
+      "fingerprint": {
+        "palette": { "primary": "#7C3AED", "secondary": "#4F46E5", "accent": "#EC4899", "background": "#F5F3FF", "mood": "neon gradient" },
+        "type": { "display": "Inter", "body": "Inter", "scale": "editorial", "contrast": "medium" },
+        "layout": { "archetype": "centered-classic", "density": "balanced", "grid": "12col" },
+        "hero": { "variant": "centered", "imageTreatment": "none" },
+        "sections": ["hero", "services", "cta"],
+        "cards": "elevated",
+        "motion": "expressive",
+        "radius": "pill",
+        "fontPair": "Inter/Inter",
+        "adjectives": ["purple-gradient", "neon", "ai-slop", "startup-generic", "over-saturated"]
+      }
+    },
+    {
+      "slug": "anti-three-card-row",
+      "tag": "anti",
+      "source": "design-principles-core.md §A.5",
+      "reference": "3-equal service cards cliché",
+      "dentalMoods": ["warm-neighborhood", "modern-premium", "clean-clinical", "soft-gentle"],
+      "avoidPatterns": ["identical 3-up card grid", "icon tile above every heading", "cards nested in cards"],
+      "fingerprint": {
+        "palette": { "primary": "#0F766E", "secondary": "#134E4A", "accent": "#14B8A6", "background": "#F0FDFA", "mood": "card-grid default" },
+        "type": { "display": "Poppins", "body": "Open Sans", "scale": "standard", "contrast": "medium" },
+        "layout": { "archetype": "card-heavy", "density": "dense", "grid": "12col" },
+        "hero": { "variant": "split-image", "imageTreatment": "clinical-bright" },
+        "sections": ["hero", "services", "services", "services", "cta"],
+        "cards": "elevated",
+        "motion": "none",
+        "radius": "lg",
+        "fontPair": "Poppins/Open Sans",
+        "adjectives": ["three-card-row", "icon-tiles", "template-grid", "monotonous", "card-overuse"]
+      }
+    },
+    {
+      "slug": "anti-centered-dark-hero",
+      "tag": "anti",
+      "source": "design-principles-core.md §B hard penalties",
+      "reference": "Centered text over dark stock photo hero",
+      "dentalMoods": ["warm-neighborhood", "modern-premium", "clean-clinical", "soft-gentle"],
+      "avoidPatterns": ["white text centered on dark overlay", "two CTAs + microlinks under hero", "stock smile photo backdrop"],
+      "fingerprint": {
+        "palette": { "primary": "#FFFFFF", "secondary": "#1F2937", "accent": "#3B82F6", "background": "#111827", "mood": "dark overlay hero" },
+        "type": { "display": "Montserrat", "body": "Roboto", "scale": "editorial", "contrast": "low" },
+        "layout": { "archetype": "centered-classic", "density": "balanced", "grid": "12col" },
+        "hero": { "variant": "centered", "imageTreatment": "clinical-bright" },
+        "sections": ["hero", "stat-bar", "services", "cta"],
+        "cards": "soft-shadow",
+        "motion": "subtle",
+        "radius": "md",
+        "fontPair": "Montserrat/Roboto",
+        "adjectives": ["centered-dark-hero", "stock-photo", "overlay-text", "cliché", "template-hero"]
+      }
+    },
+    {
+      "slug": "anti-inter-premium",
+      "tag": "anti",
+      "source": "taste-frontend.md Rule 1 ANTI-SLOP",
+      "reference": "Inter as display face on premium/warm brand",
+      "dentalMoods": ["warm-neighborhood", "soft-gentle", "modern-premium"],
+      "avoidPatterns": ["Inter for headlines on luxury positioning", "Roboto/Open Sans pairing", "flat type hierarchy"],
+      "fingerprint": {
+        "palette": { "primary": "#334155", "secondary": "#1E293B", "accent": "#64748B", "background": "#F8FAFC", "mood": "inter-premium-fake" },
+        "type": { "display": "Inter", "body": "Inter", "scale": "compact", "contrast": "low" },
+        "layout": { "archetype": "centered-classic", "density": "balanced", "grid": "12col" },
+        "hero": { "variant": "centered", "imageTreatment": "none" },
+        "sections": ["hero", "services", "doctor-intro", "cta"],
+        "cards": "bordered-flat",
+        "motion": "none",
+        "radius": "md",
+        "fontPair": "Inter/Inter",
+        "adjectives": ["inter-display", "flat-hierarchy", "premium-fake", "generic-sans", "no-character"]
+      }
+    }
+  ]
+}
