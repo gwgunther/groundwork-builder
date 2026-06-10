@@ -12,3 +12,4 @@ output/
 .playwright-mcp/
 _sourcing/
 docs/design-catalog/_paste-prompt.txt
+docs/design-catalog/runs/
