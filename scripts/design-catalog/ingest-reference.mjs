@@ -25,6 +25,15 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { join, basename } from 'node:path';
 import { CATALOG_DIR, loadSchema, validateAgainstSchema, mechanicalEval, loadImage, parseJsonLoose, ai } from './lib.mjs';
 import { runEval } from './eval-entry.mjs';
+import { captureReference } from './capture-reference.mjs';
+
+const probeBlock = (probe, forExtract = false) => probe ? `
+
+## Computed-style probe (EXACT values read from the live DOM via getComputedStyle — ground truth)
+${forExtract ? 'COPY tokens.color.reference hexes VERBATIM from these observed colors (pick the right role per color). tokens.type.reference font names come from fontsByArea/headings. Radii and shadows must agree with the histograms. Your strategy/classification fields still come from design judgment — but never contradict the probe on a measured value.\nHEX CONTAINMENT: probe hexes may appear ONLY inside tokens.color.reference and tokens.type.reference. Every other field (composition, fidelityChecks, gaps, character, voice, strategy) must describe colors by ROLE ("the dark chrome ground", "the warm off-white page surface") — never by literal hex.' : 'Reconcile every visual observation with these measured values; report the probe hexes verbatim rather than your own estimates when they cover the same element.'}
+\`\`\`json
+${JSON.stringify(probe, null, 1)}
+\`\`\`` : '';
 
 // ── Stage A: source audit ───────────────────────────────────────────────────
 
@@ -42,14 +51,14 @@ Discipline (each rule exists because its violation was observed in practice):
 - Typographic DEVICES are motifs: italic mixes, weight shifts, parenthetical marks, small-caps.
 - Mark what is NOT visible. Never describe a footer you cannot see.`;
 
-async function stageAudit(imageBlocks) {
+async function stageAudit(imageBlocks, probe = null) {
   const res = await ai('catalog-audit', {
     system: AUDIT_SYSTEM,
     maxTokens: 4000,
     temperature: 0.1,
     content: [
       ...imageBlocks,
-      { type: 'text', text: `Audit the screenshot(s) above. Return ONLY JSON:
+      { type: 'text', text: `Audit the screenshot(s) above.${probeBlock(probe)}\n\nReturn ONLY JSON:
 {
   "brand": { "apparentName": "...", "industry": "...", "oneLineLanguage": "<the design language in one sentence>" },
   "palette": [ { "hex": "#...", "role": "page background|card surface|primary button|heading text|body text|border|accent|...", "where": "<located in image>", "usageShare": "dominant|secondary|sparing" } ],
@@ -87,10 +96,10 @@ async function buildExtractionPrompt() {
   return fence[1].replace('[paste docs/design-catalog/schema.json here]', schema);
 }
 
-async function stageExtract({ imageBlocks, audit, entryId, feedback = null, priorEntry = null }) {
+async function stageExtract({ imageBlocks, audit, entryId, probe = null, feedback = null, priorEntry = null }) {
   const base = await buildExtractionPrompt();
   const parts = [
-    `## Grounding audit (produced from the same screenshots — every claim you make must trace to it; if you contradict it, you must be correcting it against the image and say so in grounding notes)\n\`\`\`json\n${JSON.stringify(audit, null, 2)}\n\`\`\``,
+    `## Grounding audit (produced from the same screenshots — every claim you make must trace to it; if you contradict it, you must be correcting it against the image and say so in grounding notes)\n\`\`\`json\n${JSON.stringify(audit, null, 2)}\n\`\`\`${probeBlock(probe, true)}`,
     `Use "${entryId}" as the entry id.`,
     `In addition to the entry, classify your decisions (the grounding discipline):
 - observed: visible in the screenshots
@@ -134,16 +143,26 @@ ${errors.map(e => `- ${e}`).join('\n')}` }],
 
 // ── Orchestration ───────────────────────────────────────────────────────────
 
-export async function ingestReference({ images, entryId, maxIters = 4, outDir }) {
+export async function ingestReference({ images = [], url = null, entryId, maxIters = 4, outDir }) {
   const schema = await loadSchema();
-  const imageBlocks = await Promise.all(images.map(loadImage));
   await mkdir(outDir, { recursive: true });
   const log = (m) => console.log(`[ingest] ${m}`);
   let totalCost = 0;
   const history = [];
 
+  let probe = null;
+  if (url) {
+    log(`stage 0: capturing ${url} (tiles + computed-style probe)`);
+    const cap = await captureReference(url, join(outDir, 'capture'));
+    images = cap.tiles;
+    probe = cap.probe;
+    log(`capture: ${cap.tiles.length} tile(s), probe bg=${probe.pageBackground}, fonts=${(probe.fontsByArea || []).slice(0, 2).map(f => f.value).join('/')}, logo=${probe.chrome?.nav?.logoPosition}`);
+  }
+  if (!images.length) throw new Error('no images — pass screenshots or --url');
+  const imageBlocks = await Promise.all(images.map(loadImage));
+
   log(`stage A: source audit (${images.length} image(s))`);
-  const { audit, cost: auditCost } = await stageAudit(imageBlocks);
+  const { audit, cost: auditCost } = await stageAudit(imageBlocks, probe);
   totalCost += auditCost;
   await writeFile(join(outDir, 'audit.json'), JSON.stringify(audit, null, 2));
   log(`audit: ${audit.palette.length} colors, type=${audit.typography.displayClassification}, eyebrow=${audit.typography.eyebrow}, ${audit.motifs?.length ?? 0} motifs`);
@@ -152,13 +171,13 @@ export async function ingestReference({ images, entryId, maxIters = 4, outDir })
 
   for (let iter = 1; iter <= maxIters; iter++) {
     log(`stage B: extract (iteration ${iter}/${maxIters}${feedback ? ', revising' : ''})`);
-    const ext = await stageExtract({ imageBlocks, audit, entryId, feedback, priorEntry: entry });
+    const ext = await stageExtract({ imageBlocks, audit, entryId, probe, feedback, priorEntry: entry });
     entry = ext.entry; grounding = ext.grounding; totalCost += ext.cost;
 
     // Stage C — mechanical gate with repair
     for (let r = 0; r < 2; r++) {
       const errs = validateAgainstSchema(schema, entry);
-      const mech = errs.length ? null : await mechanicalEval(entry, schema);
+      const mech = errs.length ? null : await mechanicalEval(entry, schema, { probe });
       const problems = errs.length ? errs : (mech.pass ? [] : mech.checks.filter(c => !c.pass).map(c => `${c.id}: ${c.detail}`));
       if (!problems.length) break;
       if (r === 1) { log(`mechanical problems persist after repair: ${problems.join(' | ')}`); break; }
@@ -169,7 +188,7 @@ export async function ingestReference({ images, entryId, maxIters = 4, outDir })
     await writeFile(join(outDir, `iter-${iter}.entry.json`), JSON.stringify(entry, null, 2));
 
     log(`stage D: judge`);
-    const ev = await runEval({ entry, grounding, imageBlock: imageBlocks[0] });
+    const ev = await runEval({ entry, grounding, imageBlocks, probe });
     totalCost += ev.cost || 0;
     await writeFile(join(outDir, `iter-${iter}.eval.json`), JSON.stringify(ev, null, 2));
     const failed = [...ev.mechanical.filter(c => !c.pass).map(c => `[${c.id}] ${c.detail}`),
@@ -204,11 +223,14 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const args = process.argv.slice(2);
   const images = args.filter(a => !a.startsWith('--') && !args[args.indexOf(a) - 1]?.startsWith('--'));
   const opt = (name, dflt) => { const i = args.indexOf(`--${name}`); return i === -1 ? dflt : args[i + 1]; };
-  if (!images.length) { console.error('usage: ingest-reference.mjs <screenshot...> [--id slug] [--max-iters 4] [--out dir]'); process.exit(2); }
-  const entryId = opt('id', basename(images[0]).replace(/\.[a-z]+$/i, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
+  const url = opt('url', null);
+  if (!images.length && !url) { console.error('usage: ingest-reference.mjs <screenshot...> | --url <url>  [--id slug] [--max-iters 4] [--out dir]'); process.exit(2); }
+  const entryId = opt('id', url
+    ? new URL(url).hostname.replace(/^www\./, '').replace(/\./g, '-')
+    : basename(images[0]).replace(/\.[a-z]+$/i, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
   const ts = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
   const outDir = opt('out', join(CATALOG_DIR, 'runs', `${entryId}-${ts}`));
-  const r = await ingestReference({ images, entryId, maxIters: Number(opt('max-iters', 4)), outDir });
+  const r = await ingestReference({ images, url, entryId, maxIters: Number(opt('max-iters', 4)), outDir });
   console.log(`\n${r.eval.pass ? 'PASS' : 'FAIL'} — entry + report in ${r.outDir}`);
   process.exit(r.eval.pass ? 0 : 1);
 }

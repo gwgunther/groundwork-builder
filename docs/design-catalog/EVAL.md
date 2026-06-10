@@ -13,6 +13,7 @@ Code: `scripts/design-catalog/lib.mjs` (M) + `eval-entry.mjs` (J). Agent loop: `
 | **M4** coverage depth | hero/nav/footer composition ≥ 40 chars; ≥ 3 fidelityChecks; ≥ 3 adjectives | stub fields that validate but carry nothing |
 | **M5** linkage | gradient-accent sanctioned → token gap; dark theme → needs-dark-support; novel[] → layout ≠ full + variant gaps; phase A iff (full ∧ light-native ∧ no gaps) | internally inconsistent honesty |
 | **M6** eyebrow policy | every-section → pattern sanctioned; none → kicker-ban fidelityCheck; field present | incoherent eyebrow handling |
+| **M7** color accuracy (URL mode) | every `tokens.color.reference` hex within RGB tolerance of a color the live DOM actually used (computed-style probe) | hallucinated/drifted reference hexes |
 
 ## Tier 2 — Judged (adversarial vision LLM: screenshot + entry + grounding notes)
 
@@ -33,8 +34,12 @@ conventions, "close" colors, silent flattening, wrong accent assignment).
 ## The loop
 
 ```
-screenshot(s)
-  → A. source audit (grounding doc: located hexes, type anatomy, geometry, motifs, chrome, voice, visibility map)
+screenshot(s)  — or —  --url <site>
+  → 0. capture (URL mode): playwright real-Chrome channel, overlay dismissal, lazy-load
+       scroll, TILED full-page screenshots (≤4000px segments, ≤5 tiles), and a
+       COMPUTED-STYLE PROBE: exact hexes/fonts/radii/shadows/chrome geometry from
+       getComputedStyle — programmatic ground truth that beats pixel estimation
+  → A. source audit (grounding doc: located hexes, type anatomy, geometry, motifs, chrome, voice, visibility map; probe is binding when present)
   → B. extract (entry + observed/implied/invented grounding notes; audit is binding)
   → C. mechanical gate (M1–M6; ≤2 repair calls for failures)
   → D. judge (J1–J7)
@@ -44,10 +49,16 @@ screenshot(s)
 Artifacts per run in `docs/design-catalog/runs/<id>-<ts>/`: `audit.json`, `iter-N.entry.json`,
 `iter-N.eval.json`, final `entry.json`, `report.md` (score trajectory table).
 
-## Known limitations (v1)
+## Known limitations
 
-- **No programmatic pixel sampling** — reference hexes are vision-estimated, cross-checked by the
-  judge at color-family precision. Hardening: add a real sampler (sharp/pngjs) feeding stage A.
+- **Screenshot-only mode has no programmatic grounding** — reference hexes are vision-estimated,
+  cross-checked by the judge at color-family precision. **Prefer `--url`**: the computed-style
+  probe supplies exact values and unlocks M7. Case in point (Aesop): vision-only classified the
+  display face `editorial-serif` and the dark chrome "forest green" — the probe showed Suisse Intl
+  (grotesque, the serif is a 0.1%-by-area italic accent) and neutral `#252525`. Both extractor and
+  judge made the same vision error; the probe is the only thing that catches that class of mistake.
+- **Bot protection** — some sites block headless capture; the tool retries headed, then asks for
+  manual screenshots.
 - **Same model judges and extracts** (sonnet) — mitigated by adversarial judge framing + separate
   prompts; option: upgrade judge to opus for calibration runs.
 - **Judge variance** — J-scores are LLM-judged; treat 4/5 threshold as a gate, not a metric.

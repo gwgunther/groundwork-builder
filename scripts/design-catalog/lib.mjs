@@ -64,7 +64,27 @@ function* walkStrings(obj, path = '') {
 const REFERENCE_PATHS = /(^|\.)(source\.|tokens\.color\.reference|tokens\.type\.reference)/;
 const INDUSTRY_RESIDUE = /\b(add to cart|cart|checkout|sku|e-?commerce|webshop|storefront|wishlist|basket|best ?seller|free shipping|order now|product (page|grid|detail)|shop now|our (products|menu)|pricing plans?|subscription tiers?)\b/i;
 
-export async function mechanicalEval(entry, schema) {
+/** RGB euclidean distance between two #rrggbb hexes. */
+function hexDist(a, b) {
+  const p = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+  const [r1, g1, b1] = p(a), [r2, g2, b2] = p(b);
+  return Math.sqrt((r1 - r2) ** 2 + (g1 - g2) ** 2 + (b1 - b2) ** 2);
+}
+
+/** All hexes a style probe observed (palette census + buttons + chrome). */
+export function probeHexes(probe) {
+  const out = new Set();
+  const add = h => { if (/^#[0-9a-f]{6}$/i.test(h || '')) out.add(h.toLowerCase()); };
+  add(probe.pageBackground);
+  for (const x of probe.backgroundsByArea || []) add(x.value);
+  for (const x of probe.textColorsByArea || []) add(x.value);
+  for (const b of probe.buttons || []) { add(b.background); add(b.color); }
+  for (const h of probe.headings || []) add(h.color);
+  add(probe.chrome?.nav?.background); add(probe.chrome?.footer?.background); add(probe.chrome?.footer?.color);
+  return [...out];
+}
+
+export async function mechanicalEval(entry, schema, { probe = null } = {}) {
   const checks = [];
   const add = (id, pass, detail) => checks.push({ id, pass, detail });
 
@@ -111,9 +131,13 @@ export async function mechanicalEval(entry, schema) {
   if (novel.length && entry.fidelity?.layout === 'full')
     m5.push('novel[] sections present but fidelity.layout claims "full"');
   for (const n of novel) {
-    const sec = (n.section || '').toLowerCase(), name = (n.name || '').toLowerCase();
-    if (!gaps.some(g => g.type === 'variant' && (g.detail.toLowerCase().includes(sec) || g.detail.toLowerCase().includes(name))))
-      m5.push(`novel "${n.name}" (${n.section}) has no matching variant gap (gap detail must mention the section or the name)`);
+    // Word-overlap match: a variant gap "covers" a novel entry when it shares ≥2
+    // significant words with the novel's name/section (exact-substring proved brittle).
+    const words = `${n.section || ''} ${n.name || ''}`.toLowerCase().split(/[^a-z0-9]+/).filter(w => w.length > 3);
+    const covered = gaps.some(g => g.type === 'variant'
+      && words.filter(w => g.detail.toLowerCase().includes(w)).length >= Math.min(2, words.length));
+    if (!covered)
+      m5.push(`novel "${n.name}" (${n.section}) has no matching variant gap (a gap of type "variant" must describe it)`);
   }
   const isA = entry.fidelity?.phase === 'A';
   const shouldBeA = entry.fidelity?.layout === 'full' && entry.fidelity?.theme === 'light-native' && gaps.length === 0;
@@ -129,6 +153,19 @@ export async function mechanicalEval(entry, schema) {
     m6.push('eyebrow=none but no fidelityCheck banning kickers');
   if (!eyebrow) m6.push('tokens.type.heading.eyebrow missing (none|sparing|every-section)');
   add('M6-eyebrow-policy', m6.length === 0, m6.length ? m6.join('; ') : 'coherent');
+
+  // M7 — reference-hex accuracy vs the computed-style probe (URL mode only).
+  // Every tokens.color.reference hex must be near a color the live DOM actually used.
+  if (probe) {
+    const observed = probeHexes(probe);
+    const drifted = [];
+    for (const [role, hex] of Object.entries(entry.tokens?.color?.reference || {})) {
+      if (!/^#[0-9a-f]{6}$/i.test(hex)) { drifted.push(`${role}: "${hex}" not a 6-digit hex`); continue; }
+      const nearest = Math.min(...observed.map(o => hexDist(hex.toLowerCase(), o)));
+      if (nearest > 70) drifted.push(`${role}: ${hex} is ${Math.round(nearest)} RGB-units from any observed color`);
+    }
+    add('M7-color-accuracy', drifted.length === 0, drifted.length ? drifted.join('; ') : `all reference hexes within tolerance of ${observed.length} observed colors`);
+  }
 
   return { pass: checks.every(c => c.pass), checks };
 }

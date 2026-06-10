@@ -42,14 +42,14 @@ export const JUDGE_CRITERIA = [
   ['J7-checks', 'FIDELITY CHECKS QUALITY. Are there ≥3 fidelityChecks, each (a) verifiable from a build screenshot, (b) specific to THIS design (would fail for a generic build), (c) protecting a signature element or the eyebrow/theme policy?'],
 ];
 
-export async function judgeEntry({ entry, grounding, imageBlock, phase = 'catalog-judge' }) {
+export async function judgeEntry({ entry, grounding, imageBlocks, probe = null, phase = 'catalog-judge' }) {
   const res = await ai(phase, {
     system: JUDGE_SYSTEM,
     maxTokens: 4000,
     temperature: 0,
     content: [
-      imageBlock,
-      { type: 'text', text: `Source screenshot above. The extracted catalog entry:\n\n\`\`\`json\n${JSON.stringify(entry, null, 2)}\n\`\`\`\n${grounding ? `\nThe extractor's grounding notes (observed/implied/invented):\n\`\`\`json\n${JSON.stringify(grounding, null, 2)}\n\`\`\`\n` : ''}
+      ...imageBlocks.slice(0, 4),
+      { type: 'text', text: `Source screenshot${imageBlocks.length > 1 ? ` (${Math.min(imageBlocks.length, 4)} tiles, top-to-bottom)` : ''} above.${probe ? `\n\nComputed-style probe from the live DOM (EXACT values — treat as ground truth over your pixel estimates):\n\`\`\`json\n${JSON.stringify({ pageBackground: probe.pageBackground, backgroundsByArea: probe.backgroundsByArea, textColorsByArea: probe.textColorsByArea, fontsByArea: probe.fontsByArea, radiiHistogram: probe.radiiHistogram, headings: probe.headings, buttons: probe.buttons?.slice(0, 4), chrome: probe.chrome }, null, 1)}\n\`\`\`` : ''} The extracted catalog entry:\n\n\`\`\`json\n${JSON.stringify(entry, null, 2)}\n\`\`\`\n${grounding ? `\nThe extractor's grounding notes (observed/implied/invented):\n\`\`\`json\n${JSON.stringify(grounding, null, 2)}\n\`\`\`\n` : ''}
 Score each criterion 1-5 (4 = pass). Cite concrete evidence from the screenshot for every score.
 For every score ≤ 3, the "fix" must be a specific, actionable edit to the entry.
 
@@ -73,13 +73,14 @@ Return ONLY JSON:
   return { judged, signatureElements: parsed.signatureElements || [], summary: parsed.summary || '', usage: res.usage, cost: res.cost };
 }
 
-export async function runEval({ entry, grounding = null, imageBlock, phase = 'catalog-judge' }) {
+export async function runEval({ entry, grounding = null, imageBlock = null, imageBlocks = null, probe = null, phase = 'catalog-judge' }) {
+  const blocks = imageBlocks || (imageBlock ? [imageBlock] : []);
   const schema = await loadSchema();
-  const mech = await mechanicalEval(entry, schema);
+  const mech = await mechanicalEval(entry, schema, { probe });
   if (!mech.checks[0].pass) {
     return { pass: false, mechanical: mech.checks, judged: [], summary: 'schema-invalid — judge skipped' };
   }
-  const j = await judgeEntry({ entry, grounding, imageBlock, phase });
+  const j = await judgeEntry({ entry, grounding, imageBlocks: blocks, probe, phase });
   return {
     pass: mech.pass && j.judged.every(c => c.pass),
     mechanical: mech.checks,
