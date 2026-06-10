@@ -141,7 +141,8 @@ async function serveUI(env) {
            ORDER BY weakness_score DESC NULLS LAST LIMIT 1000`).all(),
         env.DB.prepare(`SELECT id, slug, status, website_url, source, contact_email,
            total_checks, passed, critical, warnings, mobile_score, desktop_score,
-           gbp_reviews, gbp_rating, audit_report_url, error_detail, completed_at, date_added
+           gbp_reviews, gbp_rating, audit_report_url, gcs_run_folder, error_detail,
+           completed_at, date_added
            FROM audits ORDER BY date_added DESC LIMIT 200`).all(),
       ]);
     stats = {
@@ -399,6 +400,27 @@ async function serveUI(env) {
   }
   .col-menu label:hover { background: var(--surface-2); }
   .col-menu input { accent-color: var(--sage-dark); }
+  .col-menu-actions {
+    display: flex;
+    gap: 6px;
+    padding: 2px 4px 8px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .col-menu-actions button {
+    flex: 1;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 8px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    background: var(--surface-1);
+    color: var(--sage-dark);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .col-menu-actions button:hover { background: var(--sage-tint); }
 
   /* ---- Generic grid cards ---- */
   .gcard-title {
@@ -755,11 +777,11 @@ const COLS = {
     { key: 'lifecycle_stage', label: 'Lifecycle',      on: true,  html: function (r) { return lcBadge(r.lifecycle_stage || 'Prospect'); } },
     { key: 'city',            label: 'City',           on: true,  html: function (r) { return dimText([r.city, r.state].filter(Boolean).join(', ')); } },
     { key: 'phone',           label: 'Phone',          on: false, nowrap: true, html: function (r) { return dimText(r.phone); } },
-    { key: 'contact_email',   label: 'Contact Email',  on: false, html: function (r) { return dimText(r.contact_email); } },
+    { key: 'contact_email',   label: 'Contact Email',  on: true,  html: function (r) { return dimText(r.contact_email); } },
     { key: 'business_email',  label: 'Business Email', on: false, html: function (r) { return dimText(r.business_email); } },
     { key: 'source',          label: 'Source',         on: false, html: function (r) { return dimText(r.source); } },
     { key: 'url',             label: 'URL',            on: true,  html: function (r) { return siteLink(r.url); } },
-    { key: 'created_at',      label: 'Created',        on: false, nowrap: true, html: function (r) { return dimDate(r.created_at); } },
+    { key: 'created_at',      label: 'Created',        on: true,  nowrap: true, html: function (r) { return dimDate(r.created_at); } },
     { key: 'last_build_at',   label: 'Last Build',     on: true,  nowrap: true, html: function (r) { return dimDate(r.last_build_at); } },
   ],
   audits: [
@@ -773,8 +795,9 @@ const COLS = {
     { key: 'scores',           label: 'Scores',    on: true,  nowrap: true, html: function (r) { return (r.mobile_score != null || r.desktop_score != null) ? mono(esc((r.mobile_score != null ? r.mobile_score : '–') + ' / ' + (r.desktop_score != null ? r.desktop_score : '–'))) : dim('—'); } },
     { key: 'gbp',              label: 'GBP',       on: false, nowrap: true, html: function (r) { return r.gbp_rating != null ? mono(esc(r.gbp_rating)) + ' ' + dim('(' + (r.gbp_reviews != null ? r.gbp_reviews : 0) + ')') : dim('—'); } },
     { key: 'source',           label: 'Source',    on: false, html: function (r) { return dimText(r.source); } },
-    { key: 'contact_email',    label: 'Email',     on: false, html: function (r) { return dimText(r.contact_email); } },
+    { key: 'contact_email',    label: 'Email',     on: true,  html: function (r) { return dimText(r.contact_email); } },
     { key: 'audit_report_url', label: 'Report',    on: true,  html: function (r) { return namedLink(r.audit_report_url, 'Report'); } },
+    { key: 'gcs_run_folder',   label: 'GCS',       on: true,  nowrap: true, html: function (r) { return r.gcs_run_folder ? namedLink('https://console.cloud.google.com/storage/browser/' + r.gcs_run_folder, 'GCS') : dim('—'); } },
     { key: 'error_detail',     label: 'Error',     on: false, html: function (r) { return dimText(r.error_detail); } },
     { key: 'completed_at',     label: 'Completed', on: false, nowrap: true, html: function (r) { return dimDate(r.completed_at); } },
   ],
@@ -786,7 +809,7 @@ const COLS = {
     { key: 'preview_url',       label: 'Preview',    on: true,  html: function (r) { return namedLink(r.preview_url, 'Preview'); } },
     { key: 'pitch_url',         label: 'Pitch',      on: true,  html: function (r) { return namedLink(r.pitch_url, 'Pitch'); } },
     { key: 'github_folder_url', label: 'GitHub',     on: false, html: function (r) { return namedLink(r.github_folder_url, 'GitHub'); } },
-    { key: 'website_url',       label: 'Site',       on: false, html: function (r) { return siteLink(r.website_url); } },
+    { key: 'website_url',       label: 'Site',       on: true,  html: function (r) { return siteLink(r.website_url); } },
     { key: 'contact_name',      label: 'Contact',    on: false, html: function (r) { return dimText(r.contact_name); } },
     { key: 'contact_email',     label: 'Email',      on: true,  html: function (r) { return dimText(r.contact_email); } },
     { key: 'fixed_count',       label: 'Fixed',      on: false, html: function (r) { return monoNum(r.fixed_count); } },
@@ -802,8 +825,8 @@ const COLS = {
     { key: 'msa_market',      label: 'Market',      on: false, html: function (r) { return dimText(r.msa_market); } },
     { key: 'rating',          label: 'Rating',      on: true,  nowrap: true, html: function (r) { return r.rating != null ? mono(esc(r.rating)) + ' ' + dim('(' + (r.review_count != null ? r.review_count : 0) + ')') : dim('—'); } },
     { key: 'weakness',        label: 'Weakness',    on: true,  nowrap: true, html: function (r) { return r.weakness_score != null ? mono(Number(r.weakness_score).toFixed(1)) + (r.weakness_tier ? ' ' + dim(esc(r.weakness_tier)) : '') : dim('—'); } },
-    { key: 'quality_score',   label: 'Quality',     on: false, html: function (r) { return r.quality_score != null ? mono(Number(r.quality_score).toFixed(1)) : dim('—'); } },
-    { key: 'tier',            label: 'Tier',        on: true,  html: function (r) { return dimText(r.tier || r.quadrant); } },
+    { key: 'quality_score',   label: 'Quality',     on: true,  html: function (r) { return r.quality_score != null ? mono(Number(r.quality_score).toFixed(1)) : dim('—'); } },
+    { key: 'tier',            label: 'Tier',        on: false, html: function (r) { return dimText(r.tier || r.quadrant); } },
     { key: 'business_tier',   label: 'Biz Tier',    on: false, html: function (r) { return dimText(r.business_tier); } },
     { key: 'vendor',          label: 'Vendor',      on: true,  html: function (r) { return dimText(r.vendor); } },
     { key: 'vendor_category', label: 'Vendor Cat.', on: false, html: function (r) { return dimText(r.vendor_category); } },
@@ -836,7 +859,7 @@ const queries = { runs: '', practices: '', accounts: '', builds: '', sourced: ''
 // Preferences (view + visible columns) — persisted in localStorage
 // ---------------------------------------------------------------------------
 
-const PREFS_KEY = 'gw-ops-prefs-v1';
+const PREFS_KEY = 'gw-ops-prefs-v2'; // bump to re-apply new column defaults
 let prefs = {};
 try { prefs = JSON.parse(localStorage.getItem(PREFS_KEY) || '{}') || {}; } catch (e) { prefs = {}; }
 
@@ -941,6 +964,7 @@ function buildPanel(tab) {
   h += '<button class="view-btn' + (p.view === 'list' ? ' active' : '') + '" data-view="list" type="button">List</button>';
   h += '</div>';
   h += '<div class="col-picker"><button class="col-btn" type="button">Columns ▾</button><div class="col-menu">';
+  h += '<div class="col-menu-actions"><button data-act="all" type="button">Select all</button><button data-act="none" type="button">Clear all</button></div>';
   COLS[tab].forEach(function (c) {
     h += '<label><input type="checkbox" data-col="' + c.key + '"' + (p.cols[c.key] ? ' checked' : '') + ' /> ' + esc(c.label) + '</label>';
   });
@@ -971,6 +995,20 @@ function buildPanel(tab) {
   picker.querySelectorAll('input[type=checkbox]').forEach(function (cb) {
     cb.addEventListener('change', function () {
       p.cols[cb.dataset.col] = cb.checked;
+      savePrefs();
+      render(tab);
+    });
+  });
+  picker.querySelectorAll('.col-menu-actions button').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const selectAll = btn.dataset.act === 'all';
+      COLS[tab].forEach(function (c) {
+        // Clear all keeps the primary column so the table never goes blank
+        p.cols[c.key] = selectAll ? true : !!c.primary;
+      });
+      picker.querySelectorAll('input[type=checkbox]').forEach(function (cb) {
+        cb.checked = p.cols[cb.dataset.col];
+      });
       savePrefs();
       render(tab);
     });
