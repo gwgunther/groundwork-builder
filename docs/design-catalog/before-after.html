@@ -49,17 +49,21 @@
   .ae nav .links{display:flex;gap:14px;font-size:11.5px;color:#333}
   .ae nav .links.r{justify-content:flex-end}
   .ae nav .wm{font-weight:600;font-size:16px;color:#252525;padding:0 26px}
-  .ae .hero{background:linear-gradient(160deg,#20251f,#161a16 60%,#101310);color:#fffef2;padding:72px 38px 62px;position:relative}
+  .ae .hero{background:linear-gradient(160deg,#20251f,#161a16 60%,#101310);color:#fffef2;padding:66px 38px 46px;position:relative;text-align:center}
   .ae .ph{position:absolute;top:10px;right:12px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,254,242,.35);border:1px solid rgba(255,254,242,.2);padding:2px 7px}
-  .ae .hero h3{font-weight:400;font-size:25px;line-height:1.25;max-width:18ch;color:#fffef2}
-  .ae .hero p{margin:12px 0 22px;max-width:44ch;font-size:12.5px;color:rgba(255,254,242,.78)}
+  .ae .hero h3{font-weight:400;font-size:25px;line-height:1.25;max-width:22ch;color:#fffef2;margin:0 auto}
+  .ae .hero p{margin:12px auto 22px;max-width:46ch;font-size:12.5px;color:rgba(255,254,242,.78)}
+  .ae .dots{margin-top:26px;display:flex;justify-content:center;gap:6px}
+  .ae .dots i{width:14px;height:2px;background:rgba(255,254,242,.3)}
+  .ae .dots i:first-child{background:rgba(255,254,242,.85)}
   .ae .bg{display:inline-block;border:1px solid rgba(255,254,242,.65);color:#fffef2;padding:9px 22px;font-size:11.5px;text-decoration:none}
   .ae .sec{padding:36px 26px}
   .ae h4{font-weight:400;font-size:20px;color:#333;text-align:center;margin-bottom:6px}
   .ae .lede{text-align:center;font-size:12px;max-width:52ch;margin:0 auto 24px}
   .ae .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
   .ae .tc{background:#f6f5e8;display:flex;flex-direction:column}
-  .ae .tc .img{height:92px;background:linear-gradient(150deg,#3a4035,#586051)}
+  .ae .tc .img{height:92px;background:linear-gradient(150deg,#eceadb,#dcd9c8);position:relative}
+  .ae .tc .img::after{content:"IMAGE";position:absolute;inset:auto 7px 5px auto;font-size:8px;letter-spacing:.14em;color:rgba(51,51,51,.3)}
   .ae .tc .pad{padding:13px 13px 15px;display:flex;flex-direction:column;gap:6px;flex:1}
   .ae .tc b{font-weight:600;font-size:12.5px;color:#333}
   .ae .tc small{font-size:11px}
@@ -79,6 +83,24 @@
   .ae .tile:nth-child(5) .sq{background:linear-gradient(140deg,#5d524a,#3b342f)}
   .ae .tile figcaption{font-size:10.5px;color:#333;margin-top:6px}
   .ae .novel{display:block;text-align:center;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#945c26;margin-top:14px}
+  .ae .trust{display:grid;grid-template-columns:1fr 1fr;gap:26px;background:#f6f5e8;padding:30px 30px;text-align:center;font-size:11px}
+  .ae .trust b{display:block;color:#333;font-weight:600;font-size:12px;margin-bottom:5px}
+  .ae .read{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .ae .read .img{height:84px;background:linear-gradient(150deg,#8a7c66,#5d5344)}
+  .ae .read .r2 .img{background:linear-gradient(150deg,#3f4a3c,#28302a)}
+  .ae .read .r3 .img{background:linear-gradient(150deg,#cfc4ae,#a89a82)}
+  .ae .read small{display:block;font-size:9.5px;letter-spacing:.08em;color:#945c26;margin:9px 0 3px}
+  .ae .read b{font-weight:600;font-size:11.5px;color:#333;line-height:1.4}
+  .ae .read i{display:block;font-style:normal;font-size:10px;color:#999;margin-top:4px}
+  .ae .ctab{text-align:center;padding:38px 30px;background:#f6f5e8}
+  .ae .ctab h4{margin-bottom:14px}
+  .ae .bfill{display:inline-block;background:#252525;color:#fffef2;padding:10px 26px;font-size:11.5px;text-decoration:none}
+  .ae footer .fcols{display:grid;grid-template-columns:1fr 1fr 1fr 1.4fr;gap:18px;margin-bottom:18px}
+  .ae footer .fi{display:block;width:100%;background:#fff;border:1px solid rgba(255,254,242,.35);color:#333;font-size:10px;padding:7px 9px;margin-bottom:7px}
+  .ae footer .consent{font-size:8.5px;line-height:1.5;color:rgba(255,254,242,.4)}
+  .ae footer .soc{display:flex;gap:9px;margin:4px 0 16px}
+  .ae footer .soc i{width:14px;height:14px;border:1px solid rgba(255,254,242,.45);border-radius:50%}
+  .ae footer .strip{border-top:1px solid rgba(255,254,242,.15);padding-top:11px;font-size:9.5px;display:flex;justify-content:space-between}
   .ae .quote{text-align:center;padding:44px 30px}
   .ae .quote p{font-family:var(--serif);font-style:italic;font-weight:380;font-size:18px;line-height:1.45;color:#333;max-width:34ch;margin:0 auto 10px}
   .ae .quote cite{font-style:normal;font-size:10.5px;color:#666}
@@ -193,13 +215,14 @@
       <div class="pane"><div class="ae">
         <div class="bar">Now welcoming new patients — complimentary consultations through June 30</div>
         <nav><div class="links"><span>New patients</span><span>Treatments</span><span>About</span></div><div class="wm">Aldergate Dental.</div><div class="links r"><span>Contact</span><span style="font-weight:600;color:#252525">Book a visit</span></div></nav>
-        <div class="hero"><span class="ph">image — botanical clinical still</span><h3>The quiet confidence of a well-kept smile</h3><p>Preventive care delivered with patience and precision — unhurried appointments, meticulous attention, formulating long-term oral health.</p><a class="bg" href="#">Discover preventive care</a></div>
+        <div class="hero"><span class="ph">image — botanical clinical still</span><h3>The quiet confidence of a well-kept smile</h3><p>Preventive care delivered with patience and precision — unhurried appointments, meticulous attention, formulating long-term oral health.</p><a class="bg" href="#">Discover preventive care</a><div class="dots"><i></i><i></i><i></i><i></i></div></div>
         <div class="sec"><h4>New and notable</h4><p class="lede">A collection of considered treatments and recent additions to our care — each likely to make a lasting difference.</p>
           <div class="g3">
             <div class="tc"><div class="img"></div><div class="pad"><b>Comprehensive Exam Trio</b><small>A trio of assessment, cleaning and personal care planning.</small><a class="bf" href="#">Book this treatment</a></div></div>
-            <div class="tc"><div class="img" style="background:linear-gradient(150deg,#46493c,#62685a)"></div><div class="pad"><b>Gentle Whitening</b><small>Conservative, enamel-safe brightening, calibrated to you.</small><a class="bf" href="#">Book this treatment</a></div></div>
-            <div class="tc"><div class="img" style="background:linear-gradient(150deg,#544c3c,#3a352a)"></div><div class="pad"><b>Restorative Care Visit</b><small>Repairs the appearance and strength of worn teeth.</small><a class="bf" href="#">Book this treatment</a></div></div>
+            <div class="tc"><div class="img" style="background:linear-gradient(150deg,#e4e6da,#cdd2bf)"></div><div class="pad"><b>Gentle Whitening</b><small>Conservative, enamel-safe brightening, calibrated to you.</small><a class="bf" href="#">Book this treatment</a></div></div>
+            <div class="tc"><div class="img" style="background:linear-gradient(150deg,#ece5d3,#d8c9ab)"></div><div class="pad"><b>Restorative Care Visit</b><small>Repairs the appearance and strength of worn teeth.</small><a class="bf" href="#">Book this treatment</a></div></div>
           </div></div>
+        <div class="sec"><div class="split"><div><span class="eyebrow">A moment for nerves</span><h4>Many considered gestures</h4><p>Impeccable care for anxious patients, featuring gentle techniques and meticulously explained treatment.</p><a class="bl" href="#">Discover comfort care</a></div><div class="img" style="background:linear-gradient(135deg,#e6e2d2,#cfcaB8)"></div></div></div>
         <div class="sec" style="background:#f6f5e8"><div class="split"><div class="img"></div><div><span class="eyebrow">Enlightening assistance</span><h4>The Treatment Finder</h4><p>To discover the most suitable care for your circumstances — our brief questionnaire will take the lead.</p><a class="bl" href="#">Find your regimen</a></div></div></div>
         <div class="sec"><h4>Browse by specialty</h4><div class="tiles">
           <figure class="tile"><div class="sq"></div><figcaption>Preventive</figcaption></figure>
@@ -208,13 +231,20 @@
           <figure class="tile"><div class="sq"></div><figcaption>Children</figcaption></figure>
           <figure class="tile"><div class="sq"></div><figcaption>Implants</figcaption></figure></div>
           <span class="novel">novel component — phase-b mint queued</span></div>
+        <div class="trust"><div><b>Certified B Corp</b>We meet the highest verified standards of social and environmental responsibility.</div><div><b>Comfort-first accredited</b>Our techniques are independently reviewed for anxious-patient care.</div></div>
+        <div class="sec"><h4>Recommended reading</h4><div class="read" style="margin-top:18px">
+          <div class="r1"><div class="img"></div><small>Literature</small><b>On the quiet history of preventive care</b><i>Three-minute read</i></div>
+          <div class="r2"><div class="img"></div><small>Lessons from the lab</small><b>The story of gentle whitening</b><i>Five-minute read</i></div>
+          <div class="r3"><div class="img"></div><small>Culture</small><b>Sensorial calm in clinical spaces</b><i>Thirty-minute read</i></div>
+        </div></div>
         <div class="quote"><p>“Your best and wisest refuge from all troubles is in your <em>own good health.</em>”</p><cite>— a patient of twelve years</cite></div>
-        <footer><div class="cols">
-          <div><b>Appointments</b><span>Book online</span><span>New patients</span><span>Insurance</span></div>
-          <div><b>About</b><span>Our practice</span><span>Philosophy</span><span>Careers</span></div>
-          <div><b>Care</b><span>Preventive</span><span>Cosmetic</span><span>Children</span></div>
-          <div><b>Visit</b><span>Hours &amp; location</span><span>Contact</span><span>Accessibility</span></div></div>
-          <div class="legal">© 2026 Aldergate Dental — fixture content · rendered from aesop-apothecary-warm</div></footer>
+        <div class="ctab"><h4>Care, considered — book a first visit</h4><a class="bfill" href="#">Book an appointment</a></div>
+        <footer><div class="fcols">
+          <div><b>Orders &amp; support</b><span>Contact us</span><span>New patients</span><span>Insurance</span><span>Accessibility</span></div>
+          <div><b>About</b><span>Our practice</span><span>Philosophy</span><span>Careers</span><span>Privacy policy</span></div>
+          <div><b>Care</b><span>Preventive</span><span>Cosmetic</span><span>Children</span><span>Implants</span></div>
+          <div><b>Subscribe to practice updates</b><input class="fi" placeholder="Email address*"><input class="fi" placeholder="Phone number"><div class="consent">By submitting, you agree to receive appointment reminders and seasonal care notes. See our Privacy Policy.</div><div class="soc"><i></i><i></i><i></i><i></i></div></div></div>
+          <div class="strip"><span>© 2026 Aldergate Dental — fixture content · rendered from aesop-apothecary-warm</span><span>Terms &nbsp;·&nbsp; Privacy</span></div></footer>
       </div></div>
     </div>
   </div>
