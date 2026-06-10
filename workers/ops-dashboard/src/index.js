@@ -107,26 +107,31 @@ async function serveUI(env) {
         env.DB.prepare('SELECT COUNT(DISTINCT client_slug) AS n FROM runs').first(),
         env.DB.prepare("SELECT COUNT(*) AS n FROM runs WHERE created_at >= datetime('now', '-7 days')").first(),
         env.DB.prepare('SELECT COUNT(*) AS n FROM sourced_practices').first(),
-        env.DB.prepare(`SELECT id, created_at, client_slug, practice_name, city,
-           archetype, font_heading, font_body, build_success, duration_ms, gcs_prefix
+        env.DB.prepare(`SELECT id, created_at, client_slug, practice_name, doctor_name, city, phone,
+           archetype, hero_variant, font_heading, font_body, palette_primary, palette_mood,
+           services_count, build_success, duration_ms, gcs_prefix, url
            FROM runs ORDER BY created_at DESC LIMIT 200`).all(),
-        env.DB.prepare(`SELECT a.slug, a.practice_name, a.city, a.state,
+        env.DB.prepare(`SELECT a.slug, a.practice_name, a.city, a.state, a.phone,
+           a.contact_email, a.business_email, a.source, a.created_at,
            a.practice_url AS url, a.lifecycle_stage,
            (SELECT MAX(r.created_at) FROM runs r WHERE r.client_slug = a.slug) AS last_build_at
            FROM accounts a ORDER BY a.practice_name ASC`).all(),
         env.DB.prepare(`SELECT p.slug, COALESCE(r.practice_name, p.slug) AS practice_name,
-           r.city, p.archetype, p.font_heading, p.font_body,
-           p.palette_primary, p.adjectives, MAX(r.created_at) AS last_run
+           r.city, p.archetype, p.hero_variant, p.font_heading, p.font_body,
+           p.palette_primary, p.palette_mood, p.adjectives, p.tag, p.note,
+           MAX(r.created_at) AS last_run
            FROM practices p
            LEFT JOIN runs r ON r.client_slug = p.slug
            GROUP BY p.slug ORDER BY last_run DESC`).all(),
         env.DB.prepare(`SELECT id, build_slug, status, website_url, preview_url, pitch_url,
-           mobile_score, desktop_score, contact_email, completed_at, date_added
+           github_folder_url, mobile_score, desktop_score, contact_name, contact_email,
+           fixed_count, still_issue_count, completed_at, date_added
            FROM builds ORDER BY date_added DESC LIMIT 200`).all(),
-        env.DB.prepare(`SELECT place_id, practice_name, city, state, msa_market,
-           website_url, final_url, gbp_url, rating, review_count,
-           status, tier, quadrant, weakness_score, weakness_tier,
-           vendor, vendor_category, lighthouse_performance, sourced_at
+        env.DB.prepare(`SELECT place_id, practice_name, address, city, state, zip, msa_market,
+           website_url, final_url, gbp_url, phone, email, primary_type, rating, review_count,
+           business_status, status, tier, business_tier, quadrant,
+           weakness_score, weakness_tier, quality_score, vendor, vendor_category,
+           lighthouse_performance, lighthouse_accessibility, lighthouse_seo, sourced_at
            FROM sourced_practices
            ORDER BY weakness_score DESC NULLS LAST LIMIT 1000`).all(),
       ]);
@@ -307,8 +312,9 @@ async function serveUI(env) {
   .panel { display: none; }
   .panel.active { display: block; }
 
-  /* ---- View toggle (Practices) ---- */
-  .view-toggle { display: flex; gap: 0; margin-bottom: 16px; }
+  /* ---- Toolbar (every tab): view toggle + columns + search ---- */
+  .toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+  .view-toggle { display: flex; gap: 0; }
   .view-btn {
     font-family: var(--font-sans);
     font-size: 12px;
@@ -324,21 +330,87 @@ async function serveUI(env) {
   .view-btn:last-child  { border-radius: 0 var(--radius) var(--radius) 0; }
   .view-btn.active { background: var(--sage-tint); color: var(--sage-dark); }
 
-  /* ---- Filter bar (Sourced) ---- */
-  .filter-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-  .filter-bar input {
+  .toolbar input[type="search"] {
     font-family: var(--font-sans);
     font-size: 13px;
-    padding: 8px 12px;
+    padding: 7px 12px;
     border: 1px solid var(--border-light);
     border-radius: var(--radius);
-    width: 320px;
+    width: 280px;
     max-width: 100%;
     color: var(--charcoal);
     background: var(--surface-1);
   }
-  .filter-bar input:focus { outline: 2px solid var(--sage); outline-offset: 1px; }
-  .filter-count { font-size: 12px; color: var(--mid-gray); }
+  .toolbar input[type="search"]:focus { outline: 2px solid var(--sage); outline-offset: 1px; }
+  .filter-count { font-size: 12px; color: var(--mid-gray); margin-left: auto; }
+
+  /* ---- Columns dropdown ---- */
+  .col-picker { position: relative; }
+  .col-btn {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    background: var(--surface-1);
+    color: var(--mid-gray);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .col-btn:hover, .col-picker.open .col-btn { color: var(--charcoal); }
+  .col-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 30;
+    background: var(--surface-1);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 16px rgba(51,65,85,0.10);
+    padding: 8px;
+    min-width: 190px;
+    max-height: 320px;
+    overflow-y: auto;
+  }
+  .col-picker.open .col-menu { display: block; }
+  .col-menu label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    color: var(--charcoal);
+    padding: 5px 8px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    user-select: none;
+  }
+  .col-menu label:hover { background: var(--surface-2); }
+  .col-menu input { accent-color: var(--sage-dark); }
+
+  /* ---- Generic grid cards ---- */
+  .gcard-title {
+    font-family: var(--font-serif);
+    font-size: 15px;
+    color: var(--charcoal);
+    line-height: 1.3;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .gcard-rows { display: flex; flex-direction: column; gap: 5px; }
+  .gcard-row { display: flex; align-items: baseline; gap: 8px; font-size: 12px; }
+  .gcard-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--mid-gray);
+    min-width: 72px;
+    flex-shrink: 0;
+  }
 
   /* ---- Table ---- */
   .table-wrap {
@@ -542,126 +614,17 @@ ${dbError ? `<div style="background:var(--danger-bg);color:var(--danger-text);pa
 </div>
 
 <div class="content">
-
-  <!-- RUNS -->
-  <div class="panel active" id="tab-runs">
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Practice</th>
-            <th>City</th>
-            <th>Archetype</th>
-            <th>Fonts</th>
-            <th>Build</th>
-            <th>Duration</th>
-            <th>Artifact</th>
-          </tr>
-        </thead>
-        <tbody id="runs-body"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- PRACTICES -->
-  <div class="panel" id="tab-practices">
-    <div class="view-toggle">
-      <button class="view-btn active" data-view="grid" title="Grid view">Grid</button>
-      <button class="view-btn" data-view="list" title="List view">List</button>
-    </div>
-    <div class="card-grid" id="practices-grid"></div>
-    <div class="table-wrap" id="practices-list" style="display:none">
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            <th>Practice</th>
-            <th>City</th>
-            <th>Archetype</th>
-            <th>Fonts</th>
-            <th>Adjectives</th>
-            <th>Last Run</th>
-          </tr>
-        </thead>
-        <tbody id="practices-list-body"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- ACCOUNTS -->
-  <div class="panel" id="tab-accounts">
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Practice</th>
-            <th>Lifecycle Stage</th>
-            <th>City</th>
-            <th>URL</th>
-            <th>Last Build</th>
-          </tr>
-        </thead>
-        <tbody id="accounts-body"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- BUILDS -->
-  <div class="panel" id="tab-builds">
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Slug</th>
-            <th>Status</th>
-            <th>Scores</th>
-            <th>Preview</th>
-            <th>Pitch</th>
-            <th>Contact</th>
-            <th>Completed</th>
-          </tr>
-        </thead>
-        <tbody id="builds-body"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- SOURCED -->
-  <div class="panel" id="tab-sourced">
-    <div class="filter-bar">
-      <input type="search" id="sourced-search" placeholder="Filter by name, city, vendor…" />
-      <span class="filter-count" id="sourced-count"></span>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Practice</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Rating</th>
-            <th>Weakness</th>
-            <th>Tier</th>
-            <th>Vendor</th>
-            <th>Perf</th>
-            <th>Status</th>
-            <th>Site</th>
-          </tr>
-        </thead>
-        <tbody id="sourced-body"></tbody>
-      </table>
-    </div>
-  </div>
-
+  <div class="panel active" id="tab-runs"></div>
+  <div class="panel" id="tab-practices"></div>
+  <div class="panel" id="tab-accounts"></div>
+  <div class="panel" id="tab-builds"></div>
+  <div class="panel" id="tab-sourced"></div>
 </div>
 
 <script>
 // ---------------------------------------------------------------------------
-// Tab routing
-// ---------------------------------------------------------------------------
 // Data is injected server-side — no fetch calls needed
+// ---------------------------------------------------------------------------
 const RUNS      = ${safeJson(runs)};
 const PRACTICES = ${safeJson(practices)};
 const ACCOUNTS  = ${safeJson(accounts)};
@@ -669,290 +632,345 @@ const BUILDS    = ${safeJson(builds)};
 const SOURCED   = ${safeJson(sourced)};
 
 // ---------------------------------------------------------------------------
-// Renderers
-// ---------------------------------------------------------------------------
-
-function renderRuns(rows) {
-  const tbody = document.getElementById('runs-body');
-  if (!rows.length) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="8">No runs yet.</td></tr>';
-    return;
-  }
-  tbody.innerHTML = rows.map(r => {
-    const date      = fmtDate(r.created_at);
-    const name      = esc(r.practice_name || r.client_slug || '—');
-    const city      = esc(r.city || '—');
-    const archetype = esc(r.archetype || '—');
-    const fonts     = r.font_heading
-      ? esc(r.font_heading + ' / ' + (r.font_body || '…'))
-      : '—';
-    const badge     = r.build_success
-      ? '<span class="badge badge-ok">✓</span>'
-      : '<span class="badge badge-err">✗</span>';
-    const dur       = r.duration_ms ? fmtDur(r.duration_ms) : '—';
-    const gcs       = r.gcs_prefix
-      ? '<a class="gcs-link" href="https://console.cloud.google.com/storage/browser/' +
-        esc(r.gcs_prefix) + '" target="_blank" rel="noopener">GCS ↗</a>'
-      : '<span style="color:var(--mid-gray)">—</span>';
-    return '<tr>' +
-      '<td style="white-space:nowrap;color:var(--mid-gray)">' + date + '</td>' +
-      '<td style="font-weight:600;font-family:var(--font-serif)">' + name + '</td>' +
-      '<td style="color:var(--mid-gray)">' + city + '</td>' +
-      '<td><span class="archetype-tag">' + archetype + '</span></td>' +
-      '<td style="color:var(--mid-gray);font-size:12px">' + fonts + '</td>' +
-      '<td>' + badge + '</td>' +
-      '<td style="color:var(--mid-gray);white-space:nowrap;font-family:var(--font-mono)">' + dur + '</td>' +
-      '<td>' + gcs + '</td>' +
-      '</tr>';
-  }).join('');
-}
-
-function renderPractices(rows) {
-  const grid = document.getElementById('practices-grid');
-  if (!rows.length) {
-    grid.innerHTML = '<p style="color:var(--muted);font-size:13px">No practices yet.</p>';
-    return;
-  }
-  grid.innerHTML = rows.map(p => {
-    const name      = esc(p.practice_name || p.slug);
-    const city      = esc(p.city || '');
-    const archetype = esc(p.archetype || '—');
-    const fonts     = p.font_heading
-      ? esc(p.font_heading + ' / ' + (p.font_body || '…'))
-      : '—';
-    const color     = p.palette_primary || '#94a3b8';
-    const adjList   = parseAdj(p.adjectives);
-    const pills     = adjList.length
-      ? '<div class="pills">' + adjList.map(a => '<span class="pill">' + esc(a) + '</span>').join('') + '</div>'
-      : '';
-    return '<div class="practice-card">' +
-      '<div class="card-header">' +
-      '<span class="swatch" style="background:' + esc(color) + '"></span>' +
-      '<div><div class="card-name">' + name + '</div>' +
-      (city ? '<div class="card-city">' + city + '</div>' : '') +
-      '</div></div>' +
-      '<div class="card-meta">' +
-      '<div class="meta-row"><span class="meta-label">Archetype</span><span class="meta-val">' + archetype + '</span></div>' +
-      '<div class="meta-row"><span class="meta-label">Fonts</span><span class="meta-val" style="font-size:11px">' + fonts + '</span></div>' +
-      '</div>' +
-      pills +
-      '</div>';
-  }).join('');
-}
-
-function renderAccounts(rows) {
-  const tbody = document.getElementById('accounts-body');
-  if (!rows.length) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="5">No accounts yet.</td></tr>';
-    return;
-  }
-  tbody.innerHTML = rows.map(a => {
-    const name  = esc(a.practice_name || a.slug);
-    const city  = esc([a.city, a.state].filter(Boolean).join(', ') || '—');
-    const stage = a.lifecycle_stage || 'Prospect';
-    const url   = a.url
-      ? '<a href="' + esc(a.url) + '" target="_blank" rel="noopener" style="color:var(--sage-dark);text-decoration:none;font-size:12px;font-weight:500">' +
-        esc(a.url.replace('https://', '').replace('http://', '')) + ' ↗</a>'
-      : '<span style="color:var(--mid-gray)">—</span>';
-    const lastBuild = a.last_build_at ? fmtDate(a.last_build_at) : '—';
-    return '<tr>' +
-      '<td style="font-weight:600;font-family:var(--font-serif)">' + name + '</td>' +
-      '<td>' + lcBadge(stage) + '</td>' +
-      '<td style="color:var(--mid-gray)">' + city + '</td>' +
-      '<td>' + url + '</td>' +
-      '<td style="color:var(--mid-gray);white-space:nowrap;font-family:var(--font-mono);font-size:12px">' + lastBuild + '</td>' +
-      '</tr>';
-  }).join('');
-}
-
-// ---------------------------------------------------------------------------
-// Helpers
+// Helpers (NOTE: no backslash escapes allowed — this lives in a server template)
 // ---------------------------------------------------------------------------
 
 function esc(s) {
-  return String(s ?? '')
+  return String(s == null ? '' : s)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
 }
-
-function fmt(n) {
-  return Number(n).toLocaleString();
-}
-
 function fmtDate(iso) {
   if (!iso) return '—';
   const d = new Date(iso);
+  if (isNaN(d.getTime())) return '—';
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' });
 }
-
 function fmtDur(ms) {
+  if (ms == null) return '—';
   if (ms < 60000) return Math.round(ms / 1000) + 's';
-  return Math.round(ms / 60000) + 'm ' + Math.round((ms % 60000) / 1000) + 's';
+  return Math.floor(ms / 60000) + 'm ' + Math.round((ms % 60000) / 1000) + 's';
 }
-
 function parseAdj(raw) {
   if (!raw) return [];
   if (Array.isArray(raw)) return raw;
   try { const p = JSON.parse(raw); return Array.isArray(p) ? p : []; }
-  catch { return String(raw).split(',').map(s => s.trim()).filter(Boolean); }
+  catch (e) { return String(raw).split(',').map(function (s) { return s.trim(); }).filter(Boolean); }
 }
-
+function dim(h)   { return '<span style="color:var(--mid-gray)">' + h + '</span>'; }
+function mono(h)  { return '<span style="font-family:var(--font-mono);font-size:12px">' + h + '</span>'; }
+function serif(s) { return '<span style="font-family:var(--font-serif);font-weight:600">' + esc(s || '—') + '</span>'; }
+function tagEl(s) { return s ? '<span class="archetype-tag">' + esc(s) + '</span>' : dim('—'); }
+function swatch(c){ return '<span class="swatch" style="background:' + esc(c || '#94a3b8') + '"></span>'; }
+function pills(raw) {
+  const a = parseAdj(raw);
+  return a.length
+    ? a.slice(0, 5).map(function (x) { return '<span class="pill">' + esc(x) + '</span>'; }).join(' ')
+    : dim('—');
+}
+function stripProto(u) {
+  return String(u || '').replace('https://', '').replace('http://', '').replace('www.', '');
+}
+function siteLink(u) {
+  if (!u) return dim('—');
+  const label = stripProto(u).split('/')[0];
+  return '<a href="' + esc(u) + '" target="_blank" rel="noopener" style="color:var(--sage-dark);text-decoration:none;font-size:12px;font-weight:500">' + esc(label) + ' ↗</a>';
+}
+function namedLink(u, label) {
+  if (!u) return dim('—');
+  return '<a href="' + esc(u) + '" target="_blank" rel="noopener" style="color:var(--sage-dark);text-decoration:none;font-size:12px;font-weight:500">' + esc(label) + ' ↗</a>';
+}
 const LC_CLASS = {
-  'Prospect':         'lc-prospect',
-  'Audited':          'lc-audited',
-  'Preview Requested':'lc-preview',
-  'Pitched':          'lc-pitched',
-  'Contacted':        'lc-contacted',
-  'Signed':           'lc-signed',
-  'Onboarding':       'lc-signed',
-  'Live':             'lc-live',
-  'Active':           'lc-active',
-  'Churned':          'lc-churned',
+  'Prospect': 'lc-prospect', 'Audited': 'lc-audited', 'Preview Requested': 'lc-preview',
+  'Pitched': 'lc-pitched', 'Contacted': 'lc-contacted', 'Signed': 'lc-signed',
+  'Onboarding': 'lc-signed', 'Live': 'lc-live', 'Active': 'lc-active', 'Churned': 'lc-churned',
 };
-
 function lcBadge(stage) {
+  if (!stage) return dim('—');
   const cls = LC_CLASS[stage] || 'lc-prospect';
   return '<span class="lc-badge ' + cls + '">' + esc(stage) + '</span>';
 }
-
-function siteLink(url) {
-  if (!url) return '<span style="color:var(--mid-gray)">—</span>';
-  const label = esc(url.replace('https://', '').replace('http://', '').replace('www.', '').split('/')[0]);
-  return '<a href="' + esc(url) + '" target="_blank" rel="noopener" style="color:var(--sage-dark);text-decoration:none;font-size:12px;font-weight:500">' + label + ' ↗</a>';
+function okErr(v) {
+  return v ? '<span class="badge badge-ok">✓</span>' : '<span class="badge badge-err">✗</span>';
 }
+function dimDate(v) { return dim(mono(fmtDate(v))); }
+function dimText(v) { return dim(esc(v || '—')); }
+function monoNum(v) { return v != null ? mono(esc(v)) : dim('—'); }
 
-function renderPracticesList(rows) {
-  const tbody = document.getElementById('practices-list-body');
-  if (!rows.length) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="7">No practices yet.</td></tr>';
-    return;
-  }
-  tbody.innerHTML = rows.map(p => {
-    const color   = esc(p.palette_primary || '#94a3b8');
-    const fonts   = p.font_heading ? esc(p.font_heading + ' / ' + (p.font_body || '…')) : '—';
-    const adjList = parseAdj(p.adjectives);
-    const pills   = adjList.length
-      ? adjList.slice(0, 4).map(a => '<span class="pill">' + esc(a) + '</span>').join(' ')
-      : '<span style="color:var(--mid-gray)">—</span>';
-    return '<tr>' +
-      '<td style="width:28px"><span class="swatch" style="background:' + color + '"></span></td>' +
-      '<td style="font-weight:600;font-family:var(--font-serif)">' + esc(p.practice_name || p.slug) + '</td>' +
-      '<td style="color:var(--mid-gray)">' + esc(p.city || '—') + '</td>' +
-      '<td><span class="archetype-tag">' + esc(p.archetype || '—') + '</span></td>' +
-      '<td style="color:var(--mid-gray);font-size:12px">' + fonts + '</td>' +
-      '<td>' + pills + '</td>' +
-      '<td style="color:var(--mid-gray);white-space:nowrap;font-family:var(--font-mono);font-size:12px">' + fmtDate(p.last_run) + '</td>' +
-      '</tr>';
-  }).join('');
+// ---------------------------------------------------------------------------
+// Column configs — key, label, on (visible by default), primary (card title),
+// html(row) renderer, nowrap
+// ---------------------------------------------------------------------------
+
+const COLS = {
+  runs: [
+    { key: 'created_at',     label: 'Date',       on: true,  nowrap: true, html: function (r) { return dimDate(r.created_at); } },
+    { key: 'practice',       label: 'Practice',   on: true,  primary: true, html: function (r) { return serif(r.practice_name || r.client_slug); } },
+    { key: 'doctor_name',    label: 'Doctor',     on: false, html: function (r) { return dimText(r.doctor_name); } },
+    { key: 'city',           label: 'City',       on: true,  html: function (r) { return dimText(r.city); } },
+    { key: 'phone',          label: 'Phone',      on: false, nowrap: true, html: function (r) { return dimText(r.phone); } },
+    { key: 'archetype',      label: 'Archetype',  on: true,  html: function (r) { return tagEl(r.archetype); } },
+    { key: 'hero_variant',   label: 'Hero',       on: false, html: function (r) { return dimText(r.hero_variant); } },
+    { key: 'fonts',          label: 'Fonts',      on: true,  html: function (r) { return r.font_heading ? dim(esc(r.font_heading + ' / ' + (r.font_body || '…'))) : dim('—'); } },
+    { key: 'palette',        label: 'Palette',    on: false, nowrap: true, html: function (r) { return r.palette_primary ? swatch(r.palette_primary) + ' ' + mono(esc(r.palette_primary)) : dim('—'); } },
+    { key: 'palette_mood',   label: 'Mood',       on: false, html: function (r) { return dimText(r.palette_mood); } },
+    { key: 'services_count', label: 'Services',   on: false, html: function (r) { return monoNum(r.services_count); } },
+    { key: 'build_success',  label: 'Build',      on: true,  html: function (r) { return okErr(r.build_success); } },
+    { key: 'duration_ms',    label: 'Duration',   on: true,  nowrap: true, html: function (r) { return dim(mono(fmtDur(r.duration_ms))); } },
+    { key: 'url',            label: 'Source Site',on: false, html: function (r) { return siteLink(r.url); } },
+    { key: 'gcs_prefix',     label: 'Artifact',   on: true,  nowrap: true, html: function (r) { return r.gcs_prefix ? namedLink('https://console.cloud.google.com/storage/browser/' + r.gcs_prefix, 'GCS') : dim('—'); } },
+  ],
+  practices: [
+    { key: 'practice',     label: 'Practice',   on: true,  primary: true, html: function (r) { return swatch(r.palette_primary) + ' ' + serif(r.practice_name || r.slug); } },
+    { key: 'city',         label: 'City',       on: true,  html: function (r) { return dimText(r.city); } },
+    { key: 'archetype',    label: 'Archetype',  on: true,  html: function (r) { return tagEl(r.archetype); } },
+    { key: 'hero_variant', label: 'Hero',       on: false, html: function (r) { return dimText(r.hero_variant); } },
+    { key: 'fonts',        label: 'Fonts',      on: true,  html: function (r) { return r.font_heading ? dim(esc(r.font_heading + ' / ' + (r.font_body || '…'))) : dim('—'); } },
+    { key: 'palette',      label: 'Palette',    on: false, nowrap: true, html: function (r) { return r.palette_primary ? mono(esc(r.palette_primary)) : dim('—'); } },
+    { key: 'palette_mood', label: 'Mood',       on: false, html: function (r) { return dimText(r.palette_mood); } },
+    { key: 'adjectives',   label: 'Adjectives', on: true,  html: function (r) { return pills(r.adjectives); } },
+    { key: 'tag',          label: 'Tag',        on: false, html: function (r) { return dimText(r.tag); } },
+    { key: 'note',         label: 'Note',       on: false, html: function (r) { return dimText(r.note); } },
+    { key: 'last_run',     label: 'Last Run',   on: true,  nowrap: true, html: function (r) { return dimDate(r.last_run); } },
+  ],
+  accounts: [
+    { key: 'practice',        label: 'Practice',       on: true,  primary: true, html: function (r) { return serif(r.practice_name || r.slug); } },
+    { key: 'lifecycle_stage', label: 'Lifecycle',      on: true,  html: function (r) { return lcBadge(r.lifecycle_stage || 'Prospect'); } },
+    { key: 'city',            label: 'City',           on: true,  html: function (r) { return dimText([r.city, r.state].filter(Boolean).join(', ')); } },
+    { key: 'phone',           label: 'Phone',          on: false, nowrap: true, html: function (r) { return dimText(r.phone); } },
+    { key: 'contact_email',   label: 'Contact Email',  on: false, html: function (r) { return dimText(r.contact_email); } },
+    { key: 'business_email',  label: 'Business Email', on: false, html: function (r) { return dimText(r.business_email); } },
+    { key: 'source',          label: 'Source',         on: false, html: function (r) { return dimText(r.source); } },
+    { key: 'url',             label: 'URL',            on: true,  html: function (r) { return siteLink(r.url); } },
+    { key: 'created_at',      label: 'Created',        on: false, nowrap: true, html: function (r) { return dimDate(r.created_at); } },
+    { key: 'last_build_at',   label: 'Last Build',     on: true,  nowrap: true, html: function (r) { return dimDate(r.last_build_at); } },
+  ],
+  builds: [
+    { key: 'date_added',        label: 'Date',       on: true,  nowrap: true, html: function (r) { return dimDate(r.date_added); } },
+    { key: 'build_slug',        label: 'Slug',       on: true,  primary: true, html: function (r) { return serif(r.build_slug); } },
+    { key: 'status',            label: 'Status',     on: true,  html: function (r) { return lcBadge(r.status); } },
+    { key: 'scores',            label: 'Scores',     on: true,  nowrap: true, html: function (r) { return (r.mobile_score != null || r.desktop_score != null) ? mono(esc((r.mobile_score != null ? r.mobile_score : '–') + ' / ' + (r.desktop_score != null ? r.desktop_score : '–'))) : dim('—'); } },
+    { key: 'preview_url',       label: 'Preview',    on: true,  html: function (r) { return namedLink(r.preview_url, 'Preview'); } },
+    { key: 'pitch_url',         label: 'Pitch',      on: true,  html: function (r) { return namedLink(r.pitch_url, 'Pitch'); } },
+    { key: 'github_folder_url', label: 'GitHub',     on: false, html: function (r) { return namedLink(r.github_folder_url, 'GitHub'); } },
+    { key: 'website_url',       label: 'Site',       on: false, html: function (r) { return siteLink(r.website_url); } },
+    { key: 'contact_name',      label: 'Contact',    on: false, html: function (r) { return dimText(r.contact_name); } },
+    { key: 'contact_email',     label: 'Email',      on: true,  html: function (r) { return dimText(r.contact_email); } },
+    { key: 'fixed_count',       label: 'Fixed',      on: false, html: function (r) { return monoNum(r.fixed_count); } },
+    { key: 'still_issue_count', label: 'Still Open', on: false, html: function (r) { return monoNum(r.still_issue_count); } },
+    { key: 'completed_at',      label: 'Completed',  on: true,  nowrap: true, html: function (r) { return dimDate(r.completed_at); } },
+  ],
+  sourced: [
+    { key: 'practice',        label: 'Practice',    on: true,  primary: true, html: function (r) { return serif(r.practice_name); } },
+    { key: 'city',            label: 'City',        on: true,  html: function (r) { return dimText(r.city); } },
+    { key: 'state',           label: 'State',       on: true,  html: function (r) { return dimText(r.state); } },
+    { key: 'zip',             label: 'Zip',         on: false, html: function (r) { return dimText(r.zip); } },
+    { key: 'address',         label: 'Address',     on: false, html: function (r) { return dimText(r.address); } },
+    { key: 'msa_market',      label: 'Market',      on: false, html: function (r) { return dimText(r.msa_market); } },
+    { key: 'rating',          label: 'Rating',      on: true,  nowrap: true, html: function (r) { return r.rating != null ? mono(esc(r.rating)) + ' ' + dim('(' + (r.review_count != null ? r.review_count : 0) + ')') : dim('—'); } },
+    { key: 'weakness',        label: 'Weakness',    on: true,  nowrap: true, html: function (r) { return r.weakness_score != null ? mono(Number(r.weakness_score).toFixed(1)) + (r.weakness_tier ? ' ' + dim(esc(r.weakness_tier)) : '') : dim('—'); } },
+    { key: 'quality_score',   label: 'Quality',     on: false, html: function (r) { return r.quality_score != null ? mono(Number(r.quality_score).toFixed(1)) : dim('—'); } },
+    { key: 'tier',            label: 'Tier',        on: true,  html: function (r) { return dimText(r.tier || r.quadrant); } },
+    { key: 'business_tier',   label: 'Biz Tier',    on: false, html: function (r) { return dimText(r.business_tier); } },
+    { key: 'vendor',          label: 'Vendor',      on: true,  html: function (r) { return dimText(r.vendor); } },
+    { key: 'vendor_category', label: 'Vendor Cat.', on: false, html: function (r) { return dimText(r.vendor_category); } },
+    { key: 'primary_type',    label: 'Type',        on: false, html: function (r) { return dimText(r.primary_type); } },
+    { key: 'lh_perf',         label: 'Perf',        on: true,  html: function (r) { return monoNum(r.lighthouse_performance); } },
+    { key: 'lh_a11y',         label: 'A11y',        on: false, html: function (r) { return monoNum(r.lighthouse_accessibility); } },
+    { key: 'lh_seo',          label: 'SEO',         on: false, html: function (r) { return monoNum(r.lighthouse_seo); } },
+    { key: 'status',          label: 'Status',      on: true,  html: function (r) { return lcBadge(r.status); } },
+    { key: 'business_status', label: 'Biz Status',  on: false, html: function (r) { return dimText(r.business_status); } },
+    { key: 'site',            label: 'Site',        on: true,  html: function (r) { return siteLink(r.final_url || r.website_url); } },
+    { key: 'gbp_url',         label: 'GBP',         on: false, html: function (r) { return namedLink(r.gbp_url, 'Maps'); } },
+    { key: 'phone',           label: 'Phone',       on: false, nowrap: true, html: function (r) { return dimText(r.phone); } },
+    { key: 'email',           label: 'Email',       on: false, html: function (r) { return dimText(r.email); } },
+    { key: 'sourced_at',      label: 'Sourced',     on: false, nowrap: true, html: function (r) { return dimDate(r.sourced_at); } },
+  ],
+};
+
+const DATA = { runs: RUNS, practices: PRACTICES, accounts: ACCOUNTS, builds: BUILDS, sourced: SOURCED };
+const EMPTY = {
+  runs: 'No runs yet.',
+  practices: 'No practices yet.',
+  accounts: 'No accounts yet.',
+  builds: 'No builds yet — rows appear when the pipeline creates preview builds.',
+  sourced: 'No sourced practices match.',
+};
+const queries = { runs: '', practices: '', accounts: '', builds: '', sourced: '' };
+
+// ---------------------------------------------------------------------------
+// Preferences (view + visible columns) — persisted in localStorage
+// ---------------------------------------------------------------------------
+
+const PREFS_KEY = 'gw-ops-prefs-v1';
+let prefs = {};
+try { prefs = JSON.parse(localStorage.getItem(PREFS_KEY) || '{}') || {}; } catch (e) { prefs = {}; }
+
+function tabPrefs(tab) {
+  if (!prefs[tab] || typeof prefs[tab] !== 'object') prefs[tab] = {};
+  const p = prefs[tab];
+  if (p.view !== 'grid' && p.view !== 'list') p.view = (tab === 'practices' ? 'grid' : 'list');
+  if (!p.cols || typeof p.cols !== 'object') p.cols = {};
+  COLS[tab].forEach(function (c) {
+    if (typeof p.cols[c.key] !== 'boolean') p.cols[c.key] = !!c.on;
+  });
+  return p;
 }
-
-function renderBuilds(rows) {
-  const tbody = document.getElementById('builds-body');
-  if (!rows.length) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="8">No builds yet — rows appear here when the pipeline creates preview builds.</td></tr>';
-    return;
-  }
-  tbody.innerHTML = rows.map(b => {
-    const scores = (b.mobile_score != null || b.desktop_score != null)
-      ? '<span style="font-family:var(--font-mono);font-size:12px">' + (b.mobile_score ?? '–') + ' / ' + (b.desktop_score ?? '–') + '</span>'
-      : '<span style="color:var(--mid-gray)">—</span>';
-    return '<tr>' +
-      '<td style="white-space:nowrap;color:var(--mid-gray)">' + fmtDate(b.date_added) + '</td>' +
-      '<td style="font-weight:600;font-family:var(--font-serif)">' + esc(b.build_slug || '—') + '</td>' +
-      '<td>' + lcBadge(b.status || '—') + '</td>' +
-      '<td>' + scores + '</td>' +
-      '<td>' + siteLink(b.preview_url) + '</td>' +
-      '<td>' + siteLink(b.pitch_url) + '</td>' +
-      '<td style="color:var(--mid-gray);font-size:12px">' + esc(b.contact_email || '—') + '</td>' +
-      '<td style="color:var(--mid-gray);white-space:nowrap;font-family:var(--font-mono);font-size:12px">' + (b.completed_at ? fmtDate(b.completed_at) : '—') + '</td>' +
-      '</tr>';
-  }).join('');
-}
-
-function sourcedRow(s) {
-  const weakness = s.weakness_score != null
-    ? '<span style="font-family:var(--font-mono)">' + Number(s.weakness_score).toFixed(1) + '</span>' +
-      (s.weakness_tier ? ' <span style="color:var(--mid-gray);font-size:11px">' + esc(s.weakness_tier) + '</span>' : '')
-    : '<span style="color:var(--mid-gray)">—</span>';
-  const rating = s.rating != null
-    ? '<span style="font-family:var(--font-mono)">' + s.rating + '</span> <span style="color:var(--mid-gray);font-size:11px">(' + (s.review_count ?? 0) + ')</span>'
-    : '<span style="color:var(--mid-gray)">—</span>';
-  const perf = s.lighthouse_performance != null
-    ? '<span style="font-family:var(--font-mono)">' + s.lighthouse_performance + '</span>'
-    : '<span style="color:var(--mid-gray)">—</span>';
-  return '<tr>' +
-    '<td style="font-weight:600;font-family:var(--font-serif)">' + esc(s.practice_name || '—') + '</td>' +
-    '<td style="color:var(--mid-gray)">' + esc(s.city || '—') + '</td>' +
-    '<td style="color:var(--mid-gray)">' + esc(s.state || '—') + '</td>' +
-    '<td>' + rating + '</td>' +
-    '<td>' + weakness + '</td>' +
-    '<td style="color:var(--mid-gray);font-size:12px">' + esc(s.tier || s.quadrant || '—') + '</td>' +
-    '<td style="color:var(--mid-gray);font-size:12px">' + esc(s.vendor || '—') + '</td>' +
-    '<td>' + perf + '</td>' +
-    '<td>' + (s.status ? lcBadge(s.status) : '<span style="color:var(--mid-gray)">—</span>') + '</td>' +
-    '<td>' + siteLink(s.final_url || s.website_url) + '</td>' +
-    '</tr>';
-}
-
-function renderSourced(rows) {
-  const tbody = document.getElementById('sourced-body');
-  const count = document.getElementById('sourced-count');
-  if (!rows.length) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="10">No sourced practices match.</td></tr>';
-    count.textContent = '0 of ' + SOURCED.length;
-    return;
-  }
-  tbody.innerHTML = rows.map(sourcedRow).join('');
-  count.textContent = rows.length + ' of ' + SOURCED.length;
+function savePrefs() {
+  try { localStorage.setItem(PREFS_KEY, JSON.stringify(prefs)); } catch (e) {}
 }
 
 // ---------------------------------------------------------------------------
-// Bootstrap — runs after ALL declarations above (const initializers included)
+// Rendering engine
 // ---------------------------------------------------------------------------
 
-// Tab switching
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+function visibleCols(tab) {
+  const p = tabPrefs(tab);
+  return COLS[tab].filter(function (c) { return p.cols[c.key]; });
+}
+
+function rowMatches(row, q) {
+  if (!q) return true;
+  const vals = Object.values(row);
+  for (let i = 0; i < vals.length; i++) {
+    const v = vals[i];
+    if (v != null && String(v).toLowerCase().indexOf(q) !== -1) return true;
+  }
+  return false;
+}
+
+function render(tab) {
+  const panel = document.getElementById('tab-' + tab);
+  const p = tabPrefs(tab);
+  const cols = visibleCols(tab);
+  const all = DATA[tab];
+  const rows = all.filter(function (r) { return rowMatches(r, queries[tab]); });
+  panel.querySelector('.filter-count').textContent = rows.length + ' of ' + all.length;
+  const gridEl = panel.querySelector('.card-grid');
+  const tableWrap = panel.querySelector('.table-wrap');
+  if (p.view === 'grid') {
+    tableWrap.style.display = 'none';
+    gridEl.style.display = 'grid';
+    renderGrid(tab, gridEl, rows, cols);
+  } else {
+    gridEl.style.display = 'none';
+    tableWrap.style.display = 'block';
+    renderList(tab, tableWrap, rows, cols);
+  }
+}
+
+function renderList(tab, wrap, rows, cols) {
+  const thead = wrap.querySelector('thead');
+  const tbody = wrap.querySelector('tbody');
+  thead.innerHTML = '<tr>' + cols.map(function (c) { return '<th>' + esc(c.label) + '</th>'; }).join('') + '</tr>';
+  if (!rows.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="' + (cols.length || 1) + '">' + EMPTY[tab] + '</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(function (r) {
+    return '<tr>' + cols.map(function (c) {
+      return '<td' + (c.nowrap ? ' style="white-space:nowrap"' : '') + '>' + c.html(r) + '</td>';
+    }).join('') + '</tr>';
+  }).join('');
+}
+
+function renderGrid(tab, el, rows, cols) {
+  if (!rows.length) {
+    el.innerHTML = '<p style="color:var(--mid-gray);font-size:13px;font-style:italic">' + EMPTY[tab] + '</p>';
+    return;
+  }
+  const primary = COLS[tab].find(function (c) { return c.primary; });
+  el.innerHTML = rows.map(function (r) {
+    let h = '<div class="practice-card">';
+    h += '<div class="gcard-title">' + (primary ? primary.html(r) : '') + '</div>';
+    h += '<div class="gcard-rows">';
+    cols.forEach(function (c) {
+      if (primary && c.key === primary.key) return;
+      h += '<div class="gcard-row"><span class="gcard-label">' + esc(c.label) + '</span><span>' + c.html(r) + '</span></div>';
+    });
+    h += '</div></div>';
+    return h;
+  }).join('');
+}
+
+// ---------------------------------------------------------------------------
+// Panel construction (toolbar: view toggle, column picker, search)
+// ---------------------------------------------------------------------------
+
+function buildPanel(tab) {
+  const panel = document.getElementById('tab-' + tab);
+  const p = tabPrefs(tab);
+  let h = '';
+  h += '<div class="toolbar">';
+  h += '<div class="view-toggle">';
+  h += '<button class="view-btn' + (p.view === 'grid' ? ' active' : '') + '" data-view="grid" type="button">Grid</button>';
+  h += '<button class="view-btn' + (p.view === 'list' ? ' active' : '') + '" data-view="list" type="button">List</button>';
+  h += '</div>';
+  h += '<div class="col-picker"><button class="col-btn" type="button">Columns ▾</button><div class="col-menu">';
+  COLS[tab].forEach(function (c) {
+    h += '<label><input type="checkbox" data-col="' + c.key + '"' + (p.cols[c.key] ? ' checked' : '') + ' /> ' + esc(c.label) + '</label>';
+  });
+  h += '</div></div>';
+  h += '<input type="search" placeholder="Filter…" />';
+  h += '<span class="filter-count"></span>';
+  h += '</div>';
+  h += '<div class="card-grid" style="display:none"></div>';
+  h += '<div class="table-wrap" style="display:none"><table><thead></thead><tbody></tbody></table></div>';
+  panel.innerHTML = h;
+
+  panel.querySelectorAll('.view-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      p.view = btn.dataset.view;
+      panel.querySelectorAll('.view-btn').forEach(function (b) { b.classList.toggle('active', b === btn); });
+      savePrefs();
+      render(tab);
+    });
+  });
+
+  const picker = panel.querySelector('.col-picker');
+  picker.querySelector('.col-btn').addEventListener('click', function (e) {
+    e.stopPropagation();
+    document.querySelectorAll('.col-picker.open').forEach(function (x) { if (x !== picker) x.classList.remove('open'); });
+    picker.classList.toggle('open');
+  });
+  picker.querySelector('.col-menu').addEventListener('click', function (e) { e.stopPropagation(); });
+  picker.querySelectorAll('input[type=checkbox]').forEach(function (cb) {
+    cb.addEventListener('change', function () {
+      p.cols[cb.dataset.col] = cb.checked;
+      savePrefs();
+      render(tab);
+    });
+  });
+
+  panel.querySelector('input[type=search]').addEventListener('input', function (e) {
+    queries[tab] = e.target.value.trim().toLowerCase();
+    render(tab);
+  });
+}
+
+document.addEventListener('click', function () {
+  document.querySelectorAll('.col-picker.open').forEach(function (x) { x.classList.remove('open'); });
+});
+
+// ---------------------------------------------------------------------------
+// Bootstrap
+// ---------------------------------------------------------------------------
+
+document.querySelectorAll('.tab-btn').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+    document.querySelectorAll('.panel').forEach(function (pn) { pn.classList.remove('active'); });
     btn.classList.add('active');
     document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
   });
 });
 
-// Practices grid/list toggle
-document.querySelectorAll('.view-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const isGrid = btn.dataset.view === 'grid';
-    document.getElementById('practices-grid').style.display = isGrid ? 'grid' : 'none';
-    document.getElementById('practices-list').style.display = isGrid ? 'none' : 'block';
-  });
+['runs', 'practices', 'accounts', 'builds', 'sourced'].forEach(function (t) {
+  buildPanel(t);
+  render(t);
 });
-
-// Sourced search filter
-document.getElementById('sourced-search').addEventListener('input', (e) => {
-  const q = e.target.value.trim().toLowerCase();
-  if (!q) return renderSourced(SOURCED);
-  renderSourced(SOURCED.filter(s =>
-    (s.practice_name || '').toLowerCase().includes(q) ||
-    (s.city || '').toLowerCase().includes(q) ||
-    (s.state || '').toLowerCase().includes(q) ||
-    (s.vendor || '').toLowerCase().includes(q) ||
-    (s.msa_market || '').toLowerCase().includes(q)
-  ));
-});
-
-// Render everything
-renderRuns(RUNS);
-renderPractices(PRACTICES);
-renderPracticesList(PRACTICES);
-renderAccounts(ACCOUNTS);
-renderBuilds(BUILDS);
-renderSourced(SOURCED);
 </script>
 </body>
 </html>`;
