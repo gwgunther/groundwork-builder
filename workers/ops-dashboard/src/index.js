@@ -9,6 +9,11 @@
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    // Defense in depth: the workers.dev hostname bypasses Cloudflare Access
+    // (which only guards ops.groundworkdental.com). Refuse to serve on it.
+    if (url.hostname.endsWith('.workers.dev')) {
+      return new Response('Forbidden — use ops.groundworkdental.com', { status: 403 });
+    }
     if (url.pathname.startsWith('/api/')) return handleApi(url, env);
     return serveUI(env);
   },
