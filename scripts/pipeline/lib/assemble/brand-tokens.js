@@ -22,7 +22,7 @@
  *     rationale
  *   }
  */
-import { hexToRgb, rgbToHex } from '../contrast.js';
+import { hexToRgb, rgbToHex, ensureContrast } from '../contrast.js';
 
 /** Blend hex A toward hex B by t∈[0,1]. Deterministic design math, not fabrication. */
 function mix(a, b, t) {
@@ -52,9 +52,10 @@ export function brandDnaToTokens(brandDna) {
     if (!c[k]) throw new Error(`[brand-tokens] brandDna.color.${k} missing`);
   }
 
-  // `muted` (mid/caption text) is not an explicit brand-dna role — derive it by
-  // softening body text ~38% toward the background. Stays on-brand, never invents a hue.
-  const muted = mix(c.text, c.background, 0.38);
+  // `muted` (mid/caption text) — soften body text, then enforce WCAG AA 4.5:1 on
+  // brand.light surfaces where text-neutral-mid is used sitewide.
+  const mutedRaw = mix(c.text, c.background, 0.38);
+  const muted = ensureContrast(mutedRaw, c.neutralLight, 4.5).hex;
 
   const radius = RADIUS[shape.cornerRadius] || 'md';
   const cardTreatment = ELEVATION_TO_CARD[elev.system] || 'bordered-flat';
@@ -80,7 +81,7 @@ export function brandDnaToTokens(brandDna) {
       neutralDark: c.neutralDark,
       neutralLight: c.neutralLight,
     },
-    fonts: { heading: t.headingFont, body: t.bodyFont },
+    fonts: { heading: t.headingFont, body: t.bodyFont, provider: t.fontProvider || 'google' },
     typography: { scale: t.scale || {}, weights: t.weights || {}, tracking: t.tracking || '' },
     tokens: { radius, cardTreatment, borderTreatment },
     rationale: brandDna.rationale || '',

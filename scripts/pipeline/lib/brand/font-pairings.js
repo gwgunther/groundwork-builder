@@ -15,8 +15,17 @@
  */
 
 // Curated pairings by type-character bucket. Each: distinctive heading + a
-// complementary, highly-readable body. All Google Fonts (the injector builds a
-// Google Fonts URL from these names). Multiple per bucket → seeded variety.
+// complementary, highly-readable body. Two providers (the injector builds the
+// matching CSS URL per pairing):
+//   - google    (default when `provider` is absent) — fonts.googleapis.com
+//   - fontshare — api.fontshare.com (ITF Free Font License: free commercial
+//     use + web embedding + self-hosting; cannot be resold/redistributed
+//     standalone). Fontshare faces are the premium-indie tier — they resist
+//     the AI slop-convergence pool AND substitute proprietary reference faces
+//     far better (Switzer is a Suisse Intl homage; General Sans/Satoshi are
+//     the canonical anti-Inter grotesques).
+// A pairing is SINGLE-provider (heading+body from the same service) so one
+// <link> serves both. Multiple per bucket → seeded variety.
 export const PAIRINGS = {
   // Warm, literary, humanist serif headings.
   'editorial-serif': [
@@ -24,6 +33,8 @@ export const PAIRINGS = {
     { heading: 'Newsreader', body: 'Public Sans' },
     { heading: 'Spectral', body: 'Work Sans' },
     { heading: 'Source Serif 4', body: 'Karla' },
+    { heading: 'Sentient', body: 'Supreme', provider: 'fontshare' },
+    { heading: 'Erode', body: 'Synonym', provider: 'fontshare' },
   ],
   // Elegant, high-contrast display serif — cosmetic / premium register.
   'display-serif': [
@@ -31,6 +42,8 @@ export const PAIRINGS = {
     { heading: 'Playfair Display', body: 'Figtree' },
     { heading: 'Marcellus', body: 'Karla' },
     { heading: 'DM Serif Display', body: 'Libre Franklin' },
+    { heading: 'Zodiak', body: 'Supreme', provider: 'fontshare' },
+    { heading: 'Boska', body: 'Synonym', provider: 'fontshare' },
   ],
   // Confident, modern grotesque sans headings.
   'modern-grotesque': [
@@ -38,6 +51,9 @@ export const PAIRINGS = {
     { heading: 'Space Grotesk', body: 'Libre Franklin' },
     { heading: 'Schibsted Grotesk', body: 'Albert Sans' },
     { heading: 'Hanken Grotesk', body: 'Mulish' },
+    { heading: 'Switzer', body: 'Synonym', provider: 'fontshare' },   // Suisse Intl homage
+    { heading: 'General Sans', body: 'Supreme', provider: 'fontshare' },
+    { heading: 'Cabinet Grotesk', body: 'Satoshi', provider: 'fontshare' },
   ],
   // Friendly, approachable geometric/humanist sans — pediatric / community.
   'geometric-clean': [
@@ -45,6 +61,8 @@ export const PAIRINGS = {
     { heading: 'Manrope', body: 'Mulish' },
     { heading: 'Epilogue', body: 'Public Sans' },
     { heading: 'Albert Sans', body: 'Work Sans' },
+    { heading: 'Satoshi', body: 'Synonym', provider: 'fontshare' },
+    { heading: 'Chillax', body: 'Supreme', provider: 'fontshare' },
   ],
   // Classic, established, warm-professional — traditional trust register.
   'humanist-trust': [
@@ -52,6 +70,7 @@ export const PAIRINGS = {
     { heading: 'Bitter', body: 'Karla' },
     { heading: 'Source Serif 4', body: 'Work Sans' },
     { heading: 'Spectral', body: 'Mulish' },
+    { heading: 'Gambetta', body: 'Supreme', provider: 'fontshare' },
   ],
 };
 
@@ -70,8 +89,9 @@ function hash(str) {
  * so the elevated fonts stay true to the practice's existing character.
  */
 export function classifyTypeBucket(currentDesign = {}) {
-  const t = currentDesign.typography || {};
-  const mood = (Array.isArray(currentDesign.mood) ? currentDesign.mood.join(' ') : '').toLowerCase();
+  const cd = currentDesign || {};
+  const t = cd.typography || {};
+  const mood = (Array.isArray(cd.mood) ? cd.mood.join(' ') : '').toLowerCase();
   const headStr = `${t.headingFont || ''} ${t.headingStyle || ''}`.toLowerCase();
   const isSerif = /serif|garamond|times|georgia|playfair|caslon|cormorant|baskerville/.test(headStr)
     && !/sans/.test(headStr);
@@ -89,13 +109,13 @@ export function classifyTypeBucket(currentDesign = {}) {
 /**
  * Pick a vetted pairing for this practice: observed character → bucket, then a
  * per-practice seed selects within the bucket (deterministic + varied).
- * Returns { headingFont, bodyFont, bucket }.
+ * Returns { headingFont, bodyFont, bucket, provider }.
  */
 export function pickFontPairing(currentDesign = {}, seedKey = '') {
   const bucket = classifyTypeBucket(currentDesign);
   const options = PAIRINGS[bucket] || PAIRINGS['humanist-trust'];
   const pair = options[hash(seedKey) % options.length];
-  return { headingFont: pair.heading, bodyFont: pair.body, bucket };
+  return { headingFont: pair.heading, bodyFont: pair.body, bucket, provider: pair.provider || 'google' };
 }
 
 export default pickFontPairing;

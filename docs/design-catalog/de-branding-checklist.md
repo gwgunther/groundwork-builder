@@ -53,7 +53,7 @@ is a system that re-skins onto any practice's palette. `#6b7257` is identity —
 2. **Type → classify, don't name.** Map display + body to a `type.classification` bucket
    (`editorial-serif | display-serif | humanist-trust | modern-grotesque | geometric-clean`
    — the builder's font-pairing buckets, so every practice resolves to a real, license-clean
-   Google Font). Capture scale/weights/tracking/case. State `substitutionCriteria` (what a
+   pairing from Google Fonts or Fontshare). Capture scale/weights/tracking/case. State `substitutionCriteria` (what a
    substitute font must preserve). Literal font name → `reference`.
 3. **Imagery → recipe, not photos.** Crop, grading, framing, subject treatment,
    image:text ratio into the `imagery` block. Never the actual images.
