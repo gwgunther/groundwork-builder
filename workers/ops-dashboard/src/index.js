@@ -136,7 +136,10 @@ async function serveUI(env) {
            website_url, final_url, gbp_url, phone, email, primary_type, rating, review_count,
            business_status, status, tier, business_tier, quadrant,
            weakness_score, weakness_tier, quality_score, vendor, vendor_category,
-           lighthouse_performance, lighthouse_accessibility, lighthouse_seo, sourced_at
+           lighthouse_performance, lighthouse_accessibility, lighthouse_seo, sourced_at,
+           json_extract(raw, '$."Is Exemplar"')          AS is_exemplar,
+           json_extract(raw, '$."Research Tier"')        AS research_tier,
+           json_extract(raw, '$."Exemplar Blocked By"')  AS exemplar_blocked_by
            FROM sourced_practices
            ORDER BY
              CASE tier WHEN 'A' THEN 0 WHEN 'B' THEN 1 WHEN 'C' THEN 2 WHEN 'D' THEN 3 ELSE 4 END,
@@ -861,6 +864,9 @@ const COLS = {
     { key: 'weakness',        label: 'Weakness',    on: true,  nowrap: true, sortKey: 'weakness_score', html: function (r) { return r.weakness_score != null ? mono(Number(r.weakness_score).toFixed(1)) + (r.weakness_tier ? ' ' + dim(esc(r.weakness_tier)) : '') : dim('—'); } },
     { key: 'quality_score',   label: 'Quality',     on: true,  html: function (r) { return r.quality_score != null ? mono(Number(r.quality_score).toFixed(1)) : dim('—'); } },
     { key: 'business_tier',   label: 'Biz Tier',    on: false, html: function (r) { return dimText(r.business_tier); } },
+    { key: 'is_exemplar',     label: 'Exemplar',    on: false, html: function (r) { return r.is_exemplar ? '<span class="badge badge-ok">★ Exemplar</span>' : dim('—'); } },
+    { key: 'research_tier',   label: 'Research',    on: false, html: function (r) { return gradeBadge(r.research_tier); } },
+    { key: 'exemplar_blocked_by', label: 'Blocked By', on: false, html: function (r) { return dimText(r.exemplar_blocked_by); } },
     { key: 'vendor',          label: 'Vendor',      on: true,  html: function (r) { return dimText(r.vendor); } },
     { key: 'vendor_category', label: 'Vendor Cat.', on: false, html: function (r) { return dimText(r.vendor_category); } },
     { key: 'primary_type',    label: 'Type',        on: false, html: function (r) { return dimText(r.primary_type); } },
