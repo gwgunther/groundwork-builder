@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Catalog — Before / After</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Schibsted+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#26241f; --ink-soft:#6d685e; --ground:#faf8f2; --surface:#f1eee4;
+    --line:#ddd7c8; --accent:#5f6c4a; --accent-deep:#3c452f; --amber:#996c33;
+    --bad:#8a4a3a; --good:#4d6b4a; --dark:#23251f;
+    --serif:'Fraunces',Georgia,serif; --sans:'Schibsted Grotesk',-apple-system,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+  .kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:500}
+  h1{font-family:var(--serif);font-weight:380;font-size:clamp(40px,6vw,64px);line-height:1.06;letter-spacing:-.015em;margin:14px 0 18px}
+  h1 em{font-style:italic;color:var(--accent-deep)}
+  h2{font-family:var(--serif);font-weight:420;font-size:32px;letter-spacing:-.01em;margin-bottom:8px}
+  h2 em{font-style:italic;color:var(--accent-deep)}
+  .sub{color:var(--ink-soft);max-width:62ch}
+  header.hero{padding:84px 0 56px;border-bottom:1px solid var(--line)}
+  .meta-row{display:flex;gap:28px;margin-top:30px;flex-wrap:wrap}
+  .meta-row div{font-size:13px;color:var(--ink-soft)}
+  .meta-row b{display:block;font-family:var(--serif);font-size:26px;font-weight:450;color:var(--ink)}
+  section{padding:64px 0;border-bottom:1px solid var(--line)}
+  .ba{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:32px}
+  .ba>div{background:var(--ground);padding:28px}
+  .ba>div.after{background:var(--surface)}
+  .tag{display:inline-block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;padding:3px 10px;border:1px solid var(--line);color:var(--ink-soft);margin-bottom:16px}
+  .after .tag{border-color:var(--accent);color:var(--accent)}
+  .ba h3{font-family:var(--serif);font-size:20px;font-weight:480;margin-bottom:12px}
+  .ba ul{list-style:none}
+  .ba li{padding:9px 0;border-top:1px solid var(--line);font-size:14.5px;color:var(--ink-soft)}
+  .ba li b{color:var(--ink);font-weight:500}
+  .ba li:first-child{border-top:none}
+  /* ban chips */
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{font-size:12.5px;padding:5px 12px;border:1px solid var(--line);color:var(--ink-soft);background:var(--ground)}
+  .chip.hard{background:var(--dark);color:#efece2;border-color:var(--dark)}
+  .legend{display:flex;gap:22px;margin-top:14px;font-size:12.5px;color:var(--ink-soft)}
+  .legend span::before{content:"";display:inline-block;width:10px;height:10px;margin-right:7px;vertical-align:-1px;border:1px solid var(--line)}
+  .legend .l-hard::before{background:var(--dark);border-color:var(--dark)}
+  /* case study */
+  .swrow{display:grid;grid-template-columns:150px 1fr 1fr;gap:0;align-items:stretch;border-top:1px solid var(--line);font-size:14px}
+  .swrow.head{border-top:none;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+  .swrow>div{padding:13px 14px}
+  .swrow .field{color:var(--ink-soft);font-size:12.5px;letter-spacing:.02em;padding-top:16px}
+  .swrow .v1{background:var(--ground)}
+  .swrow .v2{background:var(--surface)}
+  .sw{display:inline-block;width:14px;height:14px;border:1px solid rgba(0,0,0,.18);vertical-align:-2px;margin-right:8px}
+  .verdict{font-size:12px;font-weight:500}
+  .verdict.bad{color:var(--bad)} .verdict.good{color:var(--good)}
+  code{font-family:ui-monospace,SFMono-Regular,monospace;font-size:.88em;background:rgba(0,0,0,.05);padding:1px 5px}
+  .scores{margin-top:28px;border:1px solid var(--line)}
+  .scores table{width:100%;border-collapse:collapse;font-size:13.5px}
+  .scores th,.scores td{padding:10px 14px;text-align:center;border-top:1px solid var(--line)}
+  .scores th{background:var(--surface);border-top:none;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:500}
+  .scores td:first-child,.scores th:first-child{text-align:left}
+  .s5{color:var(--good);font-weight:600}.s4{color:var(--amber);font-weight:600}
+  .pass{color:var(--good);font-weight:600}.fail{color:var(--bad);font-weight:600}
+  /* catalog cards */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:34px}
+  .card{border:1px solid var(--line);background:#fff}
+  .card .pal{display:flex;height:64px}
+  .card .pal span{flex:1}
+  .card .body{padding:20px 22px 24px}
+  .card h3{font-family:var(--serif);font-size:21px;font-weight:480;margin-bottom:2px}
+  .card .by{font-size:12px;color:var(--ink-soft);margin-bottom:14px}
+  .card dl{font-size:13px;display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
+  .card dt{color:var(--ink-soft)} .card dd{color:var(--ink)}
+  .card.dark{background:var(--dark)}
+  .card.dark h3,.card.dark dd{color:#efece2}.card.dark .by,.card.dark dt{color:#9b9a8d}
+  .pull{font-family:var(--serif);font-style:italic;font-weight:380;font-size:clamp(22px,3vw,30px);line-height:1.35;color:var(--accent-deep);max-width:30ch;margin:0 auto;text-align:center}
+  /* flow + todo */
+  .flow{font-family:ui-monospace,SFMono-Regular,monospace;font-size:13px;line-height:1.9;background:var(--dark);color:#d9d6c8;padding:26px 30px;overflow-x:auto;margin-top:26px;white-space:pre-wrap}
+  .flow b{color:#fff;font-weight:600}.flow .c{color:#8d8b7c}
+  .todo{margin-top:30px}
+  .todo li{list-style:none;display:flex;gap:14px;padding:13px 0;border-top:1px solid var(--line);font-size:15px}
+  .todo .n{font-family:var(--serif);font-style:italic;color:var(--accent);min-width:24px}
+  .todo .done{color:var(--ink-soft);text-decoration:line-through;text-decoration-color:rgba(0,0,0,.25)}
+  .todo .check{color:var(--good);min-width:24px}
+  footer{padding:48px 0 72px;font-size:13px;color:var(--ink-soft)}
+  @media(max-width:860px){.ba{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.swrow{grid-template-columns:110px 1fr 1fr}}
+</style>
+</head>
+<body>
+
+<header class="hero"><div class="wrap">
+  <div class="kicker">Groundwork · Design Catalog</div>
+  <h1>From template variation<br>to <em>reference-driven design.</em></h1>
+  <p class="sub">Status of the design-catalog system: the contract, the re-pointed auditors, the ingest agent, and the proof that programmatic grounding beats vision alone.</p>
+  <div class="meta-row">
+    <div><b>9</b>commits on branch</div>
+    <div><b>3</b>catalog entries passing</div>
+    <div><b>2</b>live ingest loops · both PASS</div>
+    <div><b>$0.53</b>per URL → design system</div>
+    <div><b>13</b>eval criteria (M1–M7 + J1–J7… minus overlap)</div>
+  </div>
+</div></header>
+
+<section><div class="wrap">
+  <div class="kicker">01 — The creative engine</div>
+  <h2>Where designs <em>come from</em></h2>
+  <div class="ba">
+    <div>
+      <span class="tag">Before</span>
+      <h3>Constraint-based variation</h3>
+      <ul>
+        <li><b>8 synthetic archetypes</b> — one pick locks all 9 section variants via a fixed table</li>
+        <li><b>~30 components, closed set</b> — two sites sharing an archetype are structurally identical</li>
+        <li><b>Inspo library is decorative</b> — references reduced to adjectives &amp; trait strings; the director never sees the design</li>
+        <li><b>Fonts hash-seeded</b> from 20 pairings; creativity = combinatorics</li>
+        <li>Groomify-style layouts <b>not expressible</b></li>
+      </ul>
+    </div>
+    <div class="after">
+      <span class="tag">After</span>
+      <h3>Curated reference catalog</h3>
+      <ul>
+        <li><b>Each reference is its own archetype</b> — explicit variant map, freed from the 8-row table</li>
+        <li><b>Full design system per entry</b> — token strategy, type anatomy, atoms, layout grammar, imagery recipe, voice</li>
+        <li><b>De-branded, two axes</b> — brand identity stripped to <code>reference</code> fields; industry translated to dental</li>
+        <li><b>Honest gaps</b> — what the renderer can't do yet is named work (<code>novel[]</code>, <code>fidelity.gaps</code>), never silently flattened</li>
+        <li>Taste decided <b>at curation</b>, not re-litigated per build</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="kicker">02 — The auditors</div>
+  <h2>From taste police to <em>fidelity QA</em></h2>
+  <p class="sub">The 13 hard penalties split: 3 are correctness (never suppressible), 10 are taste — suppressible per-build when a curated reference legitimately uses the pattern. The critique gate becomes “technically sound <i>and</i> faithful to the reference.”</p>
+  <div class="chips">
+    <span class="chip hard">wrong hero image</span>
+    <span class="chip hard">placeholder / Lorem</span>
+    <span class="chip hard">AA contrast failures</span>
+    <span class="chip">pure-black</span><span class="chip">inter-display</span>
+    <span class="chip">centered-over-dark-hero</span><span class="chip">three-equal-cards</span>
+    <span class="chip">gradient-accent</span><span class="chip">emoji-in-content</span>
+    <span class="chip">nested-cards</span><span class="chip">icon-tile-above-heading</span>
+    <span class="chip">eyebrow-above-heading</span><span class="chip">side-accent-border</span>
+    <span class="chip">gray-glow-shadow</span>
+  </div>
+  <div class="legend"><span class="l-hard">Correctness — always enforced</span><span>Taste — suppressible via <code style="background:none;padding:0">audit.sanctionedPatterns</code></span></div>
+  <div class="ba">
+    <div>
+      <span class="tag">Before</span>
+      <h3>Auditors re-design curated work</h3>
+      <ul>
+        <li>Judge scores against a <b>global taste rubric</b> — can't tell a cliché done lazily from one done deliberately</li>
+        <li><code>bolder</code>/<code>colorize</code> would “fix” a sanctioned gradient or dark hero <b>back toward generic-safe</b></li>
+      </ul>
+    </div>
+    <div class="after">
+      <span class="tag">After</span>
+      <h3>Auditors enforce the reference</h3>
+      <ul>
+        <li>Reference's <code>fidelityChecks</code> become pass/fail gates; gate = dims ≥7 <b>and</b> fidelity_pass</li>
+        <li>Fixer skills receive directives: <b>improve execution of deliberate choices, never remove them</b></li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="kicker">03 — Case study · aesop.com, same site, two runs</div>
+  <h2>Vision-only vs <em>probe-grounded</em></h2>
+  <p class="sub">The screenshot-only run <b>passed the full eval at 6×5/5</b> — and was still wrong twice. Only the computed-style probe (exact values from the live DOM) caught it. This is why URL is the preferred entry point.</p>
+
+  <div style="border:1px solid var(--line);margin-top:30px">
+    <div class="swrow head"><div></div><div class="v1" style="padding:13px 14px">Run 1 · screenshot only</div><div class="v2" style="padding:13px 14px">Run 2 · URL + computed-style probe</div></div>
+    <div class="swrow">
+      <div class="field">Display face</div>
+      <div class="v1">“Caslon or Garamond variant” <span class="verdict bad">hallucinated</span><br><code>editorial-serif</code></div>
+      <div class="v2"><b>Suisse Intl</b> — measured <span class="verdict good">exact</span><br><code>modern-grotesque</code> · serif is a 0.1%-by-area italic accent</div>
+    </div>
+    <div class="swrow">
+      <div class="field">Dark chrome</div>
+      <div class="v1"><span class="sw" style="background:#2B3A2E"></span><code>#2B3A2E</code> “forest green” <span class="verdict bad">read off a photograph</span></div>
+      <div class="v2"><span class="sw" style="background:#252525"></span><code>#252525</code> near-black <span class="verdict good">the actual surface</span></div>
+    </div>
+    <div class="swrow">
+      <div class="field">Page ground</div>
+      <div class="v1"><span class="sw" style="background:#F5F2EC"></span><code>#F5F2EC</code> <span class="verdict bad">estimated</span></div>
+      <div class="v2"><span class="sw" style="background:#fffef2"></span><code>#fffef2</code> + card surface <span class="sw" style="background:#f6f5e8"></span><code>#f6f5e8</code> <span class="verdict good">measured</span></div>
+    </div>
+    <div class="swrow">
+      <div class="field">Phantom token</div>
+      <div class="v1"><span class="sw" style="background:#4A5E3A"></span><code>oliveAccent</code> <span class="verdict bad">invented from hero photo</span></div>
+      <div class="v2">— <span class="verdict good">gone</span> · amber measured <span class="sw" style="background:#945c26"></span><code>#945c26</code></div>
+    </div>
+    <div class="swrow">
+      <div class="field">Novel components</div>
+      <div class="v1">2 found</div>
+      <div class="v2"><b>4 found</b> — treatment carousel, finder split-panel, specialty tile browser, comparison-with-chips <span class="verdict good">Phase-B backlog</span></div>
+    </div>
+  </div>
+
+  <div class="scores">
+    <table>
+      <tr><th>Judge criteria</th><th>J1 character</th><th>J2 color</th><th>J3 layout</th><th>J4 anatomy</th><th>J5 translation</th><th>J6 honesty</th><th>J7 checks</th><th>Result</th></tr>
+      <tr><td>Run 1 · screenshot</td><td class="s5">5</td><td class="s4">4</td><td class="s5">5</td><td class="s5">5</td><td class="s5">5</td><td class="s5">5</td><td class="s5">5</td><td class="pass">PASS iter 2 · $0.43</td></tr>
+      <tr><td>Run 2 · URL + probe</td><td class="s5">5</td><td class="s5">5</td><td class="s4">4</td><td class="s5">5</td><td class="s5">5</td><td class="s5">5</td><td class="s5">5</td><td class="pass">PASS iter 2 · $0.53 · M7 ✓</td></tr>
+    </table>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="kicker">04 — The catalog today</div>
+  <h2>Three entries, three <em>characters</em></h2>
+  <div class="cards">
+    <div class="card">
+      <div class="pal"><span style="background:#eef0ea"></span><span style="background:#6b7257"></span><span style="background:#3f4534"></span><span style="background:#c4b89a"></span><span style="background:#2b2e26"></span></div>
+      <div class="body">
+        <h3>Groomify — Boutique Warm</h3>
+        <div class="by">hand-built from screenshot</div>
+        <dl>
+          <dt>Type</dt><dd>modern-grotesque · lg radius</dd>
+          <dt>Sanctions</dt><dd>eyebrow-above-heading (pill chips)</dd>
+          <dt>Phase</dt><dd>B — tabbed packages, contact variant</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="card dark">
+      <div class="pal"><span style="background:#0a0a0c"></span><span style="background:#1a1a1e"></span><span style="background:#c9a96e"></span><span style="background:#e8d6a8"></span><span style="background:#f5f3ee"></span></div>
+      <div class="body">
+        <h3>Aurelia — Dark Luxe</h3>
+        <div class="by">hand-built pressure test</div>
+        <dl>
+          <dt>Type</dt><dd>geometric-clean · sharp · weight 300</dd>
+          <dt>Sanctions</dt><dd>5 taste bans incl. gradient-accent</dd>
+          <dt>Phase</dt><dd>B — dark theme + gradient token</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="card">
+      <div class="pal"><span style="background:#fffef2"></span><span style="background:#f6f5e8"></span><span style="background:#945c26"></span><span style="background:#333333"></span><span style="background:#252525"></span></div>
+      <div class="body">
+        <h3>Aesop — Apothecary Warm</h3>
+        <div class="by">machine-generated · probe-grounded</div>
+        <dl>
+          <dt>Type</dt><dd>modern-grotesque (Suisse) · sharp · flat</dd>
+          <dt>Sanctions</dt><dd>dark hero, 3-cards, sparing eyebrows</dd>
+          <dt>Phase</dt><dd>B — 4 novel components, 12 checks</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <p style="margin-top:40px" class="pull">“Strip the brand, keep the character — an entry that loses the source's feel fails as hard as one that keeps its name.”</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="kicker">05 — Your entry points</div>
+  <h2>URL or screenshots <em>in</em>, design system out</h2>
+  <div class="flow">
+<b>npm run catalog:ingest -- --url https://site.com</b>        <span class="c"># preferred — probe-grounded</span>
+<b>npm run catalog:ingest hero.png mid.png footer.png</b>      <span class="c"># fallback — vision + judge</span>
+
+  capture <span class="c">(tiles + getComputedStyle probe)</span>
+  → audit <span class="c">(grounding doc — sample, don't remember)</span>
+  → extract <span class="c">(v1.2 entry + observed/implied/invented notes)</span>
+  → mechanical gate M1–M7 <span class="c">(schema · residue · coverage · linkage · color accuracy)</span>
+  → adversarial judge J1–J7 <span class="c">(character · honesty · translation · checks)</span>
+  → revise until PASS <span class="c">(≤4 iterations · ~$0.50 · entry.json + report.md)</span>
+  </div>
+  <ul class="todo">
+    <li><span class="check">✓</span><span class="done">Contract v1.2 — tokens, variant map, imagery, voice, fidelity, audit</span></li>
+    <li><span class="check">✓</span><span class="done">Auditor re-pointing — correctness/taste split, fidelity gates, fixer directives</span></li>
+    <li><span class="check">✓</span><span class="done">Ingest agent + eval harness — two live PASSes on a real site</span></li>
+    <li><span class="check">✓</span><span class="done">URL mode — tiled capture, bot-block fallback, computed-style probe, M7</span></li>
+    <li><span class="n">1</span><b>Build-time selection</b>&nbsp;— practice mood → entry → tokens/variants/audit into the builder <span style="color:var(--ink-soft)">(the payoff step; plumbing already waiting)</span></li>
+    <li><span class="n">2</span>Catalog storage in <code>_memory/library</code> + director sampling</li>
+    <li><span class="n">3</span>Preview gallery — every entry rendered with a fake practice (contract test)</li>
+    <li><span class="n">4</span>Phase-B variant minting — crop → recreate section → adapt to tokens</li>
+    <li><span class="n">5</span>Hardening — layout-skeleton probe, judge calibration, batch ingestion</li>
+  </ul>
+</div></section>
+
+<footer><div class="wrap">
+  Branch <code>design-catalog-schema</code> · docs/design-catalog/ · generated June 10, 2026
+</div></footer>
+
+</body>
+</html>
