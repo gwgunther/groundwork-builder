@@ -316,6 +316,7 @@ async function serveUI(env) {
   }
   .tab-btn.active { color: var(--charcoal); border-bottom-color: var(--sage); }
   .tab-btn:hover  { color: var(--charcoal); }
+  .tab-sep { width: 1px; background: var(--border-light); margin: 12px 10px; }
 
   /* ---- Content ---- */
   .content { padding: 24px; max-width: 1400px; }
@@ -608,18 +609,19 @@ async function serveUI(env) {
 ${dbError ? `<div style="background:var(--danger-bg);color:var(--danger-text);padding:10px 24px;font-size:13px;font-weight:500">Database error: ${dbError.replace(/</g, '&lt;')}</div>` : ''}
 
 <div class="stats-bar">
-  <div class="stat"><div class="stat-val">${stats.sourced}</div><div class="stat-label">Sourced</div></div>
-  <div class="stat"><div class="stat-val">${stats.totalBuilds}</div><div class="stat-label">Total Builds</div></div>
+  <div class="stat"><div class="stat-val">${stats.sourced}</div><div class="stat-label">Prospects</div></div>
+  <div class="stat"><div class="stat-val">${stats.totalBuilds}</div><div class="stat-label">Pipeline Runs</div></div>
   <div class="stat"><div class="stat-val">${stats.successRate}%</div><div class="stat-label">Success Rate</div></div>
   <div class="stat"><div class="stat-val">${stats.weekRuns}</div><div class="stat-label">This Week</div></div>
   <div class="stat"><div class="stat-val">${stats.practices}</div><div class="stat-label">Design Profiles</div></div>
 </div>
 
 <div class="tabs">
-  <button class="tab-btn active" data-tab="sourced">Sourced</button>
+  <button class="tab-btn active" data-tab="sourced">Prospects</button>
   <button class="tab-btn" data-tab="accounts">Accounts</button>
   <button class="tab-btn" data-tab="audits">Audits</button>
-  <button class="tab-btn" data-tab="builds">Builds</button>
+  <button class="tab-btn" data-tab="builds">Previews</button>
+  <span class="tab-sep"></span>
   <button class="tab-btn" data-tab="runs">Runs</button>
   <button class="tab-btn" data-tab="practices">Design Library</button>
 </div>
@@ -821,12 +823,12 @@ const COLS = {
 
 const DATA = { runs: RUNS, practices: PRACTICES, accounts: ACCOUNTS, builds: BUILDS, sourced: SOURCED, audits: AUDITS };
 const EMPTY = {
-  runs: 'No runs yet.',
+  runs: 'No pipeline runs yet.',
   practices: 'No design profiles yet.',
-  accounts: 'No accounts yet — promote a sourced practice to create one.',
+  accounts: 'No accounts yet — promote a prospect to create one.',
   audits: 'No audits yet — rows appear when audit-site.js runs.',
-  builds: 'No builds yet — rows appear when the pipeline creates preview builds.',
-  sourced: 'No sourced practices match.',
+  builds: 'No previews yet — rows appear when the pipeline creates preview builds.',
+  sourced: 'No prospects match.',
 };
 const queries = { runs: '', practices: '', accounts: '', builds: '', sourced: '', audits: '' };
 
