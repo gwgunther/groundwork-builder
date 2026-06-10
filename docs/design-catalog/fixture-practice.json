@@ -1,0 +1,240 @@
+{
+  "_meta": {
+    "purpose": "Standing fixture content for design-catalog previews and adaptation mocks. Real shipped content from a past client build — adapt TONE per the reference entry’s voice block; keep facts and structure. Regenerate: npm run catalog:fixture [client-slug].",
+    "sourceClient": "dentiq",
+    "generatedFrom": [
+      "src/components/generated/*.content.json",
+      "_pipeline/01-scrape.json",
+      "_memory/runs.jsonl"
+    ],
+    "internalUseOnly": true
+  },
+  "practice": {
+    "name": "Dentiq Dentistry",
+    "legalName": "Dentiq Dentistry Houston",
+    "doctor": "Dr. Shreed Sista",
+    "city": "Houston",
+    "phone": "(713) 526-2904",
+    "description": "At Dentiq Dentistry Houston, we are your trusted Houston dentist with positive customer reviews catering to patients of all ages and dental issues. We provide services in various categories of dentistry, such as cosmetic dentistry, restorative dentistry, dental implants, dental bonding, tooth extraction, digital x-rays, tooth cleaning, and more, including your first choice of dentist near me. Our dental office is conveniently located at 1355 W. Gray Street."
+  },
+  "hero": {
+    "variant": "split-offset",
+    "eyebrow": "Technology-forward dentistry. Results you can see.",
+    "headline": "Houston's Modern Dental Home at Dentiq",
+    "subheadline": "Dentiq Dentistry combines cutting-edge technology with compassionate care so Houston patients leave every visit with a healthier, more confident smile.",
+    "primaryCta": {
+      "label": "Book Your Dentiq Appointment",
+      "href": "/schedule"
+    },
+    "secondaryCta": {
+      "label": "Explore Our Services",
+      "href": "/services"
+    },
+    "phone": "(713) 526-2904",
+    "hasImage": true
+  },
+  "services": {
+    "variant": "two-col-feature",
+    "eyebrow": "What We Offer",
+    "heading": "Advanced Dental Care, From Implants to Same-Day Restorations",
+    "subheading": "Dentiq combines cutting-edge technology with comprehensive treatments to restore, align, and perfect your smile.",
+    "items": [
+      {
+        "name": "3D Printing",
+        "slug": "3d-printing",
+        "desc": "In-office 3D printing delivers precise dental restorations and appliances faster than ever before."
+      },
+      {
+        "name": "All-On-4 Dental Implants",
+        "slug": "all-on-4-dental-implants",
+        "desc": "Restore a full arch of teeth with just four strategically placed implants, often without bone grafting."
+      },
+      {
+        "name": "Bone and Soft Tissue Grafting",
+        "slug": "bone-and-soft-tissue-grafting",
+        "desc": "Rebuild lost bone and tissue to create a healthy, stable foundation for implants and a natural appearance."
+      },
+      {
+        "name": "Bone Grafting",
+        "slug": "bone-grafting",
+        "desc": "Restore jawbone volume lost to disease or extraction so implants can be placed with lasting success."
+      },
+      {
+        "name": "CBCT Scanner",
+        "slug": "cbct-scanner",
+        "desc": "3D cone beam imaging gives your dentist a complete view of your jaw for safer, more accurate implant planning."
+      },
+      {
+        "name": "CEREC Same Day Crowns",
+        "slug": "cerec-same-day-crowns",
+        "desc": "Get a custom-fitted, permanent crown designed and placed in a single appointment — no temporary needed."
+      },
+      {
+        "name": "Clear Aligners",
+        "slug": "clear-aligners",
+        "desc": "Straighten your teeth discreetly with removable, nearly invisible aligners tailored to your smile."
+      },
+      {
+        "name": "Dental Bonding",
+        "slug": "dental-bonding",
+        "desc": "Repair chips, close gaps, and smooth edges in one quick visit using tooth-colored resin."
+      }
+    ],
+    "ctaLabel": "View All Services"
+  },
+  "reviews": {
+    "variant": "single-featured",
+    "eyebrow": "Patient Stories",
+    "heading": "What Our Patients Say About Dentiq Dentistry",
+    "items": [
+      {
+        "quote": "My husband Sam and I are both new patients at this practice and we are both so happy with the care that we have received. Our hygienist, Mandy is the absolute best! My husband was very nervous and had a lot of anxiety because it had been so long since he had seen a dentist. Mandy was able to ease his fears and she made him feel very comfortable; he now looks forward to his future visits and additional dental work. The practice is very clean and the atmosphere is very welcoming. The office staff and the doctors are great as well. We highly recommend this practice to anyone in search of dental care.",
+        "author": "Natalie Davis",
+        "rating": 5
+      },
+      {
+        "quote": "Dentiq is a unique place. My wife and I love the entire staff. Today in particular we love how Mandy and Janet assisted us. Everyone in this office is caring, friendly and professional. I am happy with this dentistry and as such recommend it to anyone looking for a great dentist.",
+        "author": "Chinedu Ezea",
+        "rating": 5
+      },
+      {
+        "quote": "I absolutely love Dentiq!! Honestly I was never a fan of going to the dentist, but the staff at Dentiq are sooo kind, and I actually look forward to my appointments. You're greeted with beautiful smiles, happy energy, and a cozy atmosphere. Everyone there shares in your excitement regardless of where you're at in your teeth journey. Even calling them up to reschedule an appointment feels like a phone call with a friend 🙂 Thank you, Dentiq!",
+        "author": "Natalie Romano",
+        "rating": 5
+      }
+    ],
+    "aggregateRating": 5,
+    "reviewCount": 1246,
+    "googleUrl": "https://www.google.com/maps/place/Dentiq+Dentistry+-+Houston+Dentist/@29.7528037,-95.3976509,15z/data=!4m6!3m5!1s0x8640c0a115be1bfd:0x29dc8ade446d2c07!8m2!3d29.7528037!4d-95.3976509!16s%2Fg%2F1tvm34d3?entry=ttu"
+  },
+  "faqs": {
+    "variant": "two-column",
+    "eyebrow": "What Patients Ask Us",
+    "heading": "Your Questions About Dentiq Dentistry, Answered",
+    "subheading": "From your first visit to long-term care, here's what Houston patients ask us most.",
+    "items": [
+      {
+        "q": "How do I schedule an appointment at Dentiq Dentistry?",
+        "a": "You can reach our Houston office by calling (713) 526-2904, and our team will help you find a time that works for your schedule. We welcome new patients and families, and no referral is needed for most services. If you have an urgent concern, let us know when you call so we can prioritize your visit.",
+        "category": "Scheduling"
+      },
+      {
+        "q": "Does Dentiq Dentistry accept dental insurance?",
+        "a": "We work with many dental insurance plans and will help you understand your coverage before treatment begins. Our team is happy to review your benefits and explain any out-of-pocket costs in plain language. Please call us at (713) 526-2904 to confirm whether your specific plan is accepted.",
+        "category": "Insurance & Payment"
+      },
+      {
+        "q": "What can I expect at my first visit to Dentiq Dentistry?",
+        "a": "At Dentiq Dentistry, we start by listening — we want to understand your goals, concerns, and comfort level before anything else. Dr. Sista and the team will conduct a thorough examination, explain what they're seeing in plain language, and build a personalized care plan around you. Our office is equipped with modern technology, including a CBCT scanner and in-house lab, so we can often gather everything we need in a single visit.",
+        "category": "First Visit"
+      },
+      {
+        "q": "How long does the first Invisalign consultation take?",
+        "a": "The initial consultation typically lasts about 60 to 90 minutes, depending on the complexity of your case and the thoroughness of the examination.",
+        "category": "First Visit"
+      },
+      {
+        "q": "What are dental implants, and how do they work?",
+        "a": "Dental implants are artificial tooth roots that are surgically placed into your jawbone. They provide a sturdy base for replacement teeth or bridges. Implants are typically made of titanium, which is biocompatible and integrates with the bone to create a strong foundation for the replacement teeth. After placement, the surrounding bone gradually grows around the implant in a process called osseointegration, after which the replacement teeth or bridge can be securely attached.",
+        "category": "Treatment"
+      },
+      {
+        "q": "Who is a good candidate for dental implants?",
+        "a": "To be a good candidate for dental implants, you need to have good oral health and enough bone in your jaw to support the implant. If you have gum disease or other dental problems, your dentist may recommend treatment before the implant procedure. You also need to be committed to maintaining good oral hygiene and regular dental checkups to ensure the success of the implant.",
+        "category": "Treatment"
+      },
+      {
+        "q": "What is a CEREC same-day crown, and am I a candidate?",
+        "a": "A CEREC same-day crown is a custom dental crown designed and placed in a single visit using in-office technology — no temporary crown or second appointment needed. Dr. Sista uses this technology to provide precise, efficient restorations for patients who need a damaged or decayed tooth repaired quickly. Most patients who need a standard crown are candidates; Dr. Sista will confirm during your exam whether same-day fabrication is right for your situation.",
+        "category": "Treatment"
+      },
+      {
+        "q": "How long do dental implants last, and how do I care for them?",
+        "a": "Dental implants are designed to last a lifetime with proper care. However, the longevity of the implant can depend on several factors, including the patient's overall health, oral hygiene, and the quality of the implant. In some cases, implants may need to be replaced or repaired after several years. Brushing, flossing, and keeping up with regular checkups at our Houston office are the best ways to protect your investment.",
+        "category": "Aftercare"
+      }
+    ]
+  },
+  "cta": {
+    "variant": "floating-card",
+    "headline": "Your Healthiest Smile Starts Here in Houston",
+    "subheadline": "Whether it's a routine cleaning or a complete smile makeover, we make it easy to take the first step. No pressure — just a friendly team ready to help.",
+    "primaryCta": {
+      "label": "Book Your New Patient Appointment",
+      "href": "/schedule"
+    },
+    "phone": "(713) 526-2904",
+    "hasImage": true
+  },
+  "longFormTestimonials": [
+    {
+      "text": "My husband Sam and I are both new patients at this practice and we are both so happy with the care that we have received. Our hygienist, Mandy is the absolute best! My husband was very nervous and had a lot of anxiety because it had been so long since he had seen a dentist. Mandy was able to ease his fears and she made him feel very comfortable; he now looks forward to his future visits and additional dental work. The practice is very clean and the atmosphere is very welcoming. The office staff and the doctors are great as well. We highly recommend this practice to anyone in search of dental care.",
+      "author": "Natalie Davis",
+      "stars": 5,
+      "source": "/",
+      "verifiedBy": null,
+      "context": null
+    },
+    {
+      "text": "Dentiq is a unique place. My wife and I love the entire staff. Today in particular we love how Mandy and Janet assisted us. Everyone in this office is caring, friendly and professional. I am happy with this dentistry and as such recommend it to anyone looking for a great dentist.",
+      "author": "Chinedu Ezea",
+      "stars": 5,
+      "source": "/",
+      "verifiedBy": null,
+      "context": null
+    },
+    {
+      "text": "I absolutely love Dentiq!! Honestly I was never a fan of going to the dentist, but the staff at Dentiq are sooo kind, and I actually look forward to my appointments. You're greeted with beautiful smiles, happy energy, and a cozy atmosphere. Everyone there shares in your excitement regardless of where you're at in your teeth journey. Even calling them up to reschedule an appointment feels like a phone call with a friend 🙂 Thank you, Dentiq!",
+      "author": "Natalie Romano",
+      "stars": 5,
+      "source": "/",
+      "verifiedBy": null,
+      "context": null
+    },
+    {
+      "text": "Dentiq is the most top notch Dental office I've ever been to. From the ladies at the front desk to Ana the assistant, to the doctor. They really do go above and beyond to make you feel comfortable. If you are looking for a dentist they are the ones. They do it all from cleanings to a whole new smile with new teeth. Run don't walk to Dentiq!!",
+      "author": "Vermetti",
+      "stars": 5,
+      "source": "/",
+      "verifiedBy": null,
+      "context": null
+    },
+    {
+      "text": "Got my first cleaning and exam here this week and I'm very pleased. Super clean and safe office! Front desk welcomed me as I walked in make sure all my paperwork was up to date. Super friendly oriented ! Will be coming back for my invisalign. Thanks to Dr.Tag and her staff for making me feel comfortable.",
+      "author": "Luis Pantoja",
+      "stars": 5,
+      "source": "/",
+      "verifiedBy": null,
+      "context": null
+    },
+    {
+      "text": "Was looking for a new dentist and came across Dentiq from a friend's recommendation. It was by far the best dentist I've ever been too. The service staff Alexandra was very helpful. I'm looking forward to my 6 months check up.",
+      "author": "Shayna McPherson",
+      "stars": 5,
+      "source": "/",
+      "verifiedBy": null,
+      "context": null
+    }
+  ],
+  "stats": {
+    "yearsExperience": null,
+    "happyPatients": null,
+    "googleRating": 4.9,
+    "fiveStarReviews": 1229
+  },
+  "insurance": [
+    "Most PPO plans",
+    "Blue Cross Blue Shield (BCBS)",
+    "Aetna",
+    "Colonial Life",
+    "United Health Care",
+    "MetLife",
+    "Delta Dental",
+    "Guardian",
+    "Humana",
+    "Envolve Insurance",
+    "Cigna",
+    "Principal"
+  ],
+  "signals": []
+}
