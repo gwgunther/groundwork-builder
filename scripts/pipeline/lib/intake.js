@@ -46,19 +46,21 @@ async function loadFromAirtable(slug) {
     throw new Error(`No Airtable Account found with Slug: ${slug}`);
   }
 
+  // D1 rows are snake_case (intake_json); legacy Airtable records used display
+  // names ('Intake JSON') — support both so old call sites keep working.
   const fields = account.fields || {};
-  const intakeJson = fields['Intake JSON'];
+  const intakeJson = fields.intake_json ?? fields['Intake JSON'];
   if (intakeJson) {
     try {
       const parsed = typeof intakeJson === 'string' ? JSON.parse(intakeJson) : intakeJson;
       return {
         _topLevel: {
-          practice_name: fields['Practice Name'] || null,
-          contact_email: fields['Contact Email'] || fields['Business Email'] || null,
-          contact_phone: fields['Phone'] || null,
+          practice_name: fields.practice_name ?? fields['Practice Name'] ?? null,
+          contact_email: fields.contact_email ?? fields.business_email ?? fields['Contact Email'] ?? fields['Business Email'] ?? null,
+          contact_phone: fields.phone ?? fields['Phone'] ?? null,
         },
         ...parsed,
-        meta: { intakeSource: 'airtable' },
+        meta: { intakeSource: 'db' },
       };
     } catch (err) {
       throw new Error(`Invalid Intake JSON on Account ${slug}: ${err.message}`);
@@ -72,9 +74,9 @@ async function loadFromAirtable(slug) {
     const parsed = JSON.parse(text);
     return {
       _topLevel: {
-        practice_name: fields['Practice Name'] || null,
-        contact_email: fields['Contact Email'] || null,
-        contact_phone: fields['Phone'] || null,
+        practice_name: fields.practice_name ?? fields['Practice Name'] ?? null,
+        contact_email: fields.contact_email ?? fields['Contact Email'] ?? null,
+        contact_phone: fields.phone ?? fields['Phone'] ?? null,
       },
       ...parsed,
     };
