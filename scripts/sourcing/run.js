@@ -11,14 +11,14 @@
 //   5. Deterministic scoring      (Lighthouse + HTML features)
 //   6. AI vision scoring          (Claude call with anchors)
 //   7. Composite score + tier
-//   8. Airtable sync              (batched upsert)
+//   8. D1 sync                    (batched upsert to sourced_practices)
 //
 // Resume: every per-practice result is persisted to _sourcing/checkpoints/{placeId}.json
 // after step 7. On rerun, completed practices are skipped. To force a rerun
 // for a single practice, delete its checkpoint file.
 //
 // Usage:
-//   node scripts/sourcing/run.js --msa riverside-sb [--limit 100] [--no-vision] [--no-airtable]
+//   node scripts/sourcing/run.js --msa riverside-sb [--limit 100] [--no-vision] [--no-db]
 //
 // MSAs are defined in scripts/sourcing/config/msas.js. For now, riverside-sb
 // is the only configured MSA — add more as we expand.
@@ -54,7 +54,7 @@ import {
 // exemplars) is fully objective. Vision happens later: at audit-on-promotion,
 // and in the exemplar pattern-extraction pass. Screenshots are still captured
 // here so those later passes have them.
-import { ensureTable, upsertPractices, recordToFields } from './lib/airtable.js';
+import { upsertSourcedPractices } from './lib/d1.js';
 import { getMetro, listMetros, QUERY_TERMS } from './config/metros.js';
 
 // ──────────────────────────────────────────────────────────────────────
@@ -89,12 +89,11 @@ const LIST_METROS = !!args['list-metros'];
 // --limit (e.g. --limit 50 for a smoke test, --limit 1000 to go deep).
 const LIMIT = args.limit ? parseInt(args.limit, 10) : 200;
 const SKIP_SCREENSHOTS = !!args['no-screenshots']; // screenshots captured by default (for review + later passes)
-const SKIP_AIRTABLE = !!args['no-airtable'];
+const SKIP_DB = !!args['no-db'] || !!args['no-airtable']; // --no-airtable kept as a legacy alias
 const SKIP_LIGHTHOUSE = !!args['no-lighthouse']; // useful while iterating; PSI is slow
 const SKIP_SCREENSHOT_UPLOAD = !!args['no-upload']; // skip GCS upload of screenshots + html
-const SYNC_ONLY = !!args['sync-only'];           // re-read checkpoints, (upload + ) sync to Airtable; no scraping
+const SYNC_ONLY = !!args['sync-only'];           // re-read checkpoints, (upload + ) sync to D1; no scraping
 const RESCORE = !!args['rescore'];               // recompute scores from cached checkpoints (no re-crawl), then sync
-const TABLE_NAME_OVERRIDE = args.table || null;  // write to a named table instead of the default 'Sourced Practices'
 const FORCE = !!args.force;                      // ignore checkpoints
 const CONCURRENCY = parseInt(args.concurrency || '4', 10); // per-practice parallelism
 
@@ -453,34 +452,18 @@ async function runPool(items, worker, concurrency) {
 }
 
 // ──────────────────────────────────────────────────────────────────────
-// Airtable sync
+// D1 sync (sourced_practices table — read by the ops dashboard)
 // ──────────────────────────────────────────────────────────────────────
 
-async function syncAirtable(rows) {
-  const apiKey = process.env.AIRTABLE_API_KEY;
-  const baseId = process.env.AIRTABLE_BASE_ID;
-
-  const { tableId, created, addedFields } = await ensureTable({
-    apiKey,
-    baseId,
-    allowCreate: !!args['create-table'],
-    tableName: TABLE_NAME_OVERRIDE || undefined,
-  });
-  const label = TABLE_NAME_OVERRIDE || 'Sourced Practices';
-  if (created) console.error(`  ✅ Created table "${label}" (${tableId})`);
-  else console.error(`  table found: ${tableId}${addedFields?.length ? ` (+${addedFields.length} fields)` : ''}`);
-
-  const records = rows.map((p) => ({
-    placeId: p.placeId,
-    fields: recordToFields(p),
-  }));
-  const result = await upsertPractices({
-    apiKey, baseId, tableId, records,
+async function syncDb(rows) {
+  const result = await upsertSourcedPractices({
+    records: rows,
     onProgress: (p) => {
-      if (p.error) console.error(`    !! ${p.phase}: ${p.error}`);
+      if (p.error) console.error(`    !! d1 batch [${p.batch?.join(', ')}]: ${p.error}`);
     },
   });
-  console.error(`  airtable: created=${result.created} updated=${result.updated} failed=${result.failed}`);
+  if (result.skipped) return;
+  console.error(`  d1: upserted=${result.upserted} failed=${result.failed}`);
 }
 
 // ──────────────────────────────────────────────────────────────────────
@@ -507,7 +490,7 @@ async function main() {
   // ── Sync-only mode: re-read existing checkpoints, backfill screenshot
   //    uploads from disk, and upsert to Airtable. No scraping, no scoring. ──
   if (SYNC_ONLY) {
-    console.error('━━━ Sync-only: checkpoints → Airtable ━━━');
+    console.error('━━━ Sync-only: checkpoints → D1 ━━━');
     const files = await fs.readdir(CHECKPOINT_DIR);
     const rows = [];
     for (const f of files.filter((x) => x.endsWith('.json'))) {
@@ -528,7 +511,7 @@ async function main() {
       rows.push(r);
     }
     console.error(`  ${rows.length} checkpoints loaded`);
-    if (!SKIP_AIRTABLE) await syncAirtable(rows);
+    if (!SKIP_DB) await syncDb(rows);
     console.error('Sync-only done.');
     return;
   }
@@ -568,7 +551,7 @@ async function main() {
     const byTier = {};
     active.forEach((r) => { byTier[r.scores.tier] = (byTier[r.scores.tier] || 0) + 1; });
     console.error('  tier spread (active):', JSON.stringify(byTier));
-    if (!SKIP_AIRTABLE) await syncAirtable(rows);
+    if (!SKIP_DB) await syncDb(rows);
     console.error('Rescore done.');
     return;
   }
@@ -589,7 +572,7 @@ async function main() {
   console.error(`Concurrency: ${CONCURRENCY}`);
   console.error(`Screenshots: ${SKIP_SCREENSHOTS ? 'OFF' : 'ON'}  (vision deferred to audit/extraction)`);
   console.error(`Lighthouse:  ${SKIP_LIGHTHOUSE ? 'OFF' : 'ON'}`);
-  console.error(`Airtable:    ${SKIP_AIRTABLE ? 'OFF' : 'ON'}`);
+  console.error(`Database:    ${SKIP_DB ? 'OFF' : 'ON (D1)'}`);
   console.error(`Force:       ${FORCE ? 'YES (ignore checkpoints)' : 'no'}`);
   console.error('');
 
@@ -647,10 +630,10 @@ async function main() {
   const fromCheckpoint = rows.filter((r) => r._fromCheckpoint).length;
   console.error(`\nFrom checkpoint: ${fromCheckpoint}, freshly processed: ${rows.length - fromCheckpoint}`);
 
-  // Step 8: Airtable
-  if (!SKIP_AIRTABLE) {
-    console.error('\nStep 8: Airtable sync');
-    await syncAirtable(enriched);
+  // Step 8: D1 sync
+  if (!SKIP_DB) {
+    console.error('\nStep 8: D1 sync');
+    await syncDb(enriched);
   }
 
   await closeBrowser();
