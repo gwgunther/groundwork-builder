@@ -26,10 +26,10 @@
     "catalog:ingest": "node scripts/design-catalog/ingest-reference.mjs",
     "catalog:eval": "node scripts/design-catalog/eval-entry.mjs",
     "catalog:fixture": "node scripts/design-catalog/make-fixture.mjs",
-    "db:migrate": "node scripts/pipeline/migrate-to-d1.mjs",
+    "db:migrate": "node --env-file=.env scripts/pipeline/migrate-to-d1.mjs",
     "db:schema": "npx wrangler d1 execute groundwork-ops --file=scripts/pipeline/lib/d1-schema.sql --remote",
-    "ops:deploy": "cd workers/ops-dashboard && npx wrangler deploy",
-    "ops:dev": "cd workers/ops-dashboard && npx wrangler dev",
+    "ops:deploy": "node --env-file=.env scripts/pipeline/ops-wrangler.mjs deploy",
+    "ops:dev": "node --env-file=.env scripts/pipeline/ops-wrangler.mjs dev",
     "dashboard": "node scripts/generate-practice-dashboard.js"
   },
   "dependencies": {

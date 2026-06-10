@@ -28,7 +28,7 @@ import { fileURLToPath } from 'url';
 // ---------------------------------------------------------------------------
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const ROOT = resolve(__dirname, '../../..');
+const ROOT = resolve(__dirname, '../..');
 
 const DRY_RUN = process.argv.includes('--dry-run');
 
@@ -285,11 +285,12 @@ async function migrateAccounts() {
 
   for (const run of accounts) {
     const sql = `
-      INSERT OR IGNORE INTO accounts (slug, practice_name, url, city, phone)
-      VALUES (?, ?, ?, ?, ?)
+      INSERT OR IGNORE INTO accounts (id, slug, practice_name, practice_url, city, phone, lifecycle_stage)
+      VALUES (?, ?, ?, ?, ?, ?, 'Prospect')
     `.trim();
 
     const params = [
+      crypto.randomUUID(),
       run.client_slug,
       run.practice_name ?? null,
       run.url ?? null,

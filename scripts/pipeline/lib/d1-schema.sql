@@ -2,34 +2,58 @@
 -- SQLite-compatible; apply via: wrangler d1 execute <DB> --file=scripts/pipeline/lib/d1-schema.sql
 
 -- ---------------------------------------------------------------------------
--- accounts: one row per practice (CRM identity)
+-- accounts: one row per practice (CRM identity + lifecycle)
+-- Columns mirror lib/d1.js upsertAccount() exactly — d1.js is the writer.
 -- ---------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS accounts (
-  id          INTEGER PRIMARY KEY AUTOINCREMENT,
-  slug        TEXT    NOT NULL UNIQUE,          -- e.g. "springstdentistry"
-  practice_name TEXT,
-  url         TEXT,
-  city        TEXT,
-  phone       TEXT,
-  created_at  TEXT    NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
-  updated_at  TEXT    NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+  id                 TEXT PRIMARY KEY,            -- uuid (crypto.randomUUID)
+  slug               TEXT NOT NULL UNIQUE,        -- e.g. "springstdentistry"
+  practice_name      TEXT,
+  practice_url       TEXT,
+  business_email     TEXT,
+  contact_email      TEXT,
+  contact_name       TEXT,
+  phone              TEXT,
+  city               TEXT,
+  state              TEXT,
+  source             TEXT,
+  lifecycle_stage    TEXT DEFAULT 'Prospect',
+  baseline_pagespeed INTEGER,
+  baseline_ranks     TEXT,                        -- JSON
+  launch_date        TEXT,
+  reaudit_due        TEXT,
+  intake_json        TEXT,                        -- JSON blob
+  created_at         TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+  updated_at         TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
 );
 
 CREATE INDEX IF NOT EXISTS idx_accounts_slug ON accounts (slug);
 
 -- ---------------------------------------------------------------------------
 -- audits: one row per audit run, FK → accounts
+-- Columns mirror lib/d1.js createAudit()/updateAudit() exactly.
 -- ---------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS audits (
-  id          TEXT    PRIMARY KEY,              -- e.g. "audit-<timestamp>"
-  account_id  INTEGER REFERENCES accounts (id) ON DELETE SET NULL,
-  slug        TEXT    NOT NULL,                 -- denormalized for fast lookups
-  url         TEXT,
-  audit_type  TEXT,                             -- "agentic", "tech", "sales", etc.
-  score       REAL,
-  findings    TEXT,                             -- JSON array of finding objects
-  raw         TEXT,                             -- full JSON blob
-  created_at  TEXT    NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+  id               TEXT PRIMARY KEY,              -- uuid
+  account_id       TEXT REFERENCES accounts (id) ON DELETE SET NULL,
+  slug             TEXT NOT NULL,                 -- denormalized for fast lookups
+  status           TEXT,
+  website_url      TEXT,
+  source           TEXT,
+  contact_email    TEXT,
+  total_checks     INTEGER,
+  passed           INTEGER,
+  critical         INTEGER,
+  warnings         INTEGER,
+  mobile_score     INTEGER,
+  desktop_score    INTEGER,
+  gbp_reviews      INTEGER,
+  gbp_rating       REAL,
+  audit_report_url TEXT,
+  gcs_run_folder   TEXT,
+  error_detail     TEXT,
+  completed_at     TEXT,
+  date_added       TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
 );
 
 CREATE INDEX IF NOT EXISTS idx_audits_slug       ON audits (slug);
@@ -37,20 +61,34 @@ CREATE INDEX IF NOT EXISTS idx_audits_account_id ON audits (account_id);
 
 -- ---------------------------------------------------------------------------
 -- builds: one row per generated site, FK → accounts + audits
+-- Columns mirror lib/d1.js createBuild()/updateBuild() exactly.
 -- ---------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS builds (
-  id          TEXT    PRIMARY KEY,              -- e.g. "build-<timestamp>"
-  account_id  INTEGER REFERENCES accounts (id) ON DELETE SET NULL,
-  audit_id    TEXT    REFERENCES audits (id)   ON DELETE SET NULL,
-  build_slug  TEXT    NOT NULL,                 -- matches client_slug / slug
-  gcs_prefix  TEXT,
-  url         TEXT,
-  deploy_url  TEXT,
-  success     INTEGER NOT NULL DEFAULT 0,       -- 0 | 1
-  duration_ms INTEGER,
-  errors      TEXT,                             -- JSON array
-  meta        TEXT,                             -- arbitrary JSON
-  created_at  TEXT    NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+  id                TEXT PRIMARY KEY,             -- uuid
+  account_id        TEXT REFERENCES accounts (id) ON DELETE SET NULL,
+  source_audit_id   TEXT REFERENCES audits (id)   ON DELETE SET NULL,
+  build_slug        TEXT NOT NULL,                -- matches client_slug / slug
+  status            TEXT,
+  website_url       TEXT,
+  request_notes     TEXT,
+  contact_name      TEXT,
+  contact_email     TEXT,
+  contact_phone     TEXT,
+  contact_role      TEXT,
+  preview_url       TEXT,
+  pitch_url         TEXT,
+  github_folder_url TEXT,
+  gcs_run_folder    TEXT,
+  mobile_score      INTEGER,
+  desktop_score     INTEGER,
+  fixed_count       INTEGER,
+  still_issue_count INTEGER,
+  regressed_count   INTEGER,
+  rescanned_at      TEXT,
+  cost_est          REAL,
+  error_detail      TEXT,
+  completed_at      TEXT,
+  date_added        TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
 );
 
 CREATE INDEX IF NOT EXISTS idx_builds_build_slug  ON builds (build_slug);

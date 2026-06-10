@@ -1,12 +1,12 @@
-name = "ops-dashboard"
+name = "groundwork-ops"
 main = "src/index.js"
 compatibility_date = "2024-01-01"
-account_id = ""   # filled by user
+account_id = "49e005752abd398266901adfa8e506aa"
 
 [[d1_databases]]
 binding = "DB"
 database_name = "groundwork-ops"
-database_id = ""  # filled by user
+database_id = "5c662c5d-0656-4333-b063-59bdc0b6ae0d"
 
 [vars]
 ENVIRONMENT = "production"
