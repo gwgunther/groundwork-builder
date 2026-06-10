@@ -1,0 +1,224 @@
+{
+  "schemaVersion": "1.2",
+  "id": "klinik",
+  "name": "Klinik — Warm Editorial Calm",
+  "tag": "reference",
+  "source": {
+    "ingestedVia": "claude-design",
+    "captured": "2025-01"
+  },
+  "selection": {
+    "archetype": "warm-editorial",
+    "moods": [
+      "modern-premium",
+      "soft-gentle"
+    ],
+    "adjectives": [
+      "understated",
+      "refined",
+      "warm",
+      "trustworthy",
+      "unhurried",
+      "natural"
+    ],
+    "bestFor": "Boutique dental or cosmetic dentistry practices positioning around natural-looking results, personalised care, and a calm premium experience — particularly cosmetic, implant, or smile-design focused practices.",
+    "verticalBias": [
+      "cosmetic-dentistry",
+      "dental-implants",
+      "smile-design",
+      "orthodontics"
+    ]
+  },
+  "tokens": {
+    "color": {
+      "strategy": {
+        "theme": "light",
+        "background": "warm off-white canvas (ivory/linen tone) behind white content panels — two-tier warm surface system rather than pure white",
+        "contrast": "medium",
+        "saturation": "muted",
+        "accentUsage": "sparing",
+        "surfaceStrategy": "Warm ivory outer canvas hosts white card panels; a slightly warmer tinted surface (one step deeper than canvas) is used for hero banners, FAQ backgrounds, and quote blocks. Accent color (deep terracotta-brown) is reserved exclusively for primary CTAs, active/hover states on list rows, and metadata labels — never used decoratively in backgrounds or borders. Depth is achieved through surface-color differentiation, not shadows."
+      },
+      "reference": {
+        "canvas": "#FAF5F0",
+        "cardSurface": "#FFFFFF",
+        "tintedSurface": "#F5EDE6",
+        "primaryButton": "#7A2A10",
+        "headingText": "#6B2210",
+        "logoText": "#3D1A0E",
+        "bodyText": "#5C3A2A",
+        "accentActive": "#8B3A1A",
+        "secondaryButtonFill": "#F2E8E0",
+        "secondaryButtonText": "#C4A898",
+        "divider": "#E8DDD6",
+        "chipBorder": "#D4C4BA"
+      }
+    },
+    "type": {
+      "classification": "editorial-serif",
+      "substitutionCriteria": "Display face must be a high-contrast bracketed serif with tall ascenders, moderate x-height, and elegant stroke modulation — suitable for large editorial headlines at 48px+. Must support regular and bold weights. Body face must be a low-contrast humanist sans in regular and medium weights. Both faces must render cleanly at small sizes in warm brown tones (not black).",
+      "pairing": "High-contrast editorial serif for display headings paired with a low-contrast humanist sans for body, nav, and UI text",
+      "heading": {
+        "weight": "bold/semibold",
+        "casing": "sentence case",
+        "eyebrow": "sparing",
+        "eyebrowTreatment": "Small pill-outline chip in sentence case placed directly above the section H1 — used on treatment detail, about, and treatments-listing pages; not on every section",
+        "emphasisDevice": "color shift — accent terracotta-brown applied to active/hovered treatment titles and metadata label text; primary emphasis via scale contrast between large serif display and small sans body rather than weight shift within a headline"
+      },
+      "body": {
+        "weight": "regular",
+        "casing": "sentence case",
+        "lineHeight": "relaxed"
+      },
+      "scale": "editorial",
+      "headingScale": "xl",
+      "contrast": "medium",
+      "reference": {
+        "displayFace": "Playfair Display or similar contemporary editorial serif",
+        "bodyFace": "Low-contrast humanist sans (e.g. Inter, DM Sans, or similar)",
+        "signatureAccent": "Cursive/script used decoratively for doctor signature in founder/doctor quote block only"
+      }
+    },
+    "shape": {
+      "cornerRadius": "pill"
+    },
+    "elevation": {
+      "system": "flat"
+    },
+    "border": {
+      "treatment": "hairline"
+    },
+    "button": {
+      "treatment": "filled",
+      "character": "Pill-radius (fully rounded) primary button with deep terracotta-brown fill and white text; secondary button uses a warm tinted soft-fill (no border, warm blush fill) with muted brown text — both share identical pill geometry. Generous horizontal padding. No icon usage on buttons."
+    },
+    "label": {
+      "style": "badge",
+      "character": "Small pill-outline chip with hairline border in muted warm tone, sentence-case text, used sparingly as eyebrow category labels above section H1s (e.g. 'Dermal Fillers', 'About us', 'Treatments'). Also used as metadata tags on treatment list rows (e.g. 'Downtime: Minimal', '20–30 minutes')."
+    },
+    "density": "airy",
+    "motion": "subtle"
+  },
+  "layout": {
+    "sections": [
+      "nav",
+      "hero — centered headline with dual CTAs and scrolling image strip below",
+      "services — treatments and pricing list grouped by category with alternating hover states",
+      "service-detail — individual treatment page with stats strip, body copy, benefits checklist, and FAQ",
+      "about — philosophy copy with images and doctor/team introduction",
+      "doctor-intro — founder quote card with cursive signature and team member cards",
+      "faq — accordion expandable questions",
+      "cta — book consultation call-to-action",
+      "footer"
+    ],
+    "variants": {
+      "heroLayout": "centered",
+      "servicesLayout": "alternating-rows",
+      "aboutLayout": "split-photo",
+      "testimonialsLayout": "pull-quotes",
+      "ctaLayout": "two-button",
+      "faqLayout": "accordion-expandable",
+      "navVariant": "split-logo",
+      "footerVariant": "minimal-dark",
+      "galleryVariant": "filmstrip"
+    },
+    "composition": {
+      "hero": "Centered layout on a white card panel set against the warm ivory canvas. Large editorial serif headline (2–3 lines, sentence case) dominates the upper half. Two-line subheading in small humanist sans below. Two pill CTAs side by side: primary filled terracotta-brown ('Book a Consultation') and secondary warm-blush soft-fill ('View Treatments'). Below the text block, a horizontal filmstrip of 3 partially-cropped photography cards scrolls into view — images have md corner radius and warm grading. No hero image behind the text; the headline is the visual anchor.",
+      "nav": "White bar spanning full width. Practice logo/wordmark in dark brown bold sans positioned top-left. Centered horizontal nav links (Home, About, Services, Contact) in regular-weight humanist sans, sentence case, no underlines, medium brown tone. 'Book now' pill CTA top-right with deep terracotta-brown fill and white text. Nav sits on white with subtle visual separation from page content below. No transparent overlay; always opaque white.",
+      "footer": "Footer not visible in screenshots. Inferred as minimal: warm ivory or white background consistent with the surface system, practice name/logo, sparse navigation links, and a single 'Book now' CTA. No heavy multi-column layout — the source's airy density and flat elevation system suggest a minimal single-row or two-row footer with hairline top border. No dark background inferred given the all-light palette.",
+      "services": "Treatments grouped under bold serif category headings (e.g. 'Anti-Wrinkle', 'Dermal Fillers'). Each treatment is a full-width row with: treatment name in medium serif, one-line description in small sans, two pill-outline metadata chips (downtime, duration), and right-aligned 'Starting at $XXX' price. Rows separated by hairline dividers. On hover/active, the row title and description shift to accent terracotta-brown. A floating photography card (md radius, warm-graded image) appears overlapping the list at mid-scroll — not inline per row but as a decorative anchor for the category block.",
+      "serviceDetail": "Individual service page opens with a white card panel containing: a pill eyebrow chip (category name), large serif H1, one-line description, then a horizontal stats strip with three labeled columns (Duration / Downtime / Prices from) — label in small accent-brown sans, value in larger medium sans — followed by two pill CTAs (Book Consultation + Contact us). Below the card: two-column layout with body copy (What is [Treatment], Benefits checklist with checkmarks) on the left and a warm-graded photography image on the right. FAQ accordion follows.",
+      "about": "White card panel with pill eyebrow chip ('About us'), large serif H1, and two-line descriptor. Below: two-column layout — left column holds a clinic interior photograph (md radius), right column holds a treatment-in-progress photograph above philosophy body copy paragraphs and a 'Book Consultation' pill CTA. Founder/doctor quote appears as a separate warm-tinted card: small label ('A message from the founder'), large serif pull-quote, cursive script signature. Team member cards follow as a horizontal row of portrait photographs with name and role below.",
+      "doctorIntro": "Warm-tinted surface card containing a portrait photograph of the doctor/founder, a small inline label ('A message from the founder'), a large serif pull-quote in medium weight, and a cursive handwritten signature as a decorative trust motif. This card sits adjacent to or below the about philosophy section.",
+      "faq": "Accordion-expandable list of questions on a warm-tinted surface background. Question text in medium sans with a '+' expand icon on the right. Answers collapsed by default. No category grouping visible — simple flat stack of questions."
+    },
+    "novel": [
+      {
+        "section": "services",
+        "name": "Categorised Treatment List with Floating Image Anchor",
+        "spec": "Full-width treatment listing page grouped by dental service category (e.g. 'Cosmetic', 'Restorative', 'Preventive'). Each category opens with a bold serif category heading. Treatments are listed as full-width rows: service name (serif medium), one-line description (sans regular), two pill-outline metadata chips (e.g. 'Downtime: None', '45–60 minutes'), and right-aligned 'Starting at $XXX' price. Rows separated by hairline dividers. On hover, the row title and description shift to the accent color. A floating warm-graded photography card (md radius, ~300px wide) appears overlapping the list at the category midpoint — positioned absolutely to the right of the list, not inline. This floating image is decorative and changes per category.",
+        "requiresNewComponent": true
+      },
+      {
+        "section": "serviceDetail",
+        "name": "Treatment Detail Header Card with Stats Strip",
+        "spec": "A white card panel at the top of each dental service detail page. Contains: (1) a pill eyebrow chip with the service category name, (2) large serif H1 with the service name, (3) one-line description in small sans, (4) a horizontal stats strip divided into three labeled columns — 'Duration', 'Downtime', 'Prices from' — each with a small accent-colored label above a larger regular-weight value, (5) two pill CTAs side by side: primary filled ('Book Consultation') and secondary soft-fill ('Contact us'). The card has md corner radius and sits on the warm ivory canvas.",
+        "requiresNewComponent": true
+      },
+      {
+        "section": "doctorIntro",
+        "name": "Doctor Quote Card with Cursive Signature",
+        "spec": "A warm-tinted surface card (one step deeper than canvas) containing: a small inline label in muted sans ('A message from our dentist' or similar), a large serif pull-quote (2–4 lines) in medium weight expressing the doctor's care philosophy, and a cursive/script decorative signature of the doctor's name below the quote. A portrait photograph of the doctor sits adjacent (either above the text block or to the left). The card has md corner radius and generous internal padding. Used once on the About page.",
+        "requiresNewComponent": true
+      }
+    ]
+  },
+  "imagery": {
+    "crop": "Medium crops showing subject and immediate environment — not extreme close-ups. Images displayed in rounded-md containers at varied scales. Some images are full-bleed within their card; others float with visible warm canvas background around them. Portrait orientation preferred for staff/doctor shots; landscape for clinic interior and treatment-in-progress shots.",
+    "grading": "Warm, slightly desaturated, lifted blacks — all images carry a consistent ivory/linen cast that harmonises with the warm canvas palette. No cool tones; highlights lean cream rather than white. Skin tones are warm and natural, never over-brightened.",
+    "framing": "Subjects are centered or slightly offset within the frame with environmental context retained — clinic setting, treatment chair, or consultation room visible in background. Clean, uncluttered backgrounds. Natural light or soft diffused artificial light; no harsh studio lighting.",
+    "subjectTreatment": "Doctors and clinical staff photographed in calm, attentive poses — mid-consultation or mid-treatment, never stiffly posed. Patients shown relaxed and at ease, eyes often closed during treatment. Clinic spaces photographed to emphasise warmth and calm: warm wood tones, soft lighting, minimal decor. One primary human focal subject per image. Candid and documentary in feel, never stock-clinical.",
+    "imageTextRatio": "balanced"
+  },
+  "voice": {
+    "formality": "professional",
+    "rhythm": "Short declarative sentences, often two-part ('Subtle treatments. Natural results.'). Paragraphs are 2–3 sentences maximum. Headlines carry the full meaning; body copy expands without repeating. Measured, unhurried cadence — never urgent.",
+    "favors": [
+      "natural and personal language ('your goals', 'how you look', 'tailored to you')",
+      "reassurance and care-forward framing ('we take the time to understand')",
+      "outcome-focused descriptions that emphasise subtlety and balance",
+      "second-person address throughout",
+      "plain-spoken verbs over clinical terminology",
+      "transparency language ('transparent pricing', 'personal consultation')"
+    ],
+    "avoids": [
+      "clinical jargon or procedure-heavy terminology in patient-facing copy",
+      "hard-sell urgency or discount language",
+      "superlatives and filler adjectives ('amazing', 'incredible', 'best')",
+      "first-person plural boasting ('we are the leading...')",
+      "fear-based or problem-amplifying framing"
+    ]
+  },
+  "fidelity": {
+    "layout": "partial",
+    "theme": "light-native",
+    "phase": "B",
+    "gaps": [
+      {
+        "type": "variant",
+        "detail": "Categorised treatment list with floating image anchor (services page) has no matching variant — closest is alternating-rows but the true design is a flat hairline-divided list with a floating decorative image card overlapping the list. Requires novel component."
+      },
+      {
+        "type": "variant",
+        "detail": "Treatment detail header card with stats strip (Duration / Downtime / Prices from) has no matching variant in the service-detail pool. Requires novel component."
+      },
+      {
+        "type": "variant",
+        "detail": "Doctor quote card with cursive signature motif has no matching variant — pull-quotes is the closest testimonials layout but this is a single doctor-authored statement with a decorative handwritten signature, not a patient testimonial. Requires novel component."
+      },
+      {
+        "type": "token",
+        "detail": "Footer not visible — footerVariant is inferred as minimal-dark but the source's all-light palette suggests a light minimal footer may be more faithful. Token extension may be needed if the builder's minimal-dark variant cannot render a light-surface footer."
+      }
+    ]
+  },
+  "audit": {
+    "sanctionedPatterns": [
+      "eyebrow-above-heading",
+      "nested-cards"
+    ],
+    "fidelityChecks": [
+      "Hero section must be centered text-only (no background image) with dual pill CTAs and a filmstrip image row below — do not default to a split or poster hero with a background image.",
+      "All buttons and eyebrow chips must use full pill radius — no md or lg radius on interactive elements.",
+      "Depth must be achieved through warm surface-color differentiation (canvas → card → tinted card) with no drop shadows or elevation effects.",
+      "Eyebrow chips appear only above primary section H1s (service detail, about, treatments listing) — not on every section or card.",
+      "Accent terracotta-brown is used only for primary CTA fills, active/hover row states, and metadata label text — never as a background color or decorative element.",
+      "Photography must carry a consistent warm ivory/linen grading — no cool-toned or high-contrast images.",
+      "Doctor/founder quote block must include a cursive script signature as a decorative trust motif.",
+      "Treatment/service list rows must use hairline dividers and pill-outline metadata chips — not card containers per row.",
+      "Headings carry no uppercase kicker by default; emphasis is via color shift on active states and scale contrast between serif display and sans body — eyebrow chips are sentence-case pill badges, not uppercase kickers.",
+      "Nav must remain opaque white at all scroll positions — no transparent overlay behavior.",
+      "Body copy paragraphs must be short (2–3 sentences maximum) with generous line-height and airy spacing between blocks."
+    ]
+  }
+}

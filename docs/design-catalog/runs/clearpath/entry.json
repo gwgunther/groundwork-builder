@@ -1,0 +1,229 @@
+{
+  "schemaVersion": "1.2",
+  "id": "clearpath",
+  "name": "Clear Path",
+  "tag": "reference",
+  "source": {
+    "ingestedVia": "claude-design",
+    "captured": "2025-01-01"
+  },
+  "selection": {
+    "archetype": "editorial-asymmetric",
+    "moods": [
+      "soft-gentle",
+      "modern-premium"
+    ],
+    "adjectives": [
+      "unhurried",
+      "luminous",
+      "considered",
+      "serene",
+      "aspirational",
+      "refined"
+    ],
+    "bestFor": "Boutique dental or specialty practices that want to feel approachable and premium — orthodontics, cosmetic dentistry, or holistic family practices where trust and calm are the primary emotional registers.",
+    "verticalBias": [
+      "cosmetic-dentistry",
+      "orthodontics",
+      "family-practice",
+      "pediatric-dentistry"
+    ]
+  },
+  "tokens": {
+    "color": {
+      "strategy": {
+        "theme": "light",
+        "background": "near-white page ground with a very faint warm-neutral outer chrome; hero section uses a full-bleed atmospheric photograph as its own background",
+        "contrast": "medium",
+        "saturation": "muted",
+        "accentUsage": "moderate",
+        "surfaceStrategy": "Single muted teal-green accent carries almost all interactive and emphasis work — logo, nav links, CTA button fill (on light pages), the second line of every split heading, large stat numerals, and toggle fills. Primary surfaces stay white or near-white. Photo cards use a semi-transparent tint of the same accent hue as an overlay. No secondary accent competes. Dark near-black is reserved for primary heading text only."
+      },
+      "reference": {
+        "pageBackground": "#FFFFFF",
+        "outerChrome": "#F4F4F2",
+        "accent": "#5A9189",
+        "accentCardOverlay": "#4A7A72",
+        "headingDark": "#1E2E2A",
+        "bodyText": "#3D4F4A",
+        "decorativeLine": "#8FBFB8",
+        "heroWarmGlow": "#C8B8A2"
+      }
+    },
+    "type": {
+      "classification": "editorial-serif",
+      "substitutionCriteria": "Must be a transitional or contemporary editorial serif with high thick/thin stroke contrast, bracketed serifs, and slightly calligraphic terminals. Needs a true bold weight for display headings and a light/regular weight for body. Optical size should feel refined at large display sizes without becoming decorative. Tight natural tracking at display scale is essential.",
+      "pairing": "Editorial serif for all display headings; a light humanist sans or geometric-clean sans for body copy, nav links, and UI labels — the contrast between the two weights and classifications is the core typographic engine.",
+      "heading": {
+        "weight": "semibold to bold",
+        "size": "large — display scale, especially on hero and section intros",
+        "eyebrow": "sparing",
+        "emphasisDevice": "color shift on key phrase — second line of split two-line headings rendered in the muted teal accent while the first line stays near-black; scale alone also used for single-line headings"
+      },
+      "body": {
+        "weight": "light to regular",
+        "size": "small to medium",
+        "lineHeight": "relaxed"
+      },
+      "scale": "editorial",
+      "headingScale": "xl",
+      "contrast": "high",
+      "reference": {
+        "displayFace": "appears to be a contemporary transitional editorial serif (e.g. Canela, Freight Display, or similar)",
+        "bodyFace": "appears to be a light geometric or humanist sans"
+      }
+    },
+    "shape": {
+      "cornerRadius": "pill"
+    },
+    "elevation": {
+      "system": "flat"
+    },
+    "border": {
+      "treatment": "hairline"
+    },
+    "button": {
+      "treatment": "filled",
+      "character": "Pill-radius filled button as primary CTA — teal fill with white text on light pages; white fill with dark text on the dark hero. A hairline outline variant appears on the hero. Generous horizontal padding, small uppercase tracked label text with a bullet dot suffix (e.g. 'BOOK A SESSION •'). Secondary CTA uses the same pill shape in a softer teal fill."
+    },
+    "label": {
+      "style": "inline",
+      "character": "Small uppercase, widely tracked inline text used sparingly as section eyebrows — no pill or badge container, no icon. Appears left-aligned above or beside body paragraphs. Examples: 'SERVICES', 'BALANCE'."
+    },
+    "density": "airy",
+    "motion": "subtle"
+  },
+  "layout": {
+    "sections": [
+      "nav",
+      "hero — full-bleed atmospheric portrait with large serif headline, body copy, and CTA",
+      "services-intro — split heading with toggle motif and introductory paragraph",
+      "services — portrait-orientation photo cards with teal overlay (treatment menu)",
+      "services-narrative — large editorial serif heading with decorative line-art and body copy",
+      "full-bleed-image-banner — atmospheric sky/clouds photograph",
+      "stats — oversized accent numerals with descriptor labels (trust signals / practice milestones)",
+      "full-bleed-dark-banner — macro nature photograph with line-art overlay",
+      "footer"
+    ],
+    "variants": {
+      "heroLayout": "poster",
+      "servicesLayout": "card-grid",
+      "aboutLayout": "editorial-full",
+      "testimonialsLayout": "card-row",
+      "ctaLayout": "centered-banner",
+      "faqLayout": "simple-stack",
+      "navVariant": "split-logo",
+      "footerVariant": "minimal-dark",
+      "galleryVariant": "full-bleed-row"
+    },
+    "composition": {
+      "hero": "Full-bleed atmospheric portrait photograph of a patient or doctor fills the entire hero frame with a soft bokeh treatment and a warm-teal color cast. The frame has a medium corner radius (md) giving it a card-like quality set against the outer page chrome. Navigation sits inside the hero frame at the top. Large display serif headline ('A Smile That Shapes Your Confidence.') anchors bottom-left in white, spanning roughly 50% of the width at very large scale. Body copy and a pill CTA button ('START YOUR JOURNEY •') sit bottom-right in a separate text block. A thin single-stroke looping cursive line-art motif is overlaid on the photograph as a decorative layer — it is not interactive and does not contain text. The overall composition is asymmetric: headline weight is bottom-left, supporting copy is bottom-right.",
+      "nav": "Logo ('• practice—name') sits top-left with a small bullet dot prefix and an em-dash separator as a typographic brand mark. Nav links (ABOUT / SERVICES / STORIES / JOURNAL equivalent: ABOUT / SERVICES / PATIENTS / JOURNAL) are positioned center-right in small uppercase with generous tracking — not centered in the full viewport, but grouped right of center. A pill CTA button ('BOOK A SESSION •') sits at the far right. On the hero screen the entire nav is white (reversed out over the photograph). On white-background pages the logo and nav links render in the muted teal accent and the CTA button fills with teal. No visible divider line under the nav. No hamburger visible — desktop-only treatment in screenshots.",
+      "footer": "Footer is not visible in any screenshot. Inferred from the source's minimal, airy aesthetic: a minimal-dark footer is most coherent — a dark near-black ground (in the headingDark token range) with the logo mark reversed in white or light teal, a sparse single row of nav links in small uppercase tracking, and a brief legal line. No heavy column grid. A single pill CTA ('Book a Session') may appear as a final prompt. No social icon cluster or newsletter form inferred from the source's restraint.",
+      "services": "Four portrait-orientation photo cards arranged in a horizontal row with a staggered vertical offset — alternating cards sit slightly higher or lower creating a rhythmic cascade. Each card has a semi-transparent teal overlay on the photograph, white serif treatment title top-left, and white body descriptor text bottom-left. Cards have sm corner radius. In dental context: Preventive Care, Cosmetic Dentistry, Orthodontics, Restorative — each with an evocative close-up clinical or environmental photograph treated with the teal overlay.",
+      "servicesIntro": "A split two-line heading where line 1 is near-black serif ('There may not be a single answer,') and line 2 is teal serif ('but there are clear steps forward.'). Above the heading, a small inline uppercase label ('SERVICES') and a decorative toggle UI element labeled 'BALANCE' — the toggle is purely visual/metaphorical, not a functional filter in this context. Below the heading, a short centered body paragraph. This section sits on a white ground with generous vertical padding.",
+      "stats": "Four oversized teal accent numerals (e.g. '2,400+', '98%', '15+', '30+') arranged in a single horizontal row with generous spacing. Each numeral has a small dark body-weight descriptor label below it ('Patients treated', 'Satisfaction rate', 'Years of experience', 'Treatments offered'). No surrounding containers, borders, or cards — the numbers float on white. A split two-line heading above the row follows the same near-black / teal color-shift pattern.",
+      "fullBleedBanner": "A full-width atmospheric photograph (macro nature, sky, or abstract environmental) used as a section divider or transition between content sections. Sharp edges (no corner radius) — bleeds edge to edge within the page container. The thin looping line-art motif is overlaid on the photograph. In dental context: a serene sky, soft bokeh of a clean clinical space, or macro detail of natural material."
+    },
+    "novel": [
+      {
+        "section": "services",
+        "name": "Staggered Portrait Card Row",
+        "spec": "Four portrait-orientation photo cards in a horizontal row with alternating vertical offsets (cards 1 and 3 sit ~20px higher than cards 2 and 4, or vice versa). Each card: sm corner radius, full-bleed photograph, semi-transparent teal color overlay at ~60% opacity, white serif heading top-left at ~18–22px, white body text bottom-left at ~13px, no explicit CTA per card. The stagger creates visual rhythm without a grid. In dental context, cards map to primary treatment categories. Closest enum is card-grid but the stagger and portrait orientation are not captured by it.",
+        "requiresNewComponent": true
+      },
+      {
+        "section": "stats",
+        "name": "Oversized Accent Numeral Row",
+        "spec": "A horizontal row of 4 stat units. Each unit: an oversized teal numeral at ~72–96px in the display serif, a small dark descriptor label below at ~13px body weight. No containers, no icons, no borders. Units are evenly spaced with generous gutters. Preceded by a split two-line heading (near-black line 1 / teal line 2) and a short right-aligned supporting paragraph. Sits on white ground. No existing variant captures this bare numeral treatment.",
+        "requiresNewComponent": true
+      },
+      {
+        "section": "servicesIntro",
+        "name": "Split Heading with Decorative Toggle Motif",
+        "spec": "A centered section with a small inline uppercase label ('SERVICES') and a decorative toggle switch UI element labeled 'BALANCE' above the main heading — the toggle is visual/metaphorical only (not a functional filter). Below it, a two-line split heading: line 1 near-black serif, line 2 teal serif. Below the heading, a short centered body paragraph. The toggle motif is a unique emphasis device with no existing variant equivalent.",
+        "requiresNewComponent": true
+      },
+      {
+        "section": "decorativeLineArt",
+        "name": "Thin Cursive Stroke Overlay Motif",
+        "spec": "A single-stroke thin looping/cursive SVG line-art element overlaid on photographs and white sections as a recurring decorative layer. The stroke is approximately 1px, in the decorativeLine token color or white depending on background. It forms loose organic loops and figure-eight shapes — not iconographic, purely decorative. Appears on the hero, the services narrative section, and the dark stats banner. Requires an SVG overlay component that can be positioned absolutely over any section.",
+        "requiresNewComponent": true
+      }
+    ]
+  },
+  "imagery": {
+    "crop": "Generous framing — subjects are not tightly cropped; environmental context is preserved. Portrait-orientation crops for service cards. Full-bleed landscape crops for banner sections. The hero image gives the subject substantial headroom and breathing room.",
+    "grading": "Soft, slightly desaturated with a cool teal-green cast overall, occasionally warmed with a gentle golden-amber glow in highlight areas (particularly hero backgrounds). Blacks are lifted — no crushed shadows. The overall effect is luminous and hazy rather than crisp and clinical.",
+    "framing": "Subjects (doctors, patients) are offset — not centered. Environmental and atmospheric context is kept in frame. Close-up macro details (an eye, a hand, a leaf) are used as abstract stand-ins for emotional states rather than literal clinical documentation.",
+    "subjectTreatment": "Doctors and patients photographed in a soft, contemplative register — looking away from camera or in quiet repose rather than posed smiling directly at the lens. Clinic spaces shown as serene environments with natural light. Close-up details of hands, faces in profile, or environmental textures used to evoke care and calm rather than procedure. All images processed with the cool teal-green grade and lifted blacks to unify the palette.",
+    "imageTextRatio": "image-dominant"
+  },
+  "voice": {
+    "formality": "conversational",
+    "rhythm": "Unhurried declaratives with reflective pauses — em-dashes used to extend a thought rather than truncate it. Headlines split across two lines with the emotional payload on the second line. Short body paragraphs of two to three sentences. Second-person address throughout. Numbers and milestones framed as shared achievements rather than credentials.",
+    "favors": [
+      "journey and path metaphors translated to dental care context (e.g. 'your path to a healthier smile')",
+      "second-person warmth ('your goals, your pace, your needs')",
+      "plain-spoken verbs of forward motion ('move forward', 'take the next step')",
+      "reassuring qualifiers ('at your own pace', 'designed around you')",
+      "em-dash for reflective pauses in headlines and body copy"
+    ],
+    "avoids": [
+      "clinical procedure jargon as primary headline language",
+      "hard-sell urgency or discount language ('limited time', 'act now')",
+      "filler superlatives ('best', 'world-class', 'cutting-edge')",
+      "passive constructions",
+      "fear-based motivators around dental health"
+    ]
+  },
+  "fidelity": {
+    "layout": "partial",
+    "theme": "needs-token-extension",
+    "phase": "B",
+    "gaps": [
+      {
+        "type": "variant",
+        "detail": "Staggered portrait card row for services (card-grid enum does not capture the alternating vertical offset or portrait orientation with teal overlay)"
+      },
+      {
+        "type": "variant",
+        "detail": "Oversized accent numeral stats row has no existing variant — closest would be a custom stats section"
+      },
+      {
+        "type": "variant",
+        "detail": "Split heading with decorative toggle motif (services intro) has no existing variant"
+      },
+      {
+        "type": "variant",
+        "detail": "Thin cursive SVG line-art overlay motif (decorativeLineArt) is a recurring decorative layer with no existing variant — requires an SVG overlay component positionable absolutely over any section"
+      },
+      {
+        "type": "token",
+        "detail": "Semi-transparent teal color overlay on photo cards requires a surface overlay token (opacity + tint) not expressible in the current flat color token system"
+      },
+      {
+        "type": "token",
+        "detail": "Hero background warm-glow gradient (amber bleed into teal, referencing heroWarmGlow token) requires a gradient token for the atmospheric hero background treatment"
+      }
+    ]
+  },
+  "audit": {
+    "sanctionedPatterns": [
+      "centered-over-dark-hero",
+      "gradient-accent"
+    ],
+    "fidelityChecks": [
+      "Hero must be a full-bleed atmospheric photograph with the thin cursive line-art SVG overlay — removing the line-art motif loses a defining character element",
+      "Split two-line headings must render line 1 in near-black serif and line 2 in the muted teal accent — this color-shift emphasis device is the primary typographic identity marker",
+      "Service/treatment cards must use portrait orientation with a semi-transparent teal overlay on the photograph, not plain colored cards or icon tiles",
+      "Nav CTA button must be pill-radius with a bullet dot suffix character (e.g. 'BOOK A SESSION •') — the dot suffix is a recurring brand punctuation device",
+      "Headings carry no uppercase kicker by default; eyebrow labels appear only sparing (e.g. once per major section) as small inline uppercase tracked text — never as a badge or pill",
+      "Stat numerals must be oversized, in the teal accent, and float without surrounding containers or card borders",
+      "Full-bleed image banners (sky, macro nature) must appear as section transitions — they are structural rhythm elements, not decorative afterthoughts",
+      "Body copy and supporting text must remain light weight and small — the contrast between large bold serif headings and delicate body text is essential to the airy density",
+      "The logo mark must include the bullet dot prefix and em-dash separator as typographic elements (• practice—name format)",
+      "Page density must remain airy — generous vertical padding between sections; never compress sections to fit more content above the fold"
+    ]
+  }
+}

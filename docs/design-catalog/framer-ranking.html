@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Framer References — Design System Ranking</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    background: #0e0e0e;
+    color: #e8e4dc;
+    min-height: 100vh;
+  }
+
+  /* ── Header ──────────────────────────────────────────────────────────── */
+  .header {
+    padding: 48px 40px 36px;
+    border-bottom: 1px solid #1e1e1e;
+    position: sticky;
+    top: 0;
+    background: #0e0e0e;
+    z-index: 100;
+  }
+  .header-top { display: flex; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+  .header h1 { font-size: 22px; font-weight: 600; letter-spacing: -0.3px; }
+  .header .meta { font-size: 12px; color: #5a5a5a; margin-top: 4px; }
+  .header .sub { font-size: 13px; color: #666; margin-top: 6px; }
+
+  .stats-row {
+    display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-val { font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: #555; margin-top: 2px; }
+
+  /* ── Controls ────────────────────────────────────────────────────────── */
+  .controls {
+    padding: 16px 40px;
+    display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+    border-bottom: 1px solid #1a1a1a;
+    background: #0e0e0e;
+    position: sticky;
+    top: 130px;
+    z-index: 99;
+  }
+  .controls label { font-size: 11px; color: #555; text-transform: uppercase; letter-spacing: 0.6px; }
+  select, input[type=range] {
+    background: #181818;
+    color: #ccc;
+    border: 1px solid #2a2a2a;
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .score-filter { display: flex; align-items: center; gap: 8px; }
+  .score-filter span { font-size: 12px; color: #888; min-width: 24px; }
+
+  .legend {
+    margin-left: auto;
+    display: flex; gap: 12px; align-items: center;
+  }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .legend span { font-size: 11px; color: #666; }
+
+  /* ── Grid ────────────────────────────────────────────────────────────── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1px;
+    background: #1a1a1a;
+    padding: 0;
+  }
+
+  .card {
+    background: #111;
+    position: relative;
+    cursor: default;
+    transition: background 0.15s;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover { background: #161616; }
+  .card.hidden { display: none; }
+
+  /* Thumbnail */
+  .thumb-wrap {
+    position: relative;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    background: #1a1a1a;
+  }
+  .thumb-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .card:hover .thumb-wrap img { transform: scale(1.03); }
+
+  /* Rank badge */
+  .rank-badge {
+    position: absolute;
+    top: 8px; left: 8px;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(6px);
+    border-radius: 4px;
+    padding: 2px 7px;
+    font-size: 11px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: #999;
+  }
+  .rank-badge.top3 { background: rgba(120,80,30,0.9); color: #f5c980; }
+  .rank-badge.top10 { background: rgba(40,70,50,0.85); color: #7ec99a; }
+
+  /* Ingest badge */
+  .ingest-badge {
+    position: absolute;
+    top: 8px; right: 8px;
+    background: rgba(20,80,50,0.9);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(100,200,140,0.3);
+    border-radius: 4px;
+    padding: 2px 7px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #6dcc98;
+    letter-spacing: 0.3px;
+  }
+
+  /* Body */
+  .card-body { padding: 14px 14px 16px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+
+  .card-title-row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .card-slug { font-size: 13px; font-weight: 600; color: #ddd; letter-spacing: -0.2px; }
+  .card-total {
+    font-size: 20px; font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+  }
+
+  .card-oneliner {
+    font-size: 11px; color: #666; line-height: 1.5;
+  }
+
+  /* Archetype */
+  .archetype-badge {
+    display: inline-block;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 3px;
+    width: fit-content;
+  }
+
+  /* Score bars */
+  .score-bars { display: flex; flex-direction: column; gap: 5px; margin-top: 2px; }
+  .bar-row { display: flex; align-items: center; gap: 8px; }
+  .bar-label { font-size: 9.5px; color: #444; text-transform: uppercase; letter-spacing: 0.4px; width: 52px; flex-shrink: 0; }
+  .bar-track { flex: 1; height: 3px; background: #1e1e1e; border-radius: 2px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 2px; transition: width 0.3s; }
+  .bar-val { font-size: 9.5px; color: #444; width: 12px; text-align: right; flex-shrink: 0; }
+
+  /* Score color tiers */
+  .tier-s  { color: #f5c980; }
+  .tier-a  { color: #7ec99a; }
+  .tier-b  { color: #6ba3e0; }
+  .tier-c  { color: #a08080; }
+  .tier-d  { color: #555; }
+
+  .bar-vq  { background: #c8a060; }
+  .bar-ad  { background: #60a880; }
+  .bar-di  { background: #6090c0; }
+  .bar-sr  { background: #9060a0; }
+
+  /* Archetype colors */
+  .arch-warm-editorial     { background: rgba(180,100,60,0.15); color: #c08060; }
+  .arch-centered-classic   { background: rgba(100,130,160,0.12); color: #7090b0; }
+  .arch-magazine-split     { background: rgba(80,140,100,0.12); color: #60a070; }
+  .arch-minimal-brutalist  { background: rgba(160,160,160,0.1); color: #888; }
+  .arch-editorial-asymmetric { background: rgba(140,100,160,0.12); color: #a078b8; }
+  .arch-poster-hero        { background: rgba(160,80,80,0.12); color: #a06060; }
+  .arch-card-heavy         { background: rgba(80,120,160,0.12); color: #6090b0; }
+  .arch-other              { background: rgba(100,100,100,0.1); color: #666; }
+
+  /* ── Section headers ─────────────────────────────────────────────────── */
+  .tier-header {
+    grid-column: 1 / -1;
+    padding: 20px 20px 12px;
+    display: flex; align-items: center; gap: 12px;
+    background: #0e0e0e;
+    border-top: 1px solid #1a1a1a;
+  }
+  .tier-header h2 { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+  .tier-header .tier-line { flex: 1; height: 1px; background: #1e1e1e; }
+  .tier-header .tier-range { font-size: 11px; color: #444; }
+
+  /* ── Footer ──────────────────────────────────────────────────────────── */
+  .page-footer {
+    padding: 40px;
+    font-size: 11px;
+    color: #333;
+    border-top: 1px solid #1a1a1a;
+    text-align: center;
+  }
+
+  /* ── Count badge ──────────────────────────────────────────────────── */
+  #count-display { font-size: 12px; color: #555; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <h1>Framer References — Design System Ranking</h1>
+      <p class="meta">Scored June 10 2026 · 120 templates · 4 criteria · dental/healthcare adaptability</p>
+    </div>
+  </div>
+  <div class="stats-row">
+    <div class="stat"><div class="stat-val tier-s">36</div><div class="stat-label">Top score</div></div>
+    <div class="stat"><div class="stat-val tier-a">3</div><div class="stat-label">Ingested</div></div>
+    <div class="stat"><div class="stat-val" style="color:#6ba3e0">28</div><div class="stat-label">Score ≥ 30</div></div>
+    <div class="stat"><div class="stat-val" style="color:#666">120</div><div class="stat-label">Total reviewed</div></div>
+  </div>
+</div>
+
+<div class="controls">
+  <label>Sort</label>
+  <select id="sort-select">
+    <option value="total">Total score</option>
+    <option value="vq">Visual quality</option>
+    <option value="ad">Adaptability</option>
+    <option value="di">Distinctiveness</option>
+    <option value="sr">System richness</option>
+    <option value="alpha">A → Z</option>
+  </select>
+  <label>Archetype</label>
+  <select id="arch-filter">
+    <option value="">All</option>
+    <option value="warm-editorial">Warm editorial</option>
+    <option value="centered-classic">Centered classic</option>
+    <option value="magazine-split">Magazine split</option>
+    <option value="minimal-brutalist">Minimal brutalist</option>
+    <option value="editorial-asymmetric">Editorial asymmetric</option>
+    <option value="poster-hero">Poster hero</option>
+    <option value="card-heavy">Card heavy</option>
+    <option value="other">Other</option>
+  </select>
+  <div class="score-filter">
+    <label>Min score</label>
+    <input type="range" id="score-min" min="15" max="36" value="15" step="1">
+    <span id="score-min-val">15</span>
+  </div>
+  <span id="count-display">120 shown</span>
+  <div class="legend">
+    <div class="legend-dot" style="background:#f5c980"></div><span>S (34–36)</span>
+    <div class="legend-dot" style="background:#7ec99a"></div><span>A (30–33)</span>
+    <div class="legend-dot" style="background:#6ba3e0"></div><span>B (25–29)</span>
+    <div class="legend-dot" style="background:#a08080"></div><span>C (20–24)</span>
+    <div class="legend-dot" style="background:#444"></div><span>D (≤19)</span>
+  </div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="page-footer">
+  Groundwork Builder · design-catalog audit · June 2026 · Top 3 ingested: klinik (PASS iter 1) · clearpath (PASS iter 1) · dermato (pending)
+</div>
+
+<script>
+const BASE = 'file:///Users/garrettgunther/Projects/_groundwork/20260610%20Scrape%20Framer/Framer%20References/';
+
+const TEMPLATES = [
+  // ── Score 36 ──
+  { slug:'klinik',        vq:9, ad:10, di:8, sr:9,  arch:'centered-classic',      one:'warm terracotta aesthetic clinic — earthy CTA, terracotta/ivory surface system, cursive signature trust card', ingested:true },
+  // ── Score 34 ──
+  { slug:'clearpath',     vq:9, ad:8,  di:9, sr:8,  arch:'warm-editorial',         one:'dreamy gradient portrait with editorial serif and cursive line-art overlay — therapy that reads premium dental', ingested:true },
+  { slug:'dermato',       vq:9, ad:8,  di:9, sr:8,  arch:'warm-editorial',         one:'warm terracotta editorial with serif headline, radial services map, and luxury spa-clinic aesthetic', ingested:true },
+  { slug:'harmonise',     vq:9, ad:9,  di:8, sr:8,  arch:'poster-hero',            one:'moody full-bleed photo hero with large serif type, deep forest green palette, therapy-native structure' },
+  { slug:'navara',        vq:9, ad:8,  di:9, sr:8,  arch:'poster-hero',            one:'dark editorial skincare with cinematic full-bleed face photography and refined serif headline weight' },
+  // ── Score 33 ──
+  { slug:'dentix',        vq:8, ad:9,  di:7, sr:9,  arch:'magazine-split',         one:'rich forest-green dental system with strong component inventory — list-style service cards and mobile view' },
+  { slug:'mindara',       vq:8, ad:9,  di:8, sr:8,  arch:'editorial-asymmetric',   one:'editorial cream-and-serif therapy brand with horizontal photo strip and clean copy hierarchy' },
+  { slug:'zenna',         vq:9, ad:8,  di:8, sr:8,  arch:'poster-hero',            one:'warm amber-toned full-bleed wellness with elegant serif copy and grid stat row — very dental-adaptable' },
+  { slug:'sun-moon',      vq:8, ad:9,  di:8, sr:8,  arch:'magazine-split',         one:'warm cream split with editorial roman/italic pairing, strong image card, and clean booking CTA hierarchy' },
+  // ── Score 32 ──
+  { slug:'clinichub',     vq:8, ad:9,  di:7, sr:8,  arch:'centered-classic',       one:'purpose-built healthcare with dark-teal color system, stat strips, and doctor-card components' },
+  { slug:'essentia',      vq:9, ad:7,  di:8, sr:8,  arch:'minimal-brutalist',      one:'ultra-minimal cream luxury with oversized watermark type, floating product, and confident negative space' },
+  { slug:'growthcraft',   vq:8, ad:9,  di:7, sr:8,  arch:'magazine-split',         one:'clean cream consultant split — strong serif headline and warm portrait photo, maps to dental doctor pages' },
+  { slug:'holistic',      vq:8, ad:8,  di:8, sr:8,  arch:'poster-hero',            one:'full-bleed atmospheric hero with high-contrast serif, floating nav, and warm terracotta accent — serene' },
+  { slug:'vitalis',       vq:9, ad:8,  di:8, sr:7,  arch:'poster-hero',            one:'ethereal cloudy healthcare hero with centered serif caps, terracotta CTA, explicit clinical positioning' },
+  { slug:'reset',         vq:8, ad:8,  di:8, sr:8,  arch:'poster-hero',            one:'deep amber macro-skin hero with editorial sans, horizontal rule system, and course widget — premium wellness' },
+  // ── Score 31 ──
+  { slug:'aluna',         vq:8, ad:8,  di:8, sr:7,  arch:'poster-hero',            one:'full-bleed moody portrait with oversized serif, trust badges, and review widget — wellness hero, premium healthcare read' },
+  { slug:'dentora',       vq:8, ad:9,  di:7, sr:7,  arch:'centered-classic',       one:'clean off-white centered with bold grotesque headline and playful hand-drawn smile accent' },
+  { slug:'groomify',      vq:8, ad:8,  di:7, sr:8,  arch:'magazine-split',         one:'clean white split with sage green accent system, strong sans-serif hierarchy, and social proof element' },
+  { slug:'herstrength',   vq:8, ad:7,  di:8, sr:8,  arch:'editorial-asymmetric',   one:'warm terracotta editorial with mixed serif/italic headlines, founder bio, and rich before/after grid' },
+  { slug:'healing',       vq:7, ad:9,  di:7, sr:8,  arch:'magazine-split',         one:'warm cream wellness split with dark rust CTAs, tag chips, and floating review card — highly transferable' },
+  { slug:'soulflow',      vq:8, ad:8,  di:8, sr:7,  arch:'poster-hero',            one:'deep amber full-bleed with roman/italic headline contrast and warm cinematic photography' },
+  { slug:'zephyr-spa',    vq:8, ad:8,  di:8, sr:7,  arch:'poster-hero',            one:'dark-ground serif poster with encircled logo type accent, glowing skin photography, and info ticker' },
+  { slug:'sereenity',     vq:8, ad:9,  di:7, sr:7,  arch:'card-heavy',             one:'clean card-collage wellness with warm serif headline, earth tones, and direct book-appointment CTA' },
+  { slug:'serena-yoga2',  vq:8, ad:8,  di:7, sr:8,  arch:'poster-hero',            one:'warm cream full-bleed studio with arched-crop and roman/italic headline hierarchy — highly transferable' },
+  { slug:'perspectiva',   vq:8, ad:7,  di:9, sr:7,  arch:'centered-classic',       one:'marble editorial with large serif italic headline, abstract oil-pour hero, and confident minimal chrome' },
+  { slug:'pilates-lab',   vq:8, ad:9,  di:7, sr:7,  arch:'centered-classic',       one:'sage cream centered with elegant display serif and clean three-image rounded gallery — ideal dental base' },
+  { slug:'ueno',          vq:9, ad:6,  di:9, sr:7,  arch:'minimal-brutalist',      one:'hyper-minimal skincare e-comm with cinematic wide-crop face photo and near-invisible typography system' },
+  { slug:'seniorcare',    vq:7, ad:9,  di:7, sr:8,  arch:'magazine-split',         one:'clean light-blue split with serif headline and direct healthcare imagery — closest to dental out-of-box' },
+  // ── Score 30 ──
+  { slug:'alora',         vq:8, ad:8,  di:7, sr:7,  arch:'poster-hero',            one:'warm neutrals, rounded pill buttons, script wordmark — boutique wellness adapts cleanly to modern dental' },
+  { slug:'elaraa',        vq:8, ad:7,  di:8, sr:7,  arch:'poster-hero',            one:'moody full-bleed editorial with italic serif headline and high-fashion holistic health positioning' },
+  { slug:'lusora',        vq:7, ad:8,  di:7, sr:8,  arch:'magazine-split',         one:'cream spa with teal accent, cutout photo hero, floating review widget, and marquee promo strip' },
+  { slug:'luvia',         vq:8, ad:8,  di:7, sr:7,  arch:'magazine-split',         one:'health-tech bridge between clinical and editorial — serif headline with soft organic gradient' },
+  { slug:'lavande',       vq:9, ad:6,  di:8, sr:7,  arch:'editorial-asymmetric',   one:'high-end product editorial with asymmetric quadrant grid, lavender palette, editorial stat callouts' },
+  { slug:'sona',          vq:7, ad:9,  di:7, sr:7,  arch:'centered-classic',       one:'cream spa with earthy sans, centered headline, and large below-fold portrait — reliable healthcare pattern' },
+  // ── Score 29 ──
+  { slug:'clarity-care',  vq:7, ad:9,  di:6, sr:7,  arch:'centered-classic',       one:'dark-olive and sage healthcare with pill tags, stat circles, and care-provider structure — near dental-ready' },
+  { slug:'astroball',     vq:8, ad:5,  di:9, sr:7,  arch:'editorial-asymmetric',   one:'editorial luxury sports with marquee ticker, bold serif, cream-on-green — high design richness, niche concept' },
+  { slug:'franco',        vq:8, ad:5,  di:9, sr:7,  arch:'poster-hero',            one:'oversized condensed display over cinematic landscape — strong typographic voice, niche editorial DNA' },
+  { slug:'dentacare',     vq:7, ad:9,  di:6, sr:7,  arch:'card-heavy',             one:'pink-accented dental template with multi-section layout preview and ready-made component spread' },
+  { slug:'mindify',       vq:7, ad:8,  di:7, sr:7,  arch:'magazine-split',         one:'cream therapy split with burgundy accents, floating label chips on photo, and inline emoji copy treatment' },
+  { slug:'groomie',       vq:8, ad:7,  di:7, sr:7,  arch:'editorial-asymmetric',   one:'warm editorial scroll with giant background type, rounded card image, and warm beige/sage color story' },
+  { slug:'wellbe',        vq:7, ad:7,  di:8, sr:7,  arch:'minimal-brutalist',      one:'olive-cream brutalist wellness with oversized serif heading, interior image slider, and bold type contrast' },
+  { slug:'verano',        vq:7, ad:8,  di:7, sr:7,  arch:'magazine-split',         one:'white split with navy accents and credentialed photo card overlays — adaptable professional services' },
+  { slug:'suvi',          vq:7, ad:7,  di:8, sr:7,  arch:'poster-hero',            one:'dark forest coaching hero with refined serif, evidence-bar footer, and split copy-over-photo layout' },
+  { slug:'rachel',        vq:8, ad:6,  di:8, sr:7,  arch:'poster-hero',            one:'cinematic dark fitness hero with orange CTA card, split stat panel, and sharp social proof hierarchy' },
+  { slug:'wellbase',      vq:8, ad:7,  di:8, sr:6,  arch:'poster-hero',            one:'icy blue healthcare hero with 3D glass sculpture and bold condensed type — clinical-tech with design ambition' },
+  { slug:'rossi',         vq:8, ad:5,  di:9, sr:7,  arch:'magazine-split',         one:'editorial magazine grid with oversized logotype, pink handwritten accent, and mosaic photo layout' },
+  // ── Score 28 ──
+  { slug:'cureva',        vq:7, ad:9,  di:5, sr:7,  arch:'magazine-split',         one:'clean split medical with teal CTA, doctor card, and stat row — functional but visually safe' },
+  { slug:'aurae',         vq:8, ad:6,  di:8, sr:6,  arch:'poster-hero',            one:'high-fashion skincare with mixed-weight italic type — strong visual voice, needs dental recontextualization' },
+  { slug:'altero',        vq:8, ad:5,  di:8, sr:7,  arch:'editorial-asymmetric',   one:'stark black-and-yellow consulting with stacked-image collage — distinctive but palette is hard to migrate' },
+  { slug:'faseelh',       vq:7, ad:6,  di:8, sr:7,  arch:'minimal-brutalist',      one:'misty minimal with full-bleed foggy landscape, hairline chrome nav, and restrained numbered stats' },
+  { slug:'dentistryx',    vq:7, ad:8,  di:6, sr:7,  arch:'poster-hero',            one:'dark full-bleed photo hero with pill tag chips, frosted stat card, and clean blue CTA button' },
+  { slug:'heartwell',     vq:7, ad:8,  di:6, sr:7,  arch:'poster-hero',            one:'full-bleed home-care hero with purple serif type system and warm editorial below-fold — direct healthcare DNA' },
+  { slug:'harmonix',      vq:7, ad:7,  di:7, sr:7,  arch:'centered-classic',       one:'cream life coach with rounded arch photo element, sage green accent, and meet-the-practitioner scroll' },
+  { slug:'pawfect',       vq:7, ad:7,  di:7, sr:7,  arch:'poster-hero',            one:'dark-green/cream veterinary with strong serif text-on-photo and clean scrolling service ticker' },
+  { slug:'swimline',      vq:7, ad:6,  di:8, sr:7,  arch:'poster-hero',            one:'deep navy full-bleed with roman/italic headline split and clean two-stat credential footer' },
+  { slug:'onething',      vq:7, ad:6,  di:7, sr:8,  arch:'centered-classic',       one:'clean DTC supplement hero with centered product float, social-proof image strip, and strong component system' },
+  { slug:'vesollo',       vq:8, ad:6,  di:8, sr:6,  arch:'poster-hero',            one:'warm dark full-bleed speaker portrait with condensed bold headline and clean two-button CTA' },
+  { slug:'solene',        vq:8, ad:6,  di:7, sr:7,  arch:'centered-classic',       one:'cream minimalist vitamin product hero with editorial top nav and clean centered layout' },
+  { slug:'nirvana',       vq:7, ad:8,  di:6, sr:7,  arch:'centered-classic',       one:'warm peach centered with rounded pill CTA and face-up massage photo — functional but mild in personality' },
+  { slug:'serenya',       vq:7, ad:8,  di:6, sr:7,  arch:'magazine-split',         one:'off-white minimalist split with tall portrait and serif headline — understated wellness coaching' },
+  // ── Score 27 ──
+  { slug:'healer',        vq:7, ad:7,  di:6, sr:7,  arch:'centered-classic',       one:'cream spiritual counseling with arched photo frame and purple icon row — overly spiritual but clean color system' },
+  { slug:'keitimas',      vq:7, ad:6,  di:8, sr:6,  arch:'poster-hero',            one:'full-bleed illustrated landscape with centered serif headline — cinematic but system-thin' },
+  { slug:'loiseau-de',    vq:8, ad:5,  di:9, sr:5,  arch:'poster-hero',            one:'high-fashion editorial magazine cover — stunning but too e-commerce/beauty to extract cleanly' },
+  { slug:'nursing-care',  vq:6, ad:9,  di:5, sr:7,  arch:'poster-hero',            one:'functional blue healthcare with full-bleed hero and service ticker — obvious but directly transferable' },
+  // ── Score 26 ──
+  { slug:'caoch',         vq:7, ad:6,  di:7, sr:6,  arch:'magazine-split',         one:'bold-type consulting with ghost-text backdrop and ticker bar — assertive split-photo layout' },
+  { slug:'fitnessa',      vq:7, ad:5,  di:7, sr:7,  arch:'poster-hero',            one:'cinematic dark hero with silhouette figure, condensed-caps headline, and strong orange/dark contrast' },
+  { slug:'lumiera',       vq:6, ad:7,  di:6, sr:7,  arch:'centered-classic',       one:'spa slideshow hero with carousel dots, icon benefit strip, and dark atmospheric photo — template-generic' },
+  { slug:'rep-republic',  vq:7, ad:3,  di:9, sr:7,  arch:'minimal-brutalist',      one:'screaming yellow gym brand with editorial grid chaos — high distinctiveness, zero dental adaptability' },
+  { slug:'sensoria',      vq:8, ad:4,  di:9, sr:5,  arch:'poster-hero',            one:'explosion-of-color neuro-beauty hero — strikingly distinctive but chromatic overkill for any clinical context' },
+  // ── Score 25 ──
+  { slug:'educatix',      vq:7, ad:5,  di:7, sr:6,  arch:'editorial-asymmetric',   one:'dark-mode serif with scattered tilted photo cards and acid-green CTA — energetic but education-coded' },
+  { slug:'gearup',        vq:7, ad:6,  di:6, sr:6,  arch:'magazine-split',         one:'cream split with bold grotesque headline, offset yellow stat card, and clean sans system' },
+  { slug:'dentex',        vq:6, ad:8,  di:5, sr:6,  arch:'card-heavy',             one:'teal-and-white dental multi-section collage — broad component coverage but generic execution' },
+  { slug:'medicana',      vq:5, ad:9,  di:4, sr:7,  arch:'card-heavy',             one:'direct dental clinic template — correct structure (team, FAQ, services, hours) but generic blue SaaS aesthetic' },
+  { slug:'medonix',       vq:6, ad:7,  di:5, sr:7,  arch:'centered-classic',       one:'healthcare SaaS with light mint palette and dashboard screenshot — clean green system' },
+  { slug:'kanva',         vq:7, ad:5,  di:7, sr:6,  arch:'poster-hero',            one:'luxury skincare e-commerce with full-bleed face hero and quad feature icons' },
+  { slug:'surfing',       vq:8, ad:3,  di:8, sr:6,  arch:'poster-hero',            one:'bold orange-and-white poster type with playful asterisk — striking but maximally sport-locked' },
+  { slug:'outpace',       vq:7, ad:5,  di:7, sr:6,  arch:'poster-hero',            one:'dark fitness with wide-screen device mockup and bold sans — clean execution but sport-specific' },
+  // ── Score 24 ──
+  { slug:'groomsy',       vq:6, ad:6,  di:5, sr:7,  arch:'card-heavy',             one:'teal-and-white pet grooming with angled device mockup preview — busy but serviceable layout patterns' },
+  { slug:'supercoach',    vq:7, ad:5,  di:6, sr:6,  arch:'poster-hero',            one:'dark gym with neon-green accents and large bold type — high energy, limited dental fit' },
+  { slug:'sporta',        vq:7, ad:5,  di:6, sr:6,  arch:'magazine-split',         one:'sports academy with real grass photo, stat column, and condensed type — solid structure but sport-coded' },
+  { slug:'tdapex',        vq:7, ad:5,  di:6, sr:6,  arch:'poster-hero',            one:'dark training hero with neon-green pill CTA and bold stacked headline — polished but gym-locked' },
+  { slug:'nutrixen',      vq:6, ad:6,  di:6, sr:6,  arch:'magazine-split',         one:'dark green nutrition split with spinning badge element and photo carousel — adequate but visually cluttered' },
+  { slug:'progrex',       vq:7, ad:5,  di:6, sr:6,  arch:'card-heavy',             one:'dark gym coaching multi-panel overview with testimonial cards — functional but heavy fitness branding' },
+  // ── Score 23 ──
+  { slug:'fitbricks',     vq:6, ad:4,  di:7, sr:6,  arch:'poster-hero',            one:'gritty dark gym photo with lime-yellow accent pills — very fitness-niche, low dental relevance' },
+  { slug:'evotrack',      vq:7, ad:4,  di:6, sr:6,  arch:'poster-hero',            one:'dramatic full-bleed athlete with lime CTA — wearable tech product positioning' },
+  { slug:'omnis',         vq:7, ad:3,  di:7, sr:6,  arch:'poster-hero',            one:'dark industrial manufacturing hero with 3D radial texture — impressive but entirely off-domain' },
+  { slug:'calmio',        vq:6, ad:7,  di:5, sr:5,  arch:'centered-classic',       one:'warm tan full-bleed yoga with minimal sans hierarchy — pleasant but generic and system-thin' },
+  // ── Score 22 ──
+  { slug:'asana',         vq:6, ad:6,  di:5, sr:5,  arch:'centered-classic',       one:'soft pink yoga with centered serif headline and photo strip — competent but few extractable patterns' },
+  { slug:'consulttitan',  vq:6, ad:5,  di:5, sr:6,  arch:'centered-classic',       one:'dark-mode consulting with AI-portrait video block — bro-coach aesthetic, low healthcare relevance' },
+  { slug:'brutl',         vq:7, ad:3,  di:7, sr:5,  arch:'poster-hero',            one:'fiery orange-red fitness poster with heavy-condensed type — healthcare-incompatible palette and tone' },
+  { slug:'padelix',       vq:6, ad:4,  di:6, sr:6,  arch:'card-heavy',             one:'sport-club padel template with checkered stat block — strong layout bones but sport-specific imagery' },
+  { slug:'olympiq',       vq:6, ad:3,  di:7, sr:6,  arch:'minimal-brutalist',      one:'black and neon-lime sport club grid with basketball photography — bold execution, entirely sport-coded' },
+  { slug:'tdaxis',        vq:7, ad:3,  di:7, sr:5,  arch:'poster-hero',            one:'dark personal branding portfolio with neon-green oversized headline — zero healthcare relevance' },
+  { slug:'isla',          vq:5, ad:6,  di:5, sr:6,  arch:'card-heavy',             one:'dark brown beauty salon with three-card service grid — warm tones but low polish and constrained system' },
+  { slug:'hairloom-hair-salon-template', vq:6, ad:5, di:6, sr:5, arch:'other',     one:'dark luxury barber with gold-bronze serif — atmospheric but niche-locked and system-thin' },
+  { slug:'makeup',        vq:7, ad:4,  di:7, sr:4,  arch:'minimal-brutalist',      one:'all-black editorial beauty studio with oversized white type — too avant-garde for healthcare' },
+  // ── Score 21 ──
+  { slug:'fitcoach',      vq:6, ad:4,  di:5, sr:6,  arch:'magazine-split',         one:'dark teal gym hero with lime accent — competent trainer layout but strongly fitness-coded' },
+  { slug:'healcure',      vq:6, ad:6,  di:4, sr:5,  arch:'poster-hero',            one:'dark navy healthcare with AI-rendered building hero — stock-render aesthetic undermines credibility' },
+  { slug:'b2bizz',        vq:6, ad:4,  di:6, sr:5,  arch:'centered-classic',       one:'dark-mode B2B SaaS with ambient orb hero — moody but firmly enterprise-tech' },
+  { slug:'goalz',         vq:6, ad:3,  di:6, sr:5,  arch:'poster-hero',            one:'dark sports academy with condensed type and neon-green — too aggressive for dental context' },
+  { slug:'pawsy',         vq:6, ad:5,  di:5, sr:5,  arch:'centered-classic',       one:'pastel-blue pet care with illustrated clouds — charming but juvenile for clinical adaptation' },
+  { slug:'velvera',       vq:6, ad:5,  di:5, sr:5,  arch:'centered-classic',       one:'peach gradient hair salon with centered serif and fanned photo trio — template-generic' },
+  { slug:'steelo',        vq:6, ad:4,  di:6, sr:5,  arch:'poster-hero',            one:'sports coaching hero with sunset bike photo and large logotype — sport-locked and system-thin' },
+  // ── Score 20 ──
+  { slug:'courso',        vq:6, ad:3,  di:6, sr:5,  arch:'centered-classic',       one:'sky-blue course landing page with 3D floating objects — too playful for dental adaptation' },
+  { slug:'drarden',       vq:5, ad:6,  di:4, sr:5,  arch:'centered-classic',       one:'flat green doctor-cutout on solid color field — functional but stock-art generic' },
+  { slug:'goalz',         vq:6, ad:3,  di:6, sr:5,  arch:'poster-hero',            one:'sports academy with neon-green accents — wrong energy for healthcare' },
+  { slug:'rimz',          vq:6, ad:3,  di:6, sr:5,  arch:'poster-hero',            one:'dark basketball hero with minimal nav and bold condensed caps — entirely sport-specific' },
+  { slug:'solea',         vq:5, ad:5,  di:5, sr:5,  arch:'other',                  one:'pink personal brand coach with outlined portrait and hand-drawn accents — hard to adapt clinically' },
+  { slug:'transform',     vq:6, ad:4,  di:5, sr:5,  arch:'poster-hero',            one:'generic dark fitness with neon-green accents — competent but unremarkable' },
+  { slug:'numa-app',      vq:6, ad:4,  di:5, sr:5,  arch:'other',                  one:'app mockup thumbnail — template detail is obscured by device frame presentation' },
+  // ── Score 19 ──
+  { slug:'doctr-x',       vq:4, ad:6,  di:4, sr:5,  arch:'other',                  one:'bright-blue marketing mockup shot — promo presentation obscures actual template quality' },
+  { slug:'eduvex',        vq:5, ad:4,  di:5, sr:5,  arch:'card-heavy',             one:'LMS dashboard with orange accent — product SaaS UI, low healthcare relevance' },
+  { slug:'gymix',         vq:6, ad:3,  di:5, sr:5,  arch:'poster-hero',            one:'neon lime gym with aggressive condensed headlines — wrong energy for healthcare' },
+  // ── Score 18 ──
+  { slug:'star-camp',     vq:5, ad:3,  di:5, sr:5,  arch:'other',                  one:'camp brochure with playful rounded type and nature photography — zero clinical relevance' },
+  // ── Score 17 ──
+  { slug:'coursekit',     vq:5, ad:2,  di:5, sr:5,  arch:'centered-classic',       one:'dark-gold e-com guru template — bro-marketing aesthetic, no transferable healthcare signal' },
+  { slug:'barber-hair-salon-hairdresser-website-template', vq:5, ad:2, di:6, sr:4, arch:'editorial-asymmetric', one:'dark masculine barber with orange accents — high niche specificity, very low healthcare fit' },
+  // ── Score 16 ──
+  { slug:'goal',          vq:5, ad:3,  di:4, sr:4,  arch:'poster-hero',            one:'sports tournament with stadium photo and bold red CTAs — wrong domain for dental adaptation' },
+  { slug:'golfy',         vq:5, ad:2,  di:5, sr:4,  arch:'poster-hero',            one:'dark golf club with yellow CTA and product hero — highly niche, no healthcare signal' },
+  { slug:'curtis',        vq:5, ad:2,  di:5, sr:4,  arch:'poster-hero',            one:'neon-green fitness coach with barbells hero — strong niche identity, zero dental relevance' },
+  // ── Score 15 ──
+  { slug:'cylen',         vq:5, ad:1,  di:5, sr:4,  arch:'other',                  one:'orange-dusk mountain-bike product page with hotspot annotations — ecommerce niche, irrelevant to dental' },
+];
+
+// Remove duplicate goalz entry
+const seen = new Set();
+const TEMPLATES_DEDUPED = TEMPLATES.filter(t => {
+  if (seen.has(t.slug)) return false;
+  seen.add(t.slug);
+  return true;
+});
+
+function totalScore(t) { return t.vq + t.ad + t.di + t.sr; }
+
+function tierClass(total) {
+  if (total >= 34) return 'tier-s';
+  if (total >= 30) return 'tier-a';
+  if (total >= 25) return 'tier-b';
+  if (total >= 20) return 'tier-c';
+  return 'tier-d';
+}
+
+function tierLabel(total) {
+  if (total >= 34) return 'S';
+  if (total >= 30) return 'A';
+  if (total >= 25) return 'B';
+  if (total >= 20) return 'C';
+  return 'D';
+}
+
+function archClass(arch) {
+  return 'arch-' + arch;
+}
+
+function archLabel(arch) {
+  const map = {
+    'warm-editorial': 'Warm editorial',
+    'centered-classic': 'Centered classic',
+    'magazine-split': 'Magazine split',
+    'minimal-brutalist': 'Minimal brutalist',
+    'editorial-asymmetric': 'Editorial asymmetric',
+    'poster-hero': 'Poster hero',
+    'card-heavy': 'Card heavy',
+    'other': 'Other',
+  };
+  return map[arch] || arch;
+}
+
+function barColor(key) {
+  return { vq: 'bar-vq', ad: 'bar-ad', di: 'bar-di', sr: 'bar-sr' }[key];
+}
+
+function buildCard(t, rank) {
+  const total = totalScore(t);
+  const imgSrc = BASE + t.slug.replace(/ /g, '%20') + '/1.jpg';
+  return `
+    <div class="card" data-slug="${t.slug}" data-arch="${t.arch}" data-total="${total}" data-vq="${t.vq}" data-ad="${t.ad}" data-di="${t.di}" data-sr="${t.sr}">
+      <div class="thumb-wrap">
+        <img src="${imgSrc}" alt="${t.slug}" loading="lazy" onerror="this.style.opacity='0.2'">
+        <div class="rank-badge ${rank<=3?'top3':rank<=10?'top10':''}">#${rank}</div>
+        ${t.ingested ? '<div class="ingest-badge">✓ Ingested</div>' : ''}
+      </div>
+      <div class="card-body">
+        <div class="card-title-row">
+          <div class="card-slug">${t.slug}</div>
+          <div class="card-total ${tierClass(total)}">${total}</div>
+        </div>
+        <div class="card-oneliner">${t.one}</div>
+        <div class="archetype-badge ${archClass(t.arch)}">${archLabel(t.arch)}</div>
+        <div class="score-bars">
+          ${['vq','ad','di','sr'].map((k,i) => {
+            const labels = ['Visual','Adapt','Distinct','System'];
+            return `<div class="bar-row">
+              <div class="bar-label">${labels[i]}</div>
+              <div class="bar-track"><div class="bar-fill ${barColor(k)}" style="width:${t[k]*10}%"></div></div>
+              <div class="bar-val">${t[k]}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+    </div>`;
+}
+
+// ── Tier section headers ──────────────────────────────────────────────────────
+const TIER_HEADERS = {
+  36: { label: 'S-tier · Top pick', color: '#f5c980' },
+  34: { label: 'S-tier · Shortlist', color: '#f5c980' },
+  33: { label: 'A-tier · Strong candidates', color: '#7ec99a' },
+  32: { label: 'A-tier · Highly adaptable', color: '#7ec99a' },
+  31: { label: 'A-tier · Very good', color: '#7ec99a' },
+  30: { label: 'A-tier · Good', color: '#7ec99a' },
+  29: { label: 'B-tier · Solid', color: '#6ba3e0' },
+  28: { label: 'B-tier · Decent', color: '#6ba3e0' },
+  27: { label: 'B-tier · Marginal', color: '#6ba3e0' },
+  26: { label: 'B-tier · Below average', color: '#6ba3e0' },
+  25: { label: 'B-tier · Borderline', color: '#6ba3e0' },
+  24: { label: 'C-tier · Niche-locked', color: '#a08080' },
+  23: { label: 'C-tier · Limited fit', color: '#a08080' },
+  22: { label: 'C-tier · Weak', color: '#a08080' },
+  21: { label: 'C-tier · Poor', color: '#a08080' },
+  20: { label: 'C-tier · Skip', color: '#a08080' },
+  19: { label: 'D-tier · Low relevance', color: '#555' },
+  18: { label: 'D-tier · Low relevance', color: '#555' },
+  17: { label: 'D-tier · Irrelevant', color: '#555' },
+  16: { label: 'D-tier · Irrelevant', color: '#555' },
+  15: { label: 'D-tier · Irrelevant', color: '#555' },
+};
+
+let currentOrder = [...TEMPLATES_DEDUPED];
+let currentFilter = { arch: '', minScore: 15 };
+
+function render() {
+  const grid = document.getElementById('grid');
+
+  // Apply sort
+  const sortKey = document.getElementById('sort-select').value;
+  let sorted = [...TEMPLATES_DEDUPED];
+  if (sortKey === 'total') sorted.sort((a,b) => totalScore(b) - totalScore(a));
+  else if (sortKey === 'vq')    sorted.sort((a,b) => b.vq - a.vq);
+  else if (sortKey === 'ad')    sorted.sort((a,b) => b.ad - a.ad);
+  else if (sortKey === 'di')    sorted.sort((a,b) => b.di - a.di);
+  else if (sortKey === 'sr')    sorted.sort((a,b) => b.sr - a.sr);
+  else if (sortKey === 'alpha') sorted.sort((a,b) => a.slug.localeCompare(b.slug));
+
+  // Assign ranks by original total-score order
+  const rankMap = new Map();
+  [...TEMPLATES_DEDUPED].sort((a,b) => totalScore(b) - totalScore(a)).forEach((t,i) => rankMap.set(t.slug, i+1));
+
+  // Filter
+  const archFilter = currentFilter.arch;
+  const minScore = currentFilter.minScore;
+
+  let html = '';
+  let lastScore = null;
+  let rank = 0;
+  let visibleCount = 0;
+
+  for (const t of sorted) {
+    const total = totalScore(t);
+    const visible = (!archFilter || t.arch === archFilter) && total >= minScore;
+    if (!visible) continue;
+    visibleCount++;
+    rank++;
+
+    // Inject tier header when score changes (only in default sort)
+    if (sortKey === 'total' && total !== lastScore && TIER_HEADERS[total]) {
+      const h = TIER_HEADERS[total];
+      html += `<div class="tier-header">
+        <h2 style="color:${h.color}">${h.label}</h2>
+        <div class="tier-line"></div>
+        <div class="tier-range">${total} pts</div>
+      </div>`;
+      lastScore = total;
+    }
+
+    html += buildCard(t, sortKey === 'total' ? rankMap.get(t.slug) : rank);
+  }
+
+  grid.innerHTML = html;
+  document.getElementById('count-display').textContent = `${visibleCount} shown`;
+}
+
+// Controls
+document.getElementById('sort-select').addEventListener('change', render);
+document.getElementById('arch-filter').addEventListener('change', (e) => {
+  currentFilter.arch = e.target.value;
+  render();
+});
+document.getElementById('score-min').addEventListener('input', (e) => {
+  currentFilter.minScore = parseInt(e.target.value);
+  document.getElementById('score-min-val').textContent = e.target.value;
+  render();
+});
+
+render();
+</script>
+</body>
+</html>

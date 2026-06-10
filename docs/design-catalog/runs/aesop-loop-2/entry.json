@@ -1,0 +1,246 @@
+{
+  "schemaVersion": "1.2",
+  "id": "aesop-apothecary-warm-v2",
+  "name": "Apothecary Warm Editorial",
+  "tag": "reference",
+  "source": {
+    "url": "https://www.aesop.com/us/",
+    "screenshot": "aesop-homepage-full.png",
+    "ingestedVia": "claude-design",
+    "captured": "2025-01"
+  },
+  "selection": {
+    "archetype": "warm-editorial",
+    "moods": [
+      "modern-premium",
+      "warm-neighborhood"
+    ],
+    "adjectives": [
+      "literary",
+      "unhurried",
+      "austere",
+      "earthy",
+      "considered",
+      "apothecary-warm",
+      "refined"
+    ],
+    "bestFor": "A boutique or specialist dental practice that positions itself as a thoughtful, unhurried alternative to clinical chains — emphasising craft, expertise, and patient wellbeing over transactional efficiency. Ideal for cosmetic or holistic-leaning practices targeting educated, design-aware patients.",
+    "verticalBias": [
+      "cosmetic-dentistry",
+      "holistic-dental",
+      "boutique-family-practice"
+    ]
+  },
+  "tokens": {
+    "color": {
+      "strategy": {
+        "theme": "light",
+        "background": "Warm off-white ground (near-ivory, not pure white) as the dominant surface; a slightly cooler cream used for card and alternate-section surfaces; near-black used exclusively for primary CTAs, announcement bars, and the footer ground — creating a strong dark anchor at top and bottom of the page. No mid-tone grey backgrounds.",
+        "contrast": "medium-high",
+        "saturation": "muted",
+        "accentUsage": "sparing",
+        "surfaceStrategy": "Two warm neutrals (page ground and card surface) carry almost all content; the near-black surface is reserved for chrome (footer, announcement bar) and filled primary buttons only. A single warm amber accent appears exclusively on small eyebrow/category labels — never on headings or body copy. This restraint makes the accent feel like a curator's mark rather than a brand shout."
+      },
+      "reference": {
+        "pageBackground": "#fffef2",
+        "cardSurface": "#f6f5e8",
+        "nearBlack": "#252525",
+        "headingText": "#333333",
+        "secondaryText": "#666666",
+        "lightText": "#fffef2",
+        "accentAmber": "#945c26",
+        "formInputBackground": "#ffffff"
+      }
+    },
+    "type": {
+      "classification": "modern-grotesque",
+      "substitutionCriteria": "Must be a single-family grotesque with at least two weights (regular 400 and medium/500) that reads cleanly at both 30px display and 14px body. Slightly humanist terminals preferred over pure geometric. Uniform stroke width. No italic variants required — emphasis is achieved through weight shift and colour, not style. Sentence-case rendering throughout; no uppercase transforms.",
+      "pairing": "Single-family grotesque system — display headings and body copy share the same typeface; hierarchy is established through size and weight alone, not through a serif/sans pairing.",
+      "heading": {
+        "weight": "400 (regular) at display sizes; medium weight for card-level h3 titles",
+        "style": "normal — no italic",
+        "transform": "none — sentence case throughout",
+        "eyebrow": "sparing",
+        "emphasisDevice": "Weight shift (regular for large headings, medium for card titles) and colour shift (warm amber for eyebrow micro-labels only); scale alone differentiates h1 from h2; no italic, no uppercase, no underline"
+      },
+      "body": {
+        "weight": "400",
+        "size": "14–16px",
+        "lineHeight": "relaxed"
+      },
+      "scale": "editorial",
+      "headingScale": "lg",
+      "contrast": "medium",
+      "reference": {
+        "displayFace": "SuisseIntl",
+        "mediumWeight": "SuisseIntl-Medium",
+        "fallbackObserved": "Zapf-Humanist"
+      }
+    },
+    "shape": {
+      "cornerRadius": "sharp"
+    },
+    "elevation": {
+      "system": "flat"
+    },
+    "border": {
+      "treatment": "hairline"
+    },
+    "button": {
+      "treatment": "filled",
+      "character": "Sharp-cornered filled primary buttons in near-black with warm off-white label text — full-width within their column at card level. Secondary CTAs are hairline-outline with arrow glyph appended, sharp corners, no fill. No pill buttons on CTAs; pill shape reserved only for filter/tag chips. Generous vertical padding on filled buttons."
+    },
+    "label": {
+      "style": "inline",
+      "character": "Small sentence-case inline text in warm amber or secondary grey, appearing above section headings or on card corners as a category signal — no background, no border, no badge pill. Functions as a curator's annotation rather than a UI chip."
+    },
+    "density": "airy",
+    "motion": "subtle"
+  },
+  "layout": {
+    "sections": [
+      "Announcement bar — single-line promotional text on near-black ground above nav",
+      "Navigation — wordmark left, text links centre, utility icons right",
+      "Hero — full-bleed editorial photography with centred headline and outline CTA",
+      "Services carousel — horizontally scrollable treatment cards on warm card surface",
+      "Doctor / practice intro — two-column split: editorial image left, prose right",
+      "Treatment finder — two-column split: image left, descriptive text and CTA right",
+      "Browse by specialty — horizontal image-tile row with label below each tile",
+      "Featured treatment — two-column split: prose left, treatment image right",
+      "Trust signals band — two-column certification statements on alternate surface",
+      "Clinic gallery — full-bleed photograph with video play affordance",
+      "Testimonials — editorial reading-card row with category label and read-time",
+      "Pull quote — large centred quotation with attribution, generous whitespace",
+      "Book appointment CTA — centred banner",
+      "Footer — dark ground, three-column link list, newsletter signup, social icons, legal strip"
+    ],
+    "variants": {
+      "heroLayout": "poster",
+      "servicesLayout": "card-grid",
+      "aboutLayout": "split-photo",
+      "testimonialsLayout": "card-row",
+      "ctaLayout": "centered-banner",
+      "faqLayout": "two-column",
+      "navVariant": "split-logo",
+      "footerVariant": "classic-4col",
+      "galleryVariant": "full-bleed-row"
+    },
+    "composition": {
+      "hero": "Full-bleed editorial photograph spanning the full viewport width and approximately 60–70% of viewport height. Headline text centred over the image in warm off-white, set at 30px regular weight — no bold, no italic. A single outline CTA button with hairline border and arrow glyph sits below the headline, also centred. Dot pagination indicators appear at the bottom of the hero for carousel navigation. The image carries strong environmental context (clinic exterior, treatment room atmosphere) rather than tight subject crops. Text is legible against the darker tonal regions of the photograph without a scrim overlay.",
+      "nav": "Warm ivory background matching the page ground, 57px height. Practice wordmark at far left in near-black. Horizontal text navigation links span the centre — sentence case, no underline at rest, regular weight, near-black. Utility icons (search, booking) at far right. No CTA button embedded in the nav bar itself. No visible border-bottom at rest. Announcement bar in near-black sits above the nav with a single centred line of warm off-white promotional text at small size.",
+      "footer": "Near-black ground. Three columns of link lists occupy the left two-thirds: column headers in warm off-white at slightly larger size, link items in a lighter secondary tone. Right column contains newsletter email and phone inputs with white fill, sharp corners, and hairline border, plus legal consent copy in small secondary text. Social icon row as outline glyphs appears below the form. Bottom strip: copyright text left-aligned, Terms and Privacy links right-aligned — both in small secondary text on the same dark ground. No bold CTA button in the footer.",
+      "services": "Horizontally scrollable card row on warm card-surface background. Each card: treatment image above, treatment name in medium-weight grotesque, one-line descriptor in secondary grey, optional session note in small text, full-width filled near-black book-appointment button below. Dot pagination below the row. No card borders or drop shadows — cards are distinguished by the card-surface background against the page ground.",
+      "about": "Two-column split at roughly 50/50. Left: full-bleed editorial photograph of the doctor or clinic space, no border, no radius. Right: small amber inline eyebrow label, section heading in regular-weight grotesque at display size, two to three sentences of unhurried prose in secondary grey, outline CTA with arrow glyph. Generous vertical padding on both columns. The image bleeds to the section edge.",
+      "trustSignals": "Full-width band on alternate card surface. Two equal columns, each containing a certification name in medium-weight grotesque and one sentence of explanatory prose in secondary grey. No icons, no borders — typographic only.",
+      "pullQuote": "Full-width section on page-ground background. Large centred quotation in regular-weight grotesque at display scale, wrapped in typographic quotation marks. Attribution in small secondary grey below, centred. Generous top and bottom padding — the whitespace is the design."
+    },
+    "novel": [
+      {
+        "section": "services",
+        "name": "Horizontally Scrollable Treatment Card Carousel",
+        "spec": "A horizontally scrollable row of treatment cards sitting on the warm card-surface background. Each card contains: a square or portrait treatment image at top (no radius, no shadow); treatment name in medium-weight grotesque h3; one-line description in secondary grey; optional session note in small text; full-width filled near-black book-appointment CTA button at card bottom. Cards have no visible borders — the card-surface colour differentiates them from the page ground. Dot pagination indicators below the row. Left and right arrow chevrons at viewport edges for desktop navigation. The card-grid variant renders a static layout and loses the scroll and pagination behaviour.",
+        "requiresNewComponent": true
+      },
+      {
+        "section": "treatmentFinder",
+        "name": "Interactive Treatment Finder Split Panel",
+        "spec": "Two-column split: left side is a full-bleed photograph of clinical instruments or a treatment in progress; right side contains a small amber inline eyebrow label, a heading, two to three sentences of explanatory prose, and an outline CTA with arrow glyph linking to a guided questionnaire or booking flow. The split-photo about variant is the closest existing component but this panel functions as a navigational tool linking to a multi-step treatment selector rather than a static doctor introduction — the destination and interactive intent differ from a standard about section.",
+        "requiresNewComponent": false
+      },
+      {
+        "section": "browseBySpecialty",
+        "name": "Horizontal Image-Tile Specialty Browser",
+        "spec": "A single horizontal row of equal-width square image tiles, each representing a dental specialty such as Cosmetic, Restorative, Preventive, Orthodontics, or Implants. Each tile: full-bleed editorial photograph, no radius, no border, no overlay scrim. Specialty label in regular-weight grotesque appears below the tile in near-black, sentence case. Tiles are scrollable on mobile. This is a navigation device — tapping a tile navigates to the specialty service page. No existing gallery or services variant captures this navigation-tile pattern.",
+        "requiresNewComponent": true
+      },
+      {
+        "section": "treatmentComparison",
+        "name": "Treatment Comparison Carousel with Filter Chips",
+        "spec": "A horizontally scrollable carousel of treatment option cards (e.g. whitening tiers, aligner brands, implant types). Below the carousel: a row of pill-shaped filter chips (pill radius, hairline border, sentence case labels) for filtering by treatment attribute such as Duration, Invasiveness, or Price range. Selected chip fills with near-black. Below chips: a related-treatments text link cluster ('Patients also consider'). This component requires pill-chip filter tokens not present in the current sharp global token system and has no matching existing variant.",
+        "requiresNewComponent": true
+      }
+    ]
+  },
+  "imagery": {
+    "crop": "Generous framing — subjects are not tightly cropped; environmental context (clinic room, instrument tray, hands at work) is retained in the frame. Portrait shots of doctors allow headroom. Instrument close-ups are shot with deliberate negative space on the warm card-surface background.",
+    "grading": "Warm, slightly desaturated, lifted blacks — images lean amber-warm rather than cool-clinical. Shadows are open, not crushed. Skin tones are rendered naturally without over-brightening. The overall palette reads earthy and considered, never sterile or over-lit.",
+    "framing": "Subjects are often offset rather than dead-centre; environmental storytelling is prioritised — a doctor's hands at work, a treatment room with natural light, instruments arranged with intention. Full-bleed sections allow images to breathe to the viewport edge with no containing border or radius.",
+    "subjectTreatment": "Doctors and clinical staff photographed in candid, mid-action moments rather than posed studio portraits — hands engaged, gaze directed at work or patient rather than camera. Patient imagery should feel documentary and warm, never stock-clinical. Clinic spaces photographed as architectural editorial: natural light, considered object placement, no harsh overhead fluorescence visible. One clear human or environmental focal subject per image.",
+    "imageTextRatio": "image-dominant"
+  },
+  "voice": {
+    "formality": "formal",
+    "rhythm": "Unhurried, subordinate-clause-rich sentences that assume an educated reader. Headings are short and declarative (three to six words); body paragraphs run two to three sentences with no bullet points. No exclamation marks. Each section opens with a small eyebrow label that categorises the content, followed by a heading that reads as a considered statement rather than a sales pitch.",
+    "favors": [
+      "considered, precise adjectives such as meticulous, finely honed, longstanding",
+      "second-person address that respects patient autonomy",
+      "craft and process language referencing technique, regimen, and instrument",
+      "literary or slightly archaic diction that signals depth of knowledge",
+      "understated benefit statements rather than explicit claims"
+    ],
+    "avoids": [
+      "discount or urgency language",
+      "superlative filler such as best, amazing, revolutionary",
+      "clinical jargon used without context",
+      "exclamation marks or emoji",
+      "first-person plural boasting",
+      "hard-sell retail urgency inappropriate for a healthcare context"
+    ]
+  },
+  "fidelity": {
+    "layout": "partial",
+    "theme": "needs-token-extension",
+    "phase": "B",
+    "gaps": [
+      {
+        "type": "variant",
+        "detail": "Horizontally scrollable treatment card carousel (services section) with dot pagination is not expressible by the static card-grid variant — requires a new carousel component."
+      },
+      {
+        "type": "variant",
+        "detail": "Horizontal image-tile specialty browser (browseBySpecialty section) has no matching gallery or services variant — requires a new navigation-tile component."
+      },
+      {
+        "type": "variant",
+        "detail": "Treatment comparison carousel with pill filter chips (treatmentComparison section — Treatment Comparison Carousel with Filter Chips) has no matching variant — requires a new component with pill-chip filter token support."
+      },
+      {
+        "type": "variant",
+        "detail": "Interactive Treatment Finder Split Panel (treatmentFinder section) maps closest to split-photo about variant but its navigational intent and multi-step destination differ from a static about section — the existing variant partially covers the layout but not the interactive behaviour."
+      },
+      {
+        "type": "token",
+        "detail": "Pill-radius filter chips in the treatment comparison section require a pill cornerRadius token on a per-component basis — the global sharp cornerRadius token does not cover this mixed-radius system."
+      },
+      {
+        "type": "token",
+        "detail": "Warm ivory page background and slightly cooler cream card surface are distinct tinted neutrals, not standard white or grey — the token system must support warm-tinted background surfaces rather than defaulting to neutral white or light grey values."
+      },
+      {
+        "type": "theme",
+        "detail": "Footer and announcement bar use a near-black dark surface that requires dark-surface token support for link text, input fields, and social icons rendered on a dark ground."
+      }
+    ]
+  },
+  "audit": {
+    "sanctionedPatterns": [
+      "centered-over-dark-hero",
+      "eyebrow-above-heading",
+      "three-equal-cards"
+    ],
+    "fidelityChecks": [
+      "Hero must be full-bleed poster with centred headline in warm off-white and a hairline outline CTA — no scrim overlay, no gradient, no pill button.",
+      "Headings carry no uppercase transform; sentence case must be enforced at all hierarchy levels including nav links and CTA labels.",
+      "Emphasis is achieved through weight shift (regular to medium) and warm amber on eyebrow labels only — no italic, no underline, no colour shift on headings.",
+      "Primary CTA buttons must be sharp-cornered filled near-black — never pill, never rounded.",
+      "Outline secondary CTAs must append an arrow glyph and use hairline border with no fill.",
+      "Page background must be warm ivory, not pure white; card surfaces must be a slightly cooler cream — the two-surface warm system is essential to the character.",
+      "Footer must render on a near-black ground with warm off-white link text — not a light or grey footer.",
+      "Warm amber accent must appear only on eyebrow and category micro-labels, never on headings, body copy, or buttons.",
+      "Images must bleed edge-to-edge in full-bleed sections with no containing border, radius, or drop shadow.",
+      "Pull-quote section must use generous whitespace as the primary design element — no background colour, no decorative border, typographic quotation marks only.",
+      "Trust-signal band must be typographic only — no icon tiles, no card borders, two-column layout on alternate warm surface.",
+      "Eyebrow labels are sparing — not every section carries one; their selective use signals editorial curation."
+    ]
+  }
+}

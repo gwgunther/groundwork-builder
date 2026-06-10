@@ -1,0 +1,228 @@
+{
+  "schemaVersion": "1.2",
+  "id": "aesop-apothecary-warm",
+  "name": "Apothecary Warm Editorial",
+  "tag": "reference",
+  "source": {
+    "url": "https://www.aesop.com",
+    "ingestedVia": "claude-design",
+    "captured": "2025-01"
+  },
+  "selection": {
+    "archetype": "warm-editorial",
+    "moods": [
+      "modern-premium",
+      "warm-neighborhood"
+    ],
+    "adjectives": [
+      "austere",
+      "intellectual",
+      "unhurried",
+      "considered",
+      "literary",
+      "material"
+    ],
+    "bestFor": "A boutique or specialist dental practice positioning itself as a refined, thoughtful alternative to clinical-chain dentistry — one that values patient experience, craft, and considered care over volume.",
+    "verticalBias": [
+      "cosmetic-dentistry",
+      "holistic-dental",
+      "boutique-family-practice",
+      "dental-spa"
+    ]
+  },
+  "tokens": {
+    "color": {
+      "strategy": {
+        "theme": "light",
+        "background": "warm off-white — a slightly yellowed, parchment-adjacent surface, not pure white; creates material warmth without color",
+        "contrast": "medium-high",
+        "saturation": "muted",
+        "accentUsage": "sparing",
+        "surfaceStrategy": "Two-surface system: warm off-white as the dominant page ground for all content sections; a deep forest/olive dark tone reserved exclusively for the hero, primary CTAs, and footer — creating strong anchoring moments without mid-page color noise. White used only for nav bar and card surfaces. Amber/warm-brown accent appears only in photography and imagery, never as a UI color."
+      },
+      "reference": {
+        "pageBackground": "#F5F2EC",
+        "darkSurface": "#2B3A2E",
+        "headingText": "#1A1A1A",
+        "bodyText": "#6B6B6B",
+        "amberAccent": "#8B6914",
+        "oliveAccent": "#4A5E3A",
+        "cardSurface": "#FFFFFF",
+        "hairlineBorder": "#C8B89A"
+      }
+    },
+    "type": {
+      "classification": "editorial-serif",
+      "substitutionCriteria": "Must be a transitional or old-style serif with bracketed serifs, moderate stroke contrast, and classical proportions. Light and regular weights essential; true italic variant required for headline emphasis. Should feel literary and unhurried at display sizes, legible and refined at body sizes. Avoid geometric or slab serifs — the character is humanist-classical, not modernist.",
+      "pairing": "Editorial serif for all headings and display text; same serif family or a closely matched humanist serif for body — this is a single-family or tight-family system, not a serif/sans pairing. The uniformity reinforces the literary, apothecary register.",
+      "heading": {
+        "weight": "light to regular",
+        "style": "sentence case throughout; italic used sparingly for hero headline and pull-quote only",
+        "eyebrow": "sparing",
+        "eyebrowTreatment": "small uppercase, wide letter-spacing, appears above select section headings only — not a universal pattern",
+        "emphasisDevice": "italic serif phrase mixed into roman for hero and pull-quote headlines; scale contrast between display and body carries primary hierarchy; weight shift (light display vs regular body) as secondary device"
+      },
+      "body": {
+        "weight": "regular",
+        "size": "small — restrained body text size reinforces the airy, editorial density",
+        "lineHeight": "generous"
+      },
+      "scale": "editorial",
+      "headingScale": "lg",
+      "contrast": "medium",
+      "reference": {
+        "displayFace": "Aesop's proprietary or licensed transitional serif (appears to be a Caslon or Garamond variant)",
+        "bodyFace": "Same serif family at regular weight"
+      }
+    },
+    "shape": {
+      "cornerRadius": "sharp"
+    },
+    "elevation": {
+      "system": "flat"
+    },
+    "border": {
+      "treatment": "hairline"
+    },
+    "button": {
+      "treatment": "filled",
+      "character": "Sharp-cornered filled rectangle, no radius; dark forest-green fill with white text for primary CTA; outline/ghost variant (dark border, transparent fill) for secondary actions; generous horizontal padding; sentence-case label in small serif or spaced caps; never pill-shaped"
+    },
+    "label": {
+      "style": "inline",
+      "character": "Plain small uppercase with wide letter-spacing, no background chip or badge; sits inline above heading with a small vertical gap; used sparingly — not on every section"
+    },
+    "density": "airy",
+    "motion": "subtle"
+  },
+  "layout": {
+    "sections": [
+      "nav",
+      "announcement-bar",
+      "hero",
+      "services-grid",
+      "about-editorial-split",
+      "treatment-finder-feature",
+      "browse-by-category",
+      "featured-treatment-package",
+      "testimonials",
+      "doctor-intro",
+      "clinic-presence",
+      "recommended-reading",
+      "pull-quote",
+      "cta-banner",
+      "footer"
+    ],
+    "variants": {
+      "heroLayout": "poster",
+      "servicesLayout": "card-grid",
+      "aboutLayout": "split-photo",
+      "testimonialsLayout": "pull-quotes",
+      "ctaLayout": "split-image",
+      "faqLayout": "two-column",
+      "navVariant": "centered-logo",
+      "footerVariant": "editorial-split",
+      "galleryVariant": "full-bleed-row"
+    },
+    "composition": {
+      "hero": "Full-bleed poster hero with deep forest-green background and large editorial photography filling the frame. Practice name or headline sits in the lower-left or center-left in large light-weight italic serif — a single poetic phrase, not a tagline-plus-subhead structure. One sharp-cornered CTA button in white or light tone sits below the headline. No overlay gradient — the dark background is the ground. Announcement bar in the same dark tone sits above the nav, white text, minimal.",
+      "nav": "White background nav bar. Logo (practice wordmark in serif) centered horizontally. Navigation links — service categories, about, contact — spread symmetrically left and right of the centered logo. Utility icons (search, account/booking) at far right. No hamburger on desktop. Sits below a full-width dark announcement bar. On scroll: behavior not confirmed but system implies it stays white/opaque. Nav links in small serif or spaced caps, no underline default.",
+      "footer": "Deep forest-green ground matching the hero dark surface. Multi-column link structure: three to four columns covering patient support, about the practice, care philosophy, and legal. Email newsletter or appointment-reminder signup field with hairline border input. Social icons in a row. Legal/copyright text at very bottom in small muted type. No bold CTA block — the footer is informational and grounded, not promotional. All text in white or warm off-white on the dark ground.",
+      "services": "Three-column card grid on warm off-white ground. Each service card: sharp corners, no shadow, service image at top (full-bleed within card), service name in serif below, one-line description in small body text, price or 'Learn more' link. Hairline border separates cards or defines card edge. Cards feel like apothecary labels — restrained, material, informational.",
+      "about": "Split-photo layout: large editorial photograph of the doctor or clinic space occupying one half (left or right), with heading and body copy on the opposing half on the warm off-white ground. Heading in light-weight serif, body in small regular serif. Optional sparing eyebrow label above heading. No decorative elements — the photograph and the white space do all the work.",
+      "testimonials": "Large italic serif pull-quote centered on the warm off-white ground as a standalone section — a single patient sentiment rendered as a literary statement. Attribution in small spaced caps below. No star ratings, no avatar photos, no card containers. The quote is the entire section.",
+      "treatmentFinder": "Two-column feature: full-bleed editorial photograph on one side (clinic environment or close-up of care moment), heading plus short paragraph plus CTA on the other. Eyebrow label in small uppercase above heading. This maps to the 'Hand & Body Care Finder' pattern — a navigational feature that helps patients find the right treatment path.",
+      "clinicPresence": "Full-bleed exterior or interior photograph of the clinic space, edge to edge, with a short heading and one-sentence description centered below on the warm off-white ground. Conveys place and neighbourhood character.",
+      "recommendedReading": "Three-column editorial card row for blog posts or patient education articles. Each card: full-bleed photograph, category label in small uppercase, article title in serif, short excerpt. No card border — cards sit directly on the warm off-white ground separated by white space.",
+      "pullQuote": "Standalone centered section: single large italic serif sentence on warm off-white ground. Attribution or doctor name in small spaced caps. No background change, no border, no card — pure typographic moment. Used as a page-closing or section-dividing element."
+    },
+    "novel": [
+      {
+        "section": "browse-by-category",
+        "name": "Treatment Category Tiles",
+        "spec": "A horizontal row of five to six square-cropped lifestyle photographs, each representing a treatment category (e.g. Preventive Care, Cosmetic, Orthodontics, Children, Implants). Each tile has a single-word or two-word label in small serif centered beneath the image. Images are sharp-cornered, equal-sized, and sit on the warm off-white ground with generous spacing between them. No card border, no hover overlay text — the image and label are the entire tile. This is a navigational browse pattern, not a services card grid. No existing gallery or services variant captures the equal-tile navigational browse intent with per-tile label beneath.",
+        "requiresNewComponent": true
+      },
+      {
+        "section": "treatment-comparison",
+        "name": "Treatment Comparison Row",
+        "spec": "A horizontal comparison section showing three to five treatment options side by side. Each column: treatment image or icon at top, treatment name, then a set of attribute rows (duration, recovery, suitability, price range) displayed as small labeled values. A selected or highlighted state on one column indicates a recommended or featured option. Sits on warm off-white ground with hairline column dividers. No existing services or pricing variant captures the structured side-by-side attribute comparison with image headers and per-row attribute labels.",
+        "requiresNewComponent": true
+      }
+    ]
+  },
+  "imagery": {
+    "crop": "Generous, unhurried crops — subjects are not tightly cropped; environmental context is preserved. Images bleed to the edge of their containers with no border-radius. Square crops used for category tiles; landscape or near-square for editorial feature sections.",
+    "grading": "Warm, slightly desaturated, lifted blacks — images feel like they were shot on film or processed to remove digital harshness. Amber and olive tones are allowed to breathe. Avoid cool-toned or high-contrast clinical photography. The palette should feel material and organic, not sterile.",
+    "framing": "Subjects offset within the frame with deliberate negative space. Close-up detail shots (hands, instruments, materials) used alongside environmental shots of clinic spaces. Never symmetrically centered — the framing is editorial and considered.",
+    "subjectTreatment": "Doctors and staff photographed in natural, unhurried moments — at work, in consultation, in the clinic environment — never posed against a white backdrop or smiling directly at camera. Patients shown in calm, comfortable moments, never in clinical distress. Clinic spaces photographed as architectural subjects: light, material, texture. One human focal subject per image. The overall register is documentary-editorial, not promotional.",
+    "imageTextRatio": "image-dominant"
+  },
+  "voice": {
+    "formality": "formal",
+    "rhythm": "Unhurried, literary rhythm — short to medium sentences with subordinate clauses; noun phrases carry weight; paragraphs are brief (two to three sentences); headlines are poetic statements rather than benefit claims; no bullet lists in primary copy",
+    "favors": [
+      "considered noun phrases over imperative verbs",
+      "sensory and material language (texture, warmth, craft)",
+      "intellectual invitation rather than sales urgency",
+      "plain declarative statements about care philosophy",
+      "patient-as-intelligent-adult framing"
+    ],
+    "avoids": [
+      "discount or urgency language (limited time, save now, free)",
+      "superlative filler (best, amazing, incredible)",
+      "clinical jargon used as reassurance",
+      "bullet-point benefit lists",
+      "first-person plural boasting (we are the leading)",
+      "hard-sell imperative CTAs (Book NOW, Don't wait)"
+    ]
+  },
+  "fidelity": {
+    "layout": "partial",
+    "theme": "needs-dark-support",
+    "phase": "B",
+    "gaps": [
+      {
+        "type": "variant",
+        "detail": "Treatment Category Tiles (browse-by-category): square-cropped navigational browse tiles with single label beneath have no matching variant — closest is full-bleed-row gallery but the navigational intent and per-tile label treatment differ. Requires new component; see novel entry 'Treatment Category Tiles'."
+      },
+      {
+        "type": "variant",
+        "detail": "Treatment Comparison Row (treatment-comparison): horizontal attribute-comparison layout with image headers and per-row labeled values has no matching variant in services or pricing layouts. Requires new component; see novel entry 'Treatment Comparison Row'."
+      },
+      {
+        "type": "theme",
+        "detail": "Hero and footer use a deep forest-green dark surface that requires dark-surface token support. The announcement bar also uses this dark ground. Without dark-surface tokens, these sections will fall back to light treatment and lose the anchoring contrast structure."
+      },
+      {
+        "type": "token",
+        "detail": "The warm off-white page background is a distinct parchment-toned surface token — not pure white and not a neutral gray. Standard token systems default to pure white or a cool gray. A warm off-white surface token is required to preserve the material warmth of the system."
+      },
+      {
+        "type": "token",
+        "detail": "Italic serif emphasis in headlines (hero and pull-quote) requires a font token that includes a true italic variant of the editorial serif. If the substituted serif lacks a true italic, the primary emphasis device of the system is lost."
+      }
+    ]
+  },
+  "audit": {
+    "sanctionedPatterns": [
+      "centered-over-dark-hero",
+      "three-equal-cards",
+      "eyebrow-above-heading"
+    ],
+    "fidelityChecks": [
+      "Page background must be warm off-white (parchment), never pure white or cool gray — the material warmth is load-bearing",
+      "Hero uses dark forest-green full-bleed ground with light italic serif headline — must not fall back to a light hero",
+      "Footer uses the same dark forest-green ground as the hero — the two dark anchors (top and bottom) are structural to the page rhythm",
+      "All corners are sharp — no border-radius on buttons, cards, images, or inputs anywhere in the system",
+      "No drop shadows anywhere — elevation is communicated through color contrast and hairline borders only",
+      "Eyebrow labels appear above select headings only (sparing), never on every section — do not add eyebrows universally",
+      "Primary headline emphasis device is italic serif phrase, not weight shift or color — the italic must be preserved in the type system",
+      "Pull-quote section is a standalone typographic moment — no card container, no background change, no star ratings",
+      "Button treatment is sharp-cornered filled rectangle — never pill-shaped",
+      "Headings carry no uppercase kicker by default; emphasis via italic serif phrase mixed into roman at display size",
+      "Service/treatment cards have no shadow and no border-radius — they sit flat on the warm ground with hairline borders only",
+      "Photography grading must be warm and slightly desaturated — cool-toned or high-contrast clinical photography breaks the system register"
+    ]
+  }
+}

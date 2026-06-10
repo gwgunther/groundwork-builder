@@ -12,7 +12,8 @@ output/
 .playwright-mcp/
 _sourcing/
 docs/design-catalog/_paste-prompt.txt
-docs/design-catalog/runs/
+docs/design-catalog/runs/*/audit.json
+docs/design-catalog/runs/*/iter-*.json
 clients/
 _test-batch/
 _memory/practice-dashboard.html

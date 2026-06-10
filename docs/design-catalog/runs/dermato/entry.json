@@ -1,0 +1,229 @@
+{
+  "schemaVersion": "1.2",
+  "id": "dermato",
+  "name": "Dermato — Warm Editorial Dermatology",
+  "tag": "reference",
+  "source": {
+    "ingestedVia": "claude-design",
+    "captured": "2025-01"
+  },
+  "selection": {
+    "archetype": "warm-editorial",
+    "moods": [
+      "warm-neighborhood",
+      "modern-premium",
+      "soft-gentle"
+    ],
+    "adjectives": [
+      "warm",
+      "trustworthy",
+      "refined",
+      "spa-clinical",
+      "airy",
+      "editorial",
+      "approachable"
+    ],
+    "bestFor": "Dental or aesthetic practices that want to feel medically credible yet emotionally warm — ideal for cosmetic dentistry, smile design studios, or boutique family practices positioning above commodity care.",
+    "verticalBias": [
+      "cosmetic-dentistry",
+      "aesthetic-dental",
+      "smile-design",
+      "family-practice"
+    ]
+  },
+  "tokens": {
+    "color": {
+      "strategy": {
+        "theme": "light",
+        "background": "warm off-white / cream — not pure white; the page ground reads as parchment-adjacent, reducing clinical harshness",
+        "contrast": "medium",
+        "saturation": "muted",
+        "accentUsage": "sparing",
+        "surfaceStrategy": "Three-tier surface system: (1) warm cream page ground, (2) slightly deeper warm tan card surfaces for secondary cards and overlays, (3) pure white for review cards, form fields, and stat chips. Dark near-black warm brown used exclusively for primary CTA buttons and heading text. A single warm gold accent applied only to decorative icons, eyebrow bullet dots, and star ratings — never as a fill."
+      },
+      "reference": {
+        "pageBackground": "#F5EFE6",
+        "cardSurfaceWarm": "#C8A87A",
+        "cardSurfaceLight": "#E8D9C5",
+        "headingText": "#3B2A1A",
+        "bodyText": "#7A6050",
+        "primaryButtonFill": "#2C1A0E",
+        "white": "#FFFFFF",
+        "accentGold": "#C8A96E",
+        "accentMidTone": "#D4A574",
+        "starRating": "#C8922A",
+        "borderHairline": "#D9CFC4"
+      }
+    },
+    "type": {
+      "classification": "display-serif",
+      "substitutionCriteria": "Must be a transitional or old-style serif with moderate stroke contrast, bracketed serifs, double-storey lowercase 'g', and a slightly calligraphic warmth. Light-to-bold weight range required. Pairs with a humanist sans at light/regular weight for body and nav. Avoid geometric or slab serifs — the warmth of the letterform is load-bearing.",
+      "pairing": "Display serif for all headings and large numerals; humanist sans-serif at light/regular weight for nav links, body copy, labels, and form fields",
+      "heading": {
+        "eyebrow": "every-section",
+        "eyebrowStyle": "Small uppercase tracked label preceded by a bullet dot in accent gold; used above every major section heading — e.g. '• EXPERT CARE FOR EVERY VISIT', '• OUR TREATMENTS', '• MEET YOUR DOCTOR'",
+        "emphasisDevice": "Scale contrast only — very large serif display heading against small-weight sans body; no italic mixing, no color shifts on individual words; inline decorative emoji/icon glyphs embedded mid-sentence in body copy serve as secondary visual accent",
+        "weight": "regular to medium (not bold) for display headings; bold/semibold reserved for large stat numerals only",
+        "casing": "sentence case for all headings; uppercase tracking only for eyebrow labels"
+      },
+      "body": {
+        "weight": "light to regular",
+        "size": "small, generous line-height",
+        "casing": "sentence case"
+      },
+      "scale": "editorial",
+      "headingScale": "xl",
+      "contrast": "medium",
+      "reference": {
+        "displayFace": "appears to be a transitional serif — likely Playfair Display or similar; exact name not confirmed",
+        "bodyFace": "humanist sans — likely Inter or similar light-weight grotesque"
+      }
+    },
+    "shape": {
+      "cornerRadius": "lg"
+    },
+    "elevation": {
+      "system": "soft-shadow"
+    },
+    "border": {
+      "treatment": "hairline"
+    },
+    "button": {
+      "treatment": "filled",
+      "character": "Pill-radius primary button in deep warm-brown fill with white text and optional small icon prefix (star/snowflake glyph). Secondary/nav CTA uses same pill radius with hairline border on cream fill — reads as soft outline, not a filled button. Generous horizontal padding. No sharp corners anywhere in the button system."
+    },
+    "label": {
+      "style": "inline",
+      "character": "Uppercase tracked small text preceded by a bullet dot in accent gold — rendered inline above the heading, not as a chip or badge. Dot is a decorative accent glyph, not a filled circle. Used on every section without exception."
+    },
+    "density": "airy",
+    "motion": "subtle"
+  },
+  "layout": {
+    "sections": [
+      "nav",
+      "hero — full-width poster with centered headline and radial services diagram overlaid on photo",
+      "about — brand statement with inline decorative glyphs and flanking patient imagery",
+      "bento-grid social proof — asymmetric card grid mixing before/after, stats, testimonials, and CTA",
+      "services — accordion list of treatment categories",
+      "doctor-intro — split photo with bio, credentials, and role label overlay",
+      "trust-signals — expert care / proven results with stat grid and credential chips",
+      "treatment-journey — numbered process steps",
+      "patient-testimonials — carousel with star ratings",
+      "blog/tips — editorial grid of oral-health articles",
+      "appointment-form — full-width schedule form page",
+      "gallery — clinic environment photos",
+      "footer"
+    ],
+    "variants": {
+      "heroLayout": "poster",
+      "servicesLayout": "accordion",
+      "aboutLayout": "two-col-brief",
+      "testimonialsLayout": "card-row",
+      "ctaLayout": "floating-card",
+      "faqLayout": "accordion-expandable",
+      "navVariant": "centered-logo",
+      "footerVariant": "minimal-dark",
+      "galleryVariant": "featured-grid"
+    },
+    "composition": {
+      "hero": "Full-width poster with a warm-graded close-up photo of a patient (neck/shoulder angle, hair loose). Headline in large display serif centered over the upper image area in white. Subhead in small sans below. The lower portion of the hero image features a radial 'treatment wheel' diagram — arc of labeled service spokes (mapped to dental equivalents: Whitening, Veneers, Implants, Invisalign, Cleanings, Crowns, Bonding, Emergency Care) radiating from a central decorative icon, overlaid directly on the photo. A small 'Explore our treatments' label sits at the arc's base. The entire hero is contained in a large-radius rounded rectangle, not full-bleed to the browser edge.",
+      "nav": "Centered-logo layout: practice wordmark with small decorative floral/snowflake icon centered in the nav bar. Navigation links (Home, About, Services, Contact) left-aligned in light-weight humanist sans at small size. CTA pill button right-aligned with small icon prefix and hairline border on a cream fill that matches the page ground — reads as soft outline, not a filled button. Nav background matches the page cream ground, no shadow or separator line visible. Nav appears opaque; no transparent-overlay behavior observed.",
+      "footer": "Footer not visible in screenshots. Inferred as minimal-dark: a single-row or two-row footer on a deep warm-brown ground (matching the primary button fill color family), containing the practice name, navigation links in light-weight sans, and a booking CTA. No evidence of a four-column mega-footer; the system's airy density and restrained surface count argue against it.",
+      "about": "Two flanking patient-care images (rounded-lg containers) bracket a centered text block. Eyebrow label above heading. Body copy is two to three sentences, benefit-led, second-person direct address, with inline decorative emoji glyphs (leaf, lightning bolt) embedded mid-sentence as visual rhythm devices — not functional icons. A small star-rating badge with reviewer name appears below the copy as a micro-testimonial anchor.",
+      "bentoGrid": "Asymmetric bento-style card grid occupying a full content section. Cards vary in size and content type: (1) Before/After split-image card with vertical slider handle and pill corner labels — maps to smile transformation before/after for dental; (2) seamless experience card with a clinical procedure photo; (3) stats card with large bold serif numerals, small descriptor text, pill stat chips, and a large low-opacity watermark year; (4) tailored-to-your-vision card with overlapping circular avatar cluster and short copy; (5) testimonial column with satisfaction percentage, star ratings, and stacked review cards; (6) free consultation CTA card with a pill chip, heading, subhead, and dark pill button; (7) clinical procedure photo card. All cards share lg corner radius and hairline borders on lighter surfaces.",
+      "doctorIntro": "Split layout: rounded-lg doctor portrait photo left, bio text right. Role label ('Founder & Lead Dentist') appears as a warm-tan overlay pill at the bottom of the photo. Bio includes two to three sentences of credentials, followed by three credential bullet points with small icon prefixes (board certification, years of experience, specialty training).",
+      "trustSignals": "Two-column feature layout with a central clinical photo in a rounded-lg container. Left column: board-certified experts callout with avatar and descriptor. Right column: advanced technology callout with descriptor. Below: a two-by-two grid of credential chips (consultation workflow, treatment safety, patient records, follow-up care). Bottom row: large bold serif stat numerals (years, patients, treatments) and a satisfaction percentage.",
+      "appointmentForm": "Full-width form page with eyebrow label and large serif heading. Form fields in a two-column grid: Name, Email, Phone, Treatment (select dropdown), Date (date picker), Time (time picker), Notes (textarea). Hairline borders on sm-radius fields. Consent checkbox. Dark pill CTA button with icon prefix at bottom.",
+      "gallery": "Three-image horizontal row of clinic environment photos (reception, treatment room, equipment) — rounded-lg containers, equal width, warm-graded photography."
+    },
+    "novel": [
+      {
+        "section": "hero",
+        "name": "Radial Services Diagram Overlay",
+        "spec": "An arc of labeled service spokes radiates from a central decorative icon, overlaid on the lower portion of the hero photo. Each spoke terminates in a small circular thumbnail image and a text label. For a dental practice, spokes map to: Whitening, Veneers, Implants, Invisalign, Cleanings, Crowns, Bonding, Emergency Care. The arc is drawn in warm tan lines matching the accent palette. A small 'Explore our treatments' label sits at the arc's base center. This is a custom SVG or canvas overlay component — no existing variant encodes it.",
+        "requiresNewComponent": true
+      },
+      {
+        "section": "social-proof",
+        "name": "Bento Social Proof Grid",
+        "spec": "Asymmetric CSS grid of seven cards in a roughly three-column layout with varying row spans. Cards mix: before/after split-image with draggable vertical slider handle and pill corner labels, stats card with large bold serif numerals and low-opacity watermark year, overlapping circular avatar cluster with short copy, stacked testimonial review cards, free consultation CTA card, and a clinical procedure photo. All cards share lg radius and the three-tier surface system. No existing variant (card-grid, grid-mosaic) encodes the asymmetric bento sizing or the before/after slider sub-component.",
+        "requiresNewComponent": true
+      }
+    ]
+  },
+  "imagery": {
+    "crop": "Tight to medium crops on patient and doctor subjects — close-up facial angles, neck/shoulder frames, and hands-on-patient procedure shots. Images contained in large-radius rounded rectangles, never full-bleed to component edges except within the hero poster. Circular pill crops used for avatar clusters in testimonial sections.",
+    "grading": "Warm, slightly desaturated, lifted blacks — skin tones are the dominant hue reference. Images lean toward golden-hour warmth without oversaturation. Shadows are soft and open. The overall effect reads as spa photography rather than clinical white-box photography.",
+    "framing": "Subjects are often angled or in three-quarter profile rather than straight-on. Environmental context (clinic equipment, practitioner hands, treatment tools) is kept in soft focus in the background to signal professionalism without sterility. One primary human focal subject per image.",
+    "subjectTreatment": "Dentists and hygienists photographed in natural clinical settings — professional attire, relaxed posture, not posed stiffly. Patients shown during or after treatment in a calm, comfortable state — eyes closed or softly focused, never anxious or grimacing. Clinic spaces photographed with warm ambient light, clean surfaces, and minimal equipment clutter. All subjects should feel like they belong in a premium wellness environment, not a hospital.",
+    "imageTextRatio": "image-dominant"
+  },
+  "voice": {
+    "formality": "professional",
+    "rhythm": "Short declarative headline phrases (three to six words) in display serif carry the primary message. Supporting body copy runs one to two sentences, benefit-led, second-person direct address. Eyebrow labels are three to five word uppercase fragments. Stat callouts are purely numeric with a one-line descriptor below. Overall rhythm alternates between punchy headline and calm explanatory sentence — never long paragraphs.",
+    "favors": [
+      "second-person direct address ('you', 'your smile', 'your visit')",
+      "benefit-led phrasing that names the patient outcome first",
+      "warm clinical authority — pairs a reassuring adjective with a credibility noun",
+      "short declarative statements of care philosophy",
+      "sensory comfort words ('natural', 'comfortable', 'confident', 'radiant')",
+      "plain-spoken verbs ('achieve', 'restore', 'care for', 'support')"
+    ],
+    "avoids": [
+      "hard-sell urgency or discount language ('limited time', 'act now', 'save X%')",
+      "cold clinical jargon without a plain-language follow-up",
+      "filler superlatives ('best', 'world-class', 'revolutionary') without evidence",
+      "first-person brand boasting ('we are the number one…')",
+      "passive voice constructions",
+      "fear-based copy about dental problems"
+    ]
+  },
+  "fidelity": {
+    "layout": "partial",
+    "theme": "light-native",
+    "phase": "B",
+    "gaps": [
+      {
+        "type": "variant",
+        "detail": "Radial services diagram overlay on hero has no existing variant — requires new Phase B component (see layout.novel)"
+      },
+      {
+        "type": "variant",
+        "detail": "Asymmetric bento social-proof grid with before/after slider sub-component has no existing variant — requires new Phase B component (see layout.novel)"
+      },
+      {
+        "type": "token",
+        "detail": "Inline decorative emoji/icon glyphs embedded mid-sentence in body copy require a rich-text rendering capability beyond standard paragraph tokens"
+      },
+      {
+        "type": "token",
+        "detail": "Low-opacity watermark text used as background decorative layer within a card requires a z-layered text token or absolute-positioned decorative text component"
+      },
+      {
+        "type": "token",
+        "detail": "Overlapping circular avatar cluster (two to three portraits with negative margin overlap) used in testimonial/social-proof cards requires a dedicated avatar-stack component token"
+      }
+    ]
+  },
+  "audit": {
+    "sanctionedPatterns": [
+      "eyebrow-above-heading",
+      "emoji-in-content",
+      "nested-cards",
+      "centered-over-dark-hero"
+    ],
+    "fidelityChecks": [
+      "Eyebrow labels must appear above every major section heading as uppercase tracked text preceded by a bullet dot in accent gold — never omitted, never replaced with a badge chip",
+      "Hero must be a full-width poster with the practice name and headline centered over a warm-graded patient photo, contained in a large-radius rounded rectangle (not full-bleed to browser edge)",
+      "Primary CTA button must use pill radius with deep warm-brown fill — never a rectangular or md-radius button",
+      "Page background must be warm cream (off-white with warm undertone), not pure white or cool gray",
+      "Card surfaces must use the three-tier system: cream ground → warm tan secondary cards → white for review/form surfaces",
+      "All card containers must use lg corner radius consistently — no sharp or sm-radius cards in the main content grid",
+      "Doctor/dentist bio section must include a role label overlay pill at the bottom of the portrait photo",
+      "Stat callouts (years, patients, treatments, satisfaction %) must use large bold serif numerals — not sans-serif",
+      "Headings carry no italic mixing or color-shift emphasis — scale contrast and eyebrow labels are the sole hierarchy devices",
+      "Photography grading must remain warm and skin-tone-adjacent — cool-toned or blue-cast clinical photography breaks the system"
+    ]
+  }
+}
