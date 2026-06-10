@@ -363,6 +363,9 @@ async function loadKeyFiles(projectDir) {
     'tailwind.config.js',
     'src/config/design-dna.ts',
     'src/config/site.ts',
+    // global.css is injector-owned; skills need it to know which tokens are
+    // in use so they don't accidentally rename/remove a referenced class.
+    'src/styles/global.css',
   ];
 
   const files = {};

@@ -14,6 +14,28 @@ import { renderFixerDirectives } from '../lib/reference-audit.js';
 
 const MODEL = 'claude-sonnet-4-6';
 
+/**
+ * Extract the set of color token keys referenced via @apply in global.css.
+ * These are "protected" — colorize must not remove or rename them in
+ * tailwind.config.mjs or the build will break with "unknown utility class".
+ *
+ * e.g. "@apply bg-surface-2 border-border-light" → ['surface-2', 'border-light']
+ * We return them as both raw token slugs AND the full Tailwind class names.
+ */
+function extractProtectedTokens(globalCss = '') {
+  const applyTokens = new Set();
+  const applyRe = /@apply\s+([^;]+)/g;
+  let m;
+  while ((m = applyRe.exec(globalCss)) !== null) {
+    for (const cls of m[1].trim().split(/\s+/)) {
+      // Strip variant prefixes (hover:, md:, etc.) and keep the utility name
+      const bare = cls.replace(/^[\w-]+:/, '');
+      applyTokens.add(bare);
+    }
+  }
+  return [...applyTokens].sort();
+}
+
 export async function run({ dna, practice, files = {}, screenshots = [], referenceAudit = null }) {
   const start   = Date.now();
   // Curated builds: sanctioned palette moves (e.g. gradient-accent, pure-black)
@@ -22,6 +44,15 @@ export async function run({ dna, practice, files = {}, screenshots = [], referen
 
   const tailwindContent = files['tailwind.config.mjs'] || files['tailwind.config.js'] || '(not provided)';
   const indexContent    = files['src/pages/index.astro'] || '(not provided)';
+
+  // global.css is injector-generated — colorize must NOT modify it directly.
+  // Extract every @apply token it references so the model knows which color
+  // keys are load-bearing and must remain defined in tailwind.config.mjs.
+  const globalCssContent   = files['src/styles/global.css'] || '';
+  const protectedTokens    = extractProtectedTokens(globalCssContent);
+  const protectedTokenNote = protectedTokens.length
+    ? `\n\nPROTECTED TOKENS (used by @apply in global.css — do NOT remove or rename these color keys in tailwind.config.mjs):\n${protectedTokens.map(t => `  • ${t}`).join('\n')}`
+    : '';
 
   const imageBlocks = screenshots.slice(0, 2).flatMap(s => [
     { type: 'image', source: { type: 'base64', media_type: 'image/png', data: s.base64 } },
@@ -54,6 +85,7 @@ ${tailwindContent.slice(0, 4000)}
 \`\`\`astro
 ${indexContent.slice(0, 2000)}
 \`\`\`
+${protectedTokenNote}
 
 ## Task: Headless Colorize
 
@@ -74,12 +106,14 @@ PROHIBIT in the output:
 - Purple-blue gradients (from-purple-500 to-blue-500 etc.)
 - Generic blue/slate Tailwind defaults with no customization
 - More than 4 named brand colors
+- Changes to any file other than tailwind.config.mjs — src/styles/global.css is injector-owned and must not be modified
 
 PALETTE RULES:
 - Define brand colors explicitly in tailwind theme.extend.colors
 - Use semantic names (brand.primary, brand.accent, brand.surface) not generic names
 - Ensure dark backgrounds have light text and vice versa
 - Accent should be a single vivid color — not a gradient, not two colors
+- You may CHANGE hex values of existing color keys; you must NOT rename or remove any key listed as protected above
 
 Return ONLY valid JSON:
 {
@@ -108,12 +142,32 @@ If the palette is already strong and passes all checks, return changes: [] with 
   const text   = res.text;
   const parsed = parseJson(text);
 
+  // ── Post-processing: safety filters ──────────────────────────────────────
+  // 1. colorize is only authorised to modify tailwind.config.mjs.
+  //    global.css is injector-owned; any change to it would bypass the token
+  //    system and risk "unknown utility class" build failures.
+  // 2. If the model tries to introduce a new @apply class or token key that
+  //    isn't in the protected set we extracted from global.css, we don't block
+  //    it — that's a legitimate extension — but we DO drop any change that
+  //    targets a file other than the config.
+  const ALLOWED_FILES = new Set(['tailwind.config.mjs', 'tailwind.config.js']);
+  const rawChanges = parsed?.changes || [];
+  const filtered   = rawChanges.filter(c => {
+    if (!c?.file) return false;
+    const allowed = ALLOWED_FILES.has(c.file);
+    if (!allowed) {
+      console.warn(`[colorize] dropping change to "${c.file}" — only tailwind.config.mjs is authorised`);
+    }
+    return allowed;
+  });
+
   return {
     skill:   'colorize',
     summary: parsed?.summary || 'Color palette changes proposed.',
-    changes: parsed?.changes || [],
+    changes: filtered,
     assessment: parsed?.assessment,
     contrastFailures: parsed?.contrast_failures || [],
+    _droppedChanges: rawChanges.length - filtered.length || undefined,
     meta: { model: MODEL, duration_ms: Date.now() - start, tokens: res.usage },
   };
 }
