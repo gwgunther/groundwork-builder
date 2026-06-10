@@ -138,7 +138,10 @@ async function serveUI(env) {
            weakness_score, weakness_tier, quality_score, vendor, vendor_category,
            lighthouse_performance, lighthouse_accessibility, lighthouse_seo, sourced_at
            FROM sourced_practices
-           ORDER BY weakness_score DESC NULLS LAST LIMIT 1000`).all(),
+           ORDER BY
+             CASE tier WHEN 'A' THEN 0 WHEN 'B' THEN 1 WHEN 'C' THEN 2 WHEN 'D' THEN 3 ELSE 4 END,
+             weakness_score DESC NULLS LAST
+           LIMIT 1000`).all(),
         env.DB.prepare(`SELECT id, slug, status, website_url, source, contact_email,
            total_checks, passed, critical, warnings, mobile_score, desktop_score,
            gbp_reviews, gbp_rating, audit_report_url, gcs_run_folder, error_detail,
@@ -510,6 +513,28 @@ async function serveUI(env) {
   .lc-active    { background: var(--sage-tint);    color: var(--sage-darker); }
   .lc-churned   { background: var(--surface-2);    color: var(--mid-gray); }
 
+  /* ---- Opportunity grade badges ---- */
+  .grade-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    padding: 2px 7px;
+    border-radius: var(--radius);
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .grade-A { background: var(--sage-dark);   color: #fff; }
+  .grade-B { background: var(--sage-tint);   color: var(--sage-darker); }
+  .grade-C { background: var(--warning-bg);  color: var(--warning-text); }
+  .grade-D { background: var(--pending-bg);  color: var(--pending-text); }
+
+  /* ---- Sortable headers ---- */
+  th.sortable { cursor: pointer; user-select: none; }
+  th.sortable:hover { color: var(--charcoal); }
+  th.sorted { color: var(--sage-dark); }
+
   /* ---- Archetype label ---- */
   .archetype-tag {
     font-family: var(--font-sans);
@@ -732,6 +757,13 @@ function lcBadge(stage) {
 function okErr(v) {
   return v ? '<span class="badge badge-ok">✓</span>' : '<span class="badge badge-err">✗</span>';
 }
+// Opportunity grade (tier): A = high-value business with severely weak site,
+// B = high biz / moderate weakness, C = mid biz / weak site, D = rest.
+function gradeBadge(t) {
+  if (!t) return dim('—');
+  const cls = (t === 'A' || t === 'B' || t === 'C' || t === 'D') ? 'grade-' + t : 'grade-D';
+  return '<span class="grade-badge ' + cls + '">' + esc(t) + '</span>';
+}
 function dimDate(v) { return dim(mono(fmtDate(v))); }
 function dimText(v) { return dim(esc(v || '—')); }
 function monoNum(v) { return v != null ? mono(esc(v)) : dim('—'); }
@@ -744,14 +776,14 @@ function monoNum(v) { return v != null ? mono(esc(v)) : dim('—'); }
 const COLS = {
   runs: [
     { key: 'created_at',     label: 'Date',       on: true,  nowrap: true, html: function (r) { return dimDate(r.created_at); } },
-    { key: 'practice',       label: 'Practice',   on: true,  primary: true, html: function (r) { return serif(r.practice_name || r.client_slug); } },
+    { key: 'practice',       label: 'Practice',   on: true,  primary: true, sortKey: 'practice_name', html: function (r) { return serif(r.practice_name || r.client_slug); } },
     { key: 'doctor_name',    label: 'Doctor',     on: false, html: function (r) { return dimText(r.doctor_name); } },
     { key: 'city',           label: 'City',       on: true,  html: function (r) { return dimText(r.city); } },
     { key: 'phone',          label: 'Phone',      on: false, nowrap: true, html: function (r) { return dimText(r.phone); } },
     { key: 'archetype',      label: 'Archetype',  on: true,  html: function (r) { return tagEl(r.archetype); } },
     { key: 'hero_variant',   label: 'Hero',       on: false, html: function (r) { return dimText(r.hero_variant); } },
-    { key: 'fonts',          label: 'Fonts',      on: true,  html: function (r) { return r.font_heading ? dim(esc(r.font_heading + ' / ' + (r.font_body || '…'))) : dim('—'); } },
-    { key: 'palette',        label: 'Palette',    on: false, nowrap: true, html: function (r) { return r.palette_primary ? swatch(r.palette_primary) + ' ' + mono(esc(r.palette_primary)) : dim('—'); } },
+    { key: 'fonts',          label: 'Fonts',      on: true,  sortKey: 'font_heading',  html: function (r) { return r.font_heading ? dim(esc(r.font_heading + ' / ' + (r.font_body || '…'))) : dim('—'); } },
+    { key: 'palette',        label: 'Palette',    on: false, nowrap: true, sortKey: 'palette_primary', html: function (r) { return r.palette_primary ? swatch(r.palette_primary) + ' ' + mono(esc(r.palette_primary)) : dim('—'); } },
     { key: 'palette_mood',   label: 'Mood',       on: false, html: function (r) { return dimText(r.palette_mood); } },
     { key: 'services_count', label: 'Services',   on: false, html: function (r) { return monoNum(r.services_count); } },
     { key: 'build_success',  label: 'Build',      on: true,  html: function (r) { return okErr(r.build_success); } },
@@ -760,12 +792,12 @@ const COLS = {
     { key: 'gcs_prefix',     label: 'Artifact',   on: true,  nowrap: true, html: function (r) { return r.gcs_prefix ? namedLink('https://console.cloud.google.com/storage/browser/' + r.gcs_prefix, 'GCS') : dim('—'); } },
   ],
   practices: [
-    { key: 'practice',     label: 'Practice',   on: true,  primary: true, html: function (r) { return swatch(r.palette_primary) + ' ' + serif(r.practice_name || r.slug); } },
+    { key: 'practice',     label: 'Practice',   on: true,  primary: true, sortKey: 'practice_name', html: function (r) { return swatch(r.palette_primary) + ' ' + serif(r.practice_name || r.slug); } },
     { key: 'city',         label: 'City',       on: true,  html: function (r) { return dimText(r.city); } },
     { key: 'archetype',    label: 'Archetype',  on: true,  html: function (r) { return tagEl(r.archetype); } },
     { key: 'hero_variant', label: 'Hero',       on: false, html: function (r) { return dimText(r.hero_variant); } },
-    { key: 'fonts',        label: 'Fonts',      on: true,  html: function (r) { return r.font_heading ? dim(esc(r.font_heading + ' / ' + (r.font_body || '…'))) : dim('—'); } },
-    { key: 'palette',      label: 'Palette',    on: false, nowrap: true, html: function (r) { return r.palette_primary ? mono(esc(r.palette_primary)) : dim('—'); } },
+    { key: 'fonts',        label: 'Fonts',      on: true,  sortKey: 'font_heading',  html: function (r) { return r.font_heading ? dim(esc(r.font_heading + ' / ' + (r.font_body || '…'))) : dim('—'); } },
+    { key: 'palette',      label: 'Palette',    on: false, nowrap: true, sortKey: 'palette_primary', html: function (r) { return r.palette_primary ? mono(esc(r.palette_primary)) : dim('—'); } },
     { key: 'palette_mood', label: 'Mood',       on: false, html: function (r) { return dimText(r.palette_mood); } },
     { key: 'adjectives',   label: 'Adjectives', on: true,  html: function (r) { return pills(r.adjectives); } },
     { key: 'tag',          label: 'Tag',        on: false, html: function (r) { return dimText(r.tag); } },
@@ -773,7 +805,7 @@ const COLS = {
     { key: 'last_run',     label: 'Last Run',   on: true,  nowrap: true, html: function (r) { return dimDate(r.last_run); } },
   ],
   accounts: [
-    { key: 'practice',        label: 'Practice',       on: true,  primary: true, html: function (r) { return serif(r.practice_name || r.slug); } },
+    { key: 'practice',        label: 'Practice',       on: true,  primary: true, sortKey: 'practice_name', html: function (r) { return serif(r.practice_name || r.slug); } },
     { key: 'lifecycle_stage', label: 'Lifecycle',      on: true,  html: function (r) { return lcBadge(r.lifecycle_stage || 'Prospect'); } },
     { key: 'city',            label: 'City',           on: true,  html: function (r) { return dimText([r.city, r.state].filter(Boolean).join(', ')); } },
     { key: 'phone',           label: 'Phone',          on: false, nowrap: true, html: function (r) { return dimText(r.phone); } },
@@ -789,11 +821,11 @@ const COLS = {
     { key: 'slug',             label: 'Slug',      on: true,  primary: true, html: function (r) { return serif(r.slug); } },
     { key: 'status',           label: 'Status',    on: true,  html: function (r) { return lcBadge(r.status); } },
     { key: 'website_url',      label: 'Site',      on: true,  html: function (r) { return siteLink(r.website_url); } },
-    { key: 'checks',           label: 'Checks',    on: true,  nowrap: true, html: function (r) { return (r.passed != null && r.total_checks != null) ? mono(esc(r.passed + ' / ' + r.total_checks)) : dim('—'); } },
+    { key: 'checks',           label: 'Checks',    on: true,  nowrap: true, sortKey: 'passed', html: function (r) { return (r.passed != null && r.total_checks != null) ? mono(esc(r.passed + ' / ' + r.total_checks)) : dim('—'); } },
     { key: 'critical',         label: 'Critical',  on: true,  html: function (r) { return r.critical != null ? (r.critical > 0 ? '<span class="lc-badge" style="background:var(--danger-bg);color:var(--danger-text)">' + esc(r.critical) + '</span>' : mono('0')) : dim('—'); } },
     { key: 'warnings',         label: 'Warnings',  on: false, html: function (r) { return monoNum(r.warnings); } },
-    { key: 'scores',           label: 'Scores',    on: true,  nowrap: true, html: function (r) { return (r.mobile_score != null || r.desktop_score != null) ? mono(esc((r.mobile_score != null ? r.mobile_score : '–') + ' / ' + (r.desktop_score != null ? r.desktop_score : '–'))) : dim('—'); } },
-    { key: 'gbp',              label: 'GBP',       on: false, nowrap: true, html: function (r) { return r.gbp_rating != null ? mono(esc(r.gbp_rating)) + ' ' + dim('(' + (r.gbp_reviews != null ? r.gbp_reviews : 0) + ')') : dim('—'); } },
+    { key: 'scores',           label: 'Scores',    on: true,  nowrap: true, sortKey: 'mobile_score', html: function (r) { return (r.mobile_score != null || r.desktop_score != null) ? mono(esc((r.mobile_score != null ? r.mobile_score : '–') + ' / ' + (r.desktop_score != null ? r.desktop_score : '–'))) : dim('—'); } },
+    { key: 'gbp',              label: 'GBP',       on: false, nowrap: true, sortKey: 'gbp_rating', html: function (r) { return r.gbp_rating != null ? mono(esc(r.gbp_rating)) + ' ' + dim('(' + (r.gbp_reviews != null ? r.gbp_reviews : 0) + ')') : dim('—'); } },
     { key: 'source',           label: 'Source',    on: false, html: function (r) { return dimText(r.source); } },
     { key: 'contact_email',    label: 'Email',     on: true,  html: function (r) { return dimText(r.contact_email); } },
     { key: 'audit_report_url', label: 'Report',    on: true,  html: function (r) { return namedLink(r.audit_report_url, 'Report'); } },
@@ -805,7 +837,7 @@ const COLS = {
     { key: 'date_added',        label: 'Date',       on: true,  nowrap: true, html: function (r) { return dimDate(r.date_added); } },
     { key: 'build_slug',        label: 'Slug',       on: true,  primary: true, html: function (r) { return serif(r.build_slug); } },
     { key: 'status',            label: 'Status',     on: true,  html: function (r) { return lcBadge(r.status); } },
-    { key: 'scores',            label: 'Scores',     on: true,  nowrap: true, html: function (r) { return (r.mobile_score != null || r.desktop_score != null) ? mono(esc((r.mobile_score != null ? r.mobile_score : '–') + ' / ' + (r.desktop_score != null ? r.desktop_score : '–'))) : dim('—'); } },
+    { key: 'scores',            label: 'Scores',     on: true,  nowrap: true, sortKey: 'mobile_score', html: function (r) { return (r.mobile_score != null || r.desktop_score != null) ? mono(esc((r.mobile_score != null ? r.mobile_score : '–') + ' / ' + (r.desktop_score != null ? r.desktop_score : '–'))) : dim('—'); } },
     { key: 'preview_url',       label: 'Preview',    on: true,  html: function (r) { return namedLink(r.preview_url, 'Preview'); } },
     { key: 'pitch_url',         label: 'Pitch',      on: true,  html: function (r) { return namedLink(r.pitch_url, 'Pitch'); } },
     { key: 'github_folder_url', label: 'GitHub',     on: false, html: function (r) { return namedLink(r.github_folder_url, 'GitHub'); } },
@@ -817,16 +849,17 @@ const COLS = {
     { key: 'completed_at',      label: 'Completed',  on: true,  nowrap: true, html: function (r) { return dimDate(r.completed_at); } },
   ],
   sourced: [
-    { key: 'practice',        label: 'Practice',    on: true,  primary: true, html: function (r) { return serif(r.practice_name); } },
+    { key: 'practice',        label: 'Practice',    on: true,  primary: true, sortKey: 'practice_name', html: function (r) { return serif(r.practice_name); } },
     { key: 'city',            label: 'City',        on: true,  html: function (r) { return dimText(r.city); } },
     { key: 'state',           label: 'State',       on: true,  html: function (r) { return dimText(r.state); } },
     { key: 'zip',             label: 'Zip',         on: false, html: function (r) { return dimText(r.zip); } },
     { key: 'address',         label: 'Address',     on: false, html: function (r) { return dimText(r.address); } },
     { key: 'msa_market',      label: 'Market',      on: false, html: function (r) { return dimText(r.msa_market); } },
+    { key: 'opportunity',     label: 'Opportunity', on: true,  sortKey: 'tier', html: function (r) { return gradeBadge(r.tier); } },
+    { key: 'quadrant',        label: 'Quadrant',    on: true,  html: function (r) { return dimText(r.quadrant); } },
     { key: 'rating',          label: 'Rating',      on: true,  nowrap: true, html: function (r) { return r.rating != null ? mono(esc(r.rating)) + ' ' + dim('(' + (r.review_count != null ? r.review_count : 0) + ')') : dim('—'); } },
-    { key: 'weakness',        label: 'Weakness',    on: true,  nowrap: true, html: function (r) { return r.weakness_score != null ? mono(Number(r.weakness_score).toFixed(1)) + (r.weakness_tier ? ' ' + dim(esc(r.weakness_tier)) : '') : dim('—'); } },
+    { key: 'weakness',        label: 'Weakness',    on: true,  nowrap: true, sortKey: 'weakness_score', html: function (r) { return r.weakness_score != null ? mono(Number(r.weakness_score).toFixed(1)) + (r.weakness_tier ? ' ' + dim(esc(r.weakness_tier)) : '') : dim('—'); } },
     { key: 'quality_score',   label: 'Quality',     on: true,  html: function (r) { return r.quality_score != null ? mono(Number(r.quality_score).toFixed(1)) : dim('—'); } },
-    { key: 'tier',            label: 'Tier',        on: false, html: function (r) { return dimText(r.tier || r.quadrant); } },
     { key: 'business_tier',   label: 'Biz Tier',    on: false, html: function (r) { return dimText(r.business_tier); } },
     { key: 'vendor',          label: 'Vendor',      on: true,  html: function (r) { return dimText(r.vendor); } },
     { key: 'vendor_category', label: 'Vendor Cat.', on: false, html: function (r) { return dimText(r.vendor_category); } },
@@ -836,7 +869,7 @@ const COLS = {
     { key: 'lh_seo',          label: 'SEO',         on: false, html: function (r) { return monoNum(r.lighthouse_seo); } },
     { key: 'status',          label: 'Status',      on: true,  html: function (r) { return lcBadge(r.status); } },
     { key: 'business_status', label: 'Biz Status',  on: false, html: function (r) { return dimText(r.business_status); } },
-    { key: 'site',            label: 'Site',        on: true,  html: function (r) { return siteLink(r.final_url || r.website_url); } },
+    { key: 'site',            label: 'Site',        on: true,  sortKey: 'final_url',  html: function (r) { return siteLink(r.final_url || r.website_url); } },
     { key: 'gbp_url',         label: 'GBP',         on: false, html: function (r) { return namedLink(r.gbp_url, 'Maps'); } },
     { key: 'phone',           label: 'Phone',       on: false, nowrap: true, html: function (r) { return dimText(r.phone); } },
     { key: 'email',           label: 'Email',       on: false, html: function (r) { return dimText(r.email); } },
@@ -896,12 +929,29 @@ function rowMatches(row, q) {
   return false;
 }
 
+function sortRows(tab, rows, p) {
+  if (!p.sort || !p.sort.key) return rows;
+  const col = COLS[tab].find(function (c) { return c.key === p.sort.key; });
+  if (!col) return rows;
+  const sk = col.sortKey || col.key;
+  const dir = p.sort.dir === 'asc' ? 1 : -1;
+  return rows.slice().sort(function (a, b) {
+    const av = a[sk], bv = b[sk];
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;   // nulls always last
+    if (bv == null) return -1;
+    if (typeof av === 'number' && typeof bv === 'number') return (av - bv) * dir;
+    return String(av).localeCompare(String(bv)) * dir;
+  });
+}
+
 function render(tab) {
   const panel = document.getElementById('tab-' + tab);
   const p = tabPrefs(tab);
   const cols = visibleCols(tab);
   const all = DATA[tab];
-  const rows = all.filter(function (r) { return rowMatches(r, queries[tab]); });
+  let rows = all.filter(function (r) { return rowMatches(r, queries[tab]); });
+  rows = sortRows(tab, rows, p);
   panel.querySelector('.filter-count').textContent = rows.length + ' of ' + all.length;
   const gridEl = panel.querySelector('.card-grid');
   const tableWrap = panel.querySelector('.table-wrap');
@@ -917,9 +967,27 @@ function render(tab) {
 }
 
 function renderList(tab, wrap, rows, cols) {
+  const p = tabPrefs(tab);
   const thead = wrap.querySelector('thead');
   const tbody = wrap.querySelector('tbody');
-  thead.innerHTML = '<tr>' + cols.map(function (c) { return '<th>' + esc(c.label) + '</th>'; }).join('') + '</tr>';
+  thead.innerHTML = '<tr>' + cols.map(function (c) {
+    const isSorted = p.sort && p.sort.key === c.key;
+    const arrow = isSorted ? (p.sort.dir === 'asc' ? ' ▲' : ' ▼') : '';
+    return '<th class="sortable' + (isSorted ? ' sorted' : '') + '" data-key="' + c.key + '">' + esc(c.label) + arrow + '</th>';
+  }).join('') + '</tr>';
+  thead.querySelectorAll('th').forEach(function (th) {
+    th.addEventListener('click', function () {
+      const key = th.dataset.key;
+      if (p.sort && p.sort.key === key) {
+        // asc → desc → off
+        p.sort = p.sort.dir === 'asc' ? { key: key, dir: 'desc' } : null;
+      } else {
+        p.sort = { key: key, dir: 'asc' };
+      }
+      savePrefs();
+      render(tab);
+    });
+  });
   if (!rows.length) {
     tbody.innerHTML = '<tr class="empty-row"><td colspan="' + (cols.length || 1) + '">' + EMPTY[tab] + '</td></tr>';
     return;
