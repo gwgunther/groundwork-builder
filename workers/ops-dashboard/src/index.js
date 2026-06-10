@@ -95,16 +95,18 @@ async function handleApi(url, env) {
 
 async function serveUI(env) {
   // Fetch everything in parallel before rendering
-  let stats = { totalBuilds: 0, successRate: 0, practices: 0, weekRuns: 0 };
-  let runs = [], accounts = [], practices = [];
+  let stats = { totalBuilds: 0, successRate: 0, practices: 0, weekRuns: 0, sourced: 0 };
+  let runs = [], accounts = [], practices = [], builds = [], sourced = [];
   let dbError = null;
   try {
-    const [totals, successes, practiceCount, week, runsRows, accountRows, practiceRows] =
+    const [totals, successes, practiceCount, week, sourcedCount,
+           runsRows, accountRows, practiceRows, buildRows, sourcedRows] =
       await Promise.all([
         env.DB.prepare('SELECT COUNT(*) AS n FROM runs').first(),
         env.DB.prepare('SELECT COUNT(*) AS n FROM runs WHERE build_success = 1').first(),
         env.DB.prepare('SELECT COUNT(DISTINCT client_slug) AS n FROM runs').first(),
         env.DB.prepare("SELECT COUNT(*) AS n FROM runs WHERE created_at >= datetime('now', '-7 days')").first(),
+        env.DB.prepare('SELECT COUNT(*) AS n FROM sourced_practices').first(),
         env.DB.prepare(`SELECT id, created_at, client_slug, practice_name, city,
            archetype, font_heading, font_body, build_success, duration_ms, gcs_prefix
            FROM runs ORDER BY created_at DESC LIMIT 200`).all(),
@@ -118,16 +120,28 @@ async function serveUI(env) {
            FROM practices p
            LEFT JOIN runs r ON r.client_slug = p.slug
            GROUP BY p.slug ORDER BY last_run DESC`).all(),
+        env.DB.prepare(`SELECT id, build_slug, status, website_url, preview_url, pitch_url,
+           mobile_score, desktop_score, contact_email, completed_at, date_added
+           FROM builds ORDER BY date_added DESC LIMIT 200`).all(),
+        env.DB.prepare(`SELECT place_id, practice_name, city, state, msa_market,
+           website_url, final_url, gbp_url, rating, review_count,
+           status, tier, quadrant, weakness_score, weakness_tier,
+           vendor, vendor_category, lighthouse_performance, sourced_at
+           FROM sourced_practices
+           ORDER BY weakness_score DESC NULLS LAST LIMIT 1000`).all(),
       ]);
     stats = {
       totalBuilds: totals?.n ?? 0,
       successRate: totals?.n > 0 ? Math.round(((successes?.n ?? 0) / totals.n) * 100) : 0,
       practices: practiceCount?.n ?? 0,
       weekRuns: week?.n ?? 0,
+      sourced: sourcedCount?.n ?? 0,
     };
     runs      = runsRows?.results     ?? [];
     accounts  = accountRows?.results  ?? [];
     practices = practiceRows?.results ?? [];
+    builds    = buildRows?.results    ?? [];
+    sourced   = sourcedRows?.results  ?? [];
   } catch (e) {
     console.error('serveUI D1 error:', e.message);
     dbError = e.message;
@@ -292,6 +306,39 @@ async function serveUI(env) {
   .content { padding: 24px; max-width: 1400px; }
   .panel { display: none; }
   .panel.active { display: block; }
+
+  /* ---- View toggle (Practices) ---- */
+  .view-toggle { display: flex; gap: 0; margin-bottom: 16px; }
+  .view-btn {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border: 1px solid var(--border-light);
+    background: var(--surface-1);
+    color: var(--mid-gray);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .view-btn:first-child { border-radius: var(--radius) 0 0 var(--radius); border-right: none; }
+  .view-btn:last-child  { border-radius: 0 var(--radius) var(--radius) 0; }
+  .view-btn.active { background: var(--sage-tint); color: var(--sage-dark); }
+
+  /* ---- Filter bar (Sourced) ---- */
+  .filter-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .filter-bar input {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    padding: 8px 12px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    width: 320px;
+    max-width: 100%;
+    color: var(--charcoal);
+    background: var(--surface-1);
+  }
+  .filter-bar input:focus { outline: 2px solid var(--sage); outline-offset: 1px; }
+  .filter-count { font-size: 12px; color: var(--mid-gray); }
 
   /* ---- Table ---- */
   .table-wrap {
@@ -483,12 +530,15 @@ ${dbError ? `<div style="background:var(--danger-bg);color:var(--danger-text);pa
   <div class="stat"><div class="stat-val">${stats.successRate}%</div><div class="stat-label">Success Rate</div></div>
   <div class="stat"><div class="stat-val">${stats.practices}</div><div class="stat-label">Practices</div></div>
   <div class="stat"><div class="stat-val">${stats.weekRuns}</div><div class="stat-label">This Week</div></div>
+  <div class="stat"><div class="stat-val">${stats.sourced}</div><div class="stat-label">Sourced</div></div>
 </div>
 
 <div class="tabs">
   <button class="tab-btn active" data-tab="runs">Runs</button>
   <button class="tab-btn" data-tab="practices">Practices</button>
   <button class="tab-btn" data-tab="accounts">Accounts</button>
+  <button class="tab-btn" data-tab="builds">Builds</button>
+  <button class="tab-btn" data-tab="sourced">Sourced</button>
 </div>
 
 <div class="content">
@@ -516,7 +566,27 @@ ${dbError ? `<div style="background:var(--danger-bg);color:var(--danger-text);pa
 
   <!-- PRACTICES -->
   <div class="panel" id="tab-practices">
+    <div class="view-toggle">
+      <button class="view-btn active" data-view="grid" title="Grid view">Grid</button>
+      <button class="view-btn" data-view="list" title="List view">List</button>
+    </div>
     <div class="card-grid" id="practices-grid"></div>
+    <div class="table-wrap" id="practices-list" style="display:none">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Practice</th>
+            <th>City</th>
+            <th>Archetype</th>
+            <th>Fonts</th>
+            <th>Adjectives</th>
+            <th>Last Run</th>
+          </tr>
+        </thead>
+        <tbody id="practices-list-body"></tbody>
+      </table>
+    </div>
   </div>
 
   <!-- ACCOUNTS -->
@@ -537,6 +607,54 @@ ${dbError ? `<div style="background:var(--danger-bg);color:var(--danger-text);pa
     </div>
   </div>
 
+  <!-- BUILDS -->
+  <div class="panel" id="tab-builds">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Slug</th>
+            <th>Status</th>
+            <th>Scores</th>
+            <th>Preview</th>
+            <th>Pitch</th>
+            <th>Contact</th>
+            <th>Completed</th>
+          </tr>
+        </thead>
+        <tbody id="builds-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SOURCED -->
+  <div class="panel" id="tab-sourced">
+    <div class="filter-bar">
+      <input type="search" id="sourced-search" placeholder="Filter by name, city, vendor…" />
+      <span class="filter-count" id="sourced-count"></span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Practice</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Rating</th>
+            <th>Weakness</th>
+            <th>Tier</th>
+            <th>Vendor</th>
+            <th>Perf</th>
+            <th>Status</th>
+            <th>Site</th>
+          </tr>
+        </thead>
+        <tbody id="sourced-body"></tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -547,21 +665,8 @@ ${dbError ? `<div style="background:var(--danger-bg);color:var(--danger-text);pa
 const RUNS      = ${safeJson(runs)};
 const PRACTICES = ${safeJson(practices)};
 const ACCOUNTS  = ${safeJson(accounts)};
-
-// Tab switching
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
-  });
-});
-
-// Render on load
-renderRuns(RUNS);
-renderPractices(PRACTICES);
-renderAccounts(ACCOUNTS);
+const BUILDS    = ${safeJson(builds)};
+const SOURCED   = ${safeJson(sourced)};
 
 // ---------------------------------------------------------------------------
 // Renderers
@@ -711,6 +816,143 @@ function lcBadge(stage) {
   const cls = LC_CLASS[stage] || 'lc-prospect';
   return '<span class="lc-badge ' + cls + '">' + esc(stage) + '</span>';
 }
+
+function siteLink(url) {
+  if (!url) return '<span style="color:var(--mid-gray)">—</span>';
+  const label = esc(url.replace('https://', '').replace('http://', '').replace('www.', '').split('/')[0]);
+  return '<a href="' + esc(url) + '" target="_blank" rel="noopener" style="color:var(--sage-dark);text-decoration:none;font-size:12px;font-weight:500">' + label + ' ↗</a>';
+}
+
+function renderPracticesList(rows) {
+  const tbody = document.getElementById('practices-list-body');
+  if (!rows.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="7">No practices yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(p => {
+    const color   = esc(p.palette_primary || '#94a3b8');
+    const fonts   = p.font_heading ? esc(p.font_heading + ' / ' + (p.font_body || '…')) : '—';
+    const adjList = parseAdj(p.adjectives);
+    const pills   = adjList.length
+      ? adjList.slice(0, 4).map(a => '<span class="pill">' + esc(a) + '</span>').join(' ')
+      : '<span style="color:var(--mid-gray)">—</span>';
+    return '<tr>' +
+      '<td style="width:28px"><span class="swatch" style="background:' + color + '"></span></td>' +
+      '<td style="font-weight:600;font-family:var(--font-serif)">' + esc(p.practice_name || p.slug) + '</td>' +
+      '<td style="color:var(--mid-gray)">' + esc(p.city || '—') + '</td>' +
+      '<td><span class="archetype-tag">' + esc(p.archetype || '—') + '</span></td>' +
+      '<td style="color:var(--mid-gray);font-size:12px">' + fonts + '</td>' +
+      '<td>' + pills + '</td>' +
+      '<td style="color:var(--mid-gray);white-space:nowrap;font-family:var(--font-mono);font-size:12px">' + fmtDate(p.last_run) + '</td>' +
+      '</tr>';
+  }).join('');
+}
+
+function renderBuilds(rows) {
+  const tbody = document.getElementById('builds-body');
+  if (!rows.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="8">No builds yet — rows appear here when the pipeline creates preview builds.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(b => {
+    const scores = (b.mobile_score != null || b.desktop_score != null)
+      ? '<span style="font-family:var(--font-mono);font-size:12px">' + (b.mobile_score ?? '–') + ' / ' + (b.desktop_score ?? '–') + '</span>'
+      : '<span style="color:var(--mid-gray)">—</span>';
+    return '<tr>' +
+      '<td style="white-space:nowrap;color:var(--mid-gray)">' + fmtDate(b.date_added) + '</td>' +
+      '<td style="font-weight:600;font-family:var(--font-serif)">' + esc(b.build_slug || '—') + '</td>' +
+      '<td>' + lcBadge(b.status || '—') + '</td>' +
+      '<td>' + scores + '</td>' +
+      '<td>' + siteLink(b.preview_url) + '</td>' +
+      '<td>' + siteLink(b.pitch_url) + '</td>' +
+      '<td style="color:var(--mid-gray);font-size:12px">' + esc(b.contact_email || '—') + '</td>' +
+      '<td style="color:var(--mid-gray);white-space:nowrap;font-family:var(--font-mono);font-size:12px">' + (b.completed_at ? fmtDate(b.completed_at) : '—') + '</td>' +
+      '</tr>';
+  }).join('');
+}
+
+function sourcedRow(s) {
+  const weakness = s.weakness_score != null
+    ? '<span style="font-family:var(--font-mono)">' + Number(s.weakness_score).toFixed(1) + '</span>' +
+      (s.weakness_tier ? ' <span style="color:var(--mid-gray);font-size:11px">' + esc(s.weakness_tier) + '</span>' : '')
+    : '<span style="color:var(--mid-gray)">—</span>';
+  const rating = s.rating != null
+    ? '<span style="font-family:var(--font-mono)">' + s.rating + '</span> <span style="color:var(--mid-gray);font-size:11px">(' + (s.review_count ?? 0) + ')</span>'
+    : '<span style="color:var(--mid-gray)">—</span>';
+  const perf = s.lighthouse_performance != null
+    ? '<span style="font-family:var(--font-mono)">' + s.lighthouse_performance + '</span>'
+    : '<span style="color:var(--mid-gray)">—</span>';
+  return '<tr>' +
+    '<td style="font-weight:600;font-family:var(--font-serif)">' + esc(s.practice_name || '—') + '</td>' +
+    '<td style="color:var(--mid-gray)">' + esc(s.city || '—') + '</td>' +
+    '<td style="color:var(--mid-gray)">' + esc(s.state || '—') + '</td>' +
+    '<td>' + rating + '</td>' +
+    '<td>' + weakness + '</td>' +
+    '<td style="color:var(--mid-gray);font-size:12px">' + esc(s.tier || s.quadrant || '—') + '</td>' +
+    '<td style="color:var(--mid-gray);font-size:12px">' + esc(s.vendor || '—') + '</td>' +
+    '<td>' + perf + '</td>' +
+    '<td>' + (s.status ? lcBadge(s.status) : '<span style="color:var(--mid-gray)">—</span>') + '</td>' +
+    '<td>' + siteLink(s.final_url || s.website_url) + '</td>' +
+    '</tr>';
+}
+
+function renderSourced(rows) {
+  const tbody = document.getElementById('sourced-body');
+  const count = document.getElementById('sourced-count');
+  if (!rows.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="10">No sourced practices match.</td></tr>';
+    count.textContent = '0 of ' + SOURCED.length;
+    return;
+  }
+  tbody.innerHTML = rows.map(sourcedRow).join('');
+  count.textContent = rows.length + ' of ' + SOURCED.length;
+}
+
+// ---------------------------------------------------------------------------
+// Bootstrap — runs after ALL declarations above (const initializers included)
+// ---------------------------------------------------------------------------
+
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// Practices grid/list toggle
+document.querySelectorAll('.view-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const isGrid = btn.dataset.view === 'grid';
+    document.getElementById('practices-grid').style.display = isGrid ? 'grid' : 'none';
+    document.getElementById('practices-list').style.display = isGrid ? 'none' : 'block';
+  });
+});
+
+// Sourced search filter
+document.getElementById('sourced-search').addEventListener('input', (e) => {
+  const q = e.target.value.trim().toLowerCase();
+  if (!q) return renderSourced(SOURCED);
+  renderSourced(SOURCED.filter(s =>
+    (s.practice_name || '').toLowerCase().includes(q) ||
+    (s.city || '').toLowerCase().includes(q) ||
+    (s.state || '').toLowerCase().includes(q) ||
+    (s.vendor || '').toLowerCase().includes(q) ||
+    (s.msa_market || '').toLowerCase().includes(q)
+  ));
+});
+
+// Render everything
+renderRuns(RUNS);
+renderPractices(PRACTICES);
+renderPracticesList(PRACTICES);
+renderAccounts(ACCOUNTS);
+renderBuilds(BUILDS);
+renderSourced(SOURCED);
 </script>
 </body>
 </html>`;

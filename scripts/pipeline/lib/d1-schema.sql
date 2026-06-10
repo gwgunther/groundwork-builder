@@ -129,6 +129,49 @@ CREATE INDEX IF NOT EXISTS idx_runs_client_slug ON runs (client_slug);
 CREATE INDEX IF NOT EXISTS idx_runs_created_at  ON runs (created_at);
 
 -- ---------------------------------------------------------------------------
+-- sourced_practices: prospect pipeline (Google Places sourcing + site audits)
+-- One row per Place ID. Migrated from Airtable "Sourced Practices".
+-- ---------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS sourced_practices (
+  place_id        TEXT PRIMARY KEY,
+  practice_name   TEXT,
+  address         TEXT,
+  city            TEXT,
+  state           TEXT,
+  zip             TEXT,
+  msa_market      TEXT,
+  website_url     TEXT,
+  final_url       TEXT,
+  gbp_url         TEXT,
+  phone           TEXT,
+  email           TEXT,
+  primary_type    TEXT,
+  rating          REAL,
+  review_count    INTEGER,
+  business_status TEXT,
+  status          TEXT,
+  tier            TEXT,
+  business_tier   TEXT,
+  quadrant        TEXT,
+  weakness_score  REAL,
+  weakness_tier   TEXT,
+  quality_score   REAL,
+  vendor          TEXT,
+  vendor_category TEXT,
+  lighthouse_performance    INTEGER,
+  lighthouse_accessibility  INTEGER,
+  lighthouse_seo            INTEGER,
+  lighthouse_best_practices INTEGER,
+  sourced_at      TEXT,
+  last_audited_at TEXT,
+  raw             TEXT                          -- full Airtable fields JSON
+);
+
+CREATE INDEX IF NOT EXISTS idx_sourced_state    ON sourced_practices (state);
+CREATE INDEX IF NOT EXISTS idx_sourced_status   ON sourced_practices (status);
+CREATE INDEX IF NOT EXISTS idx_sourced_weakness ON sourced_practices (weakness_score);
+
+-- ---------------------------------------------------------------------------
 -- practices: denormalized view of latest design library data
 -- One row per slug; upserted whenever a library JSON is ingested.
 -- ---------------------------------------------------------------------------
