@@ -1,0 +1,59 @@
+{
+  "palette": {
+    "primary": "#0F766E",
+    "secondary": "#134E4A",
+    "accent": "#14B8A6",
+    "background": "#F0FDFA",
+    "mood": "card-grid default"
+  },
+  "type": {
+    "display": "Poppins",
+    "body": "Open Sans",
+    "scale": "standard",
+    "contrast": "medium"
+  },
+  "layout": {
+    "archetype": "card-heavy",
+    "density": "dense",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "split-image",
+    "imageTreatment": "clinical-bright"
+  },
+  "sections": [
+    "hero",
+    "services",
+    "services",
+    "services",
+    "cta"
+  ],
+  "cards": "elevated",
+  "motion": "none",
+  "radius": "lg",
+  "fontPair": "Poppins/Open Sans",
+  "adjectives": [
+    "three-card-row",
+    "icon-tiles",
+    "template-grid",
+    "monotonous",
+    "card-overuse"
+  ],
+  "slug": "anti-three-card-row",
+  "tag": "anti",
+  "source": "design-principles-core.md §A.5",
+  "captured": "2026-06-09",
+  "note": "anti-pattern: identical 3-up card grid; icon tile above every heading; cards nested in cards",
+  "dentalMoods": [
+    "warm-neighborhood",
+    "modern-premium",
+    "clean-clinical",
+    "soft-gentle"
+  ],
+  "borrowableTraits": [],
+  "avoidPatterns": [
+    "identical 3-up card grid",
+    "icon tile above every heading",
+    "cards nested in cards"
+  ]
+}

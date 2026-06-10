@@ -1,0 +1,49 @@
+{
+  "palette": {
+    "primary": "#2a6b5e",
+    "secondary": "#1a4a40",
+    "accent": "#c9a96e",
+    "background": "#f2f7f5",
+    "mood": "clinical-warm"
+  },
+  "type": {
+    "display": "Manrope",
+    "body": "Mulish",
+    "scale": "standard",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "magazine-split",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "asymmetric-right",
+    "imageTreatment": "editorial-muted"
+  },
+  "sections": [
+    "hero",
+    "doctor-intro",
+    "services",
+    "reviews",
+    "gallery",
+    "faq",
+    "stat-bar",
+    "cta"
+  ],
+  "cards": "soft-shadow",
+  "motion": "subtle",
+  "radius": "md",
+  "fontPair": "Manrope/Mulish",
+  "adjectives": [
+    "professional-approachable",
+    "nature-inspired",
+    "trust-forward",
+    "refined-accessible"
+  ],
+  "slug": "dentiq",
+  "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/dentiq",
+  "tag": "own",
+  "captured": "2026-06-08",
+  "note": "auto-distilled at build time"
+}

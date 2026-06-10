@@ -71,6 +71,8 @@ Confirm `_pipeline/12-ship-gates.json` shows `"passed": true`:
 - Lighthouse accessibility ≥ 90
 - 0 axe critical/serious violations
 
+**Built-in a11y (proactive):** Template includes skip link, keyboard focus rings, and `prefers-reduced-motion`. Pipeline Phase 3c-ter/3f fills missing image alt text. Axe post-build is still the verification gate.
+
 See [BUILD_BEST_PRACTICES.md](../engineering/BUILD_BEST_PRACTICES.md) §10.
 
 ---

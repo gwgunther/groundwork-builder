@@ -1,0 +1,57 @@
+{
+  "palette": {
+    "primary": "#3ECF8E",
+    "secondary": "#1C1C1C",
+    "accent": "#3ECF8E",
+    "background": "#F8F9FA",
+    "mood": "technical trustworthy"
+  },
+  "type": {
+    "display": "Circular",
+    "body": "Circular",
+    "scale": "standard",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "centered-classic",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "split-image",
+    "imageTreatment": "clinical-bright"
+  },
+  "sections": [
+    "hero",
+    "services",
+    "stat-bar",
+    "reviews",
+    "cta"
+  ],
+  "cards": "bordered-flat",
+  "motion": "subtle",
+  "radius": "md",
+  "fontPair": "Circular/Circular",
+  "adjectives": [
+    "technical",
+    "trustworthy",
+    "emerald-accent",
+    "developer-clean",
+    "structured"
+  ],
+  "slug": "inspo-supabase",
+  "tag": "inspo",
+  "source": "https://getdesign.md/supabase/design-md",
+  "captured": "2026-06-09",
+  "note": "inspo from awesome-design-md / Supabase",
+  "dentalMoods": [
+    "clean-clinical",
+    "modern-premium"
+  ],
+  "borrowableTraits": [
+    "emerald trust accent",
+    "code-forward clarity",
+    "dark CTA band contrast"
+  ],
+  "avoidPatterns": []
+}

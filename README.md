@@ -9,6 +9,7 @@ A production-ready website template built with Astro, Tailwind CSS, and modern w
 - **Groundwork's own brand system** (audit reports, pitch pages): [docs/design/DESIGN.md](docs/design/DESIGN.md)
 - **Engineering principles:** [docs/engineering/BUILD_BEST_PRACTICES.md](docs/engineering/BUILD_BEST_PRACTICES.md)
 - **Pipeline + skills catalog:** [docs/PIPELINE.md](docs/PIPELINE.md) · [docs/SKILLS.md](docs/SKILLS.md)
+- **Design library (inspo/anti):** import with `node scripts/pipeline/import-design-library-cli.js` — see [docs/PIPELINE.md](docs/PIPELINE.md) § Design library
 
 ## Quick Start
 

@@ -1,0 +1,56 @@
+{
+  "palette": {
+    "primary": "#0F62FE",
+    "secondary": "#161616",
+    "accent": "#0F62FE",
+    "background": "#F4F4F4",
+    "mood": "structured clinical"
+  },
+  "type": {
+    "display": "IBM Plex Sans",
+    "body": "IBM Plex Sans",
+    "scale": "standard",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "centered-classic",
+    "density": "dense",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "centered",
+    "imageTreatment": "clinical-bright"
+  },
+  "sections": [
+    "hero",
+    "services",
+    "doctor-intro",
+    "faq",
+    "cta"
+  ],
+  "cards": "bordered-flat",
+  "motion": "none",
+  "radius": "sm",
+  "fontPair": "IBM Plex Sans/IBM Plex Sans",
+  "adjectives": [
+    "structured",
+    "enterprise",
+    "precise",
+    "clinical",
+    "authoritative"
+  ],
+  "slug": "inspo-ibm",
+  "tag": "inspo",
+  "source": "https://getdesign.md/ibm/design-md",
+  "captured": "2026-06-09",
+  "note": "inspo from awesome-design-md / IBM",
+  "dentalMoods": [
+    "clean-clinical"
+  ],
+  "borrowableTraits": [
+    "structured blue hierarchy",
+    "grid discipline",
+    "enterprise-readable measure"
+  ],
+  "avoidPatterns": []
+}

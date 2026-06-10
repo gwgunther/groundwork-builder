@@ -29,7 +29,8 @@ function indexById(findings) {
  *     id, category, title, benefit, weight, fix_action,
  *     before: { state, severity, detail, count, affectedPages },
  *     after:  { state, severity, detail, count, affectedPages } | null,
- *     transition: 'fixed' | 'still-issue' | 'regressed' | 'unchanged' | 'new' | 'removed',
+ *     transition: 'fixed' | 'still-issue' | 'regressed' | 'unchanged' | 'new' | 'removed'
+ *               | 'not-measured' | 'preview-limited',
  *   }
  *
  * Transitions:
@@ -65,6 +66,8 @@ export function diffFindings(beforeArr, afterArr) {
       before:     beforeSlice,
       after:      afterSlice,
       transition: classifyTransition(beforeSlice, afterSlice),
+      preview_note:        afterSlice?.preview_note || beforeSlice?.preview_note || carry.preview_note || null,
+      resolves_on_go_live: afterSlice?.resolves_on_go_live || carry.resolves_on_go_live || false,
     });
   }
   return diffs;
@@ -72,11 +75,13 @@ export function diffFindings(beforeArr, afterArr) {
 
 function snapshot(f) {
   return {
-    state:         f.state,
-    severity:      f.severity,
-    detail:        f.detail,
-    count:         f.count ?? null,
-    affectedPages: f.affectedPages ?? [],
+    state:               f.state,
+    severity:            f.severity,
+    detail:              f.detail,
+    count:               f.count ?? null,
+    affectedPages:       f.affectedPages ?? [],
+    preview_note:        f.preview_note ?? null,
+    resolves_on_go_live: f.resolves_on_go_live ?? false,
   };
 }
 
@@ -84,6 +89,14 @@ function classifyTransition(b, a) {
   if (b && !a) return 'removed';
   if (!b && a) return 'new';
   if (!b && !a) return 'unchanged';
+
+  const bNA = b.state === 'not_applicable';
+  const aNA = a.state === 'not_applicable';
+
+  if (bNA && aNA) return 'unchanged';
+  if (aNA) return 'not-measured';
+  if (bNA) return 'unchanged';
+
   if (b.state === 'issue' && a.state === 'fixed') return 'fixed';
   if (b.state === 'issue' && a.state === 'issue') return 'still-issue';
   if (b.state === 'fixed' && a.state === 'issue') return 'regressed';
@@ -96,12 +109,14 @@ function classifyTransition(b, a) {
  */
 export function summarizeDiff(diffs) {
   const counts = {
-    fixed:        0,
-    'still-issue': 0,
-    regressed:    0,
-    unchanged:    0,
-    new:          0,
-    removed:      0,
+    fixed:            0,
+    'still-issue':    0,
+    regressed:        0,
+    unchanged:        0,
+    new:              0,
+    removed:          0,
+    'not-measured':   0,
+    'preview-limited': 0,
   };
   for (const d of diffs) counts[d.transition] = (counts[d.transition] ?? 0) + 1;
   return { counts };

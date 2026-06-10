@@ -15,8 +15,9 @@
  *   { hero, doctorPortrait, doctorPortraits, team, interior, gallery, beforeAfter, unused, byPage }
  */
 import { resolveImageUrl } from '../image-downloader.js';
+import { fallbackAltForItem } from '../ensure-image-alts.js';
 
-export function bindingToImageRoles(binding, sidecar, baseUrl = null) {
+export function bindingToImageRoles(binding, sidecar, baseUrl = null, ctx = {}) {
   // The sidecar keys local files by the RESOLVED (absolute) sourceUrl, while the
   // binding holds raw silver srcs (often relative). Resolve binding srcs the same
   // way the downloader did so they match. Index by both raw and resolved.
@@ -47,6 +48,20 @@ export function bindingToImageRoles(binding, sidecar, baseUrl = null) {
     if (l) byPage[slug] = l;
   }
 
+  const alts = {};
+  for (const [localPath, meta] of Object.entries(sidecar || {})) {
+    const trimmed = String(meta?.alt || '').trim();
+    if (trimmed) {
+      alts[localPath] = trimmed;
+      continue;
+    }
+    const generated = fallbackAltForItem(
+      { alt: '', role: meta?.category || 'gallery', src: meta?.sourceUrl || localPath },
+      ctx,
+    );
+    if (generated) alts[localPath] = generated;
+  }
+
   return {
     hero: locs(g.hero)[0] || locs(g.office)[0] || null,
     doctorPortrait: firstName ? doctorPortraits[firstName] : null,
@@ -58,6 +73,7 @@ export function bindingToImageRoles(binding, sidecar, baseUrl = null) {
     badges: locs(g.badges),
     unused: [],
     byPage,
+    alts,
   };
 }
 

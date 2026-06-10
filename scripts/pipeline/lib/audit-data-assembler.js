@@ -12,11 +12,10 @@ import {
   BUILD_HINTS,
 } from './audit-data-copy.js';
 import { previewLlmsTxt } from './generate-llms-txt.js';
+import { buildFindingEvidenceRows } from './finding-evidence.js';
 
 const SCHEMA = 'groundwork-audit/v1';
 const MAX_SUMMARY = 5;
-const EVIDENCE_ROW_CAP = 200;
-
 /**
  * @param {object} opts
  * @param {string} opts.url
@@ -58,6 +57,7 @@ export function assembleAuditData(opts) {
   const assembledFindings = findings.map(f =>
     transformFinding(f, {
       bronze,
+      scraped,
       pagespeed,
       url,
       city,
@@ -143,14 +143,14 @@ function pickSummaryIds(issueFindings, pagespeed) {
 }
 
 function transformFinding(f, ctx) {
-  const { bronze, pagespeed, city, audienceNoun, inSummary, summaryRank, recommendedLlmsTxt } = ctx;
+  const { bronze, pagespeed, city, audienceNoun, inSummary, summaryRank, recommendedLlmsTxt, scraped } = ctx;
   const entry = getCatalogEntry(f.id);
   const workstream = WORKSTREAMS[f.id] || categoryToWorkstream(f.category);
   const category = CATEGORY_LABELS[f.id] || f.title;
 
   const measurement = buildMeasurement(f, pagespeed, bronze);
   const technical = buildTechnical(f, entry, bronze);
-  const evidence_rows = buildEvidenceRows(f, bronze);
+  const evidence_rows = buildFindingEvidenceRows(f, bronze, ctx.scraped);
   const consumer = inSummary
     ? buildConsumer(f, { city, audienceNoun, pagespeed, measurement })
     : null;
@@ -202,7 +202,7 @@ function buildMeasurement(f, pagespeed, bronze) {
 
   if (f.id === 'low-lcp' && pagespeed?.mobile?.metrics?.lcp != null) {
     const sec = (pagespeed.mobile.metrics.lcp / 1000).toFixed(1);
-    return { type: 'metric', value: `${sec}s`, label: 'load time', target: '2.5s', tone };
+    return { type: 'metric', value: `${sec}s`, label: 'LCP (main content load)', target: '2.5s', tone };
   }
 
   if (f.id === 'low-performance' && pagespeed?.mobile?.performance != null) {
@@ -219,7 +219,7 @@ function buildMeasurement(f, pagespeed, bronze) {
     return {
       type: 'metric',
       value: String(pagespeed.mobile.metrics.cls.toFixed(3)),
-      label: 'layout shift',
+      label: 'CLS (layout shift)',
       target: '0.1',
       tone,
     };
@@ -309,91 +309,6 @@ function buildConsumer(f, ctx) {
   };
 }
 
-function buildEvidenceRows(f, bronze) {
-  const pages = bronze?.pages || [];
-
-  if (f.id === 'duplicate-titles') {
-    const titleMap = {};
-    for (const p of pages) {
-      const t = p.title?.trim();
-      if (!t) continue;
-      if (!titleMap[t]) titleMap[t] = [];
-      titleMap[t].push(p.url);
-    }
-    const dupUrls = [...new Set(
-      Object.values(titleMap).filter(urls => urls.length > 1).flat(),
-    )];
-    if (dupUrls.length === 0) return null;
-
-    const rows = dupUrls.slice(0, EVIDENCE_ROW_CAP).map(url => {
-      const page = pages.find(p => p.url === url);
-      return { url, title: page?.title?.trim() || '' };
-    });
-    return {
-      columns: ['url', 'title'],
-      total: dupUrls.length,
-      rows,
-      note: rows.length < dupUrls.length
-        ? `${rows.length} of ${dupUrls.length} shown. Full set in audit-data.json.`
-        : undefined,
-    };
-  }
-
-  if (f.id === 'missing-alt') {
-    const byPage = [];
-    for (const p of pages) {
-      const missing = (p.images || []).filter(img => !img.alt?.trim()).length;
-      if (missing > 0) {
-        byPage.push({
-          url: p.url,
-          unlabeled: `${missing} photo${missing === 1 ? '' : 's'}`,
-        });
-      }
-    }
-    if (byPage.length === 0) return null;
-    return {
-      columns: ['url', 'unlabeled'],
-      total: byPage.length,
-      rows: byPage.slice(0, EVIDENCE_ROW_CAP),
-    };
-  }
-
-  if (f.id === 'thin-content') {
-    const thin = pages
-      .filter(p => (p.wordCount || 0) < 200 && p.url)
-      .map(p => ({ url: p.url, words: `${p.wordCount || 0} words` }));
-    if (thin.length === 0) return null;
-    return { columns: ['url', 'words'], total: thin.length, rows: thin };
-  }
-
-  if (f.affectedPages?.length) {
-    const col = evidenceValueColumn(f.id);
-    const rows = f.affectedPages.slice(0, EVIDENCE_ROW_CAP).map(url => {
-      const page = pages.find(p => p.url === url);
-      const row = { url };
-      if (col === 'title') row.title = page?.title?.trim() || '(no title)';
-      if (col === 'meta') row.meta = page?.metaDescription?.trim() || '(missing)';
-      return row;
-    });
-    return {
-      columns: ['url', col],
-      total: f.affectedPages.length,
-      rows,
-      note: f.affectedPages.length > rows.length
-        ? `${rows.length} of ${f.affectedPages.length} shown.`
-        : undefined,
-    };
-  }
-
-  return null;
-}
-
-function evidenceValueColumn(id) {
-  if (id === 'missing-meta') return 'meta';
-  if (id === 'duplicate-titles' || id === 'missing-title' || id === 'title-no-city') return 'title';
-  return 'detail';
-}
-
 function buildRecommendedLlmsPreview(scraped, url) {
   if (!scraped?.practice?.name) return null;
   try {
@@ -410,6 +325,102 @@ function buildRecommendedLlmsPreview(scraped, url) {
   } catch {
     return null;
   }
+}
+
+/** Canonical Lighthouse agentic-browsing audits (order matches Lighthouse config). */
+const AGENTIC_CHECK_DEFS = [
+  {
+    id: 'llms-txt',
+    title: 'llms.txt follows recommendations',
+    summary: 'A Markdown file at /llms.txt that tells AI crawlers what your practice offers and which pages matter.',
+    priority: 'now',
+    failNote: 'Without a proper llms.txt, ChatGPT, Gemini, and Perplexity may misrepresent your services or skip your site entirely.',
+  },
+  {
+    id: 'agent-accessibility-tree',
+    title: 'Accessibility tree is well-formed',
+    summary: 'Buttons, links, forms, and landmarks are labeled so agents can navigate the page.',
+    priority: 'now',
+    failNote: 'AI agents read your site through the accessibility tree. Missing labels or broken ARIA means they cannot reliably find your booking form or contact info.',
+  },
+  {
+    id: 'webmcp-registered-tools',
+    title: 'WebMCP tools registered',
+    summary: 'Machine-callable actions declared via WebMCP (e.g. book appointment, get directions).',
+    priority: 'future',
+    naNote: 'WebMCP is a new Google/Chrome standard (2026). No major AI assistant uses it for dental sites yet — nothing to fix today.',
+    failNote: 'No WebMCP tools are registered. That is normal for most practices today; only matters when you deliberately add agent-callable actions.',
+    futureNote: 'When agents adopt WebMCP, registered tools could let assistants book appointments or answer practice questions without leaving the chat.',
+  },
+  {
+    id: 'webmcp-form-coverage',
+    title: 'WebMCP form coverage',
+    summary: 'Whether forms (contact, booking) carry WebMCP annotations so agents know how to fill them.',
+    priority: 'future',
+    naNote: 'No forms on the page, or WebMCP is not supported in the test browser — nothing actionable for a brochure-style dental site today.',
+    futureNote: 'Annotated forms could let an agent submit a contact request on a patient\'s behalf once WebMCP is widely supported.',
+  },
+  {
+    id: 'webmcp-schema-validity',
+    title: 'WebMCP schemas are valid',
+    summary: 'Whether WebMCP tool and form schemas are correctly structured.',
+    priority: 'future',
+    naNote: 'Your site does not use WebMCP yet — this check does not apply. No action needed.',
+    failNote: 'WebMCP schema errors would block agents from using your tools correctly — only relevant once you add WebMCP integrations.',
+    futureNote: 'Valid schemas will matter when you add WebMCP tools so agents can interpret parameters correctly.',
+  },
+  {
+    id: 'cumulative-layout-shift',
+    title: 'Cumulative Layout Shift (CLS)',
+    summary: 'How much the page jumps around while loading — affects both patients and agents trying to click elements.',
+    priority: 'now',
+    failNote: 'Layout shifts can cause agents (and users) to click the wrong element. Often fixed by sizing images and reserving space for fonts.',
+    passNote: 'Page layout is stable during load — good for both human visitors and automated navigation.',
+  },
+];
+
+/**
+ * @param {object|null} agenticScan - meta from runAgenticScan / auditAgenticUrl
+ * @returns {object[]}
+ */
+export function buildLighthouseChecks(agenticScan) {
+  const audits = agenticScan?.audits || {};
+
+  return AGENTIC_CHECK_DEFS.map(def => {
+    const audit = audits[def.id] || null;
+    let status = 'unknown';
+    if (audit) {
+      if (audit.notApplicable) status = 'na';
+      else if (audit.score === 1) status = 'pass';
+      else status = 'fail';
+    }
+
+    let note = null;
+    if (status === 'na') {
+      note = def.naNote || def.futureNote;
+    } else if (status === 'fail') {
+      note = def.failNote || null;
+    } else if (status === 'pass') {
+      note = def.priority === 'future'
+        ? (def.futureNote || def.naNote)
+        : (def.passNote || null);
+    }
+
+    const lhDetail = audit?.displayValue || audit?.explanation || null;
+    if (lhDetail && status !== 'unknown') {
+      note = note ? `${lhDetail} — ${note}` : lhDetail;
+    }
+
+    return {
+      id: def.id,
+      title: audit?.title || def.title,
+      summary: def.summary,
+      priority: def.priority,
+      status,
+      score: audit?.score ?? null,
+      note,
+    };
+  });
 }
 
 export function buildAgenticBrowsing(agenticScan, findings, recommendedLlmsTxt = null) {
@@ -436,14 +447,29 @@ export function buildAgenticBrowsing(agenticScan, findings, recommendedLlmsTxt =
     verify_url: agenticScan?.llms?.verifyUrl || agenticScan?.llms?.url || llmsFinding?.llms_evidence?.verify_url,
   };
 
+  const fractionalScore = agenticScan?.fractionalScore ?? null;
+  const lighthouseScore = fractionalScore != null
+    ? {
+        value: Math.round(fractionalScore * 100),
+        out_of: 100,
+        display: `${Math.round(fractionalScore * 100)}/100`,
+        source: 'Google Lighthouse',
+        category: 'agentic-browsing',
+        note: 'Weighted average of applicable Agentic Browsing audits. Experimental Lighthouse category — same 0–100 scale as Performance and SEO.',
+      }
+    : null;
+
   return {
     source: 'Lighthouse CLI + HTTP fetch',
     llms_txt_status: status,
     llms_txt_present: status === 'good',
     pass_ratio: ratio,
-    fractional_score: agenticScan?.fractionalScore ?? null,
+    fractional_score: fractionalScore,
+    lighthouse_score: lighthouseScore,
     headline,
     llms_evidence,
+    lighthouse_checks: buildLighthouseChecks(agenticScan),
+    audits: agenticScan?.audits || null,
   };
 }
 

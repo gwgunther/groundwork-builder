@@ -1,0 +1,56 @@
+{
+  "palette": {
+    "primary": "#635BFF",
+    "secondary": "#0A2540",
+    "accent": "#00D4FF",
+    "background": "#F6F9FC",
+    "mood": "premium confident"
+  },
+  "type": {
+    "display": "sohne",
+    "body": "sohne",
+    "scale": "editorial",
+    "contrast": "medium"
+  },
+  "layout": {
+    "archetype": "magazine-split",
+    "density": "airy",
+    "grid": "broken"
+  },
+  "hero": {
+    "variant": "asymmetric-right",
+    "imageTreatment": "editorial-muted"
+  },
+  "sections": [
+    "hero",
+    "services",
+    "reviews",
+    "stat-bar",
+    "cta"
+  ],
+  "cards": "soft-shadow",
+  "motion": "subtle",
+  "radius": "md",
+  "fontPair": "sohne/sohne",
+  "adjectives": [
+    "premium",
+    "gradient-accent",
+    "editorial",
+    "confident",
+    "refined"
+  ],
+  "slug": "inspo-stripe",
+  "tag": "inspo",
+  "source": "https://getdesign.md/stripe/design-md",
+  "captured": "2026-06-09",
+  "note": "inspo from awesome-design-md / Stripe",
+  "dentalMoods": [
+    "modern-premium"
+  ],
+  "borrowableTraits": [
+    "gradient accent restraint",
+    "editorial split sections",
+    "weight-300 display elegance"
+  ],
+  "avoidPatterns": []
+}

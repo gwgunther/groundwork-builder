@@ -67,7 +67,7 @@ export const FINDINGS_CATALOG = {
   },
   'low-lcp': {
     weight: 1.2,
-    fixed_copy: 'Largest Contentful Paint is within threshold.',
+    fixed_copy: 'Largest Contentful Paint (LCP) is within threshold.',
     fix_action: { kind: 'generator', target: 'astro-build' },
   },
   'high-cls': {

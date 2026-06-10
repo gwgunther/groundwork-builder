@@ -1,0 +1,57 @@
+{
+  "palette": {
+    "primary": "#111827",
+    "secondary": "#374151",
+    "accent": "#2563EB",
+    "background": "#FFFFFF",
+    "mood": "clean neutral"
+  },
+  "type": {
+    "display": "Cal Sans",
+    "body": "Inter",
+    "scale": "standard",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "centered-classic",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "centered",
+    "imageTreatment": "none"
+  },
+  "sections": [
+    "hero",
+    "services",
+    "reviews",
+    "faq",
+    "cta"
+  ],
+  "cards": "bordered-flat",
+  "motion": "subtle",
+  "radius": "md",
+  "fontPair": "Cal Sans/Inter",
+  "adjectives": [
+    "developer-clean",
+    "neutral",
+    "trustworthy",
+    "uncluttered",
+    "functional"
+  ],
+  "slug": "inspo-cal",
+  "tag": "inspo",
+  "source": "https://getdesign.md/cal/design-md",
+  "captured": "2026-06-09",
+  "note": "inspo from awesome-design-md / Cal.com",
+  "dentalMoods": [
+    "warm-neighborhood",
+    "clean-clinical"
+  ],
+  "borrowableTraits": [
+    "thin-rule section dividers",
+    "inline-minimal CTA",
+    "neutral high-clarity layout"
+  ],
+  "avoidPatterns": []
+}

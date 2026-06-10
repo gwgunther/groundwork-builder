@@ -13,3 +13,6 @@ output/
 _sourcing/
 docs/design-catalog/_paste-prompt.txt
 docs/design-catalog/runs/
+clients/
+_test-batch/
+_memory/practice-dashboard.html

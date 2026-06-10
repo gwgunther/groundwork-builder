@@ -341,6 +341,7 @@ async function main() {
       canonicalUrl: p.canonicalUrl,
       images: (p.images || []).map(img => ({ alt: img.alt })),
       headings: p.headings,
+      firstParagraph: (p.paragraphs || []).find(t => t.length > 40)?.slice(0, 320) || null,
     })),
   };
   await writeFile(join(dataDir, 'bronze-pages.json'), JSON.stringify(bronzePages, null, 2), 'utf-8').catch(() => {});

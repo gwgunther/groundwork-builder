@@ -34,7 +34,7 @@ const variant = designDNA.navVariant;
                 aria-expanded={link.dropdown ? "false" : undefined}
               >
                 {link.avatar && (
-                  <img src={link.avatar} alt="" class="w-6 h-6 rounded-full object-cover object-top ring-2 ring-white" width="24" height="24" />
+                  <img src={link.avatar} alt="" aria-hidden="true" class="w-6 h-6 rounded-full object-cover object-top ring-2 ring-white" width="24" height="24" />
                 )}
                 {link.label}
                 {link.dropdown && (

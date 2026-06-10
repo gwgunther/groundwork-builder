@@ -1,0 +1,55 @@
+{
+  "palette": {
+    "primary": "#000000",
+    "secondary": "#1A1A1A",
+    "accent": "#FFD814",
+    "background": "#FFFFFF",
+    "mood": "enterprise clean"
+  },
+  "type": {
+    "display": "Inter",
+    "body": "Inter",
+    "scale": "standard",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "minimal-brutalist",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "centered",
+    "imageTreatment": "none"
+  },
+  "sections": [
+    "hero",
+    "services",
+    "stat-bar",
+    "cta"
+  ],
+  "cards": "ghost",
+  "motion": "none",
+  "radius": "sm",
+  "fontPair": "Inter/Inter",
+  "adjectives": [
+    "enterprise",
+    "monochrome",
+    "precise",
+    "no-nonsense",
+    "trustworthy"
+  ],
+  "slug": "inspo-hashicorp",
+  "tag": "inspo",
+  "source": "https://getdesign.md/hashicorp/design-md",
+  "captured": "2026-06-09",
+  "note": "inspo from awesome-design-md / HashiCorp",
+  "dentalMoods": [
+    "clean-clinical"
+  ],
+  "borrowableTraits": [
+    "black-white enterprise clarity",
+    "minimal chrome",
+    "documentation-style sections"
+  ],
+  "avoidPatterns": []
+}

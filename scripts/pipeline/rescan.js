@@ -104,6 +104,8 @@ async function main() {
   console.log(`  Unchanged pass:  ${result.summary.counts.unchanged}`);
   console.log(`  New findings:    ${result.summary.counts.new}`);
   console.log(`  Removed:         ${result.summary.counts.removed}`);
+  console.log(`  Preview/go-live: ${result.summary.counts['preview-limited'] || 0}`);
+  console.log(`  Not measured:    ${result.summary.counts['not-measured'] || 0}`);
   console.log('');
 
   if (result.summary.counts.fixed > 0) {

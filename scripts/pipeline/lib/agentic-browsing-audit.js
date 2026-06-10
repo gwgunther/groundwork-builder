@@ -122,6 +122,8 @@ export function parseLighthouseReport(lhr, url = '') {
       title: a.title || ref.id,
       score: a.score ?? null,
       displayValue: a.displayValue || null,
+      notApplicable: a.notApplicable === true,
+      explanation: a.explanation || null,
     };
   }
 

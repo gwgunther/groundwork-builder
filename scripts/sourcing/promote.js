@@ -3,18 +3,26 @@
 //
 // Usage:
 //   node scripts/sourcing/promote.js <place_id>
+//   node scripts/sourcing/promote.js <place_id> --no-audit
 //
 // What it does:
 //   1. Look up the Sourced Practices row by Place ID
 //   2. Create a new row in AIRTABLE_ACCOUNTS_TABLE with mapped fields
 //      (Practice Name, Practice URL, Phone, City, State, Source='sourcing')
-//   3. Update the Sourced row's Status → 'promoted-to-accounts' and link to
-//      the new Account record
+//   3. Update the Sourced row's Status → 'promoted-to-accounts'
+//   4. Unless --no-audit: run audit-site.js on the practice URL (deep audit
+//      before outreach — see docs/sourcing/METHODOLOGY.md §6)
 //
 // If you'd rather do this from the Airtable UI, the equivalent button script
 // is in docs/sourcing/airtable-promote-button.js (paste into a Button field).
 
 import './lib/env.js';
+import { spawn } from 'node:child_process';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { slugFromUrl } from '../pipeline/lib/slug.js';
+
+const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
 const AIRTABLE_API = 'https://api.airtable.com/v0';
 const apiKey = process.env.AIRTABLE_API_KEY;
@@ -22,9 +30,11 @@ const baseId = process.env.AIRTABLE_BASE_ID;
 const accountsTable = process.env.AIRTABLE_ACCOUNTS_TABLE; // existing table id/name
 const sourcedTable = 'Sourced Practices';
 
-const placeId = process.argv[2];
+const argv = process.argv.slice(2);
+const skipAudit = argv.includes('--no-audit');
+const placeId = argv.find(a => !a.startsWith('--'));
 if (!placeId) {
-  console.error('Usage: node scripts/sourcing/promote.js <place_id>');
+  console.error('Usage: node scripts/sourcing/promote.js <place_id> [--no-audit]');
   process.exit(2);
 }
 for (const [k, v] of Object.entries({ AIRTABLE_API_KEY: apiKey, AIRTABLE_BASE_ID: baseId, AIRTABLE_ACCOUNTS_TABLE: accountsTable })) {
@@ -53,6 +63,8 @@ async function main() {
     process.exit(1);
   }
   const f = sourced.fields;
+  const practiceUrl = f['Website URL'] || f['Final URL'] || '';
+  const canonicalSlug = practiceUrl ? slugFromUrl(practiceUrl) : null;
   console.error(`Found: ${f['Practice Name']} (${f['City']}, ${f['State']})`);
 
   // 2. Create in Accounts table
@@ -60,12 +72,12 @@ async function main() {
   // uses 'Website URL'. We map them. Other fields are best-effort.
   const accountFields = {
     'Practice Name': f['Practice Name'],
-    'Practice URL': f['Website URL'] || f['Final URL'] || '',
+    'Practice URL': practiceUrl,
     'Phone': f['Phone'] || '',
     'City': f['City'] || '',
     'State': f['State'] || '',
     'Source': 'sourcing',
-    'Slug': (f['Practice Name'] || '').toLowerCase().replace(/[^a-z0-9]+/g, ''),
+    'Slug': canonicalSlug || (f['Practice Name'] || '').toLowerCase().replace(/[^a-z0-9]+/g, ''),
     'Notes': `Promoted from sourcing pipeline.\nOpportunity Score: ${f['Opportunity Score']}\nTier: ${f['Tier']}\nQuadrant: ${f['Quadrant']}\nVendor: ${f['Vendor']} (${f['Vendor Category']})`,
   };
   const created = await api('POST', encodeURIComponent(accountsTable), {
@@ -88,6 +100,35 @@ async function main() {
     }],
   });
   console.error(`Updated sourced row → status: promoted-to-accounts`);
+
+  // 4. Deep audit before outreach (audit-on-promotion)
+  if (!skipAudit && practiceUrl) {
+    const auditSlug = canonicalSlug || 'audit';
+    const auditOut = resolve(REPO_ROOT, '_audits', auditSlug);
+    console.error(`\nRunning audit-site.js → ${auditOut}`);
+    const code = await new Promise((resolveCode, reject) => {
+      const child = spawn(
+        process.execPath,
+        [
+          resolve(REPO_ROOT, 'scripts/pipeline/audit-site.js'),
+          '--url', practiceUrl,
+          '--output', auditOut,
+          '--source', 'manual',
+        ],
+        { stdio: 'inherit', cwd: REPO_ROOT },
+      );
+      child.on('error', reject);
+      child.on('close', resolveCode);
+    });
+    if (code !== 0) {
+      console.error(`Audit exited with code ${code} — account promoted but not Audited`);
+      process.exit(code);
+    }
+    console.error(`Audit complete — report will be at /audits/${auditSlug}/`);
+  } else if (!practiceUrl) {
+    console.error('No practice URL on sourced row — skipped audit');
+  }
+
   console.error(`\nDone. New account id: ${newAccount.id}`);
 }
 

@@ -67,17 +67,18 @@
     {
       "slug": "springstdentistry",
       "tag": "own",
-      "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/springstdentistry",
-      "captured": "2026-06-01T07:00:00.000Z",
-      "archetype": "poster-hero",
-      "mood": "professional, warm",
-      "fontPair": "Plus Jakarta Sans / DM Sans",
+      "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/_reference-test",
+      "captured": "2026-06-10",
+      "archetype": "warm-editorial",
+      "mood": "clinical-warm",
+      "fontPair": "Cabinet Grotesk/Satoshi",
       "adjectives": [
-        "trustworthy",
-        "accessible",
-        "refined",
-        "patient-focused",
-        "locally-rooted"
+        "approachable",
+        "professional",
+        "teal-accented",
+        "trust-forward",
+        "locally-rooted",
+        "patient-centric"
       ]
     },
     {
@@ -126,6 +127,507 @@
         "trustworthy",
         "refined",
         "accessible"
+      ]
+    },
+    {
+      "slug": "illinoisdentistrydallas",
+      "tag": "own",
+      "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/illinois-family-dentistry",
+      "captured": "2026-06-06",
+      "archetype": "warm-editorial",
+      "mood": "professional, approachable",
+      "fontPair": "Albert Sans / Work Sans",
+      "adjectives": [
+        "trustworthy",
+        "clinical-yet-warm",
+        "family-focused",
+        "accessible",
+        "modern-professional"
+      ]
+    },
+    {
+      "slug": "bearcreekfamilydentistry",
+      "tag": "own",
+      "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/bearcreekfamilydentistry",
+      "captured": "2026-06-08",
+      "archetype": "warm-editorial",
+      "mood": "calm, trustworthy",
+      "fontPair": "Epilogue/Public Sans",
+      "adjectives": [
+        "professional",
+        "approachable",
+        "warm",
+        "clinical-yet-human",
+        "family-focused",
+        "trustworthy"
+      ]
+    },
+    {
+      "slug": "dentiq",
+      "tag": "own",
+      "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/dentiq",
+      "captured": "2026-06-08",
+      "archetype": "magazine-split",
+      "mood": "clinical-warm",
+      "fontPair": "Manrope/Mulish",
+      "adjectives": [
+        "professional-approachable",
+        "nature-inspired",
+        "trust-forward",
+        "refined-accessible"
+      ]
+    },
+    {
+      "slug": "arizonabiltmoredentistry",
+      "tag": "own",
+      "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/arizonabiltmoredentistry",
+      "captured": "2026-06-08",
+      "archetype": "editorial-asymmetric",
+      "mood": "warm, professional",
+      "fontPair": "Epilogue/Public Sans",
+      "adjectives": [
+        "refined",
+        "trustworthy",
+        "warm-earthy",
+        "clinical-approachable",
+        "editorial-modern"
+      ]
+    },
+    {
+      "slug": "butterflybraces",
+      "tag": "own",
+      "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/butterfly-orthodontics",
+      "captured": "2026-06-06",
+      "archetype": "warm-editorial",
+      "mood": "professional, warm",
+      "fontPair": "Manrope/Mulish",
+      "adjectives": [
+        "clinical-approachable",
+        "trust-forward",
+        "modern-dental",
+        "patient-centric",
+        "accessible"
+      ]
+    },
+    {
+      "slug": "inspo-notion",
+      "tag": "inspo",
+      "source": "https://getdesign.md/notion/design-md",
+      "captured": "2026-06-09",
+      "archetype": "warm-editorial",
+      "mood": "warm minimal",
+      "fontPair": "Notion Serif/Inter",
+      "adjectives": [
+        "warm",
+        "editorial",
+        "approachable",
+        "paper-soft",
+        "readable"
+      ],
+      "dentalMoods": [
+        "warm-neighborhood",
+        "soft-gentle"
+      ]
+    },
+    {
+      "slug": "inspo-cal",
+      "tag": "inspo",
+      "source": "https://getdesign.md/cal/design-md",
+      "captured": "2026-06-09",
+      "archetype": "centered-classic",
+      "mood": "clean neutral",
+      "fontPair": "Cal Sans/Inter",
+      "adjectives": [
+        "developer-clean",
+        "neutral",
+        "trustworthy",
+        "uncluttered",
+        "functional"
+      ],
+      "dentalMoods": [
+        "warm-neighborhood",
+        "clean-clinical"
+      ]
+    },
+    {
+      "slug": "inspo-airbnb",
+      "tag": "inspo",
+      "source": "https://getdesign.md/airbnb/design-md",
+      "captured": "2026-06-09",
+      "archetype": "card-heavy",
+      "mood": "warm inviting",
+      "fontPair": "Cereal/Cereal",
+      "adjectives": [
+        "warm",
+        "photography-led",
+        "community",
+        "rounded",
+        "hospitable"
+      ],
+      "dentalMoods": [
+        "warm-neighborhood"
+      ]
+    },
+    {
+      "slug": "inspo-linear",
+      "tag": "inspo",
+      "source": "https://getdesign.md/linear.app/design-md",
+      "captured": "2026-06-09",
+      "archetype": "minimal-brutalist",
+      "mood": "cool precise",
+      "fontPair": "Inter/Inter",
+      "adjectives": [
+        "precise",
+        "minimal",
+        "engineered",
+        "cool-neutral",
+        "high-contrast"
+      ],
+      "dentalMoods": [
+        "modern-premium",
+        "clean-clinical"
+      ]
+    },
+    {
+      "slug": "inspo-vercel",
+      "tag": "inspo",
+      "source": "https://getdesign.md/vercel/design-md",
+      "captured": "2026-06-09",
+      "archetype": "minimal-brutalist",
+      "mood": "monochrome precise",
+      "fontPair": "Geist/Geist",
+      "adjectives": [
+        "monochrome",
+        "confident",
+        "technical-premium",
+        "sparse",
+        "sharp"
+      ],
+      "dentalMoods": [
+        "modern-premium"
+      ]
+    },
+    {
+      "slug": "inspo-stripe",
+      "tag": "inspo",
+      "source": "https://getdesign.md/stripe/design-md",
+      "captured": "2026-06-09",
+      "archetype": "magazine-split",
+      "mood": "premium confident",
+      "fontPair": "sohne/sohne",
+      "adjectives": [
+        "premium",
+        "gradient-accent",
+        "editorial",
+        "confident",
+        "refined"
+      ],
+      "dentalMoods": [
+        "modern-premium"
+      ]
+    },
+    {
+      "slug": "inspo-sanity",
+      "tag": "inspo",
+      "source": "https://getdesign.md/sanity/design-md",
+      "captured": "2026-06-09",
+      "archetype": "editorial-asymmetric",
+      "mood": "editorial bold",
+      "fontPair": "Inter/IBM Plex Mono",
+      "adjectives": [
+        "editorial",
+        "bold-type",
+        "dark-first",
+        "coral-accent",
+        "confident"
+      ],
+      "dentalMoods": [
+        "modern-premium"
+      ]
+    },
+    {
+      "slug": "inspo-framer",
+      "tag": "inspo",
+      "source": "https://getdesign.md/framer/design-md",
+      "captured": "2026-06-09",
+      "archetype": "poster-hero",
+      "mood": "design-forward bold",
+      "fontPair": "Inter/Inter",
+      "adjectives": [
+        "bold",
+        "motion-led",
+        "design-forward",
+        "high-impact",
+        "confident"
+      ],
+      "dentalMoods": [
+        "modern-premium"
+      ]
+    },
+    {
+      "slug": "inspo-supabase",
+      "tag": "inspo",
+      "source": "https://getdesign.md/supabase/design-md",
+      "captured": "2026-06-09",
+      "archetype": "centered-classic",
+      "mood": "technical trustworthy",
+      "fontPair": "Circular/Circular",
+      "adjectives": [
+        "technical",
+        "trustworthy",
+        "emerald-accent",
+        "developer-clean",
+        "structured"
+      ],
+      "dentalMoods": [
+        "clean-clinical",
+        "modern-premium"
+      ]
+    },
+    {
+      "slug": "inspo-ibm",
+      "tag": "inspo",
+      "source": "https://getdesign.md/ibm/design-md",
+      "captured": "2026-06-09",
+      "archetype": "centered-classic",
+      "mood": "structured clinical",
+      "fontPair": "IBM Plex Sans/IBM Plex Sans",
+      "adjectives": [
+        "structured",
+        "enterprise",
+        "precise",
+        "clinical",
+        "authoritative"
+      ],
+      "dentalMoods": [
+        "clean-clinical"
+      ]
+    },
+    {
+      "slug": "inspo-hashicorp",
+      "tag": "inspo",
+      "source": "https://getdesign.md/hashicorp/design-md",
+      "captured": "2026-06-09",
+      "archetype": "minimal-brutalist",
+      "mood": "enterprise clean",
+      "fontPair": "Inter/Inter",
+      "adjectives": [
+        "enterprise",
+        "monochrome",
+        "precise",
+        "no-nonsense",
+        "trustworthy"
+      ],
+      "dentalMoods": [
+        "clean-clinical"
+      ]
+    },
+    {
+      "slug": "inspo-mintlify",
+      "tag": "inspo",
+      "source": "https://getdesign.md/mintlify/design-md",
+      "captured": "2026-06-09",
+      "archetype": "warm-editorial",
+      "mood": "calm readable",
+      "fontPair": "Inter/Inter",
+      "adjectives": [
+        "calm",
+        "readable",
+        "green-accent",
+        "documentation-clean",
+        "gentle"
+      ],
+      "dentalMoods": [
+        "soft-gentle",
+        "clean-clinical"
+      ]
+    },
+    {
+      "slug": "inspo-clay",
+      "tag": "inspo",
+      "source": "https://getdesign.md/clay/design-md",
+      "captured": "2026-06-09",
+      "archetype": "warm-editorial",
+      "mood": "soft organic",
+      "fontPair": "Fraunces/DM Sans",
+      "adjectives": [
+        "organic",
+        "soft",
+        "art-directed",
+        "warm",
+        "gentle"
+      ],
+      "dentalMoods": [
+        "soft-gentle",
+        "warm-neighborhood"
+      ]
+    },
+    {
+      "slug": "inspo-resend",
+      "tag": "inspo",
+      "source": "https://getdesign.md/resend/design-md",
+      "captured": "2026-06-09",
+      "archetype": "minimal-brutalist",
+      "mood": "minimal dark-premium",
+      "fontPair": "Inter/IBM Plex Mono",
+      "adjectives": [
+        "minimal",
+        "dark-premium",
+        "developer",
+        "sparse",
+        "confident"
+      ],
+      "dentalMoods": [
+        "modern-premium",
+        "clean-clinical"
+      ]
+    },
+    {
+      "slug": "inspo-posthog",
+      "tag": "inspo",
+      "source": "https://getdesign.md/posthog/design-md",
+      "captured": "2026-06-09",
+      "archetype": "card-heavy",
+      "mood": "warm playful",
+      "fontPair": "Matter SQ/Matter SQ",
+      "adjectives": [
+        "playful-controlled",
+        "warm",
+        "data-forward",
+        "approachable",
+        "distinctive"
+      ],
+      "dentalMoods": [
+        "warm-neighborhood"
+      ]
+    },
+    {
+      "slug": "inspo-figma",
+      "tag": "inspo",
+      "source": "https://getdesign.md/figma/design-md",
+      "captured": "2026-06-09",
+      "archetype": "magazine-split",
+      "mood": "playful professional",
+      "fontPair": "Inter/Inter",
+      "adjectives": [
+        "playful",
+        "professional",
+        "colorful-disciplined",
+        "creative",
+        "confident"
+      ],
+      "dentalMoods": [
+        "modern-premium",
+        "warm-neighborhood"
+      ]
+    },
+    {
+      "slug": "anti-ai-dental-template",
+      "tag": "anti",
+      "source": "design-principles-core.md §A.9",
+      "captured": "2026-06-09",
+      "archetype": "card-heavy",
+      "mood": "generic template",
+      "fontPair": "Inter/Inter",
+      "adjectives": [
+        "generic",
+        "template-default",
+        "ai-generated",
+        "interchangeable",
+        "safe-bland"
+      ],
+      "dentalMoods": [
+        "warm-neighborhood",
+        "modern-premium",
+        "clean-clinical",
+        "soft-gentle"
+      ]
+    },
+    {
+      "slug": "anti-purple-gradient",
+      "tag": "anti",
+      "source": "taste-frontend.md LILA BAN",
+      "captured": "2026-06-09",
+      "archetype": "centered-classic",
+      "mood": "neon gradient",
+      "fontPair": "Inter/Inter",
+      "adjectives": [
+        "purple-gradient",
+        "neon",
+        "ai-slop",
+        "startup-generic",
+        "over-saturated"
+      ],
+      "dentalMoods": [
+        "warm-neighborhood",
+        "modern-premium",
+        "clean-clinical",
+        "soft-gentle"
+      ]
+    },
+    {
+      "slug": "anti-three-card-row",
+      "tag": "anti",
+      "source": "design-principles-core.md §A.5",
+      "captured": "2026-06-09",
+      "archetype": "card-heavy",
+      "mood": "card-grid default",
+      "fontPair": "Poppins/Open Sans",
+      "adjectives": [
+        "three-card-row",
+        "icon-tiles",
+        "template-grid",
+        "monotonous",
+        "card-overuse"
+      ],
+      "dentalMoods": [
+        "warm-neighborhood",
+        "modern-premium",
+        "clean-clinical",
+        "soft-gentle"
+      ]
+    },
+    {
+      "slug": "anti-centered-dark-hero",
+      "tag": "anti",
+      "source": "design-principles-core.md §B hard penalties",
+      "captured": "2026-06-09",
+      "archetype": "centered-classic",
+      "mood": "dark overlay hero",
+      "fontPair": "Montserrat/Roboto",
+      "adjectives": [
+        "centered-dark-hero",
+        "stock-photo",
+        "overlay-text",
+        "cliché",
+        "template-hero"
+      ],
+      "dentalMoods": [
+        "warm-neighborhood",
+        "modern-premium",
+        "clean-clinical",
+        "soft-gentle"
+      ]
+    },
+    {
+      "slug": "anti-inter-premium",
+      "tag": "anti",
+      "source": "taste-frontend.md Rule 1 ANTI-SLOP",
+      "captured": "2026-06-09",
+      "archetype": "centered-classic",
+      "mood": "inter-premium-fake",
+      "fontPair": "Inter/Inter",
+      "adjectives": [
+        "inter-display",
+        "flat-hierarchy",
+        "premium-fake",
+        "generic-sans",
+        "no-character"
+      ],
+      "dentalMoods": [
+        "warm-neighborhood",
+        "soft-gentle",
+        "modern-premium"
       ]
     }
   ]

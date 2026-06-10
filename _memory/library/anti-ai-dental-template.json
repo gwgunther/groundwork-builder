@@ -1,0 +1,60 @@
+{
+  "palette": {
+    "primary": "#2563EB",
+    "secondary": "#1E40AF",
+    "accent": "#8B5CF6",
+    "background": "#FFFFFF",
+    "mood": "generic template"
+  },
+  "type": {
+    "display": "Inter",
+    "body": "Inter",
+    "scale": "standard",
+    "contrast": "low"
+  },
+  "layout": {
+    "archetype": "card-heavy",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "centered",
+    "imageTreatment": "clinical-bright"
+  },
+  "sections": [
+    "hero",
+    "services",
+    "services",
+    "reviews",
+    "cta"
+  ],
+  "cards": "elevated",
+  "motion": "subtle",
+  "radius": "lg",
+  "fontPair": "Inter/Inter",
+  "adjectives": [
+    "generic",
+    "template-default",
+    "ai-generated",
+    "interchangeable",
+    "safe-bland"
+  ],
+  "slug": "anti-ai-dental-template",
+  "tag": "anti",
+  "source": "design-principles-core.md §A.9",
+  "captured": "2026-06-09",
+  "note": "anti-pattern: Inter display + hospital blue; 3-equal service cards; centered hero over stock photo; gradient purple CTA",
+  "dentalMoods": [
+    "warm-neighborhood",
+    "modern-premium",
+    "clean-clinical",
+    "soft-gentle"
+  ],
+  "borrowableTraits": [],
+  "avoidPatterns": [
+    "Inter display + hospital blue",
+    "3-equal service cards",
+    "centered hero over stock photo",
+    "gradient purple CTA"
+  ]
+}

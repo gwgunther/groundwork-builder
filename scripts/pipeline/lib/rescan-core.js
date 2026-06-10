@@ -36,6 +36,12 @@ import { runAgenticScan }               from './agentic-scanner.js';
 import { diffFindings, summarizeDiff }  from './findings-diff.js';
 import { generateAuditReports }         from './audit-report-generator.js';
 import { enrichFinding }                from './findings.js';
+import {
+  annotateDiffForPreview,
+  productionDomainLabel,
+  reconcileAgenticAfterFindings,
+  softenGbpMismatchForPreview,
+} from './preview-rescan.js';
 
 // Helpers for the GBP-vs-audit-URL cross-source check.
 function getHostname(url) {
@@ -98,6 +104,14 @@ export async function runRescan({ auditDir, previewUrl, skipGbp = false, placeId
   }
   const beforeFindings = beforeData?.findings || [];
 
+  let silver = null;
+  try {
+    silver = JSON.parse(await readFile(join(dataDir, 'silver.json'), 'utf-8'));
+  } catch { /* optional */ }
+
+  const city = silver?.address?.city || '';
+  const productionDomain = productionDomainLabel(silver, beforeData?.url || previewUrl);
+
   // 2. Refresh baseline audit artifacts from original findings (keeps
   // audit-data.json + sales one-pager in sync with latest templates).
   try {
@@ -121,6 +135,7 @@ export async function runRescan({ auditDir, previewUrl, skipGbp = false, placeId
       canonicalUrl: p.canonicalUrl,
       images: (p.images || []).map(img => ({ alt: img.alt })),
       headings: p.headings,
+      firstParagraph: (p.paragraphs || []).find(t => t.length > 40)?.slice(0, 320) || null,
     })),
   };
   await writeFile(
@@ -129,8 +144,30 @@ export async function runRescan({ auditDir, previewUrl, skipGbp = false, placeId
     'utf-8',
   );
 
-  // 4. Run scanners
-  const techAudit  = runTechAudit(bronze, null);
+  // 4. PageSpeed on preview (fair performance before/after when API key is set)
+  let pagespeedAfter = null;
+  if (process.env.GOOGLE_PAGESPEED_API_KEY) {
+    try {
+      const { runPageSpeed } = await import('./pagespeed.js');
+      pagespeedAfter = await runPageSpeed(previewUrl);
+      await writeFile(
+        join(dataDir, 'pagespeed-after.json'),
+        JSON.stringify(pagespeedAfter, null, 2),
+        'utf-8',
+      );
+      if (verbose) {
+        const perf = pagespeedAfter?.mobile?.performance;
+        console.log(`[Rescan] PageSpeed on preview: mobile perf ${perf ?? '—'}`);
+      }
+    } catch (err) {
+      console.warn(`[Rescan] PageSpeed on preview failed (non-fatal): ${err.message}`);
+    }
+  } else if (verbose) {
+    console.warn('[Rescan] GOOGLE_PAGESPEED_API_KEY not set — performance checks marked not measured');
+  }
+
+  // 5. Run scanners
+  const techAudit  = runTechAudit(bronze, pagespeedAfter, { city, markUnmeasured: true });
   const trustScan  = runTrustScan(bronze);
   const hostingScan = await runHostingScan(bronze);
 
@@ -151,8 +188,11 @@ export async function runRescan({ auditDir, previewUrl, skipGbp = false, placeId
   }
 
   // Cross-source check
-  const mismatch = buildGbpWebsiteMismatchFinding(previewUrl, gbpScan);
-  if (mismatch) gbpScan.findings.push(mismatch);
+  let mismatch = buildGbpWebsiteMismatchFinding(previewUrl, gbpScan);
+  if (mismatch) {
+    mismatch = softenGbpMismatchForPreview(mismatch, previewUrl, productionDomain);
+    gbpScan.findings.push(mismatch);
+  }
 
   // Conversion scan (re-fetches preview URL)
   let conversionScan = { findings: [], summary: { critical: 0, warnings: 0, passed: 0 }, meta: {} };
@@ -173,7 +213,7 @@ export async function runRescan({ auditDir, previewUrl, skipGbp = false, placeId
     console.warn(`[Rescan] Agentic scan failed (non-fatal): ${err.message}`);
   }
 
-  // 5. Combine + diff
+  // 6. Combine + diff
   const afterFindings = [
     ...techAudit.findings,
     ...trustScan.findings,
@@ -182,10 +222,14 @@ export async function runRescan({ auditDir, previewUrl, skipGbp = false, placeId
     ...conversionScan.findings,
     ...agenticScan.findings,
   ];
-  const diff = diffFindings(beforeFindings, afterFindings);
+
+  reconcileAgenticAfterFindings(afterFindings, agenticScan.meta, beforeFindings);
+
+  let diff = diffFindings(beforeFindings, afterFindings);
+  diff = annotateDiffForPreview(diff, { previewUrl, productionDomain });
   const summary = summarizeDiff(diff);
 
-  // 6. Write JSON artifacts
+  // 7. Write JSON artifacts
   await mkdir(dataDir, { recursive: true });
   await writeFile(
     join(dataDir, 'findings-after.json'),
@@ -198,19 +242,10 @@ export async function runRescan({ auditDir, previewUrl, skipGbp = false, placeId
     'utf-8',
   );
 
-  // 7. Render before/after report HTML (does not replace sales one-pager)
-  let practiceName = 'Site Audit';
-  let pagespeed = null;
-  let silver = null;
+  // 8. Render before/after report HTML (does not replace sales one-pager)
+  let practiceName = silver?.practice?.name || 'Site Audit';
   let aiAudit = null;
   let bronzeBefore = null;
-  try {
-    silver = JSON.parse(await readFile(join(dataDir, 'silver.json'), 'utf-8'));
-    practiceName = silver?.practice?.name || practiceName;
-  } catch { /* optional */ }
-  try {
-    pagespeed = JSON.parse(await readFile(join(dataDir, 'pagespeed.json'), 'utf-8'));
-  } catch { /* optional */ }
   try {
     aiAudit = JSON.parse(await readFile(join(dataDir, 'ai-audit.json'), 'utf-8'));
   } catch { /* optional */ }
@@ -221,7 +256,7 @@ export async function runRescan({ auditDir, previewUrl, skipGbp = false, placeId
   await generateAuditReports(auditDir, {
     url: previewUrl,
     practiceName,
-    pagespeed,
+    pagespeed: pagespeedAfter,
     aiAudit,
     scraped: silver,
     bronze: bronzeBefore,
@@ -236,7 +271,7 @@ export async function runRescan({ auditDir, previewUrl, skipGbp = false, placeId
     },
     gbpMeta: gbpScan.meta || null,
     agenticBrowsing: agenticScan.meta || null,
-    diff: { summary, diff },
+    diff: { summary, diff, productionDomain },
     outputFilename: 'audit-report-after',
   });
 

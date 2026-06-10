@@ -3,6 +3,8 @@
  * Output: audit-summary.html (hosted at /audits/<slug>/).
  */
 
+import { renderFindingEvidenceHtml } from './finding-evidence.js';
+
 const SALES_CSS = `
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -105,6 +107,19 @@ const SALES_CSS = `
   .evidence-row.head span:first-child { border-right: 1px solid var(--border-light); }
   .evidence-foot { font-family: var(--font-ui); font-size: 11px; color: var(--mid-gray); padding: 7px 12px; background: var(--surface-2); border-top: 1px solid var(--border-light); }
   @media (max-width: 560px) { .evidence-row { grid-template-columns: 1fr; } .evidence-row .url { border-right: none; border-bottom: 1px dashed var(--border-light); } .evidence-row.head span:first-child { border-right: none; } }
+  .finding-page-evidence { margin-top: 12px; border: 1px solid var(--border-light); border-radius: var(--radius); overflow: hidden; }
+  .finding-page-evidence summary { cursor: pointer; padding: 10px 14px; font-size: 12px; font-weight: 600; background: var(--surface-2); color: var(--sage-dark); list-style: none; }
+  .finding-page-evidence summary::-webkit-details-marker { display: none; }
+  .page-evidence-card { padding: 12px 14px; border-bottom: 1px solid var(--border-light); }
+  .page-evidence-card:last-child { border-bottom: none; }
+  .page-evidence-path { font-size: 12px; font-weight: 700; font-family: var(--mono); color: var(--sage-dark); text-decoration: none; display: inline-block; margin-bottom: 8px; }
+  .page-evidence-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pe-side { border-radius: 4px; padding: 8px 10px; font-size: 12px; line-height: 1.45; }
+  .pe-side.pe-now { background: #FCF4E8; border: 1px solid #E8D4A8; }
+  .pe-side.pe-good { background: var(--sage-tint); border: 1px solid var(--sage); }
+  .pe-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; color: var(--mid-gray); }
+  .page-evidence-foot { font-size: 11px; color: var(--mid-gray); padding: 7px 12px; background: var(--surface-2); border-top: 1px solid var(--border-light); }
+  @media (max-width: 560px) { .page-evidence-compare { grid-template-columns: 1fr; } }
   .offer { background: var(--charcoal); border-radius: var(--radius); padding: 38px; margin-top: 34px; text-align: center; }
   .offer-headline { font-size: 26px; font-weight: 400; line-height: 1.3; letter-spacing: -0.3px; color: var(--on-dark); margin-bottom: 12px; }
   .offer-headline em { font-style: italic; color: #fff; }
@@ -419,47 +434,7 @@ function renderLlmsFindingEvidence(ev, opts = {}) {
 }
 
 function renderEvidence(er) {
-  const valCol = (er.columns || []).find(c => c !== 'url') || 'value';
-  const valHeader = valCol === 'title' ? 'Its title tag' : valCol === 'unlabeled' ? 'Unlabeled photos' : 'Detail';
-  const summaryLabel = evidenceSummaryLabel(er, valCol);
-
-  const rows = er.rows.map(r => {
-    const path = shortPath(r.url);
-    const val = r[valCol] ?? r.title ?? r.meta ?? r.words ?? r.unlabeled ?? '';
-    const quoted = valCol === 'title' ? `"${val}"` : val;
-    return `<div class="evidence-row"><span class="url"><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(path)}</a></span><span class="val">${esc(quoted)}</span></div>`;
-  }).join('');
-
-  const foot = er.note
-    || (er.total > er.rows.length
-      ? `${er.rows.length} of ${er.total} affected pages · scroll for more`
-      : `All ${er.total} pages`);
-
-  return `<details class="evidence">
-    <summary>${esc(summaryLabel)}</summary>
-    <div class="evidence-table">
-      <div class="evidence-scroll">
-        <div class="evidence-row head"><span>Page (click to verify)</span><span>${esc(valHeader)}</span></div>
-        ${rows}
-      </div>
-      <div class="evidence-foot">${esc(foot)}</div>
-    </div>
-  </details>`;
-}
-
-function evidenceSummaryLabel(er, valCol) {
-  if (valCol === 'title') return `Show all ${er.total} pages with this issue`;
-  if (valCol === 'unlabeled') return `Show all ${er.total} pages with unlabeled photos`;
-  return `Show all ${er.total} affected pages`;
-}
-
-function shortPath(url) {
-  try {
-    const u = new URL(url);
-    return u.pathname === '/' ? '/' : u.pathname;
-  } catch {
-    return url;
-  }
+  return renderFindingEvidenceHtml(er, esc, { open: false });
 }
 
 function formatDisplayDate(iso) {

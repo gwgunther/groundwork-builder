@@ -1,0 +1,57 @@
+{
+  "palette": {
+    "primary": "#7C3AED",
+    "secondary": "#4F46E5",
+    "accent": "#EC4899",
+    "background": "#F5F3FF",
+    "mood": "neon gradient"
+  },
+  "type": {
+    "display": "Inter",
+    "body": "Inter",
+    "scale": "editorial",
+    "contrast": "medium"
+  },
+  "layout": {
+    "archetype": "centered-classic",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "centered",
+    "imageTreatment": "none"
+  },
+  "sections": [
+    "hero",
+    "services",
+    "cta"
+  ],
+  "cards": "elevated",
+  "motion": "expressive",
+  "radius": "pill",
+  "fontPair": "Inter/Inter",
+  "adjectives": [
+    "purple-gradient",
+    "neon",
+    "ai-slop",
+    "startup-generic",
+    "over-saturated"
+  ],
+  "slug": "anti-purple-gradient",
+  "tag": "anti",
+  "source": "taste-frontend.md LILA BAN",
+  "captured": "2026-06-09",
+  "note": "anti-pattern: purple-to-pink gradients; neon button glows; electric blue accents on white",
+  "dentalMoods": [
+    "warm-neighborhood",
+    "modern-premium",
+    "clean-clinical",
+    "soft-gentle"
+  ],
+  "borrowableTraits": [],
+  "avoidPatterns": [
+    "purple-to-pink gradients",
+    "neon button glows",
+    "electric blue accents on white"
+  ]
+}

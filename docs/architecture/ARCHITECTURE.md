@@ -91,10 +91,16 @@ _memory/                  # Local persistent state (image cache, run log, design
 | `lib/page-generator.js` | Service hub + detail pages, blog stubs |
 | `lib/generate-agent-files.js` | llms.txt, llms-full.txt, webmcp.json |
 | `lib/image-downloader.js` | Download + classify practice images |
+| `lib/ensure-image-alts.js` | Role-based alt text fallbacks before download |
+| `lib/a11y-optimize.js` | Pre-build a11y: sidecar alt patch + gallery page inject |
+| `lib/design-library-catalog.js` | Curated inspo/anti fingerprints + mood-aware sampling |
+| `lib/import-design-library.js` | Idempotent import of catalog → `_memory/library/` |
+| `lib/distill-design.js` | Distill URLs/repos into library fingerprints; `sampleLibrary()` |
+| `lib/ai-director.js` | Creative Director: 3 candidates, mood-matched inspo, archetype nudge |
 | `lib/designer-agent.js` | Design eval/refine loop: screenshot → critique → skill → rebuild |
 | `lib/ai-seo-audit.js` | Per-page SEO scoring (pre-build AND post-build) |
 | `lib/skill-seo-optimize.js` | SEO fix application + rebuild loop |
-| `lib/audit-a11y.js` | axe-core accessibility audit via Playwright |
+| `lib/a11y-audit.js` | axe-core accessibility audit via Playwright (post-build gate) |
 | `lib/audit-agentic.js` | Lighthouse Agentic Browsing 4-check (deterministic) |
 | `lib/audit-ai-citability.js` | Claude + GPT + Gemini local-search mention check |
 | `lib/report-generator.js` | Internal pipeline report (index.html) |

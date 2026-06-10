@@ -17,6 +17,7 @@
  */
 
 import { readFile, writeFile } from 'node:fs/promises';
+import { composeMetaDescription } from './finding-evidence.js';
 import { resolve } from 'node:path';
 import { expandContent } from './ai-content-expand.js';
 import { isTargetInWorklist } from './fix-worklist.js';
@@ -227,24 +228,6 @@ async function fixMetaDescription({ outputDir, page, merged }) {
 
   await writeFile(absPath, patched, 'utf8');
   return { status: 'fixed', detail: `Wrote ${composed.length}-char description to ${sourceFile}` };
-}
-
-function composeMetaDescription({ h1, intro, practice, city }) {
-  // Prefer using the page's actual content (intro paragraph, trimmed)
-  // over composing from the H1. Falls through to a safe template-free
-  // composition if no intro is available.
-  if (intro && intro.length >= 80) {
-    let d = intro.replace(/\s+/g, ' ').trim();
-    if (d.length > 158) d = d.slice(0, 155).replace(/\s+\S*$/, '') + '…';
-    return d;
-  }
-  if (h1) {
-    const tail = practice ? ` at ${practice}` : '';
-    const loc  = city ? ` in ${city}` : '';
-    const candidate = `${h1}${tail}${loc}.`;
-    if (candidate.length >= 80 && candidate.length <= 160) return candidate;
-  }
-  return null;
 }
 
 // ---------------------------------------------------------------------------

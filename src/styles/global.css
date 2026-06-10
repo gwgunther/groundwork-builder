@@ -6,8 +6,24 @@
     scroll-behavior: smooth;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   body {
     @apply font-sans antialiased text-neutral-dark;
+  }
+
+  /* Keyboard focus — visible ring without mouse-click outlines */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-primary, #2a6b5e);
+    outline-offset: 2px;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
   }
 
   h1 {
@@ -44,6 +60,10 @@
     @apply text-neutral-mid leading-relaxed;
   }
 
+  .prose-dental a {
+    @apply text-brand-primary underline underline-offset-2 decoration-brand-primary/40 hover:decoration-brand-primary;
+  }
+
   .prose-dental p {
     @apply mb-4;
   }
@@ -70,5 +90,34 @@
 
   .nav-link {
     @apply font-medium transition-colors duration-200 text-neutral-dark hover:text-brand-primary;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100%;
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    border-radius: 0.375rem;
+    background: var(--color-neutral-dark, #334155);
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

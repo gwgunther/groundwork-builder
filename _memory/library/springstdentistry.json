@@ -1,35 +1,26 @@
 {
-  "tag": "own",
+  "palette": {
+    "primary": "#006b6b",
+    "secondary": "#1a7fa8",
+    "accent": "#c49a2e",
+    "background": "#f0f7f7",
+    "mood": "clinical-warm"
+  },
+  "type": {
+    "display": "Cabinet Grotesk",
+    "body": "Satoshi",
+    "scale": "standard",
+    "contrast": "high"
+  },
+  "layout": {
+    "archetype": "warm-editorial",
+    "density": "balanced",
+    "grid": "12col"
+  },
   "hero": {
     "variant": "full-bleed",
     "imageTreatment": "warm-documentary"
   },
-  "note": "auto-distilled at build time",
-  "slug": "springstdentistry",
-  "type": {
-    "body": "DM Sans",
-    "scale": "standard",
-    "display": "Plus Jakarta Sans",
-    "contrast": "high"
-  },
-  "cards": "soft-shadow",
-  "layout": {
-    "grid": "12col",
-    "density": "balanced",
-    "archetype": "poster-hero"
-  },
-  "motion": "subtle",
-  "radius": "md",
-  "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/springstdentistry",
-  "palette": {
-    "mood": "professional, warm",
-    "accent": "#b8924a",
-    "primary": "#0e5c6e",
-    "secondary": "#1a3d4f",
-    "background": "#f0f7f8"
-  },
-  "captured": "2026-06-01",
-  "fontPair": "Plus Jakarta Sans / DM Sans",
   "sections": [
     "hero",
     "doctor-intro",
@@ -40,11 +31,21 @@
     "stat-bar",
     "cta"
   ],
+  "cards": "soft-shadow",
+  "motion": "subtle",
+  "radius": "md",
+  "fontPair": "Cabinet Grotesk/Satoshi",
   "adjectives": [
-    "trustworthy",
-    "accessible",
-    "refined",
-    "patient-focused",
-    "locally-rooted"
-  ]
+    "approachable",
+    "professional",
+    "teal-accented",
+    "trust-forward",
+    "locally-rooted",
+    "patient-centric"
+  ],
+  "slug": "springstdentistry",
+  "source": "/Users/garrettgunther/Projects/groundwork-builder/clients/_reference-test",
+  "tag": "own",
+  "captured": "2026-06-10",
+  "note": "auto-distilled at build time"
 }

@@ -1,0 +1,58 @@
+{
+  "palette": {
+    "primary": "#FFFFFF",
+    "secondary": "#1F2937",
+    "accent": "#3B82F6",
+    "background": "#111827",
+    "mood": "dark overlay hero"
+  },
+  "type": {
+    "display": "Montserrat",
+    "body": "Roboto",
+    "scale": "editorial",
+    "contrast": "low"
+  },
+  "layout": {
+    "archetype": "centered-classic",
+    "density": "balanced",
+    "grid": "12col"
+  },
+  "hero": {
+    "variant": "centered",
+    "imageTreatment": "clinical-bright"
+  },
+  "sections": [
+    "hero",
+    "stat-bar",
+    "services",
+    "cta"
+  ],
+  "cards": "soft-shadow",
+  "motion": "subtle",
+  "radius": "md",
+  "fontPair": "Montserrat/Roboto",
+  "adjectives": [
+    "centered-dark-hero",
+    "stock-photo",
+    "overlay-text",
+    "cliché",
+    "template-hero"
+  ],
+  "slug": "anti-centered-dark-hero",
+  "tag": "anti",
+  "source": "design-principles-core.md §B hard penalties",
+  "captured": "2026-06-09",
+  "note": "anti-pattern: white text centered on dark overlay; two CTAs + microlinks under hero; stock smile photo backdrop",
+  "dentalMoods": [
+    "warm-neighborhood",
+    "modern-premium",
+    "clean-clinical",
+    "soft-gentle"
+  ],
+  "borrowableTraits": [],
+  "avoidPatterns": [
+    "white text centered on dark overlay",
+    "two CTAs + microlinks under hero",
+    "stock smile photo backdrop"
+  ]
+}

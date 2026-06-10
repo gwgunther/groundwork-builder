@@ -61,8 +61,9 @@ flowchart TD
         A1["Inject template\nsite.ts · nav · tailwind · CSS tokens"]
         A2["Generate pages\nhubs · blog stubs · redirects"]
         A3["Agent files\nllms.txt · llms-full.txt · webmcp.json"]
-        A4["Download + bind images\n▸ image-roles.json"]
-        A1 --> A2 --> A3 --> A4
+        A4["Alt text + download + bind images\n▸ image-roles.json + alts map"]
+        A5["A11y optimize  skip link · gallery alts\n▸ gallery.astro when images exist"]
+        A1 --> A2 --> A3 --> A4 --> A5
     end
 
     BUILD["④  npm run build  →  dist/"]
@@ -180,6 +181,21 @@ The **site audit** and **PageSpeed** scores feed `external-report.html` (client-
 
 **Content Map + Write** runs as two steps: Map audits existing content quality (keep/optimize/create decisions per section), Write generates copy against the plan. If either fails, the pipeline continues in legacy single-pass mode.
 
+**Creative Director** (runs during 2e/2f assemble) samples `_memory/library/`:
+- **own** — recent builds to diverge from
+- **inspo** — mood-matched external references (Notion, Linear, Stripe, etc.)
+- **anti** — explicit AI-slop patterns to avoid
+
+Catalog source: `scripts/pipeline/config/design-library-catalog.json`. Import once (or after edits):
+
+```bash
+node scripts/pipeline/import-design-library-cli.js --validate   # schema check
+node scripts/pipeline/import-design-library-cli.js              # write to _memory/library/
+node scripts/pipeline/import-design-library-cli.js --dry-run    # preview only
+```
+
+After each ship, `distill-design.js` auto-adds the build as `tag: own` so future runs diverge from it.
+
 ---
 
 ### Phase 3 · Assemble
@@ -192,8 +208,10 @@ The **site audit** and **PageSpeed** scores feed `external-report.html` (client-
 | Redirects | 3b-bis | `public/_redirects` (Cloudflare 301s from old URL structure) |
 | Blog stubs | 3c | `src/content/blog/<slug>.md` |
 | Agent files | 3c-bis | `public/llms.txt`, `public/llms-full.txt`, `public/.well-known/webmcp.json` |
+| Ensure image alt text | 3c-ter | Fills missing `alt` on `images.items[]` before download (role-based fallbacks) |
 | Download images | 3d | `public/images/` + `image-source.json` sidecar |
-| Bind image roles | 3e | `public/images/image-roles.json` |
+| Bind image roles | 3e | `public/images/image-roles.json` (+ `alts` map: localPath → description) |
+| A11y optimize | 3f | Patches sidecar alts; auto-populates `src/pages/gallery.astro` when gallery images exist |
 
 ---
 
@@ -257,6 +275,8 @@ All three run against `dist/` after the SEO loop. All are non-fatal (failures go
 
 **A11y (axe-core):** Playwright browser + axe-core. Critical + serious violations surface a ship-gate warning. `_pipeline/11b-a11y-audit.json`.
 
+**Proactive a11y (before build):** Template ships skip link, `:focus-visible` rings, and `prefers-reduced-motion` in `src/styles/global.css`. Pipeline Phase 3c-ter/3f fills missing image alt text and injects a populated gallery page. Axe still runs post-build as the verification gate — it does not auto-fix violations.
+
 **Agentic 4-check (deterministic, zero AI cost):**
 
 | Check | How |
@@ -299,7 +319,7 @@ Every site we build passes 4/4 by construction (Header ARIA + BaseLayout WebMCP 
 | `_pipeline/07-image-analysis.json` | 1d | AI classification per image URL |
 | `_pipeline/07-inject.json` | 3a | Files injected list |
 | `_pipeline/08-pages.json` | 3b | Pages generated, blog stubs, images downloaded |
-| `_pipeline/09-image-roles.json` | 3e | hero, doctorPortraits, gallery, servicePages roles |
+| `_pipeline/09-image-roles.json` | 3e | hero, doctorPortraits, gallery, servicePages roles, `alts` map |
 | `_pipeline/09-build.json` | 4 | buildSuccess, placeholders, brokenLinks, buildIntegrity |
 | `_pipeline/10-agent.json` | 5 | Designer agent iterations, gate_pass, dimension scores |
 | `_pipeline/11-seo-audit.json` | 6+7 | per-page scores, overall/10, topIssues |
@@ -312,7 +332,7 @@ Every site we build passes 4/4 by construction (Header ARIA + BaseLayout WebMCP 
 | `public/llms-full.txt` | 3c-bis | Expanded AI context: doctor bios, hours, service descriptions, FAQs |
 | `public/.well-known/webmcp.json` | 3c-bis | Agent-callable action declarations |
 | `public/_redirects` | 3b-bis | 301 redirects from old URL structure |
-| `public/images/image-roles.json` | 3e | Role assignments for all downloaded images |
+| `public/images/image-roles.json` | 3e | Role assignments + `alts` map for all downloaded images |
 | `src/config/design-dna.ts` | 3a-bis | Design system tokens for runtime |
 | `_memory/runs.jsonl` | 9 | Local run log: archetype, fonts, colors, build_success |
 
@@ -350,7 +370,8 @@ Every site we build passes 4/4 by construction (Header ARIA + BaseLayout WebMCP 
 | Merged | Phase 2 intake merger | Silver + intake JSON, normalized | `_pipeline/06-merge.json` |
 | Brand DNA | Phase 2c/2d | `{ palette, typography, mood, archetype, voice }` | `_pipeline/04-brand-dna.json` |
 | Design DNA | Phase 3a-bis director | `{ archetype, heroVariant, designTokens, sectionOrder }` | `src/config/design-dna.ts` |
-| Image roles | Phase 3e vision classifier | `{ hero, doctorPortrait, doctorPortraits, team, service }` | `public/images/image-roles.json` |
+| Image roles | Phase 3e binding bridge | `{ hero, doctorPortrait, doctorPortraits, team, gallery, byPage, alts }` | `public/images/image-roles.json` |
+| Design library | Creative Director (`sampleLibrary`) | `{ own, inspo, anti }` fingerprints | `_memory/library/*.json` |
 | Per-section content | Phase 3b section skills | One `*.content.json` per variant section | `src/components/generated/*.content.json` |
 | Built HTML | Phase 4 Astro build | Static HTML + assets | `dist/` |
 | Coverage audit | Phase 9 diff comparator | `{ findings, summary }` | `_pipeline/coverage-audit.{json,md}` |
@@ -414,6 +435,8 @@ The director picks one variant per section based on archetype. Variants are dete
 - [x] llms-full.txt (expanded AI context: doctor bios, hours, full service descriptions, FAQs)
 - [x] AggregateRating schema — injected when googleRating + reviewCount are present
 - [x] AI Citability audit — Phase 4.67, Claude + optional GPT + optional Gemini
+- [x] Design library catalog — 16 inspo + 5 anti fingerprints (`scripts/pipeline/config/design-library-catalog.json`); mood-aware sampling in Creative Director
+- [x] Proactive a11y — skip link, reduced motion, alt enrichment (3c-ter), gallery inject (3f), axe post-build gate unchanged
 
 ### Pending
 
