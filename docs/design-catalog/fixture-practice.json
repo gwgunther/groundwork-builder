@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "Standing fixture content for design-catalog previews and adaptation mocks. Real shipped content from a past client build — adapt TONE per the reference entry’s voice block; keep facts and structure. Regenerate: npm run catalog:fixture [client-slug].",
-    "sourceClient": "dentiq",
+    "sourceClient": "springstdentistry",
     "generatedFrom": [
       "src/components/generated/*.content.json",
       "_pipeline/01-scrape.json",
@@ -10,231 +10,221 @@
     "internalUseOnly": true
   },
   "practice": {
-    "name": "Dentiq Dentistry",
-    "legalName": "Dentiq Dentistry Houston",
-    "doctor": "Dr. Shreed Sista",
-    "city": "Houston",
-    "phone": "(713) 526-2904",
-    "description": "At Dentiq Dentistry Houston, we are your trusted Houston dentist with positive customer reviews catering to patients of all ages and dental issues. We provide services in various categories of dentistry, such as cosmetic dentistry, restorative dentistry, dental implants, dental bonding, tooth extraction, digital x-rays, tooth cleaning, and more, including your first choice of dentist near me. Our dental office is conveniently located at 1355 W. Gray Street."
+    "name": "Spring St. Dentistry",
+    "doctor": "Dr. Anthony Hoang",
+    "city": "Long Beach",
+    "phone": "(562) 420-8578"
   },
   "hero": {
-    "variant": "split-offset",
-    "eyebrow": "Technology-forward dentistry. Results you can see.",
-    "headline": "Houston's Modern Dental Home at Dentiq",
-    "subheadline": "Dentiq Dentistry combines cutting-edge technology with compassionate care so Houston patients leave every visit with a healthier, more confident smile.",
+    "variant": "split",
+    "eyebrow": "Your smile. Our neighborhood.",
+    "headline": "Long Beach's Trusted Dentist on Spring Street",
+    "subheadline": "Spring St. Dentistry delivers personalized, comfortable dental care for every member of your Long Beach family — from routine cleanings to complete smile transformations.",
     "primaryCta": {
-      "label": "Book Your Dentiq Appointment",
+      "label": "Schedule Your Visit",
       "href": "/schedule"
     },
     "secondaryCta": {
       "label": "Explore Our Services",
       "href": "/services"
     },
-    "phone": "(713) 526-2904",
+    "phone": "(562) 420-8578",
     "hasImage": true
   },
+  "doctorIntro": {
+    "variant": "full-width-card",
+    "eyebrow": "Rooted in Long Beach",
+    "name": "Dr. Anthony Hoang",
+    "credentials": "DMD",
+    "bio": "Dr. Anthony Hoang is a Long Beach and Lakewood native who considers it a genuine privilege to practice dentistry in the community where he grew up. After graduating from Lakewood High School, he went on to earn his undergraduate degree from UC Irvine before receiving his DMD from Tufts University School of Dental Medicine in Boston in 2014. He then completed a General Practice Residency at the Loma Linda VA Medical Center, where he honed his skills providing comprehensive dental care to those who served our country.\n\nWhat drives Dr. Hoang every day is the human side of dentistry — the relationships he builds with patients and the trust they place in him, visit after visit. He has a special gift for putting nervous patients at ease, creating an environment where comfort and quality care go hand in hand. Whether you're coming in for a routine cleaning or a more involved procedure, Dr. Hoang is committed to making sure you feel heard, respected, and well cared for.\n\nAt Spring St. Dentistry, Dr. Hoang brings that same hometown dedication to every appointment. He looks forward to getting to know each patient personally and delivering the high-quality, comprehensive dentistry that this community deserves.",
+    "ctaLabel": "Meet Dr. Hoang",
+    "ctaHref": "/about",
+    "hasPortrait": true
+  },
   "services": {
-    "variant": "two-col-feature",
+    "variant": "alternating-rows",
     "eyebrow": "What We Offer",
-    "heading": "Advanced Dental Care, From Implants to Same-Day Restorations",
-    "subheading": "Dentiq combines cutting-edge technology with comprehensive treatments to restore, align, and perfect your smile.",
+    "heading": "Comprehensive Dental Care on Spring Street",
+    "subheading": "From routine cleanings to complete smile transformations, we offer everything your family needs under one roof.",
     "items": [
-      {
-        "name": "3D Printing",
-        "slug": "3d-printing",
-        "desc": "In-office 3D printing delivers precise dental restorations and appliances faster than ever before."
-      },
-      {
-        "name": "All-On-4 Dental Implants",
-        "slug": "all-on-4-dental-implants",
-        "desc": "Restore a full arch of teeth with just four strategically placed implants, often without bone grafting."
-      },
-      {
-        "name": "Bone and Soft Tissue Grafting",
-        "slug": "bone-and-soft-tissue-grafting",
-        "desc": "Rebuild lost bone and tissue to create a healthy, stable foundation for implants and a natural appearance."
-      },
-      {
-        "name": "Bone Grafting",
-        "slug": "bone-grafting",
-        "desc": "Restore jawbone volume lost to disease or extraction so implants can be placed with lasting success."
-      },
-      {
-        "name": "CBCT Scanner",
-        "slug": "cbct-scanner",
-        "desc": "3D cone beam imaging gives your dentist a complete view of your jaw for safer, more accurate implant planning."
-      },
-      {
-        "name": "CEREC Same Day Crowns",
-        "slug": "cerec-same-day-crowns",
-        "desc": "Get a custom-fitted, permanent crown designed and placed in a single appointment — no temporary needed."
-      },
       {
         "name": "Clear Aligners",
         "slug": "clear-aligners",
-        "desc": "Straighten your teeth discreetly with removable, nearly invisible aligners tailored to your smile."
+        "desc": "Straighten your teeth discreetly with custom aligners that fit your lifestyle and schedule."
+      },
+      {
+        "name": "Cosmetic Dentistry",
+        "slug": "cosmetic-dentistry",
+        "desc": "Enhance your smile's appearance with personalized treatments designed to boost your confidence."
+      },
+      {
+        "name": "Deep Cleaning",
+        "slug": "deep-cleaning",
+        "desc": "Remove harmful buildup below the gumline to protect your teeth and restore gum health."
       },
       {
         "name": "Dental Bonding",
         "slug": "dental-bonding",
-        "desc": "Repair chips, close gaps, and smooth edges in one quick visit using tooth-colored resin."
+        "desc": "Repair chips, cracks, or gaps quickly with a natural-looking resin applied in a single visit."
+      },
+      {
+        "name": "Dental Bridges",
+        "slug": "dental-bridges",
+        "desc": "Replace missing teeth with a durable, natural-looking bridge that restores your full smile."
+      },
+      {
+        "name": "Dental Crowns",
+        "slug": "dental-crowns",
+        "desc": "Protect and strengthen a damaged tooth with a custom crown that looks and feels completely natural."
+      },
+      {
+        "name": "Dental Fillings",
+        "slug": "dental-fillings",
+        "desc": "Treat cavities comfortably with tooth-colored fillings that blend seamlessly with your smile."
+      },
+      {
+        "name": "Dental Implants",
+        "slug": "dental-implants",
+        "desc": "Replace missing teeth permanently with implants that look, feel, and function like your natural teeth."
       }
     ],
     "ctaLabel": "View All Services"
   },
   "reviews": {
-    "variant": "single-featured",
+    "variant": "pull-quotes",
     "eyebrow": "Patient Stories",
-    "heading": "What Our Patients Say About Dentiq Dentistry",
+    "heading": "What Our Patients Say About Spring St. Dentistry",
     "items": [
       {
-        "quote": "My husband Sam and I are both new patients at this practice and we are both so happy with the care that we have received. Our hygienist, Mandy is the absolute best! My husband was very nervous and had a lot of anxiety because it had been so long since he had seen a dentist. Mandy was able to ease his fears and she made him feel very comfortable; he now looks forward to his future visits and additional dental work. The practice is very clean and the atmosphere is very welcoming. The office staff and the doctors are great as well. We highly recommend this practice to anyone in search of dental care.",
-        "author": "Natalie Davis",
-        "rating": 5
+        "quote": "I can't say enough great things about Spring St. Dentistry! From the moment you walk in, you're greeted by Jackie at the front desk—she's so kind and welcoming, you instantly feel at ease. The entire staff is incredibly friendly and professional.\n\nThe doctor, Hoang is truly the best around—caring, patient, and takes his time with you so you never feel rushed or overlooked. You can tell he genuinely cares about his patients. Charlie and Janet, who assist the doctor, are absolutely wonderful. They make you feel so comfortable and reassured, like you're in great hands (because you are!).\n\nMy husband used to be terrified of going to the dentist. Now? He won't even miss an appointment! That's how amazing this place is.\n\nIf you're looking for a dental office that treats you like family and gives top-notch care, please come here! You won't regret it.",
+        "author": "Barbara A",
+        "rating": 5,
+        "featured": true
       },
       {
-        "quote": "Dentiq is a unique place. My wife and I love the entire staff. Today in particular we love how Mandy and Janet assisted us. Everyone in this office is caring, friendly and professional. I am happy with this dentistry and as such recommend it to anyone looking for a great dentist.",
-        "author": "Chinedu Ezea",
-        "rating": 5
+        "quote": "I've been coming here my whole life, the only dentist for me, and NOT ONCE have I ever had a bad experience. Dr Hoang and all the doctors clean my teeth just perfect. I've also never had a cavity in my whole life thanks to these people and have perfect clean teeth since an infant til now at 22 years old. Charlie was so incredible, polished my teeth up perfect and these guys always make sure I'm comfortable and happy, and every time I leave thinking how lucky I am that this place has been the only dentist place I've gone to my whole life with such amazing staff and atmosphere",
+        "author": "Chad Bierman",
+        "rating": 5,
+        "featured": false
       },
       {
-        "quote": "I absolutely love Dentiq!! Honestly I was never a fan of going to the dentist, but the staff at Dentiq are sooo kind, and I actually look forward to my appointments. You're greeted with beautiful smiles, happy energy, and a cozy atmosphere. Everyone there shares in your excitement regardless of where you're at in your teeth journey. Even calling them up to reschedule an appointment feels like a phone call with a friend 🙂 Thank you, Dentiq!",
-        "author": "Natalie Romano",
-        "rating": 5
+        "quote": "Super good people, kind and attentive, I felt super comfortable with them, very professional with everything and empathetic, I recommend 100%",
+        "author": "sofia Escobar",
+        "rating": 5,
+        "featured": false
       }
     ],
     "aggregateRating": 5,
-    "reviewCount": 1246,
-    "googleUrl": "https://www.google.com/maps/place/Dentiq+Dentistry+-+Houston+Dentist/@29.7528037,-95.3976509,15z/data=!4m6!3m5!1s0x8640c0a115be1bfd:0x29dc8ade446d2c07!8m2!3d29.7528037!4d-95.3976509!16s%2Fg%2F1tvm34d3?entry=ttu"
+    "reviewCount": 52,
+    "googleUrl": "https://www.google.com/maps/place/Spring+St.+Dentistry/@33.766568,-118.0842986,13z/data=!4m6!3m5!1s0x80dd2e06b18264df:0x5859cb8cd370dcb8!8m2!3d33.8097103!4d-118.1057071!16s%2Fg%2F1tx1thg9?entry=ttu"
   },
   "faqs": {
-    "variant": "two-column",
+    "variant": "simple-stack",
     "eyebrow": "What Patients Ask Us",
-    "heading": "Your Questions About Dentiq Dentistry, Answered",
-    "subheading": "From your first visit to long-term care, here's what Houston patients ask us most.",
+    "heading": "Your Questions About Spring St. Dentistry, Answered",
+    "subheading": "From booking your first visit to understanding your treatment options, here's what Long Beach patients ask Dr. Hoang most often.",
     "items": [
       {
-        "q": "How do I schedule an appointment at Dentiq Dentistry?",
-        "a": "You can reach our Houston office by calling (713) 526-2904, and our team will help you find a time that works for your schedule. We welcome new patients and families, and no referral is needed for most services. If you have an urgent concern, let us know when you call so we can prioritize your visit.",
+        "q": "How do I schedule an appointment with Dr. Hoang?",
+        "a": "You can call Spring St. Dentistry directly at (562) 420-8578 to book an appointment at our Long Beach office. No referral is needed — we welcome new patients for general and cosmetic dental care. Our team will help you find a time that fits your schedule.",
         "category": "Scheduling"
       },
       {
-        "q": "Does Dentiq Dentistry accept dental insurance?",
-        "a": "We work with many dental insurance plans and will help you understand your coverage before treatment begins. Our team is happy to review your benefits and explain any out-of-pocket costs in plain language. Please call us at (713) 526-2904 to confirm whether your specific plan is accepted.",
+        "q": "Do you see patients for dental emergencies or same-day concerns?",
+        "a": "Yes, we do our best to accommodate urgent dental needs as quickly as possible. If you're experiencing tooth pain, a broken tooth, or another pressing issue, call us at (562) 420-8578 and let us know it's an emergency. Dr. Hoang and our team will work to get you seen promptly.",
+        "category": "Scheduling"
+      },
+      {
+        "q": "Does Spring St. Dentistry accept dental insurance?",
+        "a": "We work with a variety of dental insurance plans and will help you understand your coverage before treatment begins. We recommend calling our office at (562) 420-8578 to confirm whether we accept your specific plan. For patients without insurance, we're happy to discuss payment options to make your care affordable.",
         "category": "Insurance & Payment"
       },
       {
-        "q": "What can I expect at my first visit to Dentiq Dentistry?",
-        "a": "At Dentiq Dentistry, we start by listening — we want to understand your goals, concerns, and comfort level before anything else. Dr. Sista and the team will conduct a thorough examination, explain what they're seeing in plain language, and build a personalized care plan around you. Our office is equipped with modern technology, including a CBCT scanner and in-house lab, so we can often gather everything we need in a single visit.",
+        "q": "What should I expect at my first visit?",
+        "a": "Your first appointment typically includes a comprehensive exam with Dr. Hoang, a review of your dental and medical history, and X-rays if needed. This gives Dr. Hoang a full picture of your oral health so he can recommend the right treatment plan for you. Please arrive a few minutes early to complete any new-patient paperwork.",
         "category": "First Visit"
       },
       {
-        "q": "How long does the first Invisalign consultation take?",
-        "a": "The initial consultation typically lasts about 60 to 90 minutes, depending on the complexity of your case and the thoroughness of the examination.",
-        "category": "First Visit"
-      },
-      {
-        "q": "What are dental implants, and how do they work?",
-        "a": "Dental implants are artificial tooth roots that are surgically placed into your jawbone. They provide a sturdy base for replacement teeth or bridges. Implants are typically made of titanium, which is biocompatible and integrates with the bone to create a strong foundation for the replacement teeth. After placement, the surrounding bone gradually grows around the implant in a process called osseointegration, after which the replacement teeth or bridge can be securely attached.",
+        "q": "Am I a good candidate for clear aligners?",
+        "a": "Clear aligners are a popular option for adults and teens looking to straighten their teeth without traditional metal braces. Dr. Hoang will evaluate your bite, spacing, and overall oral health to determine whether clear aligners are right for you. Most mild to moderate alignment issues can be addressed with this treatment.",
         "category": "Treatment"
       },
       {
-        "q": "Who is a good candidate for dental implants?",
-        "a": "To be a good candidate for dental implants, you need to have good oral health and enough bone in your jaw to support the implant. If you have gum disease or other dental problems, your dentist may recommend treatment before the implant procedure. You also need to be committed to maintaining good oral hygiene and regular dental checkups to ensure the success of the implant.",
+        "q": "What is a deep cleaning, and do I really need one?",
+        "a": "A deep cleaning — also called scaling and root planing — goes below the gumline to remove built-up plaque and tartar that a routine cleaning can't reach. Dr. Hoang may recommend it if there are signs of gum disease, such as gum inflammation, bleeding, or bone loss detected on X-rays. Treating gum disease early helps protect your teeth and overall health long-term.",
         "category": "Treatment"
       },
       {
-        "q": "What is a CEREC same-day crown, and am I a candidate?",
-        "a": "A CEREC same-day crown is a custom dental crown designed and placed in a single visit using in-office technology — no temporary crown or second appointment needed. Dr. Sista uses this technology to provide precise, efficient restorations for patients who need a damaged or decayed tooth repaired quickly. Most patients who need a standard crown are candidates; Dr. Sista will confirm during your exam whether same-day fabrication is right for your situation.",
+        "q": "What's the difference between a dental crown and a dental bridge?",
+        "a": "A crown is a cap placed over a single damaged or weakened tooth to restore its shape, strength, and appearance. A bridge, on the other hand, replaces one or more missing teeth by anchoring an artificial tooth to the natural teeth on either side of the gap. Dr. Hoang will recommend the best option based on your specific situation during your exam.",
         "category": "Treatment"
       },
       {
-        "q": "How long do dental implants last, and how do I care for them?",
-        "a": "Dental implants are designed to last a lifetime with proper care. However, the longevity of the implant can depend on several factors, including the patient's overall health, oral hygiene, and the quality of the implant. In some cases, implants may need to be replaced or repaired after several years. Brushing, flossing, and keeping up with regular checkups at our Houston office are the best ways to protect your investment.",
+        "q": "How do I take care of my teeth after a filling, bonding, or crown?",
+        "a": "Most restorations — including fillings, dental bonding, and crowns — require no special aftercare beyond your normal brushing and flossing routine. You may experience mild sensitivity for a few days after treatment, which is completely normal. If discomfort persists or something feels off with your bite, contact our office so Dr. Hoang can take a look.",
         "category": "Aftercare"
       }
     ]
   },
   "cta": {
-    "variant": "floating-card",
-    "headline": "Your Healthiest Smile Starts Here in Houston",
-    "subheadline": "Whether it's a routine cleaning or a complete smile makeover, we make it easy to take the first step. No pressure — just a friendly team ready to help.",
+    "variant": "split-image",
+    "headline": "Your Healthiest Smile Starts in Long Beach",
+    "subheadline": "Whether it's been six months or six years, we're here to help you feel comfortable and confident in the chair. Come see why neighbors trust Spring St. Dentistry.",
     "primaryCta": {
-      "label": "Book Your New Patient Appointment",
+      "label": "Schedule Your New Patient Appointment",
       "href": "/schedule"
     },
-    "phone": "(713) 526-2904",
+    "phone": "(562) 420-8578",
     "hasImage": true
   },
-  "longFormTestimonials": [
-    {
-      "text": "My husband Sam and I are both new patients at this practice and we are both so happy with the care that we have received. Our hygienist, Mandy is the absolute best! My husband was very nervous and had a lot of anxiety because it had been so long since he had seen a dentist. Mandy was able to ease his fears and she made him feel very comfortable; he now looks forward to his future visits and additional dental work. The practice is very clean and the atmosphere is very welcoming. The office staff and the doctors are great as well. We highly recommend this practice to anyone in search of dental care.",
-      "author": "Natalie Davis",
-      "stars": 5,
-      "source": "/",
-      "verifiedBy": null,
-      "context": null
-    },
-    {
-      "text": "Dentiq is a unique place. My wife and I love the entire staff. Today in particular we love how Mandy and Janet assisted us. Everyone in this office is caring, friendly and professional. I am happy with this dentistry and as such recommend it to anyone looking for a great dentist.",
-      "author": "Chinedu Ezea",
-      "stars": 5,
-      "source": "/",
-      "verifiedBy": null,
-      "context": null
-    },
-    {
-      "text": "I absolutely love Dentiq!! Honestly I was never a fan of going to the dentist, but the staff at Dentiq are sooo kind, and I actually look forward to my appointments. You're greeted with beautiful smiles, happy energy, and a cozy atmosphere. Everyone there shares in your excitement regardless of where you're at in your teeth journey. Even calling them up to reschedule an appointment feels like a phone call with a friend 🙂 Thank you, Dentiq!",
-      "author": "Natalie Romano",
-      "stars": 5,
-      "source": "/",
-      "verifiedBy": null,
-      "context": null
-    },
-    {
-      "text": "Dentiq is the most top notch Dental office I've ever been to. From the ladies at the front desk to Ana the assistant, to the doctor. They really do go above and beyond to make you feel comfortable. If you are looking for a dentist they are the ones. They do it all from cleanings to a whole new smile with new teeth. Run don't walk to Dentiq!!",
-      "author": "Vermetti",
-      "stars": 5,
-      "source": "/",
-      "verifiedBy": null,
-      "context": null
-    },
-    {
-      "text": "Got my first cleaning and exam here this week and I'm very pleased. Super clean and safe office! Front desk welcomed me as I walked in make sure all my paperwork was up to date. Super friendly oriented ! Will be coming back for my invisalign. Thanks to Dr.Tag and her staff for making me feel comfortable.",
-      "author": "Luis Pantoja",
-      "stars": 5,
-      "source": "/",
-      "verifiedBy": null,
-      "context": null
-    },
-    {
-      "text": "Was looking for a new dentist and came across Dentiq from a friend's recommendation. It was by far the best dentist I've ever been too. The service staff Alexandra was very helpful. I'm looking forward to my 6 months check up.",
-      "author": "Shayna McPherson",
-      "stars": 5,
-      "source": "/",
-      "verifiedBy": null,
-      "context": null
-    }
-  ],
+  "longFormTestimonials": [],
   "stats": {
     "yearsExperience": null,
     "happyPatients": null,
-    "googleRating": 4.9,
-    "fiveStarReviews": 1229
+    "googleRating": null,
+    "fiveStarReviews": null
   },
-  "insurance": [
-    "Most PPO plans",
-    "Blue Cross Blue Shield (BCBS)",
-    "Aetna",
-    "Colonial Life",
-    "United Health Care",
-    "MetLife",
-    "Delta Dental",
-    "Guardian",
-    "Humana",
-    "Envolve Insurance",
-    "Cigna",
-    "Principal"
-  ],
-  "signals": []
+  "insurance": [],
+  "signals": [
+    {
+      "type": "emergency",
+      "label": "Same Day Emergency Treatment",
+      "detail": "Offers same-day treatment for broken teeth, tooth pain, root canals, and extractions"
+    },
+    {
+      "type": "differentiator",
+      "label": "Board-Certified Periodontist on Staff",
+      "detail": "Dr. Richard K. Lee is a board-certified periodontist and LANAP-certified clinician with laser-assisted periodontal therapy training"
+    },
+    {
+      "type": "technology",
+      "label": "LANAP Laser Periodontal Therapy",
+      "detail": "Dr. Richard Lee is a LANAP-certified clinician offering laser-assisted periodontal therapy"
+    },
+    {
+      "type": "differentiator",
+      "label": "Zoom Teeth Whitening with 10% OFF",
+      "detail": "10% OFF Zoom Teeth Whitening includes complementary whitening trays and a take home supply"
+    },
+    {
+      "type": "differentiator",
+      "label": "Second Opinion Service",
+      "detail": "Practice offers second opinions on any dental treatments"
+    },
+    {
+      "type": "differentiator",
+      "label": "Community Involvement",
+      "detail": "Dr. Hoang volunteers at Long Beach Children's Dental Health Clinic, Boston public schools outreach, federal medical centers, and Autumn Years Alzheimer's care facility"
+    },
+    {
+      "type": "membership",
+      "label": "ADA, CDA, CSP, AAP Member",
+      "detail": "Dr. Richard Lee is an active member of the American Dental Association, California Dental Association, California Society of Periodontists, and American Academy of Periodontology"
+    },
+    {
+      "type": "differentiator",
+      "label": "Top Rated 5 Star Dentist in Long Beach",
+      "detail": "Practice promotes a 5-star rating on Google and Yelp"
+    }
+  ]
 }

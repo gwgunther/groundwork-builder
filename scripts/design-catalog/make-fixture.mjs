@@ -38,11 +38,17 @@ const scrape = (await J(join(clientDir, '_pipeline', '01-scrape.json')).catch(()
 const sc = scrape.content || {};
 
 // 3. Run log — phone/city/doctor/signals (latest run for this client)
-let run = null;
+let run = null, runWithSignals = null;
+const norm = (s) => (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
 try {
   const lines = (await readFile(join(ROOT, '_memory', 'runs.jsonl'), 'utf8')).trim().split('\n');
   for (const line of lines) {
-    try { const r = JSON.parse(line); if ((r.client_slug || '').includes(slug) || slug.includes(r.client_slug || '∅')) run = r; } catch {}
+    try {
+      const r = JSON.parse(line);
+      if (norm(r.client_slug) !== norm(slug)) continue;
+      run = r;                                            // latest = identity
+      if ((r.signals || []).length) runWithSignals = r;   // latest signal-bearing = signals
+    } catch {}
   }
 } catch {}
 
@@ -62,6 +68,7 @@ const fixture = {
     description: scrape.practice?.description || undefined,
   },
   hero: sections.HeroSection || { headline: sc.heroTagline, subheadline: sc.heroSubheadline },
+  doctorIntro: sections.DoctorIntro || null,
   services: sections.ServicesSection || null,
   reviews: sections.ReviewsSection || null,
   faqs: sections.FaqSection || null,
@@ -69,7 +76,7 @@ const fixture = {
   longFormTestimonials: (sc.testimonials || []).slice(0, 6),
   stats: sc.stats || null,
   insurance: sc.insurance || null,
-  signals: (run?.signals || []).map(s => ({ type: s.type, label: s.label, detail: s.detail })),
+  signals: ((runWithSignals || run)?.signals || []).map(s => ({ type: s.type, label: s.label, detail: s.detail })),
 };
 
 await writeFile(outPath, JSON.stringify(fixture, null, 2) + '\n');
