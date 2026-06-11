@@ -12,6 +12,22 @@ Scrape an existing dental site → AI-extract structured data → merge with int
 
 ---
 
+## Vocabulary
+
+Several terms are easy to confuse — they all touch "design" or "practice" but mean different things:
+
+| Term | What it is | Where it lives |
+|---|---|---|
+| **account** / **practice** (CRM sense) | A real dental practice we prospect, audit, or build for | `accounts` D1 table |
+| **sourced practice** | A prospect pulled from Google Places (pre-CRM) | `sourced_practices` D1 table |
+| **design library** | Compact ~1–2 KB design *fingerprints* (own / inspo / anti) the Creative Director samples to diverge-from / pull-toward | `_memory/library/*.json` + `index.json` |
+| **design profile** | A denormalized **read-cache** of the design library, for the ops-dashboard's "Design Library" tab only — the builder never reads it | `design_profiles` D1 table |
+| **design catalog** | Curated, hand-tuned *template specs* (full design + audit gates) the builder applies via `--reference <id>` | `docs/design-catalog/runs/<slug>/entry.json` (+ `showcase.html`) |
+
+Rule of thumb: **"practice" = a client**, **"library" = fingerprints that steer the AI director**, **"catalog" = concrete templates the builder can lock onto**.
+
+---
+
 ## Critical architecture split: pre-build vs post-build audits
 
 The pipeline runs **two separate audit tracks** against two different sites. This distinction matters for what we can show clients.

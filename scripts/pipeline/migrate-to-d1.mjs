@@ -6,7 +6,7 @@
  *
  * Sources:
  *   _memory/runs.jsonl            → runs table  (INSERT OR IGNORE by id)
- *   _memory/library/<slug>.json   → practices table (INSERT OR REPLACE)
+ *   _memory/library/<slug>.json   → design_profiles table (INSERT OR REPLACE)
  *   runs.jsonl (unique slugs)     → accounts table (INSERT OR IGNORE by slug)
  *
  * Usage:
@@ -173,7 +173,7 @@ async function migrateRuns() {
 }
 
 // ---------------------------------------------------------------------------
-// 2. Migrate library JSON files → practices table
+// 2. Migrate library JSON files → design_profiles table
 // ---------------------------------------------------------------------------
 
 const LIBRARY_SKIP_PREFIXES = ['index', 'inspo-', 'anti-'];
@@ -206,7 +206,7 @@ async function migratePractices() {
     const slug = entry.slug || basename(file, '.json');
 
     const sql = `
-      INSERT OR REPLACE INTO practices (
+      INSERT OR REPLACE INTO design_profiles (
         slug, palette_primary, palette_mood,
         font_heading, font_body, archetype,
         adjectives, tag, captured, note,

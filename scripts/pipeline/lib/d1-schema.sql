@@ -174,10 +174,13 @@ CREATE INDEX IF NOT EXISTS idx_sourced_status   ON sourced_practices (status);
 CREATE INDEX IF NOT EXISTS idx_sourced_weakness ON sourced_practices (weakness_score);
 
 -- ---------------------------------------------------------------------------
--- practices: denormalized view of latest design library data
--- One row per slug; upserted whenever a library JSON is ingested.
+-- design_profiles: denormalized read-cache of the design library
+-- (_memory/library/*.json fingerprints). One row per slug; upserted whenever a
+-- library JSON is ingested. Read by the ops-dashboard "Design Library" tab only
+-- — the builder reads the source files, not this table. Named design_profiles
+-- (not "practices") so "practice" stays reserved for CRM clients (accounts).
 -- ---------------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS practices (
+CREATE TABLE IF NOT EXISTS design_profiles (
   slug            TEXT PRIMARY KEY,
   palette_primary TEXT,
   palette_mood    TEXT,

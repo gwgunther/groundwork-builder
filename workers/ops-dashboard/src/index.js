@@ -80,7 +80,7 @@ async function handleApi(url, env) {
         `SELECT p.slug, COALESCE(r.practice_name, p.slug) AS practice_name,
            r.city, p.archetype, p.font_heading, p.font_body,
            p.palette_primary, p.adjectives, MAX(r.created_at) AS last_run
-         FROM practices p
+         FROM design_profiles p
          LEFT JOIN runs r ON r.client_slug = p.slug
          GROUP BY p.slug
          ORDER BY last_run DESC`
@@ -125,7 +125,7 @@ async function serveUI(env) {
            r.city, p.archetype, p.hero_variant, p.font_heading, p.font_body,
            p.palette_primary, p.palette_mood, p.adjectives, p.tag, p.note,
            MAX(r.created_at) AS last_run
-           FROM practices p
+           FROM design_profiles p
            LEFT JOIN runs r ON r.client_slug = p.slug
            GROUP BY p.slug ORDER BY last_run DESC`).all(),
         env.DB.prepare(`SELECT id, build_slug, status, website_url, preview_url, pitch_url,
