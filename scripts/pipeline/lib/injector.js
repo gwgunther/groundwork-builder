@@ -91,6 +91,9 @@ export async function injectTemplate(data, outputDir, preset = null, design = nu
   console.log('[injector] Injecting deploy config');
   await injectDeployConfig(data, outputDir);
 
+  console.log('[injector] Injecting env file');
+  await injectEnvFile(data, outputDir);
+
   console.log('[injector] Injecting content config');
   await injectContentConfig(data, outputDir);
 
@@ -898,6 +901,23 @@ export default defineConfig({
 // ---------------------------------------------------------------------------
 // .github/workflows/deploy.yml
 // ---------------------------------------------------------------------------
+
+export async function injectEnvFile(data, outputDir) {
+  const ga4Id = data.content?.ga4MeasurementId || null;
+  if (!ga4Id) return;
+
+  const envPath = resolve(outputDir, '.env');
+  let existing = '';
+  try { existing = await readFile(envPath, 'utf-8'); } catch { /* new file */ }
+
+  // Overwrite or append PUBLIC_GA4_MEASUREMENT_ID
+  const line = `PUBLIC_GA4_MEASUREMENT_ID=${ga4Id}`;
+  const updated = existing.includes('PUBLIC_GA4_MEASUREMENT_ID=')
+    ? existing.replace(/^PUBLIC_GA4_MEASUREMENT_ID=.*/m, line)
+    : (existing.trimEnd() ? existing.trimEnd() + '\n' + line + '\n' : line + '\n');
+
+  await writeFile(envPath, updated, 'utf-8');
+}
 
 export async function injectDeployConfig(data, outputDir) {
   const deployPath = resolve(outputDir, '.github/workflows/deploy.yml');

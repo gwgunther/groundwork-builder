@@ -134,6 +134,7 @@ function normalizeIntake(raw) {
       testimonials: co.testimonials || [],
       caseStudyConsent: co.case_study_consent ?? raw.case_study_consent ?? null,
       consentScope: co.consent_scope ?? raw.consent_scope ?? null,
+      ga4MeasurementId: co.ga4_measurement_id || null,
     },
     meta: {
       intakeSource: raw.meta?.intakeSource || (raw._topLevel ? 'airtable' : 'file'),
