@@ -1051,15 +1051,6 @@ async function main() {
     },
   });
 
-  // 3f — llms.txt for AI agent discoverability (Lighthouse agentic-browsing)
-  try {
-    const { generateLlmsTxt } = await import('./lib/generate-llms-txt.js');
-    const llms = await generateLlmsTxt(merged, outputDir);
-    console.log(`  Wrote llms.txt (${llms.bytes} bytes)`);
-  } catch (err) {
-    console.warn(`  llms.txt generation failed (non-fatal): ${err.message}`);
-  }
-
   console.log('');
 
   // -----------------------------------------------------------------------

@@ -1,12 +1,11 @@
 /**
- * Generate public/llms.txt — machine-readable site summary for AI agents.
+ * llms.txt content builder — used by audit-data-assembler for preview/evidence.
  *
- * Satisfies Lighthouse agentic-browsing llms-txt-present audit when deployed.
- * Format: markdown with H1, blockquote summary, and linked key pages.
+ * The build pipeline writes the actual public/llms.txt via generate-agent-files.js
+ * (Phase 3c-bis), which also has nav context. This module provides previewLlmsTxt()
+ * for audit previews where there is no output directory to write to.
  */
 
-import { writeFile, mkdir } from 'node:fs/promises';
-import { resolve, dirname } from 'node:path';
 import { slugify } from './utils.js';
 
 /**
@@ -17,20 +16,6 @@ import { slugify } from './utils.js';
  */
 export function previewLlmsTxt(merged) {
   return buildLlmsTxtContent(merged);
-}
-
-/**
- * @param {object} merged - PracticeData from merger
- * @param {string} outputDir - Client project root
- * @returns {Promise<{ path: string, bytes: number }>}
- */
-export async function generateLlmsTxt(merged, outputDir) {
-  const content = buildLlmsTxtContent(merged);
-  const outPath = resolve(outputDir, 'public', 'llms.txt');
-  await mkdir(dirname(outPath), { recursive: true });
-  await writeFile(outPath, content, 'utf-8');
-
-  return { path: outPath, bytes: Buffer.byteLength(content, 'utf8') };
 }
 
 function buildLlmsTxtContent(merged) {
