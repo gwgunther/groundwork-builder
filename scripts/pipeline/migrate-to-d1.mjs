@@ -6,7 +6,7 @@
  *
  * Sources:
  *   _memory/runs.jsonl            → runs table  (INSERT OR IGNORE by id)
- *   _memory/library/<slug>.json   → design_profiles table (INSERT OR REPLACE)
+ *   _memory/library/<slug>.json   → accounts.design_profile (JSON, by slug)
  *   runs.jsonl (unique slugs)     → accounts table (INSERT OR IGNORE by slug)
  *
  * Usage:
@@ -173,7 +173,9 @@ async function migrateRuns() {
 }
 
 // ---------------------------------------------------------------------------
-// 2. Migrate library JSON files → design_profiles table
+// 2. Fold library JSON files → accounts.design_profile (JSON)
+//    One fingerprint per practice; updates the matching account row.
+//    Inspo/anti references aren't practices, so they're skipped.
 // ---------------------------------------------------------------------------
 
 const LIBRARY_SKIP_PREFIXES = ['index', 'inspo-', 'anti-'];
@@ -182,14 +184,38 @@ function shouldSkipLibraryFile(filename) {
   return LIBRARY_SKIP_PREFIXES.some(prefix => filename.startsWith(prefix));
 }
 
-async function migratePractices() {
+// Flatten a library fingerprint into the design_profile JSON stored on accounts.
+// Flat keys keep dashboard json_extract('$.archetype') etc. trivial.
+function toDesignProfile(entry) {
+  return {
+    palette_primary:    entry.palette?.primary ?? null,
+    palette_mood:       entry.palette?.mood ?? null,
+    palette_secondary:  entry.palette?.secondary ?? null,
+    palette_accent:     entry.palette?.accent ?? null,
+    palette_background: entry.palette?.background ?? null,
+    font_heading:       entry.type?.display ?? null,
+    font_body:          entry.type?.body ?? null,
+    font_pair:          entry.fontPair ?? null,
+    archetype:          entry.layout?.archetype ?? null,
+    hero_variant:       entry.hero?.variant ?? null,
+    cards:              entry.cards ?? null,
+    motion:             entry.motion ?? null,
+    radius:             entry.radius ?? null,
+    adjectives:         entry.adjectives ?? [],
+    tag:                entry.tag ?? null,
+    captured:           entry.captured ?? null,
+    note:               entry.note ?? null,
+  };
+}
+
+async function populateDesignProfiles() {
   const libDir = resolve(ROOT, '_memory/library');
   const files = readdirSync(libDir)
     .filter(f => f.endsWith('.json') && !shouldSkipLibraryFile(f));
 
-  console.log(`\nMigrating ${files.length} practices...`);
+  console.log(`\nFolding ${files.length} design profiles into accounts...`);
 
-  let inserted = 0;
+  let updated = 0;
   let skipped = 0;
 
   for (const file of files) {
@@ -202,52 +228,22 @@ async function migratePractices() {
       continue;
     }
 
-    // slug from the JSON itself or fall back to filename without .json
     const slug = entry.slug || basename(file, '.json');
-
-    const sql = `
-      INSERT OR REPLACE INTO design_profiles (
-        slug, palette_primary, palette_mood,
-        font_heading, font_body, archetype,
-        adjectives, tag, captured, note,
-        palette_secondary, palette_accent, palette_background,
-        hero_variant, cards, motion, radius, font_pair,
-        updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
-    `.trim();
-
-    const params = [
-      slug,
-      entry.palette?.primary ?? null,
-      entry.palette?.mood ?? null,
-      entry.type?.display ?? null,
-      entry.type?.body ?? null,
-      entry.layout?.archetype ?? null,
-      jstr(entry.adjectives ?? []),
-      entry.tag ?? null,
-      entry.captured ?? null,
-      entry.note ?? null,
-      entry.palette?.secondary ?? null,
-      entry.palette?.accent ?? null,
-      entry.palette?.background ?? null,
-      entry.hero?.variant ?? null,
-      entry.cards ?? null,
-      entry.motion ?? null,
-      entry.radius ?? null,
-      entry.fontPair ?? null,
-    ];
+    const sql = `UPDATE accounts SET design_profile = ?, updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now') WHERE slug = ?`;
 
     try {
-      await d1Query(sql, params);
-      inserted++;
+      const res = await d1Query(sql, [jstr(toDesignProfile(entry)), slug]);
+      const changes = res?.result?.[0]?.meta?.changes ?? (DRY_RUN ? 1 : 0);
+      if (changes > 0) { updated++; }
+      else { console.warn(`  note: no account for "${slug}" — design profile not stored`); skipped++; }
     } catch (err) {
-      console.error(`  ERROR inserting practice ${slug}: ${err.message}`);
+      console.error(`  ERROR updating design profile ${slug}: ${err.message}`);
       skipped++;
     }
   }
 
-  console.log(`  practices: ${inserted} inserted/replaced, ${skipped} skipped/errored`);
-  return { inserted, skipped };
+  console.log(`  design profiles: ${updated} updated, ${skipped} skipped`);
+  return { inserted: updated, skipped };
 }
 
 // ---------------------------------------------------------------------------
@@ -321,22 +317,23 @@ async function main() {
   if (DRY_RUN) console.log('MODE: DRY RUN (no writes)');
   console.log('='.repeat(60));
 
+  // accounts must exist before design profiles fold into them.
   const results = {
-    runs:      await migrateRuns(),
-    practices: await migratePractices(),
-    accounts:  await migrateAccounts(),
+    runs:           await migrateRuns(),
+    accounts:       await migrateAccounts(),
+    designProfiles: await populateDesignProfiles(),
   };
 
   console.log('\n' + '='.repeat(60));
   console.log('Summary');
   console.log('='.repeat(60));
-  console.log(`  runs       inserted: ${results.runs.inserted}  skipped/errored: ${results.runs.skipped}`);
-  console.log(`  practices  inserted: ${results.practices.inserted}  skipped/errored: ${results.practices.skipped}`);
-  console.log(`  accounts   inserted: ${results.accounts.inserted}  skipped/errored: ${results.accounts.skipped}`);
+  console.log(`  runs            inserted: ${results.runs.inserted}  skipped/errored: ${results.runs.skipped}`);
+  console.log(`  accounts        inserted: ${results.accounts.inserted}  skipped/errored: ${results.accounts.skipped}`);
+  console.log(`  design profiles updated:  ${results.designProfiles.inserted}  skipped/errored: ${results.designProfiles.skipped}`);
   console.log('');
 
   const anyErrors =
-    results.runs.skipped + results.practices.skipped + results.accounts.skipped > 0;
+    results.runs.skipped + results.accounts.skipped + results.designProfiles.skipped > 0;
 
   if (anyErrors) {
     console.warn('Migration completed with some errors. Review output above.');

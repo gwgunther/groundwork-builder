@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS accounts (
   launch_date        TEXT,
   reaudit_due        TEXT,
   intake_json        TEXT,                        -- JSON blob
+  design_profile     TEXT,                        -- JSON: latest design-library fingerprint (palette/type/archetype/variants). Read-cache for the dashboard "Design Library" tab; query fields via json_extract. Source of truth is _memory/library/<slug>.json.
   created_at         TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
   updated_at         TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
 );
@@ -173,32 +174,6 @@ CREATE INDEX IF NOT EXISTS idx_sourced_state    ON sourced_practices (state);
 CREATE INDEX IF NOT EXISTS idx_sourced_status   ON sourced_practices (status);
 CREATE INDEX IF NOT EXISTS idx_sourced_weakness ON sourced_practices (weakness_score);
 
--- ---------------------------------------------------------------------------
--- design_profiles: denormalized read-cache of the design library
--- (_memory/library/*.json fingerprints). One row per slug; upserted whenever a
--- library JSON is ingested. Read by the ops-dashboard "Design Library" tab only
--- — the builder reads the source files, not this table. Named design_profiles
--- (not "practices") so "practice" stays reserved for CRM clients (accounts).
--- ---------------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS design_profiles (
-  slug            TEXT PRIMARY KEY,
-  palette_primary TEXT,
-  palette_mood    TEXT,
-  font_heading    TEXT,
-  font_body       TEXT,
-  archetype       TEXT,
-  adjectives      TEXT,                          -- JSON array
-  tag             TEXT,
-  captured        TEXT,
-  note            TEXT,
-  -- extra fields from library JSON
-  palette_secondary TEXT,
-  palette_accent    TEXT,
-  palette_background TEXT,
-  hero_variant      TEXT,
-  cards             TEXT,
-  motion            TEXT,
-  radius            TEXT,
-  font_pair         TEXT,
-  updated_at      TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
-);
+-- Design-library fingerprints are folded into accounts.design_profile (JSON),
+-- not a separate table. The latest fingerprint per practice lives there; the
+-- source of truth remains _memory/library/<slug>.json.

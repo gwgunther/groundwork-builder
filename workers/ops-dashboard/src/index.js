@@ -37,7 +37,7 @@ async function handleApi(url, env) {
       const [totals, successes, practices, week] = await Promise.all([
         env.DB.prepare('SELECT COUNT(*) AS n FROM runs').first(),
         env.DB.prepare('SELECT COUNT(*) AS n FROM runs WHERE build_success = 1').first(),
-        env.DB.prepare('SELECT COUNT(DISTINCT client_slug) AS n FROM runs').first(),
+        env.DB.prepare('SELECT COUNT(*) AS n FROM accounts WHERE design_profile IS NOT NULL').first(),
         env.DB.prepare(
           "SELECT COUNT(*) AS n FROM runs WHERE created_at >= datetime('now', '-7 days')"
         ).first(),
@@ -77,12 +77,19 @@ async function handleApi(url, env) {
 
     if (path === '/api/practices') {
       const { results } = await env.DB.prepare(
-        `SELECT p.slug, COALESCE(r.practice_name, p.slug) AS practice_name,
-           r.city, p.archetype, p.font_heading, p.font_body,
-           p.palette_primary, p.adjectives, MAX(r.created_at) AS last_run
-         FROM design_profiles p
-         LEFT JOIN runs r ON r.client_slug = p.slug
-         GROUP BY p.slug
+        `SELECT a.slug,
+           COALESCE(a.practice_name, MAX(r.practice_name), a.slug) AS practice_name,
+           COALESCE(a.city, MAX(r.city)) AS city,
+           json_extract(a.design_profile, '$.archetype')       AS archetype,
+           json_extract(a.design_profile, '$.font_heading')    AS font_heading,
+           json_extract(a.design_profile, '$.font_body')       AS font_body,
+           json_extract(a.design_profile, '$.palette_primary') AS palette_primary,
+           json_extract(a.design_profile, '$.adjectives')      AS adjectives,
+           MAX(r.created_at) AS last_run
+         FROM accounts a
+         LEFT JOIN runs r ON r.client_slug = a.slug
+         WHERE a.design_profile IS NOT NULL
+         GROUP BY a.slug
          ORDER BY last_run DESC`
       ).all();
       return json(results ?? []);
@@ -109,7 +116,7 @@ async function serveUI(env) {
       await Promise.all([
         env.DB.prepare('SELECT COUNT(*) AS n FROM runs').first(),
         env.DB.prepare('SELECT COUNT(*) AS n FROM runs WHERE build_success = 1').first(),
-        env.DB.prepare('SELECT COUNT(DISTINCT client_slug) AS n FROM runs').first(),
+        env.DB.prepare('SELECT COUNT(*) AS n FROM accounts WHERE design_profile IS NOT NULL').first(),
         env.DB.prepare("SELECT COUNT(*) AS n FROM runs WHERE created_at >= datetime('now', '-7 days')").first(),
         env.DB.prepare('SELECT COUNT(*) AS n FROM sourced_practices').first(),
         env.DB.prepare(`SELECT id, created_at, client_slug, practice_name, doctor_name, city, phone,
@@ -121,13 +128,23 @@ async function serveUI(env) {
            a.practice_url AS url, a.lifecycle_stage,
            (SELECT MAX(r.created_at) FROM runs r WHERE r.client_slug = a.slug) AS last_build_at
            FROM accounts a ORDER BY a.practice_name ASC`).all(),
-        env.DB.prepare(`SELECT p.slug, COALESCE(r.practice_name, p.slug) AS practice_name,
-           r.city, p.archetype, p.hero_variant, p.font_heading, p.font_body,
-           p.palette_primary, p.palette_mood, p.adjectives, p.tag, p.note,
+        env.DB.prepare(`SELECT a.slug,
+           COALESCE(a.practice_name, MAX(r.practice_name), a.slug) AS practice_name,
+           COALESCE(a.city, MAX(r.city)) AS city,
+           json_extract(a.design_profile, '$.archetype')        AS archetype,
+           json_extract(a.design_profile, '$.hero_variant')     AS hero_variant,
+           json_extract(a.design_profile, '$.font_heading')     AS font_heading,
+           json_extract(a.design_profile, '$.font_body')        AS font_body,
+           json_extract(a.design_profile, '$.palette_primary')  AS palette_primary,
+           json_extract(a.design_profile, '$.palette_mood')     AS palette_mood,
+           json_extract(a.design_profile, '$.adjectives')       AS adjectives,
+           json_extract(a.design_profile, '$.tag')              AS tag,
+           json_extract(a.design_profile, '$.note')             AS note,
            MAX(r.created_at) AS last_run
-           FROM design_profiles p
-           LEFT JOIN runs r ON r.client_slug = p.slug
-           GROUP BY p.slug ORDER BY last_run DESC`).all(),
+           FROM accounts a
+           LEFT JOIN runs r ON r.client_slug = a.slug
+           WHERE a.design_profile IS NOT NULL
+           GROUP BY a.slug ORDER BY last_run DESC`).all(),
         env.DB.prepare(`SELECT id, build_slug, status, website_url, preview_url, pitch_url,
            github_folder_url, mobile_score, desktop_score, contact_name, contact_email,
            fixed_count, still_issue_count, completed_at, date_added
