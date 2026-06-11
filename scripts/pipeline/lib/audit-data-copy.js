@@ -38,6 +38,8 @@ export const CATEGORY_LABELS = {
   'agent-accessibility-tree-poor': 'AI agent readiness',
   'schema-no-dates':       'AEO: Content freshness',
   'no-snippet-structure':  'AEO: Answer structure',
+  'robots-blocks-ai-bots': 'AEO: AI crawler access',
+  'person-schema-no-sameas': 'AEO: Entity authority',
 };
 
 /** @type {Record<string, 'foundation'|'performance'|'content'|'conversion'>} */
@@ -82,6 +84,8 @@ export const WORKSTREAMS = {
   'agent-accessibility-tree-poor': 'foundation',
   'schema-no-dates': 'content',
   'no-snippet-structure': 'content',
+  'robots-blocks-ai-bots': 'foundation',
+  'person-schema-no-sameas': 'content',
 };
 
 /** Finding IDs that must never appear on the sales one-pager. */
@@ -126,6 +130,7 @@ export const CUSTOMER_IMPACT = {
   'gbp-low-review-count': 1.0,
   'no-llms-txt': 1.15,
   'llms-txt-poor': 1.35,
+  'robots-blocks-ai-bots': 1.6,
 };
 
 /**
@@ -177,6 +182,14 @@ export const CONSUMER_COPY = {
     now: '{{count}} service pages use blocks of prose with no structured subheadings, lists, or comparisons — formats AI models can\'t easily extract as direct answers.',
     good: 'Service pages break down topics with numbered steps, comparison tables, and Q&A sections that AI assistants can quote directly.',
   },
+  'robots-blocks-ai-bots': {
+    now: 'Your site blocks the crawlers AI assistants use (ChatGPT, Claude, Perplexity) — the practice cannot appear in AI answers no matter how good the content is.',
+    good: 'All major AI crawlers can read the site, so AI assistants can recommend your practice to {{audience}} in {{city}}.',
+  },
+  'person-schema-no-sameas': {
+    now: 'Your doctors\' pages don\'t link their profiles to Healthgrades or LinkedIn in the structured data — AI assistants can\'t confirm them as real, credentialed providers.',
+    good: 'Each doctor\'s structured data links to their external profiles, so AI assistants can verify and confidently recommend them.',
+  },
   'no-testimonials': {
     now: 'No patient reviews or testimonials are visible on the site — new visitors have little social proof.',
     good: 'Real patient stories appear where trust matters most, helping visitors feel confident booking.',
@@ -213,7 +226,8 @@ export const BUILD_HINTS = {
   'meta-descriptions': 'Required meta description per page; generate fallback from first paragraph.',
   'page-headings': 'One H1 per template (page-title slot). Demote stray content H1s to H2/H3.',
   'canonical-tags': 'Self-referencing <link rel="canonical"> in base layout head, derived from route.',
-  'schema-config': 'Inject Dentist + LocalBusiness JSON-LD on home; breadcrumb schema on service pages.',
+  'schema-config': 'Inject Dentist + LocalBusiness JSON-LD on home; breadcrumb schema on service pages; sameAs profile links on doctor Person schema.',
+  'robots-txt': 'Ship a permissive robots.txt that allows GPTBot, ClaudeBot, PerplexityBot, OAI-SearchBot, and Google-Extended; disallow only utility routes.',
   'content-expand': 'Expand thin pages with substantive service copy and patient-focused FAQs.',
   'astro-build': 'Astro responsive images (AVIF/WebP), defer non-critical CSS/JS, system fonts.',
   'image-roles': 'Make alt a required prop on the image component; backfill during migration.',

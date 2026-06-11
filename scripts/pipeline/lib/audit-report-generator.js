@@ -1878,6 +1878,7 @@ export async function generateAuditReports(outputDir, {
   auditPageUrl = null,
   precall = false,
   existingAgentic = null,
+  citability = null,
 } = {}) {
   await mkdir(outputDir, { recursive: true });
 
@@ -1908,6 +1909,7 @@ export async function generateAuditReports(outputDir, {
       findingsSummary,
       vendor,
       agenticBrowsing,
+      citability,
     });
 
     const auditDataJson = JSON.stringify(resolvedAuditData, null, 2);

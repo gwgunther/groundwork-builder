@@ -40,6 +40,7 @@ export function assembleAuditData(opts) {
     findingsSummary = null,
     vendor = null,
     agenticBrowsing = null,
+    citability = null,
   } = opts;
 
   const practiceName = scraped?.practice?.name || hostnameLabel(url);
@@ -114,7 +115,19 @@ export function assembleAuditData(opts) {
 
     findings: assembledFindings,
 
-    strategy_bridge: buildStrategyBridge(aiAudit, scraped),
+    ...(citability && !citability.skipped ? {
+      ai_citability: {
+        prompt: citability.prompt,
+        mentioned: citability.mentioned,
+        total: citability.total,
+        fraction: citability.fraction,
+        phase: citability.phase,
+        recommendation: citability.phaseRecommendation,
+        models: (citability.results || []).map(r => ({ model: r.model, mentioned: r.mentioned })),
+      },
+    } : {}),
+
+    strategy_bridge: buildStrategyBridge(aiAudit, scraped, citability),
   };
 }
 
@@ -557,8 +570,20 @@ function scoreStatus(score) {
   return 'warn';
 }
 
-function buildStrategyBridge(aiAudit, scraped) {
+function buildStrategyBridge(aiAudit, scraped, citability = null) {
   const bridge = [];
+  // Earned-vs-owned sequencing: the AI citability diagnostic decides the
+  // first AEO move, so it leads the bridge when available.
+  if (citability && !citability.skipped && citability.phase) {
+    bridge.push({
+      gap: citability.phase === 'trust_building'
+        ? `AI assistants don't yet mention the practice (${citability.fraction} models)`
+        : `AI assistants cite the practice (${citability.fraction} models) — citations must stay accurate`,
+      build: citability.phase === 'trust_building'
+        ? 'Earned signals first: review velocity, directory listings, and third-party mentions — then content optimization.'
+        : 'Owned content next: accurate facts on every page, schema depth, FAQ coverage, answer-first service pages.',
+    });
+  }
   for (const gap of (aiAudit?.contentGaps || []).slice(0, 6)) {
     bridge.push({ gap, build: 'Address in rebuilt site content and navigation.' });
   }

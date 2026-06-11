@@ -30,6 +30,7 @@ export async function loadAuditContext(auditDir) {
   const gbp = await readJsonOrNull(join(dataDir, 'gbp-scan.json'));
   const vendor = await readJsonOrNull(join(dataDir, 'vendor.json'));
   const agenticScan = await readJsonOrNull(join(dataDir, 'agentic-scan.json'));
+  const citability = await readJsonOrNull(join(dataDir, 'ai-citability.json'));
 
   if (!findings?.findings?.length) return null;
 
@@ -65,6 +66,7 @@ export async function loadAuditContext(auditDir) {
     gbpMeta: gbp?.meta || null,
     vendor,
     agenticBrowsing: agenticScan?.meta || null,
+    citability,
     screenshotFile,
     techAudit: {
       findings: allFindings,
@@ -102,6 +104,7 @@ export async function refreshBaselineAuditArtifacts(auditDir, opts = {}) {
     findingsSummary: ctx.findingsSummary,
     vendor: ctx.vendor,
     agenticBrowsing: ctx.agenticBrowsing,
+    citability: ctx.citability,
   });
 
   return generateAuditReports(ctx.auditDir, {

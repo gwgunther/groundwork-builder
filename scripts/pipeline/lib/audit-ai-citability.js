@@ -124,6 +124,36 @@ export async function runAiCitabilityAudit(merged) {
     mentioned,
     total,
     fraction: `${mentioned}/${total}`,
+    ...buildPhase(mentioned, total),
+  };
+}
+
+/**
+ * Earned-vs-owned sequencing signal. AI systems learn to trust a business
+ * from what *others* say about it before its own site content matters.
+ * The diagnostic result determines the right first move:
+ *   - trust_building:    no model mentions the practice — earned signals
+ *                        (reviews, directories, third-party mentions) come first
+ *   - trust_compounding: at least one model cites it — owned content
+ *                        (accuracy, schema depth, FAQ coverage) compounds that trust
+ */
+function buildPhase(mentioned, total) {
+  if (total === 0) return { phase: null, phaseRecommendation: null };
+  if (mentioned === 0) {
+    return {
+      phase: 'trust_building',
+      phaseRecommendation:
+        'AI assistants don’t yet mention this practice. Prioritize earned signals first — ' +
+        'Google reviews, directory listings (Healthgrades, Yelp), and third-party mentions — ' +
+        'before deeper content optimization. AI learns to trust a practice from what others say about it.',
+    };
+  }
+  return {
+    phase: 'trust_compounding',
+    phaseRecommendation:
+      `AI assistants already cite this practice (${mentioned}/${total} models). ` +
+      'Focus on owned content: accurate facts on every page, schema depth, FAQ coverage, ' +
+      'and answer-first service pages so the citations stay accurate and favorable.',
   };
 }
 

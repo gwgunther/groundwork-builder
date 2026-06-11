@@ -145,6 +145,9 @@ function runDeterministicChecks(html, url, pageType) {
   // AEO: datePublished / dateModified in schema for blog posts (AI lens)
   checks.date_freshness = scoreDateFreshness(html, pageType);
 
+  // AEO: Person schema sameAs links on about/doctor pages (AI lens — entity authority)
+  checks.person_sameas = scorePersonSameAs(html, pageType);
+
   // Compute overall + per-lens averages
   const overall = recomputeOverall(checks);
   const lensScores = recomputeLensScores(checks);
@@ -422,6 +425,47 @@ function scoreDateFreshness(html, pageType) {
     lensTraditional: false,
     lensAi: true,
   };
+}
+
+function scorePersonSameAs(html, pageType) {
+  if (pageType !== 'about') {
+    return { score: 10, issue: null, lensTraditional: false, lensAi: true };
+  }
+  const blocks = [...html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];
+  let personCount = 0;
+  let withSameAs = 0;
+  for (const b of blocks) {
+    try {
+      const parsed = JSON.parse(b[1]);
+      const list = Array.isArray(parsed) ? parsed : [parsed];
+      for (const node of list) {
+        const types = Array.isArray(node?.['@type']) ? node['@type'] : [node?.['@type']];
+        if (!types.some(t => t === 'Person' || t === 'Physician')) continue;
+        personCount++;
+        const sameAs = node.sameAs;
+        if (Array.isArray(sameAs) ? sameAs.length > 0 : !!sameAs) withSameAs++;
+      }
+    } catch { /* invalid JSON-LD handled by schema check */ }
+  }
+  if (personCount === 0) {
+    return {
+      score: 4,
+      issue: 'No Person/Physician schema on the about page — AI systems cannot connect the practice to verifiable doctors.',
+      value: { personCount: 0, withSameAs: 0 },
+      lensTraditional: false,
+      lensAi: true,
+    };
+  }
+  if (withSameAs < personCount) {
+    return {
+      score: 6,
+      issue: `${personCount - withSameAs} of ${personCount} doctor Person schema(s) lack sameAs links to external profiles (Healthgrades, LinkedIn). Entity confirmation across platforms is a strong AI-citation signal.`,
+      value: { personCount, withSameAs },
+      lensTraditional: false,
+      lensAi: true,
+    };
+  }
+  return { score: 10, issue: null, value: { personCount, withSameAs }, lensTraditional: false, lensAi: true };
 }
 
 // -----------------------------------------------------------------------

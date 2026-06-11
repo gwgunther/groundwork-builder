@@ -31,6 +31,7 @@ import { runPageSpeed }           from './lib/pagespeed.js';
 import { runTechAudit }           from './lib/tech-audit.js';
 import { runTrustScan }           from './lib/trust-scanner.js';
 import { runHostingScan }         from './lib/hosting-scanner.js';
+import { runRobotsScan }          from './lib/robots-scanner.js';
 import { runGbpScan }             from './lib/gbp-scanner.js';
 import { runConversionScan }      from './lib/conversion-scanner.js';
 import { summarizeFindings, enrichFinding } from './lib/findings.js';
@@ -427,6 +428,24 @@ async function main() {
   await writeFile(join(dataDir, 'hosting-scan.json'), JSON.stringify(hostingScan, null, 2), 'utf-8');
   console.log('');
 
+  // ── Phase 4c2: Robots scan (AI crawler access) ──────────────────────────
+  console.log('[Phase 4c2] Checking robots.txt for AI crawler blocks...');
+  let robotsScan = { findings: [], summary: { critical: 0, warnings: 0, passed: 0 }, meta: {} };
+  try {
+    robotsScan = await runRobotsScan(opts.url);
+    if (!robotsScan.meta.fetched) {
+      console.log(`  robots.txt not checked (${robotsScan.meta.fetchError || 'unreachable'})`);
+    } else if (robotsScan.meta.blockedBots.length > 0) {
+      console.log(`  BLOCKED AI crawlers: ${robotsScan.meta.blockedBots.join(', ')}`);
+    } else {
+      console.log(`  All ${robotsScan.meta.checkedBots.length} AI crawlers allowed`);
+    }
+  } catch (err) {
+    console.warn(`  Robots scan failed (non-fatal): ${err.message}`);
+  }
+  await writeFile(join(dataDir, 'robots-scan.json'), JSON.stringify(robotsScan, null, 2), 'utf-8');
+  console.log('');
+
   // ── Phase 4d: GBP scan (Places Details API) ─────────────────────────────
   let gbpScan = { findings: [], summary: { critical: 0, warnings: 0, passed: 0 }, meta: {} };
   if (opts.skipGbp) {
@@ -515,6 +534,7 @@ async function main() {
     ...techAudit.findings,
     ...trustScan.findings,
     ...hostingScan.findings,
+    ...robotsScan.findings,
     ...gbpScan.findings,
     ...conversionScan.findings,
     ...agenticScan.findings,
@@ -561,6 +581,27 @@ async function main() {
   }
   console.log('');
 
+  // ── Phase 5b: AI citability diagnostic (earned vs owned sequencing) ──────
+  // Asks Claude (+ OpenAI/Gemini when keys are set) for dentist
+  // recommendations in the practice's city and checks whether the practice
+  // is mentioned. The result decides the AEO first move: trust_building
+  // (earned signals first) vs trust_compounding (owned content next).
+  console.log('[Phase 5b] Running AI citability diagnostic...');
+  let citability = null;
+  try {
+    const { runAiCitabilityAudit } = await import('./lib/audit-ai-citability.js');
+    citability = await runAiCitabilityAudit(mergeData(scraped, null, preset));
+    if (citability.skipped) {
+      console.log(`  Skipped: ${citability.reason}`);
+    } else {
+      console.log(`  Mentioned by ${citability.fraction} models · phase: ${citability.phase}`);
+    }
+    await writeFile(join(dataDir, 'ai-citability.json'), JSON.stringify(citability, null, 2), 'utf-8');
+  } catch (err) {
+    console.warn(`  AI citability diagnostic failed (non-fatal): ${err.message}`);
+  }
+  console.log('');
+
   // ── Phase 6: Generate Reports ────────────────────────────────────────────
   console.log('[Phase 6] Generating audit reports...');
   // Synthesized "tech audit" view for the report = all findings merged so the
@@ -596,6 +637,7 @@ async function main() {
     auditPageUrl: null,  // set after host step if needed; regen after host for public URL
     precall: opts.precall,
     existingAgentic,
+    citability,
   });
   const { fullPath, summaryPath, precallPath } = reportPaths;
   console.log('');

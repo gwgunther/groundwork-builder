@@ -83,6 +83,11 @@ function buildDetail(id, count, affectedPages, thresholds) {
     'title-no-city':      count === 0 ? 'All page titles include the practice city.' : `${base} have a title that doesn't include the practice city.`,
     'schema-no-dates':    count === 0 ? 'All blog posts include publish dates in their schema.' : `${base} are missing datePublished or dateModified in their JSON-LD — AI systems cannot assess content freshness.`,
     'no-snippet-structure': count === 0 ? 'Service pages use structured content formats.' : `${base} have prose-only content with fewer than 2 subheadings — AI models struggle to extract quoted answers from unstructured pages.`,
+    'person-schema-no-sameas': count === 0
+      ? 'Doctor Person schema links to external profiles via sameAs.'
+      : (affectedPages.length > 0
+        ? `${count} doctor Person schema(s) have no sameAs links to external profiles (Healthgrades, LinkedIn) — AI systems cannot confirm the doctors as known entities.`
+        : 'No Person or Physician schema found for the doctors — AI systems cannot connect the practice to credentialed, verifiable people.'),
   };
 
   return details[id] || `${count} issue(s) found.`;
@@ -552,6 +557,44 @@ export function runTechAudit(bronze, pagespeed = null, opts = {}) {
         thresholds: { total: servicePages.length },
       }));
     }
+  }
+
+  // person-schema-no-sameas: doctor Person/Physician schema without sameAs
+  // links to external profiles. Entity disambiguation — AI confirming the
+  // doctor exists across Healthgrades, LinkedIn, etc. — is one of the
+  // strongest AI-citation signals (~3x lift in published studies).
+  {
+    const PERSON_TYPES = ['Person', 'Physician'];
+    const isPersonNode = (s) => {
+      const t = s?.['@type'];
+      if (!t) return false;
+      const types = Array.isArray(t) ? t : [t];
+      return types.some(x => PERSON_TYPES.includes(x));
+    };
+    const hasSameAs = (s) => Array.isArray(s.sameAs) ? s.sameAs.length > 0 : !!s.sameAs;
+
+    let personNodeCount = 0;
+    let missingCount = 0;
+    const affected = [];
+    for (const p of pages) {
+      const persons = (p.structuredData || []).filter(isPersonNode);
+      personNodeCount += persons.length;
+      const missing = persons.filter(s => !hasSameAs(s));
+      if (missing.length > 0) {
+        missingCount += missing.length;
+        affected.push(p.url);
+      }
+    }
+
+    findings.push(finding({
+      id: 'person-schema-no-sameas',
+      category: 'aeo',
+      title: 'Doctor schema missing external profile links',
+      benefit: 'sameAs links in Person schema let AI systems confirm a doctor as a known entity across Healthgrades, LinkedIn, and other profiles. Entity confirmation is one of the strongest signals for AI citation.',
+      affectedPages: affected,
+      count: personNodeCount === 0 ? 1 : missingCount,
+      forceSeverity: personNodeCount === 0 ? 'warning' : missingCount > 0 ? 'warning' : 'passed',
+    }));
   }
 
   // ── Summary ────────────────────────────────────────────────────────────────

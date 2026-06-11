@@ -140,6 +140,47 @@ The audit tracks these under the `aeo` category. The three pillars are:
   service-detail page, and at least 5 list items (bullets or numbered) total.
   Pages with only prose paragraphs score low on the AEO AI lens.
 
+### AI crawler access (`robots-blocks-ai-bots`)
+
+- **Never block AI crawlers in robots.txt**: GPTBot, OAI-SearchBot,
+  ChatGPT-User, ClaudeBot, PerplexityBot, Google-Extended,
+  Applebot-Extended. If these can't read the site, nothing else in this
+  document matters — the practice is invisible to AI answers.
+- Security plugins and CDN bot-protection settings commonly block these
+  bots by default. The audit fetches the live robots.txt and flags any
+  blocked AI crawler as critical.
+- Rebuilt sites ship a permissive robots.txt: allow all AI crawlers,
+  disallow only utility routes (thank-you, staging).
+
+### Entity authority (`person-schema-no-sameas`)
+
+Entity authority is how confidently an AI system can identify the practice
+and its doctors as known, verifiable entities. Three signal groups feed it:
+
+- **Schema completeness**: LocalBusiness/Dentist on every page; Person or
+  Physician for each doctor with credentials and `worksFor`.
+- **`sameAs` profile links**: every doctor's Person schema links to their
+  external profiles (Healthgrades, LinkedIn, Zocdoc, state license
+  lookup when available). Cross-platform entity confirmation is one of the
+  strongest AI-citation signals (~3x lift in published studies). The
+  practice's LocalBusiness schema likewise links social profiles.
+- **NAP consistency**: identical name, address, phone across the site,
+  GBP, and directories (see Local SEO section). Mismatches fracture the
+  entity in AI knowledge graphs.
+
+### Earned vs. owned sequencing
+
+The AI citability diagnostic (does any model mention the practice when
+asked for recommendations?) decides the first AEO move:
+
+- **Not mentioned (trust-building phase)**: prioritize *earned* signals —
+  review velocity, directory listings, third-party mentions. AI learns to
+  trust a practice from what others say about it; polishing owned content
+  first gives the models nothing to anchor to.
+- **Already mentioned (trust-compounding phase)**: prioritize *owned*
+  content — accurate facts, schema depth, FAQ coverage, answer-first
+  pages — so the citations stay accurate and favorable.
+
 ### Canonical URLs and no-JS content
 
 - **Canonical URLs**: every page has a single canonical URL. Don't ship

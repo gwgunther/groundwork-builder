@@ -229,6 +229,16 @@ export const FINDINGS_CATALOG = {
     fixed_copy: 'Added numbered steps, comparison sections, and structured subheadings to service pages.',
     fix_action: { kind: 'generator', target: 'content-expand' },
   },
+  'robots-blocks-ai-bots': {
+    weight: 1.8,
+    fixed_copy: 'Allowed all major AI crawlers (GPTBot, ClaudeBot, PerplexityBot) in robots.txt.',
+    fix_action: { kind: 'generator', target: 'robots-txt' },
+  },
+  'person-schema-no-sameas': {
+    weight: 1.1,
+    fixed_copy: 'Linked doctor Person schema to external profiles via sameAs (Healthgrades, LinkedIn).',
+    fix_action: { kind: 'generator', target: 'schema-config' },
+  },
 
   // ── Google Ads readiness — conversion tracking + local-intent SEO ───────
   // The grader's pitch: "you cannot run Google Ads productively until these

@@ -242,12 +242,12 @@ function buildHtml(data, pitch) {
 
     ${seoAudit ? `
     <section id="seo">
-      <p class="eyebrow">SEO &amp; AI discoverability</p>
+      <p class="eyebrow">SEO &amp; AEO (Answer Engine Optimization)</p>
       <h2>How well the rebuilt site ranks across ${seoAudit.pageCount} pages</h2>
       <p style="color: var(--ink-soft);">
         Overall: <strong style="color: var(--accent); font-size: 20px; font-family: 'Lora', serif;">${esc(seoAudit.overall)}/10</strong>
         &nbsp;·&nbsp; Traditional SEO: <strong>${esc(seoAudit.byLens?.traditional)}/10</strong>
-        &nbsp;·&nbsp; AI / LLM: <strong>${esc(seoAudit.byLens?.ai)}/10</strong>
+        &nbsp;·&nbsp; AEO score (AI search): <strong>${esc(seoAudit.byLens?.ai)}/10</strong>
       </p>
       ${seoAudit.topIssues?.length ? `
         <div class="card" style="margin-top: 16px;">
