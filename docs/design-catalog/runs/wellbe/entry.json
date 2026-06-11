@@ -1,0 +1,246 @@
+{
+  "schemaVersion": "1.2",
+  "id": "wellbe",
+  "name": "Wellbe — Bold Wellness Editorial",
+  "tag": "reference",
+  "source": {
+    "ingestedVia": "claude-design",
+    "captured": "2026-06-10"
+  },
+  "selection": {
+    "archetype": "bold-wellness-editorial",
+    "moods": [
+      "confident-grounded",
+      "earthy-energetic"
+    ],
+    "adjectives": [
+      "bold",
+      "grounded",
+      "earthy",
+      "confident",
+      "alive",
+      "direct"
+    ],
+    "bestFor": "Dental practices positioning around holistic patient wellbeing, total health, and a no-nonsense 'your health comes first' philosophy — particularly general dentistry, preventive care, and whole-health dental practices that want to feel more like a wellness brand than a clinical office.",
+    "verticalBias": [
+      "general-dentistry",
+      "preventive-care",
+      "holistic-dental",
+      "family-dentistry"
+    ]
+  },
+  "tokens": {
+    "color": {
+      "strategy": {
+        "theme": "light",
+        "background": "warm parchment/cream inner content canvas set against an outer sage-olive background — the site frame is olive-green, the content area is cream. Two-color surface system: all content lives on the cream, olive is structural framing.",
+        "contrast": "high",
+        "saturation": "split — muted olive/earth tones for structure and text, one saturated electric-yellow accent for emphasis and active states",
+        "accentUsage": "bold and intentional — the yellow accent (#E8D800 / near-chartreuse) is used for in-image headline overlays, submit button fills, and key callout backgrounds. It is the single high-chroma moment in an otherwise earthy muted palette. Used sparingly but unmistakably.",
+        "surfaceStrategy": "Single cream content surface (#F2EDDB) on a structural olive-green frame (#636840). No nested card surfaces within content — the cream canvas itself is the single light surface. Image cards carry the only true contrast, with full-bleed photography in rounded-lg containers. Olive green is used for filled primary CTAs, section headings in context, and the outer page chrome. Yellow is reserved for in-image text overlays and the highest-emphasis interactive element (newsletter submit button, contact CTA background)."
+      },
+      "reference": {
+        "outerFrame": "#636840",
+        "canvas": "#F2EDDB",
+        "cardSurface": "#F2EDDB",
+        "headingText": "#3D4020",
+        "bodyText": "#4A4A2A",
+        "primaryButton": "#3D4020",
+        "primaryButtonText": "#F2EDDB",
+        "accentYellow": "#E8D800",
+        "accentYellowText": "#2E2E00",
+        "outlineButton": "transparent",
+        "outlineButtonBorder": "#3D4020",
+        "outlineButtonText": "#3D4020",
+        "imageOverlayHeading": "#E8D800",
+        "imageTagText": "#F2EDDB",
+        "divider": "#D8D0B0",
+        "inputBorder": "#B0A880",
+        "inputBackground": "#EAE5CE"
+      }
+    },
+    "type": {
+      "classification": "bold-condensed-sans",
+      "substitutionCriteria": "Display face must be a compressed or condensed sans-serif at ExtraBold or Black weight — a true high-impact condensed face like Syne ExtraBold, Barlow Condensed Black, or similar. Must render at ALL CAPS with tight tracking. The extreme weight and width compression are load-bearing to the character; a regular-width bold sans will not substitute. Body face must be a clean regular-weight sans at 14–16px with comfortable line-height — no personality required. Both faces should feel earthy and direct, not geometric-minimal or techy.",
+      "pairing": "ExtraBold/Black condensed-sans ALL CAPS for all display headings and in-image text overlays, paired with a plain regular-weight sans for body copy, descriptions, and UI text",
+      "heading": {
+        "weight": "extrabold/black",
+        "casing": "ALL CAPS",
+        "eyebrow": "none — this design system does not use eyebrow chips above headings",
+        "eyebrowTreatment": "n/a — category labels appear as small ALL-CAPS inline tags inside image cards (e.g. 'DAILY RITUALS', '01 / HARMONY'), never as pill chips above headings",
+        "emphasisDevice": "yellow accent fill (#E8D800) applied to in-image headline overlays and the largest statement headings within image card contexts — not used in standalone section headings, which stay in olive/dark text"
+      },
+      "body": {
+        "weight": "regular",
+        "casing": "sentence case",
+        "lineHeight": "comfortable"
+      },
+      "scale": "display-heavy",
+      "headingScale": "2xl",
+      "contrast": "very high — the gap between the massive black condensed display and the small regular body is the core typographic statement",
+      "reference": {
+        "displayFace": "Syne ExtraBold, Barlow Condensed Black, or similar compressed/condensed sans at 800–900 weight",
+        "bodyFace": "Inter, DM Sans, or similar neutral clean sans at regular/400 weight",
+        "inImageTag": "Same condensed sans at small size ALL CAPS for category metadata within image cards (e.g. 'DAILY RITUALS', 'MINDFUL FLOW')"
+      }
+    },
+    "shape": {
+      "cornerRadius": "large — image cards use lg/xl rounded corners (approx 16–20px). Buttons use pill radius. Input fields use md-lg radius. No sharp corners on any interactive or image element."
+    },
+    "elevation": {
+      "system": "flat — no drop shadows. Depth is achieved by the olive frame vs cream content contrast and by full-bleed photography within rounded containers."
+    },
+    "border": {
+      "treatment": "hairline outline — pill-outline buttons use a single hairline border in the heading/olive color with transparent fill. Input fields have a visible but subdued border. No decorative borders on content sections."
+    },
+    "button": {
+      "treatment": "split — primary CTA is filled olive/dark with cream text; secondary/more CTA is pill-outline transparent with olive border and text; newsletter submit is filled yellow with dark text. All three use pill radius.",
+      "character": "Three button types: (1) Filled dark-olive pill — primary action ('START TODAY', 'Book Appointment'). (2) Pill-outline transparent — secondary/contextual actions ('MORE', 'Contact Us') — these appear at card level, small, hairline border only. (3) Filled yellow pill icon-button — used for the newsletter submit action, carries maximum visual weight. No icons on filled primary buttons. No medium or large radius — always pill."
+    },
+    "label": {
+      "style": "inline-tag",
+      "character": "Small ALL-CAPS inline text labels within image cards — not pill chips. Positioned as a small identifier above or alongside the in-image headline (e.g. '01 / HARMONY', 'DAILY RITUALS', 'MINDFUL FLOW'). No border, no background — plain small-caps text in cream or muted tone against the image. Used as a counter/category signal rather than a navigation element."
+    },
+    "density": "open — generous whitespace within the cream canvas. Sections have substantial vertical padding. The boldness of the typography creates perceived density at the heading level, but the surrounding whitespace is very open.",
+    "motion": "subtle — hero image carousel with previous/next arrow controls. No elaborate animations inferred; the bold static character of the type system dominates."
+  },
+  "layout": {
+    "sections": [
+      "nav",
+      "hero — split asymmetric layout: massive ALL-CAPS headline left, body copy + pill CTA upper right; full-bleed image hero-card below with in-image yellow overlay headline and category tag + description",
+      "programs — ALL-CAPS section heading with 'MORE' pill-outline link top right; 3-column image cards with large rounded corners, ALL-CAPS olive title below image, price, and pill-outline 'MORE' button",
+      "author — author/doctor introduction section (visible heading at bottom of screenshot 2)",
+      "blog-articles — dual-column image cards with category tag + yellow ALL-CAPS title overlay at bottom of card, and description below",
+      "testimonials — 4-column compact quote cards with 5-star rating, quote text, avatar, and author name",
+      "contact — statement headline ('YOU DON'T NEED MORE PRESSURE — YOU NEED SPACE TO FEEL BETTER') on yellow background with inline contact form",
+      "journal — large ALL-CAPS 'WELLNESS JOURNAL' heading, subline, newsletter join widget (with avatar stack, join count, email input + yellow submit), and 2-column image article cards",
+      "footer"
+    ],
+    "variants": {
+      "heroLayout": "asymmetric-split-with-image-card",
+      "servicesLayout": "program-cards-3col",
+      "aboutLayout": "author-feature",
+      "testimonialsLayout": "compact-4col-cards",
+      "ctaLayout": "statement-headline-with-inline-form",
+      "faqLayout": "none-visible",
+      "navVariant": "minimal-logo-left",
+      "footerVariant": "minimal-light",
+      "galleryVariant": "2col-image-article-cards"
+    },
+    "composition": {
+      "hero": "Two-zone layout on the cream canvas. Upper zone: left side holds a massive 3-line ALL-CAPS ExtraBold headline ('WELL-BEING / COMES FIRST') in dark olive text — the headline spans approximately half the viewport width. Right side holds a small 2-line body copy description in regular sans, followed by a single filled olive pill CTA ('START TODAY') below the body text. The two zones align top. Lower zone: a large full-bleed image card with xl rounded corners showing a close-up human face. Within the image, a small ALL-CAPS category tag ('01 / HARMONY') sits top-left; a centered ALL-CAPS category label ('MINDFUL FLOW') sits mid-card; the main in-image headline ('FIND YOUR BALANCE') renders in the electric yellow accent at ExtraBold weight. Bottom-right of the card holds a 2-line description in white. Carousel arrows (plain circles, left and right) flank the image card. No background color behind the headline — the cream canvas IS the hero background.",
+      "nav": "Minimal bar on the cream canvas. Brand wordmark/logo left-aligned. Navigation links centered or right. A single pill CTA far right. No complex multi-column nav. The outer olive-green frame is visible above and around the content, acting as the browser-chrome color rather than a nav background.",
+      "programs": "Full-width section on the cream canvas. Section heading 'PROGRAMS' in large ALL-CAPS ExtraBold olive text, left-aligned. A small pill-outline 'MORE' link sits top-right aligned with the heading. Three equal-width columns each contain: a large full-bleed image with xl radius (landscape/portrait crop, warm-graded wellness photography), followed by an ALL-CAPS ExtraBold olive title (2 lines), a 1-line description in small regular sans, a bold price line ('$1,800' / 'Starting at $3,500' / '$497'), and a small pill-outline 'MORE' button. Column gap is generous. No category chips, no metadata tags.",
+      "author": "Author/doctor feature section — visible only as a heading in screenshot 2. Likely a split-image layout with author portrait and bio copy.",
+      "blogArticles": "Two-column grid of image article cards. Each card: large full-bleed image with xl radius (portrait crop), a small ALL-CAPS inline category tag ('DAILY RITUALS') positioned inside the image at upper-left, and an ALL-CAPS ExtraBold headline in yellow (#E8D800) rendered at the bottom of the image over a subtle dark gradient. Below the image: a 1-line description in regular sans. No price, no chips, no CTA per card — the card itself is the click target.",
+      "testimonials": "Four compact cards in a horizontal row on the cream canvas. Each card: a star rating display (5 filled stars) top-left with score label, 3–4 lines of quote body text in small regular sans, and below that an author avatar (small circle) + author name and location in small sans. Cards are borderless — separated by column gaps only. No background on cards, no border radius visible — flat inline.",
+      "contact": "High-contrast statement section. Left half: a large 3-line ALL-CAPS ExtraBold headline ('YOU DON'T NEED / MORE PRESSURE — / YOU NEED SPACE / TO FEEL BETTER') on a bright yellow (#E8D800) background. Below the headline: social icon links and a phone number + email address in small sans. Right half: a contact form on the yellow background with labeled input fields (Name, Email, Message) each with a rounded input box and muted border, followed by a filled dark pill CTA ('START TODAY'). The entire section has a yellow fill — this is the one full-section accent color usage.",
+      "journal": "Section on the cream canvas. Large ALL-CAPS ExtraBold heading ('WELLNESS JOURNAL') left-aligned, spanning most of the content width. Below: a small italic subline ('Your guide to balance, energy, and daily rituals'). Upper-right: a newsletter signup widget — an olive-background rounded card with a small avatar stack (3 user avatars), bold 'JOIN 1,000+ READERS' heading, a 1-line descriptor, a cream rounded text input ('Join newsletter*'), and a small yellow filled pill button with '+' icon. Below: a 2-column grid of article image cards in the same style as blogArticles (image + yellow in-image headline + category tag + description).",
+      "footer": "Minimal footer on the cream canvas. Logo and nav links. No dark background. Copyright line."
+    },
+    "novel": [
+      {
+        "section": "hero",
+        "name": "Asymmetric Headline + Image Hero Card with In-Image Yellow Overlay",
+        "spec": "Two-zone hero on the cream canvas. Top zone: left-aligned ALL-CAPS ExtraBold headline (3 lines, ~70–80% viewport width) in dark olive; right-aligned single body text block + pill CTA ('START TODAY') occupying the upper right quadrant. No background image behind the text zone. Bottom zone: a single large image card (~70% viewport width, xl radius, full-bleed) that fills horizontally below the headline. Inside the image card: small inline ALL-CAPS counter label top-left (e.g. '01 / HARMONY'), centered ALL-CAPS category label mid-card (e.g. 'MINDFUL FLOW' in small white sans), a 2-line ALL-CAPS ExtraBold in-image headline in electric yellow (#E8D800) at center (e.g. 'FIND YOUR BALANCE'), and a 2-line white description text bottom-right. Carousel navigation: two circle-outline arrow buttons flanking the image card horizontally (left and right edges). Dental translation: hero card becomes a practice photography carousel (team, office, patient care moments) with bold yellow-overlay headline per slide.",
+        "requiresNewComponent": true
+      },
+      {
+        "section": "programs",
+        "name": "Program Cards — Image-First with Price and Pill-Outline CTA",
+        "spec": "3-column (or 2-column) grid of service/program cards on the cream canvas. Section header: ALL-CAPS ExtraBold heading left + pill-outline 'MORE' link right — both on the same baseline row. Each card: (1) large full-bleed image with xl corner radius (approx 16–20px), warm wellness photography; (2) ALL-CAPS ExtraBold olive title below image, 1–2 lines; (3) 1-line description in small regular sans in muted olive; (4) a bold price line ('$X,XXX' or 'Starting at $X,XXX') in regular sans; (5) a small pill-outline 'MORE' button (transparent fill, olive hairline border, small text). No category chips, no metadata. Dental translation: each card becomes a dental service (e.g. 'DENTAL IMPLANTS', 'CLEAR ALIGNERS') with a starting-from price and 'LEARN MORE' pill-outline CTA.",
+        "requiresNewComponent": true
+      },
+      {
+        "section": "contact",
+        "name": "Statement Headline on Yellow Section with Inline Contact Form",
+        "spec": "Full-width section with an electric-yellow (#E8D800) background fill. Left half (approx 50%): a 4-line ALL-CAPS ExtraBold statement headline in dark olive ('YOU DON'T NEED MORE PRESSURE — YOU NEED SPACE TO FEEL BETTER'). Below the headline: a row of 3–4 small social icon links, then a phone number and email address in small regular sans. Right half (approx 50%): a simple inline contact form — three labeled input fields (Name, Email, Message) with rounded cream-background boxes and muted borders, followed by a single filled dark-olive pill submit button ('START TODAY'). The yellow background extends across the full section width. No card wrapper — the yellow IS the section background. Dental translation: headline becomes a patient-care statement ('YOUR COMFORT COMES FIRST — YOU DESERVE DENTAL CARE THAT LISTENS') with appointment request form.",
+        "requiresNewComponent": true
+      },
+      {
+        "section": "journal",
+        "name": "Journal Section with Embedded Newsletter Signup Widget",
+        "spec": "Content section on the cream canvas. Left side: a massive ALL-CAPS ExtraBold heading ('WELLNESS JOURNAL' / dental: 'PATIENT RESOURCES') and a small italic subline below. Upper right: a self-contained newsletter/notification widget — an olive-dark background rounded card containing: (1) a horizontal stack of 3 small circular user avatars, (2) an ALL-CAPS ExtraBold heading ('JOIN 1,000+ READERS'), (3) a 1-line descriptor, (4) a cream-background rounded text input field, (5) a small yellow filled pill submit button with '+' icon. Below the heading row: 2-column article card grid (image + yellow in-image title + category tag + description). Dental translation: section becomes 'DENTAL HEALTH RESOURCES' or 'PATIENT EDUCATION', newsletter becomes appointment or updates signup.",
+        "requiresNewComponent": true
+      }
+    ]
+  },
+  "imagery": {
+    "crop": "Varies by use — hero image card and article cards use close-up or medium crop, often centering on a human face, neck, or upper body. Program cards use medium or full-body lifestyle crops. All images fill their container completely with no white space visible around edges.",
+    "grading": "Warm, golden-hour tone throughout. Lifted shadows, slight desaturation in shadows, warm highlights. Skin tones are warm and luminous. No cool or clinical grading — everything leans toward earthy amber-warm. The overall look is natural, outdoor, and sun-touched rather than studio-lit.",
+    "framing": "Human subjects are the primary focus — close to medium crop showing face, torso, or lifestyle pose. Environmental context (outdoors, natural light, plant life) visible in backgrounds. No sterile white-background photography. Subjects are at ease, often eyes closed or in contemplative/joyful expressions.",
+    "subjectTreatment": "Wellness lifestyle imagery — subjects in natural settings, warm light, relaxed or energetic expressions. Diversity is visible across cards. No clinical imagery — no equipment, no chair, no sterile environments. The dental translation would use warm, approachable, candid-feeling dental and team photography rather than procedure shots.",
+    "imageTextRatio": "image-heavy — large images fill most of each card; text content is concise and brief below"
+  },
+  "voice": {
+    "formality": "direct and conversational",
+    "rhythm": "Short, declarative phrases. Statement headlines are bold, provocative, and welfare-forward ('YOU DON'T NEED MORE PRESSURE'). Body copy is brief — 1–2 short sentences, plain language. Price is stated plainly without softening. The overall voice is confident and permission-giving rather than clinical or cautious.",
+    "favors": [
+      "second-person direct address ('you need', 'your body', 'meet you where you are')",
+      "wellness and whole-person language ('balance', 'energy', 'resilience', 'your body and mind')",
+      "permission-giving and low-pressure framing ('space to feel better', 'guide you', 'sustainable')",
+      "plain-spoken benefit language without clinical jargon",
+      "bold statement copy that challenges conventional thinking ('You don't need more pressure')",
+      "transparent pricing — price shown openly without qualification"
+    ],
+    "avoids": [
+      "clinical or procedure-heavy terminology in patient-facing copy",
+      "urgency, scarcity, or pressure language",
+      "superlatives or credentialism ('best in the city', 'award-winning')",
+      "fear-based or problem-amplifying messaging",
+      "overly long sentences or paragraph-heavy copy"
+    ]
+  },
+  "fidelity": {
+    "layout": "partial",
+    "theme": "light-native",
+    "phase": "B",
+    "gaps": [
+      {
+        "type": "variant",
+        "detail": "Asymmetric split hero with in-image yellow overlay headline and carousel image card has no matching variant in the standard hero pool — all standard hero variants are either centered or simple left/right split. Requires novel component."
+      },
+      {
+        "type": "variant",
+        "detail": "Program/service cards with image + ALL-CAPS title + price + pill-outline CTA are not the same as alternating-rows or standard card-grid. The ALL-CAPS ExtraBold typography AND price display AND pill-outline 'MORE' button together are a distinct pattern requiring a novel component."
+      },
+      {
+        "type": "variant",
+        "detail": "Statement-headline-on-yellow-background contact section with inline form has no match in the standard CTA pool. The full-section accent-fill pattern is structurally different from a card or centered CTA. Requires novel component."
+      },
+      {
+        "type": "variant",
+        "detail": "Journal section with embedded newsletter widget has no standard match — the embedded olive-dark signup card sitting within the content hierarchy next to the section heading is a unique layout pattern. Requires novel component."
+      },
+      {
+        "type": "token",
+        "detail": "The ALL-CAPS ExtraBold condensed display face is a hard dependency — a generic bold sans will not reproduce the character. The builder must provide a real condensed Black weight font (Syne ExtraBold, Barlow Condensed Black, etc). The archetype collapses without this."
+      },
+      {
+        "type": "token",
+        "detail": "The electric-yellow accent (#E8D800) is used at full-section background scale in the contact section — not just a button or label. This is an unusual accentUsage pattern that may conflict with builders defaulting the accent to small UI elements only."
+      }
+    ]
+  },
+  "audit": {
+    "sanctionedPatterns": [
+      "all-caps-display-headings",
+      "in-image-text-overlay",
+      "accent-section-fill"
+    ],
+    "fidelityChecks": [
+      "All section headings and in-image titles must be ALL CAPS using a condensed ExtraBold/Black weight font — sentence-case headings will break the archetype entirely.",
+      "The hero must use the asymmetric two-zone layout: large standalone ALL-CAPS headline top-left with body copy top-right, then a full-width image card below — do not use a centered hero or a hero with a background image behind the headline.",
+      "In-image headlines inside the hero carousel and article cards must render in the electric yellow (#E8D800) — not in white or olive. Yellow is the in-image text color, not a section background by default.",
+      "The contact/CTA section must use the full-section yellow background fill — this is the primary use of the accent color at section scale. Do not reduce it to a card or banner.",
+      "Buttons come in three distinct types: filled dark-olive primary, pill-outline transparent secondary, and filled-yellow submit icon-button. Do not collapse all buttons to a single type.",
+      "Image cards must use xl rounded corners (16–20px) — no sharp corners, no small radius on photography containers.",
+      "Category tags within image cards are small inline ALL-CAPS plain text — not pill chips with borders. Do not use the eyebrow-chip pattern from warm-editorial systems.",
+      "Pricing must be displayed prominently below program/service titles — not hidden or disclosed only on detail pages.",
+      "The outer frame (olive green) is structural, not navigational — nav lives on the cream canvas, not the olive frame.",
+      "Body copy must stay at 1–2 short sentences maximum; this is a visual-dominant system where images and bold type carry the message, not paragraphs.",
+      "The newsletter/signup widget inside the journal section must sit as an embedded dark-background card alongside the section heading — not as a separate full-width footer banner.",
+      "Star ratings in testimonials must be visible — the rating display is part of each compact testimonial card."
+    ]
+  }
+}

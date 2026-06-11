@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dentora — Design System Showcase · Spring St. Dentistry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ── Design tokens ─────────────────────────────────────────────────────── */
+:root {
+  --canvas:          #F5F0E8;
+  --nav-surface:     #FFFFFF;
+  --card-surface:    #FFFFFF;
+  --heading:         #181818;
+  --body-text:       #333333;
+  --eyebrow-text:    #666666;
+  --accent:          #5ECFB1;
+  --btn-border:      #181818;
+  --btn-text:        #181818;
+  --inverted-bg:     #5B2D8E;
+  --inverted-head:   #FFFFFF;
+  --inverted-body:   #D4B8F0;
+  --inverted-label:  #5ECFB1;
+  --divider:         #E0DAD0;
+  --team-card-bg:    #ECEAE3;
+  --logo-text:       #181818;
+
+  --font-display: 'Sora', -apple-system, sans-serif;
+  --font-body:    'DM Sans', -apple-system, sans-serif;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--body-text);
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Showcase meta bar ──────────────────────────────────────────────────── */
+.meta-bar {
+  background: #111111;
+  color: #aaaaaa;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.4px;
+  padding: 8px 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.meta-bar .meta-name { font-weight: 700; color: #ffffff; }
+.meta-bar .meta-sep  { color: #333333; }
+.meta-bar .meta-pass { color: #5ECFB1; font-weight: 700; }
+.meta-bar .meta-novel { color: #a78bfa; }
+.meta-bar-right { margin-left: auto; display: flex; gap: 8px; }
+.meta-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #aaaaaa;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: background 0.15s;
+}
+.meta-btn:hover { background: rgba(255,255,255,0.14); }
+.meta-btn.active { background: rgba(94,207,177,0.15); color: #5ECFB1; border-color: rgba(94,207,177,0.3); }
+
+/* ── Novel section callout ─────────────────────────────────────────────── */
+.novel-flag { position: relative; }
+.novel-label {
+  display: none;
+  position: absolute;
+  top: 12px; right: 12px;
+  background: rgba(167,139,250,0.12);
+  border: 1px solid rgba(167,139,250,0.3);
+  color: #a78bfa;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 4px;
+  z-index: 10;
+  font-family: var(--font-body);
+}
+body.show-annotations .novel-label { display: block; }
+body.show-annotations .novel-flag { outline: 1px dashed rgba(167,139,250,0.2); }
+
+/* ── Shared ─────────────────────────────────────────────────────────────── */
+.eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--eyebrow-text);
+  margin-bottom: 16px;
+}
+.eyebrow.on-purple {
+  color: var(--inverted-label);
+}
+
+/* Outline CTA button */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid var(--btn-border);
+  color: var(--btn-text);
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 13px 32px;
+  text-decoration: none;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.btn-outline:hover {
+  background: var(--heading);
+  color: #ffffff;
+}
+.btn-outline.on-purple {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+.btn-outline.on-purple:hover {
+  background: #ffffff;
+  color: var(--inverted-bg);
+}
+
+/* Teal hand-drawn underline SVG */
+.accent-underline {
+  position: relative;
+  white-space: nowrap;
+}
+.accent-underline svg {
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 14px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* ── Nav — Novel: Three-zone hamburger ──────────────────────────────────── */
+nav {
+  background: var(--nav-surface);
+  border-bottom: 1px solid var(--divider);
+  position: sticky;
+  top: 33px;
+  z-index: 100;
+  padding: 0 40px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--logo-text);
+  letter-spacing: -0.3px;
+  text-decoration: none;
+}
+.nav-logo-icon {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+.nav-logo-icon span {
+  background: var(--heading);
+  border-radius: 1px;
+  display: block;
+}
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--heading);
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: var(--font-display);
+}
+.nav-menu-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5px;
+}
+.nav-menu-lines span {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: var(--heading);
+  border-radius: 1px;
+}
+.nav-phone {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--heading);
+  text-decoration: none;
+  letter-spacing: -0.2px;
+}
+.nav-phone svg {
+  width: 15px;
+  height: 15px;
+  opacity: 0.7;
+}
+
+/* ── Hero — Novel: Centered text + scattered photo collage ──────────────── */
+#hero {
+  background: var(--canvas);
+  padding: 64px 48px 0;
+  position: relative;
+  overflow: hidden;
+  min-height: 640px;
+}
+.hero-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+.hero-eyebrow {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--eyebrow-text);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+.hero-headline {
+  font-size: clamp(56px, 8.5vw, 96px);
+  font-weight: 800;
+  color: var(--heading);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+  max-width: 700px;
+}
+.hero-sub {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--body-text);
+  max-width: 500px;
+  margin-bottom: 36px;
+  line-height: 1.65;
+}
+.hero-cta-wrap { margin-bottom: 56px; }
+
+/* Scattered photo collage */
+.hero-collage {
+  position: relative;
+  width: 100%;
+  max-width: 1080px;
+  height: 380px;
+  margin: 0 auto;
+}
+.hero-photo {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.hero-photo-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.25);
+}
+.hero-photo-a {
+  /* Left patient portrait */
+  left: 3%;
+  top: 0;
+  width: 178px;
+  height: 222px;
+  background: #D8D2C8;
+}
+.hero-photo-b {
+  /* Center smile close-up */
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+  width: 280px;
+  height: 280px;
+  background: #5ECFB1;
+  overflow: hidden;
+}
+.hero-photo-b .hero-photo-placeholder { color: rgba(255,255,255,0.5); }
+.hero-photo-c {
+  /* Right child portrait */
+  right: 3%;
+  top: 24px;
+  width: 162px;
+  height: 178px;
+  background: #D0C8BC;
+}
+
+/* Teal smiley doodle */
+.hero-smiley {
+  position: absolute;
+  top: 20px;
+  right: calc(3% + 172px);
+  width: 72px;
+  height: 64px;
+  pointer-events: none;
+}
+
+/* ── About — Novel: Scale-inversion heading + SVG underline ─────────────── */
+#about {
+  background: var(--canvas);
+  padding: 96px 48px 0;
+}
+.about-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.about-text-block {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 56px;
+}
+.about-text-block p {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--body-text);
+  line-height: 1.7;
+}
+.about-headline-block {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.about-headline {
+  font-size: clamp(40px, 6.5vw, 76px);
+  font-weight: 800;
+  color: var(--heading);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  display: inline;
+}
+.about-headline-wrap {
+  line-height: 1.1;
+  word-spacing: -0.01em;
+}
+.about-image {
+  width: 100%;
+  aspect-ratio: 16/7;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #C8C4BC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.2);
+  margin-bottom: 0;
+}
+
+/* ── Services ───────────────────────────────────────────────────────────── */
+#services {
+  background: var(--canvas);
+  padding: 96px 48px;
+}
+.services-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.services-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+  margin-bottom: 64px;
+}
+.services-h2 {
+  font-size: clamp(36px, 5vw, 58px);
+  font-weight: 800;
+  color: var(--heading);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+}
+.services-desc {
+  padding-top: 16px;
+  font-size: 15px;
+  color: var(--body-text);
+  max-width: 420px;
+  line-height: 1.65;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--divider);
+  border: 1px solid var(--divider);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.service-card {
+  background: var(--card-surface);
+  padding: 32px 28px;
+  transition: background 0.15s;
+}
+.service-card:hover { background: #FAFAF8; }
+.service-card-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--eyebrow-text);
+  margin-bottom: 20px;
+  opacity: 0.6;
+}
+.service-card-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--heading);
+  margin-bottom: 10px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.service-card-desc {
+  font-size: 13.5px;
+  color: var(--body-text);
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+/* ── Team ───────────────────────────────────────────────────────────────── */
+#team {
+  background: var(--canvas);
+  padding: 96px 48px;
+  border-top: 1px solid var(--divider);
+}
+.team-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.team-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+.team-count {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--eyebrow-text);
+  padding-top: 6px;
+  opacity: 0.5;
+}
+.team-h2 {
+  font-size: clamp(26px, 3.5vw, 40px);
+  font-weight: 800;
+  color: var(--heading);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  max-width: 340px;
+}
+.team-desc {
+  font-size: 14px;
+  color: var(--body-text);
+  max-width: 280px;
+  line-height: 1.6;
+  padding-top: 6px;
+}
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.team-card { }
+.team-photo {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #D5D0C8;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.2);
+}
+.team-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--heading);
+  margin-bottom: 3px;
+}
+.team-role {
+  font-size: 12.5px;
+  color: var(--eyebrow-text);
+  font-weight: 400;
+}
+
+/* ── Case studies — Novel: Scattered collage + lasso doodle ─────────────── */
+#case-studies {
+  background: var(--canvas);
+  padding: 96px 48px;
+  border-top: 1px solid var(--divider);
+  position: relative;
+  overflow: hidden;
+}
+.case-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  text-align: center;
+}
+.case-doodle {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+}
+.case-doodle svg {
+  width: 64px;
+  height: 56px;
+}
+.case-headline {
+  font-size: clamp(40px, 5.5vw, 68px);
+  font-weight: 800;
+  color: var(--heading);
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+}
+.case-lasso {
+  position: relative;
+  display: inline-block;
+}
+.case-lasso svg {
+  position: absolute;
+  bottom: -4px;
+  left: -12px;
+  width: calc(100% + 24px);
+  height: auto;
+  pointer-events: none;
+  overflow: visible;
+}
+.case-sub {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--body-text);
+  max-width: 500px;
+  margin: 0 auto 56px;
+  line-height: 1.65;
+}
+.case-collage {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 24px;
+}
+.case-photo {
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.2);
+}
+.case-photo-a { width: 148px; height: 172px; background: #D8D2C4; margin-bottom: 40px; }
+.case-photo-b { width: 216px; height: 248px; background: #C8C2B8; }
+.case-photo-c { width: 148px; height: 180px; background: #5ECFB1; margin-bottom: 20px; }
+.case-photo-c { color: rgba(255,255,255,0.5); }
+
+/* ── Service detail preview ─────────────────────────────────────────────── */
+#service-detail {
+  background: var(--card-surface);
+  padding: 72px 48px 0;
+  border-top: 1px solid var(--divider);
+}
+.detail-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--eyebrow-text);
+  text-decoration: none;
+  margin-bottom: 32px;
+  opacity: 0.6;
+}
+.detail-h1 {
+  font-size: clamp(40px, 5.5vw, 68px);
+  font-weight: 800;
+  color: var(--heading);
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+  margin-bottom: 16px;
+}
+.detail-desc {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--body-text);
+  max-width: 540px;
+  margin-bottom: 56px;
+  line-height: 1.65;
+}
+.detail-hero-image {
+  width: 100%;
+  aspect-ratio: 16/7;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #5ECFB1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 0;
+}
+
+/* ── Inverted purple section — Novel ─────────────────────────────────────── */
+#featured-treatments {
+  background: var(--inverted-bg);
+  padding: 80px 48px;
+}
+.featured-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.featured-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48px;
+}
+.featured-left .eyebrow { color: var(--inverted-label); }
+.featured-h2 {
+  font-size: clamp(36px, 5vw, 58px);
+  font-weight: 800;
+  color: var(--inverted-head);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+}
+.featured-count {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.3);
+  padding-top: 8px;
+}
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.featured-card {
+  background: rgba(255,255,255,0.04);
+  padding: 32px 28px;
+  transition: background 0.15s;
+}
+.featured-card:hover { background: rgba(255,255,255,0.08); }
+.featured-card-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--inverted-label);
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+.featured-card-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--inverted-head);
+  margin-bottom: 10px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.featured-card-desc {
+  font-size: 13px;
+  color: var(--inverted-body);
+  line-height: 1.6;
+}
+
+/* ── FAQ ───────────────────────────────────────────────────────────────── */
+#faq {
+  background: var(--canvas);
+  padding: 96px 48px;
+}
+.faq-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.faq-left-head {
+  position: sticky;
+  top: 120px;
+}
+.faq-h2 {
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 800;
+  color: var(--heading);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  margin-bottom: 20px;
+}
+.faq-sub {
+  font-size: 13.5px;
+  color: var(--body-text);
+  opacity: 0.7;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.faq-list { }
+.faq-item {
+  border-bottom: 1px solid var(--divider);
+}
+.faq-item:first-child { border-top: 1px solid var(--divider); }
+.faq-q {
+  width: 100%;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 0;
+  cursor: pointer;
+  text-align: left;
+  gap: 20px;
+  font-family: var(--font-display);
+}
+.faq-q-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--heading);
+  line-height: 1.4;
+}
+.faq-icon {
+  font-size: 22px;
+  color: var(--eyebrow-text);
+  flex-shrink: 0;
+  transition: transform 0.2s;
+  line-height: 1;
+  font-weight: 300;
+  opacity: 0.5;
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-a {
+  font-size: 14px;
+  color: var(--body-text);
+  padding: 0 40px 22px 0;
+  display: none;
+  line-height: 1.7;
+}
+.faq-item.open .faq-a { display: block; }
+
+/* ── CTA ───────────────────────────────────────────────────────────────── */
+#cta {
+  background: var(--heading);
+  padding: 96px 48px;
+  text-align: center;
+}
+#cta .eyebrow { color: rgba(255,255,255,0.4); }
+#cta h2 {
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  margin-bottom: 16px;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#cta p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.6);
+  max-width: 440px;
+  margin: 0 auto 36px;
+  line-height: 1.65;
+}
+.cta-btn-wrap {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#cta .btn-outline {
+  border-color: rgba(255,255,255,0.6);
+  color: #ffffff;
+}
+#cta .btn-outline:hover {
+  background: #ffffff;
+  color: var(--heading);
+}
+#cta .btn-outline.phone-btn {
+  border-color: rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.65);
+  font-weight: 600;
+}
+
+/* ── Footer ────────────────────────────────────────────────────────────── */
+footer {
+  background: var(--canvas);
+  border-top: 1px solid var(--divider);
+  padding: 40px 48px;
+}
+.footer-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--logo-text);
+}
+.footer-logo-icon {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  width: 10px;
+  height: 10px;
+}
+.footer-logo-icon span { background: var(--heading); display: block; border-radius: 1px; }
+.footer-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+.footer-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--eyebrow-text);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.footer-links a:hover { color: var(--heading); }
+.footer-copy {
+  font-size: 12px;
+  color: var(--eyebrow-text);
+  opacity: 0.6;
+}
+
+/* ── Design system panel ────────────────────────────────────────────────── */
+.ds-panel {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 380px;
+  background: #0d0d0d;
+  color: #cccccc;
+  font-family: var(--font-body);
+  font-size: 12px;
+  overflow-y: auto;
+  z-index: 300;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  border-left: 1px solid #222222;
+}
+.ds-panel.open { transform: translateX(0); }
+.ds-panel-header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid #222222;
+  position: sticky; top: 0;
+  background: #0d0d0d;
+  z-index: 1;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.ds-panel-title { font-size: 13px; font-weight: 700; color: #ffffff; }
+.ds-panel-close {
+  background: none; border: none; color: #555; cursor: pointer; font-size: 20px; line-height: 1;
+}
+.ds-section { padding: 20px 20px 0; }
+.ds-section-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #444444;
+  margin-bottom: 12px;
+}
+.ds-divider { border: none; border-top: 1px solid #1e1e1e; margin: 20px 0 0; }
+
+/* Palette swatches */
+.palette-grid { display: flex; flex-direction: column; gap: 6px; margin-bottom: 4px; }
+.swatch-row { display: flex; align-items: center; gap: 10px; }
+.swatch { width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.06); }
+.swatch-info { flex: 1; }
+.swatch-role { font-size: 11px; color: #aaaaaa; }
+.swatch-hex  { font-size: 10px; color: #555555; font-variant-numeric: tabular-nums; }
+
+/* Type specimen */
+.type-display-samp { font-family: 'Sora', sans-serif; font-size: 24px; font-weight: 800; color: #ffffff; line-height: 1.1; margin-bottom: 4px; letter-spacing: -0.02em; }
+.type-body-samp    { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #888888; line-height: 1.5; margin-bottom: 4px; }
+.type-eyebrow-samp { font-family: 'Sora', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #666666; margin-bottom: 4px; }
+.type-meta    { font-size: 10px; color: #444444; }
+
+/* Scores */
+.score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.score-cell { background: #181818; border-radius: 6px; padding: 8px 10px; }
+.score-id   { font-size: 10px; color: #444444; margin-bottom: 2px; }
+.score-val  { font-size: 18px; font-weight: 700; color: #5ECFB1; }
+.score-pass { font-size: 22px; font-weight: 800; color: #5ECFB1; }
+.score-iter { font-size: 11px; color: #444444; }
+
+/* Checks */
+.check-list  { display: flex; flex-direction: column; gap: 8px; padding-bottom: 24px; }
+.check-item  { background: #181818; border-radius: 6px; padding: 9px 10px; font-size: 11px; color: #888888; line-height: 1.45; }
+.check-item::before { content: '✓ '; color: #5ECFB1; font-weight: 700; }
+
+/* Novel list */
+.novel-list { display: flex; flex-direction: column; gap: 8px; }
+.novel-item { background: rgba(167,139,250,0.06); border: 1px solid rgba(167,139,250,0.14); border-radius: 6px; padding: 9px 10px; }
+.novel-item-name { font-size: 11px; color: #a78bfa; font-weight: 700; margin-bottom: 3px; }
+.novel-item-spec { font-size: 10.5px; color: #555555; line-height: 1.4; }
+
+/* Token grid */
+.token-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding-bottom: 4px; }
+.token-cell { background: #181818; border-radius: 6px; padding: 8px 10px; }
+.token-label { font-size: 10px; color: #444444; margin-bottom: 2px; }
+.token-val   { font-size: 13px; color: #cccccc; font-weight: 600; }
+.token-sub   { font-size: 10px; color: #444444; }
+</style>
+</head>
+<body>
+
+<!-- ── Meta bar ─────────────────────────────────────────────────────────── -->
+<div class="meta-bar">
+  <span class="meta-name">Dentora</span>
+  <span class="meta-sep">·</span>
+  <span>clean-confident</span>
+  <span class="meta-sep">·</span>
+  <span>clean-clinical · modern-premium</span>
+  <span class="meta-sep">·</span>
+  <span class="meta-novel">4 novel components</span>
+  <div class="meta-bar-right">
+    <button class="meta-btn" id="annotate-btn" onclick="toggleAnnotations()">Annotations</button>
+    <button class="meta-btn active" id="panel-btn" onclick="togglePanel()">Design system ›</button>
+  </div>
+</div>
+
+<!-- ── Nav — Novel: Three-zone hamburger ────────────────────────────────── -->
+<nav class="novel-flag" style="position:sticky; top:33px;">
+  <div class="novel-label">Novel — Three-Zone Hamburger Nav</div>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    Spring St. Dentistry
+  </a>
+  <button class="nav-menu">
+    <div class="nav-menu-lines">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    Menu
+  </button>
+  <a href="tel:5624208578" class="nav-phone">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.13 6.13l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.95 16.92z"/>
+    </svg>
+    (562) 420-8578
+  </a>
+</nav>
+
+<!-- ── Hero — Novel: Centered text + scattered photo collage ────────────── -->
+<section id="hero" class="novel-flag">
+  <div class="novel-label">Novel — Centered Text + Scattered Photo Collage</div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Your neighborhood dentist<br>on Spring Street, Long Beach</div>
+    <h1 class="hero-headline">Your smile<br>says it all.</h1>
+    <p class="hero-sub">We combine attentive dental care with a patient-first approach to help you feel confident at every stage of your journey.</p>
+    <div class="hero-cta-wrap">
+      <a href="#" class="btn-outline">Book an Appointment</a>
+    </div>
+  </div>
+
+  <!-- Scattered photo collage -->
+  <div class="hero-collage">
+    <!-- Teal smiley doodle (upper right of headline area) -->
+    <svg class="hero-smiley" viewBox="0 0 80 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 38 Q38 62 60 38" stroke="#5ECFB1" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+      <circle cx="28" cy="24" r="4" fill="#5ECFB1"/>
+      <circle cx="52" cy="20" r="4" fill="#5ECFB1"/>
+    </svg>
+    <!-- Left portrait -->
+    <div class="hero-photo hero-photo-a">
+      <div class="hero-photo-placeholder">Patient</div>
+    </div>
+    <!-- Center close-up -->
+    <div class="hero-photo hero-photo-b">
+      <div class="hero-photo-placeholder" style="color:rgba(255,255,255,0.5)">Smile</div>
+    </div>
+    <!-- Right portrait -->
+    <div class="hero-photo hero-photo-c">
+      <div class="hero-photo-placeholder">Patient</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── About — Novel: Scale-inversion heading + SVG underline ───────────── -->
+<section id="about" class="novel-flag">
+  <div class="novel-label">Novel — Scale-Inversion Heading + SVG Underline</div>
+  <div class="about-inner">
+    <div class="about-text-block">
+      <span class="eyebrow">About the practice</span>
+      <p>We combine advanced technology, genuine expertise, and a patient-first mindset to deliver the highest standard of dentistry in Long Beach.</p>
+    </div>
+    <div class="about-headline-block">
+      <div class="about-headline-wrap">
+        <span class="about-headline">A modern approach to&nbsp;</span>
+        <span class="about-headline">
+          <span class="accent-underline">exceptional dental care.
+            <svg viewBox="0 0 320 14" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 9 Q80 3 160 9 Q240 15 316 7" stroke="#5ECFB1" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+            </svg>
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="about-image">Clinic interior</div>
+  </div>
+</section>
+
+<!-- ── Services ─────────────────────────────────────────────────────────── -->
+<section id="services">
+  <div class="services-inner">
+    <div class="services-header">
+      <div>
+        <span class="eyebrow">What we offer</span>
+        <h2 class="services-h2">Comprehensive dental care on Spring Street.</h2>
+      </div>
+      <p class="services-desc">From routine cleanings to complete smile transformations, we offer everything your family needs under one roof. Dr. Hoang brings a full spectrum of care to Long Beach.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-card-num">01</div>
+        <div class="service-card-name">Clear Aligners</div>
+        <div class="service-card-desc">Straighten your teeth discreetly with custom aligners that fit your lifestyle and schedule.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-num">02</div>
+        <div class="service-card-name">Cosmetic Dentistry</div>
+        <div class="service-card-desc">Enhance your smile's appearance with personalized treatments designed to boost your confidence.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-num">03</div>
+        <div class="service-card-name">Dental Implants</div>
+        <div class="service-card-desc">Replace missing teeth permanently with implants that look, feel, and function like natural teeth.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-num">04</div>
+        <div class="service-card-name">Dental Crowns</div>
+        <div class="service-card-desc">Protect and strengthen a damaged tooth with a custom crown that looks and feels completely natural.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-num">05</div>
+        <div class="service-card-name">Deep Cleaning</div>
+        <div class="service-card-desc">Remove harmful buildup below the gumline to protect your teeth and restore gum health.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-num">06</div>
+        <div class="service-card-name">Dental Bonding</div>
+        <div class="service-card-desc">Repair chips, cracks, or gaps quickly with a natural-looking resin applied in a single visit.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Team ──────────────────────────────────────────────────────────────── -->
+<section id="team">
+  <div class="team-inner">
+    <div class="team-header">
+      <span class="eyebrow" style="margin-bottom:0">Our team</span>
+      <h2 class="team-h2">Meet the Expert Behind Your Smile</h2>
+      <p class="team-desc">A skilled, patient-centered team working together to deliver superior dental care in Long Beach.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-photo">Dr. Hoang</div>
+        <div class="team-name">Dr. Anthony Hoang</div>
+        <div class="team-role">Lead Dentist, DMD</div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo">Jackie</div>
+        <div class="team-name">Jackie</div>
+        <div class="team-role">Front Desk &amp; Patient Care</div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo">Charlie</div>
+        <div class="team-name">Charlie</div>
+        <div class="team-role">Dental Assistant</div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo">Janet</div>
+        <div class="team-name">Janet</div>
+        <div class="team-role">Dental Assistant</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Case studies — Novel: Scattered collage + lasso doodle ───────────── -->
+<section id="case-studies" class="novel-flag">
+  <div class="novel-label">Novel — Scattered Collage + Lasso Doodle</div>
+  <div class="case-inner">
+    <div class="case-doodle">
+      <svg viewBox="0 0 64 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 32 Q28 48 44 32" stroke="#5ECFB1" stroke-width="3" stroke-linecap="round" fill="none"/>
+        <circle cx="22" cy="20" r="3.5" fill="#5ECFB1"/>
+        <circle cx="42" cy="17" r="3.5" fill="#5ECFB1"/>
+      </svg>
+    </div>
+    <div>
+      <span class="case-headline">Real Stories.<br>
+        <span class="case-lasso">Real Confidence.
+          <svg viewBox="0 0 380 52" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="190" cy="26" rx="185" ry="22" stroke="#5ECFB1" stroke-width="3" fill="none" stroke-dasharray="0"/>
+          </svg>
+        </span>
+      </span>
+    </div>
+    <p class="case-sub">Discover how our patients have transformed their smiles and regained confidence with our expert care. Each case highlights the treatment, process, and results.</p>
+    <div class="case-collage">
+      <div class="case-photo case-photo-a">Smile</div>
+      <div class="case-photo case-photo-b">Smile</div>
+      <div class="case-photo case-photo-c">Smile</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Service detail preview ─────────────────────────────────────────────── -->
+<section id="service-detail">
+  <div class="detail-inner">
+    <a href="#" class="detail-back">← Back to services</a>
+    <h1 class="detail-h1">Aesthetic &amp; Cosmetic Dentistry</h1>
+    <p class="detail-desc">Transforming smiles with natural, harmonious results tailored to each patient — from veneers and bonding to personalized smile design.</p>
+    <div class="detail-hero-image">Patient photo — teal accent bg</div>
+  </div>
+</section>
+
+<!-- ── Inverted purple section — Novel ──────────────────────────────────── -->
+<section id="featured-treatments" class="novel-flag">
+  <div class="novel-label">Novel — Inverted Purple Featured Treatments</div>
+  <div class="featured-inner">
+    <div class="featured-header">
+      <div class="featured-left">
+        <span class="eyebrow on-purple">Key aesthetic &amp; cosmetic treatments</span>
+        <h2 class="featured-h2">Featured<br>Treatments</h2>
+      </div>
+      <div class="featured-count">05</div>
+    </div>
+    <div class="featured-grid">
+      <div class="featured-card">
+        <div class="featured-card-num">01</div>
+        <div class="featured-card-name">Smile Makeovers</div>
+        <div class="featured-card-desc">Comprehensive treatment plans combining veneers, bonding, and whitening for a complete transformation.</div>
+      </div>
+      <div class="featured-card">
+        <div class="featured-card-num">02</div>
+        <div class="featured-card-name">Porcelain Veneers</div>
+        <div class="featured-card-desc">Custom shells that reshape and recolor your smile with natural-looking, long-lasting porcelain.</div>
+      </div>
+      <div class="featured-card">
+        <div class="featured-card-num">03</div>
+        <div class="featured-card-name">Teeth Whitening</div>
+        <div class="featured-card-desc">Professional-grade whitening for a noticeably brighter smile, tailored to your natural shade.</div>
+      </div>
+      <div class="featured-card">
+        <div class="featured-card-num">04</div>
+        <div class="featured-card-name">Dental Bonding</div>
+        <div class="featured-card-desc">Repair chips, cracks, or gaps with natural-looking resin applied in a single appointment.</div>
+      </div>
+      <div class="featured-card">
+        <div class="featured-card-num">05</div>
+        <div class="featured-card-name">Gum Contouring</div>
+        <div class="featured-card-desc">Reshape your gumline for a more balanced, proportional smile with minimal downtime.</div>
+      </div>
+      <div class="featured-card" style="background:rgba(255,255,255,0.02); display:flex; align-items:center; justify-content:center;">
+        <a href="#" class="btn-outline on-purple">View all services</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ───────────────────────────────────────────────────────────────── -->
+<section id="faq">
+  <div class="faq-inner">
+    <div class="faq-left-head">
+      <span class="eyebrow">What patients ask</span>
+      <h2 class="faq-h2">Your questions, answered.</h2>
+      <p class="faq-sub">What Long Beach patients ask Dr. Hoang most often about Spring St. Dentistry.</p>
+      <a href="tel:5624208578" class="btn-outline" style="font-size:11px; padding:11px 24px;">(562) 420-8578</a>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item open">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">How do I schedule an appointment with Dr. Hoang?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Call Spring St. Dentistry at (562) 420-8578 to book. No referral needed — we welcome new patients for general and cosmetic dental care. Our team will find a time that works for you.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Do you see patients for dental emergencies?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Yes. If you're experiencing tooth pain, a broken tooth, or another pressing issue, call us at (562) 420-8578 and let us know it's urgent. Dr. Hoang will work to get you seen promptly.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Does Spring St. Dentistry accept dental insurance?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">We work with a variety of plans and will help you understand your coverage before treatment begins. Call us to confirm whether we accept your specific plan. Payment options are available for patients without insurance.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">What should I expect at my first visit?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Your first appointment includes a comprehensive exam with Dr. Hoang, a review of your dental and medical history, and X-rays if needed. Please arrive a few minutes early to complete any new-patient paperwork.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Am I a good candidate for clear aligners?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Most mild to moderate alignment issues can be addressed with clear aligners. Dr. Hoang will evaluate your bite and overall oral health to determine whether they're right for you during a consultation.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">What is a deep cleaning, and do I really need one?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">A deep cleaning — scaling and root planing — goes below the gumline to remove buildup that a routine cleaning can't reach. Dr. Hoang may recommend it if there are signs of gum disease. Treating it early helps protect your long-term oral health.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ───────────────────────────────────────────────────────────────── -->
+<section id="cta">
+  <span class="eyebrow">Ready to get started</span>
+  <h2>Your healthiest smile starts in Long Beach.</h2>
+  <p>Whether it's been six months or six years, we're here to help you feel comfortable and confident in the chair.</p>
+  <div class="cta-btn-wrap">
+    <a href="#" class="btn-outline">Schedule Your New Patient Appointment</a>
+    <a href="tel:5624208578" class="btn-outline phone-btn">(562) 420-8578</a>
+  </div>
+</section>
+
+<!-- ── Footer ────────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="footer-logo-icon">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      Spring St. Dentistry
+    </div>
+    <ul class="footer-links">
+      <li><a href="#">Services</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Patient Stories</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Spring St. Dentistry · Long Beach, CA</div>
+  </div>
+</footer>
+
+<!-- ── Design system panel ────────────────────────────────────────────────── -->
+<div class="ds-panel open" id="ds-panel">
+  <div class="ds-panel-header">
+    <div class="ds-panel-title">Dentora — Design System</div>
+    <button class="ds-panel-close" onclick="togglePanel()">×</button>
+  </div>
+
+  <div class="ds-section">
+    <div class="ds-section-label">Template reference</div>
+    <div style="background:#181818; border-radius:6px; padding:10px 12px; margin-bottom:4px;">
+      <div style="font-size:12px; color:#ffffff; font-weight:700; margin-bottom:2px;">Dentora</div>
+      <div style="font-size:11px; color:#555555; line-height:1.45;">Clean Grotesque Confident · Rank #5<br>Framer reference · captured 2026-06-10</div>
+    </div>
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;">
+      <span style="background:rgba(94,207,177,0.1); border:1px solid rgba(94,207,177,0.2); color:#5ECFB1; border-radius:4px; padding:3px 8px; font-size:10px; font-weight:700;">clean-clinical</span>
+      <span style="background:rgba(94,207,177,0.1); border:1px solid rgba(94,207,177,0.2); color:#5ECFB1; border-radius:4px; padding:3px 8px; font-size:10px; font-weight:700;">modern-premium</span>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Color palette</div>
+    <div class="palette-grid">
+      <div class="swatch-row"><div class="swatch" style="background:#F5F0E8"></div><div class="swatch-info"><div class="swatch-role">Canvas</div><div class="swatch-hex">#F5F0E8</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#FFFFFF; border-color:#2a2a2a"></div><div class="swatch-info"><div class="swatch-role">Nav / card surface</div><div class="swatch-hex">#FFFFFF</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#181818"></div><div class="swatch-info"><div class="swatch-role">Heading text / CTA bg</div><div class="swatch-hex">#181818</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#333333"></div><div class="swatch-info"><div class="swatch-role">Body text</div><div class="swatch-hex">#333333</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#5ECFB1"></div><div class="swatch-info"><div class="swatch-role">Accent — doodle/stroke only</div><div class="swatch-hex">#5ECFB1</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#5B2D8E"></div><div class="swatch-info"><div class="swatch-role">Inverted surface (1 section)</div><div class="swatch-hex">#5B2D8E</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#D4B8F0"></div><div class="swatch-info"><div class="swatch-role">Inverted body text</div><div class="swatch-hex">#D4B8F0</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#E0DAD0"></div><div class="swatch-info"><div class="swatch-role">Divider</div><div class="swatch-hex">#E0DAD0</div></div></div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Typography</div>
+    <div class="type-display-samp">Sora Black</div>
+    <div class="type-meta" style="margin-bottom:10px">Display · grotesque-sans · 800/black · sentence case · −0.03em tracking</div>
+    <div class="type-eyebrow-samp">Uppercase Eyebrow</div>
+    <div class="type-meta" style="margin-bottom:10px">Sora 600 · all-caps · 0.10em tracking · used on every section</div>
+    <div class="type-body-samp">DM Sans Regular — body copy and UI</div>
+    <div class="type-meta" style="margin-bottom:10px">Body · humanist sans · 400/regular · relaxed line-height</div>
+    <div style="margin-top:10px; padding:10px; background:#181818; border-radius:6px;">
+      <div class="type-meta" style="margin-bottom:4px; color:#5ECFB1">Accent device — NOT a font</div>
+      <div style="font-size:11px; color:#666666; line-height:1.4">SVG path underline in #5ECFB1 beneath key headline phrase. Smiley face and oval/lasso doodles are SVG line-art. Never use CSS text-decoration or accent as a text color in default sections.</div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Design tokens</div>
+    <div class="token-grid">
+      <div class="token-cell">
+        <div class="token-label">Type classification</div>
+        <div class="token-val">grotesque-sans</div>
+        <div class="token-sub">single family</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-label">Heading scale</div>
+        <div class="token-val">XXL / supersized</div>
+        <div class="token-sub">80–120px hero</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-label">Button treatment</div>
+        <div class="token-val">Outline only</div>
+        <div class="token-sub">no filled CTA</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-label">Corner radius</div>
+        <div class="token-val">sm–md</div>
+        <div class="token-sub">images + cards</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-label">Elevation</div>
+        <div class="token-val">Flat</div>
+        <div class="token-sub">no shadows</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-label">Density</div>
+        <div class="token-val">Open</div>
+        <div class="token-sub">generous padding</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Novel components (4)</div>
+    <div class="novel-list">
+      <div class="novel-item">
+        <div class="novel-item-name">Centered Text + Scattered Photo Collage</div>
+        <div class="novel-item-spec">Patient portraits float at absolute positions around a centered headline/CTA block. Not a filmstrip — requires independent absolute placement or named grid areas. Teal smiley doodle as a floating SVG element.</div>
+      </div>
+      <div class="novel-item">
+        <div class="novel-item-name">Scale-Inversion Heading + SVG Underline</div>
+        <div class="novel-item-spec">Small centered text block above an oversized black-weight headline below — reversed convention. Key phrase receives a teal SVG curved underline (not CSS text-decoration). Recurring signature across hero, about, and case-studies.</div>
+      </div>
+      <div class="novel-item">
+        <div class="novel-item-name">Three-Zone Hamburger Nav</div>
+        <div class="novel-item-spec">Logo left · MENU trigger center · phone number right. No inline nav links in default state. Trades navigability for visual cleanliness and permanent phone number prominence.</div>
+      </div>
+      <div class="novel-item">
+        <div class="novel-item-name">Inverted Purple Featured Treatments Block</div>
+        <div class="novel-item-spec">Full-width deep purple (#5B2D8E) section — the only dark/inverted surface in the template. Teal eyebrow label on purple, white headline, light-purple body text. Functions as a visual climax on service detail pages.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Fidelity checks (12)</div>
+    <div class="check-list">
+      <div class="check-item">Hero headline must be black-weight grotesque sans (800+) at 80px+ — no serif, no editorial scale.</div>
+      <div class="check-item">Teal (#5ECFB1) appears only as SVG doodle/stroke graphic. Never as button fill, background, or text color in default sections.</div>
+      <div class="check-item">CTA buttons use outline treatment only — transparent fill, black border, black text, pill radius. No filled primary button.</div>
+      <div class="check-item">Nav must be the three-zone hamburger pattern: logo / MENU center / phone right. No inline nav links visible in default state.</div>
+      <div class="check-item">Scale-inversion pattern: small centered text block above, oversized headline below. Do not place large headline first.</div>
+      <div class="check-item">Hand-drawn SVG curved underline beneath key headline phrase — not CSS text-decoration:underline.</div>
+      <div class="check-item">The featured-treatments/inverted section must use deep purple (#5B2D8E) — this is the only dark/inverted surface in the template.</div>
+      <div class="check-item">Team portraits must use a cool neutral background (not warm/tinted) with consistent square or near-square crops.</div>
+      <div class="check-item">Patient photos may be vivid and slightly saturated — no warm ivory grading required. Teal-blue background on patient close-ups is consistent with source.</div>
+      <div class="check-item">Smiley face and lasso/oval doodle motifs must be SVG line-art in teal, not emoji or raster images.</div>
+      <div class="check-item">All heading text in sentence case. Eyebrow labels in all-caps with wide letter-spacing. No title case or mixed-case headlines.</div>
+      <div class="check-item">Two primary surfaces only (canvas #F5F0E8 + white #FFFFFF) plus one inverted purple. No warm tinted intermediate surface.</div>
+    </div>
+  </div>
+
+</div><!-- /ds-panel -->
+
+<script>
+function togglePanel() {
+  const panel = document.getElementById('ds-panel');
+  const btn = document.getElementById('panel-btn');
+  panel.classList.toggle('open');
+  btn.classList.toggle('active');
+}
+function toggleAnnotations() {
+  document.body.classList.toggle('show-annotations');
+  document.getElementById('annotate-btn').classList.toggle('active');
+}
+function toggleFaq(btn) {
+  btn.closest('.faq-item').classList.toggle('open');
+}
+// Open panel by default
+document.getElementById('ds-panel').classList.add('open');
+</script>
+</body>
+</html>

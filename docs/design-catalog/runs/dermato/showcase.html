@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dermato — Design System Showcase · Spring St. Dentistry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ── Design tokens ─────────────────────────────────────────────────────── */
+:root {
+  --page-bg:       #F5EFE6;
+  --card-warm:     #C8A87A;
+  --card-light:    #E8D9C5;
+  --heading:       #3B2A1A;
+  --body:          #7A6050;
+  --btn-primary:   #2C1A0E;
+  --accent-gold:   #C8A96E;
+  --star-gold:     #C8922A;
+  --white:         #FFFFFF;
+  --border:        #D9CFC4;
+  --accent-mid:    #D4A574;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Inter', -apple-system, sans-serif;
+
+  --radius-lg:  16px;
+  --radius-pill: 999px;
+}
+
+body {
+  background: var(--page-bg);
+  color: var(--body);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Showcase meta bar ──────────────────────────────────────────────────── */
+.meta-bar {
+  background: #1C1008;
+  color: #B89060;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.35px;
+  padding: 8px 32px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.meta-bar .meta-name { font-weight: 600; color: #E8C898; }
+.meta-bar .meta-sep  { color: #3A2A18; }
+.meta-bar .meta-arch { color: #D4A870; }
+.meta-bar .meta-moods { color: #9A7850; font-style: italic; }
+.meta-bar-right { margin-left: auto; display: flex; gap: 8px; }
+.meta-btn {
+  background: rgba(200,169,110,0.12);
+  border: 1px solid rgba(200,169,110,0.22);
+  color: #B89060;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: background 0.15s;
+}
+.meta-btn:hover { background: rgba(200,169,110,0.22); }
+.meta-btn.active { background: rgba(200,169,110,0.28); color: #E8C898; }
+
+/* ── Novel section callout ─────────────────────────────────────────────── */
+.novel-flag { position: relative; }
+.novel-label {
+  display: none;
+  position: absolute;
+  top: 12px; right: 12px;
+  background: rgba(200,169,110,0.12);
+  border: 1px solid rgba(200,169,110,0.3);
+  color: #C8922A;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 4px;
+  z-index: 10;
+  font-family: var(--font-body);
+}
+body.show-annotations .novel-label { display: block; }
+body.show-annotations .novel-flag { outline: 1px dashed rgba(200,169,110,0.22); }
+
+/* ── Eyebrow label ─────────────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--body);
+  margin-bottom: 16px;
+}
+.eyebrow .dot { color: var(--accent-gold); margin-right: 6px; }
+
+/* ── Shared section ────────────────────────────────────────────────────── */
+section { padding: 88px 40px; }
+.section-inner { max-width: 1080px; margin: 0 auto; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  color: var(--heading);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* ── Pill button ────────────────────────────────────────────────────────── */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 12px 28px;
+  transition: opacity 0.15s;
+  border: none;
+}
+.btn-pill:hover { opacity: 0.88; }
+.btn-dark {
+  background: var(--btn-primary);
+  color: var(--white);
+}
+.btn-outline {
+  background: var(--page-bg);
+  color: var(--body);
+  border: 1px solid var(--border);
+}
+
+/* ── Soft shadow ────────────────────────────────────────────────────────── */
+.soft-shadow {
+  box-shadow: 0 2px 16px rgba(59,42,26,0.07), 0 0 0 1px var(--border);
+}
+
+/* ── Nav ─────────────────────────────────────────────────────────────────── */
+nav {
+  background: var(--page-bg);
+  position: sticky;
+  top: 33px;
+  z-index: 100;
+  padding: 0 40px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0;
+}
+.nav-left {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+.nav-left a {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--body);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.nav-left a:hover { color: var(--heading); }
+.nav-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.nav-wordmark {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--heading);
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+.nav-icon {
+  font-size: 9px;
+  color: var(--accent-gold);
+  letter-spacing: 0.25em;
+}
+
+/* ── Hero poster ────────────────────────────────────────────────────────── */
+#hero {
+  background: var(--page-bg);
+  padding: 32px 40px 64px;
+}
+.hero-poster {
+  position: relative;
+  max-width: 1080px;
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  min-height: 580px;
+  background: var(--btn-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 56px 120px;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(44,26,14,0.35) 0%,
+    rgba(44,26,14,0.18) 45%,
+    rgba(44,26,14,0.55) 100%
+  );
+  z-index: 1;
+}
+.hero-photo-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #3B2A1A 0%, #5A3C25 40%, #3B2A1A 100%);
+  z-index: 0;
+}
+/* Warm texture dots for photo stand-in */
+.hero-photo-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 30% 40%, rgba(200,168,122,0.12) 0%, transparent 55%),
+    radial-gradient(circle at 70% 70%, rgba(200,169,110,0.08) 0%, transparent 50%);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 680px;
+}
+.hero-eyebrow {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-bottom: 20px;
+}
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 5.5vw, 64px);
+  font-weight: 500;
+  color: var(--white);
+  line-height: 1.12;
+  margin-bottom: 20px;
+}
+.hero-sub {
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.8);
+  max-width: 480px;
+  margin: 0 auto 36px;
+  line-height: 1.7;
+}
+/* Radial service arc at bottom of hero */
+.hero-services-arc {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 20px 40px 24px;
+  background: linear-gradient(to top, rgba(44,26,14,0.7) 0%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.arc-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(200,169,110,0.7);
+}
+.arc-bullets {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.arc-item {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.65);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.arc-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--accent-gold);
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+/* ── About ──────────────────────────────────────────────────────────────── */
+#about {
+  background: var(--page-bg);
+  padding: 88px 40px;
+}
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr 420px 1fr;
+  gap: 40px;
+  align-items: center;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.about-image {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  box-shadow: 0 4px 24px rgba(59,42,26,0.1);
+}
+.about-image-left  { background: linear-gradient(160deg, #E0CEBA 0%, #D4B896 100%); }
+.about-image-right { background: linear-gradient(200deg, #C8A87A 0%, #B89060 100%); }
+.about-center-text { text-align: center; }
+.about-center-text h2 {
+  font-size: clamp(28px, 3.2vw, 40px);
+  margin-bottom: 18px;
+  font-weight: 500;
+}
+.about-body {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--body);
+  margin-bottom: 24px;
+  line-height: 1.8;
+}
+.about-glyph { color: var(--accent-gold); }
+.star-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 7px 16px;
+  box-shadow: 0 2px 8px rgba(59,42,26,0.06);
+}
+.star-badge .stars { color: var(--star-gold); font-size: 13px; letter-spacing: 1px; }
+.star-badge .star-text { font-size: 12px; font-weight: 500; color: var(--heading); }
+
+/* ── Bento social proof ──────────────────────────────────────────────────── */
+#bento {
+  background: var(--card-light);
+  padding: 88px 40px;
+}
+.bento-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 14px;
+  max-width: 1080px;
+  margin: 40px auto 0;
+}
+.bento-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 32px 28px;
+  box-shadow: 0 2px 12px rgba(59,42,26,0.06);
+}
+.bento-card-dark {
+  background: var(--btn-primary);
+  border-color: transparent;
+}
+.bento-card-warm {
+  background: var(--card-warm);
+  border-color: transparent;
+}
+/* Card 1: Stats */
+.bento-stat {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+  min-height: 200px;
+}
+.bento-stat-num {
+  font-family: var(--font-display);
+  font-size: 52px;
+  font-weight: 700;
+  color: var(--heading);
+  line-height: 1;
+}
+.bento-stat-stars { color: var(--star-gold); font-size: 18px; letter-spacing: 2px; margin-top: 4px; }
+.bento-stat-label { font-size: 12px; font-weight: 400; color: var(--body); margin-top: 2px; }
+/* Card 2: Testimonial (tall, spans 2 rows) */
+.bento-testimonial {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 360px;
+  padding: 36px 32px;
+}
+.bento-quote-mark {
+  font-family: var(--font-display);
+  font-size: 56px;
+  color: var(--accent-gold);
+  line-height: 0.6;
+  opacity: 0.5;
+  margin-bottom: -8px;
+}
+.bento-quote-text {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--heading);
+  line-height: 1.65;
+  flex: 1;
+}
+.bento-reviewer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.bento-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--card-light);
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: var(--body);
+}
+.bento-reviewer-name { font-size: 13px; font-weight: 500; color: var(--heading); }
+.bento-reviewer-stars { color: var(--star-gold); font-size: 11px; }
+/* Card 3: Practice photo placeholder */
+.bento-photo {
+  grid-column: 3;
+  grid-row: 1;
+  padding: 0;
+  overflow: hidden;
+  min-height: 200px;
+}
+.bento-photo-inner {
+  width: 100%; height: 100%; min-height: 200px;
+  background: linear-gradient(155deg, #C8A87A 0%, #9A7852 100%);
+}
+/* Card 4: Watermark stat — bottom-left */
+.bento-watermark {
+  grid-column: 1;
+  grid-row: 2;
+  position: relative;
+  overflow: hidden;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 4px;
+}
+.bento-watermark-bg {
+  position: absolute;
+  bottom: -12px; right: -8px;
+  font-family: var(--font-display);
+  font-size: 100px;
+  font-weight: 700;
+  color: var(--border);
+  opacity: 0.4;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.bento-watermark-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--body); }
+.bento-watermark-val {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--heading);
+  line-height: 1;
+}
+/* Card 5: CTA dark */
+.bento-cta-card {
+  grid-column: 3;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  min-height: 160px;
+}
+.bento-cta-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(200,169,110,0.18);
+  border: 1px solid rgba(200,169,110,0.3);
+  color: var(--accent-gold);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  width: fit-content;
+}
+.bento-cta-heading {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--white);
+  line-height: 1.3;
+}
+
+/* ── Services accordion ──────────────────────────────────────────────────── */
+#services {
+  background: var(--page-bg);
+  padding: 88px 40px;
+}
+.services-intro { max-width: 1080px; margin: 0 auto 48px; }
+.services-intro h2 { font-size: clamp(28px, 3.2vw, 40px); max-width: 560px; margin-bottom: 12px; }
+.services-intro p { font-size: 15px; font-weight: 300; max-width: 480px; }
+.accordion-list { max-width: 1080px; margin: 0 auto; }
+.accordion-category {
+  border-top: 1px solid var(--border);
+}
+.accordion-category:last-child { border-bottom: 1px solid var(--border); }
+.accordion-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  gap: 16px;
+}
+.accordion-cat-name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--heading);
+}
+.accordion-icon {
+  font-size: 20px;
+  color: var(--accent-gold);
+  flex-shrink: 0;
+  transition: transform 0.2s;
+  line-height: 1;
+}
+.accordion-category.open .accordion-icon { transform: rotate(45deg); }
+.accordion-body {
+  display: none;
+  padding: 0 0 28px;
+}
+.accordion-category.open .accordion-body { display: block; }
+.treatment-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.treatment-row:last-child { border-bottom: none; }
+.treatment-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent-gold);
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+.treatment-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--heading);
+  margin-bottom: 3px;
+}
+.treatment-desc {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--body);
+  line-height: 1.6;
+}
+
+/* ── Doctor intro ────────────────────────────────────────────────────────── */
+#doctor {
+  background: var(--card-light);
+  padding: 88px 40px;
+}
+.doctor-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 64px;
+  align-items: start;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.doctor-photo-wrap {
+  position: relative;
+}
+.doctor-photo {
+  border-radius: var(--radius-lg);
+  aspect-ratio: 3/4;
+  background: linear-gradient(160deg, #C8A87A 0%, #9A7248 100%);
+  box-shadow: 0 4px 24px rgba(59,42,26,0.12);
+}
+.doctor-role-pill {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(200,168,122,0.95);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: var(--radius-pill);
+  padding: 8px 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--heading);
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(59,42,26,0.15);
+}
+.doctor-bio h2 { font-size: clamp(26px, 3vw, 36px); margin-bottom: 8px; }
+.doctor-title { font-size: 14px; font-weight: 400; color: var(--accent-mid); margin-bottom: 24px; }
+.doctor-body {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--body);
+  line-height: 1.8;
+  margin-bottom: 28px;
+}
+.doctor-creds { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+.doctor-cred {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--body);
+}
+.cred-icon { color: var(--accent-gold); flex-shrink: 0; font-size: 14px; margin-top: 1px; }
+
+/* ── Testimonials ────────────────────────────────────────────────────────── */
+#testimonials {
+  background: var(--page-bg);
+  padding: 88px 40px;
+}
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1080px;
+  margin: 40px auto 0;
+}
+.review-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 32px 28px;
+  box-shadow: 0 2px 14px rgba(59,42,26,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.review-stars { color: var(--star-gold); font-size: 14px; letter-spacing: 2px; }
+.review-quote {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--body);
+  line-height: 1.75;
+  flex: 1;
+}
+.review-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.review-avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--card-light);
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  color: var(--body);
+}
+.review-author-name { font-size: 13px; font-weight: 500; color: var(--heading); }
+.review-source { font-size: 11px; font-weight: 300; color: var(--body); opacity: 0.7; }
+
+/* ── CTA floating card ───────────────────────────────────────────────────── */
+#cta {
+  background: var(--card-light);
+  padding: 88px 40px;
+  text-align: center;
+}
+.cta-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 64px 56px;
+  box-shadow: 0 4px 32px rgba(59,42,26,0.08);
+}
+.cta-card h2 {
+  font-size: clamp(26px, 3.5vw, 40px);
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+.cta-card p {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--body);
+  margin-bottom: 36px;
+  line-height: 1.75;
+}
+
+/* ── Footer ────────────────────────────────────────────────────────────────── */
+footer {
+  background: var(--btn-primary);
+  padding: 48px 40px;
+}
+.footer-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--card-light);
+  letter-spacing: -0.01em;
+}
+.footer-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+.footer-links a {
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(232,217,197,0.6);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.footer-links a:hover { color: var(--card-light); }
+.footer-copy {
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(200,168,122,0.4);
+}
+
+/* ── Design system panel ─────────────────────────────────────────────────── */
+.ds-panel {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 380px;
+  background: #140C06;
+  color: #C8A870;
+  font-family: var(--font-body);
+  font-size: 12px;
+  overflow-y: auto;
+  z-index: 300;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  border-left: 1px solid #221608;
+}
+.ds-panel.open { transform: translateX(0); }
+.ds-panel-header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid #221608;
+  position: sticky; top: 0;
+  background: #140C06;
+  z-index: 1;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.ds-panel-title { font-size: 13px; font-weight: 600; color: #E8C898; }
+.ds-panel-close {
+  background: none; border: none; color: #555; cursor: pointer; font-size: 18px; line-height: 1;
+}
+.ds-section { padding: 20px 20px 0; }
+.ds-section-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #5A3A18;
+  margin-bottom: 12px;
+}
+.ds-divider { border: none; border-top: 1px solid #221608; margin: 20px 0 0; }
+
+/* Swatches */
+.palette-grid { display: flex; flex-direction: column; gap: 6px; margin-bottom: 4px; }
+.swatch-row { display: flex; align-items: center; gap: 10px; }
+.swatch { width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.06); }
+.swatch-info { flex: 1; }
+.swatch-role { font-size: 11px; color: #C8A870; }
+.swatch-hex  { font-size: 10px; color: #5A3A18; font-variant-numeric: tabular-nums; }
+
+/* Type specimen */
+.type-display { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; color: #C8A870; line-height: 1.2; margin-bottom: 6px; }
+.type-body    { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 300; color: #9A7850; line-height: 1.5; margin-bottom: 4px; }
+.type-meta    { font-size: 10px; color: #5A3A18; }
+
+/* Token cells */
+.token-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 4px; }
+.token-cell {
+  background: #1E1208;
+  border-radius: 6px;
+  padding: 9px 10px;
+}
+.token-label { font-size: 10px; color: #5A3A18; margin-bottom: 3px; }
+.token-val { font-size: 13px; color: #C8A870; font-weight: 600; }
+.token-sub { font-size: 10px; color: #3A2210; }
+
+/* Checks */
+.check-list  { display: flex; flex-direction: column; gap: 8px; padding-bottom: 24px; }
+.check-item  { background: #1E1208; border-radius: 6px; padding: 9px 10px; font-size: 11px; color: #9A7850; line-height: 1.45; }
+.check-item::before { content: '✓ '; color: #6EB880; font-weight: 700; }
+
+/* Novel list */
+.novel-list { display: flex; flex-direction: column; gap: 8px; padding-bottom: 4px; }
+.novel-item { background: rgba(200,169,110,0.07); border: 1px solid rgba(200,169,110,0.14); border-radius: 6px; padding: 9px 10px; }
+.novel-item-name { font-size: 11px; color: #C8A96E; font-weight: 600; margin-bottom: 4px; }
+.novel-item-spec { font-size: 10.5px; color: #6A5030; line-height: 1.45; }
+</style>
+</head>
+<body>
+
+<!-- ── Meta bar ──────────────────────────────────────────────────────────── -->
+<div class="meta-bar">
+  <span class="meta-name">Dermato</span>
+  <span class="meta-sep">·</span>
+  <span class="meta-arch">warm-editorial</span>
+  <span class="meta-sep">·</span>
+  <span class="meta-moods">warm-neighborhood · modern-premium · soft-gentle</span>
+  <div class="meta-bar-right">
+    <button class="meta-btn" id="annotate-btn" onclick="toggleAnnotations()">Annotations</button>
+    <button class="meta-btn active" id="panel-btn" onclick="togglePanel()">Design system ›</button>
+  </div>
+</div>
+
+<!-- ── Nav ──────────────────────────────────────────────────────────────── -->
+<nav>
+  <ul class="nav-left">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="nav-center">
+    <div class="nav-wordmark">Spring St. Dentistry</div>
+    <div class="nav-icon">✦ · ✦</div>
+  </div>
+  <a href="#" class="btn-pill btn-outline" style="font-size:13px; padding:9px 22px;">Book a Consultation</a>
+</nav>
+
+<!-- ── Hero poster — Novel ───────────────────────────────────────────────── -->
+<section id="hero" class="novel-flag">
+  <div class="novel-label">Novel — Full-width Poster Hero with Service Arc</div>
+  <div class="hero-poster">
+    <div class="hero-photo-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">✦ &nbsp; Your smile. Our neighborhood.</div>
+      <h1 class="hero-headline">Long Beach's trusted dentist on Spring Street</h1>
+      <p class="hero-sub">Personalized, comfortable dental care for every member of your family — from routine cleanings to complete smile transformations.</p>
+      <a href="#" class="btn-pill btn-dark" style="font-size:14px; padding:13px 32px;">Book a Consultation</a>
+    </div>
+    <div class="hero-services-arc">
+      <div class="arc-label">Explore our treatments</div>
+      <div class="arc-bullets">
+        <span class="arc-item"><span class="arc-dot"></span>Whitening</span>
+        <span class="arc-item"><span class="arc-dot"></span>Veneers</span>
+        <span class="arc-item"><span class="arc-dot"></span>Implants</span>
+        <span class="arc-item"><span class="arc-dot"></span>Clear Aligners</span>
+        <span class="arc-item"><span class="arc-dot"></span>Cleanings</span>
+        <span class="arc-item"><span class="arc-dot"></span>Crowns</span>
+        <span class="arc-item"><span class="arc-dot"></span>Bonding</span>
+        <span class="arc-item"><span class="arc-dot"></span>Emergency Care</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── About ─────────────────────────────────────────────────────────────── -->
+<section id="about">
+  <div class="about-layout">
+    <div class="about-image about-image-left"></div>
+    <div class="about-center-text">
+      <div class="eyebrow"><span class="dot">•</span>ABOUT OUR PRACTICE</div>
+      <h2>Dentistry that feels as good as it looks</h2>
+      <p class="about-body">
+        We believe your visit should feel calm, personal, and unhurried. ✦ Dr. Anthony Hoang and the Spring St. team bring genuine warmth to every appointment — so you leave feeling cared for, not just treated.
+      </p>
+      <p class="about-body">
+        From your first cleaning to your smile transformation, every step is guided by 🌿 attentive hands and a deep knowledge of what makes Long Beach families feel at home.
+      </p>
+      <div class="star-badge" style="margin: 0 auto;">
+        <span class="stars">★★★★★</span>
+        <span class="star-text">5.0 · 52 Google reviews</span>
+      </div>
+    </div>
+    <div class="about-image about-image-right"></div>
+  </div>
+</section>
+
+<!-- ── Bento social proof grid — Novel ──────────────────────────────────── -->
+<section id="bento">
+  <div class="section-inner novel-flag">
+    <div class="novel-label">Novel — Bento Social Proof Grid</div>
+    <div class="eyebrow" style="text-align:center;"><span class="dot">•</span>PATIENT STORIES</div>
+    <h2 style="text-align:center; font-size:clamp(26px,3vw,38px);">What our patients say</h2>
+    <div class="bento-grid">
+
+      <!-- Stat card -->
+      <div class="bento-card bento-stat">
+        <div class="bento-stat-num">52+</div>
+        <div class="bento-stat-stars">★★★★★</div>
+        <div class="bento-stat-label">Verified Google Reviews</div>
+      </div>
+
+      <!-- Tall testimonial card -->
+      <div class="bento-card bento-testimonial">
+        <div>
+          <div class="bento-quote-mark">"</div>
+          <div class="bento-quote-text">
+            From the moment you walk in, you're greeted by Jackie at the front desk — she's so kind and welcoming, you instantly feel at ease. Dr. Hoang is truly the best around — caring, patient, and he takes his time so you never feel rushed.
+            <br><br>
+            My husband used to be terrified of going to the dentist. Now he won't even miss an appointment. That's how amazing this place is.
+          </div>
+        </div>
+        <div class="bento-reviewer">
+          <div class="bento-avatar">BA</div>
+          <div>
+            <div class="bento-reviewer-name">Barbara A.</div>
+            <div class="bento-reviewer-stars">★★★★★ &nbsp; Google</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo card -->
+      <div class="bento-card bento-photo">
+        <div class="bento-photo-inner"></div>
+      </div>
+
+      <!-- Watermark stat -->
+      <div class="bento-card bento-watermark">
+        <div class="bento-watermark-bg">52</div>
+        <div class="bento-watermark-label">Reviews</div>
+        <div class="bento-watermark-val">5.0 ★ Rating</div>
+      </div>
+
+      <!-- CTA card dark -->
+      <div class="bento-card bento-cta-card bento-card-dark">
+        <div class="bento-cta-chip">✦ &nbsp; New patients welcome</div>
+        <div class="bento-cta-heading">Ready to start your smile journey?</div>
+        <a href="#" class="btn-pill btn-dark" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.18); color:#E8D9C5; padding:10px 20px; font-size:13px; width:fit-content;">Book a Consultation</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Services accordion ─────────────────────────────────────────────────── -->
+<section id="services">
+  <div class="services-intro">
+    <div class="eyebrow"><span class="dot">•</span>OUR TREATMENTS</div>
+    <h2>Comprehensive dental care<br>on Spring Street</h2>
+    <p>From routine cleanings to complete smile transformations, everything your family needs under one roof.</p>
+  </div>
+
+  <div class="accordion-list">
+
+    <!-- Cosmetic -->
+    <div class="accordion-category open">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span class="accordion-cat-name">Cosmetic Dentistry</span>
+        <span class="accordion-icon">+</span>
+      </button>
+      <div class="accordion-body">
+        <div class="treatment-row">
+          <div class="treatment-dot"></div>
+          <div>
+            <div class="treatment-name">Clear Aligners</div>
+            <div class="treatment-desc">Straighten your teeth discreetly with custom aligners that fit your lifestyle and schedule.</div>
+          </div>
+        </div>
+        <div class="treatment-row">
+          <div class="treatment-dot"></div>
+          <div>
+            <div class="treatment-name">Teeth Whitening</div>
+            <div class="treatment-desc">Professional-grade whitening — including Zoom — for a noticeably brighter smile in a single visit.</div>
+          </div>
+        </div>
+        <div class="treatment-row">
+          <div class="treatment-dot"></div>
+          <div>
+            <div class="treatment-name">Veneers</div>
+            <div class="treatment-desc">Custom porcelain shells that reshape and re-colour your smile with natural-looking results.</div>
+          </div>
+        </div>
+        <div class="treatment-row">
+          <div class="treatment-dot"></div>
+          <div>
+            <div class="treatment-name">Dental Bonding</div>
+            <div class="treatment-desc">Repair chips, cracks, or gaps quickly with a natural-looking resin applied in a single visit.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Preventive -->
+    <div class="accordion-category">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span class="accordion-cat-name">Preventive Care</span>
+        <span class="accordion-icon">+</span>
+      </button>
+      <div class="accordion-body">
+        <div class="treatment-row">
+          <div class="treatment-dot"></div>
+          <div>
+            <div class="treatment-name">Routine Cleaning &amp; Exam</div>
+            <div class="treatment-desc">A thorough clean and comprehensive check-up to keep your smile healthy year-round.</div>
+          </div>
+        </div>
+        <div class="treatment-row">
+          <div class="treatment-dot"></div>
+          <div>
+            <div class="treatment-name">Deep Cleaning</div>
+            <div class="treatment-desc">Remove harmful buildup below the gumline to protect your teeth and restore gum health.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Restorative -->
+    <div class="accordion-category">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span class="accordion-cat-name">Restorative</span>
+        <span class="accordion-icon">+</span>
+      </button>
+      <div class="accordion-body">
+        <div class="treatment-row">
+          <div class="treatment-dot"></div>
+          <div>
+            <div class="treatment-name">Dental Implants</div>
+            <div class="treatment-desc">Replace missing teeth permanently with implants that look, feel, and function like your natural teeth.</div>
+          </div>
+        </div>
+        <div class="treatment-row">
+          <div class="treatment-dot"></div>
+          <div>
+            <div class="treatment-name">Dental Crowns</div>
+            <div class="treatment-desc">Protect and strengthen a damaged tooth with a custom crown that looks and feels completely natural.</div>
+          </div>
+        </div>
+        <div class="treatment-row">
+          <div class="treatment-dot"></div>
+          <div>
+            <div class="treatment-name">Dental Bridges</div>
+            <div class="treatment-desc">Replace missing teeth with a durable, natural-looking bridge that restores your full smile.</div>
+          </div>
+        </div>
+        <div class="treatment-row">
+          <div class="treatment-dot"></div>
+          <div>
+            <div class="treatment-name">Dental Fillings</div>
+            <div class="treatment-desc">Treat cavities comfortably with tooth-colored fillings that blend seamlessly with your smile.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Orthodontics -->
+    <div class="accordion-category">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span class="accordion-cat-name">Orthodontics</span>
+        <span class="accordion-icon">+</span>
+      </button>
+      <div class="accordion-body">
+        <div class="treatment-row">
+          <div class="treatment-dot"></div>
+          <div>
+            <div class="treatment-name">Clear Aligners</div>
+            <div class="treatment-desc">Custom aligner sets that straighten your smile discreetly — no metal, no discomfort.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Doctor intro ───────────────────────────────────────────────────────── -->
+<section id="doctor">
+  <div class="section-inner">
+    <div class="eyebrow"><span class="dot">•</span>MEET YOUR DOCTOR</div>
+    <div class="doctor-layout">
+      <div class="doctor-photo-wrap">
+        <div class="doctor-photo"></div>
+        <div class="doctor-role-pill">Founder &amp; Lead Dentist</div>
+      </div>
+      <div class="doctor-bio">
+        <h2>Dr. Anthony Hoang, DMD</h2>
+        <div class="doctor-title">Spring St. Dentistry — Long Beach, CA</div>
+        <p class="doctor-body">
+          A Long Beach and Lakewood native, Dr. Hoang considers it a genuine privilege to practice dentistry in the community where he grew up. He completed his DMD at Tufts University School of Dental Medicine and his residency at the Loma Linda VA Medical Center.
+        </p>
+        <p class="doctor-body">
+          What drives him every day is the human side of dentistry — the relationships he builds with patients and the trust they place in him, visit after visit. He has a particular gift for putting nervous patients at ease, creating an environment where comfort and quality care go hand in hand.
+        </p>
+        <ul class="doctor-creds">
+          <li class="doctor-cred"><span class="cred-icon">✦</span>DMD, Tufts University School of Dental Medicine</li>
+          <li class="doctor-cred"><span class="cred-icon">✦</span>General Practice Residency, Loma Linda VA Medical Center</li>
+          <li class="doctor-cred"><span class="cred-icon">✦</span>Active member, ADA · CDA · Volunteers at Long Beach Children's Dental Health Clinic</li>
+        </ul>
+        <a href="#" class="btn-pill btn-dark">Meet Dr. Hoang</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Patient testimonials ───────────────────────────────────────────────── -->
+<section id="testimonials">
+  <div class="section-inner">
+    <div class="eyebrow"><span class="dot">•</span>PATIENT STORIES</div>
+    <h2 style="font-size:clamp(26px,3vw,38px); max-width:520px;">What our patients say about Spring St. Dentistry</h2>
+    <div class="testimonials-grid">
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">
+          "From the moment you walk in, you're greeted by Jackie at the front desk — she's so kind and welcoming. Dr. Hoang is truly the best around. My husband used to be terrified of going to the dentist. Now he won't even miss an appointment."
+        </p>
+        <div class="review-author">
+          <div class="review-avatar">BA</div>
+          <div>
+            <div class="review-author-name">Barbara A.</div>
+            <div class="review-source">Google · 5 stars</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">
+          "I've been coming here my whole life — the only dentist for me, and not once have I ever had a bad experience. Charlie polished my teeth up perfect and these guys always make sure I'm comfortable and happy."
+        </p>
+        <div class="review-author">
+          <div class="review-avatar">CB</div>
+          <div>
+            <div class="review-author-name">Chad Bierman</div>
+            <div class="review-source">Google · 5 stars</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">
+          "Super good people, kind and attentive. I felt super comfortable with them — very professional with everything and empathetic. I recommend 100%."
+        </p>
+        <div class="review-author">
+          <div class="review-avatar">SE</div>
+          <div>
+            <div class="review-author-name">Sofia Escobar</div>
+            <div class="review-source">Google · 5 stars</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA floating card ──────────────────────────────────────────────────── -->
+<section id="cta">
+  <div class="section-inner">
+    <div class="eyebrow" style="text-align:center;"><span class="dot">•</span>GET STARTED</div>
+    <div class="cta-card">
+      <h2>Your healthiest smile starts in Long Beach</h2>
+      <p>Whether it's been six months or six years, we're here to help you feel comfortable and confident in the chair. Come see why neighbors trust Spring St. Dentistry.</p>
+      <a href="#" class="btn-pill btn-dark" style="margin: 0 auto;">Schedule Your New Patient Appointment</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Spring St. Dentistry</div>
+    <ul class="footer-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Spring St. Dentistry · Long Beach, CA</div>
+  </div>
+</footer>
+
+<!-- ── Design system panel ────────────────────────────────────────────────── -->
+<div class="ds-panel open" id="ds-panel">
+  <div class="ds-panel-header">
+    <div class="ds-panel-title">Dermato — Design System</div>
+    <button class="ds-panel-close" onclick="togglePanel()">×</button>
+  </div>
+
+  <div class="ds-section">
+    <div class="ds-section-label">Template identity</div>
+    <div style="background:#1E1208; border-radius:6px; padding:10px 12px; margin-bottom:4px;">
+      <div style="font-size:12px; color:#C8A870; font-weight:600; margin-bottom:3px;">Dermato — warm-editorial</div>
+      <div style="font-size:11px; color:#5A3A18; line-height:1.5;">warm-neighborhood · modern-premium · soft-gentle<br>Cosmetic dental · smile design · boutique family practice</div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Color palette</div>
+    <div class="palette-grid">
+      <div class="swatch-row"><div class="swatch" style="background:#F5EFE6"></div><div class="swatch-info"><div class="swatch-role">Page background</div><div class="swatch-hex">#F5EFE6 — warm cream</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#C8A87A"></div><div class="swatch-info"><div class="swatch-role">Card warm</div><div class="swatch-hex">#C8A87A — warm tan</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#E8D9C5"></div><div class="swatch-info"><div class="swatch-role">Card light</div><div class="swatch-hex">#E8D9C5 — soft linen</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#3B2A1A"></div><div class="swatch-info"><div class="swatch-role">Heading text</div><div class="swatch-hex">#3B2A1A</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#7A6050"></div><div class="swatch-info"><div class="swatch-role">Body text</div><div class="swatch-hex">#7A6050</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#2C1A0E"></div><div class="swatch-info"><div class="swatch-role">Primary button fill</div><div class="swatch-hex">#2C1A0E — deep warm brown</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#C8A96E"></div><div class="swatch-info"><div class="swatch-role">Accent gold</div><div class="swatch-hex">#C8A96E — eyebrow dots, stars</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#C8922A"></div><div class="swatch-info"><div class="swatch-role">Star rating</div><div class="swatch-hex">#C8922A</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#FFFFFF; border-color:#2a1a0e;"></div><div class="swatch-info"><div class="swatch-role">White</div><div class="swatch-hex">#FFFFFF — review cards, forms</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#D9CFC4"></div><div class="swatch-info"><div class="swatch-role">Border hairline</div><div class="swatch-hex">#D9CFC4</div></div></div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Surface system</div>
+    <div style="background:#1E1208; border-radius:6px; padding:10px 12px; margin-bottom:4px; font-size:11px; color:#7A5830; line-height:1.55;">
+      Three-tier: <span style="color:#C8A870">cream ground</span> → <span style="color:#C8A870">warm tan secondary cards</span> → <span style="color:#C8A870">white</span> for reviews &amp; form fields. Deep warm brown for primary CTA only.
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Typography</div>
+    <div class="type-display">Playfair Display</div>
+    <div class="type-meta" style="margin-bottom:12px">Display serif · sentence case · wt 400–500 headings · 700 stats only</div>
+    <div class="type-body">Inter — body, nav, labels, forms</div>
+    <div class="type-meta" style="margin-bottom:12px">Humanist sans · weight 300–400 · never bold in body</div>
+    <div style="margin-top:10px; padding:10px; background:#1E1208; border-radius:6px;">
+      <div class="type-meta" style="margin-bottom:4px">Emphasis device</div>
+      <div style="font-size:11px; color:#7A5830; line-height:1.4">Scale contrast only — large serif display vs. small light sans body. No italic mixing, no color shifts on individual words. Inline decorative glyphs (✦ 🌿) as secondary visual rhythm in body copy.</div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Design tokens</div>
+    <div class="token-grid">
+      <div class="token-cell">
+        <div class="token-label">Corner radius</div>
+        <div class="token-val">lg · 16px</div>
+        <div class="token-sub">all cards</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-label">Button radius</div>
+        <div class="token-val">Pill</div>
+        <div class="token-sub">999px everywhere</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-label">Elevation</div>
+        <div class="token-val">Soft shadow</div>
+        <div class="token-sub">warm-tinted drop</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-label">Density</div>
+        <div class="token-val">Airy</div>
+        <div class="token-sub">generous spacing</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-label">Border</div>
+        <div class="token-val">Hairline</div>
+        <div class="token-sub">#D9CFC4 1px</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-label">Motion</div>
+        <div class="token-val">Subtle</div>
+        <div class="token-sub">opacity / transform</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Novel components (2)</div>
+    <div class="novel-list">
+      <div class="novel-item">
+        <div class="novel-item-name">Radial Services Diagram Overlay</div>
+        <div class="novel-item-spec">Hero poster with service arc rendered as bullet list at photo base — warm tan arc lines, accent gold dots, warm overlay gradient. Maps to: Whitening, Veneers, Implants, Clear Aligners, Cleanings, Crowns, Bonding, Emergency Care. Requires new SVG/canvas arc component in production.</div>
+      </div>
+      <div class="novel-item">
+        <div class="novel-item-name">Bento Social Proof Grid</div>
+        <div class="novel-item-spec">Asymmetric CSS grid mixing: large bold serif stat card (52+ / 5★), tall testimonial pull-quote card spanning 2 rows, warm photo card, watermark stat card with low-opacity numeral layer, dark CTA card. All lg radius, three-tier surfaces, hairline borders.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Fidelity checks (10)</div>
+    <div class="check-list">
+      <div class="check-item">Eyebrow labels appear above every major section heading — bullet dot in accent gold #C8A96E, uppercase tracked sans — never omitted or replaced with badge chip.</div>
+      <div class="check-item">Hero is a full-width poster in a large-radius rounded rectangle (lg 16px) — not full-bleed to browser edge. Dark warm-brown photo base with warm overlay gradient.</div>
+      <div class="check-item">Primary CTA uses pill radius with deep warm-brown fill (#2C1A0E) and white text. No rectangular or md-radius buttons anywhere.</div>
+      <div class="check-item">Page background is warm cream #F5EFE6 — not pure white, not cool gray. Cream ground is the page foundation.</div>
+      <div class="check-item">Three-tier card surface system: cream ground → warm tan (#C8A87A / #E8D9C5) secondary → white (#FFFFFF) for reviews and forms.</div>
+      <div class="check-item">All card containers use lg corner radius (16px) — no sharp or sm-radius cards in the content grid.</div>
+      <div class="check-item">Doctor portrait section includes role label overlay pill (Founder &amp; Lead Dentist) at the bottom of the photo.</div>
+      <div class="check-item">Stat numerals (52+ reviews, 5★) rendered in large bold Playfair Display serif — not Inter/sans.</div>
+      <div class="check-item">Headings carry no italic mixing or color-shift emphasis — scale contrast and eyebrow labels are the sole hierarchy devices.</div>
+      <div class="check-item">Photography direction (warm placeholder gradients): warm golden-hour tones, skin-tone-adjacent. No cool-toned or blue-cast clinical images.</div>
+    </div>
+  </div>
+
+</div><!-- /ds-panel -->
+
+<script>
+function togglePanel() {
+  const panel = document.getElementById('ds-panel');
+  const btn   = document.getElementById('panel-btn');
+  panel.classList.toggle('open');
+  btn.classList.toggle('active');
+}
+function toggleAnnotations() {
+  document.body.classList.toggle('show-annotations');
+  document.getElementById('annotate-btn').classList.toggle('active');
+}
+function toggleAccordion(trigger) {
+  const cat = trigger.closest('.accordion-category');
+  cat.classList.toggle('open');
+}
+// Panel open by default
+document.getElementById('ds-panel').classList.add('open');
+</script>
+</body>
+</html>

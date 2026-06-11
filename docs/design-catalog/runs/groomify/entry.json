@@ -1,0 +1,253 @@
+{
+  "schemaVersion": "1.2",
+  "id": "groomify",
+  "name": "Groomify — Soft Nature Split",
+  "tag": "reference",
+  "source": {
+    "ingestedVia": "claude-design",
+    "captured": "2026-06-10"
+  },
+  "selection": {
+    "archetype": "warm-editorial",
+    "moods": [
+      "warm-neighborhood",
+      "soft-gentle"
+    ],
+    "adjectives": [
+      "approachable",
+      "caring",
+      "clean",
+      "friendly",
+      "trustworthy",
+      "organized",
+      "natural"
+    ],
+    "bestFor": "General and family dental practices that want to feel warm, modern, and neighborhood-friendly without appearing clinical. Strong fit for practices emphasising comfort, transparency, and personal care — particularly those serving families, first-time patients, and anxious patients. Works equally well for practices with a single lead provider whose personal touch is a key differentiator.",
+    "verticalBias": [
+      "general-dentistry",
+      "family-dentistry",
+      "preventive-dentistry",
+      "pediatric-friendly-dentistry"
+    ]
+  },
+  "tokens": {
+    "color": {
+      "strategy": {
+        "theme": "light",
+        "background": "White inner page card surfaces on a muted sage-green outer canvas — the outer canvas color is the signature accent, appearing as the visible browser chrome and page frame rather than as a content background. All content sections live on white card surfaces. This creates a distinctive two-tone presentation without the accent color ever invading content areas.",
+        "contrast": "medium-high",
+        "saturation": "muted",
+        "accentUsage": "contained",
+        "surfaceStrategy": "White (#FFFFFF) is used exclusively for all content surfaces — nav, hero, section panels, service cards, and FAQ. The sage-green outer canvas (#4A5C4E) appears only as the outer frame/background behind card surfaces, not within any section. A near-white, very subtly cool-tinted off-white (#F5F6F4) appears on secondary section backgrounds and input fields. The primary accent (dark forest green #3A5244) is used only for primary CTA button fills, active tab pills, and star-icon color accents — never as a content background. Depth is achieved by white cards floating against the sage canvas, not through shadows."
+      },
+      "reference": {
+        "outerCanvas": "#4A5C4E",
+        "cardSurface": "#FFFFFF",
+        "subtleSurface": "#F5F6F4",
+        "primaryButton": "#3A5244",
+        "headingText": "#1A1F1A",
+        "bodyText": "#555E55",
+        "mutedText": "#8A9490",
+        "divider": "#E4E8E4",
+        "chipBorder": "#D0D8D2",
+        "chipText": "#6E7E72",
+        "accentGreen": "#3A5244",
+        "tabActiveFill": "#3A5244",
+        "tabActiveText": "#FFFFFF",
+        "tabInactiveText": "#555E55",
+        "starColor": "#3A5244",
+        "imageBackground": "#D4D8D4"
+      }
+    },
+    "type": {
+      "classification": "geometric-sans",
+      "substitutionCriteria": "Display face must be a geometric or humanist sans-serif with optically balanced round letterforms at large sizes — NOT a serif. Must support light, regular, and medium weights. The headline mix device (regular weight for the first part of a headline, medium/semibold weight plus the accent green color for the emphasized phrase) requires a sans-serif with clean stroke modulation at 48px+. Body face can share the same family or use a highly legible companion sans. Both must render cleanly in dark charcoal (#1A1F1A) at display sizes and muted gray (#555E55) at body sizes.",
+      "pairing": "Single-family geometric sans across all text roles — display headlines in light-to-regular weight for the plain words, with accent-colored medium weight for the emphasized phrase; body in regular; UI in medium",
+      "heading": {
+        "weight": "regular with in-line medium-weight color emphasis",
+        "casing": "sentence case",
+        "eyebrow": "sparing",
+        "eyebrowTreatment": "Very small pill-outline chip with a tiny icon prefix (e.g., a paw icon, star icon, or category symbol) placed above the section heading — used on services sections and testimonials. Text is muted gray, sentence case. The chip has a hairline border and sits loosely above the H2.",
+        "emphasisDevice": "In-headline color split — the first part of the headline is rendered in dark charcoal at regular weight, while the key phrase (often the emotional hook or category word, e.g., 'grooming experience', 'every pet', 'perfect day') is rendered in the accent forest-green at the same or slightly heavier weight. This creates a two-tone headline without italic, uppercase, or font-family changes. Used consistently on every major section heading."
+      },
+      "body": {
+        "weight": "regular",
+        "casing": "sentence case",
+        "lineHeight": "relaxed"
+      },
+      "scale": "display-led",
+      "headingScale": "xl",
+      "contrast": "medium-high",
+      "reference": {
+        "displayFace": "Geometric or humanist sans — e.g. Satoshi, Outfit, Plus Jakarta Sans, or similar with clean round forms",
+        "bodyFace": "Same family as display, regular weight; or a companion humanist sans",
+        "emphasisColor": "#3A5244 — applied to the key phrase within headlines, not as a standalone accent element"
+      }
+    },
+    "shape": {
+      "cornerRadius": "lg",
+      "notes": "Cards, image containers, and service detail panels use a large corner radius (~16px). Tab pills and inline chips use a full pill radius (999px). The outer page card uses an xl radius (~20–24px). Buttons use lg (10–12px) — NOT full pill. This is a key distinction from pill-radius systems: buttons are rounded-rectangle, not capsule-shaped."
+    },
+    "elevation": {
+      "system": "flat-with-border",
+      "notes": "No drop shadows. Cards are differentiated from the white background by a hairline border (#E4E8E4) or by the sage-green outer canvas framing them. Within a white surface, service cards and contact action cards use a hairline border to define their boundary. No blur or shadow effects."
+    },
+    "border": {
+      "treatment": "hairline",
+      "notes": "1px solid dividers between service rows, around service cards in the a-la-carte grid, and on contact action cards. Tab bar uses a bottom hairline to separate from content. Eyebrow chips use a hairline outline border. All borders are in the muted divider color (#E4E8E4)."
+    },
+    "button": {
+      "treatment": "filled-rounded-rect",
+      "character": "Primary button uses the dark forest-green fill (#3A5244) with white text and an lg corner radius (~10px) — a rounded rectangle, not a full pill. A small left-arrow or arrow icon prefix sometimes appears before the button label (e.g., '→ Book Now'). Secondary/ghost button uses no fill, hairline border, same radius. Buttons are compact with moderate horizontal padding. Icon prefix is a design signature of this template."
+    },
+    "label": {
+      "style": "icon-chip",
+      "character": "Small pill-outline chips that combine a tiny icon (star, paw, category symbol) with sentence-case text, used as eyebrow labels above section headings and as package/tier labels on the tabbed service section. Also used as the 'Featured Testimonial' badge on the large pull-quote section. The icon-plus-text chip is the primary labeling mechanism — no plain text eyebrows without the chip container."
+    },
+    "density": "comfortable",
+    "motion": "minimal"
+  },
+  "layout": {
+    "sections": [
+      "nav",
+      "hero — left-right split with large display headline on left, rounded image card on right; social-proof strip below hero image",
+      "services-packages — tabbed package selector with image+checklist detail panel; tabs are pill-nav",
+      "services-alacarte — icon+title+description card grid (3 columns) with bottom CTA",
+      "testimonials-grid — 3-column testimonial card grid",
+      "testimonials-featured — full-width split: large image left, pull-quote right with star rating",
+      "faq — split layout: image left, accordion right",
+      "contact — split layout: map left, stacked action cards right",
+      "footer"
+    ],
+    "variants": {
+      "heroLayout": "magazine-split",
+      "servicesLayout": "tabbed-package-panel",
+      "aboutLayout": "not-present",
+      "testimonialsLayout": "grid-plus-featured-split",
+      "ctaLayout": "single-cta-strip",
+      "faqLayout": "split-image-accordion",
+      "navVariant": "logo-left-links-center-cta-right",
+      "footerVariant": "minimal-light",
+      "galleryVariant": "none"
+    },
+    "composition": {
+      "hero": "Two-column split directly inside a white card panel set against the sage-green canvas. Left column (approx 50% width): practice wordmark + icon in the nav above, then a very large left-aligned display headline using the two-tone color device (dark charcoal for the plain words, forest-green for the emotional hook phrase). Below: two lines of body copy in small regular sans. Below body copy: a single primary CTA button (rounded-rect, forest-green fill). Right column: a large image card with xl corner radius, slight cool-gray background, containing a hero photograph. Below the image, a social-proof strip shows a row of 5 circular avatar thumbnails (pet owners or patients) with a '+456 Happy Pets' label in small muted sans. No filmstrip; the hero image is singular and large.",
+      "nav": "White bar spanning full width. Wordmark (icon + text) positioned top-left in dark charcoal. Centered horizontal nav links (About, Services, Gallery, FAQs) in regular-weight sans, sentence case. 'Book Appointment' rounded-rect button top-right with forest-green fill and white text. Nav is clean and opaque white at all times.",
+      "servicesPackages": "Section opens with a small eyebrow chip, a large two-tone H2, and a two-line subhead. Below: a horizontal pill-tab navigation row with three package tiers (e.g., 'The Essential Elegance', 'The Signature Spa Day', 'The Royal Retreat'). The active tab pill uses the forest-green fill with white text; inactive tabs are outline pills. Below the tab nav: a two-column content panel — left column holds a square image (lg radius, no border) showing a pet/patient in context; right column shows a price badge, service name in large sans, a vertical checklist of included items (star bullet icons, sentence case), and a '→ Book Now' rounded-rect CTA button. The whole panel sits on a white card with a hairline border.",
+      "servicesAlacarte": "Section opens with a two-tone H2 and a two-line subhead. Below: a 3-column grid of service icon cards. Each card shows: a small line-art icon at top center, the service name in medium-weight sans, a price badge in small muted sans, and a 2-line description in small regular sans. Cards have hairline borders and lg radius. Below the grid: a single 'Book Appointment' rounded-rect primary CTA centered or left-aligned.",
+      "testimonials": "Two visual modes: (1) A 3-column grid of testimonial cards — each card has the reviewer's avatar (circle crop), name in medium sans, '— Pet Owner' descriptor, and a 2–3 sentence review in small regular sans. Cards have hairline borders and lg radius. (2) A featured testimonial section uses a full-width split: left side is a large portrait image (lg radius) showing an owner-with-pet lifestyle photograph; right side shows a small eyebrow chip ('Featured Testimonial'), the quote in large medium-weight sans (no serif), five star icons, the reviewer name, and an attribution line. This is a high-prominence pull-quote.",
+      "faq": "Section uses a two-column split layout: left column holds a large rounded image (same style as hero/services images, portrait orientation, pet/patient lifestyle photo); right column holds a small eyebrow chip, a two-tone H2, and a flat accordion list. Accordion items: question text in medium sans with a '+' expand icon on the right. No category grouping. Answers expand inline. The split layout (image+accordion) is structurally distinct from the full-width FAQ accordion in other templates.",
+      "contact": "Two-column split: left column shows a small eyebrow chip, a two-tone large H2, a body subhead, and an embedded map with lg-radius frame. Right column shows three stacked 'action cards' — each card has a small icon (calendar, phone, door), a heading ('Book online', 'Call us', 'Visit us'), a one-line description, and a small rounded-rect CTA button ('→ Book Now', '→ Call Us', '→ Get Directions'). Each action card has a hairline border and lg radius. This contact section is novel — it avoids a contact form entirely in favor of intent-segmented action cards.",
+      "footer": "Minimal white bar with hairline top border. Practice wordmark left, sparse nav links right (or centered), copyright line. Single-row layout. No heavy multi-column content.",
+      "doctorIntro": "Not a distinct section in the source template. Doctor/provider identity is surfaced through the nav logo and service detail page only — no dedicated founder quote or team section visible in the source."
+    },
+    "novel": [
+      {
+        "section": "hero",
+        "name": "Social Proof Avatar Strip",
+        "spec": "A compact strip appearing directly below the hero image (or overlapping its bottom edge). Contains 5–6 circular avatar thumbnails in an overlapping row (each ~32px diameter, 8px overlap), followed by a count label in small muted sans (e.g., '+456 Happy Patients'). This micro-social-proof element is integrated into the hero composition rather than appearing as a standalone testimonial section. In a dental translation: show patient avatar photos with a count label like '+300 Happy Patients'. The strip does not require star ratings — it is purely a headcount signal.",
+        "requiresNewComponent": true
+      },
+      {
+        "section": "servicesPackages",
+        "name": "Tabbed Package Selector Panel",
+        "spec": "A horizontal pill-tab navigation row with 2–4 tier names (e.g., 'Essential Care', 'Comprehensive Care', 'Premium Care'). The active tab uses the accent fill color (forest-green) with white text; inactive tabs are pill-outline with muted text. Below the tab nav, a two-column panel updates on tab selection: left column shows a contextual photograph (lg radius, ~300px square); right column shows a price badge, tier name in large sans, a vertical checklist of included services (star or checkmark bullet icons), and a '→ Book Now' rounded-rect CTA. Used on the dental services page to differentiate between 'New Patient Exam', 'Preventive Care Package', and 'Cosmetic Consult Package'. This is a contextual service-selector — no page navigation required.",
+        "requiresNewComponent": true
+      },
+      {
+        "section": "contact",
+        "name": "Intent-Segmented Contact Action Cards",
+        "spec": "Three vertically-stacked cards replacing a traditional contact form. Each card addresses a distinct patient intent: (1) 'Schedule online' with a calendar icon and a '→ Schedule Now' CTA, (2) 'Call us' with a phone icon and a '→ Call (562) 420-8578' CTA, (3) 'Find us' with a pin/door icon and address details and a '→ Get Directions' CTA. Cards have hairline borders, lg radius, and internal padding of ~20px. The icons are thin-stroke line-art in the muted text color. The map appears in the left column of the same split layout. This approach is suitable for dental practices that see high call volume and want to reduce form friction.",
+        "requiresNewComponent": true
+      },
+      {
+        "section": "faq",
+        "name": "Split Image-Accordion FAQ",
+        "spec": "A two-column layout where the left ~45% of the section width is occupied by a large rounded lifestyle photograph (portrait orientation, lg radius), and the right ~55% holds the FAQ accordion (eyebrow chip, two-tone H2, flat expandable question list). The image is decorative and grounding — it shows the practice environment or a patient/provider moment. Questions use a '+' expand icon on the right. This layout is distinct from full-width accordion or card-grid FAQ formats. In dental: the left image could show a patient in the chair, the waiting room, or the doctor at work.",
+        "requiresNewComponent": false
+      }
+    ]
+  },
+  "imagery": {
+    "crop": "Medium to loose crops with generous environment context. Hero image is a loose portrait showing the subject (pet/patient) from chest up against a clean, softly-lit neutral background. Service section images are square or slightly portrait, showing the subject in a care context. Testimonial lifestyle image is a candid medium shot of a person with their companion in an outdoor or environmental context. No extreme close-ups.",
+    "grading": "Clean, desaturated, slightly cool-neutral — NOT warm/ivory like klinik. Images have lifted shadows and muted saturation that harmonise with the white card surfaces and the sage-green canvas. No strong warm cast; highlights are neutral white. The overall feel is 'bright studio' rather than 'warm editorial'. In dental translation: use bright, clean clinic photography with neutral grading — patient portraits with good ambient light, clean white backgrounds or clinic setting.",
+    "framing": "Subjects centered or slightly left-of-center with clean negative space. Backgrounds are intentionally neutral (solid light gray, clinic wall, or soft outdoor). No busy environmental props. Pet/patient is the primary subject; the care context (collar, environment) is secondary. Images sit inside cards with lg corner radius and the subtle background color shows at the corners.",
+    "subjectTreatment": "Calm, dignified, alert — subjects look at ease rather than posed. Provider photography (if present) would show them in a calm, professional pose. Patient/pet photographs are candid and natural. No stock-clinical overlit portraits.",
+    "imageTextRatio": "image-led"
+  },
+  "voice": {
+    "formality": "friendly-professional",
+    "rhythm": "Short declarative sentences. Headlines use a two-part structure: a plain setup phrase in dark charcoal followed by the emotional punchword or descriptor phrase in accent green (e.g., 'Comprehensive dental care / for every patient'). Body copy is 2–3 sentences, direct and benefit-oriented. No long preambles. Subheads are one sentence, reassuring.",
+    "favors": [
+      "direct benefit language without over-qualifying ('professional-grade', 'tailored to you', 'designed for comfort')",
+      "second-person address throughout ('your appointment', 'your smile', 'your family')",
+      "light, approachable vocabulary — avoids clinical terminology in patient-facing copy",
+      "numbered/bulleted service breakdowns in package tiers — clarity over prose",
+      "transparency in pricing ('From $XX' — visible pricing is a design signal)",
+      "warm but not gushing — genuine care without overselling",
+      "short imperative CTAs with a leading arrow or icon prefix ('→ Book Now', '→ Call Us')"
+    ],
+    "avoids": [
+      "serif or literary flourishes in copy — voice matches the sans-serif, unadorned type system",
+      "hard-sell urgency ('limited time', 'don't wait')",
+      "clinical or procedural jargon in section headings",
+      "first-person boasting ('we are the best')",
+      "fear-based framing ('don't neglect your teeth')",
+      "long flowing paragraphs — this is a scannable, structured layout"
+    ]
+  },
+  "fidelity": {
+    "layout": "partial",
+    "theme": "light-native",
+    "phase": "B",
+    "gaps": [
+      {
+        "type": "variant",
+        "detail": "Tabbed Package Selector Panel (servicesPackages) has no matching variant in the standard services pool — closest is alternating-rows or card-grid, but the true design is a tab-nav-driven contextual panel with photograph and checklist. Requires novel component."
+      },
+      {
+        "type": "variant",
+        "detail": "Intent-Segmented Contact Action Cards have no matching variant in the standard contact/CTA pool — closest is multi-button CTA, but this is a structured 3-card split with intent-segmented CTAs and a map. Requires novel component."
+      },
+      {
+        "type": "variant",
+        "detail": "Split Image-Accordion FAQ (image left, accordion right) has no matching standard faq variant — standard pool only has full-width accordion. Requires new composition but not necessarily a novel component."
+      },
+      {
+        "type": "variant",
+        "detail": "Social Proof Avatar Strip in the hero is a micro-component without a standard counterpart. Requires novel component."
+      },
+      {
+        "type": "token",
+        "detail": "Button shape token requires clarification: Groomify uses rounded-rectangle buttons (lg radius, ~10px), NOT full pill/capsule shapes. Builder defaults to pill buttons on most templates — this must be explicitly overridden."
+      },
+      {
+        "type": "token",
+        "detail": "Outer canvas is the accent sage-green (#4A5C4E) — the canvas color has strong visual presence as a framing element. If the builder renders the canvas as white or near-white by default, the template's signature two-tone frame will be lost."
+      }
+    ]
+  },
+  "audit": {
+    "sanctionedPatterns": [
+      "in-headline-color-emphasis",
+      "tabbed-content-selector",
+      "icon-chip-eyebrow",
+      "social-proof-avatar-strip",
+      "intent-card-contact"
+    ],
+    "fidelityChecks": [
+      "Hero must be a left-right split (not centered): large left-aligned display headline on left, single large image card on right. Do not center the hero headline.",
+      "Headline emphasis device is a color split within the headline — the key phrase uses forest-green (#3A5244), the setup words use dark charcoal (#1A1F1A). Both words are the same sans-serif family and similar weight. No italic, no font-family switch, no uppercase for the accent phrase.",
+      "Buttons are rounded-rectangle (lg radius ~10px), NOT full pill/capsule. This is the primary shape token difference from pill-button systems.",
+      "The outer canvas is sage-green (#4A5C4E) — this must appear as the page background that cards float against, not white or near-white.",
+      "Service package section must use horizontal pill-tabs (not a vertical list or carousel) to switch between care tiers.",
+      "FAQ section must use the split layout: image on left (~45% width), accordion on right (~55%). Do not default to a full-width accordion stack.",
+      "Contact section replaces the standard contact form with intent-segmented action cards (schedule, call, find us) stacked vertically on the right column alongside a map on the left.",
+      "Photography grading is clean and neutral (not warm/ivory). Backgrounds are neutral light gray or clean white. No warm brown/ivory cast.",
+      "Social-proof avatar strip in the hero must use actual circular avatar thumbnails in an overlapping row — not star ratings or a testimonial quote.",
+      "Testimonials appear in two modes: a 3-column card grid AND a separate featured full-width split (image left, pull-quote right). Both should be rendered.",
+      "Eyebrow chips always include a small icon prefix alongside the label text — not plain text chips.",
+      "Body copy is structured and scannable — prefer numbered/bulleted lists over prose paragraphs in service descriptions. Keep sentence count per block at 2–3 maximum."
+    ]
+  }
+}

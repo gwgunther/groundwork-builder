@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilates Lab — Design System Showcase · Spring St. Dentistry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ──────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ── Design tokens ──────────────────────────────────────────────────────── */
+:root {
+  --canvas:          #D9DFD3;
+  --container:       #F7F5F0;
+  --card:            #FFFFFF;
+  --btn-primary:     #1C1C1A;
+  --heading:         #1C1C1A;
+  --body-text:       #6B6B62;
+  --eyebrow-text:    #888880;
+  --divider:         #E8E6E0;
+  --icon-surface:    #EEF0EB;
+  --btn-outline-bdr: #C8C6C0;
+  --nav-bg:          #F7F5F0;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'DM Sans', -apple-system, sans-serif;
+
+  --radius-container: 22px;
+  --radius-card:      16px;
+  --radius-btn:       10px;
+  --radius-icon:      10px;
+}
+
+html {
+  background: var(--canvas);
+}
+
+body {
+  background: var(--canvas);
+  color: var(--body-text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Showcase meta bar ───────────────────────────────────────────────────── */
+.meta-bar {
+  background: #111310;
+  color: #8aaa84;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  padding: 8px 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  flex-wrap: wrap;
+}
+.meta-bar .meta-name { font-weight: 600; color: #c8ddc4; }
+.meta-bar .meta-sep  { color: #2a3028; }
+.meta-bar .meta-novel { color: #b0cc8a; }
+.meta-bar-right { margin-left: auto; display: flex; gap: 8px; }
+.meta-btn {
+  background: rgba(140,180,120,0.12);
+  border: 1px solid rgba(140,180,120,0.22);
+  color: #8aaa84;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: background 0.15s;
+}
+.meta-btn:hover { background: rgba(140,180,120,0.22); }
+.meta-btn.active { background: rgba(140,180,120,0.28); color: #c8ddc4; }
+
+/* ── Novel section callout ──────────────────────────────────────────────── */
+.novel-flag { position: relative; }
+.novel-label {
+  display: none;
+  position: absolute;
+  top: 14px; right: 14px;
+  background: rgba(140,180,100,0.14);
+  border: 1px solid rgba(140,180,100,0.32);
+  color: #5a8a40;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 4px;
+  z-index: 20;
+  pointer-events: none;
+}
+body.show-annotations .novel-label { display: block; }
+body.show-annotations .novel-flag  { outline: 1px dashed rgba(100,160,80,0.22); }
+
+/* ── Page container wrapper (The signature sage frame) ───────────────────── */
+.page-wrap {
+  max-width: 1160px;
+  margin: 0 auto;
+  background: var(--container);
+  border-radius: var(--radius-container);
+  overflow: hidden;
+  margin-top: 0;
+  position: relative;
+  /* Note: sage canvas bleeds on left/right as body background */
+}
+
+/* ── Nav ─────────────────────────────────────────────────────────────────── */
+nav {
+  background: var(--nav-bg);
+  padding: 0 40px;
+  height: 66px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  position: sticky;
+  top: 33px;
+  z-index: 100;
+  border-bottom: 1px solid var(--divider);
+}
+.nav-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-logo-icon {
+  width: 28px;
+  height: 28px;
+  background: var(--btn-primary);
+  border-radius: 5px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-logo-icon svg { width: 16px; height: 16px; }
+.nav-logo {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--heading);
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+}
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  margin: 0 auto;
+}
+.nav-links a {
+  font-size: 13.5px;
+  color: var(--body-text);
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--heading); }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-body);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.15s;
+  font-size: 13.5px;
+}
+.btn:hover { opacity: 0.82; }
+.btn-filled {
+  background: var(--btn-primary);
+  color: #fff;
+  border: none;
+  padding: 11px 26px;
+}
+.btn-outline {
+  background: transparent;
+  color: var(--heading);
+  border: 1px solid var(--btn-outline-bdr);
+  padding: 10px 24px;
+}
+
+/* ── Shared section ─────────────────────────────────────────────────────── */
+section { padding: 80px 48px; background: var(--container); }
+.section-inner { max-width: 1060px; margin: 0 auto; }
+
+.overline {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--eyebrow-text);
+  margin-bottom: 18px;
+}
+
+h1.display, h2.display {
+  font-family: var(--font-display);
+  color: var(--heading);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
+h1.display { font-size: clamp(40px, 5.5vw, 64px); }
+h2.display { font-size: clamp(32px, 4.5vw, 54px); }
+
+/* ── Hero ────────────────────────────────────────────────────────────────── */
+#hero {
+  padding: 72px 48px 56px;
+  text-align: center;
+  background: var(--container);
+}
+#hero .overline { margin-bottom: 16px; }
+#hero h1.display {
+  font-style: italic;
+  max-width: 780px;
+  margin: 0 auto 20px;
+}
+#hero .hero-sub {
+  font-size: 15px;
+  color: var(--body-text);
+  max-width: 500px;
+  margin: 0 auto 36px;
+  opacity: 0.9;
+}
+#hero .hero-cta { display: flex; justify-content: center; }
+
+.filmstrip {
+  display: flex;
+  gap: 14px;
+  margin-top: 48px;
+  max-width: 1060px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.filmstrip-card {
+  flex: 1;
+  aspect-ratio: 4/3;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+.img-block {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* ── Founder story — Novel ──────────────────────────────────────────────── */
+#founder-story {
+  background: var(--card);
+  padding: 80px 48px;
+}
+.founder-grid {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 56px;
+  align-items: start;
+  max-width: 1060px;
+  margin: 0 auto;
+}
+.founder-portrait {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  aspect-ratio: 3/4;
+}
+.founder-text .overline { margin-bottom: 14px; }
+.founder-quote {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.8vw, 30px);
+  font-style: italic;
+  color: var(--heading);
+  line-height: 1.35;
+  margin-bottom: 24px;
+}
+.founder-bio p {
+  font-size: 14.5px;
+  color: var(--body-text);
+  margin-bottom: 14px;
+  line-height: 1.7;
+}
+.founder-bio p:last-child { margin-bottom: 0; }
+.founder-sig {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--divider);
+}
+.founder-sig-name {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--heading);
+  margin-bottom: 3px;
+}
+.founder-sig-role {
+  font-size: 12.5px;
+  color: var(--eyebrow-text);
+}
+
+/* ── Services ────────────────────────────────────────────────────────────── */
+#services {
+  background: var(--container);
+  padding: 80px 48px;
+}
+#services .section-header {
+  max-width: 1060px;
+  margin: 0 auto 40px;
+}
+#services .section-header h2.display { margin-bottom: 10px; }
+#services .section-header p { font-size: 15px; max-width: 520px; }
+
+.services-grid {
+  max-width: 1060px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.service-card {
+  background: var(--card);
+  border-radius: var(--radius-card);
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 24px;
+  transition: box-shadow 0.15s;
+  cursor: default;
+}
+.service-card:hover { box-shadow: 0 2px 16px rgba(28,28,26,0.06); }
+.service-thumb {
+  width: 80px;
+  height: 64px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.service-info {}
+.service-name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--heading);
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+.service-desc {
+  font-size: 13.5px;
+  color: var(--body-text);
+  opacity: 0.85;
+  line-height: 1.5;
+}
+.service-meta {
+  font-size: 12px;
+  color: var(--eyebrow-text);
+  text-align: right;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.service-meta strong {
+  display: block;
+  font-size: 14px;
+  color: var(--body-text);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+/* ── Why choose us — Novel ──────────────────────────────────────────────── */
+#why-us {
+  background: var(--container);
+  padding: 80px 48px;
+}
+.why-header {
+  max-width: 1060px;
+  margin: 0 auto 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.why-header .overline { text-align: right; }
+.why-header h2.display {
+  font-style: italic;
+  text-align: left;
+  width: 100%;
+  margin-top: 12px;
+}
+.icon-grid {
+  max-width: 1060px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.icon-card {
+  background: var(--card);
+  border-radius: var(--radius-card);
+  padding: 28px 28px 28px;
+}
+.icon-cell {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-icon);
+  background: var(--icon-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.icon-cell svg { width: 22px; height: 22px; color: var(--heading); }
+.icon-card-name {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--heading);
+  margin-bottom: 6px;
+  line-height: 1.25;
+}
+.icon-card-desc {
+  font-size: 13.5px;
+  color: var(--body-text);
+  line-height: 1.6;
+}
+
+/* ── Gallery — Novel ─────────────────────────────────────────────────────── */
+#gallery {
+  background: var(--container);
+  padding: 80px 48px;
+}
+.gallery-header {
+  max-width: 1060px;
+  margin: 0 auto 36px;
+}
+.gallery-mosaic {
+  max-width: 1060px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr 0.9fr;
+  grid-template-rows: 280px 220px;
+  gap: 12px;
+}
+.mosaic-cell {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+.mosaic-cell:first-child {
+  grid-row: 1 / 3;
+}
+.mosaic-cell:nth-child(4) {
+  grid-column: 2 / 4;
+}
+
+/* ── Location ────────────────────────────────────────────────────────────── */
+#location {
+  background: var(--card);
+  padding: 80px 48px;
+  text-align: center;
+}
+#location .section-inner { max-width: 660px; }
+#location .overline { display: block; margin-bottom: 14px; }
+#location h2.display {
+  font-style: italic;
+  margin-bottom: 24px;
+}
+#location .location-address {
+  font-size: 15px;
+  color: var(--body-text);
+  line-height: 1.8;
+  margin-bottom: 32px;
+}
+.location-map {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  height: 240px;
+  background: var(--icon-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+.map-placeholder-text {
+  font-size: 13px;
+  color: var(--eyebrow-text);
+  letter-spacing: 0.05em;
+}
+
+/* ── CTA ─────────────────────────────────────────────────────────────────── */
+#cta {
+  background: var(--canvas);
+  padding: 100px 48px;
+  text-align: center;
+}
+#cta .section-inner { max-width: 560px; }
+#cta .overline { margin-bottom: 14px; }
+#cta h2.display {
+  font-style: italic;
+  margin-bottom: 16px;
+}
+#cta p {
+  font-size: 15px;
+  margin-bottom: 36px;
+  opacity: 0.85;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+footer {
+  background: var(--container);
+  border-top: 1px solid var(--divider);
+  padding: 36px 48px;
+}
+.footer-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.footer-logo { font-family: var(--font-body); font-weight: 700; font-size: 14px; color: var(--heading); }
+.footer-links { display: flex; gap: 22px; list-style: none; }
+.footer-links a { font-size: 13px; color: var(--eyebrow-text); text-decoration: none; transition: color 0.15s; }
+.footer-links a:hover { color: var(--heading); }
+.footer-copy { font-size: 12px; color: var(--eyebrow-text); }
+
+/* ── DS Panel ─────────────────────────────────────────────────────────────── */
+.ds-panel {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 380px;
+  background: #111310;
+  color: #8aaa84;
+  font-family: var(--font-body);
+  font-size: 12px;
+  overflow-y: auto;
+  z-index: 400;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  border-left: 1px solid #1e2620;
+}
+.ds-panel.open { transform: translateX(0); }
+.ds-panel-header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid #1e2620;
+  position: sticky; top: 0;
+  background: #111310;
+  z-index: 1;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.ds-panel-title { font-size: 13px; font-weight: 600; color: #c8ddc4; }
+.ds-panel-close { background: none; border: none; color: #444; cursor: pointer; font-size: 18px; line-height: 1; }
+.ds-section { padding: 20px 20px 0; }
+.ds-section-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #3a5038;
+  margin-bottom: 12px;
+}
+.ds-divider { border: none; border-top: 1px solid #1e2620; margin: 20px 0 0; }
+
+/* Palette */
+.palette-grid { display: flex; flex-direction: column; gap: 6px; margin-bottom: 4px; }
+.swatch-row { display: flex; align-items: center; gap: 10px; }
+.swatch { width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.06); }
+.swatch-info { flex: 1; }
+.swatch-role { font-size: 11px; color: #8aaa84; }
+.swatch-hex  { font-size: 10px; color: #3a5038; font-variant-numeric: tabular-nums; }
+
+/* Type specimen */
+.type-display { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 26px; color: #c8ddc4; line-height: 1.2; margin-bottom: 5px; }
+.type-body    { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #6a8a66; line-height: 1.5; margin-bottom: 4px; }
+.type-meta    { font-size: 10px; color: #3a5038; }
+.type-overline { font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: #6a8a66; margin-bottom: 6px; }
+
+/* Token grid */
+.token-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.token-cell { background: #182018; border-radius: 6px; padding: 8px 10px; }
+.token-label { font-size: 10px; color: #3a5038; margin-bottom: 2px; }
+.token-val   { font-size: 13px; font-weight: 600; color: #8aaa84; }
+.token-note  { font-size: 10px; color: #2a3e28; }
+
+/* Novel list */
+.novel-list { display: flex; flex-direction: column; gap: 8px; }
+.novel-item { background: rgba(140,180,80,0.07); border: 1px solid rgba(140,180,80,0.14); border-radius: 6px; padding: 9px 10px; }
+.novel-item-name { font-size: 11px; color: #a8cc80; font-weight: 600; margin-bottom: 3px; }
+.novel-item-spec { font-size: 10.5px; color: #4a6040; line-height: 1.4; }
+
+/* Checks */
+.check-list { display: flex; flex-direction: column; gap: 7px; padding-bottom: 24px; }
+.check-item { background: #182018; border-radius: 6px; padding: 9px 10px; font-size: 11px; color: #6a8a66; line-height: 1.45; }
+.check-item::before { content: '✓ '; color: #7aaa60; font-weight: 700; }
+
+/* Image placeholder util */
+.img-sage   { background: linear-gradient(135deg, #c8d4c0 0%, #b8c8b0 100%); }
+.img-cream  { background: linear-gradient(135deg, #e8e4dc 0%, #d8d0c4 100%); }
+.img-warm   { background: linear-gradient(135deg, #ddd4c8 0%, #ccc4b4 100%); }
+.img-neutral { background: linear-gradient(135deg, #d8d8d0 0%, #c8c8c0 100%); }
+.img-fig { width: 100%; height: 100%; display: block; }
+</style>
+</head>
+<body>
+
+<!-- ── Meta bar ──────────────────────────────────────────────────────────── -->
+<div class="meta-bar">
+  <span class="meta-name">Pilates Lab</span>
+  <span class="meta-sep">·</span>
+  <span>minimal-brutalist</span>
+  <span class="meta-sep">·</span>
+  <span>soft-gentle, modern-premium</span>
+  <span class="meta-sep">·</span>
+  <span class="meta-novel">3 novel components</span>
+  <div class="meta-bar-right">
+    <button class="meta-btn" id="annotate-btn" onclick="toggleAnnotations()">Annotations</button>
+    <button class="meta-btn active" id="panel-btn" onclick="togglePanel()">Design system ›</button>
+  </div>
+</div>
+
+<!-- ── Page container (sage canvas frame — Novel) ────────────────────────── -->
+<div class="page-wrap novel-flag" id="sage-frame">
+  <div class="novel-label">Novel — Sage Canvas Page Frame</div>
+
+<!-- ── Nav ───────────────────────────────────────────────────────────────── -->
+<nav>
+  <div class="nav-logo-wrap">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="5" cy="5" r="2.5" fill="white" opacity="0.9"/>
+        <circle cx="11" cy="5" r="2.5" fill="white" opacity="0.5"/>
+        <circle cx="5" cy="11" r="2.5" fill="white" opacity="0.5"/>
+        <circle cx="11" cy="11" r="2.5" fill="white" opacity="0.9"/>
+      </svg>
+    </div>
+    <div class="nav-logo">Spring St. Dentistry</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#">About</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Patient Stories</a></li>
+    <li><a href="#">Location</a></li>
+  </ul>
+  <a href="#" class="btn btn-outline">Contact Us</a>
+</nav>
+
+<!-- ── Hero ──────────────────────────────────────────────────────────────── -->
+<section id="hero">
+  <span class="overline">Long Beach, California</span>
+  <h1 class="display">Your neighborhood dentist<br>on Spring Street.</h1>
+  <p class="hero-sub">Comfortable, attentive dental care for every member of your Long Beach family — from routine cleanings to complete smile transformations.</p>
+  <div class="hero-cta">
+    <a href="#" class="btn btn-filled">Schedule Your Visit</a>
+  </div>
+  <div class="filmstrip">
+    <div class="filmstrip-card"><div class="img-fig img-sage"></div></div>
+    <div class="filmstrip-card"><div class="img-fig img-cream"></div></div>
+    <div class="filmstrip-card"><div class="img-fig img-warm"></div></div>
+  </div>
+</section>
+
+<!-- ── Founder Story — Novel ──────────────────────────────────────────────── -->
+<section id="founder-story" class="novel-flag">
+  <div class="novel-label">Novel — Founder Split with Giant Pull-Quote</div>
+  <div class="founder-grid">
+    <div class="founder-portrait img-neutral">
+      <div class="img-fig" style="height:100%; min-height:320px;"></div>
+    </div>
+    <div class="founder-text">
+      <span class="overline">From the dentist</span>
+      <div class="founder-quote">"Every patient deserves to leave feeling genuinely cared for — not just treated."</div>
+      <div class="founder-bio">
+        <p>I grew up in Long Beach and Lakewood. After years studying and training in Boston and at the Loma Linda VA, I came back because this is home — and because I believe this community deserves dentistry that actually feels personal.</p>
+        <p>What drives me every day is the relationship. The trust a patient places in you, visit after visit. I've always had a knack for putting nervous patients at ease, and that matters just as much to me as the clinical side of the work.</p>
+        <p>Whether you're coming in for a routine cleaning or something more involved, every appointment at Spring St. Dentistry is built around your comfort and your goals.</p>
+      </div>
+      <div class="founder-sig">
+        <div class="founder-sig-name">Dr. Anthony Hoang</div>
+        <div class="founder-sig-role">DMD · Spring St. Dentistry, Long Beach</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Services ───────────────────────────────────────────────────────────── -->
+<section id="services">
+  <div class="section-header">
+    <span class="overline">What We Offer</span>
+    <h2 class="display">Comprehensive dental care<br>on Spring Street.</h2>
+    <p>From routine cleanings to complete smile transformations, everything your family needs under one roof.</p>
+  </div>
+  <div class="services-grid">
+
+    <div class="service-card">
+      <div class="service-thumb img-sage"><div class="img-fig" style="height:100%;"></div></div>
+      <div class="service-info">
+        <div class="service-name">Routine Cleaning &amp; Exam</div>
+        <div class="service-desc">A thorough clean and comprehensive check-up to keep your smile healthy year-round.</div>
+      </div>
+      <div class="service-meta"><strong>From $120</strong>60 min</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-thumb img-cream"><div class="img-fig" style="height:100%;"></div></div>
+      <div class="service-info">
+        <div class="service-name">Teeth Whitening</div>
+        <div class="service-desc">Professional-grade whitening for a noticeably brighter, more confident smile.</div>
+      </div>
+      <div class="service-meta"><strong>From $299</strong>60–90 min</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-thumb img-warm"><div class="img-fig" style="height:100%;"></div></div>
+      <div class="service-info">
+        <div class="service-name">Clear Aligners</div>
+        <div class="service-desc">Straighten your teeth discreetly with custom aligners that fit your lifestyle and schedule.</div>
+      </div>
+      <div class="service-meta"><strong>From $3,200</strong>6–18 months</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-thumb img-neutral"><div class="img-fig" style="height:100%;"></div></div>
+      <div class="service-info">
+        <div class="service-name">Dental Implants</div>
+        <div class="service-desc">Replace missing teeth permanently with implants that look, feel, and function like your natural teeth.</div>
+      </div>
+      <div class="service-meta"><strong>From $1,800</strong>Multi-visit</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-thumb img-sage"><div class="img-fig" style="height:100%;"></div></div>
+      <div class="service-info">
+        <div class="service-name">Dental Veneers</div>
+        <div class="service-desc">Custom porcelain shells that reshape and recolour your smile in two comfortable visits.</div>
+      </div>
+      <div class="service-meta"><strong>From $900/tooth</strong>2 visits</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-thumb img-cream"><div class="img-fig" style="height:100%;"></div></div>
+      <div class="service-info">
+        <div class="service-name">Deep Cleaning</div>
+        <div class="service-desc">Remove harmful buildup below the gumline to protect your teeth and restore gum health.</div>
+      </div>
+      <div class="service-meta"><strong>From $250</strong>60–90 min</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Why Choose Us — Novel ──────────────────────────────────────────────── -->
+<section id="why-us" class="novel-flag">
+  <div class="novel-label">Novel — Asymmetric Overline + Giant Serif H1 + Icon Card Grid</div>
+  <div class="why-header">
+    <span class="overline">Why choose us</span>
+    <h2 class="display">What makes Spring St.<br><em style="font-style:normal;">Dentistry</em> different.</h2>
+  </div>
+  <div class="icon-grid">
+
+    <div class="icon-card">
+      <div class="icon-cell">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="icon-card-name">Same-Day Appointments</div>
+      <div class="icon-card-desc">We do our best to accommodate urgent concerns the same day. Call us and we'll work to get you seen promptly.</div>
+    </div>
+
+    <div class="icon-card">
+      <div class="icon-cell">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <div class="icon-card-name">Comfortable Care</div>
+      <div class="icon-card-desc">Dr. Hoang has a genuine gift for putting nervous patients at ease. Comfort and quality go hand in hand here.</div>
+    </div>
+
+    <div class="icon-card">
+      <div class="icon-cell">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <div class="icon-card-name">Board-Certified Team</div>
+      <div class="icon-card-desc">Dr. Hoang (DMD, Tufts) and Dr. Richard Lee (board-certified periodontist) bring deep expertise to every case.</div>
+    </div>
+
+    <div class="icon-card">
+      <div class="icon-cell">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div class="icon-card-name">Personalized Treatment Plans</div>
+      <div class="icon-card-desc">No two mouths are the same. Dr. Hoang takes the time to understand your goals before recommending any treatment.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Gallery ────────────────────────────────────────────────────────────── -->
+<section id="gallery">
+  <div class="gallery-header">
+    <span class="overline">Our Space</span>
+    <h2 class="display" style="font-style:italic;">Step inside<br>the practice.</h2>
+  </div>
+  <div class="gallery-mosaic">
+    <div class="mosaic-cell img-sage"></div>
+    <div class="mosaic-cell img-cream"></div>
+    <div class="mosaic-cell img-warm"></div>
+    <div class="mosaic-cell img-neutral"></div>
+  </div>
+</section>
+
+<!-- ── Patient Stories ────────────────────────────────────────────────────── -->
+<section id="stories" style="background: var(--card); padding: 80px 48px;">
+  <div class="section-inner">
+    <span class="overline">Patient Stories</span>
+    <h2 class="display" style="font-style:italic; margin-bottom:40px;">What our patients say.</h2>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px;">
+
+      <div style="background:var(--container); border-radius:var(--radius-card); padding:28px 26px;">
+        <div style="font-family:var(--font-display); font-style:italic; font-size:17px; color:var(--heading); line-height:1.5; margin-bottom:20px;">"Dr. Hoang is truly the best — caring, patient, takes his time so you never feel rushed. My husband used to be terrified of the dentist. Now he won't miss an appointment."</div>
+        <div style="font-size:13px; font-weight:600; color:var(--heading);">Barbara A.</div>
+        <div style="font-size:12px; color:var(--eyebrow-text);">Long Beach · ★★★★★</div>
+      </div>
+
+      <div style="background:var(--container); border-radius:var(--radius-card); padding:28px 26px;">
+        <div style="font-family:var(--font-display); font-style:italic; font-size:17px; color:var(--heading); line-height:1.5; margin-bottom:20px;">"I've been coming here my whole life — the only dentist for me. Charlie polished my teeth perfect and they always make sure I'm comfortable and happy."</div>
+        <div style="font-size:13px; font-weight:600; color:var(--heading);">Chad Bierman</div>
+        <div style="font-size:12px; color:var(--eyebrow-text);">Long Beach · ★★★★★</div>
+      </div>
+
+      <div style="background:var(--container); border-radius:var(--radius-card); padding:28px 26px;">
+        <div style="font-family:var(--font-display); font-style:italic; font-size:17px; color:var(--heading); line-height:1.5; margin-bottom:20px;">"Super good people, kind and attentive. I felt super comfortable with them — very professional and empathetic. I recommend 100%."</div>
+        <div style="font-size:13px; font-weight:600; color:var(--heading);">Sofia Escobar</div>
+        <div style="font-size:12px; color:var(--eyebrow-text);">Long Beach · ★★★★★</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Location ───────────────────────────────────────────────────────────── -->
+<section id="location">
+  <div class="section-inner">
+    <span class="overline">Location</span>
+    <h2 class="display" style="font-style:italic;">Find us in<br>Long Beach.</h2>
+    <div class="location-address">
+      Spring St. Dentistry · 4204 E Spring St, Long Beach, CA 90815<br>
+      (562) 420-8578 · Mon–Fri 8am–5pm
+    </div>
+    <div class="location-map">
+      <span class="map-placeholder-text">Map — 4204 E Spring St, Long Beach</span>
+    </div>
+    <a href="#" class="btn btn-filled">Get Directions</a>
+  </div>
+</section>
+
+<!-- ── CTA ────────────────────────────────────────────────────────────────── -->
+<section id="cta">
+  <div class="section-inner">
+    <span class="overline">Get started</span>
+    <h2 class="display" style="font-style:italic;">Your healthiest smile<br>starts here.</h2>
+    <p>Whether it's been six months or six years, we're here to help you feel comfortable and confident in the chair.</p>
+    <a href="#" class="btn btn-filled">Schedule Your New Patient Visit</a>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Spring St. Dentistry</div>
+    <ul class="footer-links">
+      <li><a href="#">Services</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Patient Stories</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Spring St. Dentistry · Long Beach, CA</div>
+  </div>
+</footer>
+
+</div><!-- /page-wrap -->
+
+<!-- ── Design System Panel ────────────────────────────────────────────────── -->
+<div class="ds-panel open" id="ds-panel">
+  <div class="ds-panel-header">
+    <div class="ds-panel-title">Pilates Lab — Design System</div>
+    <button class="ds-panel-close" onclick="togglePanel()">×</button>
+  </div>
+
+  <div class="ds-section">
+    <div class="ds-section-label">Identity</div>
+    <div style="font-size:12px; color:#6a8a66; line-height:1.5; padding-bottom:4px;">
+      <strong style="color:#c8ddc4;">Archetype:</strong> minimal-brutalist<br>
+      <strong style="color:#c8ddc4;">Moods:</strong> soft-gentle, modern-premium<br>
+      <strong style="color:#c8ddc4;">Best for:</strong> General family, preventive, cosmetic
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Color Palette</div>
+    <div class="palette-grid">
+      <div class="swatch-row"><div class="swatch" style="background:#D9DFD3"></div><div class="swatch-info"><div class="swatch-role">Sage canvas</div><div class="swatch-hex">#D9DFD3</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#F7F5F0"></div><div class="swatch-info"><div class="swatch-role">Container surface</div><div class="swatch-hex">#F7F5F0</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#FFFFFF; border-color:#2a3428"></div><div class="swatch-info"><div class="swatch-role">Card surface</div><div class="swatch-hex">#FFFFFF</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#1C1C1A"></div><div class="swatch-info"><div class="swatch-role">Primary button / heading</div><div class="swatch-hex">#1C1C1A</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#6B6B62"></div><div class="swatch-info"><div class="swatch-role">Body text</div><div class="swatch-hex">#6B6B62</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#888880"></div><div class="swatch-info"><div class="swatch-role">Eyebrow / overline</div><div class="swatch-hex">#888880</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#EEF0EB"></div><div class="swatch-info"><div class="swatch-role">Icon surface (pale sage)</div><div class="swatch-hex">#EEF0EB</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#E8E6E0"></div><div class="swatch-info"><div class="swatch-role">Divider</div><div class="swatch-hex">#E8E6E0</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#C8C6C0"></div><div class="swatch-info"><div class="swatch-role">Outline button border</div><div class="swatch-hex">#C8C6C0</div></div></div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Typography</div>
+    <div class="type-overline">Section overline</div>
+    <div class="type-display">Cormorant Garamond</div>
+    <div class="type-meta" style="margin-bottom:12px">Display · high-contrast editorial serif · italic weight · sentence case</div>
+    <div class="type-body">DM Sans — body, nav, labels, UI</div>
+    <div class="type-meta" style="margin-bottom:12px">Body · compact geometric sans · regular / medium / semibold</div>
+    <div style="margin-top:12px; padding:10px; background:#182018; border-radius:6px;">
+      <div class="type-meta" style="margin-bottom:4px">Emphasis device</div>
+      <div style="font-size:11px; color:#6a8a66; line-height:1.4">Scale contrast only — very large italic serif H1 vs. small compact sans body. No color shift on hover, no accent hue, no uppercase kicker badges.</div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Tokens</div>
+    <div class="token-grid">
+      <div class="token-cell">
+        <div class="token-label">Corner radius</div>
+        <div class="token-val">lg (16–20px)</div>
+        <div class="token-note">cards + images</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-label">Button radius</div>
+        <div class="token-val">md (10px)</div>
+        <div class="token-note">not pill</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-label">Elevation</div>
+        <div class="token-val">Flat</div>
+        <div class="token-note">no shadows</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-label">Density</div>
+        <div class="token-val">Airy</div>
+        <div class="token-note">generous padding</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-label">Label style</div>
+        <div class="token-val">Overline</div>
+        <div class="token-note">plain tracked uppercase</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-label">Motion</div>
+        <div class="token-val">Subtle</div>
+        <div class="token-note">opacity/shadow only</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Novel Components (3)</div>
+    <div class="novel-list">
+      <div class="novel-item">
+        <div class="novel-item-name">Sage Canvas Page Frame</div>
+        <div class="novel-item-spec">html/body background is sage green (#D9DFD3). The entire site content lives in a warm cream (#F7F5F0) rounded container card (radius ~22px) — creating a visible colored border around the whole page. No section inside the container repeats the sage color.</div>
+      </div>
+      <div class="novel-item">
+        <div class="novel-item-name">Asymmetric Overline + Giant Serif H1 + Icon Card Grid</div>
+        <div class="novel-item-spec">Overline is right-anchored; large italic serif H1 spans full width below it. Four icon-card cells in 2-column grid — each with a pale sage icon container (not accent-colored), bold sans label, 2-line description. White cards, flat, no borders.</div>
+      </div>
+      <div class="novel-item">
+        <div class="novel-item-name">Founder Split with Giant Pull-Quote</div>
+        <div class="novel-item-spec">Two-column layout: portrait photo left, right column starts with uppercase overline, then a very large italic serif pull-quote (doctor's philosophy as headline), then 3 short bio paragraphs, then name+role. No CTA button. No cursive signature. The pull-quote is the hero of the right column.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Fidelity Checks (12)</div>
+    <div class="check-list">
+      <div class="check-item">html/body background must be sage green (#D9DFD3). Never white or off-white as the outermost background.</div>
+      <div class="check-item">Content container must have large corner radius (~22px) visible against the sage canvas — this is the template's defining signature.</div>
+      <div class="check-item">Section labels are plain uppercase tracked sans-serif overlines — no pill badge, no border, no background container.</div>
+      <div class="check-item">Primary CTA button uses near-black fill (#1C1C1A) with large (not pill) radius (~10px). Do not use the pill radius system.</div>
+      <div class="check-item">Nav uses an outline/ghost button for the CTA — not a filled primary button. Always opaque cream background at all scroll positions.</div>
+      <div class="check-item">Typography emphasis is scale only — large italic serif H1 vs small compact sans body. No color-shift hover states.</div>
+      <div class="check-item">All image containers and cards use large corner radius (~16–20px) consistently throughout.</div>
+      <div class="check-item">Depth achieved through three-tier surface system (sage → cream → white). Zero box-shadows or drop-shadows anywhere in the design.</div>
+      <div class="check-item">Icon cells in the why-us section use pale sage (#EEF0EB) rounded-square containers — not circles, not accent-colored.</div>
+      <div class="check-item">Doctor/founder quote section: pull-quote as large italic serif headline, followed by bio paragraphs and name/role. No cursive signature, no pill CTA in this block.</div>
+      <div class="check-item">Photography grading is cool-neutral to warm-neutral — not warm ivory/linen. Clean, natural-light wellness photography.</div>
+      <div class="check-item">Body copy paragraphs are 2–4 sentences with generous line-height. Never dense continuous prose.</div>
+    </div>
+  </div>
+
+</div><!-- /ds-panel -->
+
+<script>
+function togglePanel() {
+  const panel = document.getElementById('ds-panel');
+  const btn = document.getElementById('panel-btn');
+  panel.classList.toggle('open');
+  btn.classList.toggle('active');
+}
+function toggleAnnotations() {
+  document.body.classList.toggle('show-annotations');
+  document.getElementById('annotate-btn').classList.toggle('active');
+}
+// Panel open by default
+document.getElementById('ds-panel').classList.add('open');
+</script>
+</body>
+</html>

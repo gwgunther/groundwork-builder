@@ -14,6 +14,8 @@ _sourcing/
 docs/design-catalog/_paste-prompt.txt
 docs/design-catalog/runs/*/audit.json
 docs/design-catalog/runs/*/iter-*.json
+docs/design-catalog/runs/*/capture/
 clients/
 _test-batch/
 _memory/practice-dashboard.html
+_memory/backups/

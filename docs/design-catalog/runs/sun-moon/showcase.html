@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sun & Moon — Design System Showcase · Spring St. Dentistry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ── Design tokens ────────────────────────────────────────────────────────── */
+:root {
+  /* Sun palette — light canvas surfaces */
+  --canvas:          #F5F0E8;
+  --card:            #FFFFFF;
+  --tinted-card:     #F0E8DC;
+  --divider:         #E5DDD0;
+  --chip-border:     #D8CFC4;
+  --chip-text:       #8A7A6A;
+
+  /* Moon palette — dark band */
+  --dark-band:       #3D2A1A;
+  --dark-band-head:  #F5F0E8;
+  --dark-band-body:  #C8B8A4;
+  --dark-band-input: rgba(255,255,255,0.12);
+
+  /* Typography colors */
+  --heading:         #1E1810;
+  --body-text:       #4A3D30;
+  --muted-text:      #8A7A6A;
+  --eyebrow:         #8A7A6A;
+
+  /* Button */
+  --btn-dark:        #2C2218;
+  --btn-dark-text:   #FFFFFF;
+
+  /* Fonts */
+  --font-display:    'Fraunces', Georgia, serif;
+  --font-body:       'DM Sans', -apple-system, sans-serif;
+
+  /* Radii */
+  --radius-pill:     999px;
+  --radius-card:     20px;
+  --radius-card-sm:  12px;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--body-text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Showcase meta bar ──────────────────────────────────────────────────────── */
+.meta-bar {
+  background: #2C2218;
+  color: #C8B090;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.4px;
+  padding: 8px 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.meta-bar .meta-name { font-weight: 600; color: #E8D0A8; }
+.meta-bar .meta-sep  { color: #4A3828; }
+.meta-bar .meta-novel { color: #D4A870; }
+.meta-bar-right { margin-left: auto; display: flex; gap: 8px; }
+.meta-btn {
+  background: rgba(210,170,100,0.12);
+  border: 1px solid rgba(210,170,100,0.22);
+  color: #C8B090;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: background 0.15s;
+}
+.meta-btn:hover { background: rgba(210,170,100,0.22); }
+.meta-btn.active { background: rgba(210,170,100,0.28); color: #E8D0A8; }
+
+/* ── Novel section callout ──────────────────────────────────────────────────── */
+.novel-flag { position: relative; }
+.novel-label {
+  display: none;
+  position: absolute;
+  top: 12px; right: 12px;
+  background: rgba(212,168,112,0.14);
+  border: 1px solid rgba(212,168,112,0.32);
+  color: #C8943A;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 4px;
+  z-index: 10;
+}
+body.show-annotations .novel-label { display: block; }
+body.show-annotations .novel-flag { outline: 1px dashed rgba(200,140,60,0.22); }
+
+/* ── Nav ─────────────────────────────────────────────────────────────────────── */
+nav {
+  background: var(--card);
+  border-bottom: 1px solid var(--divider);
+  position: sticky;
+  top: 33px;
+  z-index: 100;
+  padding: 0 40px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+}
+.nav-logo-icon {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--heading);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--canvas);
+  font-size: 13px;
+}
+.nav-logo-text {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--heading);
+  line-height: 1.3;
+  letter-spacing: -0.1px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+  margin: 0 auto;
+}
+.nav-links li { display: flex; align-items: center; gap: 6px; }
+.nav-links a {
+  font-size: 14px;
+  color: var(--body-text);
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--heading); }
+.nav-dot { color: var(--muted-text); font-size: 8px; }
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.15s;
+  border: none;
+}
+.btn-pill:hover { opacity: 0.87; }
+.btn-dark {
+  background: var(--btn-dark);
+  color: var(--btn-dark-text);
+  padding: 10px 22px;
+  font-size: 14px;
+}
+.btn-outline {
+  background: transparent;
+  color: var(--heading);
+  border: 1.5px solid var(--heading);
+  padding: 9px 21px;
+  font-size: 14px;
+}
+.btn-outline-light {
+  background: transparent;
+  color: var(--card);
+  border: 1.5px solid rgba(255,255,255,0.5);
+  padding: 9px 21px;
+  font-size: 14px;
+}
+.btn-white {
+  background: var(--card);
+  color: var(--heading);
+  padding: 10px 22px;
+  font-size: 14px;
+}
+
+/* ── Shared section styles ──────────────────────────────────────────────────── */
+section { padding: 80px 40px; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+
+.section-eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--eyebrow);
+  margin-bottom: 14px;
+}
+
+h1.display, h2.display {
+  font-family: var(--font-display);
+  color: var(--heading);
+  line-height: 1.12;
+  letter-spacing: -0.5px;
+}
+h1.display { font-size: clamp(36px, 5vw, 58px); font-weight: 400; }
+h2.display { font-size: clamp(28px, 3.5vw, 46px); font-weight: 400; }
+
+/* Italic emphasis within serif headline */
+.italic-em { font-style: italic; }
+
+/* ── Hero ────────────────────────────────────────────────────────────────────── */
+#hero {
+  background: var(--canvas);
+  padding: 56px 40px 72px;
+}
+.hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+.hero-text-col { display: flex; flex-direction: column; align-items: flex-start; }
+.hero-location-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--card);
+  border: 1px solid var(--chip-border);
+  border-radius: var(--radius-pill);
+  padding: 5px 14px 5px 10px;
+  font-size: 13px;
+  color: var(--body-text);
+  margin-bottom: 28px;
+}
+.hero-location-pill svg { flex-shrink: 0; }
+#hero h1 { margin-bottom: 18px; }
+.hero-sub {
+  font-size: 15px;
+  color: var(--body-text);
+  opacity: 0.8;
+  max-width: 420px;
+  margin-bottom: 36px;
+  line-height: 1.65;
+}
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.hero-image-col { position: relative; }
+.hero-image-card {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  background: var(--tinted-card);
+  position: relative;
+}
+.hero-image-fill {
+  width: 100%; height: 100%;
+  background: linear-gradient(160deg, #D8CCB8 0%, #C4B49A 50%, #B8A488 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  color: var(--muted-text);
+  font-style: italic;
+}
+.hero-social-proof {
+  position: absolute;
+  top: 20px; right: 20px;
+  background: var(--card);
+  border-radius: var(--radius-pill);
+  padding: 8px 14px 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  font-size: 13px;
+  color: var(--heading);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.avatar-stack {
+  display: flex;
+}
+.avatar-mini {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--card);
+  margin-right: -6px;
+  background: var(--divider);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.avatar-mini:nth-child(1) { background: #C8A888; }
+.avatar-mini:nth-child(2) { background: #A89070; }
+.avatar-mini:nth-child(3) { background: #D4B898; }
+
+/* ── Service cards — Novel ───────────────────────────────────────────────────── */
+#services {
+  background: var(--canvas);
+  padding: 72px 40px;
+}
+.services-header { text-align: center; margin-bottom: 48px; }
+.services-header h2 { margin-bottom: 16px; }
+.services-header p { font-size: 15px; color: var(--muted-text); max-width: 560px; margin: 0 auto 32px; }
+
+.service-cards-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.service-card {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  position: relative;
+  cursor: pointer;
+}
+.service-card-img {
+  width: 100%; height: 100%;
+  display: block;
+  transition: transform 0.35s ease;
+}
+.service-card:hover .service-card-img { transform: scale(1.04); }
+.service-card-img-1 { background: linear-gradient(160deg, #E0D8CC 0%, #C8B89A 100%); }
+.service-card-img-2 { background: linear-gradient(160deg, #D4C8B4 0%, #B8A888 100%); }
+.service-card-img-3 { background: linear-gradient(160deg, #CCB8A0 0%, #B09880 100%); }
+.service-card-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 28px 20px 24px;
+  background: linear-gradient(to top, rgba(30,24,16,0.82) 0%, rgba(30,24,16,0.0) 100%);
+}
+.service-card-name {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 4px;
+}
+.service-card-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.45;
+}
+.services-cta-row { text-align: center; }
+
+/* ── Timetable — Novel ───────────────────────────────────────────────────────── */
+#timetable {
+  background: var(--card);
+  padding: 80px 40px;
+}
+.timetable-header { text-align: center; margin-bottom: 48px; }
+.timetable-header h2 { margin-bottom: 10px; }
+.timetable-header p { font-size: 15px; color: var(--muted-text); max-width: 480px; margin: 0 auto; }
+
+.day-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.day-tab {
+  background: none;
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 8px 18px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--body-text);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.day-tab:hover { background: var(--tinted-card); }
+.day-tab.active {
+  background: var(--btn-dark);
+  color: var(--btn-dark-text);
+}
+
+.timetable-card {
+  background: var(--canvas);
+  border-radius: var(--radius-card-sm);
+  overflow: hidden;
+  border: 1px solid var(--divider);
+}
+.timetable-row {
+  display: grid;
+  grid-template-columns: 140px 1fr auto auto;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--divider);
+  transition: background 0.15s;
+}
+.timetable-row:last-child { border-bottom: none; }
+.timetable-row:hover { background: var(--card); }
+.slot-time {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.slot-time-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--heading);
+}
+.slot-duration {
+  font-size: 12px;
+  color: var(--muted-text);
+}
+.slot-info { display: flex; flex-direction: column; gap: 3px; }
+.slot-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--heading);
+}
+.slot-level {
+  font-size: 12px;
+  color: var(--muted-text);
+}
+.slot-provider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.provider-avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--divider);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.provider-avatar-1 { background: #C8A888; }
+.provider-avatar-2 { background: #A89070; }
+.provider-avatar-3 { background: #D4B898; }
+.provider-avatar-4 { background: #B89868; }
+.provider-name { font-size: 13px; color: var(--body-text); }
+.slot-cta { flex-shrink: 0; }
+.btn-book {
+  background: var(--btn-dark);
+  color: var(--btn-dark-text);
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 7px 18px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.btn-book:hover { opacity: 0.85; }
+
+/* ── Testimonials — Novel ─────────────────────────────────────────────────────── */
+#testimonials {
+  background: var(--canvas);
+  padding: 80px 40px;
+}
+.testimonials-header { text-align: center; margin-bottom: 52px; }
+.testimonials-header h2 { margin-bottom: 10px; }
+.testimonials-header p { font-size: 15px; color: var(--muted-text); max-width: 480px; margin: 0 auto; }
+
+.testimonials-masonry {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.testi-col { display: flex; flex-direction: column; gap: 16px; }
+
+.testi-card {
+  background: var(--card);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  padding: 32px;
+}
+.testi-card-large {
+  background: var(--card);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+.testi-card-video {
+  position: relative;
+  aspect-ratio: 4/3;
+  background: linear-gradient(160deg, #C8B8A0 0%, #A89880 100%);
+  overflow: hidden;
+}
+.video-play {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.92);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.16);
+}
+.video-play svg { margin-left: 3px; }
+.testi-card-text {
+  padding: 24px 28px 28px;
+}
+.testi-quote-large {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--heading);
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+.testi-quote-small {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--heading);
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+.testi-body {
+  font-size: 13.5px;
+  color: var(--body-text);
+  opacity: 0.85;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.testi-author-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--heading);
+}
+.testi-author-role {
+  font-size: 12px;
+  color: var(--muted-text);
+}
+
+/* ── About / Doctor intro ─────────────────────────────────────────────────────── */
+#about {
+  background: var(--card);
+  padding: 80px 40px;
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.about-image-card {
+  border-radius: var(--radius-card);
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: linear-gradient(160deg, #D8CEB8 0%, #C0B098 100%);
+  display: flex; align-items: flex-end;
+}
+.about-image-caption {
+  width: 100%;
+  padding: 24px;
+  background: linear-gradient(to top, rgba(30,24,16,0.6) 0%, transparent 100%);
+  color: rgba(255,255,255,0.9);
+  font-size: 13px;
+  font-weight: 500;
+}
+.about-text-col { padding-top: 8px; }
+.about-text-col h2 { margin-bottom: 20px; }
+.about-text-col p { font-size: 15px; margin-bottom: 16px; line-height: 1.7; }
+.about-text-col p:last-of-type { margin-bottom: 32px; }
+
+/* ── Pricing — inline with tab toggle ────────────────────────────────────────── */
+#pricing {
+  background: var(--canvas);
+  padding: 80px 40px;
+}
+.pricing-header { text-align: center; margin-bottom: 40px; }
+.pricing-header h2 { margin-bottom: 10px; }
+.pricing-header p { font-size: 15px; color: var(--muted-text); max-width: 480px; margin: 0 auto; }
+
+.pricing-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 40px;
+  background: var(--card);
+  border-radius: var(--radius-pill);
+  padding: 4px;
+  max-width: 260px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.pricing-tab {
+  background: none;
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 8px 24px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--muted-text);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  font-weight: 400;
+}
+.pricing-tab.active {
+  background: var(--btn-dark);
+  color: var(--btn-dark-text);
+  font-weight: 500;
+}
+
+.pricing-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.pricing-card {
+  background: var(--tinted-card);
+  border: 1px solid var(--chip-border);
+  border-radius: var(--radius-card-sm);
+  padding: 28px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.pricing-card-header {}
+.pricing-card-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--heading);
+  margin-bottom: 4px;
+}
+.pricing-card-sub {
+  font-size: 13px;
+  color: var(--muted-text);
+}
+.pricing-card-price {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 400;
+  color: var(--heading);
+  line-height: 1;
+}
+.pricing-card-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.pricing-card-features li {
+  font-size: 14px;
+  color: var(--body-text);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.pricing-card-features li::before {
+  content: '•';
+  color: var(--heading);
+  font-size: 10px;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+.btn-book-full {
+  display: block;
+  width: 100%;
+  background: var(--btn-dark);
+  color: var(--btn-dark-text);
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 13px 20px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.btn-book-full:hover { opacity: 0.85; }
+
+/* ── CTA + Newsletter (Moon band) — Novel ────────────────────────────────────── */
+#cta-band {
+  background: var(--canvas);
+  padding: 48px 40px 80px;
+}
+.cta-band-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: var(--dark-band);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 55fr 45fr;
+  min-height: 360px;
+}
+.cta-band-text {
+  padding: 56px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+.cta-band-text h2 {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.5vw, 48px);
+  font-weight: 400;
+  color: var(--dark-band-head);
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+.cta-band-text p {
+  font-size: 15px;
+  color: var(--dark-band-body);
+  max-width: 360px;
+  line-height: 1.6;
+}
+.email-capture {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.email-input {
+  flex: 1;
+  min-width: 200px;
+  background: var(--dark-band-input);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: var(--radius-pill);
+  padding: 12px 20px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--dark-band-head);
+  outline: none;
+}
+.email-input::placeholder { color: rgba(200,184,164,0.5); }
+.email-input:focus { border-color: rgba(255,255,255,0.35); }
+.cta-band-image {
+  background: linear-gradient(120deg, #C0A880 0%, #8A7860 100%);
+  position: relative;
+  overflow: hidden;
+}
+.cta-band-image-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--dark-band) 0%, transparent 30%),
+              linear-gradient(160deg, #C8A880 0%, #906840 60%, #6A4830 100%);
+}
+
+/* ── Footer ─────────────────────────────────────────────────────────────────── */
+footer {
+  background: var(--canvas);
+  border-top: 1px solid var(--divider);
+  padding: 48px 40px 32px;
+}
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 260px 1fr 1fr 180px;
+  gap: 40px;
+  margin-bottom: 32px;
+}
+.footer-brand-col {}
+.footer-logo-row {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 12px;
+}
+.footer-logo-icon {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--heading);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--canvas);
+  font-size: 10px;
+  flex-shrink: 0;
+}
+.footer-brand-name {
+  font-size: 13px; font-weight: 600;
+  color: var(--heading);
+  line-height: 1.3;
+}
+.footer-tagline { font-size: 13px; color: var(--muted-text); margin-bottom: 12px; line-height: 1.5; }
+.footer-contact { font-size: 13px; color: var(--body-text); line-height: 1.8; }
+
+.footer-nav-col {}
+.footer-nav-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--eyebrow);
+  margin-bottom: 14px;
+}
+.footer-nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-nav-links a { font-size: 14px; color: var(--body-text); text-decoration: none; }
+.footer-nav-links a:hover { color: var(--heading); }
+
+.footer-address-col {}
+.footer-address { font-size: 13px; color: var(--body-text); line-height: 1.7; margin-bottom: 14px; }
+.footer-dir-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid var(--chip-border);
+  border-radius: var(--radius-pill);
+  padding: 5px 14px;
+  font-size: 12px;
+  color: var(--body-text);
+  text-decoration: none;
+  transition: border-color 0.15s;
+}
+.footer-dir-link:hover { border-color: var(--heading); }
+
+.footer-bottom {
+  max-width: 1100px; margin: 0 auto;
+  padding-top: 20px;
+  border-top: 1px solid var(--divider);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-social { display: flex; gap: 12px; }
+.footer-social a {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--chip-border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted-text);
+  text-decoration: none;
+  font-size: 12px;
+  transition: border-color 0.15s, color 0.15s;
+}
+.footer-social a:hover { border-color: var(--heading); color: var(--heading); }
+.footer-copy { font-size: 12px; color: var(--muted-text); }
+.footer-legal { display: flex; gap: 20px; }
+.footer-legal a { font-size: 12px; color: var(--muted-text); text-decoration: none; }
+.footer-legal a:hover { color: var(--body-text); }
+
+/* ── Design system panel ─────────────────────────────────────────────────────── */
+.ds-panel {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 380px;
+  background: #201810;
+  color: #C8B090;
+  font-family: var(--font-body);
+  font-size: 12px;
+  overflow-y: auto;
+  z-index: 300;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  border-left: 1px solid #2E2010;
+}
+.ds-panel.open { transform: translateX(0); }
+.ds-panel-header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid #2E2010;
+  position: sticky; top: 0;
+  background: #201810;
+  z-index: 1;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.ds-panel-title { font-size: 13px; font-weight: 600; color: #E8D0A8; }
+.ds-panel-close { background: none; border: none; color: #554030; cursor: pointer; font-size: 18px; line-height: 1; }
+.ds-section { padding: 20px 20px 0; }
+.ds-section-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #5A3A20;
+  margin-bottom: 12px;
+}
+.ds-divider { border: none; border-top: 1px solid #2E2010; margin: 20px 0 0; }
+
+/* Palette */
+.palette-grid { display: flex; flex-direction: column; gap: 6px; margin-bottom: 4px; }
+.swatch-row { display: flex; align-items: center; gap: 10px; }
+.swatch { width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.05); }
+.swatch-info { flex: 1; }
+.swatch-role { font-size: 11px; color: #C8A870; }
+.swatch-hex  { font-size: 10px; color: #5A3A20; font-variant-numeric: tabular-nums; }
+
+/* Type specimen */
+.type-display-sm {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #C8A870;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+.type-display-italic {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 400;
+  color: #C8A870;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.type-body-sm { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #907060; line-height: 1.5; margin-bottom: 4px; }
+.type-meta { font-size: 10px; color: #5A3A20; }
+
+/* Tokens grid */
+.token-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 4px; }
+.token-cell { background: #2A1C0C; border-radius: 6px; padding: 8px 10px; }
+.token-label { font-size: 10px; color: #5A3A20; margin-bottom: 2px; }
+.token-val   { font-size: 13px; color: #C8A870; font-weight: 600; }
+.token-sub   { font-size: 10px; color: #4A3018; }
+
+/* Novel list */
+.novel-list { display: flex; flex-direction: column; gap: 8px; }
+.novel-item { background: rgba(212,168,112,0.07); border: 1px solid rgba(212,168,112,0.14); border-radius: 6px; padding: 9px 10px; }
+.novel-item-name { font-size: 11px; color: #D4A870; font-weight: 600; margin-bottom: 3px; }
+.novel-item-spec { font-size: 10.5px; color: #6A4828; line-height: 1.4; }
+
+/* Checks */
+.check-list { display: flex; flex-direction: column; gap: 8px; padding-bottom: 24px; }
+.check-item { background: #2A1C0C; border-radius: 6px; padding: 9px 10px; font-size: 11px; color: #907060; line-height: 1.45; }
+.check-item::before { content: '✓ '; color: #70B888; font-weight: 700; }
+
+/* Duality callout */
+.duality-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.duality-sun, .duality-moon {
+  flex: 1;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+}
+.duality-sun {
+  background: #F5F0E8;
+  color: #2C2218;
+}
+.duality-moon {
+  background: #3D2A1A;
+  color: #F5F0E8;
+}
+</style>
+</head>
+<body>
+
+<!-- ── Meta bar ─────────────────────────────────────────────────────────────── -->
+<div class="meta-bar">
+  <span class="meta-name">Sun &amp; Moon</span>
+  <span class="meta-sep">·</span>
+  <span>grounded-organic</span>
+  <span class="meta-sep">·</span>
+  <span>earthy-premium · calm-confident</span>
+  <span class="meta-sep">·</span>
+  <span class="meta-novel">4 novel components</span>
+  <span class="meta-sep">·</span>
+  <span style="color:#C8B090">light-with-dark-band</span>
+  <div class="meta-bar-right">
+    <button class="meta-btn" id="annotate-btn" onclick="toggleAnnotations()">Annotations</button>
+    <button class="meta-btn active" id="panel-btn" onclick="togglePanel()">Design system ›</button>
+  </div>
+</div>
+
+<!-- ── Nav ──────────────────────────────────────────────────────────────────── -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <circle cx="7" cy="7" r="3" stroke="#F5F0E8" stroke-width="1.5"/>
+        <line x1="7" y1="1" x2="7" y2="0" stroke="#F5F0E8" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="7" y1="14" x2="7" y2="13" stroke="#F5F0E8" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="1" y1="7" x2="0" y2="7" stroke="#F5F0E8" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="14" y1="7" x2="13" y2="7" stroke="#F5F0E8" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="2.93" y1="2.93" x2="2.22" y2="2.22" stroke="#F5F0E8" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="11.07" y1="11.07" x2="11.78" y2="11.78" stroke="#F5F0E8" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="11.07" y1="2.93" x2="11.78" y2="2.22" stroke="#F5F0E8" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="2.93" y1="11.07" x2="2.22" y2="11.78" stroke="#F5F0E8" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="nav-logo-text">Spring St.<br>Dentistry</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#">Services</a><span class="nav-dot">•</span></li>
+    <li><a href="#">About</a><span class="nav-dot">•</span></li>
+    <li><a href="#">Schedule</a></li>
+    <li><a href="#">Patient Stories</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <a href="#" class="btn-pill btn-dark" style="font-size:13px; padding:9px 20px;">Book a Visit</a>
+</nav>
+
+<!-- ── Hero ──────────────────────────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-text-col">
+      <div class="hero-location-pill">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+          <path d="M6.5 1C4.567 1 3 2.567 3 4.5c0 2.625 3.5 7.5 3.5 7.5S10 7.125 10 4.5C10 2.567 8.433 1 6.5 1z" stroke="#8A7A6A" stroke-width="1.2"/>
+          <circle cx="6.5" cy="4.5" r="1.2" stroke="#8A7A6A" stroke-width="1.2"/>
+        </svg>
+        Long Beach, California
+      </div>
+      <h1 class="display">Where dentistry<br><span class="italic-em">feels personal.</span></h1>
+      <p class="hero-sub">Spring St. Dentistry is a calm, unhurried practice in Long Beach built on trust, comfort, and care that fits your life.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn-pill btn-dark">Book a Visit</a>
+        <a href="#" class="btn-pill btn-outline">Explore our services</a>
+      </div>
+    </div>
+    <div class="hero-image-col">
+      <div class="hero-image-card">
+        <div class="hero-image-fill">Patient photo</div>
+        <div class="hero-social-proof">
+          <div class="avatar-stack">
+            <div class="avatar-mini"></div>
+            <div class="avatar-mini"></div>
+            <div class="avatar-mini"></div>
+          </div>
+          Loved by 52+ patients
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Service image-overlay cards — Novel ─────────────────────────────────── -->
+<section id="services" class="novel-flag">
+  <div class="novel-label">Novel — Image-Overlay Service Cards</div>
+  <div class="section-inner">
+    <div class="services-header">
+      <span class="section-eyebrow">Services</span>
+      <h2 class="display">Choose your care.</h2>
+      <p>Every treatment at Spring St. Dentistry is tailored to your comfort and your goals.</p>
+    </div>
+    <div class="service-cards-row">
+      <div class="service-card">
+        <div class="service-card-img service-card-img-1" style="height:100%; min-height:320px;"></div>
+        <div class="service-card-overlay">
+          <div class="service-card-name">Cosmetic Dentistry</div>
+          <div class="service-card-desc">Whiter teeth. More confidence. Results that look completely natural.</div>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-img service-card-img-2" style="height:100%; min-height:320px;"></div>
+        <div class="service-card-overlay">
+          <div class="service-card-name">Restorative Care</div>
+          <div class="service-card-desc">Repair, rebuild, and restore your smile with lasting, comfortable solutions.</div>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-img service-card-img-3" style="height:100%; min-height:320px;"></div>
+        <div class="service-card-overlay">
+          <div class="service-card-name">Preventive &amp; Family</div>
+          <div class="service-card-desc">Routine care for every age — cleanings, exams, and peace of mind.</div>
+        </div>
+      </div>
+    </div>
+    <div class="services-cta-row">
+      <a href="#" class="btn-pill btn-outline" style="padding:10px 26px; font-size:14px;">See all services</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Timetable / Appointment Schedule — Novel ───────────────────────────── -->
+<section id="timetable" class="novel-flag">
+  <div class="novel-label">Novel — Filterable Timetable with Per-Row Book CTAs</div>
+  <div class="section-inner">
+    <div class="timetable-header">
+      <span class="section-eyebrow">Schedule</span>
+      <h2 class="display">Choose your session.</h2>
+      <p>Browse available appointments by day and book directly — no phone call required.</p>
+    </div>
+
+    <div class="day-tabs">
+      <button class="day-tab active" onclick="setDay(this)">Monday</button>
+      <button class="day-tab" onclick="setDay(this)">Tuesday</button>
+      <button class="day-tab" onclick="setDay(this)">Wednesday</button>
+      <button class="day-tab" onclick="setDay(this)">Thursday</button>
+      <button class="day-tab" onclick="setDay(this)">Friday</button>
+      <button class="day-tab" onclick="setDay(this)">Saturday</button>
+    </div>
+
+    <div class="timetable-card">
+      <div class="timetable-row">
+        <div class="slot-time">
+          <div class="slot-time-value">08:00 AM</div>
+          <div class="slot-duration">60 min</div>
+        </div>
+        <div class="slot-info">
+          <div class="slot-name">Routine Cleaning &amp; Exam</div>
+          <div class="slot-level">New patients welcome</div>
+        </div>
+        <div class="slot-provider">
+          <div class="provider-avatar provider-avatar-1"></div>
+          <div class="provider-name">Dr. Hoang</div>
+        </div>
+        <div class="slot-cta">
+          <button class="btn-book">Book</button>
+        </div>
+      </div>
+      <div class="timetable-row">
+        <div class="slot-time">
+          <div class="slot-time-value">10:30 AM</div>
+          <div class="slot-duration">45 min</div>
+        </div>
+        <div class="slot-info">
+          <div class="slot-name">Teeth Whitening Consultation</div>
+          <div class="slot-level">Cosmetic · All patients</div>
+        </div>
+        <div class="slot-provider">
+          <div class="provider-avatar provider-avatar-2"></div>
+          <div class="provider-name">Dr. Hoang</div>
+        </div>
+        <div class="slot-cta">
+          <button class="btn-book">Book</button>
+        </div>
+      </div>
+      <div class="timetable-row">
+        <div class="slot-time">
+          <div class="slot-time-value">12:30 PM</div>
+          <div class="slot-duration">90 min</div>
+        </div>
+        <div class="slot-info">
+          <div class="slot-name">Dental Implant Consultation</div>
+          <div class="slot-level">Restorative · Referral welcome</div>
+        </div>
+        <div class="slot-provider">
+          <div class="provider-avatar provider-avatar-3"></div>
+          <div class="provider-name">Dr. Lee</div>
+        </div>
+        <div class="slot-cta">
+          <button class="btn-book">Book</button>
+        </div>
+      </div>
+      <div class="timetable-row">
+        <div class="slot-time">
+          <div class="slot-time-value">02:00 PM</div>
+          <div class="slot-duration">60 min</div>
+        </div>
+        <div class="slot-info">
+          <div class="slot-name">Clear Aligner Check-In</div>
+          <div class="slot-level">Orthodontics · Existing patients</div>
+        </div>
+        <div class="slot-provider">
+          <div class="provider-avatar provider-avatar-4"></div>
+          <div class="provider-name">Dr. Hoang</div>
+        </div>
+        <div class="slot-cta">
+          <button class="btn-book">Book</button>
+        </div>
+      </div>
+      <div class="timetable-row">
+        <div class="slot-time">
+          <div class="slot-time-value">04:00 PM</div>
+          <div class="slot-duration">30 min</div>
+        </div>
+        <div class="slot-info">
+          <div class="slot-name">Emergency Same-Day Slot</div>
+          <div class="slot-level">Urgent · Call ahead to confirm</div>
+        </div>
+        <div class="slot-provider">
+          <div class="provider-avatar provider-avatar-1"></div>
+          <div class="provider-name">Dr. Hoang</div>
+        </div>
+        <div class="slot-cta">
+          <button class="btn-book">Book</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Testimonials masonry — Novel ───────────────────────────────────────── -->
+<section id="testimonials" class="novel-flag">
+  <div class="novel-label">Novel — Asymmetric Masonry Testimonials</div>
+  <div class="section-inner">
+    <div class="testimonials-header">
+      <span class="section-eyebrow">Testimonials</span>
+      <h2 class="display">Voices from our <span class="italic-em">community.</span></h2>
+      <p>Hear from Long Beach patients who've made Spring St. Dentistry part of their routine.</p>
+    </div>
+    <div class="testimonials-masonry">
+      <div class="testi-col">
+        <!-- Large anchor card with video placeholder -->
+        <div class="testi-card-large">
+          <div class="testi-card-video">
+            <div class="video-play">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M6 4.5l8 4.5-8 4.5V4.5z" fill="#2C2218"/>
+              </svg>
+            </div>
+          </div>
+          <div class="testi-card-text">
+            <div class="testi-quote-large">"Real change in how I feel about going to the dentist."</div>
+            <p class="testi-body">After a few months of regular check-ups, I've stopped dreading the chair. Dr. Hoang is genuinely kind and takes his time with you. I've never felt rushed or dismissed.</p>
+            <div class="testi-author-name">Barbara A.</div>
+            <div class="testi-author-role">Long Beach</div>
+          </div>
+        </div>
+        <!-- Smaller text card -->
+        <div class="testi-card">
+          <div class="testi-quote-small">"Welcoming, never intimidating."</div>
+          <p class="testi-body">As a nervous patient, I was hesitant to come in. The team made me feel instantly comfortable — I genuinely look forward to every visit now.</p>
+          <div class="testi-author-name">Sofia E.</div>
+          <div class="testi-author-role">Long Beach</div>
+        </div>
+      </div>
+      <div class="testi-col">
+        <!-- Staggered text card top -->
+        <div class="testi-card" style="margin-top: 48px;">
+          <div class="testi-quote-small">"This practice is my anchor in the neighborhood."</div>
+          <p class="testi-body">I've been coming here for years and the care has never wavered. The teachers are attentive, the space is calm, and I always leave feeling looked after.</p>
+          <div class="testi-author-name">Chad B.</div>
+          <div class="testi-author-role">Long Beach</div>
+        </div>
+        <!-- Second text card -->
+        <div class="testi-card-large">
+          <div class="testi-card-video" style="aspect-ratio: 3/2; background: linear-gradient(160deg, #C0B898 0%, #A89870 100%);">
+            <div class="video-play">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M6 4.5l8 4.5-8 4.5V4.5z" fill="#2C2218"/>
+              </svg>
+            </div>
+          </div>
+          <div class="testi-card-text">
+            <div class="testi-quote-small">"A space where I can truly relax."</div>
+            <p class="testi-body">Between work and family, I rarely have time to slow down. Dr. Hoang and his team have created an environment where I feel cared for — not just processed.</p>
+            <div class="testi-author-name">Oliver H.</div>
+            <div class="testi-author-role">Long Beach</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── About / Doctor intro ───────────────────────────────────────────────── -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-image-card">
+      <div class="about-image-caption">Dr. Hoang · Spring St. Dentistry</div>
+    </div>
+    <div class="about-text-col">
+      <span class="section-eyebrow">About us</span>
+      <h2 class="display" style="margin-bottom:20px;">A Long Beach practice built on <span class="italic-em">trust.</span></h2>
+      <p>Dr. Anthony Hoang grew up in Long Beach and Lakewood. After earning his DMD from Tufts University and completing his residency at the Loma Linda VA, he returned to the community he calls home.</p>
+      <p>What drives him every day is the human side of dentistry — the relationships built visit after visit, and the trust patients place in him. He has a particular gift for putting nervous patients at ease.</p>
+      <p>Whether you're coming in for a routine cleaning or a more involved procedure, every appointment is designed around your comfort and your goals.</p>
+      <a href="#" class="btn-pill btn-dark">Meet Dr. Hoang</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Pricing with tab toggle ─────────────────────────────────────────────── -->
+<section id="pricing">
+  <div class="section-inner">
+    <div class="pricing-header">
+      <span class="section-eyebrow">Rates</span>
+      <h2 class="display">Transparent pricing.</h2>
+      <p>Clear, honest estimates before any treatment begins. No surprises.</p>
+    </div>
+    <div class="pricing-tabs">
+      <button class="pricing-tab active" onclick="setPriceTab(this, 'routine')">Routine</button>
+      <button class="pricing-tab" onclick="setPriceTab(this, 'cosmetic')">Cosmetic</button>
+    </div>
+    <div class="pricing-cards" id="pricing-cards-routine">
+      <div class="pricing-card">
+        <div class="pricing-card-header">
+          <div class="pricing-card-name">New Patient Exam</div>
+          <div class="pricing-card-sub">For first-time visitors.</div>
+        </div>
+        <div class="pricing-card-price">$120</div>
+        <ul class="pricing-card-features">
+          <li>Comprehensive oral exam</li>
+          <li>Full set of X-rays</li>
+          <li>Personalised treatment plan</li>
+        </ul>
+        <a href="#" class="btn-book-full">Book Appointment</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-card-header">
+          <div class="pricing-card-name">Routine Cleaning</div>
+          <div class="pricing-card-sub">For existing patients.</div>
+        </div>
+        <div class="pricing-card-price">$150</div>
+        <ul class="pricing-card-features">
+          <li>Professional scaling &amp; polish</li>
+          <li>Gum health assessment</li>
+          <li>Fluoride treatment included</li>
+        </ul>
+        <a href="#" class="btn-book-full">Book Appointment</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-card-header">
+          <div class="pricing-card-name">Deep Cleaning</div>
+          <div class="pricing-card-sub">Scaling and root planing.</div>
+        </div>
+        <div class="pricing-card-price">From $250</div>
+        <ul class="pricing-card-features">
+          <li>Sub-gingival cleaning</li>
+          <li>Gum disease treatment</li>
+          <li>Follow-up check included</li>
+        </ul>
+        <a href="#" class="btn-book-full">Book Appointment</a>
+      </div>
+    </div>
+    <div class="pricing-cards" id="pricing-cards-cosmetic" style="display:none;">
+      <div class="pricing-card">
+        <div class="pricing-card-header">
+          <div class="pricing-card-name">Teeth Whitening</div>
+          <div class="pricing-card-sub">Professional in-office treatment.</div>
+        </div>
+        <div class="pricing-card-price">From $299</div>
+        <ul class="pricing-card-features">
+          <li>Zoom whitening system</li>
+          <li>Custom take-home trays</li>
+          <li>10% off for new patients</li>
+        </ul>
+        <a href="#" class="btn-book-full">Book Consultation</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-card-header">
+          <div class="pricing-card-name">Dental Bonding</div>
+          <div class="pricing-card-sub">Single-visit repairs.</div>
+        </div>
+        <div class="pricing-card-price">From $200</div>
+        <ul class="pricing-card-features">
+          <li>Tooth-colored composite resin</li>
+          <li>Chips, cracks, and gaps</li>
+          <li>Completed in one appointment</li>
+        </ul>
+        <a href="#" class="btn-book-full">Book Consultation</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-card-header">
+          <div class="pricing-card-name">Clear Aligners</div>
+          <div class="pricing-card-sub">Discreet orthodontic care.</div>
+        </div>
+        <div class="pricing-card-price">From $3,200</div>
+        <ul class="pricing-card-features">
+          <li>Custom aligner series</li>
+          <li>6–18 month treatment</li>
+          <li>Retainers included</li>
+        </ul>
+        <a href="#" class="btn-book-full">Book Consultation</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Dark CTA / Newsletter band — Novel (Moon) ───────────────────────────── -->
+<section id="cta-band" class="novel-flag">
+  <div class="novel-label">Novel — Dark Band CTA + Email Capture (Moon)</div>
+  <div class="cta-band-inner">
+    <div class="cta-band-text">
+      <h2>Be part of the Long Beach<br><span class="italic-em" style="font-style:italic;">community.</span></h2>
+      <p>Practice updates, appointment reminders, and seasonal care tips — straight to your inbox.</p>
+      <div class="email-capture">
+        <input type="email" class="email-input" placeholder="your@email.com">
+        <button class="btn-pill btn-white" style="white-space:nowrap; flex-shrink:0;">Subscribe</button>
+      </div>
+      <div style="margin-top:8px;">
+        <a href="#" class="btn-pill btn-outline-light" style="font-size:13px; padding:9px 20px;">Schedule Your Visit</a>
+      </div>
+    </div>
+    <div class="cta-band-image">
+      <div class="cta-band-image-fill"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand-col">
+      <div class="footer-logo-row">
+        <div class="footer-logo-icon">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+            <circle cx="5" cy="5" r="2" stroke="#F5F0E8" stroke-width="1"/>
+            <line x1="5" y1="0.5" x2="5" y2="0" stroke="#F5F0E8" stroke-width="1"/>
+            <line x1="5" y1="10" x2="5" y2="9.5" stroke="#F5F0E8" stroke-width="1"/>
+            <line x1="0" y1="5" x2="0.5" y2="5" stroke="#F5F0E8" stroke-width="1"/>
+            <line x1="9.5" y1="5" x2="10" y2="5" stroke="#F5F0E8" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="footer-brand-name">Spring St.<br>Dentistry</div>
+      </div>
+      <p class="footer-tagline">A calm, unhurried dental practice rooted in Long Beach.</p>
+      <div class="footer-contact">
+        (562) 420-8578<br>
+        info@springstdentistry.com
+      </div>
+    </div>
+    <div class="footer-nav-col">
+      <div class="footer-nav-label">Services</div>
+      <ul class="footer-nav-links">
+        <li><a href="#">Cosmetic Dentistry</a></li>
+        <li><a href="#">Dental Implants</a></li>
+        <li><a href="#">Clear Aligners</a></li>
+        <li><a href="#">Routine Cleaning</a></li>
+        <li><a href="#">Deep Cleaning</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav-col">
+      <div class="footer-nav-label">Practice</div>
+      <ul class="footer-nav-links">
+        <li><a href="#">About Dr. Hoang</a></li>
+        <li><a href="#">Patient Stories</a></li>
+        <li><a href="#">Schedule</a></li>
+        <li><a href="#">Rates &amp; Insurance</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-address-col">
+      <div class="footer-nav-label">Location</div>
+      <div class="footer-address">
+        Spring Street<br>
+        Long Beach, CA<br>
+        90815
+      </div>
+      <a href="#" class="footer-dir-link">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+          <path d="M5.5 1C3.567 1 2 2.567 2 4.5c0 2.625 3.5 6.5 3.5 6.5S9 7.125 9 4.5C9 2.567 7.433 1 5.5 1z" stroke="#8A7A6A" stroke-width="1.1"/>
+          <circle cx="5.5" cy="4.5" r="1" stroke="#8A7A6A" stroke-width="1.1"/>
+        </svg>
+        Directions
+      </a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-social">
+      <a href="#" title="Facebook">f</a>
+      <a href="#" title="Instagram">&#x25A1;</a>
+      <a href="#" title="Google">G</a>
+    </div>
+    <div class="footer-copy">© 2026 Spring St. Dentistry · All rights reserved.</div>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ── Design system panel ────────────────────────────────────────────────── -->
+<div class="ds-panel open" id="ds-panel">
+  <div class="ds-panel-header">
+    <div class="ds-panel-title">Sun &amp; Moon — Design System</div>
+    <button class="ds-panel-close" onclick="togglePanel()">×</button>
+  </div>
+
+  <div class="ds-section">
+    <div class="ds-section-label">Sun / Moon duality</div>
+    <div class="duality-row">
+      <div class="duality-sun">☀ Sun — canvas #F5F0E8</div>
+      <div class="duality-moon">☽ Moon — band #3D2A1A</div>
+    </div>
+    <div style="font-size:10.5px; color:#5A3A20; line-height:1.5; padding-bottom:4px;">The dark espresso outer chrome and dark CTA band are the literal 'moon' inversion of the warm cream 'sun' canvas. One dark section per page max.</div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Color palette</div>
+    <div class="palette-grid">
+      <div class="swatch-row"><div class="swatch" style="background:#F5F0E8"></div><div class="swatch-info"><div class="swatch-role">Canvas (Sun)</div><div class="swatch-hex">#F5F0E8</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#FFFFFF; border-color:#3a2a18;"></div><div class="swatch-info"><div class="swatch-role">Card surface</div><div class="swatch-hex">#FFFFFF</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#F0E8DC"></div><div class="swatch-info"><div class="swatch-role">Tinted card</div><div class="swatch-hex">#F0E8DC</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#3D2A1A"></div><div class="swatch-info"><div class="swatch-role">Dark band (Moon)</div><div class="swatch-hex">#3D2A1A</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#2C2218"></div><div class="swatch-info"><div class="swatch-role">Primary button / Chrome</div><div class="swatch-hex">#2C2218</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#1E1810"></div><div class="swatch-info"><div class="swatch-role">Heading text</div><div class="swatch-hex">#1E1810</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#4A3D30"></div><div class="swatch-info"><div class="swatch-role">Body text</div><div class="swatch-hex">#4A3D30</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#8A7A6A"></div><div class="swatch-info"><div class="swatch-role">Muted / eyebrow</div><div class="swatch-hex">#8A7A6A</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#E5DDD0"></div><div class="swatch-info"><div class="swatch-role">Divider</div><div class="swatch-hex">#E5DDD0</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#D8CFC4"></div><div class="swatch-info"><div class="swatch-role">Chip border</div><div class="swatch-hex">#D8CFC4</div></div></div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Typography</div>
+    <div class="type-display-sm">Fraunces — upright</div>
+    <div class="type-display-italic">Fraunces — italic em</div>
+    <div class="type-meta" style="margin-bottom:12px">Display · organic serif · regular weight · italic/upright mix</div>
+    <div class="type-body-sm">DM Sans — body, nav, UI text</div>
+    <div class="type-meta" style="margin-bottom:12px">Body · geometric sans · regular/medium</div>
+    <div style="margin-top:12px; padding:10px; background:#2A1C0C; border-radius:6px;">
+      <div class="type-meta" style="margin-bottom:4px">Signature emphasis device</div>
+      <div style="font-size:11px; color:#907060; line-height:1.4;">Italic variant of the same serif face used inline with upright roman in a single headline (e.g. 'Where dentistry <em>feels personal.</em>'). Not a separate face — not color shift — italic/upright serif mix only.</div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Tokens</div>
+    <div class="token-grid">
+      <div class="token-cell">
+        <div class="token-label">Shape (cards)</div>
+        <div class="token-val">lg rounded</div>
+        <div class="token-sub">~20–24px radius</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-label">Shape (buttons)</div>
+        <div class="token-val">Pill</div>
+        <div class="token-sub">999px radius</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-label">Elevation</div>
+        <div class="token-val">Flat</div>
+        <div class="token-sub">no shadows</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-label">Density</div>
+        <div class="token-val">Airy</div>
+        <div class="token-sub">generous padding</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-label">Eyebrow style</div>
+        <div class="token-val">Bare caps</div>
+        <div class="token-sub">no chip container</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-label">Motion</div>
+        <div class="token-val">Subtle</div>
+        <div class="token-sub">scale on hover</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Novel components (4)</div>
+    <div class="novel-list">
+      <div class="novel-item">
+        <div class="novel-item-name">Filterable Timetable + Per-Row Book CTAs</div>
+        <div class="novel-item-spec">Day-of-week tabs switch visible schedule rows. Each row: time, appointment type, level/category, provider avatar + name, inline Book pill. Dental: appointment availability calendar with direct booking per slot.</div>
+      </div>
+      <div class="novel-item">
+        <div class="novel-item-name">Image-Overlay Service Cards</div>
+        <div class="novel-item-spec">Full-bleed image cards with bottom-anchored dark overlay gradient and white label + description text on top. Cards are tall portrait ratio with lg rounded corners. Hover scales image slightly.</div>
+      </div>
+      <div class="novel-item">
+        <div class="novel-item-name">Asymmetric Masonry Testimonials</div>
+        <div class="novel-item-spec">Two-column staggered layout of white cards at varied heights. One large anchor card with patient photo + video play button. Remaining cards are text-only with display serif pull-quote headlines.</div>
+      </div>
+      <div class="novel-item">
+        <div class="novel-item-name">Dark Band CTA + Email Capture (Moon)</div>
+        <div class="novel-item-spec">Full-width dark espresso panel — the 'moon' inversion. Left: display heading + body + inline email capture row. Right: full-bleed photo blending into dark background. Replaces separate CTA and newsletter sections simultaneously.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Fidelity checks (12)</div>
+    <div class="check-list">
+      <div class="check-item">Hero must be a split layout — text left, tall rounded image card right. Not centered. Not a poster/background-image hero.</div>
+      <div class="check-item">Hero headline mixes upright and italic serif in the same line. This italic/upright combination is the signature typographic device — preserve it.</div>
+      <div class="check-item">Primary button and outer chrome share the same dark espresso color (#2C2218). This visual unity is intentional — do not diverge them.</div>
+      <div class="check-item">Exactly one dark-band section exists on the page (the CTA/newsletter). All other sections use cream canvas or white card. Do not add more dark backgrounds.</div>
+      <div class="check-item">Dark band CTA section contains an inline email capture — not just a standalone button. Email input + Subscribe pill is the action element.</div>
+      <div class="check-item">All image cards (hero, service, teacher portraits) use large rounded corners (~20–24px). No sharp or small-radius corners on image containers.</div>
+      <div class="check-item">Service/class cards use image-fill with bottom-anchored text overlay gradient — not image-top-with-text-below layout.</div>
+      <div class="check-item">Testimonial section uses asymmetric height staggering — not a uniform grid. At least one card is a larger video/image anchor card.</div>
+      <div class="check-item">Eyebrow labels above section headings are bare all-caps micro text — no pill chips or badge containers. Location pill in hero is the one exception.</div>
+      <div class="check-item">Navigation uses dot separator bullets (•) between items that have dropdown menus. Plain text for non-dropdown items. This is a distinctive nav detail.</div>
+      <div class="check-item">Pricing cards use full-width pill CTAs inside each card. All cards carry equal visual weight — no 'recommended' highlighted card.</div>
+      <div class="check-item">Body copy max 2–3 sentences per paragraph. Headlines are short, declarative, sentence-case. Avoid multi-clause run-on headings.</div>
+    </div>
+  </div>
+
+</div><!-- /ds-panel -->
+
+<script>
+function togglePanel() {
+  const panel = document.getElementById('ds-panel');
+  const btn = document.getElementById('panel-btn');
+  panel.classList.toggle('open');
+  btn.classList.toggle('active');
+}
+function toggleAnnotations() {
+  document.body.classList.toggle('show-annotations');
+  document.getElementById('annotate-btn').classList.toggle('active');
+}
+function setDay(btn) {
+  document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+}
+function setPriceTab(btn, type) {
+  document.querySelectorAll('.pricing-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('pricing-cards-routine').style.display = type === 'routine' ? 'grid' : 'none';
+  document.getElementById('pricing-cards-cosmetic').style.display = type === 'cosmetic' ? 'grid' : 'none';
+}
+// Open panel by default
+document.getElementById('ds-panel').classList.add('open');
+</script>
+</body>
+</html>

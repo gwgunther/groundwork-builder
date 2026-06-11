@@ -1,0 +1,253 @@
+{
+  "schemaVersion": "1.2",
+  "id": "sun-moon",
+  "name": "Sun & Moon — Grounded Organic Split",
+  "tag": "reference",
+  "source": {
+    "ingestedVia": "claude-design",
+    "captured": "2026-06-10"
+  },
+  "selection": {
+    "archetype": "grounded-organic",
+    "moods": [
+      "earthy-premium",
+      "calm-confident"
+    ],
+    "adjectives": [
+      "grounded",
+      "approachable",
+      "organic",
+      "unhurried",
+      "confident",
+      "warm"
+    ],
+    "bestFor": "General dentistry or cosmetic dental practices that want to project genuine warmth and community rootedness without clinical sterility — ideal for neighborhood family practices, wellness-adjacent dental brands, or practices emphasising comfort and trust over technical authority.",
+    "verticalBias": [
+      "general-dentistry",
+      "cosmetic-dentistry",
+      "family-dentistry",
+      "preventive-care"
+    ]
+  },
+  "tokens": {
+    "color": {
+      "strategy": {
+        "theme": "light-with-dark-accent-band",
+        "background": "Warm cream/linen canvas (#F5F0E8) hosts white card surfaces. A single dark espresso band (#3D2A1A) is used exclusively for the CTA/newsletter section — the 'moon' dark mode. The outer chrome of the template browser is deep espresso (#2C2218), which bleeds into the primary button color, giving the UI a consistent dark anchor against the light canvas. Depth is surface-color differentiation: cream canvas → white card → tinted parchment card. No shadows.",
+        "contrast": "high",
+        "saturation": "muted",
+        "accentUsage": "structural — dark espresso functions as both primary button fill and the 'moon' dark CTA band, creating intentional light/dark duality throughout the page",
+        "surfaceStrategy": "Two-mode surface system: a warm cream canvas hosting bright white card panels for light sections, and one deliberate full-bleed dark band (espresso) for the email CTA — the dual 'sun and moon' contrast theme made literal. Pricing cards use a step-deeper parchment tint. Buttons are dark filled (espresso) in light sections and white-filled in the dark band, inverting cleanly."
+      },
+      "reference": {
+        "canvas": "#F5F0E8",
+        "cardSurface": "#FFFFFF",
+        "tintedCard": "#F0E8DC",
+        "darkBand": "#3D2A1A",
+        "outerChrome": "#2C2218",
+        "primaryButton": "#2C2218",
+        "primaryButtonText": "#FFFFFF",
+        "headingText": "#1E1810",
+        "bodyText": "#4A3D30",
+        "mutedText": "#8A7A6A",
+        "eyebrowText": "#8A7A6A",
+        "darkBandHeading": "#F5F0E8",
+        "darkBandBody": "#C8B8A4",
+        "divider": "#E5DDD0",
+        "chipBorder": "#D8CFC4",
+        "chipText": "#8A7A6A",
+        "scheduleBookPill": "#2C2218",
+        "locationPillBg": "#FFFFFF",
+        "locationPillText": "#4A3D30"
+      }
+    },
+    "type": {
+      "classification": "organic-serif",
+      "substitutionCriteria": "Display face must be an organic, slightly playful serif with moderate contrast and strong personality — capable of italic variants that mix with upright roman in the same headline. Look for slightly condensed proportions and visible ink-trap or organic stroke character at large sizes. Must work well sentence-case at 48px+. Body face must be a clean neutral-weight geometric or humanist sans with good small-size legibility.",
+      "pairing": "Organic personality serif (with italic variant) for display headings paired with a clean neutral-weight geometric sans for body, nav, and UI text",
+      "heading": {
+        "weight": "regular/medium",
+        "casing": "sentence case",
+        "eyebrow": "sparing — uppercase micro label above section heading, NOT a pill chip",
+        "eyebrowTreatment": "Tiny all-caps tracking label in muted warm greige, set directly above the section heading without any border, badge, or container. Used on section breaks (e.g. 'Classes', 'Teachers', 'Testimonials'). Never on the hero.",
+        "emphasisDevice": "Italic serif mixed into an upright-serif headline in the same weight — the italic variant is used for one phrase or partial line to create organic rhythm and personality. This is the signature emphasis device. Not color shift, not weight change — italic/upright mix within the serif face."
+      },
+      "body": {
+        "weight": "regular",
+        "casing": "sentence case",
+        "lineHeight": "relaxed"
+      },
+      "scale": "editorial-display",
+      "headingScale": "xl",
+      "contrast": "high",
+      "reference": {
+        "displayFace": "Fraunces, or similar organic display serif with expressive italic variant (e.g. Newsreader, Lora)",
+        "bodyFace": "DM Sans, Poppins, or clean geometric sans in regular/medium weights",
+        "italicEmphasis": "Same serif face in italic used inline with upright roman within a single headline — not a separate face"
+      }
+    },
+    "shape": {
+      "cornerRadius": "large-rounded",
+      "notes": "Primary image containers and CTA band use lg rounded corners (~20–24px). Pricing cards use md (~12px). Buttons use full pill (999px). Location/eyebrow pills use full pill. The large rounded image card in the hero is the dominant shape token — generous curvature, not sharp."
+    },
+    "elevation": {
+      "system": "flat",
+      "notes": "No drop shadows anywhere. Depth is achieved entirely through surface color steps (canvas → card → tinted card → dark band). Image cards sit on the canvas without shadow borders."
+    },
+    "border": {
+      "treatment": "hairline-and-pill-outline",
+      "notes": "Hairline dividers between schedule rows. Pill-outline chips for location badge, filter reset button, and teacher filter checkboxes. Pricing cards have a subtle hairline border on the tinted surface. No heavy or decorative borders."
+    },
+    "button": {
+      "treatment": "filled-pill",
+      "character": "Dark espresso pill button (#2C2218) as primary CTA in all light sections — generous width, white text, full pill radius. Secondary option uses a pill-outline (white or parchment border, transparent fill). In the dark CTA band, the email subscribe button inverts to white fill with dark text. The per-row 'Book' pill in the timetable uses the same dark espresso fill at a smaller size (28–30px height). No ghost buttons; secondary is always outline or color-inverted. Buttons span full width within pricing cards."
+    },
+    "label": {
+      "style": "bare-caps-micro",
+      "character": "Tiny all-caps tracking label in muted warm greige (#8A7A6A), no container or border. Used as section eyebrow above headings (e.g. 'Classes', 'Teachers', 'Testimonials'). Also used as teacher name and class level below schedule rows. Location badge on hero is an exception: uses a pill-outline chip with a location pin icon."
+    },
+    "density": "airy",
+    "motion": "subtle"
+  },
+  "layout": {
+    "sections": [
+      "nav — left logo lockup with stacked two-line wordmark, centered navigation links with dot separators between dropdown triggers, right CTA pill",
+      "hero — split layout: text-left with large display serif headline (italic/upright mix), location pill badge, dual CTAs; tall rounded image card right with social-proof floating badge",
+      "classes — image-fill style cards with label overlay at bottom; horizontal row of 3 cards; 'See all' pill CTA below",
+      "timetable — day-of-week tab strip; filterable schedule rows with time, class name, level, teacher avatar, and per-row Book pill",
+      "teachers — eyebrow label, centered display heading, grid of portrait cards with name/role below",
+      "testimonials — asymmetric masonry: large video-play card left, floating text-only quote cards at varied sizes right",
+      "pricing — tab toggle (Flexible / Recurring) switches between card sets; 3-column pricing cards with feature bullets and full-width Book pill",
+      "cta-newsletter — full-bleed dark espresso band; large display heading left, email capture inline; full-bleed image fills right half of band",
+      "footer — multi-column: logo + tagline + contact left, nav columns center, address + map link right; social icons row"
+    ],
+    "variants": {
+      "heroLayout": "split-image-right",
+      "servicesLayout": "image-overlay-cards",
+      "aboutLayout": "portrait-grid",
+      "testimonialsLayout": "asymmetric-masonry",
+      "ctaLayout": "dark-band-email-capture",
+      "faqLayout": "not-present",
+      "navVariant": "stacked-logo-center-links",
+      "footerVariant": "multi-column-light",
+      "galleryVariant": "not-present"
+    },
+    "composition": {
+      "hero": "Two-column split on the cream canvas. Left column: two-line stacked wordmark with sun icon in the nav, a pill location badge ('Shoreditch, London' with pin icon) at mid-height, then a very large display serif headline across 3 lines mixing upright roman for the first line and italic for the second line ('feels natural.' in italic), followed by 2-line body copy, then two pill CTAs side by side (primary filled dark espresso 'Book a class', secondary outline 'Explore our studio'). Right column: a tall image card with very large border-radius (~24px), full-bleed photo, no caption. A social proof floating pill badge hovers in the top-right of the image card ('Loved by 500+ members' with stacked avatar thumbnails). Below the image, three small square avatar thumbnails appear as a secondary trust signal. The page canvas extends under a rounded outer container, with the very dark espresso outer chrome framing the whole composition.",
+      "nav": "Opaque white navigation bar. Left: sun & moon logo icon followed by two-line stacked wordmark ('sun & moon / studio') in medium-weight body sans. Center: navigation links with dot bullet separators between items that have dropdowns (Classes • Teachers •) and plain text for non-dropdown items (Schedule, Rates, Community). Right: single filled dark-espresso pill CTA 'Book a class'. The nav uses dot separators as a signature detail to distinguish interactive from non-interactive links.",
+      "footer": "Multi-column light footer on the warm cream canvas. Left column: sun & moon logo icon + studio name, tagline in small body text, phone number, and email. Three navigation columns in the center: Classes list, About us list, and an Events/Rates list. Right column: full postal address + 'Directions' pill-outline link. Bottom row: social icons (Facebook, Instagram, YouTube) left-aligned, copyright center, Privacy/Terms/Cookie links right-aligned.",
+      "services": "Three image-fill class-style cards in a horizontal row. Each card has a full-bleed photo and a label overlay anchored to the bottom of the card (name in medium sans, 1-line description in small regular sans, all on a translucent dark overlay). An icon/emblem chip appears in the top-right of the middle card. Below the row: a centered pill-outline 'See all class types' CTA. Section eyebrow is 'Classes' in all-caps micro label above 'Choose your style' display heading.",
+      "timetable": "Day-of-week tab strip (Mon–Sun) with active state pill fill. Below: schedule rows in a white card container. Each row: time + duration left, class name + level center, teacher avatar + name right, 'Book' dark espresso pill CTA far right. Rows separated by hairline dividers. Left sidebar in the full-page variant: filter panel with Level, Class, and Teacher checkboxes. This is the most unique layout section.",
+      "teachers": "Eyebrow 'Teachers' in all-caps micro label above 'Meet your guides' centered display heading, body copy. Below: grid of portrait cards — each has a cropped portrait photo (large rounded corners), name in medium sans, dual role tags in small muted sans (e.g. 'Vinyasa Flow · Yin Yoga') directly below the name, and 2-sentence bio in small body text. No CTA per card.",
+      "testimonials": "Two-column asymmetric layout with white card panels floating on the cream canvas. Left column: one large card with a photo and a video play button overlaid — pull-quote headline and author + role below the photo area. Below it: a second smaller card with a different pull-quote and author. Right column: two text-only floating cards with pull-quote headlines and author + role. All cards have large rounded corners and no consistent grid alignment — cards are staggered vertically for an organic masonry feel. All quote headlines are displayed at 18–22px in the display serif face.",
+      "pricing": "Tab toggle row ('Flexible' / 'Recurring') with active underline or pill fill — switches card content. Three pricing cards in a horizontal row on tinted parchment surfaces. Each card: title + 1-line subtitle, large price display in display serif, feature bullet list (3 items, bullet dots not checkmarks), full-width filled dark espresso pill CTA 'Book Class'. Cards use md corner radius and hairline border. Minimal hierarchy — no 'recommended' badge or highlighted card.",
+      "cta": "Full-bleed dark espresso panel (#3D2A1A) with large rounded outer corners, spanning the full content width. Left half: large white display serif heading ('Be part of the rhythm.'), 1-line body copy in muted warm text, then an email capture row — input field with ghost border, inline 'Subscribe' white-fill pill button. Right half: full-bleed photograph of a person in a calm pose, blending into the dark background at the left edge — no hard edge separation. This section doubles as newsletter and CTA simultaneously."
+    },
+    "novel": [
+      {
+        "section": "timetable",
+        "name": "Filterable Timetable with Per-Row Book CTAs",
+        "spec": "A day-of-week tab strip (Monday through Sunday) with an active state using pill fill. Below the tabs, schedule rows inside a white card container. Each row contains: time of day and duration (left), class name and level badge (center), teacher avatar thumbnail and teacher name (right), and a small filled dark-espresso pill 'Book' CTA at the far right. Rows are separated by hairline dividers. In the full-page variant, a left sidebar shows filter checkboxes for Level, Class, and Teacher, plus a 'Reset filters' pill-outline button. Dental translation: maps to an appointment availability calendar or appointment type selector — time slots with appointment type, duration, availability status, and a direct 'Book' CTA per slot.",
+        "requiresNewComponent": true
+      },
+      {
+        "section": "classes",
+        "name": "Image-Overlay Style Cards with Bottom Label",
+        "spec": "A horizontal row of 3 image-fill cards with large rounded corners (~20px). Each card contains a full-bleed photo with a darkened overlay gradient anchored to the bottom quarter. The card label is placed on top of this overlay: class name in medium-weight sans (white text), followed by a 1-line description in small regular white sans. An optional icon chip appears in the top-right corner of one card as a secondary detail. Below the row: a centered pill-outline 'See all' CTA. Dental translation: maps to service category cards — e.g. 'Cosmetic', 'Restorative', 'Preventive' — each with a practice photo and service category name overlaid.",
+        "requiresNewComponent": true
+      },
+      {
+        "section": "testimonials",
+        "name": "Asymmetric Masonry Testimonials with Video Proof Card",
+        "spec": "Two-column layout of floating white cards at varied heights on the cream canvas, creating an organic masonry rhythm. Left column: one large card containing a cropped portrait photo with a circular video play button overlaid, a pull-quote headline (18–22px display serif, in quotation marks), and author name + role below — this is the video testimonial card. Below it: a smaller pure-text quote card. Right column: two text-only floating cards with pull-quote headlines and author + role. No uniform grid alignment — the staggered vertical positioning is deliberate. Cards use lg border-radius with no shadow. Dental translation: one large video testimonial card with patient photo + play button, surrounded by smaller text-only review cards from other patients.",
+        "requiresNewComponent": true
+      },
+      {
+        "section": "cta-newsletter",
+        "name": "Dark Band Dual-Purpose CTA + Email Capture",
+        "spec": "A full-bleed dark espresso panel (#3D2A1A) with large rounded outer corners, spanning the full content width with generous internal padding. The panel is split horizontally: the left ~55% contains a large white display serif headline (2 lines), a 1-line body copy in muted warm tone, and an inline email capture row with a ghost-border input field and a white-fill pill 'Subscribe' button. The right ~45% is occupied by a full-bleed photograph that bleeds into the dark background with no hard edge — the image fades naturally into the dark panel. No separate CTA section exists — this one component replaces both a standalone CTA section and a newsletter section. The dark color is the 'moon' mode inverted from the cream 'sun' canvas. Dental translation: replace newsletter copy with appointment booking prompt; keep the dark band and image layout; swap 'Subscribe' CTA for 'Request Your Appointment'.",
+        "requiresNewComponent": true
+      }
+    ]
+  },
+  "imagery": {
+    "crop": "Varied — hero image is portrait orientation in a tall rounded card showing subject from mid-torso up; class cards are landscape crops showing full-body or movement; teacher cards are tighter portrait crops. Style cards favor full-body movement shots to communicate the activity.",
+    "grading": "Warm and neutral — images carry a slight warm cast with lifted blacks and moderate contrast. Skin tones are natural and warm. No cool processing. Backgrounds tend toward warm neutrals (beige, taupe, warm grey) that harmonise with the cream canvas. High-key, diffused natural light is preferred. The overall effect is organic and human, not clinical or over-produced.",
+    "framing": "Subjects are shown in natural, calm poses that communicate ease and intentionality — not stiff or posed. Full-body and three-quarter crops favor subjects in practice poses or candid moments. Environmental context is minimal but present (warm neutral backgrounds, natural window light). One primary subject per image; no busy group shots.",
+    "subjectTreatment": "Calm, present, at ease. Subjects are shown in movement or stillness — never tense or clinical. Age diversity is present (young adults, middle-aged, older adults) communicating inclusive accessibility. Dental translation: patients should be shown relaxed, smiling naturally — before/after or in-chair candid rather than stiff portrait. Clinical staff in gentle attentive poses during consultation, not performing procedures. Clinic space photos should emphasise warm, residential-feeling environments.",
+    "imageTextRatio": "balanced"
+  },
+  "voice": {
+    "formality": "approachable-professional",
+    "rhythm": "Short to medium sentences with natural spoken cadence. Headlines favor the declarative-with-pause rhythm ('Where movement / feels natural.'). Subheadings are one full sentence max. Body copy is 2–3 sentences. The italic serif emphasis device in headlines mirrors the voice's preference for gentle emphasis over assertion.",
+    "favors": [
+      "second-person address throughout ('your', 'you')",
+      "movement and rhythm metaphors translated to dental care as 'feel', 'comfort', 'ease', 'natural'",
+      "community and belonging language ('part of the rhythm', 'our neighborhood')",
+      "outcome language that emphasises how the patient will feel, not the procedure performed",
+      "gentle confidence — stating without overselling ('A calm space for...')",
+      "accessibility signals that reduce anxiety ('All Levels', 'never intimidating', 'we make you feel comfortable')"
+    ],
+    "avoids": [
+      "clinical procedure language in patient-facing copy",
+      "urgency, scarcity, or discount-driven language",
+      "first-person institutional boasting",
+      "superlatives or hyperbole",
+      "fear-based or pain-amplifying framing",
+      "technical jargon without plain-English context"
+    ]
+  },
+  "fidelity": {
+    "layout": "partial",
+    "theme": "light-with-dark-band",
+    "phase": "B",
+    "gaps": [
+      {
+        "type": "variant",
+        "detail": "Filterable timetable with per-row Book CTAs has no matching variant in standard dental builders. Closest is a service list, but the tab-filtered day-of-week schedule with avatar rows and per-row pill CTAs requires a novel component."
+      },
+      {
+        "type": "variant",
+        "detail": "Image-overlay service cards (full-bleed photo with bottom label overlay) have no matching variant — closest is a standard service card, but the label-on-image treatment with gradient overlay requires a novel component."
+      },
+      {
+        "type": "variant",
+        "detail": "Asymmetric masonry testimonials with video proof card have no matching variant — pull-quotes is closest but this layout has intentional height staggering and a video-playback card as the anchor, requiring a novel component."
+      },
+      {
+        "type": "variant",
+        "detail": "Dark band dual-purpose CTA + email capture combines newsletter capture and CTA in a single dark panel with a bleed photograph — no existing variant covers this merged pattern; requires novel component."
+      },
+      {
+        "type": "token",
+        "detail": "The italic/upright mixed serif headline is a typographic emphasis device that requires the display font to have a quality italic variant (Fraunces italic is ideal). Not all editorial serif substitutions will have the expressive italic needed for this signature treatment."
+      },
+      {
+        "type": "token",
+        "detail": "The sun/moon duality (cream canvas + dark espresso band) requires the dark band to be a true dark-mode inversion of the full-width section — not just a dark-background card. The section must stretch edge-to-edge with the same rounded outer corner treatment as the overall page container."
+      }
+    ]
+  },
+  "audit": {
+    "sanctionedPatterns": [
+      "italic-upright-mix-headline",
+      "dark-band-inversion",
+      "image-overlay-cards",
+      "per-row-inline-cta"
+    ],
+    "fidelityChecks": [
+      "Hero must be a split layout — text left, tall rounded image card right — not centered. Do not default to centered or poster hero.",
+      "Hero headline must mix upright and italic variants of the same serif face within a single headline — this italic/upright combination is the signature typographic device and must not be replaced with a plain upright headline.",
+      "The primary button and outer chrome must share the same dark espresso color (#2C2218 or equivalent) — this visual unity is a deliberate design decision that anchors the light canvas.",
+      "One and only one dark-band section (the CTA/newsletter) exists on the page — all other sections use the cream canvas or white card surface. Do not add more dark backgrounds.",
+      "The dark band CTA section must contain an email capture inline — it is not a standalone CTA with just a button. The email input and subscribe pill are the action.",
+      "All image cards (hero, service cards, teacher cards) must use large rounded corners (~20–24px) — not sharp or md-radius corners. The rounded card is a core shape token.",
+      "Service/class cards must use image-fill with bottom-anchored text overlay — not image-top-with-text-below card layout.",
+      "Testimonial section must use asymmetric height staggering across cards — not a uniform grid. At least one card must serve as a larger anchor card.",
+      "Eyebrow labels above section headings must be bare all-caps micro text — not pill chips or badge containers. Location indicator in hero is the exception (uses a pill).",
+      "Navigation uses dot separator bullets (•) between items that have dropdown menus and plain text for non-dropdown items — this is a distinctive nav detail.",
+      "Pricing cards must use full-width pill CTAs inside each card — not external or side-by-side CTAs. All pricing cards are equal weight with no 'recommended' visual hierarchy.",
+      "Body copy must be 2–3 sentences maximum per paragraph. Headlines are short and declarative — avoid multi-clause run-on headings."
+    ]
+  }
+}

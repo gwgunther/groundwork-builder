@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clearpath — Design System Showcase · Spring St. Dentistry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ── Design tokens ─────────────────────────────────────────────────────── */
+:root {
+  --page-bg:         #FFFFFF;
+  --outer-chrome:    #F4F4F2;
+  --accent:          #5A9189;
+  --accent-overlay:  #4A7A72;
+  --heading-dark:    #1E2E2A;
+  --body-text:       #3D4F4A;
+  --deco-line:       #8FBFB8;
+  --hero-warm-glow:  #C8B8A2;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'DM Sans', -apple-system, sans-serif;
+}
+
+body {
+  background: var(--page-bg);
+  color: var(--body-text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Showcase meta bar ──────────────────────────────────────────────────── */
+.meta-bar {
+  background: #0E1A18;
+  color: #7ABBB3;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.4px;
+  padding: 0 32px;
+  height: 33px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.meta-bar .meta-name { font-weight: 600; color: #A8D8D0; }
+.meta-bar .meta-sep  { color: #1E3A34; }
+.meta-bar .meta-mood { color: #7ABBB3; }
+.meta-bar-right { margin-left: auto; display: flex; gap: 8px; }
+.meta-btn {
+  background: rgba(90,145,137,0.15);
+  border: 1px solid rgba(90,145,137,0.25);
+  color: #7ABBB3;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: background 0.15s;
+}
+.meta-btn:hover { background: rgba(90,145,137,0.25); }
+.meta-btn.active { background: rgba(90,145,137,0.3); color: #A8D8D0; }
+
+/* ── Novel section callout ─────────────────────────────────────────────── */
+.novel-flag {
+  position: relative;
+}
+.novel-label {
+  display: none;
+  position: absolute;
+  top: 12px; right: 12px;
+  background: rgba(90,145,137,0.12);
+  border: 1px solid rgba(90,145,137,0.35);
+  color: #5A9189;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 4px;
+  z-index: 10;
+  font-family: var(--font-body);
+}
+body.show-annotations .novel-label { display: block; }
+body.show-annotations .novel-flag { outline: 1px dashed rgba(90,145,137,0.3); }
+
+/* ── Nav ───────────────────────────────────────────────────────────────── */
+nav {
+  background: var(--page-bg);
+  position: sticky;
+  top: 33px;
+  z-index: 100;
+  padding: 0 48px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.nav-logo {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--accent);
+  letter-spacing: 0.1px;
+  white-space: nowrap;
+}
+.nav-logo .logo-bullet { color: var(--accent); margin-right: 2px; }
+.nav-logo .logo-dash { color: var(--deco-line); margin: 0 2px; }
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+  margin-left: auto;
+  margin-right: 36px;
+}
+.nav-links a {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.nav-links a:hover { opacity: 0.7; }
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.15s;
+  border: none;
+}
+.btn-pill:hover { opacity: 0.88; }
+.btn-teal {
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 26px;
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.btn-teal-outline {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.6) !important;
+  padding: 10px 26px;
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.btn-teal-outline-dark {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent) !important;
+  padding: 10px 26px;
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── Shared section styles ─────────────────────────────────────────────── */
+section { padding: 96px 48px; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+
+.eyebrow-label {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--body-text);
+  opacity: 0.6;
+  margin-bottom: 18px;
+}
+
+/* ── Hero ──────────────────────────────────────────────────────────────── */
+#hero {
+  padding: 24px 48px 24px;
+  background: var(--outer-chrome);
+}
+.hero-poster {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #2A3A36;
+  min-height: 620px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+/* Warm glow tint overlay */
+.hero-poster::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(74, 122, 114, 0.45) 0%,
+    rgba(42, 58, 54, 0.7) 60%,
+    rgba(30, 46, 42, 0.85) 100%
+  );
+  z-index: 1;
+}
+/* Decorative cursive line-art SVG overlay */
+.hero-deco {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.35;
+}
+.hero-content {
+  position: relative;
+  z-index: 3;
+  padding: 64px 56px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: flex-end;
+}
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 68px);
+  font-weight: 600;
+  color: #FFFFFF;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+}
+.hero-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,0.82);
+  line-height: 1.65;
+  max-width: 380px;
+}
+/* Nav overlaid on hero */
+.hero-nav {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 4;
+  padding: 0 56px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+}
+.hero-nav .nav-logo { color: #FFFFFF; }
+.hero-nav .nav-logo .logo-dash { color: rgba(255,255,255,0.45); }
+.hero-nav .nav-links a { color: rgba(255,255,255,0.85); }
+.hero-nav .nav-links a:hover { opacity: 0.65; }
+
+/* ── Services Intro ─────────────────────────────────────────────────────── */
+#services-intro {
+  background: var(--page-bg);
+  padding: 96px 48px 80px;
+}
+.services-intro-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+/* Decorative toggle motif */
+.deco-toggle-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.deco-toggle-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--body-text);
+  opacity: 0.55;
+}
+.deco-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--outer-chrome);
+  border-radius: 999px;
+  padding: 4px 14px 4px 6px;
+}
+.deco-toggle-knob {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.deco-toggle-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.split-heading {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+.split-heading .line-dark { color: var(--heading-dark); display: block; }
+.split-heading .line-teal { color: var(--accent); display: block; }
+.services-intro-body {
+  font-size: 15.5px;
+  color: var(--body-text);
+  max-width: 560px;
+  line-height: 1.7;
+  opacity: 0.85;
+}
+
+/* ── Staggered Portrait Card Row ───────────────────────────────────────── */
+#services-cards {
+  background: var(--outer-chrome);
+  padding: 80px 48px 96px;
+}
+.staggered-row {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.portrait-card {
+  flex: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 3/4;
+  background: var(--accent-overlay);
+  min-height: 340px;
+}
+/* Alternating stagger: cards 1 & 3 up, cards 2 & 4 down */
+.portrait-card:nth-child(odd)  { margin-top: 0; }
+.portrait-card:nth-child(even) { margin-top: 40px; }
+
+.portrait-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(74,122,114,0.38) 0%,
+    rgba(30,46,42,0.72) 100%
+  );
+  z-index: 1;
+}
+/* Simulated photo texture via gradient */
+.portrait-card-photo {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    145deg,
+    #3A5A54 0%,
+    #2A3A36 60%,
+    #1E2E2A 100%
+  );
+}
+.portrait-card-photo.card-1 { background: linear-gradient(145deg, #4A6E68 0%, #2E4A44 60%, #1E2E2A 100%); }
+.portrait-card-photo.card-2 { background: linear-gradient(145deg, #3E5E58 0%, #2A4040 60%, #1A2A28 100%); }
+.portrait-card-photo.card-3 { background: linear-gradient(145deg, #426660 0%, #2C4440 60%, #1C2C28 100%); }
+.portrait-card-photo.card-4 { background: linear-gradient(145deg, #3A5C56 0%, #284240 60%, #1A2826 100%); }
+
+.portrait-card-body {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 22px 20px;
+}
+.portrait-card-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: #FFFFFF;
+  line-height: 1.25;
+}
+.portrait-card-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.80);
+  line-height: 1.5;
+}
+
+/* ── Stats section ──────────────────────────────────────────────────────── */
+#stats {
+  background: var(--page-bg);
+  padding: 96px 48px;
+}
+.stats-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.stats-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: end;
+  margin-bottom: 64px;
+}
+.stats-header-left .split-heading { margin-bottom: 0; }
+.stats-header-right {
+  font-size: 15px;
+  color: var(--body-text);
+  opacity: 0.75;
+  line-height: 1.65;
+  padding-bottom: 4px;
+}
+.stats-numeral-row {
+  display: flex;
+  gap: 0;
+  border-top: 1px solid var(--deco-line);
+  padding-top: 48px;
+}
+.stat-unit {
+  flex: 1;
+  padding-right: 32px;
+}
+.stat-unit:not(:first-child) {
+  padding-left: 32px;
+  border-left: 1px solid #E8F4F2;
+}
+.stat-numeral {
+  font-family: var(--font-display);
+  font-size: clamp(54px, 6vw, 84px);
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.stat-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--heading-dark);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+/* ── Doctor intro ───────────────────────────────────────────────────────── */
+#about {
+  background: var(--outer-chrome);
+  padding: 96px 48px;
+}
+.about-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.about-photo {
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  background: linear-gradient(155deg, #4A6A64 0%, #2A3A36 70%, #1E2E2A 100%);
+  position: relative;
+}
+/* Decorative line on photo */
+.about-photo-deco {
+  position: absolute;
+  bottom: 28px;
+  left: 28px;
+  right: 28px;
+  height: 1px;
+  background: rgba(143,191,184,0.5);
+}
+.about-content { padding-top: 8px; }
+.about-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+  opacity: 0.8;
+}
+.about-name {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.5vw, 46px);
+  font-weight: 600;
+  color: var(--heading-dark);
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.about-creds {
+  font-size: 14px;
+  color: var(--accent);
+  margin-bottom: 28px;
+  font-weight: 500;
+}
+.about-bio {
+  font-size: 15px;
+  color: var(--body-text);
+  line-height: 1.75;
+  margin-bottom: 16px;
+  opacity: 0.9;
+}
+.about-bio:last-of-type { margin-bottom: 32px; }
+/* Hairline decorative rule between bio paragraphs */
+.about-rule {
+  width: 40px;
+  height: 1px;
+  background: var(--deco-line);
+  margin: 20px 0;
+}
+
+/* ── Reviews ────────────────────────────────────────────────────────────── */
+#reviews {
+  background: var(--page-bg);
+  padding: 96px 48px;
+}
+.reviews-header {
+  max-width: 1100px;
+  margin: 0 auto 56px;
+}
+.reviews-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.5vw, 44px);
+  color: var(--heading-dark);
+  line-height: 1.2;
+  max-width: 560px;
+}
+.reviews-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.review-card {
+  background: var(--outer-chrome);
+  border-radius: 12px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.review-stars {
+  display: flex;
+  gap: 3px;
+}
+.star { color: var(--accent); font-size: 16px; }
+.review-quote {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-style: italic;
+  color: var(--heading-dark);
+  line-height: 1.55;
+  flex: 1;
+}
+.review-author {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--body-text);
+  letter-spacing: 0.02em;
+}
+
+/* ── CTA section ────────────────────────────────────────────────────────── */
+#cta {
+  background: var(--outer-chrome);
+  padding: 96px 48px;
+}
+.cta-banner {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: var(--heading-dark);
+  border-radius: 12px;
+  padding: 80px 64px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(90,145,137,0.2) 0%, transparent 70%);
+}
+.cta-inner { position: relative; z-index: 1; }
+.cta-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--deco-line);
+  margin-bottom: 20px;
+  opacity: 0.75;
+}
+.cta-heading {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.5vw, 58px);
+  font-weight: 600;
+  color: #FFFFFF;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  margin-bottom: 20px;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,0.72);
+  max-width: 480px;
+  margin: 0 auto 40px;
+  line-height: 1.65;
+}
+.cta-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── Footer ────────────────────────────────────────────────────────────── */
+footer {
+  background: var(--heading-dark);
+  padding: 48px 48px;
+}
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.footer-logo {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--deco-line);
+}
+.footer-logo .logo-bullet { color: var(--accent); margin-right: 2px; }
+.footer-logo .logo-dash { color: rgba(143,191,184,0.4); margin: 0 2px; }
+.footer-links { display: flex; gap: 28px; list-style: none; }
+.footer-links a {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(143,191,184,0.6);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.footer-links a:hover { color: var(--deco-line); }
+.footer-copy { font-size: 12px; color: rgba(143,191,184,0.35); }
+
+/* ── Design system panel ────────────────────────────────────────────────── */
+.ds-panel {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 380px;
+  background: #0A1614;
+  color: #7ABBB3;
+  font-family: var(--font-body);
+  font-size: 12px;
+  overflow-y: auto;
+  z-index: 300;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  border-left: 1px solid #1A2E2A;
+}
+.ds-panel.open { transform: translateX(0); }
+.ds-panel-header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid #1A2E2A;
+  position: sticky; top: 0;
+  background: #0A1614;
+  z-index: 1;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.ds-panel-title { font-size: 13px; font-weight: 600; color: #A8D8D0; }
+.ds-panel-close {
+  background: none; border: none; color: #3A6060; cursor: pointer; font-size: 18px; line-height: 1;
+}
+.ds-section { padding: 20px 20px 0; }
+.ds-section-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #2A5050;
+  margin-bottom: 12px;
+}
+.ds-divider { border: none; border-top: 1px solid #1A2E2A; margin: 20px 0 0; }
+
+/* Palette swatches */
+.palette-grid { display: flex; flex-direction: column; gap: 6px; margin-bottom: 4px; }
+.swatch-row { display: flex; align-items: center; gap: 10px; }
+.swatch { width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.06); }
+.swatch-info { flex: 1; }
+.swatch-role { font-size: 11px; color: #7ABBB3; }
+.swatch-hex  { font-size: 10px; color: #2A5050; font-variant-numeric: tabular-nums; }
+
+/* Type specimen */
+.type-display { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; color: #7ABBB3; line-height: 1.2; margin-bottom: 6px; }
+.type-body    { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #4A8A82; line-height: 1.5; margin-bottom: 4px; }
+.type-meta    { font-size: 10px; color: #2A5050; }
+
+/* Token grid */
+.token-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 4px; }
+.token-cell { background: #0E2022; border-radius: 6px; padding: 8px 10px; }
+.token-id   { font-size: 10px; color: #2A5050; margin-bottom: 2px; }
+.token-val  { font-size: 13px; font-weight: 600; color: #7ABBB3; }
+.token-sub  { font-size: 10px; color: #1A3830; }
+
+/* Checks */
+.check-list  { display: flex; flex-direction: column; gap: 8px; padding-bottom: 24px; }
+.check-item  { background: #0E2022; border-radius: 6px; padding: 9px 10px; font-size: 11px; color: #4A8A82; line-height: 1.45; }
+.check-item::before { content: '✓ '; color: #5A9189; font-weight: 700; }
+
+/* Novel list */
+.novel-list { display: flex; flex-direction: column; gap: 8px; }
+.novel-item { background: rgba(90,145,137,0.08); border: 1px solid rgba(90,145,137,0.2); border-radius: 6px; padding: 9px 10px; }
+.novel-item-name { font-size: 11px; color: #7ABBB3; font-weight: 600; margin-bottom: 3px; }
+.novel-item-spec { font-size: 10.5px; color: #2A5A52; line-height: 1.4; }
+</style>
+</head>
+<body>
+
+<!-- ── Meta bar ─────────────────────────────────────────────────────────── -->
+<div class="meta-bar">
+  <span class="meta-name">Clearpath</span>
+  <span class="meta-sep">·</span>
+  <span>editorial-asymmetric</span>
+  <span class="meta-sep">·</span>
+  <span class="meta-mood">soft-gentle · modern-premium</span>
+  <div class="meta-bar-right">
+    <button class="meta-btn" id="annotate-btn" onclick="toggleAnnotations()">Annotations</button>
+    <button class="meta-btn active" id="panel-btn" onclick="togglePanel()">Design system ›</button>
+  </div>
+</div>
+
+<!-- ── Nav (white, desktop, sticky below meta bar) ──────────────────────── -->
+<nav>
+  <div class="nav-logo">
+    <span class="logo-bullet">•</span> Spring St.<span class="logo-dash"> — </span>Dentistry
+  </div>
+  <ul class="nav-links">
+    <li><a href="#">About</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Patients</a></li>
+    <li><a href="#">Journal</a></li>
+  </ul>
+  <a href="#" class="btn-pill btn-teal">BOOK A SESSION •</a>
+</nav>
+
+<!-- ── Hero — Poster layout ──────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-poster">
+    <!-- Simulated atmospheric photo ground -->
+    <div style="position:absolute;inset:0;background:linear-gradient(155deg,#3E6460 0%,#2A3A36 45%,#1A2A26 100%);"></div>
+    <!-- Warm glow overlay -->
+    <div class="hero-poster" style="position:absolute;inset:0;min-height:unset;border-radius:0;background:linear-gradient(135deg,rgba(200,184,162,0.18) 0%,rgba(74,122,114,0.28) 40%,rgba(30,46,42,0.0) 100%);"></div>
+
+    <!-- Decorative cursive line-art overlay -->
+    <svg class="hero-deco" viewBox="0 0 1100 620" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <path d="M 80 380 C 160 320, 220 440, 310 390 C 400 340, 360 260, 460 300 C 560 340, 530 430, 640 390 C 750 350, 720 250, 840 310 C 960 370, 980 460, 1060 420" stroke="#8FBFB8" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      <path d="M 120 480 C 200 450, 280 510, 380 470 C 480 430, 460 500, 560 490 C 660 480, 700 520, 800 500 C 900 480, 950 540, 1020 510" stroke="#8FBFB8" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.6"/>
+    </svg>
+
+    <!-- Overlaid nav (reversed white) -->
+    <div class="hero-nav">
+      <div class="nav-logo">
+        <span class="logo-bullet">•</span> Spring St.<span class="logo-dash"> — </span>Dentistry
+      </div>
+      <ul class="nav-links" style="margin-left:auto; margin-right:36px;">
+        <li><a href="#" style="color:rgba(255,255,255,0.85);">About</a></li>
+        <li><a href="#" style="color:rgba(255,255,255,0.85);">Services</a></li>
+        <li><a href="#" style="color:rgba(255,255,255,0.85);">Patients</a></li>
+        <li><a href="#" style="color:rgba(255,255,255,0.85);">Journal</a></li>
+      </ul>
+      <a href="#" class="btn-pill btn-teal-outline">BOOK A SESSION •</a>
+    </div>
+
+    <!-- Hero content: headline bottom-left, sub + CTA bottom-right -->
+    <div class="hero-content">
+      <div>
+        <h1 class="hero-headline">A Smile That Shapes Your Confidence.</h1>
+      </div>
+      <div class="hero-right">
+        <p class="hero-sub">Personalized, comfortable dental care designed around your goals, your pace, your needs — right here in Long Beach.</p>
+        <a href="#" class="btn-pill btn-teal">START YOUR JOURNEY •</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Services Intro — Novel: Split Heading with Decorative Toggle Motif ── -->
+<section id="services-intro">
+  <div class="services-intro-inner novel-flag" style="position:relative;">
+    <div class="novel-label">Novel — Split Heading with Decorative Toggle Motif</div>
+    <div class="deco-toggle-wrap">
+      <span class="deco-toggle-eyebrow">Services</span>
+      <div class="deco-toggle">
+        <div class="deco-toggle-knob"></div>
+        <span class="deco-toggle-label">Balance</span>
+      </div>
+    </div>
+    <h2 class="split-heading">
+      <span class="line-dark">There may not be a single answer,</span>
+      <span class="line-teal">but there are clear steps forward.</span>
+    </h2>
+    <p class="services-intro-body">From routine cleanings to complete smile transformations, we offer everything your family needs — thoughtfully, under one roof. Every treatment is designed around you.</p>
+  </div>
+</section>
+
+<!-- ── Staggered Portrait Card Row — Novel ───────────────────────────────── -->
+<section id="services-cards" style="padding-top:0;">
+  <div class="novel-flag" style="position:relative;max-width:1100px;margin:0 auto;">
+    <div class="novel-label">Novel — Staggered Portrait Card Row</div>
+    <div class="staggered-row">
+      <div class="portrait-card">
+        <div class="portrait-card-photo card-1"></div>
+        <div class="portrait-card-overlay"></div>
+        <div class="portrait-card-body">
+          <div class="portrait-card-title">Cosmetic Dentistry</div>
+          <div class="portrait-card-desc">Enhance your smile's appearance with personalized treatments designed to boost your confidence.</div>
+        </div>
+      </div>
+      <div class="portrait-card">
+        <div class="portrait-card-photo card-2"></div>
+        <div class="portrait-card-overlay"></div>
+        <div class="portrait-card-body">
+          <div class="portrait-card-title">Clear Aligners</div>
+          <div class="portrait-card-desc">Straighten your teeth discreetly with custom aligners that fit your lifestyle and schedule.</div>
+        </div>
+      </div>
+      <div class="portrait-card">
+        <div class="portrait-card-photo card-3"></div>
+        <div class="portrait-card-overlay"></div>
+        <div class="portrait-card-body">
+          <div class="portrait-card-title">Dental Implants</div>
+          <div class="portrait-card-desc">Replace missing teeth permanently with implants that look, feel, and function like your natural teeth.</div>
+        </div>
+      </div>
+      <div class="portrait-card">
+        <div class="portrait-card-photo card-4"></div>
+        <div class="portrait-card-overlay"></div>
+        <div class="portrait-card-body">
+          <div class="portrait-card-title">Preventive Care</div>
+          <div class="portrait-card-desc">Regular cleanings and exams designed to protect your smile for the long run.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Stats — Novel: Oversized Accent Numeral Row ──────────────────────── -->
+<section id="stats">
+  <div class="stats-inner novel-flag" style="position:relative;">
+    <div class="novel-label">Novel — Oversized Accent Numeral Row</div>
+    <div class="stats-header">
+      <div class="stats-header-left">
+        <h2 class="split-heading">
+          <span class="line-dark">A practice built on</span>
+          <span class="line-teal">trust and results.</span>
+        </h2>
+      </div>
+      <div class="stats-header-right">
+        Every number reflects a patient who moved forward — at their own pace, on their own path. These milestones belong to the community we call home.
+      </div>
+    </div>
+    <div class="stats-numeral-row">
+      <div class="stat-unit">
+        <div class="stat-numeral">52+</div>
+        <div class="stat-label">5★ Rating</div>
+      </div>
+      <div class="stat-unit">
+        <div class="stat-numeral">10+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-unit">
+        <div class="stat-numeral">2,000+</div>
+        <div class="stat-label">Patients Served</div>
+      </div>
+      <div class="stat-unit">
+        <div class="stat-numeral">100%</div>
+        <div class="stat-label">Satisfaction</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Doctor Intro — editorial-full aboutLayout ─────────────────────────── -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-photo">
+      <div class="about-photo-deco"></div>
+    </div>
+    <div class="about-content">
+      <div class="about-eyebrow">About Dr. Hoang</div>
+      <div class="about-name">Dr. Anthony Hoang</div>
+      <div class="about-creds">DMD · Spring St. Dentistry, Long Beach</div>
+      <p class="about-bio">Dr. Anthony Hoang is a Long Beach and Lakewood native who considers it a genuine privilege to practice dentistry in the community where he grew up. After earning his DMD from Tufts University School of Dental Medicine, he completed a General Practice Residency at the Loma Linda VA Medical Center.</p>
+      <div class="about-rule"></div>
+      <p class="about-bio">What drives Dr. Hoang every day is the human side of dentistry — the relationships he builds with patients and the trust they place in him, visit after visit. He has a special gift for putting nervous patients at ease.</p>
+      <div class="about-rule"></div>
+      <p class="about-bio">Whether you're coming in for a routine cleaning or a more involved procedure, Dr. Hoang is committed to making sure you feel heard, respected, and well cared for.</p>
+      <a href="#" class="btn-pill btn-teal-outline-dark">Meet Dr. Hoang •</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Reviews ────────────────────────────────────────────────────────────── -->
+<section id="reviews">
+  <div class="reviews-header">
+    <span class="eyebrow-label">Patient Stories</span>
+    <h2>What our patients say about Spring St. Dentistry.</h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <div class="review-quote">"From the moment you walk in, you feel at ease. Dr. Hoang is truly the best — caring, patient, and takes his time so you never feel rushed. My husband used to be terrified of the dentist. Now he won't miss an appointment."</div>
+      <div class="review-author">Barbara A.</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <div class="review-quote">"I've been coming here my whole life — the only dentist for me. Dr. Hoang and the team always make sure I'm comfortable and happy. Twenty-two years, not a single bad experience."</div>
+      <div class="review-author">Chad Bierman</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <div class="review-quote">"Kind and attentive, I felt super comfortable with them — very professional and empathetic. I recommend 100%."</div>
+      <div class="review-author">Sofia Escobar</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA — centered-banner ctaLayout ───────────────────────────────────── -->
+<section id="cta">
+  <div class="cta-banner">
+    <div class="cta-inner">
+      <div class="cta-eyebrow">Your next step</div>
+      <h2 class="cta-heading">Your healthiest smile starts in Long Beach.</h2>
+      <p class="cta-sub">Whether it's been six months or six years, we're here to help you move forward — at your own pace, designed around you.</p>
+      <div class="cta-actions">
+        <a href="#" class="btn-pill btn-teal">START YOUR JOURNEY •</a>
+        <a href="#" class="btn-pill btn-teal-outline">Call (562) 420-8578</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer — minimal-dark ─────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <span class="logo-bullet">•</span> Spring St.<span class="logo-dash"> — </span>Dentistry
+    </div>
+    <ul class="footer-links">
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Patients</a></li>
+      <li><a href="#">Journal</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Spring St. Dentistry · Long Beach, CA</div>
+  </div>
+</footer>
+
+<!-- ── Design system panel ────────────────────────────────────────────────── -->
+<div class="ds-panel open" id="ds-panel">
+  <div class="ds-panel-header">
+    <div class="ds-panel-title">Clearpath — Design System</div>
+    <button class="ds-panel-close" onclick="togglePanel()">×</button>
+  </div>
+
+  <div class="ds-section">
+    <div class="ds-section-label">Color palette</div>
+    <div class="palette-grid">
+      <div class="swatch-row"><div class="swatch" style="background:#FFFFFF; border-color:#1A3830;"></div><div class="swatch-info"><div class="swatch-role">pageBackground</div><div class="swatch-hex">#FFFFFF</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#F4F4F2;"></div><div class="swatch-info"><div class="swatch-role">outerChrome</div><div class="swatch-hex">#F4F4F2</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#5A9189;"></div><div class="swatch-info"><div class="swatch-role">accent</div><div class="swatch-hex">#5A9189</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#4A7A72;"></div><div class="swatch-info"><div class="swatch-role">accentCardOverlay</div><div class="swatch-hex">#4A7A72</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#1E2E2A;"></div><div class="swatch-info"><div class="swatch-role">headingDark</div><div class="swatch-hex">#1E2E2A</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#3D4F4A;"></div><div class="swatch-info"><div class="swatch-role">bodyText</div><div class="swatch-hex">#3D4F4A</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#8FBFB8;"></div><div class="swatch-info"><div class="swatch-role">decorativeLine</div><div class="swatch-hex">#8FBFB8</div></div></div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Typography</div>
+    <div class="type-display">Cormorant Garamond</div>
+    <div class="type-meta" style="margin-bottom:12px;">Display · editorial-serif substitute · semibold/bold · sentence case</div>
+    <div class="type-body">DM Sans — body, nav, UI text</div>
+    <div class="type-meta" style="margin-bottom:12px;">Body · humanist sans · light/regular</div>
+    <div style="margin-top:12px; padding:10px; background:#0E2022; border-radius:6px;">
+      <div class="type-meta" style="margin-bottom:4px;">Emphasis device</div>
+      <div style="font-size:11px; color:#4A8A82; line-height:1.4;">Split two-line headings: line 1 in headingDark (#1E2E2A), line 2 in accent teal (#5A9189). Color shift is the primary typographic identity marker.</div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Tokens</div>
+    <div class="token-grid">
+      <div class="token-cell">
+        <div class="token-id">Corner radius</div>
+        <div class="token-val">Pill</div>
+        <div class="token-sub">buttons · CTAs</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-id">Card radius</div>
+        <div class="token-val">md (12px)</div>
+        <div class="token-sub">hero · cards</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-id">Elevation</div>
+        <div class="token-val">Flat</div>
+        <div class="token-sub">no shadows</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-id">Density</div>
+        <div class="token-val">Airy</div>
+        <div class="token-sub">generous padding</div>
+      </div>
+      <div class="token-cell" style="grid-column:span 2;">
+        <div class="token-id">Motion</div>
+        <div class="token-val">Subtle</div>
+        <div class="token-sub">opacity transitions · 0.15–0.25s ease</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Novel components (3)</div>
+    <div class="novel-list">
+      <div class="novel-item">
+        <div class="novel-item-name">Staggered Portrait Card Row</div>
+        <div class="novel-item-spec">Four portrait-orientation cards in a horizontal row with alternating vertical offsets (odd cards ~40px higher). Each: sm corner radius, teal overlay gradient, white serif title top-left, white body text bottom-left. Maps to service/treatment categories.</div>
+      </div>
+      <div class="novel-item">
+        <div class="novel-item-name">Oversized Accent Numeral Row</div>
+        <div class="novel-item-spec">Four stat units on white: oversized teal numeral at ~72–84px in Cormorant Garamond, small dark descriptor label below. No containers, no borders — numbers float on white ground. Preceded by a split two-line heading.</div>
+      </div>
+      <div class="novel-item">
+        <div class="novel-item-name">Split Heading with Decorative Toggle Motif</div>
+        <div class="novel-item-spec">Small inline uppercase "SERVICES" eyebrow + a visual pill toggle element labeled "BALANCE" above the main heading. Below: line 1 near-black serif, line 2 teal serif. Toggle is visual/metaphorical only — not functional.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Fidelity checks (10)</div>
+    <div class="check-list">
+      <div class="check-item">Hero is full-bleed atmospheric poster with md corner radius and thin cursive SVG line-art overlay — removing line-art loses defining character.</div>
+      <div class="check-item">Split two-line headings: line 1 in headingDark serif, line 2 in muted teal accent — this color-shift emphasis is the primary typographic identity marker.</div>
+      <div class="check-item">Service/treatment cards use portrait orientation with semi-transparent teal overlay — not plain colored cards or icon tiles.</div>
+      <div class="check-item">Nav CTA and hero CTA use pill-radius with a bullet dot suffix (e.g. "BOOK A SESSION •") — the dot suffix is a recurring brand punctuation device.</div>
+      <div class="check-item">Eyebrow labels are small inline uppercase tracked text, never a badge or pill container. Used once per major section only.</div>
+      <div class="check-item">Stat numerals are oversized, in teal accent, and float without surrounding containers or card borders.</div>
+      <div class="check-item">Logo uses bullet dot prefix and em-dash separator: • Spring St. — Dentistry format.</div>
+      <div class="check-item">Body copy: light weight, small-to-medium size, relaxed line-height. The contrast between large bold serif headings and delicate body text is essential to the airy density.</div>
+      <div class="check-item">Single muted teal accent carries all interactive and emphasis work — logo, nav links, CTA fills, split heading line 2, stat numerals. No secondary accent competes.</div>
+      <div class="check-item">Page density remains airy — generous vertical padding between sections. Never compress sections to fit more content above the fold.</div>
+    </div>
+  </div>
+
+</div><!-- /ds-panel -->
+
+<script>
+function togglePanel() {
+  const panel = document.getElementById('ds-panel');
+  const btn = document.getElementById('panel-btn');
+  panel.classList.toggle('open');
+  btn.classList.toggle('active');
+}
+function toggleAnnotations() {
+  document.body.classList.toggle('show-annotations');
+  document.getElementById('annotate-btn').classList.toggle('active');
+}
+// Open panel by default
+document.getElementById('ds-panel').classList.add('open');
+</script>
+</body>
+</html>

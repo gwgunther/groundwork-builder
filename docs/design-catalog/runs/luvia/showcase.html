@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luvia — Design System Showcase · Spring St. Dentistry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ── Design tokens ─────────────────────────────────────────────────────── */
+:root {
+  --canvas:          #F5EEE3;
+  --panel:           #FFFFFF;
+  --card-surface:    #F5F0EA;
+  --accent:          #C84A28;
+  --accent-hover:    #A83B1E;
+  --heading:         #1C1512;
+  --body-text:       #4A3D35;
+  --muted:           #9E9088;
+  --btn-sec-fill:    #F5F0EA;
+  --btn-sec-text:    #4A3D35;
+  --btn-sec-border:  #E0D8CF;
+  --divider:         #E8E0D6;
+  --chip-border:     #D8D0C8;
+  --chip-text:       #9E9088;
+
+  --font-display: 'Instrument Serif', 'Playfair Display', Georgia, serif;
+  --font-body:    'DM Sans', -apple-system, sans-serif;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--body-text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Showcase meta bar ──────────────────────────────────────────────────── */
+.meta-bar {
+  background: #18120e;
+  color: #c8a070;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.4px;
+  padding: 8px 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  flex-wrap: wrap;
+}
+.meta-bar .meta-name { font-weight: 600; color: #e8c898; }
+.meta-bar .meta-sep  { color: #3a2810; }
+.meta-bar-right { margin-left: auto; display: flex; gap: 8px; }
+.meta-btn {
+  background: rgba(200,160,80,0.12);
+  border: 1px solid rgba(200,160,80,0.22);
+  color: #c8a070;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: background 0.15s;
+}
+.meta-btn:hover { background: rgba(200,160,80,0.22); }
+.meta-btn.active { background: rgba(200,160,80,0.28); color: #e8c898; }
+
+/* ── Novel section callout ─────────────────────────────────────────────── */
+.novel-flag { position: relative; }
+.novel-label {
+  display: none;
+  position: absolute;
+  top: 12px; right: 12px;
+  background: rgba(200,74,40,0.10);
+  border: 1px solid rgba(200,74,40,0.28);
+  color: #C84A28;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 4px;
+  z-index: 10;
+}
+body.show-annotations .novel-label { display: block; }
+body.show-annotations .novel-flag  { outline: 1px dashed rgba(200,74,40,0.2); }
+
+/* ── Shared utilities ───────────────────────────────────────────────────── */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.15s, background 0.15s;
+  border: none;
+}
+.btn-pill:hover { opacity: 0.88; }
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  padding: 11px 26px;
+  font-size: 13.5px;
+}
+.btn-primary:hover { background: var(--accent-hover); opacity: 1; }
+.btn-secondary {
+  background: var(--btn-sec-fill);
+  color: var(--btn-sec-text);
+  padding: 11px 26px;
+  font-size: 13.5px;
+  border: 1px solid var(--btn-sec-border);
+}
+
+.eyebrow-chip {
+  display: inline-block;
+  border: 1px solid var(--chip-border);
+  color: var(--chip-text);
+  border-radius: 999px;
+  padding: 4px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  letter-spacing: 0.1px;
+  background: var(--panel);
+}
+
+.section-inner { max-width: 1080px; margin: 0 auto; }
+
+/* ── Split section header ───────────────────────────────────────────────── */
+.split-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+  margin-bottom: 40px;
+}
+.split-header-left { flex: 1; min-width: 0; }
+.split-header-right {
+  max-width: 280px;
+  flex-shrink: 0;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.55;
+  text-align: right;
+  padding-bottom: 4px;
+}
+.split-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.5vw, 44px);
+  color: var(--heading);
+  line-height: 1.12;
+  letter-spacing: -0.2px;
+}
+
+/* ── Page wrapper (canvas + centered content panel) ─────────────────────── */
+.page-wrapper {
+  padding: 24px;
+  padding-right: calc(24px + 380px + 0px); /* room for DS panel */
+}
+@media (max-width: 900px) {
+  .page-wrapper { padding-right: 24px; }
+}
+
+/* ── Hero + Nav panel ────────────────────────────────────────────────────── */
+.hero-panel {
+  background: var(--panel);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Nav inside the panel */
+.site-nav {
+  display: flex;
+  align-items: center;
+  padding: 20px 40px;
+  gap: 0;
+  border-bottom: 1px solid var(--divider);
+}
+.nav-logo {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--heading);
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+}
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  margin: 0 auto;
+}
+.nav-links a {
+  font-size: 13.5px;
+  color: var(--body-text);
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--heading); }
+
+/* Hero content inside panel */
+.hero-body {
+  display: flex;
+  align-items: center;
+  padding: 64px 40px 56px;
+  gap: 0;
+  min-height: 420px;
+  position: relative;
+}
+.hero-text {
+  flex: 0 0 52%;
+  max-width: 52%;
+  z-index: 2;
+}
+.hero-text h1 {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 4.5vw, 60px);
+  color: var(--heading);
+  line-height: 1.08;
+  letter-spacing: -0.5px;
+  margin-bottom: 20px;
+  max-width: 480px;
+}
+.hero-text .hero-sub {
+  font-size: 15px;
+  color: var(--body-text);
+  max-width: 420px;
+  margin-bottom: 36px;
+  line-height: 1.65;
+  opacity: 0.85;
+}
+.hero-text .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* Abstract fluid art */
+.hero-art {
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 52%;
+  overflow: hidden;
+  border-radius: 0 20px 20px 0;
+}
+.hero-art svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Stat badges row */
+.stat-badges {
+  display: flex;
+  gap: 40px;
+  padding: 24px 40px 36px;
+  border-top: 1px solid var(--divider);
+}
+.stat-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.stat-badge-icon {
+  width: 36px; height: 36px;
+  background: var(--card-surface);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.stat-badge-icon svg { width: 18px; height: 18px; stroke: var(--heading); fill: none; stroke-width: 1.5; }
+.stat-badge-label { font-size: 14px; font-weight: 600; color: var(--heading); line-height: 1.2; }
+.stat-badge-desc   { font-size: 12px; color: var(--muted); line-height: 1.3; }
+
+/* ── Section spacing ────────────────────────────────────────────────────── */
+.content-section {
+  background: var(--panel);
+  border-radius: 20px;
+  padding: 64px 40px;
+  margin-top: 16px;
+}
+
+/* ── Bento Impact Grid (Novel) ───────────────────────────────────────────── */
+.bento-grid {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 12px;
+  align-items: stretch;
+}
+.bento-accent-card {
+  background: var(--accent);
+  border-radius: 16px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 460px;
+}
+.bento-accent-card .service-pillars { display: flex; flex-direction: column; gap: 18px; margin-bottom: 32px; }
+.pillar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pillar-icon {
+  width: 20px; height: 20px;
+  flex-shrink: 0;
+}
+.pillar-icon svg { width: 18px; height: 18px; stroke: rgba(255,255,255,0.85); fill: none; stroke-width: 1.6; }
+.pillar-label { font-size: 14px; color: rgba(255,255,255,0.92); font-weight: 500; }
+
+.bento-testimonial {
+  border-top: 1px solid rgba(255,255,255,0.2);
+  padding-top: 20px;
+}
+.bento-stars { display: flex; gap: 3px; margin-bottom: 8px; }
+.bento-stars svg { width: 14px; height: 14px; fill: rgba(255,255,255,0.9); }
+.bento-quote { font-size: 13px; color: rgba(255,255,255,0.88); line-height: 1.55; margin-bottom: 10px; }
+.bento-quote strong { color: #fff; }
+.bento-author { font-size: 12px; color: rgba(255,255,255,0.65); }
+
+.bento-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.metric-card {
+  background: var(--card-surface);
+  border-radius: 14px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 220px;
+}
+.metric-numeral {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 5vw, 80px);
+  color: var(--heading);
+  line-height: 1;
+  letter-spacing: -2px;
+  margin-bottom: auto;
+}
+.metric-desc {
+  font-size: 13px;
+  color: var(--body-text);
+  line-height: 1.5;
+  margin-top: 20px;
+  opacity: 0.8;
+}
+
+/* ── Features grid ───────────────────────────────────────────────────────── */
+.features-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.features-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.5vw, 44px);
+  color: var(--heading);
+  line-height: 1.12;
+  margin-bottom: 12px;
+}
+.features-header p { font-size: 15px; color: var(--body-text); max-width: 520px; margin: 0 auto; opacity: 0.8; }
+
+.features-layout {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 12px;
+  align-items: start;
+}
+.features-col { display: flex; flex-direction: column; gap: 12px; }
+.feature-card {
+  background: var(--card-surface);
+  border-radius: 14px;
+  padding: 28px 24px;
+}
+.feature-icon {
+  width: 32px; height: 32px;
+  margin-bottom: 14px;
+}
+.feature-icon svg { width: 22px; height: 22px; stroke: var(--heading); fill: none; stroke-width: 1.5; }
+.feature-card h3 {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--heading);
+  margin-bottom: 6px;
+}
+.feature-card p { font-size: 13.5px; color: var(--body-text); line-height: 1.55; opacity: 0.85; }
+
+.features-center-image {
+  width: 240px;
+  flex-shrink: 0;
+}
+.features-portrait {
+  width: 100%;
+  aspect-ratio: 3/4;
+  border-radius: 14px;
+  overflow: hidden;
+  background: linear-gradient(160deg, #e8ddd0 0%, #d4c8b8 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 24px;
+}
+
+/* ── Doctor About ────────────────────────────────────────────────────────── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.about-image {
+  border-radius: 14px;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: linear-gradient(145deg, #e8ddd0 0%, #cfc3b0 100%);
+}
+.about-text h3 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--heading);
+  margin-bottom: 16px;
+  line-height: 1.25;
+}
+.about-text p { font-size: 15px; margin-bottom: 16px; color: var(--body-text); line-height: 1.65; }
+.about-text p:last-of-type { margin-bottom: 28px; }
+
+/* ── Reviews — Portrait Cards with Stat Overlay (Novel) ─────────────────── */
+.reviews-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 4px;
+}
+.review-card {
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  position: relative;
+  background: linear-gradient(165deg, #d8cfc5 0%, #bfb4a6 100%);
+}
+.review-card:nth-child(2) { background: linear-gradient(165deg, #c8b8a8 0%, #b0a090 100%); }
+.review-card:nth-child(3) { background: linear-gradient(165deg, #d0c8bc 0%, #beb4a8 100%); }
+
+.review-card-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 16px 18px;
+  background: linear-gradient(to top, rgba(20,14,10,0.72) 0%, transparent 100%);
+}
+.overlay-stat {
+  font-family: var(--font-display);
+  font-size: 32px;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.overlay-label {
+  font-size: 12px;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.3;
+}
+
+/* Review quote cards (below photo cards) */
+.reviews-quotes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+.review-quote-card {
+  background: var(--card-surface);
+  border-radius: 14px;
+  padding: 24px 20px;
+}
+.review-quote-stars {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 10px;
+}
+.review-quote-stars svg { width: 14px; height: 14px; fill: var(--accent); }
+.review-quote-text {
+  font-size: 13px;
+  color: var(--body-text);
+  line-height: 1.6;
+  margin-bottom: 12px;
+  opacity: 0.9;
+}
+.review-quote-author { font-size: 12px; font-weight: 600; color: var(--heading); }
+
+/* ── FAQ ───────────────────────────────────────────────────────────────── */
+.faq-section {
+  background: var(--card-surface);
+  border-radius: 20px;
+  padding: 64px 40px;
+  margin-top: 16px;
+}
+.faq-section h2 {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3vw, 38px);
+  color: var(--heading);
+  margin-bottom: 8px;
+}
+.faq-sub { font-size: 14px; color: var(--muted); margin-bottom: 40px; }
+.faq-list { max-width: 720px; }
+.faq-item { border-bottom: 1px solid var(--divider); }
+.faq-q {
+  width: 100%;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  cursor: pointer;
+  text-align: left;
+  gap: 16px;
+}
+.faq-q-text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--heading);
+}
+.faq-icon {
+  font-size: 22px;
+  color: var(--chip-text);
+  flex-shrink: 0;
+  transition: transform 0.2s;
+  line-height: 1;
+  font-weight: 300;
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-a {
+  font-size: 14px;
+  color: var(--body-text);
+  padding: 0 0 20px;
+  display: none;
+  max-width: 600px;
+  line-height: 1.7;
+}
+.faq-item.open .faq-a { display: block; }
+
+/* ── CTA ───────────────────────────────────────────────────────────────── */
+.cta-section {
+  background: var(--panel);
+  border-radius: 20px;
+  padding: 96px 40px;
+  text-align: center;
+  margin-top: 16px;
+}
+.cta-section h2 {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4vw, 52px);
+  color: var(--heading);
+  margin-bottom: 16px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.1;
+}
+.cta-section p { font-size: 15px; max-width: 460px; margin: 0 auto 36px; opacity: 0.78; color: var(--body-text); }
+.cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* ── Footer ────────────────────────────────────────────────────────────── */
+.site-footer {
+  background: var(--panel);
+  border-radius: 20px;
+  border-top: 1px solid var(--divider);
+  padding: 36px 40px;
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.footer-logo { font-family: var(--font-body); font-weight: 700; font-size: 14px; color: var(--heading); }
+.footer-links { display: flex; gap: 24px; list-style: none; }
+.footer-links a { font-size: 13px; color: var(--chip-text); text-decoration: none; }
+.footer-links a:hover { color: var(--heading); }
+.footer-copy { font-size: 12px; color: var(--chip-text); }
+
+/* ── Design system panel ────────────────────────────────────────────────── */
+.ds-panel {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 380px;
+  background: #18120e;
+  color: #c8a070;
+  font-family: var(--font-body);
+  font-size: 12px;
+  overflow-y: auto;
+  z-index: 300;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  border-left: 1px solid #281c12;
+}
+.ds-panel.open { transform: translateX(0); }
+.ds-panel-header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid #281c12;
+  position: sticky; top: 0;
+  background: #18120e;
+  z-index: 1;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.ds-panel-title { font-size: 13px; font-weight: 600; color: #e8c898; }
+.ds-panel-close {
+  background: none; border: none; color: #5a4030; cursor: pointer; font-size: 20px; line-height: 1;
+}
+.ds-panel-close:hover { color: #c8a070; }
+.ds-section { padding: 20px 20px 0; }
+.ds-section-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: #5a4030;
+  margin-bottom: 12px;
+}
+.ds-divider { border: none; border-top: 1px solid #281c12; margin: 20px 0 0; }
+
+/* Swatches */
+.palette-grid { display: flex; flex-direction: column; gap: 6px; margin-bottom: 4px; }
+.swatch-row { display: flex; align-items: center; gap: 10px; }
+.swatch { width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.06); }
+.swatch-info { flex: 1; }
+.swatch-role { font-size: 11px; color: #c8a070; }
+.swatch-hex  { font-size: 10px; color: #5a4030; font-variant-numeric: tabular-nums; }
+
+/* Type specimens */
+.type-display { font-family: 'Instrument Serif', 'Playfair Display', Georgia, serif; font-size: 24px; color: #c8a070; line-height: 1.15; margin-bottom: 4px; }
+.type-body    { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #9a7858; line-height: 1.5; margin-bottom: 4px; }
+.type-meta    { font-size: 10px; color: #5a4030; margin-bottom: 12px; }
+
+/* Token grid */
+.token-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 4px; }
+.token-cell { background: #211610; border-radius: 6px; padding: 9px 10px; }
+.token-id  { font-size: 10px; color: #5a4030; margin-bottom: 2px; }
+.token-val { font-size: 13px; font-weight: 600; color: #c8a070; }
+.token-sub { font-size: 10px; color: #3e2a18; }
+
+/* Checks */
+.check-list { display: flex; flex-direction: column; gap: 8px; padding-bottom: 24px; }
+.check-item { background: #211610; border-radius: 6px; padding: 9px 10px; font-size: 11px; color: #9a7858; line-height: 1.45; }
+.check-item::before { content: '✓ '; color: #6ab880; font-weight: 700; }
+
+/* Novel list */
+.novel-list { display: flex; flex-direction: column; gap: 8px; }
+.novel-item { background: rgba(200,74,40,0.08); border: 1px solid rgba(200,74,40,0.18); border-radius: 6px; padding: 10px 11px; }
+.novel-item-name { font-size: 11px; color: #e87848; font-weight: 600; margin-bottom: 4px; }
+.novel-item-spec { font-size: 10.5px; color: #6a4828; line-height: 1.45; }
+</style>
+</head>
+<body>
+
+<!-- ── Meta bar ─────────────────────────────────────────────────────────── -->
+<div class="meta-bar">
+  <span class="meta-name">Luvia</span>
+  <span class="meta-sep">·</span>
+  <span>warm-editorial</span>
+  <span class="meta-sep">·</span>
+  <span>modern-premium · warm-neighborhood</span>
+  <span class="meta-sep">·</span>
+  <span style="color:#e8c898">3 novel components</span>
+  <div class="meta-bar-right">
+    <button class="meta-btn" id="annotate-btn" onclick="toggleAnnotations()">Annotations</button>
+    <button class="meta-btn active" id="panel-btn" onclick="togglePanel()">Design system ›</button>
+  </div>
+</div>
+
+<div class="page-wrapper">
+
+  <!-- ── Hero + Nav panel (Novel: contained-rounded-card nav + abstract art) ── -->
+  <div class="hero-panel novel-flag">
+    <div class="novel-label">Novel — Contained-Card Nav + Abstract Fluid Art Hero</div>
+
+    <!-- Nav inside the panel -->
+    <nav class="site-nav">
+      <div class="nav-logo">Spring St. Dentistry</div>
+      <ul class="nav-links">
+        <li><a href="#">Services</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Patient Stories</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <a href="#" class="btn-pill btn-primary" style="font-size:13px; padding:9px 22px;">Schedule Your Visit</a>
+    </nav>
+
+    <!-- Hero body -->
+    <div class="hero-body">
+      <div class="hero-text">
+        <h1>Long Beach's trusted dentist on Spring Street.</h1>
+        <p class="hero-sub">Spring St. Dentistry delivers personalized, comfortable dental care for every member of your Long Beach family — from routine cleanings to complete smile transformations.</p>
+        <div class="hero-ctas">
+          <a href="#" class="btn-pill btn-primary">Schedule Your Visit</a>
+          <a href="#" class="btn-pill btn-secondary">Explore Our Services</a>
+        </div>
+      </div>
+
+      <!-- Abstract fluid gradient art -->
+      <div class="hero-art">
+        <svg viewBox="0 0 600 460" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="rg1" cx="55%" cy="45%" r="55%">
+              <stop offset="0%" stop-color="#C84A28" stop-opacity="0.55"/>
+              <stop offset="60%" stop-color="#E8A880" stop-opacity="0.30"/>
+              <stop offset="100%" stop-color="#F5EEE3" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="rg2" cx="70%" cy="60%" r="45%">
+              <stop offset="0%" stop-color="#D4784A" stop-opacity="0.40"/>
+              <stop offset="100%" stop-color="#F5EEE3" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="rg3" cx="40%" cy="30%" r="40%">
+              <stop offset="0%" stop-color="#E8C8A0" stop-opacity="0.45"/>
+              <stop offset="100%" stop-color="#F5EEE3" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect width="600" height="460" fill="#FBF7F2"/>
+          <!-- Outer ring -->
+          <ellipse cx="380" cy="220" rx="260" ry="240" fill="none" stroke="#C84A28" stroke-width="56" stroke-opacity="0.13"/>
+          <!-- Mid ring -->
+          <ellipse cx="380" cy="220" rx="185" ry="172" fill="none" stroke="#C84A28" stroke-width="44" stroke-opacity="0.18"/>
+          <!-- Inner ring -->
+          <ellipse cx="380" cy="220" rx="110" ry="104" fill="none" stroke="#D45E38" stroke-width="38" stroke-opacity="0.22"/>
+          <!-- Core blob -->
+          <ellipse cx="380" cy="220" rx="58" ry="56" fill="#C84A28" fill-opacity="0.28"/>
+          <!-- Glow overlays -->
+          <rect width="600" height="460" fill="url(#rg1)"/>
+          <rect width="600" height="460" fill="url(#rg2)"/>
+          <rect width="600" height="460" fill="url(#rg3)"/>
+          <!-- Fade left edge to white -->
+          <defs>
+            <linearGradient id="fade-left" x1="0%" y1="0%" x2="40%" y2="0%">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <rect width="600" height="460" fill="url(#fade-left)"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Stat badges row -->
+    <div class="stat-badges">
+      <div class="stat-badge">
+        <div class="stat-badge-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <div>
+          <div class="stat-badge-label">+500 Patients</div>
+          <div class="stat-badge-desc">Long Beach families served</div>
+        </div>
+      </div>
+      <div class="stat-badge">
+        <div class="stat-badge-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div>
+          <div class="stat-badge-label">+10 Years</div>
+          <div class="stat-badge-desc">Trusted neighborhood dentist</div>
+        </div>
+      </div>
+      <div class="stat-badge">
+        <div class="stat-badge-icon">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div>
+          <div class="stat-badge-label">5★ Rating</div>
+          <div class="stat-badge-desc">Proven results — 52 reviews</div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /hero-panel -->
+
+  <!-- ── Bento Impact Grid (Novel) ────────────────────────────────────────── -->
+  <div class="content-section novel-flag">
+    <div class="novel-label">Novel — Bento Impact Grid with Accent Anchor Card</div>
+
+    <div class="split-header">
+      <div class="split-header-left">
+        <span class="eyebrow-chip">Our Impact</span>
+        <h2>Scale your smile.</h2>
+      </div>
+      <div class="split-header-right">
+        Experience personalized dental care designed for lasting results and whole-family health.</div>
+    </div>
+
+    <div class="bento-grid">
+      <!-- Tall accent anchor card -->
+      <div class="bento-accent-card">
+        <div class="service-pillars">
+          <div class="pillar-row">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+            </div>
+            <span class="pillar-label">Clear Aligners</span>
+          </div>
+          <div class="pillar-row">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <span class="pillar-label">Cosmetic Dentistry</span>
+          </div>
+          <div class="pillar-row">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <span class="pillar-label">Dental Implants</span>
+          </div>
+          <div class="pillar-row">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </div>
+            <span class="pillar-label">Preventive Care</span>
+          </div>
+        </div>
+
+        <div class="bento-testimonial">
+          <div class="bento-stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="bento-quote"><strong>Spring St. Dentistry</strong> has completely changed how I think about my dental health — and I actually look forward to my appointments.</div>
+          <div class="bento-author">Barbara A · Long Beach, CA</div>
+        </div>
+      </div>
+
+      <!-- 2×2 metric cards -->
+      <div class="bento-metrics">
+        <div class="metric-card">
+          <div class="metric-numeral">98%</div>
+          <div class="metric-desc">Patient satisfaction score across all 2025 reviews.</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-numeral">52+</div>
+          <div class="metric-desc">Five-star reviews on Google from Long Beach patients.</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-numeral">500+</div>
+          <div class="metric-desc">Families who call Spring St. Dentistry their dental home.</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-numeral">24/7</div>
+          <div class="metric-desc">Emergency care coordination — always reachable when it matters.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Features / Services grid ─────────────────────────────────────────── -->
+  <div class="content-section">
+    <div class="features-header">
+      <span class="eyebrow-chip">What We Offer</span>
+      <h2>Comprehensive dental care on Spring Street.</h2>
+      <p>From routine cleanings to complete smile transformations, we offer everything your family needs under one roof.</p>
+    </div>
+
+    <div class="features-layout">
+      <!-- Left column -->
+      <div class="features-col">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <h3>Clear Aligners</h3>
+          <p>Straighten your teeth discreetly with custom aligners that fit your lifestyle and schedule.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          </div>
+          <h3>Cosmetic Dentistry</h3>
+          <p>Enhance your smile's appearance with personalized treatments designed to boost your confidence.</p>
+        </div>
+      </div>
+
+      <!-- Center portrait -->
+      <div class="features-center-image">
+        <div class="features-portrait">
+          <span style="font-size:11px; color:#9E9088; font-family:var(--font-body);">Patient portrait</span>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <div class="features-col">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3>Dental Implants</h3>
+          <p>Replace missing teeth permanently with implants that look, feel, and function like your natural teeth.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>Preventive Care</h3>
+          <p>Build personalized care routines that evolve with your dental health and keep problems from forming.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Doctor / About ─────────────────────────────────────────────────────── -->
+  <div class="content-section">
+    <span class="eyebrow-chip">Rooted in Long Beach</span>
+    <h2 style="font-family:var(--font-display); font-size:clamp(26px,3vw,40px); color:var(--heading); margin-bottom:12px; line-height:1.1;">Dentistry built on relationships.</h2>
+    <p style="max-width:480px; font-size:15px; opacity:0.8; margin-bottom:48px;">We take the time to understand your goals — and your comfort. Every visit is personal.</p>
+    <div class="about-grid">
+      <div class="about-image"></div>
+      <div class="about-text">
+        <h3>A Long Beach practice you can count on.</h3>
+        <p>Dr. Anthony Hoang grew up in Long Beach and Lakewood. After earning his DMD from Tufts University and completing his residency at the Loma Linda VA, he returned to the community he calls home.</p>
+        <p>What drives him every day is the human side of dentistry — the relationships built visit after visit, and the trust patients place in him. He has a particular gift for putting nervous patients at ease.</p>
+        <p>Whether you're in for a routine cleaning or a more involved procedure, every appointment is designed around your comfort and your goals.</p>
+        <a href="#" class="btn-pill btn-primary">Meet Dr. Hoang</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Reviews — Portrait Cards with Stat Overlay (Novel) ──────────────── -->
+  <div class="content-section novel-flag">
+    <div class="novel-label">Novel — Portrait Cards with Stat Overlay</div>
+
+    <div class="split-header">
+      <div class="split-header-left">
+        <span class="eyebrow-chip">Patient Stories</span>
+        <h2>Proven dental results.</h2>
+      </div>
+      <div class="split-header-right">We help Long Beach families maintain and transform their smiles — visit after visit.</div>
+    </div>
+
+    <!-- Portrait photo cards with stat overlays -->
+    <div class="reviews-cards">
+      <div class="review-card">
+        <div class="review-card-overlay">
+          <div class="overlay-stat">98%</div>
+          <div class="overlay-label">Patient Satisfaction Score</div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-card-overlay">
+          <div class="overlay-stat">500+</div>
+          <div class="overlay-label">Families Served in Long Beach</div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-card-overlay">
+          <div class="overlay-stat">5★</div>
+          <div class="overlay-label">Average Google Rating</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quote cards below -->
+    <div class="reviews-quotes">
+      <div class="review-quote-card">
+        <div class="review-quote-stars">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="review-quote-text">"From the moment you walk in, you're greeted like family. Dr. Hoang is caring, patient, and takes his time — you can tell he genuinely cares about his patients."</p>
+        <div class="review-quote-author">Barbara A.</div>
+      </div>
+      <div class="review-quote-card">
+        <div class="review-quote-stars">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="review-quote-text">"I've been coming here my whole life — the only dentist for me. Charlie was incredible, and these guys always make sure I'm comfortable and happy."</p>
+        <div class="review-quote-author">Chad Bierman</div>
+      </div>
+      <div class="review-quote-card">
+        <div class="review-quote-stars">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="review-quote-text">"Super kind and attentive, very professional and empathetic. I felt super comfortable — I recommend 100%."</p>
+        <div class="review-quote-author">Sofia Escobar</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FAQ ───────────────────────────────────────────────────────────────── -->
+  <div class="faq-section">
+    <span class="eyebrow-chip">What Patients Ask Us</span>
+    <h2>Your questions, answered.</h2>
+    <p class="faq-sub">What Long Beach patients ask Dr. Hoang most often.</p>
+    <div class="faq-list">
+      <div class="faq-item open">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">How do I schedule an appointment with Dr. Hoang?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Call Spring St. Dentistry at (562) 420-8578 to book. No referral needed — we welcome new patients for general and cosmetic dental care. Our team will find a time that works for you.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Do you see patients for dental emergencies?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Yes. If you're experiencing tooth pain, a broken tooth, or another urgent concern, call us at (562) 420-8578 and let us know it's an emergency. Dr. Hoang will work to get you seen promptly.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Does Spring St. Dentistry accept dental insurance?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">We work with a variety of plans and will help you understand your coverage before treatment begins. Call us to confirm your specific plan. Payment options are available for patients without insurance.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">What should I expect at my first visit?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Your first appointment includes a comprehensive exam with Dr. Hoang, a review of your dental and medical history, and X-rays if needed. Please arrive a few minutes early to complete any new-patient paperwork.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Am I a good candidate for clear aligners?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Most mild to moderate alignment issues can be addressed with clear aligners. Dr. Hoang will evaluate your bite and overall oral health to determine whether they're right for you.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CTA ───────────────────────────────────────────────────────────────── -->
+  <div class="cta-section">
+    <h2>Your healthiest smile starts in Long Beach.</h2>
+    <p>Whether it's been six months or six years, we're here to help you feel comfortable and confident in the chair.</p>
+    <div class="cta-btns">
+      <a href="#" class="btn-pill btn-primary">Schedule Your New Patient Visit</a>
+      <a href="#" class="btn-pill btn-secondary">Call (562) 420-8578</a>
+    </div>
+  </div>
+
+  <!-- ── Footer ────────────────────────────────────────────────────────────── -->
+  <div class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">Spring St. Dentistry</div>
+      <ul class="footer-links">
+        <li><a href="#">Services</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Patient Stories</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <div class="footer-copy">Spring St. Dentistry · Long Beach, CA · © 2026</div>
+    </div>
+  </div>
+
+</div><!-- /page-wrapper -->
+
+<!-- ── Design system panel ────────────────────────────────────────────────── -->
+<div class="ds-panel open" id="ds-panel">
+  <div class="ds-panel-header">
+    <div class="ds-panel-title">Luvia — Design System</div>
+    <button class="ds-panel-close" onclick="togglePanel()">×</button>
+  </div>
+
+  <div class="ds-section">
+    <div class="ds-section-label">Identity</div>
+    <div style="font-size:12px; color:#c8a070; line-height:1.5; margin-bottom:6px;"><strong style="color:#e8c898;">warm-editorial</strong> · modern-premium · warm-neighborhood</div>
+    <div style="font-size:11px; color:#6a4828; line-height:1.45;">Outcome-forward data-wellness template. Terra-cotta accent anchors confidence; linen canvas and rounded white panels create warmth. Best for premium cosmetic/implant practices.</div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Color palette</div>
+    <div class="palette-grid">
+      <div class="swatch-row"><div class="swatch" style="background:#F5EEE3"></div><div class="swatch-info"><div class="swatch-role">Canvas</div><div class="swatch-hex">#F5EEE3</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#FFFFFF; border-color:#3a2810"></div><div class="swatch-info"><div class="swatch-role">Content panel</div><div class="swatch-hex">#FFFFFF</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#F5F0EA"></div><div class="swatch-info"><div class="swatch-role">Card surface</div><div class="swatch-hex">#F5F0EA</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#C84A28"></div><div class="swatch-info"><div class="swatch-role">Accent / Primary button</div><div class="swatch-hex">#C84A28</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#A83B1E"></div><div class="swatch-info"><div class="swatch-role">Accent hover</div><div class="swatch-hex">#A83B1E</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#1C1512"></div><div class="swatch-info"><div class="swatch-role">Heading text</div><div class="swatch-hex">#1C1512</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#4A3D35"></div><div class="swatch-info"><div class="swatch-role">Body text</div><div class="swatch-hex">#4A3D35</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#9E9088"></div><div class="swatch-info"><div class="swatch-role">Muted text</div><div class="swatch-hex">#9E9088</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#E8E0D6"></div><div class="swatch-info"><div class="swatch-role">Divider</div><div class="swatch-hex">#E8E0D6</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#D8D0C8"></div><div class="swatch-info"><div class="swatch-role">Chip border</div><div class="swatch-hex">#D8D0C8</div></div></div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Typography</div>
+    <div class="type-display">Instrument Serif</div>
+    <div class="type-meta">Display · editorial-serif · bold · sentence case</div>
+    <div class="type-body">DM Sans — body, nav, UI, stat labels</div>
+    <div class="type-meta">Body · geometric sans · regular/medium</div>
+    <div style="font-family:'Instrument Serif',Georgia,serif; font-size:32px; color:#c8a070; line-height:1; margin: 10px 0 4px;">500+</div>
+    <div class="type-meta">Numeral style — oversized serif numeral in metric cards</div>
+    <div style="margin-top:12px; padding:10px; background:#211610; border-radius:6px;">
+      <div class="type-meta" style="margin-bottom:4px;">Signature device</div>
+      <div style="font-size:11px; color:#9a7858; line-height:1.4;">Terminal period on display headlines ('Scale your smile.') — declarative authority marker. Not a typo.</div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Tokens</div>
+    <div class="token-grid">
+      <div class="token-cell">
+        <div class="token-id">Corner radius</div>
+        <div class="token-val">20px panel</div>
+        <div class="token-sub">12–16px inner cards</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-id">Buttons + chips</div>
+        <div class="token-val">Pill</div>
+        <div class="token-sub">999px radius</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-id">Elevation</div>
+        <div class="token-val">Flat</div>
+        <div class="token-sub">no shadows</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-id">Density</div>
+        <div class="token-val">Airy</div>
+        <div class="token-sub">generous padding</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-id">Motion</div>
+        <div class="token-val">Subtle</div>
+        <div class="token-sub">opacity / color transitions</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-id">Border</div>
+        <div class="token-val">Hairline</div>
+        <div class="token-sub">1px warm neutral</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Novel components (3)</div>
+    <div class="novel-list">
+      <div class="novel-item">
+        <div class="novel-item-name">Bento Impact Grid + Accent Anchor Card</div>
+        <div class="novel-item-spec">Asymmetric 2-col bento: tall terra-cotta accent card with service pillars + patient quote left; 2×2 grid of oversized metric-numeral cards right. Split section header (H2 left, descriptor right).</div>
+      </div>
+      <div class="novel-item">
+        <div class="novel-item-name">Abstract Fluid Gradient Hero + Stat Badges</div>
+        <div class="novel-item-spec">Hero right half is SVG/CSS concentric-ring fluid art in terra-cotta + cream. Below the copy block: icon + bold stat + muted descriptor badge row for at-a-glance social proof.</div>
+      </div>
+      <div class="novel-item">
+        <div class="novel-item-name">Portrait Cards with Stat Overlay</div>
+        <div class="novel-item-spec">Full-bleed 3:4 portrait photo cards with gradient overlay at card base. Overlay contains a large white bold stat numeral + short descriptor label. Used for patient outcomes and team display.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Fidelity checks (12)</div>
+    <div class="check-list">
+      <div class="check-item">Hero headline is left-aligned with bold editorial serif. Right half is abstract warm fluid art — not a photograph.</div>
+      <div class="check-item">Nav is embedded inside the same rounded white panel as hero content — not a separate sticky full-width bar.</div>
+      <div class="check-item">Primary CTA uses saturated terra-cotta (#C84A28) with white text — vivid and bold, never muted or earthy.</div>
+      <div class="check-item">Bento grid includes one full-height terra-cotta card as the dominant visual anchor — not a supporting card.</div>
+      <div class="check-item">Metric cards use oversized numerals (72–96px) — the numeral IS the content; descriptor is secondary small text.</div>
+      <div class="check-item">Portrait photo cards have stat overlay bar baked into the card image base — not separate text below the card.</div>
+      <div class="check-item">All section headers use split-row layout: eyebrow + H2 left, muted descriptor right. Never centered stacked header.</div>
+      <div class="check-item">Eyebrow chips are muted pale tone with hairline border — never terra-cotta or accent-colored.</div>
+      <div class="check-item">Depth achieved via surface tiers (linen → white → cream) and corner radius. Zero drop shadows.</div>
+      <div class="check-item">Display headlines in key sections end with a terminal period ('Scale your smile.') — deliberate typographic signature.</div>
+      <div class="check-item">Photography uses warm natural skin tones with neutral/desaturated backgrounds — no cool-tinted clinical stock.</div>
+      <div class="check-item">Feature/metric card copy is maximum 2 lines. Single short descriptor per metric card — no extra copy.</div>
+    </div>
+  </div>
+
+</div><!-- /ds-panel -->
+
+<script>
+function togglePanel() {
+  const panel = document.getElementById('ds-panel');
+  const btn   = document.getElementById('panel-btn');
+  panel.classList.toggle('open');
+  btn.classList.toggle('active');
+}
+function toggleAnnotations() {
+  document.body.classList.toggle('show-annotations');
+  document.getElementById('annotate-btn').classList.toggle('active');
+}
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  item.classList.toggle('open');
+}
+// Open panel by default
+document.getElementById('ds-panel').classList.add('open');
+</script>
+</body>
+</html>

@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Groomify — Design System Showcase · Spring St. Dentistry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ──────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ── Design tokens ──────────────────────────────────────────────────────── */
+:root {
+  --canvas:          #4A5C4E;
+  --card:            #FFFFFF;
+  --subtle-surface:  #F5F6F4;
+  --btn-primary:     #3A5244;
+  --heading:         #1A1F1A;
+  --body-text:       #555E55;
+  --muted-text:      #8A9490;
+  --divider:         #E4E8E4;
+  --chip-border:     #D0D8D2;
+  --chip-text:       #6E7E72;
+  --accent-green:    #3A5244;
+  --img-bg:          #D4D8D4;
+
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --radius-card: 20px;
+  --radius-lg:   12px;
+  --radius-btn:  10px;
+  --radius-pill: 999px;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--body-text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Showcase meta bar ─────────────────────────────────────────────────── */
+.meta-bar {
+  background: #1a2a1e;
+  color: #8ab898;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.4px;
+  padding: 8px 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.meta-bar .meta-name { font-weight: 600; color: #b8d4c0; }
+.meta-bar .meta-sep  { color: #2e4e38; }
+.meta-bar .meta-pass { color: #70c888; font-weight: 600; }
+.meta-bar .meta-novel { color: #a8d0a0; }
+.meta-bar-right { margin-left: auto; display: flex; gap: 8px; }
+.meta-btn {
+  background: rgba(100,180,120,0.12);
+  border: 1px solid rgba(100,180,120,0.2);
+  color: #8ab898;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: background 0.15s;
+}
+.meta-btn:hover { background: rgba(100,180,120,0.22); }
+.meta-btn.active { background: rgba(100,180,120,0.28); color: #b8d4c0; }
+
+/* ── Novel section callout ─────────────────────────────────────────────── */
+.novel-flag { position: relative; }
+.novel-label {
+  display: none;
+  position: absolute;
+  top: 12px; right: 12px;
+  background: rgba(100,180,100,0.12);
+  border: 1px solid rgba(100,180,100,0.28);
+  color: #3a7250;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 4px;
+  z-index: 10;
+}
+body.show-annotations .novel-label { display: block; }
+body.show-annotations .novel-flag { outline: 1px dashed rgba(80,160,100,0.3); }
+
+/* ── Page wrapper: white card on green canvas ──────────────────────────── */
+.page-card {
+  background: var(--card);
+  border-radius: var(--radius-card);
+  margin: 16px;
+  overflow: hidden;
+}
+/* When DS panel is open, shrink page card */
+body.panel-open .page-card { margin-right: 412px; }
+
+/* ── Shared ─────────────────────────────────────────────────────────────── */
+.section-inner { max-width: 1080px; margin: 0 auto; }
+section { padding: 80px 48px; }
+
+/* Eyebrow chip with icon prefix */
+.eyebrow-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid var(--chip-border);
+  color: var(--chip-text);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+  font-size: 11.5px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  letter-spacing: 0.1px;
+}
+.eyebrow-chip svg { flex-shrink: 0; }
+
+/* Two-tone headline */
+.hl { color: var(--heading); font-family: var(--font-body); line-height: 1.15; letter-spacing: -0.5px; }
+.hl em { color: var(--accent-green); font-style: normal; }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 13.5px;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  transition: opacity 0.15s;
+  padding: 11px 22px;
+}
+.btn:hover { opacity: 0.88; }
+.btn-primary { background: var(--btn-primary); color: #fff; }
+.btn-outline  {
+  background: transparent;
+  color: var(--heading);
+  border: 1px solid var(--chip-border);
+}
+
+/* Image placeholder */
+.img-ph {
+  width: 100%; height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* ── Nav ───────────────────────────────────────────────────────────────── */
+nav {
+  background: var(--card);
+  border-bottom: 1px solid var(--divider);
+  padding: 0 48px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--heading);
+  letter-spacing: -0.2px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.nav-logo-icon {
+  width: 30px; height: 30px;
+  background: var(--accent-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  margin: 0 auto;
+}
+.nav-links a {
+  font-size: 13.5px;
+  color: var(--body-text);
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--heading); }
+
+/* ── Hero ──────────────────────────────────────────────────────────────── */
+#hero {
+  padding: 56px 48px 64px;
+  background: var(--card);
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.hero-text { display: flex; flex-direction: column; gap: 0; }
+.hero-h1 {
+  font-size: clamp(36px, 4.5vw, 56px);
+  font-weight: 300;
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+.hero-h1 em { font-weight: 600; }
+.hero-sub {
+  font-size: 14.5px;
+  color: var(--body-text);
+  max-width: 420px;
+  margin-bottom: 32px;
+  opacity: 0.85;
+  line-height: 1.65;
+}
+.hero-image-wrap {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  aspect-ratio: 4/4.5;
+  background: var(--img-bg);
+}
+.hero-image-inner {
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, #c8d0cc 0%, #dce0dc 60%, #e8ecec 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8a9490;
+  font-size: 13px;
+}
+
+/* Social proof strip — novel */
+.social-proof {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.avatar-row {
+  display: flex;
+  align-items: center;
+}
+.avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--card);
+  background: var(--img-bg);
+  margin-left: -8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.avatar:first-child { margin-left: 0; }
+.avatar svg { width: 18px; height: 18px; opacity: 0.5; }
+.social-count {
+  font-size: 12px;
+  color: var(--muted-text);
+  font-weight: 500;
+}
+
+/* ── Services Packages — Novel ─────────────────────────────────────────── */
+#services-packages {
+  background: var(--subtle-surface);
+  padding: 80px 48px;
+}
+.services-header { margin-bottom: 36px; }
+.services-header .section-h2 { margin-bottom: 12px; }
+.services-header p { font-size: 14.5px; color: var(--body-text); max-width: 520px; opacity: 0.85; }
+
+.section-h2 {
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: -0.4px;
+}
+.section-h2 em { color: var(--accent-green); font-style: normal; font-weight: 600; }
+
+/* Pill tab nav */
+.tab-nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.tab-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: var(--radius-pill);
+  padding: 9px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: 1px solid var(--chip-border);
+  color: var(--body-text);
+  background: var(--card);
+  transition: all 0.15s;
+}
+.tab-pill.active {
+  background: var(--accent-green);
+  border-color: var(--accent-green);
+  color: #fff;
+}
+.tab-pill:hover:not(.active) { background: var(--divider); }
+
+/* Package panel */
+.package-panel {
+  background: var(--card);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-lg);
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 0;
+  overflow: hidden;
+}
+.package-image {
+  background: var(--img-bg);
+  aspect-ratio: 1;
+  min-height: 300px;
+  background: linear-gradient(135deg, #c8d0cc 0%, #d8e0dc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8a9490;
+  font-size: 12px;
+}
+.package-detail {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.package-price {
+  font-size: 13px;
+  color: var(--muted-text);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.package-name {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--heading);
+  margin-bottom: 24px;
+  letter-spacing: -0.3px;
+}
+.package-checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.package-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--body-text);
+}
+.check-star {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--accent-green);
+  opacity: 0.7;
+}
+
+/* ── Services A-La-Carte ────────────────────────────────────────────────── */
+#services-alacarte {
+  background: var(--card);
+  padding: 80px 48px;
+}
+.alacarte-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+.service-card {
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.service-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: var(--subtle-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.service-icon svg { opacity: 0.65; }
+.service-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--heading);
+  letter-spacing: -0.1px;
+}
+.service-price {
+  font-size: 12px;
+  color: var(--muted-text);
+  font-weight: 500;
+  margin-top: -4px;
+}
+.service-desc {
+  font-size: 13px;
+  color: var(--body-text);
+  line-height: 1.55;
+  opacity: 0.9;
+}
+
+/* ── Doctor intro ───────────────────────────────────────────────────────── */
+#doctor-intro {
+  background: var(--subtle-surface);
+  padding: 80px 48px;
+}
+.doctor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.doctor-image {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  background: linear-gradient(135deg, #c4cec8 0%, #d4dcd8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8a9490;
+  font-size: 12px;
+}
+.doctor-text { display: flex; flex-direction: column; gap: 0; }
+.doctor-text .section-h2 { margin-bottom: 20px; }
+.doctor-text p {
+  font-size: 14.5px;
+  color: var(--body-text);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.doctor-text p:last-of-type { margin-bottom: 28px; }
+
+/* ── Reviews — Grid ────────────────────────────────────────────────────── */
+#reviews {
+  background: var(--card);
+  padding: 80px 48px;
+}
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 48px;
+}
+.review-card {
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.review-stars {
+  display: flex;
+  gap: 3px;
+}
+.star-icon { color: var(--accent-green); font-size: 14px; }
+.review-quote {
+  font-size: 13.5px;
+  color: var(--body-text);
+  line-height: 1.6;
+  flex: 1;
+}
+.review-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.author-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--img-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.author-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--heading);
+}
+.author-role {
+  font-size: 11.5px;
+  color: var(--muted-text);
+}
+
+/* ── Featured Testimonial — Novel split ────────────────────────────────── */
+#review-featured {
+  background: var(--subtle-surface);
+  padding: 80px 48px;
+}
+.featured-grid {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 64px;
+  align-items: center;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.featured-image {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  background: linear-gradient(135deg, #c4ccc8 0%, #d8e0dc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8a9490;
+  font-size: 12px;
+}
+.featured-body { display: flex; flex-direction: column; gap: 20px; }
+.featured-quote {
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 400;
+  color: var(--heading);
+  line-height: 1.55;
+  letter-spacing: -0.2px;
+}
+.featured-quote::before { content: '"'; }
+.featured-quote::after  { content: '"'; }
+.featured-stars { display: flex; gap: 4px; }
+.featured-author-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--heading);
+}
+.featured-author-role {
+  font-size: 12.5px;
+  color: var(--muted-text);
+}
+
+/* ── FAQ — Split Image+Accordion ────────────────────────────────────────── */
+#faq {
+  background: var(--card);
+  padding: 80px 48px;
+}
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 64px;
+  align-items: start;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.faq-image {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  background: linear-gradient(135deg, #c8d0cc 0%, #dce4e0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8a9490;
+  font-size: 12px;
+  position: sticky;
+  top: 100px;
+}
+.faq-content { display: flex; flex-direction: column; }
+.faq-content .section-h2 { margin-bottom: 8px; }
+.faq-sub { font-size: 14px; color: var(--body-text); opacity: 0.75; margin-bottom: 32px; }
+.faq-list {}
+.faq-item { border-bottom: 1px solid var(--divider); }
+.faq-q {
+  width: 100%;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  cursor: pointer;
+  text-align: left;
+  gap: 16px;
+  font-family: var(--font-body);
+}
+.faq-q-text {
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--heading);
+}
+.faq-icon {
+  font-size: 20px;
+  color: var(--muted-text);
+  flex-shrink: 0;
+  transition: transform 0.2s;
+  line-height: 1;
+  font-weight: 300;
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); color: var(--accent-green); }
+.faq-a {
+  font-size: 13.5px;
+  color: var(--body-text);
+  padding: 0 0 18px;
+  display: none;
+  max-width: 520px;
+  line-height: 1.65;
+}
+.faq-item.open .faq-a { display: block; }
+
+/* ── Contact — Intent Cards + Map ──────────────────────────────────────── */
+#contact {
+  background: var(--subtle-surface);
+  padding: 80px 48px;
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.contact-left .section-h2 { margin-bottom: 10px; }
+.contact-left > p { font-size: 14px; color: var(--body-text); margin-bottom: 24px; opacity: 0.8; }
+.contact-map {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: linear-gradient(135deg, #d0d8d4 0%, #e0e8e4 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted-text);
+  font-size: 13px;
+  border: 1px solid var(--divider);
+}
+.intent-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.intent-card {
+  background: var(--card);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.intent-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: var(--subtle-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.intent-icon svg { opacity: 0.6; }
+.intent-title { font-size: 15px; font-weight: 600; color: var(--heading); }
+.intent-desc { font-size: 13px; color: var(--body-text); opacity: 0.8; }
+
+/* ── CTA Strip ──────────────────────────────────────────────────────────── */
+#cta {
+  background: var(--btn-primary);
+  padding: 72px 48px;
+  text-align: center;
+}
+#cta .section-h2 { color: #fff; margin-bottom: 14px; }
+#cta .section-h2 em { color: rgba(255,255,255,0.7); }
+#cta p { font-size: 14.5px; color: rgba(255,255,255,0.7); max-width: 480px; margin: 0 auto 32px; }
+.cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-white {
+  background: #fff;
+  color: var(--btn-primary);
+  border-radius: var(--radius-btn);
+  padding: 12px 26px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.15s;
+}
+.btn-white:hover { opacity: 0.9; }
+.btn-ghost-white {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: var(--radius-btn);
+  padding: 12px 26px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s;
+}
+.btn-ghost-white:hover { background: rgba(255,255,255,0.1); }
+
+/* ── Footer ─────────────────────────────────────────────────────────────── */
+footer {
+  background: var(--card);
+  border-top: 1px solid var(--divider);
+  padding: 32px 48px;
+}
+.footer-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.footer-logo { font-weight: 700; font-size: 14px; color: var(--heading); }
+.footer-links { display: flex; gap: 24px; list-style: none; }
+.footer-links a { font-size: 13px; color: var(--muted-text); text-decoration: none; transition: color 0.15s; }
+.footer-links a:hover { color: var(--heading); }
+.footer-copy { font-size: 12px; color: var(--muted-text); }
+
+/* ── Design system panel ─────────────────────────────────────────────────── */
+.ds-panel {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 380px;
+  background: #111a13;
+  color: #8ab898;
+  font-family: var(--font-body);
+  font-size: 12px;
+  overflow-y: auto;
+  z-index: 300;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  border-left: 1px solid #1e3022;
+}
+.ds-panel.open { transform: translateX(0); }
+.ds-panel-header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid #1e3022;
+  position: sticky; top: 0;
+  background: #111a13;
+  z-index: 1;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.ds-panel-title { font-size: 13px; font-weight: 600; color: #b8d4c0; }
+.ds-panel-close { background: none; border: none; color: #3a5244; cursor: pointer; font-size: 18px; line-height: 1; }
+.ds-section { padding: 20px 20px 0; }
+.ds-section-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #2e5038;
+  margin-bottom: 12px;
+}
+.ds-divider { border: none; border-top: 1px solid #1e3022; margin: 20px 0 0; }
+
+/* Palette swatches */
+.palette-grid { display: flex; flex-direction: column; gap: 6px; margin-bottom: 4px; }
+.swatch-row { display: flex; align-items: center; gap: 10px; }
+.swatch { width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.06); }
+.swatch-info { flex: 1; }
+.swatch-role { font-size: 11px; color: #8ab898; }
+.swatch-hex  { font-size: 10px; color: #2e5038; font-variant-numeric: tabular-nums; }
+
+/* Type specimen */
+.type-display {
+  font-family: var(--font-body);
+  font-size: 22px;
+  font-weight: 300;
+  color: #8ab898;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+.type-display em {
+  color: #b8d4c0;
+  font-style: normal;
+  font-weight: 600;
+}
+.type-body    { font-family: var(--font-body); font-size: 13px; color: #6a9070; line-height: 1.5; margin-bottom: 4px; }
+.type-meta    { font-size: 10px; color: #2e5038; }
+
+/* Scores */
+.score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.score-cell { background: #172018; border-radius: 6px; padding: 8px 10px; }
+.score-id    { font-size: 10px; color: #2e5038; margin-bottom: 2px; }
+.score-val   { font-size: 18px; font-weight: 700; color: #70c888; }
+.score-pass  { font-size: 22px; font-weight: 800; color: #70c888; }
+.score-iter  { font-size: 11px; color: #2e5038; }
+
+/* Checks */
+.check-list  { display: flex; flex-direction: column; gap: 8px; padding-bottom: 24px; }
+.check-item  { background: #172018; border-radius: 6px; padding: 9px 10px; font-size: 11px; color: #6a9070; line-height: 1.45; }
+.check-item::before { content: '✓ '; color: #70c888; font-weight: 700; }
+
+/* Novel list */
+.novel-list { display: flex; flex-direction: column; gap: 8px; }
+.novel-item { background: rgba(80,160,100,0.08); border: 1px solid rgba(80,160,100,0.18); border-radius: 6px; padding: 9px 10px; }
+.novel-item-name { font-size: 11px; color: #8ad4a0; font-weight: 600; margin-bottom: 3px; }
+.novel-item-spec { font-size: 10.5px; color: #3a6048; line-height: 1.4; }
+</style>
+</head>
+<body class="panel-open">
+
+<!-- ── Meta bar ──────────────────────────────────────────────────────────── -->
+<div class="meta-bar">
+  <span class="meta-name">Groomify</span>
+  <span class="meta-sep">·</span>
+  <span>warm-editorial</span>
+  <span class="meta-sep">·</span>
+  <span>warm-neighborhood · soft-gentle</span>
+  <span class="meta-sep">·</span>
+  <span class="meta-novel">4 novel components</span>
+  <div class="meta-bar-right">
+    <button class="meta-btn" id="annotate-btn" onclick="toggleAnnotations()">Annotations</button>
+    <button class="meta-btn active" id="panel-btn" onclick="togglePanel()">Design system ›</button>
+  </div>
+</div>
+
+<!-- ── Page card ─────────────────────────────────────────────────────────── -->
+<div class="page-card" id="page-card">
+
+<!-- ── Nav ───────────────────────────────────────────────────────────────── -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="8" r="5" stroke="#fff" stroke-width="1.5" fill="none"/>
+        <path d="M8 5v3l2 1.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    Spring St. Dentistry
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">About</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Patient Stories</a></li>
+    <li><a href="#">FAQs</a></li>
+  </ul>
+  <a href="#" class="btn btn-primary" style="font-size:13px; padding:10px 20px;">Book Appointment</a>
+</nav>
+
+<!-- ── Hero ──────────────────────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-grid novel-flag">
+    <div class="novel-label">Novel — Social Proof Avatar Strip</div>
+    <div class="hero-text">
+      <h1 class="hl hero-h1">Treat yourself to a <em>trusted dental experience.</em></h1>
+      <p class="hero-sub">Personalized, comfortable dental care for every member of your Long Beach family — from routine cleanings to complete smile transformations.</p>
+      <a href="#" class="btn btn-primary">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0">
+          <path d="M2 7h10M8 3l4 4-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Book Appointment
+      </a>
+    </div>
+    <div>
+      <div class="hero-image-wrap">
+        <div class="hero-image-inner">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" opacity="0.3">
+            <rect x="8" y="10" width="32" height="28" rx="4" stroke="#555" stroke-width="2" fill="none"/>
+            <circle cx="24" cy="22" r="7" stroke="#555" stroke-width="2" fill="none"/>
+            <path d="M8 34l8-8 6 6 6-6 10 8" stroke="#555" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+      </div>
+      <!-- Social proof strip — novel component -->
+      <div class="social-proof">
+        <div class="avatar-row">
+          <div class="avatar" style="background:#c8d4cc">
+            <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="7" r="3.5" fill="#8a9490"/><path d="M2 16c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#8a9490" stroke-width="1.2"/></svg>
+          </div>
+          <div class="avatar" style="background:#d4ccc8">
+            <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="7" r="3.5" fill="#9a9490"/><path d="M2 16c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#9a9490" stroke-width="1.2"/></svg>
+          </div>
+          <div class="avatar" style="background:#c8ccc8">
+            <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="7" r="3.5" fill="#8a9490"/><path d="M2 16c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#8a9490" stroke-width="1.2"/></svg>
+          </div>
+          <div class="avatar" style="background:#d0d8d0">
+            <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="7" r="3.5" fill="#9aa0a0"/><path d="M2 16c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#9aa0a0" stroke-width="1.2"/></svg>
+          </div>
+          <div class="avatar" style="background:#ccd4c8">
+            <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="7" r="3.5" fill="#8a9490"/><path d="M2 16c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#8a9490" stroke-width="1.2"/></svg>
+          </div>
+        </div>
+        <span class="social-count">+300 Happy Patients</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Services Packages — Novel: Tabbed Package Selector ────────────────── -->
+<section id="services-packages">
+  <div class="section-inner novel-flag">
+    <div class="novel-label">Novel — Tabbed Package Selector Panel</div>
+    <div class="services-header">
+      <span class="eyebrow-chip">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><rect x="1" y="1" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.2" fill="none"/><path d="M3.5 5.5l1.5 1.5 2.5-2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Care packages
+      </span>
+      <h2 class="section-h2">Tailored care plans <em>for every patient</em></h2>
+      <p>Whether you need a quick check-up or comprehensive treatment, we've built a care package to fit your needs and schedule.</p>
+    </div>
+
+    <!-- Tab navigation -->
+    <div class="tab-nav" role="tablist">
+      <button class="tab-pill active" onclick="switchTab(this,'tab-essential')" role="tab">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/></svg>
+        The Essential Visit
+      </button>
+      <button class="tab-pill" onclick="switchTab(this,'tab-comprehensive')" role="tab">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2v8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Comprehensive Care
+      </button>
+      <button class="tab-pill" onclick="switchTab(this,'tab-premium')" role="tab">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1.5l1.2 2.6 2.8.4-2 2 .5 2.8L6 8l-2.5 1.3.5-2.8-2-2 2.8-.4z" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+        The Premium Smile
+      </button>
+    </div>
+
+    <!-- Package panels -->
+    <div class="package-panel" id="tab-essential">
+      <div class="package-image">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" opacity="0.3">
+          <circle cx="24" cy="20" r="10" stroke="#555" stroke-width="2" fill="none"/>
+          <path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="#555" stroke-width="2" fill="none"/>
+        </svg>
+      </div>
+      <div class="package-detail">
+        <div class="package-price">From $120 per visit</div>
+        <div class="package-name">The Essential Visit</div>
+        <ul class="package-checklist">
+          <li><svg class="check-star" width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3.2 3.5.5-2.5 2.5.6 3.5L7 9.2 3.9 10.7l.6-3.5L2 4.7l3.5-.5z"/></svg> Comprehensive oral exam with Dr. Hoang</li>
+          <li><svg class="check-star" width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3.2 3.5.5-2.5 2.5.6 3.5L7 9.2 3.9 10.7l.6-3.5L2 4.7l3.5-.5z"/></svg> Professional teeth cleaning</li>
+          <li><svg class="check-star" width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3.2 3.5.5-2.5 2.5.6 3.5L7 9.2 3.9 10.7l.6-3.5L2 4.7l3.5-.5z"/></svg> Dental X-rays (as needed)</li>
+          <li><svg class="check-star" width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3.2 3.5.5-2.5 2.5.6 3.5L7 9.2 3.9 10.7l.6-3.5L2 4.7l3.5-.5z"/></svg> Personalized oral health review</li>
+          <li><svg class="check-star" width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3.2 3.5.5-2.5 2.5.6 3.5L7 9.2 3.9 10.7l.6-3.5L2 4.7l3.5-.5z"/></svg> Fluoride treatment included</li>
+        </ul>
+        <a href="#" class="btn btn-primary" style="align-self:flex-start;">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <div class="package-panel" id="tab-comprehensive" style="display:none">
+      <div class="package-image" style="background:linear-gradient(135deg,#ccd8d0 0%,#dce8e4 100%)">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" opacity="0.3">
+          <rect x="8" y="12" width="32" height="24" rx="4" stroke="#555" stroke-width="2" fill="none"/>
+          <path d="M16 24h16M16 30h10" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="package-detail">
+        <div class="package-price">From $280 per visit</div>
+        <div class="package-name">Comprehensive Care</div>
+        <ul class="package-checklist">
+          <li><svg class="check-star" width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3.2 3.5.5-2.5 2.5.6 3.5L7 9.2 3.9 10.7l.6-3.5L2 4.7l3.5-.5z"/></svg> Everything in the Essential Visit</li>
+          <li><svg class="check-star" width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3.2 3.5.5-2.5 2.5.6 3.5L7 9.2 3.9 10.7l.6-3.5L2 4.7l3.5-.5z"/></svg> Gum health screening &amp; periodontal check</li>
+          <li><svg class="check-star" width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3.2 3.5.5-2.5 2.5.6 3.5L7 9.2 3.9 10.7l.6-3.5L2 4.7l3.5-.5z"/></svg> Oral cancer screening</li>
+          <li><svg class="check-star" width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3.2 3.5.5-2.5 2.5.6 3.5L7 9.2 3.9 10.7l.6-3.5L2 4.7l3.5-.5z"/></svg> Full treatment plan consultation</li>
+          <li><svg class="check-star" width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3.2 3.5.5-2.5 2.5.6 3.5L7 9.2 3.9 10.7l.6-3.5L2 4.7l3.5-.5z"/></svg> Polishing &amp; sealant application</li>
+        </ul>
+        <a href="#" class="btn btn-primary" style="align-self:flex-start;">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <div class="package-panel" id="tab-premium" style="display:none">
+      <div class="package-image" style="background:linear-gradient(135deg,#d0ccd4 0%,#e4e0ec 100%)">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" opacity="0.3">
+          <path d="M24 6l4 10 10 1.5-7.5 7.5 2 10.5L24 30l-8.5 5.5 2-10.5L10 17.5l10-1.5z" stroke="#555" stroke-width="2" fill="none"/>
+        </svg>
+      </div>
+      <div class="package-detail">
+        <div class="package-price">From $499 per visit</div>
+        <div class="package-name">The Premium Smile</div>
+        <ul class="package-checklist">
+          <li><svg class="check-star" width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3.2 3.5.5-2.5 2.5.6 3.5L7 9.2 3.9 10.7l.6-3.5L2 4.7l3.5-.5z"/></svg> Everything in Comprehensive Care</li>
+          <li><svg class="check-star" width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3.2 3.5.5-2.5 2.5.6 3.5L7 9.2 3.9 10.7l.6-3.5L2 4.7l3.5-.5z"/></svg> Professional Zoom teeth whitening</li>
+          <li><svg class="check-star" width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3.2 3.5.5-2.5 2.5.6 3.5L7 9.2 3.9 10.7l.6-3.5L2 4.7l3.5-.5z"/></svg> Take-home whitening tray kit</li>
+          <li><svg class="check-star" width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3.2 3.5.5-2.5 2.5.6 3.5L7 9.2 3.9 10.7l.6-3.5L2 4.7l3.5-.5z"/></svg> Smile design consultation (cosmetic)</li>
+          <li><svg class="check-star" width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3.2 3.5.5-2.5 2.5.6 3.5L7 9.2 3.9 10.7l.6-3.5L2 4.7l3.5-.5z"/></svg> Complimentary 6-month check-in</li>
+        </ul>
+        <a href="#" class="btn btn-primary" style="align-self:flex-start;">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Book Now
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Services A-La-Carte Grid ──────────────────────────────────────────── -->
+<section id="services-alacarte">
+  <div class="section-inner">
+    <span class="eyebrow-chip">
+      <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M5.5 1v9M1 5.5h9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      Individual services
+    </span>
+    <h2 class="section-h2" style="margin-bottom:12px">Build <em>your perfect appointment</em></h2>
+    <p style="font-size:14.5px; color:var(--body-text); max-width:480px; margin-bottom:40px; opacity:0.85">Need something specific? Choose from our individual services to create a visit tailored exactly to you.</p>
+
+    <div class="alacarte-grid">
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="var(--accent-green)" stroke-width="1.5"/><path d="M7 10.5l2 2 4-4" stroke="var(--accent-green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="service-name">Teeth Whitening</div>
+          <div class="service-price">From $299</div>
+        </div>
+        <div class="service-desc">Professional-grade whitening for a noticeably brighter smile, completed in a single visit.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="4" y="6" width="12" height="8" rx="2" stroke="var(--accent-green)" stroke-width="1.5" fill="none"/><path d="M7 6V5a3 3 0 016 0v1" stroke="var(--accent-green)" stroke-width="1.5"/></svg>
+        </div>
+        <div>
+          <div class="service-name">Dental Implants</div>
+          <div class="service-price">From $1,800</div>
+        </div>
+        <div class="service-desc">Replace missing teeth permanently with implants that look and function like your natural teeth.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 3c-3.866 0-7 3.134-7 7s3.134 7 7 7 7-3.134 7-7" stroke="var(--accent-green)" stroke-width="1.5" fill="none"/><path d="M13 3l4 4-4 4" stroke="var(--accent-green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="service-name">Clear Aligners</div>
+          <div class="service-price">From $3,200</div>
+        </div>
+        <div class="service-desc">Straighten your teeth discreetly with custom aligners designed around your schedule and lifestyle.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M10 4v12" stroke="var(--accent-green)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <div class="service-name">Dental Crowns</div>
+          <div class="service-price">From $850</div>
+        </div>
+        <div class="service-desc">Protect and strengthen a damaged tooth with a custom crown that blends naturally with your smile.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="3" stroke="var(--accent-green)" stroke-width="1.5" fill="none"/><path d="M10 3v2M10 15v2M3 10h2M15 10h2" stroke="var(--accent-green)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <div class="service-name">Deep Cleaning</div>
+          <div class="service-price">From $250</div>
+        </div>
+        <div class="service-desc">Remove harmful buildup below the gumline to protect your teeth and restore your gum health.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10c0-2.761 2.239-5 5-5s5 2.239 5 5v2a2 2 0 01-2 2H7a2 2 0 01-2-2v-2z" stroke="var(--accent-green)" stroke-width="1.5" fill="none"/></svg>
+        </div>
+        <div>
+          <div class="service-name">Dental Bonding</div>
+          <div class="service-price">From $200</div>
+        </div>
+        <div class="service-desc">Repair chips, cracks, or gaps with natural-looking resin applied in a single comfortable visit.</div>
+      </div>
+    </div>
+
+    <a href="#" class="btn btn-primary">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      View All Services
+    </a>
+  </div>
+</section>
+
+<!-- ── Doctor Intro ───────────────────────────────────────────────────────── -->
+<section id="doctor-intro">
+  <div class="doctor-grid">
+    <div class="doctor-image">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" opacity="0.3">
+        <circle cx="24" cy="18" r="9" stroke="#555" stroke-width="2" fill="none"/>
+        <path d="M6 44c0-9.941 8.059-18 18-18s18 8.059 18 18" stroke="#555" stroke-width="2" fill="none"/>
+      </svg>
+    </div>
+    <div class="doctor-text">
+      <span class="eyebrow-chip">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M5.5 1l1 2.5 2.8.4-2 2 .5 2.8-2.3-1.2-2.3 1.2.5-2.8-2-2 2.8-.4z" stroke="currentColor" stroke-width="1" fill="none"/></svg>
+        Rooted in Long Beach
+      </span>
+      <h2 class="section-h2" style="margin-bottom:20px">Care led by <em>Dr. Anthony Hoang</em></h2>
+      <p>Dr. Hoang is a Long Beach native who considers it a genuine privilege to practice dentistry in the community where he grew up. He earned his DMD from Tufts University and completed his residency at the Loma Linda VA Medical Center.</p>
+      <p>What drives him every day is the human side of dentistry — the relationships built visit after visit, and the trust patients place in him. He has a particular gift for putting nervous patients at ease.</p>
+      <a href="#" class="btn btn-primary">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Meet Dr. Hoang
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Reviews Grid ───────────────────────────────────────────────────────── -->
+<section id="reviews">
+  <div class="section-inner">
+    <span class="eyebrow-chip">
+      <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M5.5 1l1 2.5 2.8.4-2 2 .5 2.8-2.3-1.2-2.3 1.2.5-2.8-2-2 2.8-.4z" stroke="currentColor" stroke-width="1" fill="none"/></svg>
+      Patient stories
+    </span>
+    <h2 class="section-h2" style="margin-bottom:36px">Some of our patients <em>love us</em></h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="star-icon">★</span><span class="star-icon">★</span><span class="star-icon">★</span><span class="star-icon">★</span><span class="star-icon">★</span>
+        </div>
+        <div class="review-quote">"From the moment you walk in, you're greeted by such kind staff. Dr. Hoang is truly the best — caring, patient, and takes his time with you. My husband used to be terrified of the dentist. Now he won't miss an appointment!"</div>
+        <div class="review-author">
+          <div class="author-avatar" style="background:#c8d4cc">
+            <svg viewBox="0 0 18 18" width="18" height="18" fill="none"><circle cx="9" cy="7" r="3.5" fill="#8a9490"/><path d="M2 16c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#8a9490" stroke-width="1.2"/></svg>
+          </div>
+          <div>
+            <div class="author-name">Barbara A.</div>
+            <div class="author-role">— Long Beach Patient</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="star-icon">★</span><span class="star-icon">★</span><span class="star-icon">★</span><span class="star-icon">★</span><span class="star-icon">★</span>
+        </div>
+        <div class="review-quote">"I've been coming here my whole life. Dr. Hoang and the whole team always make sure I'm comfortable. Charlie polished my teeth up perfect, and I always leave thinking how lucky I am to have found this place."</div>
+        <div class="review-author">
+          <div class="author-avatar" style="background:#d4ccc8">
+            <svg viewBox="0 0 18 18" width="18" height="18" fill="none"><circle cx="9" cy="7" r="3.5" fill="#9a9490"/><path d="M2 16c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#9a9490" stroke-width="1.2"/></svg>
+          </div>
+          <div>
+            <div class="author-name">Chad B.</div>
+            <div class="author-role">— Long Beach Patient</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="star-icon">★</span><span class="star-icon">★</span><span class="star-icon">★</span><span class="star-icon">★</span><span class="star-icon">★</span>
+        </div>
+        <div class="review-quote">"Super kind and attentive. I felt completely comfortable — very professional and empathetic. They took the time to explain everything and I never felt rushed. I recommend 100%."</div>
+        <div class="review-author">
+          <div class="author-avatar" style="background:#c8ccc8">
+            <svg viewBox="0 0 18 18" width="18" height="18" fill="none"><circle cx="9" cy="7" r="3.5" fill="#8a9490"/><path d="M2 16c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#8a9490" stroke-width="1.2"/></svg>
+          </div>
+          <div>
+            <div class="author-name">Sofia E.</div>
+            <div class="author-role">— Long Beach Patient</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Featured Testimonial — Novel split ────────────────────────────────── -->
+<section id="review-featured">
+  <div class="featured-grid novel-flag">
+    <div class="novel-label">Novel — Featured Testimonial Split</div>
+    <div class="featured-image">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" opacity="0.3">
+        <circle cx="24" cy="18" r="9" stroke="#555" stroke-width="2" fill="none"/>
+        <path d="M6 44c0-9.941 8.059-18 18-18s18 8.059 18 18" stroke="#555" stroke-width="2" fill="none"/>
+      </svg>
+    </div>
+    <div class="featured-body">
+      <span class="eyebrow-chip" style="align-self:flex-start">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M5.5 1l1 2.5 2.8.4-2 2 .5 2.8-2.3-1.2-2.3 1.2.5-2.8-2-2 2.8-.4z" stroke="currentColor" stroke-width="1" fill="none"/></svg>
+        Featured patient story
+      </span>
+      <div class="featured-quote">I can't say enough great things about Spring St. Dentistry. The doctor is truly the best around — caring, patient, and takes his time with you so you never feel rushed or overlooked. You can tell he genuinely cares about his patients.</div>
+      <div class="featured-stars">
+        <span class="star-icon" style="font-size:18px">★</span>
+        <span class="star-icon" style="font-size:18px">★</span>
+        <span class="star-icon" style="font-size:18px">★</span>
+        <span class="star-icon" style="font-size:18px">★</span>
+        <span class="star-icon" style="font-size:18px">★</span>
+      </div>
+      <div>
+        <div class="featured-author-name">Barbara A.</div>
+        <div class="featured-author-role">Long Beach Patient</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ — Split Image + Accordion ─────────────────────────────────────── -->
+<section id="faq">
+  <div class="faq-grid section-inner novel-flag">
+    <div class="novel-label">Novel — Split Image-Accordion FAQ</div>
+    <div class="faq-image">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" opacity="0.3">
+        <rect x="10" y="8" width="28" height="32" rx="4" stroke="#555" stroke-width="2" fill="none"/>
+        <path d="M17 20h14M17 26h10M17 32h7" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="faq-content">
+      <span class="eyebrow-chip">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 3v3l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        What patients ask us
+      </span>
+      <h2 class="section-h2" style="margin-bottom:8px">Frequently asked <em>questions</em></h2>
+      <p class="faq-sub">From booking your first visit to understanding your treatment options — here's what Long Beach patients ask Dr. Hoang most often.</p>
+      <div class="faq-list">
+        <div class="faq-item open">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-q-text">How do I schedule an appointment with Dr. Hoang?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">Call Spring St. Dentistry at (562) 420-8578 to book. No referral needed — we welcome new patients for general and cosmetic dental care. Our team will find a time that works for you.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-q-text">Do you see patients for same-day dental emergencies?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">Yes. If you're experiencing tooth pain, a broken tooth, or another pressing issue, call us at (562) 420-8578 and let us know it's urgent. Dr. Hoang and our team will work to get you seen promptly.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-q-text">Does Spring St. Dentistry accept dental insurance?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">We work with a variety of plans and will help you understand your coverage before treatment begins. Call us to confirm your specific plan. Payment options are available for patients without insurance.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-q-text">What should I expect at my first visit?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">Your first appointment includes a comprehensive exam with Dr. Hoang, a review of your dental and medical history, and X-rays if needed. Please arrive a few minutes early to complete new-patient paperwork.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-q-text">Am I a good candidate for clear aligners?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">Most mild to moderate alignment issues can be addressed with clear aligners. Dr. Hoang will evaluate your bite and oral health to determine the right fit for you.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact — Intent Cards + Map ──────────────────────────────────────── -->
+<section id="contact">
+  <div class="contact-grid novel-flag">
+    <div class="novel-label">Novel — Intent-Segmented Contact Cards</div>
+    <div class="contact-left">
+      <span class="eyebrow-chip">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M5.5 1C3.015 1 1 3.015 1 5.5S3.015 10 5.5 10 10 7.985 10 5.5 7.985 1 5.5 1z" stroke="currentColor" stroke-width="1.2" fill="none"/><circle cx="5.5" cy="5.5" r="1.5" fill="currentColor"/></svg>
+        Contact us
+      </span>
+      <h2 class="section-h2" style="margin-bottom:10px">How to get in <em>touch with us</em></h2>
+      <p>Have a question or need to reach us? We're always here to help.</p>
+      <div class="contact-map" style="margin-top:24px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted-text)">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" opacity="0.5">
+            <path d="M16 3C11.582 3 8 6.582 8 11c0 6.375 8 18 8 18s8-11.625 8-18c0-4.418-3.582-8-8-8z" stroke="#555" stroke-width="1.5" fill="none"/>
+            <circle cx="16" cy="11" r="3" stroke="#555" stroke-width="1.5" fill="none"/>
+          </svg>
+          <span style="font-size:12px">Spring Street, Long Beach, CA</span>
+        </div>
+      </div>
+    </div>
+    <div class="intent-cards">
+      <div class="intent-card">
+        <div class="intent-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="12" rx="2" stroke="var(--accent-green)" stroke-width="1.5" fill="none"/><path d="M7 2v4M13 2v4M3 9h14" stroke="var(--accent-green)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="intent-title">Book online</div>
+        <div class="intent-desc">Choose your date and schedule your visit online now.</div>
+        <a href="#" class="btn btn-primary" style="align-self:flex-start; padding:9px 18px; font-size:13px">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 6h10M7 2l4 4-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Book Now
+        </a>
+      </div>
+      <div class="intent-card">
+        <div class="intent-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 4h4l2 4-2 1.5c1 2 2.5 3.5 4.5 4.5L14 12l4 2v4a2 2 0 01-2 2C6 20 0 14 0 6a2 2 0 012-2h2z" stroke="var(--accent-green)" stroke-width="1.5" fill="none"/></svg>
+        </div>
+        <div class="intent-title">Call us</div>
+        <div class="intent-desc">Speak to our team directly over the phone.</div>
+        <a href="tel:5624208578" class="btn btn-outline" style="align-self:flex-start; padding:9px 18px; font-size:13px">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 6h10M7 2l4 4-4 4" stroke="var(--heading)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          (562) 420-8578
+        </a>
+      </div>
+      <div class="intent-card">
+        <div class="intent-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2C7.239 2 5 4.239 5 7c0 4.25 5 10 5 10s5-5.75 5-10c0-2.761-2.239-5-5-5z" stroke="var(--accent-green)" stroke-width="1.5" fill="none"/><circle cx="10" cy="7" r="2" stroke="var(--accent-green)" stroke-width="1.5" fill="none"/></svg>
+        </div>
+        <div class="intent-title">Visit us</div>
+        <div class="intent-desc">Monday – Friday, 9am – 5pm · Spring Street, Long Beach</div>
+        <a href="#" class="btn btn-outline" style="align-self:flex-start; padding:9px 18px; font-size:13px">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 6h10M7 2l4 4-4 4" stroke="var(--heading)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Get Directions
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA Strip ──────────────────────────────────────────────────────────── -->
+<section id="cta">
+  <div class="section-inner">
+    <h2 class="section-h2">Your healthiest smile <em>starts here</em></h2>
+    <p>Whether it's been six months or six years, we're here to help you feel comfortable and confident in the chair.</p>
+    <div class="cta-btns">
+      <a href="#" class="btn-white">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="var(--btn-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Schedule Your Visit
+      </a>
+      <a href="tel:5624208578" class="btn-ghost-white">
+        Call (562) 420-8578
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Spring St. Dentistry</div>
+    <ul class="footer-links">
+      <li><a href="#">Services</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Patient Stories</a></li>
+      <li><a href="#">FAQs</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Spring St. Dentistry · Long Beach, CA</div>
+  </div>
+</footer>
+
+</div><!-- /page-card -->
+
+<!-- ── Design system panel ────────────────────────────────────────────────── -->
+<div class="ds-panel open" id="ds-panel">
+  <div class="ds-panel-header">
+    <div class="ds-panel-title">Groomify — Design System</div>
+    <button class="ds-panel-close" onclick="togglePanel()">×</button>
+  </div>
+
+  <div class="ds-section">
+    <div class="ds-section-label">Template identity</div>
+    <div style="background:#172018; border-radius:6px; padding:10px 12px; margin-bottom:4px;">
+      <div style="font-size:10px; color:#2e5038; margin-bottom:3px">Archetype</div>
+      <div style="font-size:12px; color:#8ab898">warm-editorial</div>
+    </div>
+    <div style="background:#172018; border-radius:6px; padding:10px 12px; margin-bottom:4px;">
+      <div style="font-size:10px; color:#2e5038; margin-bottom:3px">Moods</div>
+      <div style="font-size:12px; color:#8ab898">warm-neighborhood · soft-gentle</div>
+    </div>
+    <div style="background:#172018; border-radius:6px; padding:10px 12px;">
+      <div style="font-size:10px; color:#2e5038; margin-bottom:3px">Best dental fit</div>
+      <div style="font-size:12px; color:#8ab898">General · Family · Preventive · Comfort-forward</div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Color palette</div>
+    <div class="palette-grid">
+      <div class="swatch-row"><div class="swatch" style="background:#4A5C4E"></div><div class="swatch-info"><div class="swatch-role">Outer canvas (sage green)</div><div class="swatch-hex">#4A5C4E</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#FFFFFF; border-color:#2e5038"></div><div class="swatch-info"><div class="swatch-role">Card surface</div><div class="swatch-hex">#FFFFFF</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#F5F6F4"></div><div class="swatch-info"><div class="swatch-role">Subtle surface</div><div class="swatch-hex">#F5F6F4</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#3A5244"></div><div class="swatch-info"><div class="swatch-role">Primary button / accent</div><div class="swatch-hex">#3A5244</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#1A1F1A"></div><div class="swatch-info"><div class="swatch-role">Heading text</div><div class="swatch-hex">#1A1F1A</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#555E55"></div><div class="swatch-info"><div class="swatch-role">Body text</div><div class="swatch-hex">#555E55</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#8A9490"></div><div class="swatch-info"><div class="swatch-role">Muted / meta text</div><div class="swatch-hex">#8A9490</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#E4E8E4"></div><div class="swatch-info"><div class="swatch-role">Divider</div><div class="swatch-hex">#E4E8E4</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#D0D8D2"></div><div class="swatch-info"><div class="swatch-role">Chip border</div><div class="swatch-hex">#D0D8D2</div></div></div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Typography</div>
+    <div class="type-display">Headline <em>emphasis phrase</em></div>
+    <div class="type-meta" style="margin-bottom:12px">Plus Jakarta Sans · geometric sans · light + semibold · two-tone in-headline color device</div>
+    <div class="type-body">Body text in regular weight, relaxed line-height</div>
+    <div class="type-meta" style="margin-bottom:12px">Same family · regular · #555E55</div>
+    <div style="margin-top:10px; padding:10px; background:#172018; border-radius:6px;">
+      <div class="type-meta" style="margin-bottom:4px">Headline emphasis device</div>
+      <div style="font-size:11px; color:#6a9070; line-height:1.4">Two-tone color split within the headline: setup words in dark charcoal (#1A1F1A), key phrase in accent forest-green (#3A5244). Same family and similar weight throughout. No italic, uppercase, or font-family switch.</div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Tokens</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:4px;">
+      <div style="background:#172018; border-radius:6px; padding:8px 10px;">
+        <div style="font-size:10px; color:#2e5038">Button radius</div>
+        <div style="font-size:13px; color:#8ab898; font-weight:600">Rounded rect</div>
+        <div style="font-size:10px; color:#2a4032">~10px — NOT pill</div>
+      </div>
+      <div style="background:#172018; border-radius:6px; padding:8px 10px;">
+        <div style="font-size:10px; color:#2e5038">Card radius</div>
+        <div style="font-size:13px; color:#8ab898; font-weight:600">lg (12–16px)</div>
+        <div style="font-size:10px; color:#2a4032">cards, images, panels</div>
+      </div>
+      <div style="background:#172018; border-radius:6px; padding:8px 10px;">
+        <div style="font-size:10px; color:#2e5038">Elevation</div>
+        <div style="font-size:13px; color:#8ab898; font-weight:600">Flat + border</div>
+        <div style="font-size:10px; color:#2a4032">no shadows, hairline borders</div>
+      </div>
+      <div style="background:#172018; border-radius:6px; padding:8px 10px;">
+        <div style="font-size:10px; color:#2e5038">Density</div>
+        <div style="font-size:13px; color:#8ab898; font-weight:600">Comfortable</div>
+        <div style="font-size:10px; color:#2a4032">generous but structured</div>
+      </div>
+      <div style="background:#172018; border-radius:6px; padding:8px 10px;">
+        <div style="font-size:10px; color:#2e5038">Canvas color</div>
+        <div style="font-size:13px; color:#8ab898; font-weight:600">Sage green</div>
+        <div style="font-size:10px; color:#2a4032">#4A5C4E — page frame</div>
+      </div>
+      <div style="background:#172018; border-radius:6px; padding:8px 10px;">
+        <div style="font-size:10px; color:#2e5038">Motion</div>
+        <div style="font-size:13px; color:#8ab898; font-weight:600">Minimal</div>
+        <div style="font-size:10px; color:#2a4032">tab switch, accordion</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Novel components (4)</div>
+    <div class="novel-list">
+      <div class="novel-item">
+        <div class="novel-item-name">Social Proof Avatar Strip</div>
+        <div class="novel-item-spec">Overlapping circular avatar thumbnails with headcount label ("+300 Happy Patients") in the hero section below the main image. Micro-social-proof element, not a full testimonial block.</div>
+      </div>
+      <div class="novel-item">
+        <div class="novel-item-name">Tabbed Package Selector Panel</div>
+        <div class="novel-item-spec">Pill-tab nav (2–4 care tiers) drives a two-column content panel: contextual photograph left, tier name + checklist + CTA right. Tab-switching updates panel content inline without page navigation.</div>
+      </div>
+      <div class="novel-item">
+        <div class="novel-item-name">Intent-Segmented Contact Cards</div>
+        <div class="novel-item-spec">Three stacked cards replacing a contact form. Each card addresses a distinct patient intent (schedule, call, find us) with a distinct icon, short description, and a labeled CTA. Sits in right column of a split with a map in the left column.</div>
+      </div>
+      <div class="novel-item">
+        <div class="novel-item-name">Split Image-Accordion FAQ</div>
+        <div class="novel-item-spec">FAQ section uses a two-column split: large rounded lifestyle image in left column (~45% width), FAQ accordion in right column. Image is sticky, providing grounding context as the user expands questions.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-divider">
+  <div class="ds-section">
+    <div class="ds-section-label">Fidelity checks (12)</div>
+    <div class="check-list">
+      <div class="check-item">Hero must be a left-right split (large headline + CTA left, single image card right). Do not center the hero headline.</div>
+      <div class="check-item">Headline emphasis: key phrase uses forest-green (#3A5244), setup words use dark charcoal (#1A1F1A). Same sans family, similar weight. No italic or uppercase.</div>
+      <div class="check-item">Buttons are rounded-rectangle (lg ~10px radius), NOT full pill/capsule. Key distinction from pill-button systems.</div>
+      <div class="check-item">Outer canvas is sage-green (#4A5C4E) — must appear as the page frame cards float against. Not white.</div>
+      <div class="check-item">Service packages use horizontal pill-tabs (not vertical list or carousel) to switch between care tiers.</div>
+      <div class="check-item">FAQ uses the split layout: image left (~45%), accordion right (~55%). Not a full-width accordion stack.</div>
+      <div class="check-item">Contact section must use intent-segmented action cards (3 cards: schedule, call, find us) alongside a map — no contact form.</div>
+      <div class="check-item">Photography grading is clean neutral (bright studio), NOT warm/ivory. Neutral gray or white backgrounds on subject images.</div>
+      <div class="check-item">Social-proof strip in hero: overlapping circular avatar thumbnails in a row with a patient headcount label.</div>
+      <div class="check-item">Testimonials appear in two modes: 3-column card grid AND a separate featured full-width split (image left, pull-quote right).</div>
+      <div class="check-item">Eyebrow chips include a small icon prefix alongside the label text — not plain text-only chips.</div>
+      <div class="check-item">Button CTAs use an arrow icon prefix (→ or SVG arrow) as a design signature of this template.</div>
+    </div>
+  </div>
+
+</div><!-- /ds-panel -->
+
+<script>
+function togglePanel() {
+  const panel = document.getElementById('ds-panel');
+  const btn = document.getElementById('panel-btn');
+  const card = document.getElementById('page-card');
+  panel.classList.toggle('open');
+  btn.classList.toggle('active');
+  document.body.classList.toggle('panel-open');
+}
+
+function toggleAnnotations() {
+  document.body.classList.toggle('show-annotations');
+  document.getElementById('annotate-btn').classList.toggle('active');
+}
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  item.classList.toggle('open');
+}
+
+function switchTab(clickedBtn, targetId) {
+  // Deactivate all tabs
+  clickedBtn.closest('.tab-nav').querySelectorAll('.tab-pill').forEach(function(pill) {
+    pill.classList.remove('active');
+  });
+  clickedBtn.classList.add('active');
+
+  // Hide all panels — find siblings by traversing the parent section
+  const section = clickedBtn.closest('section');
+  ['tab-essential','tab-comprehensive','tab-premium'].forEach(function(id) {
+    const el = section.querySelector('#' + id);
+    if (el) el.style.display = 'none';
+  });
+
+  // Show target
+  const target = section.querySelector('#' + targetId);
+  if (target) target.style.display = 'grid';
+}
+
+// Panel open by default
+document.getElementById('ds-panel').classList.add('open');
+document.body.classList.add('panel-open');
+</script>
+</body>
+</html>
