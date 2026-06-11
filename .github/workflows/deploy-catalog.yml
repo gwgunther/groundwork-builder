@@ -1,0 +1,30 @@
+# Deploy the design catalog to Cloudflare Pages on push to main.
+# Static site at docs/design-catalog → https://catalog.groundworkdental.com
+#
+# Required GitHub Secrets:
+#   CLOUDFLARE_API_TOKEN   — token with Pages:Edit on the account
+#   CLOUDFLARE_ACCOUNT_ID  — Cloudflare account id
+
+name: Deploy design catalog
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/design-catalog/**'
+      - '.github/workflows/deploy-catalog.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy catalog to Pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy
+        run: npx wrangler@4 pages deploy docs/design-catalog --project-name=design-catalog --branch=main --commit-dirty=true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
