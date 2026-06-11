@@ -53,7 +53,8 @@ CREATE TABLE IF NOT EXISTS audits (
   gcs_run_folder   TEXT,
   error_detail     TEXT,
   completed_at     TEXT,
-  date_added       TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+  date_added       TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+  airtable_id      TEXT                          -- source record id from Airtable backfill (migrate-airtable-crm.mjs)
 );
 
 CREATE INDEX IF NOT EXISTS idx_audits_slug       ON audits (slug);
@@ -88,7 +89,8 @@ CREATE TABLE IF NOT EXISTS builds (
   cost_est          REAL,
   error_detail      TEXT,
   completed_at      TEXT,
-  date_added        TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+  date_added        TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+  airtable_id       TEXT                         -- source record id from Airtable backfill (migrate-airtable-crm.mjs)
 );
 
 CREATE INDEX IF NOT EXISTS idx_builds_build_slug  ON builds (build_slug);
