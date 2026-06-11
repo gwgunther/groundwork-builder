@@ -139,6 +139,12 @@ function runDeterministicChecks(html, url, pageType) {
   // FAQ section detection (AI lens)
   checks.faq_presence = scoreFaqPresence(html, pageType);
 
+  // AEO: structured list/table content — snippet-extractable answer formats (AI lens)
+  checks.snippet_structure = scoreSnippetStructure(html, pageType);
+
+  // AEO: datePublished / dateModified in schema for blog posts (AI lens)
+  checks.date_freshness = scoreDateFreshness(html, pageType);
+
   // Compute overall + per-lens averages
   const overall = recomputeOverall(checks);
   const lensScores = recomputeLensScores(checks);
@@ -360,6 +366,59 @@ function scoreFaqPresence(html, pageType) {
     score: 5,
     issue: `No FAQPage schema or FAQ block on this ${pageType}. FAQ blocks are one of the strongest signals for LLM citation.`,
     value: false,
+    lensTraditional: false,
+    lensAi: true,
+  };
+}
+
+function scoreSnippetStructure(html, pageType) {
+  const benefitTypes = ['service-detail', 'blog-post', 'homepage'];
+  if (!benefitTypes.includes(pageType)) {
+    return { score: 10, issue: null, lensTraditional: false, lensAi: true };
+  }
+  const listItems = (html.match(/<li\b/gi) || []).length;
+  const hasTable  = /<table\b/i.test(html);
+  if (listItems >= 5 || hasTable) {
+    return { score: 10, issue: null, value: { listItems, hasTable }, lensTraditional: false, lensAi: true };
+  }
+  if (listItems >= 2) {
+    return {
+      score: 6,
+      issue: `Only ${listItems} list item(s) on this ${pageType} — add numbered steps, comparison tables, or Q&A lists that AI models can extract as direct answers.`,
+      value: { listItems, hasTable },
+      lensTraditional: false,
+      lensAi: true,
+    };
+  }
+  return {
+    score: 3,
+    issue: `No structured lists or tables on this ${pageType}. AI answer engines favor numbered steps, comparisons, and Q&A blocks over pure prose paragraphs.`,
+    value: { listItems: 0, hasTable: false },
+    lensTraditional: false,
+    lensAi: true,
+  };
+}
+
+function scoreDateFreshness(html, pageType) {
+  if (pageType !== 'blog-post') {
+    return { score: 10, issue: null, lensTraditional: false, lensAi: true };
+  }
+  const hasDatePublished = /"datePublished"\s*:/i.test(html);
+  const hasDateModified  = /"dateModified"\s*:/i.test(html);
+  if (hasDatePublished && hasDateModified) {
+    return { score: 10, issue: null, lensTraditional: false, lensAi: true };
+  }
+  if (hasDatePublished) {
+    return {
+      score: 7,
+      issue: 'Blog post has datePublished but no dateModified — add dateModified to signal content freshness to AI search engines.',
+      lensTraditional: false,
+      lensAi: true,
+    };
+  }
+  return {
+    score: 2,
+    issue: 'Blog post is missing datePublished in schema — AI search engines cannot assess recency and will deprioritize this content.',
     lensTraditional: false,
     lensAi: true,
   };

@@ -215,6 +215,21 @@ export const FINDINGS_CATALOG = {
     fix_action: { kind: 'gbp_api', target: 'websiteUri' },
   },
 
+  // ── AEO (Answer Engine Optimization) ────────────────────────────────────
+  // AEO is the practice of making content easy for AI systems (ChatGPT,
+  // Perplexity, Gemini, Claude) to find, understand, and quote. These checks
+  // go beyond traditional SEO to target the signals AI answer engines use.
+  'schema-no-dates': {
+    weight: 1.1,
+    fixed_copy: 'Added datePublished and dateModified to all blog post schemas.',
+    fix_action: { kind: 'generator', target: 'schema-config' },
+  },
+  'no-snippet-structure': {
+    weight: 1.0,
+    fixed_copy: 'Added numbered steps, comparison sections, and structured subheadings to service pages.',
+    fix_action: { kind: 'generator', target: 'content-expand' },
+  },
+
   // ── Google Ads readiness — conversion tracking + local-intent SEO ───────
   // The grader's pitch: "you cannot run Google Ads productively until these
   // are in place." Smart Bidding needs at least one conversion signal; local

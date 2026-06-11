@@ -4,7 +4,14 @@ Single source of truth for what good SEO looks like in a Groundwork-generated
 site. This doc covers two lenses:
 
 1. **Traditional SEO** — search engines (Google, Bing, etc.)
-2. **AI / LLM discoverability** — being cited by ChatGPT, Claude, Perplexity, Gemini
+2. **AEO (Answer Engine Optimization)** — being cited by AI answer engines: ChatGPT, Claude, Perplexity, Gemini
+
+**What is AEO?** Answer Engine Optimization is the practice of making content
+easy for AI systems to find, understand, and quote. AI doesn't rank pages — it
+picks answers. Over 60% of searches now end without a click; if AI doesn't
+surface your site, users may never find it. AEO targets the signals these
+systems use: structured data, content clarity, freshness signals, and
+answer-oriented page formats.
 
 Most fixes serve both lenses. Where they diverge, the divergence is called out.
 
@@ -86,9 +93,13 @@ on every page; sections may emit additional page-specific schema.)
 When in doubt, emit a more specific schema rather than a generic one
 (e.g., `Dentist` over `LocalBusiness`).
 
-## AI / LLM discoverability
+## AEO (Answer Engine Optimization)
 
-These are the moves that pay off specifically for LLM search & citation.
+These are the moves that pay off specifically for AI search engines and citation.
+The audit tracks these under the `aeo` category. The three pillars are:
+**content clarity**, **freshness signals**, and **answer-extractable structure**.
+
+### Content clarity
 
 - **Direct factual statements**: somewhere on the page, state the answer to
   the question this page is about, in one or two sentences, in plain prose.
@@ -104,9 +115,33 @@ These are the moves that pay off specifically for LLM search & citation.
   "always smiling", "second to none"). Use factual claims that a search
   engine or LLM can cite alongside their source ("Dr. X completed a
   residency at Y institution in 200X" — only when true and scraped).
-- **Comparisons and lists**: when natural to the topic, structure parts of
-  the content as comparisons (X vs. Y) or numbered lists. Both LLMs and
-  Google snippets favor this structure.
+
+### Freshness signals (`schema-no-dates`)
+
+- **`datePublished` on every blog post**: AI systems use publish dates to
+  judge whether content is current. A blog post without `datePublished` in
+  its JSON-LD looks undated and stale — models prefer dated sources.
+- **`dateModified` when content is updated**: when a page is refreshed,
+  update `dateModified`. Many models weight recently-modified pages higher.
+- Required schema for blog posts: `BlogPosting` with `datePublished`,
+  `dateModified`, `author`, `headline`, and `image` if available.
+
+### Answer-extractable structure (`no-snippet-structure`)
+
+- **Numbered steps and ordered lists**: "How does X work?" pages should use
+  `<ol>` with discrete steps. AI models extract numbered lists directly as
+  featured snippet content.
+- **Comparison tables**: when comparing treatment options, materials, or
+  approaches, a `<table>` gives AI systems a citable comparison format.
+- **Subheadings as answer anchors**: every H2 on a service page should be
+  phrased as a question or a direct topic statement that stands alone.
+  "What is dental implant recovery like?" is better than "Recovery".
+- **Minimum structure for service pages**: at least 2 H2 subheadings per
+  service-detail page, and at least 5 list items (bullets or numbered) total.
+  Pages with only prose paragraphs score low on the AEO AI lens.
+
+### Canonical URLs and no-JS content
+
 - **Canonical URLs**: every page has a single canonical URL. Don't ship
   duplicate pages with the same content under different URLs.
 - **No JS-only content**: anything that should be discoverable must be in

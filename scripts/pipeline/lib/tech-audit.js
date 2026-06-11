@@ -81,6 +81,8 @@ function buildDetail(id, count, affectedPages, thresholds) {
     'thin-about':         count === 0 ? 'About page has sufficient content.' : 'About page has fewer than 200 words.',
     'no-viewport':        count === 0 ? 'Viewport meta tag detected.' : 'One or more pages may be missing a viewport meta tag.',
     'title-no-city':      count === 0 ? 'All page titles include the practice city.' : `${base} have a title that doesn't include the practice city.`,
+    'schema-no-dates':    count === 0 ? 'All blog posts include publish dates in their schema.' : `${base} are missing datePublished or dateModified in their JSON-LD — AI systems cannot assess content freshness.`,
+    'no-snippet-structure': count === 0 ? 'Service pages use structured content formats.' : `${base} have prose-only content with fewer than 2 subheadings — AI models struggle to extract quoted answers from unstructured pages.`,
   };
 
   return details[id] || `${count} issue(s) found.`;
@@ -504,6 +506,52 @@ export function runTechAudit(bronze, pagespeed = null, opts = {}) {
       affectedPages: [],
       count,
     });
+  }
+
+  // ── AEO (Answer Engine Optimization) ──────────────────────────────────────
+
+  // schema-no-dates: blog post pages missing datePublished in their JSON-LD.
+  // AI search engines use publish/update dates as a freshness signal — undated
+  // content is treated as potentially stale and less likely to be surfaced.
+  {
+    const blogPages = pages.filter(p => /^\/blog\/.+/.test(p.path || ''));
+    if (blogPages.length > 0) {
+      const affected = blogPages.filter(p => {
+        return !(p.structuredData || []).some(s => s.datePublished || s.dateModified);
+      }).map(p => p.url);
+      findings.push(finding({
+        id: 'schema-no-dates',
+        category: 'aeo',
+        title: 'Blog posts missing publish date in schema',
+        benefit: 'AI systems (ChatGPT, Perplexity, Gemini) use datePublished and dateModified to judge content freshness. Dated posts are favored in AI-generated answers over undated content.',
+        affectedPages: affected,
+        count: affected.length,
+        thresholds: { total: blogPages.length },
+      }));
+    }
+  }
+
+  // no-snippet-structure: service pages with enough content to be useful but
+  // lacking subheadings that let AI models extract structured answers.
+  // Proxy check: service-detail pages with > 250 words but < 2 H2 headings.
+  {
+    const servicePages = pages.filter(p => /^\/services\/.+/.test(p.path || ''));
+    if (servicePages.length > 0) {
+      const affected = servicePages.filter(p => {
+        const wordCount = p.wordCount || 0;
+        const h2s = (p.headings || []).filter(h => h.level === 2).length;
+        return wordCount > 250 && h2s < 2;
+      }).map(p => p.url);
+      findings.push(finding({
+        id: 'no-snippet-structure',
+        category: 'aeo',
+        title: 'Service pages lack answer structure',
+        benefit: 'AI models extract answers from structured content — numbered steps, comparison lists, Q&A blocks. Pages with only prose paragraphs are rarely cited in AI-generated answers.',
+        affectedPages: affected,
+        count: affected.length,
+        thresholds: { total: servicePages.length },
+      }));
+    }
   }
 
   // ── Summary ────────────────────────────────────────────────────────────────

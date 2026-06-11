@@ -36,6 +36,8 @@ export const CATEGORY_LABELS = {
   'no-llms-txt':           'AI agent readiness',
   'llms-txt-poor':         'AI agent readiness',
   'agent-accessibility-tree-poor': 'AI agent readiness',
+  'schema-no-dates':       'AEO: Content freshness',
+  'no-snippet-structure':  'AEO: Answer structure',
 };
 
 /** @type {Record<string, 'foundation'|'performance'|'content'|'conversion'>} */
@@ -78,6 +80,8 @@ export const WORKSTREAMS = {
   'no-llms-txt': 'content',
   'llms-txt-poor': 'content',
   'agent-accessibility-tree-poor': 'foundation',
+  'schema-no-dates': 'content',
+  'no-snippet-structure': 'content',
 };
 
 /** Finding IDs that must never appear on the sales one-pager. */
@@ -164,6 +168,14 @@ export const CONSUMER_COPY = {
   'agent-accessibility-tree-poor': {
     now: 'The accessibility tree AI agents use to navigate your site is malformed — unlabeled buttons and broken structure block reliable machine interaction.',
     good: 'Semantic HTML and proper labels give AI assistants a clean map of your pages and forms.',
+  },
+  'schema-no-dates': {
+    now: '{{count}} blog posts have no publish date in their schema — AI search engines (ChatGPT, Perplexity, Gemini) can\'t tell if your content is current and may skip it in favor of dated sources.',
+    good: 'Every blog post carries a publish and update date, giving AI systems the freshness signal they prioritize when surfacing answers.',
+  },
+  'no-snippet-structure': {
+    now: '{{count}} service pages use blocks of prose with no structured subheadings, lists, or comparisons — formats AI models can\'t easily extract as direct answers.',
+    good: 'Service pages break down topics with numbered steps, comparison tables, and Q&A sections that AI assistants can quote directly.',
   },
   'no-testimonials': {
     now: 'No patient reviews or testimonials are visible on the site — new visitors have little social proof.',
