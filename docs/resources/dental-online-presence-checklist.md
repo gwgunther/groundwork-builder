@@ -22,7 +22,7 @@
 - [ ] **Looks good on a phone** — open your site on your own phone; text readable, buttons tappable, no pinching to zoom.
 - [ ] **Loads fast on mobile** — use Google’s free tool [PageSpeed Insights](https://pagespeed.web.dev/): enter your website, run the test, switch to **Mobile**, and check that performance is in the green or “good” range. If the main content takes more than a few seconds to appear, patients may leave before it loads.
 - [ ] **One clear main heading per page** — plus subheadings that make sense if someone skims.
-- [ ] **A unique page title and short description** on each page you want to show up on Google (what appears in search results).
+- [ ] **A unique page title on each page** — the formula that works: *City + Service + Practice Name* (e.g., "Dental Implants in Austin | Riverside Family Dental"). Each page title should be different; never use the same title on two pages.
 - [ ] **Descriptions on photos** for people using screen readers and for Google — not filenames like `image1.jpg`.
 - [ ] **No broken links** — click through your site after launch and after big updates.
 
@@ -42,11 +42,13 @@
 ### Google Business Profile (your Google Maps listing)
 
 - [ ] **Profile claimed and verified** — search your practice on Google Maps; if you see “Claim this business,” it’s not yours yet.
-- [ ] **Right business categories** — e.g. Dentist, plus others that fit (cosmetic, pediatric, etc.).
-- [ ] **Profile filled out** — hours, services, description, website, attributes.
-- [ ] **Real photos** — exterior, waiting room, ops, team.
-- [ ] **Website link points to your real domain** — not an old or duplicate site.
-- [ ] **Review link saved** — from Google → “Ask for reviews”; use at the front desk, in texts, and email signatures.
+- [ ] **Primary category: Dentist** — then add relevant secondary categories (Cosmetic Dentist, Pediatric Dentist, Emergency Dental Service, etc.). Category is the single biggest ranking lever in Maps.
+- [ ] **Profile filled out completely** — hours (including holiday exceptions), services with descriptions, 750-character business description, website link, attributes (wheelchair accessible, parking, insurance accepted, etc.).
+- [ ] **Website link points to your real domain** — not an old site, a scheduling tool homepage, or a staging URL.
+- [ ] **Minimum 10 real photos** — exterior (day and night), waiting room, treatment room, team photo, doctor headshot. More is better; Google rewards active profiles.
+- [ ] **Q&A section seeded** — add 3–5 real patient questions yourself (“Do you accept Delta Dental?” “Is parking free?”) with your own answers. Unanswered Q&As can be hijacked by strangers.
+- [ ] **Review link saved and in use** — from Google → “Ask for reviews”; front desk, post-visit text, and email signature should all use it.
+- [ ] **Post at least once a month** — offers, new services, team news. Google ranks active profiles higher in Maps.
 
 ### You own your accounts
 
@@ -70,8 +72,10 @@ The exact same practice name, street address, and phone number should appear on 
 
 ### Google can find your pages
 
-- [ ] **Sitemap file exists** — ask your web person or visit `yoursite.com/sitemap.xml` (or similar); it should list your public pages.
-- [ ] **Sitemap submitted in Google Search Console** — under Sitemaps.
+- [ ] **Sitemap file exists** — ask your web person or visit `yoursite.com/sitemap.xml`; it should list your real public pages.
+- [ ] **Sitemap submitted in Google Search Console** — log into [Search Console](https://search.google.com/search-console), click **Sitemaps**, paste the sitemap URL, and hit Submit.
+- [ ] **Coverage report shows no errors** — in Search Console, click **Pages** (or **Coverage**); the "Not indexed" and "Error" columns should be near zero for your real service and location pages. A service page Google hasn't indexed won't rank.
+- [ ] **Request indexing on new or updated pages** — paste the page URL into the Search Console URL Inspection tool and click **Request Indexing** after a launch or major update. Google may take days to find changes on its own.
 - [ ] **Thank-you and staging pages hidden from Google** — so only real pages show in search.
 
 ### Before you call the site “done”
