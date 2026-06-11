@@ -229,32 +229,49 @@ Still in Cloud Console, same project.
 
 ---
 
-### C — Google Analytics 4 access (their screen share, ~3 min)
+### C — Google Analytics 4 (their screen share, ~5 min)
 
-Skip if they don't have GA4 yet — you'll create a new property at go-live.
+**If they already have GA4** — add you and grab the Measurement ID:
 
 1. Go to [analytics.google.com](https://analytics.google.com)
 2. Bottom left → **Admin** (gear icon)
-3. Under **Account** column → **Account Access Management**
-4. Top right → **+** (Add users)
-5. Email addresses: your Gmail → Role: **Editor** → **Add**
+3. Under **Account** column → **Account Access Management** → **+** → your Gmail → Role: **Editor** → **Add**
+4. Under **Property** column → **Data Streams** → click the web stream → copy the **Measurement ID** (`G-XXXXXXXXXX`) → save it (you'll add it to intake.json)
 
-> **Note:** If they have GA4 set up at both the account *and* property level, you want account-level Editor so you can see all properties. If it's a single-property setup, property-level Editor is fine.
+**If they don't have GA4 yet** — create one now (~5 min):
 
-✅ After this you can access their GA4 property to confirm tracking is live after launch.
+1. Go to [analytics.google.com](https://analytics.google.com)
+2. Bottom left → **Admin** → **+ Create** → **Account**
+3. Account name: practice name → **Next** → **Next** → **Create** → accept terms
+4. You're now in "Create a property" flow:
+   - Property name: their domain (e.g. `riversidefamilydental.com`)
+   - Time zone: their local timezone
+   - Currency: USD → **Next**
+   - Industry: Health → Business size: Small → **Next** → **Create**
+5. "Start collecting data" → choose **Web**
+   - Website URL: their domain (e.g. `https://riversidefamilydental.com`)
+   - Stream name: their domain → **Create stream**
+6. Copy the **Measurement ID** (`G-XXXXXXXXXX`) — save it to your notes and intake.json
+7. Back in Admin → **Account Access Management** → **+** → your Gmail → **Editor** → **Add**
+
+✅ Measurement ID in hand = you can wire tracking into the build. GA confirmation of live traffic happens after launch.
+
+> **Where the Measurement ID goes:** Add it to `clients/<slug>/intake.json` under `content.ga4_measurement_id`. The site config reads it from there.
 
 ---
 
-### D — Google Search Console access (their screen share, ~3 min)
+### D — Google Search Console (their screen share, ~3 min)
 
-Skip if they don't have GSC verified yet — you'll set it up at go-live (Phase 7).
+**If they already have GSC** — add you as Owner:
 
 1. Go to [search.google.com/search-console](https://search.google.com/search-console)
-2. Top left → select the correct property (their domain)
+2. Top left → select the correct property
 3. Left menu → **Settings** → **Users and permissions**
-4. **Add user** → your Gmail → Permission: **Owner** (Full is the minimum; Owner lets you add other users later) → **Add**
+4. **Add user** → your Gmail → Permission: **Owner** → **Add**
 
-> **If GSC isn't verified yet:** skip this step. Phase 7 walks through adding the property and verifying it after DNS cutover.
+**If they don't have GSC yet** — skip this step on the call. GSC setup requires the real domain to be live and reachable, so it's done at go-live. See [Phase 7 — Set up Google Search Console](#set-up-google-search-console).
+
+> Owner permission matters: Full user can see data but can't add other users or remove the property. Owner can do both — important for verifying the domain property later.
 
 ---
 
@@ -442,11 +459,58 @@ npm run audit -- --url https://their-domain.com --source manual
 ```
 
 - [ ] Update GBP website link to the real domain (`business.google.com` → Info → Website)
-- [ ] Submit sitemap in Google Search Console:
-  - Open [search.google.com/search-console](https://search.google.com/search-console)
-  - Add property (domain property preferred) → verify via DNS TXT record or HTML file
-  - Sitemaps → submit `https://their-domain.com/sitemap.xml`
-- [ ] Request indexing on key pages via URL Inspection tool (homepage, each service page)
+
+---
+
+### Set up Google Search Console
+
+#### If GSC already existed and you have Owner access (Phase 3D)
+
+1. Go to [search.google.com/search-console](https://search.google.com/search-console)
+2. Left menu → **Sitemaps** → enter `sitemap.xml` → **Submit**
+3. Left menu → **URL Inspection** → paste homepage URL → **Request Indexing**
+4. Repeat URL Inspection for each service page and the About page
+
+#### If GSC doesn't exist yet — create a Domain property (preferred)
+
+A Domain property covers `http://`, `https://`, `www.`, and non-`www.` automatically — cleaner than URL prefix.
+
+1. Go to [search.google.com/search-console](https://search.google.com/search-console)
+2. Left panel → **+ Add property** → select **Domain** tab
+3. Enter domain without protocol: `riversidefamilydental.com` → **Continue**
+4. GSC shows a **TXT record value** — copy it (looks like `google-site-verification=XXXXXXXXXXXX`)
+5. In DNS registrar (Cloudflare, GoDaddy, etc.) → add a new DNS record:
+   - Type: `TXT`
+   - Name / Host: `@`
+   - Value: the verification string from step 4
+   - TTL: auto or 300
+   - Save
+6. Back in GSC → **Verify** (may take 1–15 min for DNS to propagate; retry if it fails)
+7. Once verified: **Sitemaps** → enter `sitemap.xml` → **Submit**
+8. **URL Inspection** → paste each key page URL → **Request Indexing**:
+   - Homepage (`https://their-domain.com/`)
+   - Each service page (`/services/dental-implants/`, etc.)
+   - About page
+9. Left menu → **Settings** → **Users and permissions** → **Add user** → their email → **Owner** (so they have access to their own data)
+
+> **If Domain verification fails after 15 min:** try URL prefix as a fallback — Add property → URL prefix → `https://their-domain.com` → verify via the **Google Analytics** method (instant if GA4 tag is live on the site).
+
+---
+
+### Verify GA4 is tracking
+
+1. Go to [analytics.google.com](https://analytics.google.com) → their property
+2. Left menu → **Reports** → **Realtime**
+3. Open their live site in a new tab and navigate a few pages
+4. Realtime should show ≥1 active user within ~30 seconds
+
+If no data appears, the Measurement ID may not be wired into the site — check `src/config/site.ts` or wherever the GA snippet is embedded.
+
+---
+
+- [ ] GSC property verified and sitemap submitted
+- [ ] Key pages have indexing requested
+- [ ] GA4 Realtime confirmed tracking
 - [ ] Update Airtable lifecycle: `Onboarding → Live`
 
 ```
