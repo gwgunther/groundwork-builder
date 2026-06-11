@@ -85,6 +85,23 @@ The exact same practice name, street address, and phone number should appear on 
 
 ---
 
+## Show up in AI answers — ChatGPT, Perplexity, and Google AI
+
+More patients now ask AI assistants for recommendations instead of scrolling search results — and AI doesn’t rank pages, it picks answers. These steps make your practice easy for AI to find, understand, and recommend. Do the basics above first: AI mostly cites practices that already do well in regular search.
+
+- [ ] **Ask the AI about yourself** — in ChatGPT or Perplexity, ask “Who’s a good dentist for implants in [your city]?” and “Tell me about [your practice name].” Note whether you’re mentioned and whether the details are right. Re-check every month or two.
+- [ ] **Not mentioned yet? Reviews and directories first** — AI learns to trust you from what *others* say: Google reviews, Healthgrades, Yelp, local news. Until that exists, polishing your own site won’t move the needle much.
+- [ ] **Mentioned, but details are wrong?** Fix your site and profiles so the correct facts are easy to find — services, hours, doctors, locations.
+- [ ] **Don’t block AI assistants from your site** — some security plugins and firewall settings block the crawlers AI tools use (named GPTBot, ClaudeBot, PerplexityBot). Ask your web person to confirm your `robots.txt` file allows them.
+- [ ] **Answer the question in the first two sentences** — each service page should plainly say what the treatment is, who it’s for, and what to expect *before* any marketing copy. AI quotes pages that answer directly.
+- [ ] **Use steps, lists, and tables** — “what to expect” as numbered steps, treatment options as comparisons. AI lifts structured answers far more often than long paragraphs.
+- [ ] **Facts beat slogans** — “Dr. Lee has placed 1,200+ implants since 2010” is something an AI can quote; “we care about your smile” is not.
+- [ ] **Put dates on blog posts and keep key pages fresh** — AI favors recently updated content; pages updated in the last couple of months are roughly twice as likely to be cited.
+- [ ] **Link doctor bios to their profiles** — from each bio, link to the doctor’s Healthgrades or LinkedIn page, and have your web person add those links to the page’s structured data. It helps AI confirm your doctors are real, credentialed people.
+- [ ] **FAQ on every major service page** — real patient questions with plain answers, marked up with FAQ structured data. The single strongest format for getting quoted by AI.
+
+---
+
 ## Advanced — once the basics are in place
 
 ### Content that helps you rank
