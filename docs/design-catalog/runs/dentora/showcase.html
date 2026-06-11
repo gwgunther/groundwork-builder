@@ -1043,6 +1043,14 @@ footer {
   .about-headline { font-size: clamp(28px, 9vw, 76px); }
 }
 
+/* Small phones: compact the three-zone nav so logo/phone don't wrap. */
+@media (max-width: 480px) {
+  nav { padding-left: 16px; padding-right: 16px; }
+  .nav-logo { font-size: 14px; white-space: nowrap; }
+  .nav-menu { font-size: 0; gap: 0; }          /* hamburger only — drop "Menu" label */
+  .nav-phone { font-size: 12px; white-space: nowrap; gap: 5px; }
+}
+
 /* The design-system dock must not exceed the viewport on narrow screens. */
 @media (max-width: 400px) {
   .ds-panel { width: 100vw; }
