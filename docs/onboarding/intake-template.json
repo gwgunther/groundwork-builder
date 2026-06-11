@@ -1,0 +1,94 @@
+{
+  "practice_info": {
+    "practice_name": "",
+    "contact_email": "",
+    "contact_phone": "",
+    "domain": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zip": ""
+    },
+    "hours": {
+      "monday":    "8:00 AM – 5:00 PM",
+      "tuesday":   "8:00 AM – 5:00 PM",
+      "wednesday": "8:00 AM – 5:00 PM",
+      "thursday":  "8:00 AM – 5:00 PM",
+      "friday":    "8:00 AM – 3:00 PM",
+      "saturday":  "Closed",
+      "sunday":    "Closed"
+    }
+  },
+  "doctor_team": {
+    "primary_doctor": {
+      "first_name": "",
+      "last_name": "",
+      "credentials": "",
+      "bio": "",
+      "education": "",
+      "profiles": {
+        "healthgrades": "",
+        "linkedin": "",
+        "zocdoc": ""
+      }
+    }
+  },
+  "services": {
+    "list": [
+      "General Dentistry",
+      "Cosmetic Dentistry",
+      "Dental Implants",
+      "Teeth Whitening",
+      "Emergency Dentistry"
+    ]
+  },
+  "insurance_financing": {
+    "plans": [
+      "Delta Dental",
+      "Cigna",
+      "MetLife",
+      "Aetna",
+      "United Healthcare"
+    ],
+    "financing": [
+      "CareCredit"
+    ]
+  },
+  "branding": {
+    "colors": {
+      "primary": "",
+      "secondary": "",
+      "accent": ""
+    },
+    "fonts": {
+      "heading": "",
+      "body": ""
+    }
+  },
+  "content": {
+    "faqs": [
+      {
+        "question": "",
+        "answer": ""
+      }
+    ],
+    "testimonials": [
+      {
+        "body": "",
+        "author": "",
+        "rating": 5
+      }
+    ],
+    "scheduling_url": "",
+    "social": {
+      "facebook": "",
+      "instagram": "",
+      "yelp": "",
+      "healthgrades": "",
+      "google_maps": ""
+    },
+    "case_study_consent": null,
+    "consent_scope": null
+  }
+}

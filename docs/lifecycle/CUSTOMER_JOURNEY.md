@@ -88,8 +88,8 @@ Phases ③ are documented in [ARCHITECTURE.html](../architecture/ARCHITECTURE.ht
 | 8 | Handoff baseline captured | *(at Pitched)* | Accounts | `publish.js` when ship gates pass | ✅ | [HANDOFF.md](../onboarding/HANDOFF.md) |
 | 9 | Discovery / sales call | **Contacted** | Accounts | Manual (`setAccountLifecycle`) | ⚡ | `airtable.js` |
 | 10 | Client signed | **Signed** | Accounts | Contract / payment | ⚡ Manual | `setAccountLifecycle()` |
-| 11 | Onboarding | **Onboarding** | Accounts | Post-sign checklist | ⚡ GBP runbooks | [docs/gbp/](../gbp/) |
-| 12 | Live on client domain | **Live** | Accounts + Builds | DNS cutover | ⚡ Manual | [BUILD_BEST_PRACTICES.md](../engineering/BUILD_BEST_PRACTICES.md) |
+| 11 | Onboarding | **Onboarding** | Accounts | Post-sign checklist | ⚡ GBP + intake | [ONBOARDING.md](../onboarding/ONBOARDING.md) |
+| 12 | Live on client domain | **Live** | Accounts + Builds | DNS cutover | ⚡ Manual | [ONBOARDING.md §7](../onboarding/ONBOARDING.md#phase-7--dns-cutover-and-go-live) |
 | 13 | Active / support | **Active** | Accounts | Ongoing | ⚡ Manual | — |
 | 14 | Churn / offboard | **Churned** | Accounts | Engagement ends | ⚡ GBP offboarding | [gbp-offboarding.md](../gbp/gbp-offboarding.md) |
 
