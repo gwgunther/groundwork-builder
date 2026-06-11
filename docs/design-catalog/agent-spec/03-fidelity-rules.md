@@ -54,6 +54,10 @@ Each of these has actually happened. The fix discipline follows each one.
 - **Partial propagation.** Updating tokens but leaving old values hard-coded in
   screens/cards/docs. → Grep the whole project for stale hexes, family names, and
   copy after every palette/type change; entry HTMLs are part of the system.
+- **Desktop-only authoring.** Building the showcase at one width with fixed-`px`
+  containers and no `@media` rules, so it overflows or clips on a phone. → Author
+  fluid from the start (see principle 7); verify the reflow at 320/768/1280 in the
+  responsive audit below before delivery.
 
 ## Placeholder & substitution policy
 
@@ -109,3 +113,11 @@ complete · manifest matches actual files.
 
 **Propagation** — grep for stale hexes/fonts/names across `*.jsx`, `*.html`,
 `*.css`, `*.md` after any system-wide change.
+
+**Responsive** — load every HTML artifact at 320px, 768px, and 1280px wide ·
+no horizontal scroll/overflow at any width · multi-column grids reflow to one
+column on narrow screens · type stays readable (no clipped/overlapping
+headings; `clamp()` or breakpoint-scaled) · nav collapses gracefully (no
+overflowing link row) · touch targets ≥44px · images/media scale fluidly
+(`max-width:100%`) · `width=device-width` viewport present. Measure the live
+DOM at each width, don't eyeball one capture.

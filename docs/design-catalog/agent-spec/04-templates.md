@@ -3,6 +3,13 @@
 Skeletons the agent fills in. `{{placeholders}}` mark required substitutions.
 These files are illustrative — adapt names and groups to the audited brand.
 
+> **Responsive, not fixed-width.** The `viewport="WxH"` values in the `@dsCard` /
+> `@startingPoint` tags below are capture hints for the catalog tooling — they set
+> a *default thumbnail* size, not the width you author at. Every artifact must
+> still be fluid and reflow to a single column on phones (principle 7;
+> `03-fidelity-rules.md` §Responsive). Use fluid containers + `@media` breakpoints,
+> never a hard-coded page width.
+
 ---
 
 ## tokens/colors.css

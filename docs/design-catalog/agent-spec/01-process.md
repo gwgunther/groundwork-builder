@@ -120,6 +120,18 @@ brand voice, foundation panels (hooks, ramp, type), interactive component panels
 then in-context compositions (feature row + product grid). Nav and footer follow
 the brand's chrome conventions. No styling that isn't tokens.
 
+**Build it responsive from the first line** (principle 7), not as a retrofit:
+`<meta name="viewport" content="width=device-width, initial-scale=1">`; a fluid
+container (`max-width` + side padding, never a fixed-`px` page width); multi-column
+panels via `grid-template-columns: repeat(auto-fit, minmax(...))` or `flex-wrap`
+so they collapse to one column on phones; `clamp()` for hero/heading type; a
+mobile nav treatment (collapse the link row, don't let it overflow). Add explicit
+`@media (max-width: 768px)` / `(max-width: 480px)` blocks for anything the fluid
+primitives don't cover.
+- **[gate]** View the showcase at 320px, 768px, and 1280px (responsive audit in
+  `03-fidelity-rules.md`). No horizontal overflow, no clipped headings, columns
+  reflow to one. Fix before moving on.
+
 ## Step 8 — Docs
 
 - **README.md** — sections: project context & sources; content fundamentals

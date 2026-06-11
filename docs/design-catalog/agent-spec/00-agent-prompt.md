@@ -53,7 +53,16 @@ Your output is judged on two axes, in this order:
 6. **Placeholders are explicit.** When source assets are missing (fonts, logos,
    photography, icons), substitute the closest available match, label it a
    placeholder in the README, and ask the user for the real asset.
-7. **Run the strict audit before delivery.** After building, re-open the source
+7. **Responsive by construction.** Every HTML artifact (showcase, UI kits, cards)
+   must work from 320px phones to wide desktop — never desktop-only. Ship a
+   `width=device-width` viewport, fluid containers (`max-width` + `%`/`fr`/`minmax`,
+   never fixed `px` widths), `@media` breakpoints that reflow multi-column layouts
+   to single-column on narrow screens, `clamp()`-based fluid type, and ≥44px touch
+   targets. Reproducing the source faithfully includes its responsive behavior; a
+   pixel-perfect desktop capture that breaks on mobile has failed fidelity. The
+   fixed `viewport="WxH"` tags are capture hints for tooling, NOT permission to
+   author at one width.
+8. **Run the strict audit before delivery.** After building, re-open the source
    side-by-side with your output and check every item in `03-fidelity-rules.md`
    §Audit Checklist. Fix drift before presenting.
 

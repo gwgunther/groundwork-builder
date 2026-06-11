@@ -986,6 +986,67 @@ footer {
 .token-label { font-size: 10px; color: #444444; margin-bottom: 2px; }
 .token-val   { font-size: 13px; color: #cccccc; font-weight: 600; }
 .token-sub   { font-size: 10px; color: #444444; }
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+/* Tablet: relax the widest multi-column grids to two/one column. */
+@media (max-width: 900px) {
+  .services-grid, .featured-grid { grid-template-columns: repeat(2, 1fr); }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .faq-inner { grid-template-columns: 1fr; gap: 40px; }
+  .faq-left-head { position: static; top: auto; }
+}
+
+/* Phone/landscape: single-column headers, tightened gutters, reflowed collages. */
+@media (max-width: 768px) {
+  /* Tighten horizontal gutters everywhere; vertical rhythm is preserved
+     because each base rule sets padding via shorthand. */
+  #hero, #about, #services, #team, #case-studies, #service-detail,
+  #featured-treatments, #faq, #cta, footer, nav { padding-left: 22px; padding-right: 22px; }
+  .meta-bar { padding-left: 14px; padding-right: 14px; }
+  #hero { min-height: 0; }
+
+  /* Showcase meta bar: keep to one line so the sticky nav offset stays valid. */
+  .meta-bar > span:not(.meta-name), .meta-bar .meta-sep { display: none; }
+
+  /* Section headers collapse to a single column. */
+  .services-header { grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
+  .services-desc { max-width: none; padding-top: 0; }
+  .team-header { grid-template-columns: 1fr; gap: 14px; margin-bottom: 36px; }
+  .team-h2, .team-desc { max-width: none; padding-top: 0; }
+  .featured-header { flex-direction: column; gap: 14px; }
+
+  /* Hero collage: absolute desktop placement → fluid wrapping row. */
+  .hero-collage { height: auto; margin-top: 8px; display: flex; flex-wrap: wrap;
+    align-items: flex-end; justify-content: center; gap: 12px; }
+  .hero-photo { position: static; }
+  .hero-photo-a, .hero-photo-b, .hero-photo-c {
+    left: auto; right: auto; top: auto; transform: none; height: auto; }
+  .hero-photo-a { width: 38%; aspect-ratio: 178 / 222; }
+  .hero-photo-b { width: 48%; aspect-ratio: 1 / 1; }
+  .hero-photo-c { width: 38%; aspect-ratio: 162 / 178; }
+  .hero-smiley { display: none; }
+
+  /* Case-studies collage: fixed-width photos → fluid, wrap if needed. */
+  .case-collage { flex-wrap: wrap; gap: 14px; }
+  .case-photo { flex-shrink: 1; height: auto; margin-bottom: 0; }
+  .case-photo-a { width: 30%; aspect-ratio: 148 / 172; }
+  .case-photo-b { width: 40%; aspect-ratio: 216 / 248; }
+  .case-photo-c { width: 30%; aspect-ratio: 148 / 180; }
+
+  /* Scale-inversion headline: allow the underlined phrase to wrap. */
+  .accent-underline { white-space: normal; }
+}
+
+/* Small phones: stack remaining multi-column grids. */
+@media (max-width: 540px) {
+  .services-grid, .featured-grid, .team-grid { grid-template-columns: 1fr; }
+  .about-headline { font-size: clamp(28px, 9vw, 76px); }
+}
+
+/* The design-system dock must not exceed the viewport on narrow screens. */
+@media (max-width: 400px) {
+  .ds-panel { width: 100vw; }
+}
 </style>
 </head>
 <body>
@@ -1480,8 +1541,14 @@ function toggleAnnotations() {
 function toggleFaq(btn) {
   btn.closest('.faq-item').classList.toggle('open');
 }
-// Open panel by default
-document.getElementById('ds-panel').classList.add('open');
+// Open the dock by default on wide screens; keep it out of the way on phones
+// (full-width when open, it would otherwise cover the showcase).
+if (window.innerWidth > 768) {
+  document.getElementById('ds-panel').classList.add('open');
+} else {
+  document.getElementById('ds-panel').classList.remove('open');
+  document.getElementById('panel-btn').classList.remove('active');
+}
 </script>
 </body>
 </html>
