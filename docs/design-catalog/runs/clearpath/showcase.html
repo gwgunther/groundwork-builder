@@ -739,6 +739,62 @@ footer {
 .novel-item { background: rgba(90,145,137,0.08); border: 1px solid rgba(90,145,137,0.2); border-radius: 6px; padding: 9px 10px; }
 .novel-item-name { font-size: 11px; color: #7ABBB3; font-weight: 600; margin-bottom: 3px; }
 .novel-item-spec { font-size: 10.5px; color: #2A5A52; line-height: 1.4; }
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+/* Tablet: relax widest grids and collapse the page-level 2-col layouts. */
+@media (max-width: 900px) {
+  .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-header { grid-template-columns: 1fr; gap: 24px; }
+  .about-grid { grid-template-columns: 1fr; gap: 36px; }
+  .about-photo { max-width: 420px; }
+  /* Staggered cards become a 2-up wrapping grid; drop the vertical offset. */
+  .staggered-row { flex-wrap: wrap; }
+  .portrait-card { flex: 1 1 calc(50% - 10px); }
+  .portrait-card:nth-child(even) { margin-top: 0; }
+}
+
+/* Phone/landscape: tighten gutters, single-column headers, reflow hero. */
+@media (max-width: 768px) {
+  section, nav, footer { padding-left: 48px; padding-right: 48px; }
+  #hero, #services-intro, #services-cards, #stats, #about, #reviews, #cta,
+  footer, nav { padding-left: 22px; padding-right: 22px; }
+  .meta-bar { padding-left: 14px; padding-right: 14px; }
+
+  /* Meta bar is a single 33px row: hide secondary descriptors. */
+  .meta-bar > span:not(.meta-name), .meta-bar .meta-sep { display: none; }
+
+  /* Hero: stack the 2-col content; tighten inner padding; reposition nav. */
+  .hero-poster { min-height: 0; }
+  .hero-content { grid-template-columns: 1fr; gap: 28px; padding: 96px 28px 40px; }
+  .hero-nav { padding: 0 24px; }
+  .hero-nav .nav-links { display: none; }
+  .hero-deco { display: none; }
+
+  /* Stats numerals: wrap to a 2x2 grid instead of one overflowing row. */
+  .stats-numeral-row { flex-wrap: wrap; gap: 32px 0; padding-top: 36px; }
+  .stat-unit { flex: 1 1 50%; padding-right: 16px; }
+  .stat-unit:not(:first-child) { padding-left: 0; border-left: none; }
+}
+
+/* Small phones: stack remaining card grids. */
+@media (max-width: 540px) {
+  .reviews-grid { grid-template-columns: 1fr; }
+  .portrait-card { flex: 1 1 100%; }
+  .hero-headline { font-size: clamp(32px, 9vw, 68px); }
+}
+
+/* Small phones: compact the nav so logo + links + CTA fit one line. */
+@media (max-width: 480px) {
+  nav { padding-left: 16px; padding-right: 16px; gap: 12px; }
+  .nav-logo { font-size: 13px; white-space: nowrap; }
+  .nav-links { display: none; }
+  nav .btn-teal { padding: 8px 16px; font-size: 10.5px; white-space: nowrap; }
+}
+
+/* The design-system dock must not exceed the viewport on narrow screens. */
+@media (max-width: 400px) {
+  .ds-panel { width: 100vw; }
+}
 </style>
 </head>
 <body>
@@ -1104,8 +1160,14 @@ function toggleAnnotations() {
   document.body.classList.toggle('show-annotations');
   document.getElementById('annotate-btn').classList.toggle('active');
 }
-// Open panel by default
-document.getElementById('ds-panel').classList.add('open');
+// Open the dock by default on wide screens; keep it out of the way on phones
+// (full-width when open, it would otherwise cover the showcase).
+if (window.innerWidth > 768) {
+  document.getElementById('ds-panel').classList.add('open');
+} else {
+  document.getElementById('ds-panel').classList.remove('open');
+  document.getElementById('panel-btn').classList.remove('active');
+}
 </script>
 </body>
 </html>

@@ -383,5 +383,17 @@
     "description": "Five yellow stars in a row representing a five-star rating graphic.",
     "tags": [],
     "analyzed_at": "2026-04-27T00:52:03.510Z"
+  },
+  "https://www.springstdentistry.com/blog/wp-content/uploads/2026/05/shutterstock_2693001145.jpg": {
+    "subject": "stock",
+    "authentic": false,
+    "quality": 4,
+    "description": "A blonde woman in a light blue blouse sits in a dental chair, smiling while admiring her teeth in a handheld mirror.",
+    "tags": [
+      "smiling",
+      "posed",
+      "modern"
+    ],
+    "analyzed_at": "2026-06-10T17:57:20.910Z"
   }
 }

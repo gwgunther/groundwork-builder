@@ -911,6 +911,50 @@ footer {
 .novel-item { background: rgba(232,216,0,0.07); border: 1px solid rgba(232,216,0,0.15); border-radius: 6px; padding: 9px 10px; }
 .novel-item-name { font-size: 11px; color: #c8b830; font-weight: 600; margin-bottom: 3px; }
 .novel-item-spec { font-size: 10.5px; color: #5a6020; line-height: 1.4; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  /* widest grids → 2 cols */
+  .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+  /* two-column section splits → one column */
+  .hero-top { grid-template-columns: 1fr; gap: 28px; }
+  .programs-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-grid { grid-template-columns: 1fr; gap: 36px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+  .journal-top { grid-template-columns: 1fr; gap: 28px; }
+}
+@media (max-width: 768px) {
+  /* The DS panel auto-closes on mobile via the load guard; drop the 380px reserve so content uses full width */
+  .content-wrap { padding-right: 0 !important; } /* overrides inline style.paddingRight='380px' set by togglePanel/load */
+  /* Tighten ONLY horizontal padding so vertical rhythm (padding shorthand) is preserved */
+  nav, #hero, #programs, #about, #testimonials, #contact, #journal, #faq, #cta, footer, section { padding-left: 22px; padding-right: 22px; }
+  .meta-bar { padding-left: 14px; padding-right: 14px; }
+  /* keep meta bar to one line */
+  .meta-bar > span:not(.meta-name), .meta-bar .meta-sep { display: none; }
+  /* contact form / about width caps */
+  .about-body, .hero-desc { max-width: none; }
+  /* journal newsletter widget no longer fixed 300px after stacking — full width */
+}
+@media (max-width: 540px) {
+  .programs-grid { grid-template-columns: 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .articles-grid { grid-template-columns: 1fr; }
+  /* giant display headlines: relax so they don't force horizontal overflow */
+  .hero-headline { font-size: clamp(40px, 13vw, 72px); }
+  .journal-heading { font-size: clamp(38px, 12vw, 64px); }
+  .cta-heading { font-size: clamp(32px, 11vw, 56px); }
+}
+@media (max-width: 480px) {
+  /* compact the nav so logo + Book Now button never wrap */
+  nav { padding-left: 16px; padding-right: 16px; gap: 10px; }
+  .nav-links { display: none; }   /* center menu hidden; logo + CTA remain on one line */
+  .nav-logo { font-size: 13px; white-space: nowrap; }
+  nav .btn-pill-filled { white-space: nowrap; }
+  #cta .cta-btns { flex-direction: column; align-items: center; }
+}
+@media (max-width: 400px) {
+  .ds-panel { width: 100vw; }
+}
 </style>
 </head>
 <body>
@@ -1407,8 +1451,15 @@ function toggleFaq(btn) {
   const item = btn.closest('.faq-item');
   item.classList.toggle('open');
 }
-// Open panel by default
-document.getElementById('ds-panel').classList.add('open');
+// Open panel by default (desktop only)
+if (window.innerWidth > 768) {
+  document.getElementById('ds-panel').classList.add('open');
+} else {
+  document.getElementById('ds-panel').classList.remove('open');
+  document.getElementById('panel-btn').classList.remove('active');
+  document.body.classList.add('panel-closed');
+  document.getElementById('content-wrap').style.paddingRight = '0';
+}
 </script>
 </body>
 </html>

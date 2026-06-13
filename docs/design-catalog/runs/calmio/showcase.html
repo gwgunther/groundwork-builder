@@ -719,6 +719,57 @@ footer {
 .check-list  { display: flex; flex-direction: column; gap: 8px; padding-bottom: 24px; }
 .check-item  { background: #181410; border-radius: 6px; padding: 9px 10px; font-size: 11px; color: #907860; line-height: 1.45; }
 .check-item::before { content: '✓ '; color: #70c888; font-weight: 700; }
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+/* Tablet: relax widest grids and collapse the page-level 2-col layout. */
+@media (max-width: 900px) {
+  .bento-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; min-height: 0; }
+  .bento-center-photo { grid-row: auto; grid-column: 1 / 3; min-height: 240px; order: -1; }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .doctor-inner { grid-template-columns: 1fr; gap: 36px; }
+  .doctor-photo { max-width: 360px; }
+}
+
+/* Phone/landscape: tighten gutters, single-column headers, reflow hero. */
+@media (max-width: 768px) {
+  section, nav, footer { padding-left: 22px; padding-right: 22px; }
+  #hero, #benefits, #service-detail, #team, #doctor, #faq, #cta { padding-left: 22px; padding-right: 22px; }
+  .meta-bar { padding-left: 14px; padding-right: 14px; }
+
+  /* Hide secondary meta-bar descriptors so it stays compact. */
+  .meta-bar > span:not(.meta-name), .meta-bar .meta-sep { display: none; }
+
+  /* Hero card: drop side gutters of the inner wrapper, stack nav overlay. */
+  #hero > div:first-child { padding-left: 0; padding-right: 0; }
+  .hero-content { padding: 40px 28px 36px; max-width: none; }
+  .hero-nav-overlay { padding: 18px 20px; flex-wrap: wrap; gap: 12px; }
+  .hero-nav-links { display: none; }
+  .hero-photo-subject { width: 70%; }
+
+  /* Service-detail inline override: keep wide photo within gutters. */
+  .service-wide-photo { margin-left: 0 !important; margin-right: 0 !important;
+    max-width: 100% !important; height: 280px; }
+}
+
+/* Small phones: stack remaining card grids. */
+@media (max-width: 540px) {
+  .bento-grid { grid-template-columns: 1fr; }
+  .bento-center-photo { grid-column: auto; }
+  .team-grid { grid-template-columns: 1fr; }
+  .hero-h1 { font-size: clamp(26px, 8vw, 52px); }
+}
+
+/* Small phones: compact the nav so brand + links + CTA fit cleanly. */
+@media (max-width: 480px) {
+  nav { padding-left: 16px; padding-right: 16px; gap: 12px; }
+  .nav-brand { font-size: 13px; white-space: nowrap; }
+  .nav-links { display: none; }
+}
+
+/* The design-system dock must not exceed the viewport on narrow screens. */
+@media (max-width: 400px) {
+  .ds-panel { width: 100vw; }
+}
 </style>
 </head>
 <body>
@@ -1175,8 +1226,14 @@ function toggleFaq(btn) {
   const item = btn.closest('.faq-item');
   item.classList.toggle('open');
 }
-// Open panel by default
-document.getElementById('ds-panel').classList.add('open');
+// Open the dock by default on wide screens; keep it out of the way on phones
+// (full-width when open, it would otherwise cover the showcase).
+if (window.innerWidth > 768) {
+  document.getElementById('ds-panel').classList.add('open');
+} else {
+  document.getElementById('ds-panel').classList.remove('open');
+  document.getElementById('panel-btn').classList.remove('active');
+}
 </script>
 </body>
 </html>

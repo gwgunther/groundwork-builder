@@ -960,6 +960,57 @@ footer {
   background: #3D2A1A;
   color: #F5F0E8;
 }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  /* widest grids → 2 cols */
+  .service-cards-row { grid-template-columns: repeat(2, 1fr); }
+  .pricing-cards { grid-template-columns: repeat(2, 1fr); }
+  /* two-column section splits → one column */
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .cta-band-inner { grid-template-columns: 1fr; }
+  .cta-band-image { min-height: 200px; }
+  /* footer 4-col → 2-col */
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  /* Tighten ONLY horizontal padding so vertical rhythm (padding shorthand) is preserved */
+  section, nav, footer, #hero, #services, #timetable, #testimonials, #about, #pricing, #cta-band { padding-left: 22px; padding-right: 22px; }
+  .meta-bar { padding-left: 14px; padding-right: 14px; }
+  /* keep meta bar to one line */
+  .meta-bar > span:not(.meta-name), .meta-bar .meta-sep { display: none; }
+  /* testimonials masonry → single column */
+  .testimonials-masonry { grid-template-columns: 1fr; }
+  /* timetable row: stack provider + cta beneath time/info */
+  .timetable-row { grid-template-columns: 1fr 1fr; }
+  .slot-time { grid-column: 1; }
+  .slot-info { grid-column: 2; }
+  .slot-provider, .slot-cta { grid-column: auto; }
+  /* cta-band reduce inner padding so the dark card text fits */
+  .cta-band-text { padding-left: 32px; padding-right: 32px; }
+}
+@media (max-width: 540px) {
+  .service-cards-row { grid-template-columns: 1fr; }
+  .pricing-cards { grid-template-columns: 1fr; }
+  .articles-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+  /* timetable row → single column stack */
+  .timetable-row { grid-template-columns: 1fr; gap: 10px; }
+  .slot-time, .slot-info, .slot-provider, .slot-cta { grid-column: auto; }
+}
+@media (max-width: 480px) {
+  /* compact the nav so logo + book button never wrap */
+  nav { padding-left: 16px; padding-right: 16px; gap: 10px; }
+  .nav-links { display: none; }   /* center dropdown menu hidden; logo + CTA stay on one line */
+  .nav-logo-text { font-size: 12px; white-space: nowrap; }
+  .btn-dark { padding: 9px 16px; font-size: 12.5px; white-space: nowrap; }
+  /* hero CTAs stack full width */
+  .hero-ctas { width: 100%; }
+}
+@media (max-width: 400px) {
+  .ds-panel { width: 100vw; }
+}
 </style>
 </head>
 <body>
@@ -1610,8 +1661,13 @@ function setPriceTab(btn, type) {
   document.getElementById('pricing-cards-routine').style.display = type === 'routine' ? 'grid' : 'none';
   document.getElementById('pricing-cards-cosmetic').style.display = type === 'cosmetic' ? 'grid' : 'none';
 }
-// Open panel by default
-document.getElementById('ds-panel').classList.add('open');
+// Open panel by default (desktop only)
+if (window.innerWidth > 768) {
+  document.getElementById('ds-panel').classList.add('open');
+} else {
+  document.getElementById('ds-panel').classList.remove('open');
+  document.getElementById('panel-btn').classList.remove('active');
+}
 </script>
 </body>
 </html>

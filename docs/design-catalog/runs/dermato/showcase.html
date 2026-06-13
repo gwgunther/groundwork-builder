@@ -857,6 +857,60 @@ footer {
 .novel-item { background: rgba(200,169,110,0.07); border: 1px solid rgba(200,169,110,0.14); border-radius: 6px; padding: 9px 10px; }
 .novel-item-name { font-size: 11px; color: #C8A96E; font-weight: 600; margin-bottom: 4px; }
 .novel-item-spec { font-size: 10.5px; color: #6A5030; line-height: 1.45; }
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+/* Tablet: relax widest grids and collapse page-level multi-col layouts. */
+@media (max-width: 900px) {
+  .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+  .doctor-layout { grid-template-columns: 1fr; gap: 36px; }
+  .doctor-photo { max-width: 360px; }
+  /* About: drop the flanking images to one image + text stack. */
+  .about-layout { grid-template-columns: 1fr; gap: 28px; }
+  .about-image { max-width: 360px; margin: 0 auto; width: 100%; }
+  .about-image-right { display: none; }
+  /* Bento: explicit grid placements → simple 2-col flow. */
+  .bento-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .bento-stat, .bento-testimonial, .bento-photo,
+  .bento-watermark, .bento-cta-card { grid-column: auto; grid-row: auto; }
+  .bento-testimonial { grid-column: 1 / 3; min-height: 0; }
+}
+
+/* Phone/landscape: tighten gutters, single-column headers/grids. */
+@media (max-width: 768px) {
+  section, nav, footer { padding-left: 22px; padding-right: 22px; }
+  #hero, #about, #bento, #services, #doctor, #testimonials, #cta { padding-left: 22px; padding-right: 22px; }
+  .meta-bar { padding-left: 14px; padding-right: 14px; flex-wrap: wrap; }
+
+  /* Meta bar stays compact: hide secondary descriptors. */
+  .meta-bar > span:not(.meta-name), .meta-bar .meta-sep { display: none; }
+
+  /* Hero poster: tighten padding so centered text breathes. */
+  .hero-poster { min-height: 0; padding: 64px 24px 96px; }
+
+  /* Bento collapses fully to one column. */
+  .bento-grid { grid-template-columns: 1fr; }
+  .bento-testimonial { grid-column: auto; }
+}
+
+/* Small phones: stack remaining card grids. */
+@media (max-width: 540px) {
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .hero-headline { font-size: clamp(30px, 9vw, 64px); }
+}
+
+/* Small phones: compact the three-zone nav so the centered wordmark
+   does not collide with the side links/CTA. */
+@media (max-width: 480px) {
+  nav { padding-left: 16px; padding-right: 16px; }
+  .nav-left { display: none; }
+  .nav-center { position: static; left: auto; transform: none; align-items: flex-start; }
+  nav .btn-outline { font-size: 12px !important; padding: 8px 14px !important; white-space: nowrap; }
+}
+
+/* The design-system dock must not exceed the viewport on narrow screens. */
+@media (max-width: 400px) {
+  .ds-panel { width: 100vw; }
+}
 </style>
 </head>
 <body>
@@ -1373,8 +1427,14 @@ function toggleAccordion(trigger) {
   const cat = trigger.closest('.accordion-category');
   cat.classList.toggle('open');
 }
-// Panel open by default
-document.getElementById('ds-panel').classList.add('open');
+// Open the dock by default on wide screens; keep it out of the way on phones
+// (full-width when open, it would otherwise cover the showcase).
+if (window.innerWidth > 768) {
+  document.getElementById('ds-panel').classList.add('open');
+} else {
+  document.getElementById('ds-panel').classList.remove('open');
+  document.getElementById('panel-btn').classList.remove('active');
+}
 </script>
 </body>
 </html>

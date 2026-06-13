@@ -610,6 +610,47 @@ footer {
 .img-warm   { background: linear-gradient(135deg, #ddd4c8 0%, #ccc4b4 100%); }
 .img-neutral { background: linear-gradient(135deg, #d8d8d0 0%, #c8c8c0 100%); }
 .img-fig { width: 100%; height: 100%; display: block; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  /* widest grids → 2 cols */
+  .gallery-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .gallery-mosaic .mosaic-cell { min-height: 220px; }
+  .gallery-mosaic .mosaic-cell:first-child { grid-row: auto; }
+  .gallery-mosaic .mosaic-cell:nth-child(4) { grid-column: auto; }
+  /* founder split → single column */
+  .founder-grid { grid-template-columns: 1fr; gap: 36px; }
+}
+@media (max-width: 768px) {
+  /* Tighten ONLY horizontal padding so vertical rhythm (padding shorthand) is preserved */
+  #hero, #founder-story, #services, #why-us, #gallery, #location, #cta, footer, nav, section { padding-left: 22px; padding-right: 22px; }
+  .meta-bar { padding-left: 14px; padding-right: 14px; }
+  /* keep meta bar to one line */
+  .meta-bar > span:not(.meta-name), .meta-bar .meta-sep { display: none; }
+  /* hero filmstrip → wrap */
+  .filmstrip { flex-wrap: wrap; }
+  .filmstrip-card { flex: 1 1 calc(50% - 7px); }
+  /* stories inline 3-col grid → 1 col (overrides inline style on the wrapper) */
+  #stories .section-inner > div[style*="grid-template-columns:1fr 1fr 1fr"] { grid-template-columns: 1fr !important; } /* overrides inline style="...grid-template-columns:1fr 1fr 1fr..." */
+}
+@media (max-width: 540px) {
+  .icon-grid { grid-template-columns: 1fr; }
+  .gallery-mosaic { grid-template-columns: 1fr; }
+  /* service card: drop the trailing meta column so name/desc keep full width */
+  .service-card { grid-template-columns: 64px 1fr; }
+  .service-thumb { width: 64px; }
+  .service-meta { grid-column: 1 / -1; text-align: left; }
+}
+@media (max-width: 480px) {
+  /* compact the nav so logo + outline button never wrap */
+  nav { padding-left: 16px; padding-right: 16px; gap: 10px; }
+  .nav-links { display: none; }   /* center menu hidden; logo + CTA remain on one line */
+  .nav-logo { font-size: 13px; white-space: nowrap; }
+  .btn-outline { padding: 9px 16px; font-size: 12.5px; white-space: nowrap; }
+}
+@media (max-width: 400px) {
+  .ds-panel { width: 100vw; }
+}
 </style>
 </head>
 <body>
@@ -1022,8 +1063,13 @@ function toggleAnnotations() {
   document.body.classList.toggle('show-annotations');
   document.getElementById('annotate-btn').classList.toggle('active');
 }
-// Panel open by default
-document.getElementById('ds-panel').classList.add('open');
+// Panel open by default (desktop only)
+if (window.innerWidth > 768) {
+  document.getElementById('ds-panel').classList.add('open');
+} else {
+  document.getElementById('ds-panel').classList.remove('open');
+  document.getElementById('panel-btn').classList.remove('active');
+}
 </script>
 </body>
 </html>
