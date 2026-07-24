@@ -1,10 +1,13 @@
 # Design Catalog — Reference Schema (v1.2)
 
 > **Status:** design spec + machine-validatable schema (`schema.json`) + extraction prompt
-> (`extraction-prompt.md`) + de-branding checklist (`de-branding-checklist.md`) + two worked
-> examples (`examples/`). The **§5 audit wiring IS implemented** (`lib/reference-audit.js`,
+> (`extraction-prompt.md`) + de-branding checklist (`de-branding-checklist.md`) + worked
+> examples / `runs/<slug>/entry.json`. The **§5 audit wiring IS implemented** (`lib/reference-audit.js`,
 > consumed by `skill-critique` + the fixer skills + `designer-agent` via `referenceAudit`).
-> Catalog selection/tailoring at build time is not yet wired.
+> **Build-time selection IS wired:** `build-site.js --reference <id>` → `lib/reference-entry.js`
+> (resolves `examples/<id>.json` **or** `runs/<id>/entry.json`; `--reference auto` / env
+> `GROUNDWORK_DEFAULT_REFERENCE` picks a curated light run; locks variant map + atoms + type
+> bucket + audit gates; practice keeps colors/content).
 >
 > **v1.1 additions** (de-branding completeness — see the checklist): `tokens.type.classification`
 > (font-pairing bucket — classify, don't name) + `substitutionCriteria`; top-level `imagery`

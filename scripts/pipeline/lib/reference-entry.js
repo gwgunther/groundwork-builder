@@ -21,6 +21,7 @@
  *     follow-up; content keeps the practice's own register meanwhile).
  */
 import { readFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 import { join, dirname, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PAIRINGS } from './brand/font-pairings.js';
@@ -28,6 +29,29 @@ import { PAIRINGS } from './brand/font-pairings.js';
 const __dir = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dir, '..', '..', '..');
 const CATALOG_EXAMPLES = join(ROOT, 'docs', 'design-catalog', 'examples');
+
+const CATALOG_RUNS = join(ROOT, 'docs', 'design-catalog', 'runs');
+
+/**
+ * Resolve catalog id/path → absolute JSON path.
+ * Order: explicit .json path → examples/<id>.json → runs/<id>/entry.json
+ */
+async function resolveReferencePath(idOrPath) {
+  if (idOrPath.endsWith('.json')) {
+    return isAbsolute(idOrPath) ? idOrPath : join(process.cwd(), idOrPath);
+  }
+  const candidates = [
+    join(CATALOG_EXAMPLES, `${idOrPath}.json`),
+    join(CATALOG_RUNS, idOrPath, 'entry.json'),
+  ];
+  for (const p of candidates) {
+    if (existsSync(p)) return p;
+  }
+  throw new Error(
+    `[reference] no catalog entry for "${idOrPath}" (tried examples/${idOrPath}.json and runs/${idOrPath}/entry.json)`,
+  );
+}
+
 
 /** Deterministic hash — same as font-pairings (reproducible picks). */
 function hash(str) {
@@ -37,14 +61,60 @@ function hash(str) {
 }
 
 /**
- * Resolve + load a catalog entry by id (docs/design-catalog/examples/<id>.json)
- * or by explicit path. Validates the fields the builder consumes; throws loudly
- * — a half-applied reference is worse than none.
+ * Pick a catalog reference for `--reference auto`.
+ * Prefer curated health-template runs (light theme only); stable order so
+ * builds are reproducible unless GROUNDWORK_DEFAULT_REFERENCE overrides.
+ *
+ * @param {{ mood?: string, seed?: string }} [opts]
+ * @returns {Promise<string>} catalog id
+ */
+export async function selectAutoReference(opts = {}) {
+  const envDefault = process.env.GROUNDWORK_DEFAULT_REFERENCE;
+  if (envDefault && envDefault !== 'auto') return envDefault;
+
+  // Curated light dental/health templates in runs/ (skip dark / experimental)
+  const PREFERRED = [
+    'dentora', 'calmio', 'clearpath', 'wellbe', 'dermato',
+    'pilates-lab', 'sun-moon', 'luvia', 'klinik', 'groomify',
+  ];
+  const available = [];
+  for (const id of PREFERRED) {
+    const path = join(CATALOG_RUNS, id, 'entry.json');
+    if (!existsSync(path)) continue;
+    try {
+      const entry = JSON.parse(await readFile(path, 'utf8'));
+      if (entry.tokens?.color?.strategy?.theme === 'dark') continue;
+      available.push(id);
+    } catch { /* skip corrupt */ }
+  }
+  if (!available.length) {
+    throw new Error('[reference] auto: no light catalog runs found under docs/design-catalog/runs/');
+  }
+
+  // Mood nudge — soft preference, still deterministic via seed
+  const mood = String(opts.mood || '').toLowerCase();
+  const moodPrefer = {
+    warm: ['calmio', 'wellbe', 'sun-moon'],
+    clinical: ['dentora', 'clearpath', 'dermato'],
+    bold: ['groomify', 'luvia', 'klinik'],
+    editorial: ['pilates-lab', 'calmio', 'dentora'],
+    refined: ['dermato', 'pilates-lab', 'clearpath'],
+  };
+  const prefer = moodPrefer[mood] || [];
+  const ordered = [
+    ...prefer.filter((id) => available.includes(id)),
+    ...available.filter((id) => !prefer.includes(id)),
+  ];
+  const seed = opts.seed || mood || 'dental';
+  return ordered[hash(seed) % ordered.length];
+}
+
+/**
+ * Resolve + load a catalog entry by id (`examples/<id>.json` or `runs/<id>/entry.json`)
+ * or by explicit path.
  */
 export async function loadReferenceEntry(idOrPath) {
-  const path = idOrPath.endsWith('.json')
-    ? (isAbsolute(idOrPath) ? idOrPath : join(process.cwd(), idOrPath))
-    : join(CATALOG_EXAMPLES, `${idOrPath}.json`);
+  const path = await resolveReferencePath(idOrPath);
   const entry = JSON.parse(await readFile(path, 'utf8'));
 
   for (const k of ['id', 'tokens', 'layout', 'audit', 'fidelity']) {
@@ -122,4 +192,4 @@ export function applyReferenceToDirector(dna, entry) {
   return dna;
 }
 
-export default { loadReferenceEntry, applyReferenceToBrandDna, applyReferenceToDirector };
+export default { loadReferenceEntry, selectAutoReference, applyReferenceToBrandDna, applyReferenceToDirector };
