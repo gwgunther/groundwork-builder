@@ -20,7 +20,7 @@
  * Sidecar:
  *   public/images/image-source.json keeps full provenance per local file:
  *     { "team/team-1-dr-melissa.jpg": { sourceUrl, alt, originalFilename, category } }
- *   Used by ai-image-roles.js to pair photos with named doctors.
+ *   Used by binding-to-image-roles.js (assemble) to recover alt text + pair portraits.
  */
 
 import { writeFile, mkdir } from 'node:fs/promises';

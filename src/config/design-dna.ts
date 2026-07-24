@@ -70,6 +70,7 @@ export interface ImageRoles {
   interior: string[];
   gallery: string[];
   beforeAfter: string[];
+  alts?: Record<string, string>;
 }
 
 /**
@@ -78,4 +79,16 @@ export interface ImageRoles {
 export function imagePath(role: string | null | undefined): string | null {
   if (!role) return null;
   return `/images/${role.replace(/^\/+/, '')}`;
+}
+
+/** Resolve alt text for a local image-roles path; falls back to `fallback`. */
+export function imageAlt(
+  roles: ImageRoles | null | undefined,
+  localPath: string | null | undefined,
+  fallback = '',
+): string {
+  if (!localPath) return fallback;
+  const key = localPath.replace(/^\/+/, '').replace(/^images\//, '');
+  const fromMap = roles?.alts?.[key] || roles?.alts?.[localPath];
+  return (fromMap && String(fromMap).trim()) || fallback;
 }

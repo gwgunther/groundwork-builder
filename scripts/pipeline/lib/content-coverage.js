@@ -608,7 +608,7 @@ function checkDoctorPortraits(findings, { siteTs, imageRoles, teamPhotos }) {
             fileNameTokens: nameTokens,
             doctorTokens: [...doctorTokens],
           },
-          hint: 'ai-image-roles.js may have promoted a hygienist/staff photo (e.g. team-1-michelle.jpg) to doctorPortrait because no actual doctor photo was found. The team/team-N-firstname.jpg convention misleads the role matcher.',
+          hint: 'bindImages() may have promoted a hygienist/staff photo (e.g. team-1-michelle.jpg) to doctorPortrait because no actual doctor headshot/bio-page match was found. Prefer role=headshot + personName, or a dedicated bio page in sourcePages.',
         });
       }
     }

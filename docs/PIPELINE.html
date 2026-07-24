@@ -75,14 +75,14 @@
 <body>
 <header class="top">
   <h1>Pipeline · Skills Dashboard</h1>
-  <p>17 skills across 9 phases · auto-generated 2026-06-04 22:10 UTC</p>
+  <p>17 skills across 9 phases · auto-generated 2026-07-24 05:48 UTC</p>
 </header>
 
 <div class="stats">
   <div class="stat"><span class="stat-num">17</span><span class="stat-label">Total skills</span></div>
   <div class="stat"><span class="stat-num stub">0</span><span class="stat-label">Stub</span></div>
-  <div class="stat"><span class="stat-num working">13</span><span class="stat-label">Working</span></div>
-  <div class="stat"><span class="stat-num polished">3</span><span class="stat-label">Polished</span></div>
+  <div class="stat"><span class="stat-num working">12</span><span class="stat-label">Working</span></div>
+  <div class="stat"><span class="stat-num polished">4</span><span class="stat-label">Polished</span></div>
   <div class="stat"><span class="stat-num mature">0</span><span class="stat-label">Mature</span></div>
 </div>
 
@@ -143,16 +143,8 @@
            <dl><dt>Tools</dt><dd><code>Anthropic Sonnet 4.6</code>, <code>lib/ai-silver.js</code></dd><dt>QC</dt><dd><span class="qc-item">Schema validation</span><span class="qc-item">Multi-doctor presence check</span><span class="qc-item">No-duplicate boundary (services / differentiators / additionalContent)</span><span class="qc-item">additional-content-not-surfaced (post-build, in coverage audit)</span></dd><dt>Cost</dt><dd>Sonnet — moderate per build</dd><dt>Skip flag</dt><dd><code>--skip-scrape (whole phase)</code></dd></dl>
          </details>
         <div class="phase-section">
-           <h3 class="phase-section-h">Skills <span class="count">(2)</span></h3>
+           <h3 class="phase-section-h">Skills <span class="count">(1)</span></h3>
            <ul class="skills">
-        <li class="skill" data-maturity="working">
-          <a href="./skills/extraction-image-roles.html" class="skill-name">extraction/image-roles</a>
-          <span class="skill-meta">
-            <span class="tier tier-L1">L1</span>
-            <span class="maturity">🟡 working</span>
-          </span>
-          <p class="skill-resp">Classifies one downloaded image at a time using Claude Haiku Vision.</p>
-        </li>
         <li class="skill" data-maturity="polished">
           <a href="./skills/extraction-silver.html" class="skill-name">extraction/silver</a>
           <span class="skill-meta">
@@ -253,8 +245,16 @@
            <dl><dt>Tools</dt><dd><code>Anthropic Sonnet 4.6 (3-candidate, archetype-nudged)</code>, <code>lib/assemble/assemble-layout.js</code>, <code>lib/derive-design-tokens.js (ARCHETYPE_LAYOUT)</code>, <code>lib/assemble/bind-images.js</code></dd><dt>QC</dt><dd><span class="qc-item">Ownership enforced (brand tokens override the director)</span><span class="qc-item">Section coverage vs content-plan</span><span class="qc-item">0 image mismatches (sourcePages join)</span></dd><dt>Cost</dt><dd>Sonnet — 3 candidates evaluated, best picked</dd></dl>
          </details>
         <div class="phase-section">
-           <h3 class="phase-section-h">Skills</h3>
-           <p class="empty">None — fully deterministic phase</p>
+           <h3 class="phase-section-h">Skills <span class="count">(1)</span></h3>
+           <ul class="skills">
+        <li class="skill" data-maturity="polished">
+          <a href="./skills/extraction-image-roles.html" class="skill-name">extraction/image-roles</a>
+          <span class="skill-meta">
+            <span class="tier tier-L1">L1</span>
+            <span class="maturity">🟢 polished</span>
+          </span>
+          <p class="skill-resp">Bridges the deterministic image binding (silver `images.items[]` roles + sourcePages joins) into the `image-roles.json` shape Astro components consume.</p>
+        </li></ul>
          </div>
       </article>
       <article class="phase">

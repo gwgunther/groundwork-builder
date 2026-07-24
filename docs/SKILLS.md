@@ -5,7 +5,7 @@
 >
 > See [`PIPELINE.md`](./PIPELINE.md) for how skills compose into the build flow.
 
-Last generated: 2026-06-04 22:10 UTC
+Last generated: 2026-07-24 05:48 UTC
 
 ## At a glance
 
@@ -24,7 +24,7 @@ Last generated: 2026-06-04 22:10 UTC
 | [content/services](../skills/content/services.md) | L1 | 🟡 working | Generate | ✓ |
 | [creative/derive-design-tokens](../skills/creative/derive-design-tokens.md) | L2 | 🟢 polished | Director | — |
 | [creative/director](../skills/creative/director.md) | L1 | 🟢 polished | Director | ✓ |
-| [extraction/image-roles](../skills/extraction/image-roles.md) | L1 | 🟡 working | Silver | ✓ |
+| [extraction/image-roles](../skills/extraction/image-roles.md) | L1 | 🟢 polished | Assemble | — |
 | [extraction/silver](../skills/extraction/silver.md) | L1 | 🟢 polished | Silver | ✓ |
 | [pages/blog-rewrite](../skills/pages/blog-rewrite.md) | L1 | 🟡 working | Generate | ✓ |
 | [pages/service-page](../skills/pages/service-page.md) | L1 | 🟡 working | Generate | ✓ |
@@ -33,15 +33,17 @@ Last generated: 2026-06-04 22:10 UTC
 
 ### Silver
 
-#### [extraction/image-roles](../skills/extraction/image-roles.md)
-*Tier L1 · 🟡 working · Model: `claude-haiku-4-5` · Source: `scripts/pipeline/lib/ai-image-roles.js` · Function: `classifyOne()`*
-
-Classifies one downloaded image at a time using Claude Haiku Vision.
-
 #### [extraction/silver](../skills/extraction/silver.md)
 *Tier L1 · 🟢 polished · Model: `claude-sonnet-4-6` · Source: `scripts/pipeline/lib/ai-silver.js` · Function: `buildPrompt()`*
 
 The bronze→silver transform.
+
+### Assemble
+
+#### [extraction/image-roles](../skills/extraction/image-roles.md)
+*Tier L1 · 🟢 polished · Source: `scripts/pipeline/lib/assemble/binding-to-image-roles.js` · Function: `bindingToImageRoles()`*
+
+Bridges the deterministic image binding (silver `images.items[]` roles + sourcePages joins) into the `image-roles.json` shape Astro components consume.
 
 ### Generate
 
@@ -209,14 +211,6 @@ Skills with `stub` or `working` maturity that have known gaps — these are your
 - No deduplication if the items array has near-synonyms ("Whitening" + "Teeth Whitening")
 - No category-aware ordering (cosmetic/general/orthodontic clusters not grouped)
 - desc rewrites can drift from the source description
-
-### [extraction/image-roles](../skills/extraction/image-roles.md) · 🟡 working
-
-- No detection of multiple people in a single shot beyond the team-group fallback (a 3-doctor portrait might be tagged `team-group` instead of yielding 3 personName extractions)
-- personName extraction relies entirely on filename/alt; an unnamed doctor photo can never be paired
-- 4MB-per-image cap silently drops oversized files (returns `skipped-too-large`)
-- Hero-vs-interior call is judgment-based; small interiors sometimes promoted to hero erroneously
-- "patient-smile" can be ambiguous with stock dental photography vs. real patients
 
 ### [pages/blog-rewrite](../skills/pages/blog-rewrite.md) · 🟡 working
 

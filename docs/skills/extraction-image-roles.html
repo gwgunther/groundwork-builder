@@ -61,29 +61,28 @@
     <h1>image roles</h1>
     <div class="badges">
       <span class="badge tier tier-L1">L1</span>
-      <span class="badge maturity">🟡 working</span>
-      <span class="badge phase">Phase: Silver</span>
-      <span class="badge phase">Model: claude-haiku-4-5</span>
+      <span class="badge maturity">🟢 polished</span>
+      <span class="badge phase">Phase: Assemble</span>
+      
     </div>
     
     <div class="meta-table">
-      <div><strong>Source:</strong> <code>scripts/pipeline/lib/ai-image-roles.js</code></div>
-      <div><strong>Function:</strong> <code>classifyOne()</code></div>
+      <div><strong>Source:</strong> <code>scripts/pipeline/lib/assemble/binding-to-image-roles.js</code></div>
+      <div><strong>Function:</strong> <code>bindingToImageRoles()</code></div>
     </div>
   </header>
 
   <div class="doc">
-<h1>Skill: Image Role Classification</h1>
+<h1>Skill: Image Role Binding</h1>
 <h2>Responsibility</h2>
-<p>Classifies one downloaded image at a time using Claude Haiku Vision. Picks a
-single category from a fixed taxonomy (hero-office / interior /
-doctor-portrait / team-group / patient-smile / logo / decorative / unknown)
-and — when the image is a doctor portrait — extracts the person&#39;s name from
-the filename or alt text so the assigner can pair photos with the right
-doctor in multi-doctor practices. Outputs collected by <code>assignRoles()</code> into
-the final <code>image-roles.json</code> manifest.</p>
+<p>Bridges the deterministic image binding (silver <code>images.items[]</code> roles +
+sourcePages joins) into the <code>image-roles.json</code> shape Astro components consume.
+Replaces the old Vision classifier (<code>ai-image-roles.js</code>) — roles and portraits
+already live in the normalized items[] from the silver images pass, so there
+is nothing left to re-classify with AI.</p>
+<p>Also attaches an <code>alts</code> map (localPath → description) using sidecar alt text
+when present, otherwise role-based fallbacks from <code>ensure-image-alts.js</code>.</p>
 <h2>Inputs</h2>
-<p>Per image, multimodal message with:</p>
 <table>
 <thead>
 <tr>
@@ -94,102 +93,70 @@ the final <code>image-roles.json</code> manifest.</p>
 </tr>
 </thead>
 <tbody><tr>
-<td><code>imageBase64</code></td>
-<td>binary</td>
-<td>image file</td>
-<td>Encoded as Anthropic vision content block</td>
+<td><code>binding</code></td>
+<td>object</td>
+<td><code>bindImages()</code></td>
+<td><code>{ globals, portraits, byPage, unused, diagnostics }</code></td>
 </tr>
 <tr>
-<td><code>mediaType</code></td>
-<td>string</td>
-<td>file ext</td>
-<td>image/jpeg / image/png / image/webp</td>
+<td><code>sidecar</code></td>
+<td>object</td>
+<td><code>public/images/image-source.json</code></td>
+<td>localPath → <code>{ sourceUrl, alt, category }</code></td>
 </tr>
 <tr>
-<td><code>rel</code> (Local filename)</td>
-<td>string</td>
-<td>derived</td>
-<td>Path relative to images dir</td>
+<td><code>baseUrl</code></td>
+<td>string | null</td>
+<td>practice domain</td>
+<td>Resolves relative silver srcs to absolute for sidecar lookup</td>
 </tr>
 <tr>
-<td><code>orig</code> (Original URL filename)</td>
-<td>string | empty</td>
-<td>image-source.json sidecar</td>
-<td>Filename from source URL — strongest doctor-name signal</td>
-</tr>
-<tr>
-<td><code>alt</code> (Alt text from source HTML)</td>
-<td>string | empty</td>
-<td>image-source.json sidecar</td>
-<td>Alt attribute from HTML — second-strongest signal</td>
-</tr>
-<tr>
-<td><code>hintLines</code></td>
-<td>string</td>
-<td>derived</td>
-<td>Pre-formatted block joining the above 3 lines</td>
+<td><code>ctx</code></td>
+<td>object</td>
+<td>practice name/city</td>
+<td>Used only for alt fallbacks when sidecar alt is empty</td>
 </tr>
 </tbody></table>
 <h2>Output schema</h2>
 <pre><code class="language-json">{
-  &quot;category&quot;: &quot;hero-office | interior | doctor-portrait | team-group | patient-smile | logo | decorative | unknown&quot;,
-  &quot;confidence&quot;: &quot;0.0-1.0&quot;,
-  &quot;reason&quot;: &quot;string ≤12 words&quot;,
-  &quot;personName&quot;: &quot;string | null — full name like &#39;Dr. Melissa Ven Dange&#39; if visible in filename/alt&quot;
+  &quot;hero&quot;: &quot;heroes/hero-1.webp | null&quot;,
+  &quot;doctorPortrait&quot;: &quot;team/team-1-dr-jane.webp | null&quot;,
+  &quot;doctorPortraits&quot;: { &quot;Dr. Jane Doe&quot;: &quot;team/...&quot; },
+  &quot;team&quot;: [&quot;team/...&quot;],
+  &quot;interior&quot;: [&quot;gallery/...&quot;],
+  &quot;gallery&quot;: [&quot;gallery/...&quot;],
+  &quot;beforeAfter&quot;: [&quot;gallery/...&quot;],
+  &quot;badges&quot;: [&quot;branding/...&quot;],
+  &quot;unused&quot;: [],
+  &quot;byPage&quot;: { &quot;dental-implants&quot;: &quot;gallery/...&quot; },
+  &quot;alts&quot;: { &quot;heroes/hero-1.webp&quot;: &quot;Smile Studio dental practice in Phoenix&quot; }
 }
 </code></pre>
+<p>Paths are relative to <code>public/images/</code> (no leading slash). Components call
+<code>imagePath()</code> to prefix <code>/images/</code>.</p>
 <h2>Evaluation criteria</h2>
 <ul>
-<li><strong>Single-category</strong> — exactly one category from the enum, never a custom value</li>
-<li><strong>personName populated</strong> when category is <code>doctor-portrait</code> AND filename/alt contains a name (multi-doctor pairing depends on this)</li>
-<li><strong>personName is null</strong> for non-portrait categories (don&#39;t extract names from team-group photos)</li>
-<li><strong>reason ≤12 words</strong></li>
-<li><strong>confidence calibrated</strong> — high (0.9+) for unambiguous shots, low (≤0.5) for unclear</li>
-<li><strong>Returns only JSON</strong></li>
+<li><strong>Deterministic</strong> — same binding + sidecar → identical JSON (no LLM)</li>
+<li><strong>Never invents matches</strong> — service pages only bind images whose <code>sourcePages</code> overlapped the original service URL</li>
+<li><strong>Preserves portraits</strong> — <code>doctorPortraits</code> keyed by provider name from binding</li>
+<li><strong>Alt coverage</strong> — every content-bearing local path in <code>alts</code> has a non-empty string (scrape alt preferred; role fallback otherwise)</li>
+<li><strong>No Vision cost</strong> — this skill makes zero AI calls</li>
 </ul>
 <h2>Known gaps</h2>
 <ul>
-<li>No detection of multiple people in a single shot beyond the team-group fallback (a 3-doctor portrait might be tagged <code>team-group</code> instead of yielding 3 personName extractions)</li>
-<li>personName extraction relies entirely on filename/alt; an unnamed doctor photo can never be paired</li>
-<li>4MB-per-image cap silently drops oversized files (returns <code>skipped-too-large</code>)</li>
-<li>Hero-vs-interior call is judgment-based; small interiors sometimes promoted to hero erroneously</li>
-<li>&quot;patient-smile&quot; can be ambiguous with stock dental photography vs. real patients</li>
+<li><code>ai-image-roles.js</code> still exists in the repo as dead legacy; do not call it from the pipeline</li>
+<li>Gallery page population is handled by <code>a11y-optimize.js</code> (Phase 3f), not this skill</li>
+<li>Decorative roles (<code>unused</code>) intentionally get empty alt</li>
 </ul>
 <h2>Improvement levers</h2>
 <ol>
-<li><strong>Easy (L1):</strong> Add explicit examples in the prompt of valid <code>personName</code> formats vs. cases to leave null</li>
-<li><strong>Medium:</strong> When category is team-group, ask model to return <code>personNames: string[]</code> so multi-person shots can yield multiple pairings</li>
-<li><strong>Medium:</strong> Pass the known list of doctor names from silver and ask the model to pick from the list rather than free-form extracting</li>
-<li><strong>Hard:</strong> Two-pass classification — first detect &quot;is this a portrait?&quot;, then a separate face/text extraction step</li>
+<li><strong>Done:</strong> Components read <code>alts[path]</code> via <code>imageAlt()</code> (hero / doctor / CTA variants)</li>
+<li><strong>Medium:</strong> Persist unused-image list into missing-page report for operator review</li>
+<li><strong>Hard:</strong> Face-recognition pairing when filename/alt/bio-page join all fail</li>
 </ol>
 <h2>Test fixtures</h2>
-<p><em>None yet. Future: <code>skills/extraction/image-roles.fixtures/{portraits,interiors,team,decorative}/*.jpg</code> with expected categories.</em></p>
-<hr>
-<h2>PROMPT</h2>
-<pre><code class="language-text">Classify this image from a dental practice website.
-
-{{hintLines}}
-
-Pick ONE category from:
-- hero-office         (wide interior shot, suitable for a homepage hero banner)
-- interior            (office interior, not wide enough for hero)
-- doctor-portrait     (single person, head-and-shoulders, clearly a clinician)
-- team-group          (multiple staff together, or a single staff candid)
-- patient-smile       (patient-facing smile photo / before-after / treatment result)
-- logo                (brand mark, transparent or flat graphic)
-- decorative          (abstract texture, illustration, icon)
-- unknown
-
-If this is a doctor-portrait AND the filename or alt text contains a person&#39;s name, return that name in personName so we can pair the photo with the right doctor in the rebuild.
-
-Return ONLY JSON:
-{
-  &quot;category&quot;: &quot;&lt;above&gt;&quot;,
-  &quot;confidence&quot;: 0.0-1.0,
-  &quot;reason&quot;: &quot;&lt;≤12 words&gt;&quot;,
-  &quot;personName&quot;: &quot;&lt;full name like &#39;Dr. Melissa Ven Dange&#39; if visible in filename/alt; otherwise null&gt;&quot;
-}
-</code></pre>
+<p>Covered indirectly by assemble / binding unit paths. Alt fallbacks:
+<code>scripts/pipeline/_test/test-ensure-image-alts.js</code>.</p>
 
   </div>
 </div>

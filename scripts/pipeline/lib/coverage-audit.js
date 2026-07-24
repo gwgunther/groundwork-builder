@@ -162,7 +162,7 @@ async function checkDoctorPhotoPairing(findings, { silver, merged, imageRoles })
         check:     'doctor-photo-pairing-uncertain',
         message:   `Primary doctor "${primaryDoctor}" but doctorPortrait="${portraitPath}" — filename does NOT contain "${lastName}". Photo may not match the named doctor.`,
         detail:    { primaryDoctor, portraitPath, expectedToken: lastName, doctorPortraits: pairingMap },
-        hint:      'Verify photo↔doctor pairing. Multi-doctor practices: ai-image-roles.js name-matching may have failed if filename was renamed.',
+        hint:      'Verify photo↔doctor pairing. Multi-doctor practices: bindImages() name / bio-page matching may have failed if personName or bio sourcePath was missing.',
       });
     }
   }

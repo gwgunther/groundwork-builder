@@ -12,7 +12,7 @@
  *   silver.doctors[]                      ← extraction
  *   → merged.doctors[]                    ← merger
  *   → injector writes doctors[] in site.ts
- *   → image-roles.json doctorPortraits[]  ← Vision-classifier paired by name
+ *   → image-roles.json doctorPortraits{}  ← bindImages() paired by name / bio-page
  *   → this template iterates doctors[]
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -20,7 +20,7 @@ import CTABlock from '../components/CTABlock.astro';
 import { site, doctors, address, localBusinessSchema, personSchemas, staff } from '../config/site';
 import { readFileSync } from 'node:fs';
 
-// Resolve image-roles for doctor portraits (paired by name in ai-image-roles).
+// Resolve image-roles for doctor portraits (paired by name in bindImages / binding-to-image-roles).
 // Names from site.ts may differ slightly from image-roles keys (e.g. "Dr. Russell
 // Chang" in site.ts vs "Dr. Russell EK Chang" in image-roles when the injector
 // strips middle initials). Match progressively: exact → first+last token →

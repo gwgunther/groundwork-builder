@@ -58,14 +58,11 @@ async function injectGalleryPage(outputDir, sidecar, ctx) {
     return { injected: false, count: 0 };
   }
 
-  const practiceName = ctx.practiceName;
   const body = `---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import GalleryGrid from '../components/GalleryGrid.astro';
 import CTABlock from '../components/CTABlock.astro';
 import { site, localBusinessSchema } from '../config/site';
-
-const beforeAfterItems = [];
 
 const galleryImages = ${JSON.stringify(entries, null, 2)};
 ---

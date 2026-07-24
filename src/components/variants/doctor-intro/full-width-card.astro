@@ -6,10 +6,9 @@
 import type { DoctorIntroContent } from '../types';
 import { designDNA } from '../../../config/design-dna';
 import { site } from '../../../config/site';
-import { imagePath } from '../../../config/design-dna';
+import { imagePath, imageAlt } from '../../../config/design-dna';
 import { resolveTokens } from '../token-utils';
 import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
 
 interface Props { content: DoctorIntroContent }
 const { content } = Astro.props;
@@ -17,12 +16,13 @@ const { content } = Astro.props;
 const tokens = (designDNA as any).designTokens ?? {};
 const t = resolveTokens(tokens);
 
-let imageRoles: { doctorPortrait?: string | null } = {};
+let imageRoles: { doctorPortrait?: string | null; alts?: Record<string, string> } = {};
 try {
   const p = `${process.cwd()}/public/images/image-roles.json`;
   imageRoles = JSON.parse(readFileSync(p, 'utf8'));
 } catch {}
 const portraitImg = imagePath(imageRoles.doctorPortrait ?? null);
+const portraitAlt = imageAlt(imageRoles, imageRoles.doctorPortrait, `${content.name}, ${content.credentials}`);
 ---
 
 <section data-section="doctor-intro" class={`${t.spacingClass} bg-neutral-dark overflow-hidden`}>
@@ -35,7 +35,7 @@ const portraitImg = imagePath(imageRoles.doctorPortrait ?? null);
           <div class={`aspect-[3/4] md:aspect-auto md:h-[600px] overflow-hidden ${t.radiusClass}`}>
             <img
               src={portraitImg}
-              alt={`${content.name}, ${content.credentials}`}
+              alt={portraitAlt}
               class="w-full h-full object-cover object-top"
               loading="lazy"
             />
