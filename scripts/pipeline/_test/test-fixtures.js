@@ -13,8 +13,8 @@
  * shrink?"), run the pipeline live and compare against the saved fixture.
  *
  * Usage:
- *   node scripts/pipeline/test-fixtures.js              # validate all
- *   node scripts/pipeline/test-fixtures.js lbpds-pediatric  # validate one
+ *   node scripts/pipeline/_test/test-fixtures.js              # validate all
+ *   node scripts/pipeline/_test/test-fixtures.js lbpds-pediatric  # validate one
  */
 
 import { readFile, readdir } from 'node:fs/promises';
@@ -22,7 +22,7 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const FIXTURES_ROOT = resolve(__dirname, '..', '..', 'skills', '_fixtures');
+const FIXTURES_ROOT = resolve(__dirname, '..', '..', '..', 'skills', '_fixtures');
 
 // ---------------------------------------------------------------------------
 // Shape assertions per fixture file

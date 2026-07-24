@@ -21,7 +21,7 @@ Several terms are easy to confuse — they all touch "design" or "practice" but 
 | **account** / **practice** (CRM sense) | A real dental practice we prospect, audit, or build for | `accounts` D1 table |
 | **sourced practice** | A prospect pulled from Google Places (pre-CRM) | `sourced_practices` D1 table |
 | **design library** | Compact ~1–2 KB design *fingerprints* (own / inspo / anti) the Creative Director samples to diverge-from / pull-toward | `_memory/library/*.json` + `index.json` |
-| **design profile** | A denormalized **read-cache** of the design library, for the ops-dashboard's "Design Library" tab only — the builder never reads it | `design_profiles` D1 table |
+| **design profile** | A denormalized **read-cache** of the design library, for the ops-dashboard's "Design Library" tab only — the builder never reads it | `accounts.design_profile` JSON column (D1) |
 | **design catalog** | Curated, hand-tuned *template specs* (full design + audit gates) the builder applies via `--reference <id>` | `docs/design-catalog/runs/<slug>/entry.json` (+ `showcase.html`) |
 
 Rule of thumb: **"practice" = a client**, **"library" = fingerprints that steer the AI director**, **"catalog" = concrete templates the builder can lock onto**.
@@ -226,8 +226,9 @@ After each ship, `distill-design.js` auto-adds the build as `tag: own` so future
 | Agent files | 3c-bis | `public/llms.txt`, `public/llms-full.txt`, `public/.well-known/webmcp.json` |
 | Ensure image alt text | 3c-ter | Fills missing `alt` on `images.items[]` before download (role-based fallbacks) |
 | Download images | 3d | `public/images/` + `image-source.json` sidecar |
+| Enrich sidecar alts | 3e-pre | Patches any remaining empty alts in `image-source.json` before roles write |
 | Bind image roles | 3e | `public/images/image-roles.json` (+ `alts` map: localPath → description) |
-| A11y optimize | 3f | Patches sidecar alts; auto-populates `src/pages/gallery.astro` when gallery images exist |
+| A11y optimize | 3f | Gallery page inject (`src/pages/gallery.astro`) when images exist; idempotent sidecar re-check |
 
 ---
 
@@ -444,7 +445,7 @@ The director picks one variant per section based on archetype. Variants are dete
 - [x] Tone enum for audit.tone.recommended (warm | clinical | editorial | bold | refined)
 - [x] Per-archetype tone calibration in content-write
 - [x] Per-vertical section-order priors in director
-- [x] Supabase → local _memory/ + Airtable CRM
+- [x] Supabase → local _memory/ + Cloudflare D1 CRM (`d1.js`; Airtable retired June 2026)
 - [x] Silver per-page extraction cache (sha256 fingerprint + prompt version + model)
 - [x] Auto-fuzzy-match service deduplication (Jaccard ≥ 0.7 + DISTINCT_MODIFIERS allowlist)
 - [x] Lighthouse Agentic Browsing (4/4 deterministic checks) — Phase 4.66 + Header ARIA + BaseLayout WebMCP + generate-agent-files
@@ -452,11 +453,16 @@ The director picks one variant per section based on archetype. Variants are dete
 - [x] AggregateRating schema — injected when googleRating + reviewCount are present
 - [x] AI Citability audit — Phase 4.67, Claude + optional GPT + optional Gemini
 - [x] Design library catalog — 16 inspo + 5 anti fingerprints (`scripts/pipeline/config/design-library-catalog.json`); mood-aware sampling in Creative Director
-- [x] Proactive a11y — skip link, reduced motion, alt enrichment (3c-ter), gallery inject (3f), axe post-build gate unchanged
+- [x] Proactive a11y — skip link, reduced motion, alt enrichment (3c-ter/3e-pre), gallery inject (3f), components read `alts` via `imageAlt()`, axe post-build gate unchanged
+- [x] Image roles skill docs — extraction/image-roles now documents deterministic binding (not Vision); skill catalog regenerated
+
+- [x] Catalog `--reference auto` + `GROUNDWORK_DEFAULT_REFERENCE` (curated light runs)
+
+- [x] Phase 3 harden — untrack `clients/`, quarantine Airtable + dead modules under `scripts/legacy/` + `lib/_legacy/`, client dupe archive (`npm run prune:clients`), STEP-7↔Phases 5–8 mapping
 
 ### Pending
 
 - [x] Pre-build agentic check on EXISTING site — Phase 4f (audit-site.js) + Phase 2b3 (build-site.js) → `_data/agentic-existing.json` → Scorecard tab before-state
 - [ ] More fixture archetypes — single-doctor general practice, sparse-content (60%+ `missing`), non-warm tone (clinical/editorial/bold/refined)
-- [ ] DataForSEO warm-lead module — SERP local-pack position, GBP completeness, review velocity, NAP consistency; trigger via manual Airtable flag
-- [ ] Cloudflare Worker self-serve "Grade My Site" — PSI + schema parse + Claude citability → Groundwork Score JSON for prospects
+- [ ] DataForSEO warm-lead module — SERP local-pack position, GBP completeness, review velocity, NAP consistency; trigger via manual D1 account flag
+- [x] Cloudflare Worker self-serve "Grade My Site" — homepage HTML checks + PSI + Growth Score JSON (`npm run grade` / `workers/grade-my-site/`; citability still optional follow-up)

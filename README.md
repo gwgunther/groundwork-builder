@@ -4,7 +4,7 @@ A production-ready website template built with Astro, Tailwind CSS, and modern w
 
 ## Docs
 
-- **Architecture overview:** [docs/architecture/CODEBASE_SUMMARY.md](docs/architecture/CODEBASE_SUMMARY.md) · [docs/architecture/ARCHITECTURE.html](docs/architecture/ARCHITECTURE.html) (visual diagram of the agentic pipeline)
+- **Architecture overview:** [docs/architecture/ARCHITECTURE.md](docs/architecture/ARCHITECTURE.md) · [docs/architecture/ARCHITECTURE.html](docs/architecture/ARCHITECTURE.html) (visual diagram of the agentic pipeline)
 - **Design rules for generated client sites:** [docs/design/DESIGN_RULES.md](docs/design/DESIGN_RULES.md)
 - **Groundwork's own brand system** (audit reports, pitch pages): [docs/design/DESIGN.md](docs/design/DESIGN.md)
 - **Engineering principles:** [docs/engineering/BUILD_BEST_PRACTICES.md](docs/engineering/BUILD_BEST_PRACTICES.md)
@@ -22,6 +22,15 @@ npm run dev
 
 # Build for production
 npm run build
+
+# Offline regression suite (fixtures + design library + reference resolve)
+npm test
+
+# Operability smoke (D1 CRM + --reference + ops Access)
+npm run smoke
+
+# Self-serve Grade My Site (Growth Score JSON)
+npm run grade:fast -- --url https://example-dental.com
 ```
 
 ## Setup Checklist
@@ -104,7 +113,7 @@ Update `.github/workflows/deploy.yml`:
 
 ## Build & SEO playbook
 
-For information architecture, internal linking, crawl signals (`robots.txt`, sitemap), structured data, and on-domain vs third-party scheduling patterns, see **[docs/engineering/BUILD_BEST_PRACTICES.md](docs/engineering/BUILD_BEST_PRACTICES.md)**. It consolidates domain-agnostic expectations from this README, `docs/architecture/CODEBASE_SUMMARY.md`, and the pipeline prompts into one internal checklist.
+For information architecture, internal linking, crawl signals (`robots.txt`, sitemap), structured data, and on-domain vs third-party scheduling patterns, see **[docs/engineering/BUILD_BEST_PRACTICES.md](docs/engineering/BUILD_BEST_PRACTICES.md)**. It consolidates domain-agnostic expectations from this README, `docs/architecture/ARCHITECTURE.md`, and the pipeline prompts into one internal checklist.
 
 ## Architecture
 
@@ -137,8 +146,8 @@ public/images/    — static assets
 
 ## Tech Stack
 
-- [Astro](https://astro.build) v5 — static site generation
-- [Tailwind CSS](https://tailwindcss.com) v3 — utility-first styling
+- [Astro](https://astro.build) v6 — static site generation
+- [Tailwind CSS](https://tailwindcss.com) v4 — utility-first styling
 - [Cloudflare Pages](https://pages.cloudflare.com) — free global CDN hosting
 - TypeScript — type-safe configuration
 
