@@ -1,3 +1,14 @@
+## Shipped (Phase 2)
+
+- `computeGrowthScore()` in `scripts/pipeline/lib/findings.js`
+- Homepage grader: `npm run grade` → `scripts/pipeline/grade-site.js`
+- Worker: `workers/grade-my-site/` (`npm run grade:deploy`)
+- Finding `state` / `weight` enrichment already in `findings.js` + catalog
+
+Still open from this plan: competitor/keyword module, Places-autocomplete entry, full re-scan UX, Claude citability in the public Worker.
+
+---
+
 # Grader Integration Plan
 
 How the Owner.com-style grader folds into the existing Groundwork pipeline.

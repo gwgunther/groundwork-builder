@@ -87,3 +87,25 @@ export function flipState(prev, freshSeverity, after = undefined) {
     },
   };
 }
+
+/**
+ * Growth Score — single 0–100 number across applicable findings.
+ * Weighted share of checks in state "fixed" (passed). Issues pull the score down.
+ * Separate from rubric.json (design quality of the *built* site).
+ *
+ * @param {Array<{ state?: string, weight?: number }>} findings
+ * @returns {{ score: number, maxWeight: number, earnedWeight: number, summary: ReturnType<typeof summarizeFindings> }}
+ */
+export function computeGrowthScore(findings) {
+  const summary = summarizeFindings(findings);
+  let maxWeight = 0;
+  let earnedWeight = 0;
+  for (const f of findings || []) {
+    if (f.state === 'not_applicable') continue;
+    const w = typeof f.weight === 'number' && f.weight > 0 ? f.weight : 1;
+    maxWeight += w;
+    if (f.state === 'fixed') earnedWeight += w;
+  }
+  const score = maxWeight > 0 ? Math.round((100 * earnedWeight) / maxWeight) : 0;
+  return { score, maxWeight, earnedWeight, summary };
+}
