@@ -4,7 +4,7 @@
  * Multi-pass extraction lives in lib/ai-silver/. This module re-exports
  * extractSilver from there so every existing importer keeps working.
  *
- * Legacy single-pass implementation is preserved at ai-silver.legacy.js
+ * Legacy single-pass implementation is preserved at _legacy/ai-silver.legacy.js
  * for reference / rollback.
  */
 

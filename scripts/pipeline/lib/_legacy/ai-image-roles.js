@@ -1,5 +1,17 @@
 /**
- * ai-image-roles.js — Claude Vision classifier for downloaded images.
+ * ai-image-roles.js — LEGACY Vision classifier (UNUSED by the pipeline).
+ *
+ * Replaced by:
+ *   scripts/pipeline/lib/assemble/bind-images.js
+ *   scripts/pipeline/lib/assemble/binding-to-image-roles.js
+ *   scripts/pipeline/lib/ensure-image-alts.js
+ *
+ * Roles + portraits now come from silver images.items[] and are bridged
+ * deterministically after download. Do not call classifyImages() from
+ * build-site.js. Kept only for historical reference / one-off recovery.
+ *
+ * ---
+ * Original: Claude Vision classifier for downloaded images.
  *
  * Input:  public/images/**.{jpg,png,webp} inside the generated project.
  * Output: public/images/image-roles.json
