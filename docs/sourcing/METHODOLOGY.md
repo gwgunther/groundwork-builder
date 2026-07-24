@@ -1,5 +1,7 @@
 # Dental Practice Sourcing — Methodology
 
+> **CRM note (2026-07):** Storage is Cloudflare D1. Sections below that still say "Airtable" describe the *historical* design; runtime code is `scripts/sourcing/lib/d1.js`.
+
 > **Lifecycle context:** This doc covers funnel-top sourcing (journey phase ①). Full journey map → [../lifecycle/CUSTOMER_JOURNEY.md](../lifecycle/CUSTOMER_JOURNEY.md). Production ops → [RUNBOOK.md](./RUNBOOK.md).
 >
 > A scored prospect database (~5k dental practices) that doubles as research input for a derived best-practices checklist. The checklist drives the builder's audit rules, template spec, and the public gap report.

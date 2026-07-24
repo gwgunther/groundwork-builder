@@ -1,31 +1,37 @@
-# Deploy Studio to Railway
+# Studio → Railway deploy — DISABLED
 #
-# Triggers a Railway deployment on every push to main.
+# The interactive Studio UI (scripts/pipeline/studio.js) was retired 2026-06-04
+# (commit 195f519). package.json `start` already points at build-site.js.
+# Auto-deploying a dead service on every main push is harmful; keep this file
+# as a historical pointer. Use workflow_dispatch only if you need a manual
+# Railway poke while migrating the service away.
 #
-# Required GitHub Secret:
-#   RAILWAY_TOKEN  — from Railway dashboard → Account Settings → Tokens
+# Pipeline entrypoints:
+#   node scripts/pipeline/build-site.js
+#   node scripts/pipeline/audit-site.js
+# Ops dashboard:
+#   npm run ops:deploy
 
-name: Deploy to Railway
+name: Deploy to Railway (retired)
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type RETIRED to acknowledge Studio is gone'
+        required: true
 
 jobs:
   deploy:
+    if: ${{ inputs.confirm == 'RETIRED' }}
     runs-on: ubuntu-latest
-    name: Deploy Studio
-
+    name: Deploy Studio (retired — expect fail)
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
-
-      - name: Deploy
-        run: railway up --service studio --detach
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      - name: Refuse — Studio retired
+        run: |
+          echo "::error::Studio was retired 2026-06-04. railway.toml startCommand exits 1."
+          echo "Use build-site.js / audit-site.js, or npm run ops:deploy for the ops Worker."
+          exit 1

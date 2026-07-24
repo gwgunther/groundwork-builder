@@ -2,7 +2,7 @@
 
 Internal reference for **information architecture, crawl signals, structured data, and launch checks** for any site shipped from this repo. It is **not** tied to a particular domain—apply the principles; swap labels and routes to match each project’s vertical and content model.
 
-Use alongside the [README](../../README.md) setup checklist and [CODEBASE_SUMMARY](../architecture/CODEBASE_SUMMARY.md) for architecture and pipeline behavior.
+Use alongside the [README](../../README.md) setup checklist and [ARCHITECTURE](../architecture/ARCHITECTURE.md) for architecture and pipeline behavior.
 
 ---
 
@@ -111,7 +111,7 @@ When generating or migrating sites from scraped content:
 
 ### Ship gates (contractual — enforced by `publish.js`)
 
-These are hard requirements before a build is marked **Pitched** in Airtable or the pitch page goes live. Failures write to `_pipeline/missing.html` and set Build status **Blocked**.
+These are hard requirements before a build is marked **Pitched** in D1 or the pitch page goes live. Failures write to `_pipeline/missing.html` and set Build status **Blocked**.
 
 - [ ] **Mobile PageSpeed ≥ 90** on the live preview URL (measured after deploy via PageSpeed Insights API).
 - [ ] **Lighthouse accessibility ≥ 90** on the live preview (same API run).

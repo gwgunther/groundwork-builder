@@ -1,9 +1,26 @@
 # Step 7 — Audit & Refine (spec)
 
-> Status: SPEC (not yet built). Reviewable artifact capturing the agreed architecture.
-> Numbering note: this is the **clean-step** numbering (1 Scrape · 2 Synthesize · 3 Merge ·
-> 4 Define Brand · 5 Plan Content · 6 Build · 7 Audit & Refine). The legacy `docs/PIPELINE.md`
-> calls these Phases 5–8; reconcile names when this lands.
+> Status: **PARTIALLY SHIPPED** as `PIPELINE.md` Phases 5–8 (designer agent, SEO optimizer,
+> a11y / agentic / citability gates). This doc remains the *target* clean-step architecture
+> (ordered gate vs maximize passes + convergence). Do not treat as unimplemented — reconcile
+> naming with live phases before net-new work.
+> Numbering note: clean-step numbering is 1 Scrape · 2 Synthesize · 3 Merge ·
+> 4 Define Brand · 5 Plan Content · 6 Build · 7 Audit & Refine. Live `docs/PIPELINE.md`
+> calls the refine loop Phases 5–8.
+
+
+
+## Live phase mapping (reconciled 2026-07)
+
+| Step 7 pass (this doc) | Live `PIPELINE.md` phase | Status |
+|---|---|---|
+| 7.0 Content / integrity | Coverage audit + anti-slop + ship-gates | ✅ shipped |
+| 7.1 Design quality maximize | Phase 5 designer agent loop | ✅ shipped (gate ≥7, not yet median-of-3 Opus →9) |
+| 7.2 Accessibility | Phase 3f a11y-optimize + Phase 8 axe gate | ✅ shipped |
+| 7.3 Performance | PageSpeed pre-build + Lighthouse in audits | ⚡ partial (no post-build maximize loop) |
+| 7.4 Convergence | Ship-gates after SEO/a11y/agentic | ⚡ partial (no explicit re-run of 7.0–7.3 as one pass) |
+
+**Decision:** do not rebuild Step 7 as a parallel orchestrator. Extend live Phases 5–8 when raising the design bar 7→9 or adding a true convergence re-check.
 
 ## One-liner
 

@@ -1,8 +1,14 @@
+# Studio (interactive pipeline UI) was retired 2026-06-04 — see commit 195f519.
+# Long-running pipeline jobs should be invoked explicitly:
+#   node scripts/pipeline/build-site.js …
+#   node scripts/pipeline/audit-site.js …
+# Do not auto-deploy this service; the GHA workflow is disabled.
+
 [build]
 builder = "nixpacks"
 buildCommand = "npm install"
 
 [deploy]
-startCommand = "node scripts/pipeline/studio.js"
-restartPolicyType = "on_failure"
-restartPolicyMaxRetries = 3
+# Fail loudly if something still tries to start the old Studio entrypoint.
+startCommand = "node -e \"console.error('Studio retired 2026-06-04. Use build-site.js / audit-site.js (see docs/PIPELINE.md).'); process.exit(1)\""
+restartPolicyType = "never"

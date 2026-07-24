@@ -116,7 +116,7 @@ export async function runContentWrite(scraped, merged, audit, preset, opts = {},
 // ---------------------------------------------------------------------------
 
 /**
- * Back-compat alias. Existing callers (build-site.js, studio.js) continue
+ * Back-compat alias. Existing callers (build-site.js) continue
  * to use `runContentMapping(scraped, merged, audit, preset, opts)` and now
  * may also pass `blueprint` as the 6th arg. When omitted, the prompt falls
  * back to legacy single-pass behaviour (Write infers source/quality inline).

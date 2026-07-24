@@ -1,6 +1,6 @@
 // Cloudflare D1 sink for the sourcing pipeline.
 //
-// Replaces lib/airtable.js (kept for reference, no longer imported).
+// Replaces Airtable sync (historical: scripts/legacy/airtable-sourcing.js).
 // Writes pipeline records to the `sourced_practices` table — same table the
 // ops dashboard reads and that migrate-airtable-sourced.mjs seeded.
 //

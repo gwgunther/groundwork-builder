@@ -16,13 +16,13 @@ npm run audit -- --url https://their-current-site.com --source manual
 
 This runs the full SEO + AEO + tech audit and saves results under `_audits/<slug>/`. You'll use the findings to prioritize what intake info matters most.
 
-### 1.2 Update lifecycle stage in Airtable
+### 1.2 Update lifecycle stage in D1 / ops dashboard
 
 ```
-Account → Lifecycle Stage → Onboarding
+Account → Lifecycle Stage → Onboarding (ops.groundworkdental.com)
 ```
 
-Or via code: `setAccountLifecycle(slug, 'Onboarding')` in `airtable.js`.
+Or via code: `setAccountLifecycle(slug, 'Onboarding')` in `d1.js`.
 
 ### 1.3 Create the client directory
 
@@ -30,7 +30,7 @@ Or via code: `setAccountLifecycle(slug, 'Onboarding')` in `airtable.js`.
 mkdir -p clients/<slug>
 ```
 
-Where `<slug>` is the kebab-case practice name (e.g. `riverside-family-dental`). This matches the Airtable Account slug.
+Where `<slug>` is the kebab-case practice name (e.g. `riverside-family-dental`). This matches the D1 `accounts.slug`.
 
 ### 1.4 Send the pre-call email
 
@@ -42,7 +42,7 @@ Send two attachments before the call:
 
 ## Phase 2 — Collect from the practice (async, before or during call)
 
-Everything below feeds `intake.json`. Send as a form or Google Doc; fill it in yourself if you collected it verbally on a call. Store the result at `clients/<slug>/intake.json` **or** paste into the Airtable Account's `Intake JSON` field.
+Everything below feeds `intake.json`. Send as a form or Google Doc; fill it in yourself if you collected it verbally on a call. Store the result at `clients/<slug>/intake.json` **or** set `accounts.intake_json` in D1 / ops dashboard.
 
 Template: [`docs/onboarding/intake-template.json`](./intake-template.json)
 
@@ -344,7 +344,7 @@ cp docs/onboarding/intake-template.json clients/<slug>/intake.json
 # then edit it
 ```
 
-Or paste the filled JSON into the Airtable Account's `Intake JSON` field if you prefer Airtable as the source of truth.
+Or set `accounts.intake_json` in D1 if you prefer the CRM as the source of truth.
 
 Verify the pipeline can load it:
 
@@ -511,7 +511,7 @@ If no data appears, the Measurement ID may not be wired into the site — check 
 - [ ] GSC property verified and sitemap submitted
 - [ ] Key pages have indexing requested
 - [ ] GA4 Realtime confirmed tracking
-- [ ] Update Airtable lifecycle: `Onboarding → Live`
+- [ ] Update D1 lifecycle: `Onboarding → Live`
 
 ```
 Account → Lifecycle Stage → Live
@@ -524,14 +524,14 @@ Account → Lifecycle Stage → Live
 `build-site.js --publish` triggers `baseline-capture.js` when ship gates pass, writing:
 
 - `clients/<slug>/_pipeline/baseline.json`
-- Airtable Account: `Baseline PageSpeed`, `Launch Date`, `Re-audit Due` (75 days out)
+- D1 Account: `Baseline PageSpeed`, `Launch Date`, `Re-audit Due` (75 days out)
 
 ### Manual steps after launch (~20 min)
 
 See [HANDOFF.md](./HANDOFF.md) for full detail. Summary:
 
-1. **Record 3–5 local rank terms** in Airtable `Baseline Ranks` (e.g. "dentist Austin", "dental implants Austin", "emergency dentist Austin")
-2. **Confirm case study consent** is set in intake or Airtable
+1. **Record 3–5 local rank terms** in D1 `Baseline Ranks` (e.g. "dentist Austin", "dental implants Austin", "emergency dentist Austin")
+2. **Confirm case study consent** is set in intake or D1
 3. **Re-audit is scheduled** — `Re-audit Due` field should be ~75 days from `Launch Date`
 
 ---
@@ -580,7 +580,7 @@ npm run gbp -- post
 - [ ] Lifecycle → Onboarding
 - [ ] Pre-call email + attachments sent
 - [ ] Intake questionnaire received and complete
-- [ ] `clients/<slug>/intake.json` created (or Airtable `Intake JSON` filled)
+- [ ] `clients/<slug>/intake.json` created (or D1 `intake_json` filled)
 - [ ] Setup call done: GBP API auth working (`npm run gbp -- status` passes)
 - [ ] `.env` has `GBP_CLIENT_ID`, `GBP_CLIENT_SECRET`, `GBP_LOCATION_ID`, refresh token
 - [ ] Build complete; ship gates pass
@@ -591,5 +591,5 @@ npm run gbp -- post
 - [ ] GBP website link updated to real domain
 - [ ] Search Console: sitemap submitted, indexing requested
 - [ ] Lifecycle → Live
-- [ ] Baseline rank terms recorded in Airtable
+- [ ] Baseline rank terms recorded in D1
 - [ ] Re-audit Due date set (~75 days)

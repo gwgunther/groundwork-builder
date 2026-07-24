@@ -1,6 +1,6 @@
 # Customer journey — Groundwork Dental
 
-Single map of how a dental practice moves from prospect to active client. Use this doc to decide where to add automation, runbooks, and Airtable stages — not as a duplicate of the technical pipeline or GBP setup guides.
+Single map of how a dental practice moves from prospect to active client. Use this doc to decide where to add automation, runbooks, and D1 lifecycle stages — not as a duplicate of the technical pipeline or GBP setup guides.
 
 **Related (deep dives — read there, not here):**
 
@@ -21,7 +21,7 @@ Single map of how a dental practice moves from prospect to active client. Use th
 | Term | Meaning here |
 |------|----------------|
 | **Customer journey / client lifecycle** | End-to-end path: first touch → signed → live → churn |
-| **Lifecycle stage** | Single CRM status on an **Account** row (Airtable `Lifecycle Stage`) |
+| **Lifecycle stage** | Single CRM status on an **Account** row (D1 `accounts.lifecycle_stage`) |
 | **Funnel top** | Sourced practices not yet in CRM (`Sourced Practices` table) |
 | **Warm lead** | Prospect who requested a preview from an audit one-pager |
 | **Runbook** | Step-by-step ops doc for one milestone (e.g. `docs/gbp/`) |
@@ -76,24 +76,24 @@ Phases ③ are documented in [ARCHITECTURE.html](../architecture/ARCHITECTURE.ht
 
 ## Milestones
 
-| # | Milestone | Account lifecycle stage | Airtable tables | Trigger | Automated? | Doc / code |
+| # | Milestone | Account lifecycle stage | D1 tables | Trigger | Automated? | Doc / code |
 |---|-----------|-------------------------|-----------------|---------|------------|------------|
 | 1 | Practice sourced | — | `Sourced Practices` | `npm run sourcing:run` / `sourcing:campaign` | ✅ | [RUNBOOK.md](../sourcing/RUNBOOK.md) |
 | 2 | Promoted to CRM | *(none yet)* | Accounts + Sourced | `npm run sourcing:promote -- <place_id>` | ⚡ Script; outreach manual | [promote.js](../../scripts/sourcing/promote.js) |
-| 3 | Audit started | **Prospect** | Accounts + Audits | `audit-site.js` → `startAudit()` | ✅ | [airtable.js](../../scripts/pipeline/lib/airtable.js) |
+| 3 | Audit started | **Prospect** | accounts + audits | `audit-site.js` → `startAudit()` | ✅ | [d1.js](../../scripts/pipeline/lib/d1.js) |
 | 4 | Audit complete | **Audited** | Accounts + Audits | Audit finishes; `hostAuditReport()` | ✅ | [audit-architecture.md](../../scripts/pipeline/config/audit-architecture.md) |
 | 5 | Warm lead (preview request) | **Preview Requested** | Accounts + Audits + Builds | Form on `audit-summary.html` | ✅ CRM + optional CI build | [audit-preview-request.js](../../scripts/pipeline/lib/audit-preview-request.js) |
 | 6 | Build running | — | Builds (`Queued` row) | `audit-preview-build.yml` or manual `build-site.js --publish` | ✅ if secrets set | [ARCHITECTURE.html](../architecture/ARCHITECTURE.html) |
 | 7 | Pitch delivered | **Pitched** | Accounts + Builds (new row) | `publish.js` → `recordBuildRun()` | ✅ | [publish.js](../../scripts/pipeline/lib/publish.js) |
 | 8 | Handoff baseline captured | *(at Pitched)* | Accounts | `publish.js` when ship gates pass | ✅ | [HANDOFF.md](../onboarding/HANDOFF.md) |
-| 9 | Discovery / sales call | **Contacted** | Accounts | Manual (`setAccountLifecycle`) | ⚡ | `airtable.js` |
-| 10 | Client signed | **Signed** | Accounts | Contract / payment | ⚡ Manual | `setAccountLifecycle()` |
+| 9 | Discovery / sales call | **Contacted** | accounts | Manual (`setAccountLifecycle`) | ⚡ | `d1.js` |
+| 10 | Client signed | **Signed** | accounts | Contract / payment | ⚡ Manual | `setAccountLifecycle()` |
 | 11 | Onboarding | **Onboarding** | Accounts | Post-sign checklist | ⚡ GBP + intake | [ONBOARDING.md](../onboarding/ONBOARDING.md) |
 | 12 | Live on client domain | **Live** | Accounts + Builds | DNS cutover | ⚡ Manual | [ONBOARDING.md §7](../onboarding/ONBOARDING.md#phase-7--dns-cutover-and-go-live) |
 | 13 | Active / support | **Active** | Accounts | Ongoing | ⚡ Manual | — |
 | 14 | Churn / offboard | **Churned** | Accounts | Engagement ends | ⚡ GBP offboarding | [gbp-offboarding.md](../gbp/gbp-offboarding.md) |
 
-**Bold** = supported in `airtable.js` (`ACCOUNT_LIFECYCLE_STAGES`). Stages through **Pitched** are set automatically; **Contacted → Churned** via `setAccountLifecycle(slug, stage)` or manual Airtable edit.
+**Bold** = supported in `d1.js` (`ACCOUNT_LIFECYCLE_STAGES`). Stages through **Pitched** are set automatically; **Contacted → Churned** via `setAccountLifecycle(slug, stage)` or the ops dashboard.
 
 ### Hosted URLs (after audit / publish)
 
@@ -120,9 +120,9 @@ Promote sets Accounts `Source: sourcing` and does **not** set `Lifecycle Stage` 
 
 ---
 
-## Airtable model
+## CRM model (Cloudflare D1)
 
-Four tables across funnel + pipeline (see [pipeline airtable.js](../../scripts/pipeline/lib/airtable.js) and [sourcing airtable.js](../../scripts/sourcing/lib/airtable.js)):
+Four tables across funnel + pipeline (see [d1.js](../../scripts/pipeline/lib/d1.js) and [sourcing d1.js](../../scripts/sourcing/lib/d1.js); schema: `scripts/pipeline/lib/d1-schema.sql`):
 
 ```
 Sourced Practices  ──promote──►  Accounts  ──1:N──►  Audits
@@ -143,7 +143,7 @@ Sourced Practices  ──promote──►  Accounts  ──1:N──►  Audits
 
 **Account lifecycle (manual / `setAccountLifecycle`):** Contacted → Signed → Onboarding → Live → Active → Churned
 
-Full list: `ACCOUNT_LIFECYCLE_STAGES` in `scripts/pipeline/lib/airtable.js`.
+Full list: `ACCOUNT_LIFECYCLE_STAGES` in `scripts/pipeline/lib/d1.js`.
 
 **Sourced outreach (manual today):** `Status` on Sourced Practices includes `contacted`, `replied`, `promoted-to-accounts` — tracks outreach before an Account exists.
 
@@ -153,7 +153,7 @@ Full list: `ACCOUNT_LIFECYCLE_STAGES` in `scripts/pipeline/lib/airtable.js`.
 
 | Event | What happens today | Next automation candidate |
 |-------|-------------------|---------------------------|
-| Metro sourcing completes | Rows in `Sourced Practices`; checkpoints in `_sourcing/` | Airtable view alert for new Prime quadrant |
+| Metro sourcing completes | Rows in `Sourced Practices`; checkpoints in `_sourcing/` | ops-dashboard / D1 view alert for new Prime quadrant |
 | Audit completes | Account `Audited`; summary at `/audits/<slug>/` | Email with audit link |
 | Preview form submit | Account `Preview Requested`; Audit updated; Build `Queued`; optional workflow | Slack/Asana task for follow-up call |
 | CI build + publish | New Build row `Pitched`; Account `Pitched`; preview + pitch URLs | Email pitch link to contact |
@@ -181,15 +181,15 @@ audit-summary.html CTA
 ### Known gaps (remaining)
 
 1. **Promote → no lifecycle stage** — Account exists with `Source: sourcing` but no stage until an audit runs.
-2. **Audit-on-promotion** — Methodology describes deep audit when promoting; not auto-wired from `promote.js` yet ([METHODOLOGY.md §6](../sourcing/METHODOLOGY.md)).
-3. **Re-audit automation** — `Re-audit Due` is set at handoff; calendar/Airtable automation not wired yet.
+2. ~~**Audit-on-promotion**~~ — `promote.js` runs `audit-site.js` unless `--no-audit` (METHODOLOGY §6). Warns when promoting non-Prime / non-A–B.
+3. **Re-audit automation** — `Re-audit Due` is set at handoff; calendar automation not wired yet.
 4. **Keyword rank module** — Baseline ranks are manual until GRADER ships ([GRADER_PLAN.md](../GRADER_PLAN.md)).
 
 ### Recently resolved
 
 - ~~Duplicate Build rows~~ — `publish.js` updates `Queued` → `Pitched`/`Blocked` via `findQueuedBuildBySlug`.
-- ~~Post-pitch lifecycle stages~~ — `ACCOUNT_LIFECYCLE_STAGES` + `setAccountLifecycle()` in `airtable.js`.
-- ~~Supabase dependency~~ — Pipeline caches use `_memory/` local files; CRM is Airtable only. Historical data exported via `npm run migrate:supabase` (52 runs, 8 fingerprints, 130 image analyses).
+- ~~Post-pitch lifecycle stages~~ — `ACCOUNT_LIFECYCLE_STAGES` + `setAccountLifecycle()` in `d1.js`.
+- ~~Supabase dependency~~ — Pipeline caches use `_memory/` local files; CRM is Cloudflare D1 (Airtable retired June 2026). Historical Supabase export via `npm run legacy:migrate-supabase`.
 - ~~Pre-call audit~~ — `npm run audit:precall` → `precall-brief.html` + vendor/TCO on sales one-pager.
 
 ---
@@ -204,7 +204,7 @@ docs/
 │   └── CUSTOMER_JOURNEY.md     ← you are here (index)
 ├── architecture/
 │   ├── ARCHITECTURE.html       ← builder pipeline (phase ③)
-│   └── CODEBASE_SUMMARY.md
+│   └── ARCHITECTURE.md
 ├── sourcing/
 │   ├── METHODOLOGY.md          ← scoring model, schema (phase ①)
 │   └── RUNBOOK.md              ← how to run metros / campaign
@@ -229,6 +229,7 @@ docs/
 | `npm run sourcing:campaign` | All metros (resumable) |
 | `npm run sourcing:promote -- <place_id>` | Promote to Accounts |
 | `npm run audit -- --url …` | Run audit |
+| `npm run grade -- --url …` | Self-serve Grade My Site (Growth Score) |
 | `npm run audit:precall -- --url …` | Pre-call brief + full audit |
 | `node scripts/pipeline/request-preview.js --slug …` | Simulate preview form |
 | `node scripts/pipeline/rescue-build.js --slug … --build-id …` | Backfill failed publish |
@@ -244,4 +245,4 @@ docs/
 
 ---
 
-*Last updated: 2026-06-03 — audited against repo (sourcing schema, promote.js, build/Airtable flow)*
+*Last updated: 2026-07-23 — CRM truth pass (Airtable → D1); studio retired*

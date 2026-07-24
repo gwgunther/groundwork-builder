@@ -129,7 +129,7 @@ async function copyPreviewRequestApi(dentalPath) {
   await mkdir(destLib, { recursive: true });
   await mkdir(destApi, { recursive: true });
 
-  const libFiles = ['audit-preview-cf.js', 'audit-preview-request.js', 'airtable.js'];
+  const libFiles = ['audit-preview-cf.js', 'audit-preview-request.js', 'd1.js'];
   for (const name of libFiles) {
     const from = join(PIPELINE_ROOT, 'lib', name);
     if (existsSync(from)) {

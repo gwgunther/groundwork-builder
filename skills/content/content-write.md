@@ -19,7 +19,7 @@ blueprint's `contentAudit` tells Write what to **keep verbatim**, what to
 decisions.
 
 Output is the same shape downstream consumers (`page-generator.js`,
-`injector.js`, `studio.js`) already expect — only the path that produces the
+`injector.js`) already expect — only the path that produces the
 copy has been split into Map (audit) + Write (compose).
 
 **Legacy single-pass mode:** when no blueprint is provided (Map didn't run, or

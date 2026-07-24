@@ -1,5 +1,7 @@
 # Sourcing — Production Runbook
 
+> **CRM note (2026-07):** Sourced practices write to Cloudflare D1 (`sourced_practices`), not Airtable. `--no-airtable` is a legacy alias for `--no-db`. Ops UI: `ops.groundworkdental.com`.
+
 > **Lifecycle context:** Phase ① of the client journey. Hub → [../lifecycle/CUSTOMER_JOURNEY.md](../lifecycle/CUSTOMER_JOURNEY.md). Scoring model → [METHODOLOGY.md](./METHODOLOGY.md).
 
 How to run the dental-practice sourcing pipeline on your own machine (stable
@@ -37,7 +39,7 @@ npx playwright install chromium
 Sanity check before a big run:
 ```bash
 npm run sourcing:metros        # lists all 100 metro keys → confirms registry loads
-node scripts/sourcing/run.js --metro dallas-tx --limit 5 --no-airtable   # ~1 min smoke test
+node scripts/sourcing/run.js --metro dallas-tx --limit 5 --no-db   # ~1 min smoke test (--no-airtable = legacy alias)
 ```
 
 ---
@@ -47,7 +49,7 @@ node scripts/sourcing/run.js --metro dallas-tx --limit 5 --no-airtable   # ~1 mi
 ```bash
 node scripts/sourcing/run.js --metro phoenix-az
 ```
-- Sources the **200 most-prominent practices** in the metro (geo-radius), scores them, writes to the canonical `Sourced Practices` Airtable table (segmented by the `MSA / Market` column).
+- Sources the **200 most-prominent practices** in the metro (geo-radius), scores them, writes to D1 `sourced_practices` (segmented by MSA / market).
 - `--list-metros` shows every key. Common flags: `--limit N`, `--no-screenshots` (faster), `--no-lighthouse` (skip the slow step while testing).
 - **Resumable:** re-running the same metro skips practices already checkpointed in `_sourcing/checkpoints/`. To force a fresh pass, add `--force`.
 
@@ -88,7 +90,7 @@ tail -f _sourcing/campaign.out          # campaign-level progress
 tail -f _sourcing/logs/phoenix-az.log   # a specific metro
 cat _sourcing/campaign-progress.json    # done / failed lists
 ```
-And the Airtable `Sourced Practices` table fills in live (filter by `MSA / Market`).
+And D1 `sourced_practices` fills in live (filter by MSA in the ops dashboard Sourced tab).
 
 ---
 
@@ -105,9 +107,9 @@ And the Airtable `Sourced Practices` table fills in live (filter by `MSA / Marke
 1. **Tune exemplar floors** to land ~1,000 top sites across all metros (instant, no re-crawl):
    edit `EXEMPLAR_MIN_REVIEWS` / `EXEMPLAR_MIN_RATING` in `scripts/sourcing/lib/scoring.js`, then
    ```bash
-   node scripts/sourcing/run.js --rescore         # recomputes ALL checkpoints + re-syncs Airtable
+   node scripts/sourcing/run.js --rescore         # recomputes ALL checkpoints + re-syncs D1
    ```
-2. **Work the prospect list** — Airtable view: `Quadrant = Prime`, sorted by Review Count; filter `Vendor Category = dental-mill` for the hottest segment. `Missing Items` is the cold-email body.
+2. **Work the prospect list** — ops dashboard / D1: `Quadrant = Prime`, sorted by Review Count; filter `Vendor Category = dental-mill` for the hottest segment. `Missing Items` is the cold-email body.
 3. **Promote** a prospect into the Accounts CRM when ready to pitch: `node scripts/sourcing/promote.js <place_id>`.
 4. **Build Product #2** (best-practices checklist) once exemplars have accumulated across ~10–20 metros — runs on the cached HTML/screenshots, no re-crawl.
 
@@ -120,8 +122,8 @@ And the Airtable `Sourced Practices` table fills in live (filter by `MSA / Marke
 | High "unreachable" (>20%) | Network instability during the run. Re-run the metro (resume keeps good rows); delete `excluded-unreachable` checkpoints first to retry them. |
 | A metro times out repeatedly on the same sites | A few genuinely-slow sites hit the 200s per-practice cap — they're dropped and logged; re-run to retry. (GCS uploads are already hard-capped at 25s so they can't cause this.) |
 | `ANTHROPIC_API_KEY missing` | Not needed for sourcing; ignore. |
-| Airtable row-ceiling | Confirm your plan's per-base limit (Team/Pro 50k, Business 125k). 100 metros × ~180 ≈ 18k rows — fine. |
-| Want to re-sync without re-crawl | `node scripts/sourcing/run.js --sync-only` (uploads + Airtable from cached checkpoints). |
+| D1 scale | SQLite-backed; 100 metros × ~180 ≈ 18k rows is fine. |
+| Want to re-sync without re-crawl | `node scripts/sourcing/run.js --sync-only` (uploads + D1 from cached checkpoints). |
 
 ---
 
@@ -134,5 +136,5 @@ And the Airtable `Sourced Practices` table fills in live (filter by `MSA / Marke
 | `node scripts/sourcing/campaign.js [--top N \| --metros a,b]` | source many, resumable |
 | `node scripts/sourcing/campaign.js --retry-failed` | retry failed metros |
 | `node scripts/sourcing/run.js --rescore` | recompute scores from cache + re-sync (no crawl) |
-| `node scripts/sourcing/run.js --sync-only` | re-push cached data to Airtable |
+| `node scripts/sourcing/run.js --sync-only` | re-push cached data to D1 |
 | `node scripts/sourcing/promote.js <place_id>` | promote a prospect to Accounts |

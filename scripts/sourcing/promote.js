@@ -10,7 +10,8 @@
 //   2. Upsert an account via scripts/pipeline/lib/d1.js (slug from website URL)
 //   3. Update the sourced row's status → 'promoted-to-accounts'
 //   4. Unless --no-audit: run audit-site.js on the practice URL (deep audit
-//      before outreach — see docs/sourcing/METHODOLOGY.md §6)
+//      before outreach — METHODOLOGY §6). Prefer promoting Prime / Tier A–B
+//      rows; non-Prime still works but prints a cost warning.
 
 import './lib/env.js';
 import { spawn } from 'node:child_process';
@@ -46,6 +47,14 @@ async function main() {
     ? slugFromUrl(practiceUrl)
     : (sourced.practice_name || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
   console.error(`Found: ${sourced.practice_name} (${sourced.city}, ${sourced.state})`);
+  const tier = sourced.tier || '?';
+  const quadrant = sourced.quadrant || '?';
+  console.error(`Sourcing: tier=${tier} quadrant=${quadrant}`);
+  const isPrime = String(quadrant).toLowerCase().startsWith('prime');
+  const isHotTier = ['A', 'B'].includes(String(tier).toUpperCase());
+  if (!isPrime && !isHotTier) {
+    console.error(`⚠ Not Prime / Tier A–B — audit-on-promotion still runs (use --no-audit to skip).`);
+  }
 
   // 2. Upsert into accounts (pipeline d1.js — same row the dashboard reads)
   const accountId = await upsertAccount({

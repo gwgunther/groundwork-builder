@@ -1,5 +1,5 @@
 /**
- * Load client intake data from a JSON file or Airtable Account.
+ * Load client intake data from a JSON file or D1 Account (legacy: Airtable).
  * Normalizes the 8-section intake structure into the unified PracticeData shape.
  */
 import { readFile } from 'node:fs/promises';
@@ -31,7 +31,7 @@ export async function loadIntake(optsOrFilePath, clientIdArg) {
   } else if (airtableSlug) {
     raw = await loadFromAirtable(airtableSlug);
   } else if (clientId) {
-    // Legacy alias — treat as Airtable slug lookup, not Supabase UUID
+    // Legacy alias — treat as D1 account slug lookup, not Supabase UUID
     raw = await loadFromAirtable(clientId);
   } else {
     return {};
@@ -40,10 +40,11 @@ export async function loadIntake(optsOrFilePath, clientIdArg) {
   return normalizeIntake(raw);
 }
 
+/** @deprecated name — loads from D1 via findAccountBySlug */
 async function loadFromAirtable(slug) {
   const account = await findAccountBySlug(slug);
   if (!account) {
-    throw new Error(`No Airtable Account found with Slug: ${slug}`);
+    throw new Error(`No D1 Account found with Slug: ${slug}`);
   }
 
   // D1 rows are snake_case (intake_json); legacy Airtable records used display
@@ -137,7 +138,7 @@ function normalizeIntake(raw) {
       ga4MeasurementId: co.ga4_measurement_id || null,
     },
     meta: {
-      intakeSource: raw.meta?.intakeSource || (raw._topLevel ? 'airtable' : 'file'),
+      intakeSource: raw.meta?.intakeSource || (raw._topLevel ? 'd1' : 'file'),
     },
   };
 }

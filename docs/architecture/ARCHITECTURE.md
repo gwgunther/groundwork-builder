@@ -17,13 +17,14 @@ Groundwork Builder is an AI-powered dental website generator. It takes a URL (ex
 | Layer | Choice | Notes |
 |-------|--------|-------|
 | Frontend framework | Astro v6 (static) | File-based routing, Content Collections for blog |
-| Styling | Tailwind CSS v3 | Brand tokens injected by pipeline into `tailwind.config.mjs` |
+| Styling | Tailwind CSS v4 | Brand tokens injected by pipeline into `tailwind.config.mjs` / CSS |
 | Language | TypeScript (src/) + JavaScript (pipeline) | Node.js for pipeline scripts |
 | AI | Anthropic Claude API | Sonnet 4.6 for main tasks, Haiku 4.5 for image classification + citability |
 | Interactivity | Alpine.js (CDN deferred) | Mobile menu, dropdowns, FAQ accordions |
 | Hosting | Cloudflare Pages | Wrangler deploy; `public/_redirects` for 301s |
 | CI/CD | GitHub Actions | Auto-deploy on push to `main` |
-| Pipeline runtime | Railway | Long-running Node.js, Playwright, file I/O |
+| CRM / ops DB | Cloudflare D1 (`groundwork-ops`) | `scripts/pipeline/lib/d1.js` + ops-dashboard Worker |
+| Pipeline runtime | Local / CI (Railway Studio retired) | `build-site.js` / `audit-site.js`; Studio UI removed 2026-06-04 |
 
 ---
 
@@ -139,7 +140,7 @@ Every AI call is logged through `lib/ai-call.js` — model, phase, input/output 
 | `ANTHROPIC_API_KEY` | Yes | Claude API for all AI phases |
 | `PUBLIC_GA4_MEASUREMENT_ID` | No | Google Analytics 4 tag |
 | `PUBLIC_DISPLAY_PHONE` | No | Override display phone for call-tracking deployments |
-| `CLOUDFLARE_API_TOKEN` | Deploy only | Wrangler Pages deploy |
+| `CLOUDFLARE_API_TOKEN` | Deploy / CRM | Wrangler Pages + D1 REST |
 | `GOOGLE_SERVICE_ACCOUNT_PATH` | No | Google API automation |
 | `GSC_SITE_URL` | No | Google Search Console |
 | `GBP_CLIENT_ID` / `GBP_CLIENT_SECRET` | No | Google Business Profile OAuth |
@@ -147,6 +148,8 @@ Every AI call is logged through `lib/ai-call.js` — model, phase, input/output 
 | `GOOGLE_GEMINI_API_KEY` | No | Optional: Gemini Flash in AI citability audit |
 | `GROUNDWORK_AGENT` | No | Set to `1` to enable designer agent by default |
 | `GROUNDWORK_NO_CACHE` | No | Set to `1` to bypass silver page extraction cache |
+| `CLOUDFLARE_ACCOUNT_ID` | CRM / deploy | Cloudflare account for D1 + Pages |
+| `CLOUDFLARE_D1_DATABASE_ID` | CRM | D1 `groundwork-ops` database id |
 
 ---
 

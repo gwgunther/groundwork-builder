@@ -12,7 +12,7 @@ Capture baseline measurements at handoff so you can publish attributed case stud
 Automatically when `build-site.js --publish` completes **and ship gates pass** (`publish.js` → `baseline-capture.js`):
 
 - Writes `clients/<slug>/_pipeline/baseline.json`
-- Updates Airtable Account: `Baseline PageSpeed`, `Baseline Ranks`, `Launch Date`, `Re-audit Due`
+- Updates D1 Account: `Baseline PageSpeed`, `Baseline Ranks`, `Launch Date`, `Re-audit Due`
 
 If ship gates **fail**, handoff is blocked — fix issues in `_pipeline/missing.html` first.
 
@@ -31,7 +31,7 @@ If ship gates **fail**, handoff is blocked — fix issues in `_pipeline/missing.
 
 ## Manual steps (~20 min per founding client)
 
-Complete these in Airtable on the Account row after preview goes live:
+Complete these on the D1 Account row (ops dashboard) after preview goes live:
 
 ### 1. Local rank terms (3–5)
 
@@ -59,7 +59,7 @@ At handoff, confirm in intake / Account:
 - `case_study_consent`: yes / no / pending
 - `consent_scope`: performance-only / named results / none
 
-Store in `clients/<slug>/intake.json` under `content.case_study_consent` or Airtable **Intake JSON**.
+Store in `clients/<slug>/intake.json` under `content.case_study_consent` or D1 **intake_json**.
 
 **Rule:** Launch on artifact performance (PageSpeed, accessibility). Graduate to outcome claims (calls, rankings) only with named consent.
 
@@ -93,7 +93,7 @@ Use attributed template (only with consent):
 
 ---
 
-## Airtable fields (Accounts table)
+## D1 fields (accounts table)
 
 Add these columns if missing:
 

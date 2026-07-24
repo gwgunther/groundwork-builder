@@ -234,11 +234,11 @@ async function main() {
     airtableAccountId = accountId;
     airtableAuditId   = auditId;
     globalThis.__groundworkAirtableAuditId = auditId;  // outer fatal-error handler reads this
-    if (auditId) console.log(`[Airtable] Tracking audit: ${auditId} (account: ${accountId})`);
-    else         console.log(`[Airtable] Disabled (env vars missing). Continuing without tracking.`);
+    if (auditId) console.log(`[D1] Tracking audit: ${auditId} (account: ${accountId})`);
+    else         console.log(`[D1] Disabled (env vars missing). Continuing without tracking.`);
     console.log('');
   } catch (err) {
-    console.warn(`[Airtable] startAudit failed (non-fatal): ${err.message}`);
+    console.warn(`[D1] startAudit failed (non-fatal): ${err.message}`);
     console.log('');
   }
 
@@ -745,9 +745,9 @@ async function main() {
         gbpRating:      gbpScan?.meta?.rating ?? null,
         auditReportUrl: hostedReports.indexUrl || null,
       });
-      console.log(`[Airtable] Audit ${airtableAuditId} marked Audited.`);
+      console.log(`[D1] Audit ${airtableAuditId} marked Audited.`);
     } catch (err) {
-      console.warn(`[Airtable] finalize failed (non-fatal): ${err.message}`);
+      console.warn(`[D1] finalize failed (non-fatal): ${err.message}`);
     }
   }
 }
@@ -770,10 +770,10 @@ main().catch(async (err) => {
         status: 'Failed',
         errorDetail: err.message + (err.stack ? '\n\n' + err.stack : ''),
       });
-      console.error('[Airtable] Audit marked Failed.');
+      console.error('[D1] Audit marked Failed.');
     }
   } catch (e) {
-    console.error('[Airtable] Could not mark audit Failed:', e.message);
+    console.error('[D1] Could not mark audit Failed:', e.message);
   }
   process.exit(1);
 });
