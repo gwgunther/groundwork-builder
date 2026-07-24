@@ -9,8 +9,12 @@
  *   node scripts/pipeline/build-site.js --url https://old-site.com --output ../clients/smith-dental
  *   node scripts/pipeline/build-site.js --data intake.json --output ../clients/smith-dental
  *   node scripts/pipeline/build-site.js --url https://old-site.com --data intake.json --output ../clients/smith-dental
- *   node scripts/pipeline/build-site.js --airtable-slug smith-dental --output ../clients/smith-dental
+ *   node scripts/pipeline/build-site.js --slug smith-dental --output ../clients/smith-dental
  *   node scripts/pipeline/build-site.js --preset dental --url https://old-site.com --output ../clients/smith-dental
+ *   node scripts/pipeline/build-site.js --url … --reference auto --output ../clients/smith-dental
+ *
+ * Phase map (see docs/PIPELINE.md):
+ *   1 Crawl → 2 Process → 3 Assemble → 4 Build → 5 Designer → 6 SEO → 7 SEO loop → 8 Quality → 9 Reports
  */
 
 import { config as dotenvConfig } from 'dotenv';
@@ -47,7 +51,7 @@ import { assembleLayout } from './lib/assemble/assemble-layout.js';
 import { bindingToImageRoles } from './lib/assemble/binding-to-image-roles.js';
 import { distillDesign } from './lib/distill-design.js';
 import { runDesignerAgent, buildAstro } from './lib/designer-agent.js';
-import { loadReferenceEntry, applyReferenceToBrandDna, applyReferenceToDirector } from './lib/reference-entry.js';
+import { loadReferenceEntry, selectAutoReference, applyReferenceToBrandDna, applyReferenceToDirector } from './lib/reference-entry.js';
 import { generateAgentFiles } from './lib/generate-agent-files.js';
 
 // ---------------------------------------------------------------------------
@@ -59,8 +63,9 @@ function parseArgs() {
   const opts = {
     url: null,
     data: null,
-    clientId: null,       // deprecated — use airtableSlug
-    airtableSlug: null,
+    clientId: null,       // deprecated — use slug
+    airtableSlug: null,   // legacy alias for slug (D1 account)
+    slug: null,
     output: null,
     preset: 'dental',
     skipScrape: false,
@@ -88,10 +93,15 @@ function parseArgs() {
         break;
       case '--client-id':
         opts.clientId = args[++i];
-        console.warn('  ⚠ --client-id is deprecated; use --airtable-slug <slug> instead.');
+        console.warn('  ⚠ --client-id is deprecated; use --slug <slug> instead.');
+        break;
+      case '--slug':
+        opts.slug = args[++i];
         break;
       case '--airtable-slug':
+        // Legacy alias — CRM is D1 now; same lookup path as --slug
         opts.airtableSlug = args[++i];
+        console.warn('  ⚠ --airtable-slug is deprecated; use --slug <slug> (D1 accounts).');
         break;
       case '--output':
         opts.output = args[++i];
@@ -136,7 +146,7 @@ function parseArgs() {
         opts.agentIterations = args[++i];
         break;
       case '--reference':
-        // Design-catalog entry id (docs/design-catalog/examples/<id>.json) or
+        // Design-catalog entry id (examples/<id>.json | runs/<id>/entry.json) or
         // a path to an entry. Reference owns structure (variant map, atoms,
         // type character, audit gates); practice keeps identity (colors, content).
         opts.reference = args[++i];
@@ -154,7 +164,7 @@ function parseArgs() {
         break;
       case '--publish':
         // After build: generate pitch page, push to GitHub, create CF Pages
-        // project, add subdomain, write Airtable row.
+        // project, add subdomain, write D1 builds row.
         opts.publish = true;
         break;
       case '--fix-worklist':
@@ -174,8 +184,8 @@ function parseArgs() {
     }
   }
 
-  if (!opts.url && !opts.data && !opts.clientId && !opts.airtableSlug) {
-    console.error('Error: At least one of --url, --data, or --airtable-slug is required.');
+  if (!opts.url && !opts.data && !opts.clientId && !opts.airtableSlug && !opts.slug) {
+    console.error('Error: At least one of --url, --data, or --slug is required.');
     console.error('Run with --help for usage information.');
     process.exit(1);
   }
@@ -193,17 +203,19 @@ Usage:
 Options:
   --url <url>        Existing website URL to scrape
   --data <path>      Path to intake JSON file
-  --airtable-slug <slug>  Load intake from Airtable Account (Intake JSON field or clients/<slug>/intake.json)
-  --client-id <slug>      Deprecated alias for --airtable-slug
+  --slug <slug>       Load intake from D1 Account (intake_json) or clients/<slug>/intake.json
+  --airtable-slug <slug>  Deprecated alias for --slug
+  --client-id <slug>      Deprecated alias for --slug
   --output <path>    Output directory for new project
   --preset <name>    Vertical preset (default: dental)
   --skip-scrape      Skip website scraping
   --skip-images      Skip image downloading
   --skip-audit       Skip AI site audit
   --skip-build       Skip build validation
-  --reference <id>   Build with a design-catalog entry (docs/design-catalog/examples/<id>.json
-                     or a path). Entry owns variant map + atoms + type bucket + audit gates;
-                     practice keeps its colors and content.
+  --reference <id>   Design-catalog entry id (examples/<id>.json or runs/<id>/entry.json),
+                     a path, or "auto" (pick curated light run). Env fallback:
+                     GROUNDWORK_DEFAULT_REFERENCE. Owns variant map + atoms + type bucket
+                     + audit gates; practice keeps its colors and content.
   --dry-run          Scrape + merge only, print JSON
   --verbose          Detailed output
   --help             Show this help message
@@ -225,8 +237,18 @@ async function main() {
   // --reference: load + validate the catalog entry up front — fail fast
   // (schema problems or unrenderable themes) before any API spend.
   let referenceEntry = null;
+  // Catalog default: explicit --reference, else GROUNDWORK_DEFAULT_REFERENCE,
+  // else none (archetype director). Use --reference auto to pick a curated run.
+  if (!opts.reference && process.env.GROUNDWORK_DEFAULT_REFERENCE) {
+    opts.reference = process.env.GROUNDWORK_DEFAULT_REFERENCE;
+  }
   if (opts.reference) {
-    referenceEntry = await loadReferenceEntry(opts.reference);
+    let refId = opts.reference;
+    if (refId === 'auto') {
+      refId = await selectAutoReference({ seed: opts.url || opts.slug || opts.airtableSlug || 'dental' });
+      console.log(`[reference] auto → ${refId}`);
+    }
+    referenceEntry = await loadReferenceEntry(refId);
     console.log(`[reference] ${referenceEntry.id} — variants locked, audit gates active (${(referenceEntry.audit?.fidelityChecks || []).length} fidelity checks, ${(referenceEntry.audit?.sanctionedPatterns || []).length} sanctioned patterns)`);
   }
   const startTime = Date.now();
@@ -379,7 +401,7 @@ async function main() {
   console.log('[Phase 2] Loading intake data and merging...');
 
   let intake = null;
-  const intakeSlug = opts.airtableSlug || opts.clientId;
+  const intakeSlug = opts.slug || opts.airtableSlug || opts.clientId;
   if (opts.data || intakeSlug) {
     try {
       intake = await loadIntake({
@@ -913,6 +935,30 @@ async function main() {
     console.log('  Skipping image download (--skip-images).');
   }
 
+  // 3e-pre — Enrich sidecar alt text BEFORE writing image-roles.json
+  // so the alts map includes role-based fallbacks for anything scrape missed.
+  const altCtx = {
+    practiceName: merged.practice?.name,
+    city: merged.address?.city || merged.practice?.city,
+  };
+  if (!opts.skipImages && stats.imagesDownloaded > 0) {
+    try {
+      const { enrichSidecarAlts } = await import('./lib/ensure-image-alts.js');
+      const { readFileSync: rf, writeFileSync: wf, existsSync: ex } = await import('node:fs');
+      const sidecarPath = resolve(outputDir, 'public/images/image-source.json');
+      if (ex(sidecarPath)) {
+        const sidecar = JSON.parse(rf(sidecarPath, 'utf-8'));
+        const { filled } = enrichSidecarAlts(sidecar, altCtx);
+        if (filled > 0) {
+          wf(sidecarPath, JSON.stringify(sidecar, null, 2));
+          console.log(`  Sidecar alts: filled ${filled} missing.`);
+        }
+      }
+    } catch (err) {
+      console.warn(`  Sidecar alt enrichment failed: ${err.message}`);
+    }
+  }
+
   // 3e — Image roles from the deterministic BINDING (replaces the Vision pass).
   // The binding already has roles + portraits (incl. bio-page join) + per-page
   // service images from the normalized items[]; the bridge maps its source URLs →
@@ -928,10 +974,6 @@ async function main() {
       const baseUrl = merged.practice?.domain
         ? (/^https?:\/\//i.test(merged.practice.domain) ? merged.practice.domain : `https://${merged.practice.domain}`)
         : null;
-      const altCtx = {
-        practiceName: merged.practice?.name,
-        city: merged.address?.city || merged.practice?.city,
-      };
       const roles = bindingToImageRoles(binding, sidecar, baseUrl, altCtx);
       imageRolesResult = { roles }; // hoist into outer scope for Phase 5
       wf(resolve(outputDir, 'public/images/image-roles.json'), JSON.stringify(roles, null, 2));
@@ -942,7 +984,7 @@ async function main() {
     }
   }
 
-  // 3f — Pre-build a11y optimizations (gallery page + sidecar alt patch)
+  // 3f — Gallery page inject (uses enriched sidecar for alt text)
   if (!opts.skipImages && stats.imagesDownloaded > 0) {
     console.log('  Applying a11y optimizations...');
     try {
