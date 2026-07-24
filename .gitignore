@@ -11,11 +11,23 @@ _audits/
 output/
 .playwright-mcp/
 _sourcing/
+_test-batch/
+.wrangler/
+
+# Generated client site trees (full Astro copies) — never commit
+clients/
+
+# Local pipeline memory / caches
+_memory/runs.jsonl
+_memory/images/
+_memory/backups/
+_memory/practice-dashboard.html
+
+# Design-catalog capture noise
 docs/design-catalog/_paste-prompt.txt
 docs/design-catalog/runs/*/audit.json
 docs/design-catalog/runs/*/iter-*.json
 docs/design-catalog/runs/*/capture/
-clients/
-_test-batch/
-_memory/practice-dashboard.html
-_memory/backups/
+
+# Grade / smoke temp outputs
+/tmp-grade*.json
