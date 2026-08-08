@@ -216,19 +216,23 @@ nav {
   z-index: 1;
   pointer-events: none;
 }
-/* Simulated warm photo texture */
+/* Warm photographic hero — Unsplash stand-in (warm clinic / waiting room) */
 .hero-photo-fill {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 72% 44%, #C8A070 0%, #A07848 40%, #7A5830 100%);
+    #A07848
+    url('https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1800&q=80')
+    center 40% / cover no-repeat;
 }
 .hero-photo-subject {
+  /* Soft right-side vignette so photo reads as layered, not flat sand fill */
   position: absolute;
   right: 0; top: 0; bottom: 0;
   width: 58%;
-  background: linear-gradient(160deg, #C8A878 0%, #A07848 40%, #8A6438 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(40,28,16,0.12) 100%);
   clip-path: ellipse(90% 100% at 80% 50%);
+  pointer-events: none;
 }
 .hero-nav-overlay {
   position: relative;
@@ -811,8 +815,8 @@ footer {
       <div class="novel-label">Novel — Full-Bleed Photo Hero Card</div>
 
       <!-- Photo layers -->
-      <div class="hero-photo-fill"></div>
-      <div class="hero-photo-subject"></div>
+      <div class="hero-photo-fill" role="img" aria-label="Warm clinic interior photograph"></div>
+      <div class="hero-photo-subject" aria-hidden="true"></div>
 
       <!-- Nav overlay on photo -->
       <div class="hero-nav-overlay">
@@ -1235,5 +1239,34 @@ if (window.innerWidth > 768) {
   document.getElementById('panel-btn').classList.remove('active');
 }
 </script>
+
+<script>
+/* Catalog embed mode: hide chrome so thumbnails/preview show the design */
+(function () {
+  const params = new URLSearchParams(location.search);
+  if (params.get('embed') !== '1' && params.get('catalog') !== '1') return;
+  document.documentElement.classList.add('catalog-embed');
+  const apply = () => {
+    document.body.classList.add('panel-closed', 'catalog-embed');
+    document.body.classList.remove('panel-open');
+    document.querySelector('.meta-bar')?.remove();
+    document.querySelector('.ds-panel')?.remove();
+    const wrap = document.getElementById('content-wrap');
+    if (wrap) {
+      wrap.style.paddingRight = '0';
+      wrap.style.marginRight = '0';
+      wrap.style.maxWidth = '1120px';
+    }
+    const pageCard = document.querySelector('.page-card');
+    if (pageCard) pageCard.style.marginRight = '0';
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
 </body>
 </html>

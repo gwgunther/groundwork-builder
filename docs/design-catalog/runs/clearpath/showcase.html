@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Clearpath — Design System Showcase · Spring St. Dentistry</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500&family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ── Reset ─────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,8 +22,8 @@ html { scroll-behavior: smooth; }
   --deco-line:       #8FBFB8;
   --hero-warm-glow:  #C8B8A2;
 
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body:    'DM Sans', -apple-system, sans-serif;
+  --font-display: 'Bodoni Moda', 'Times New Roman', serif;
+  --font-body:    'Figtree', -apple-system, sans-serif;
 }
 
 body {
@@ -214,6 +214,23 @@ section { padding: 96px 48px; }
     rgba(30, 46, 42, 0.85) 100%
   );
   z-index: 1;
+}
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(200,184,162,0.18) 0%, rgba(74,122,114,0.28) 40%, rgba(30,46,42,0) 100%);
+}
+.hero-photo-ground {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    #2A3A36
+    url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1800&q=80')
+    center 45% / cover no-repeat;
+  filter: saturate(0.85) brightness(0.72);
 }
 /* Decorative cursive line-art SVG overlay */
 .hero-deco {
@@ -718,8 +735,8 @@ footer {
 .swatch-hex  { font-size: 10px; color: #2A5050; font-variant-numeric: tabular-nums; }
 
 /* Type specimen */
-.type-display { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; color: #7ABBB3; line-height: 1.2; margin-bottom: 6px; }
-.type-body    { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #4A8A82; line-height: 1.5; margin-bottom: 4px; }
+.type-display { font-family: 'Bodoni Moda', 'Times New Roman', serif; font-size: 24px; color: #7ABBB3; line-height: 1.2; margin-bottom: 6px; }
+.type-body    { font-family: 'Figtree', sans-serif; font-size: 13px; color: #4A8A82; line-height: 1.5; margin-bottom: 4px; }
 .type-meta    { font-size: 10px; color: #2A5050; }
 
 /* Token grid */
@@ -829,10 +846,10 @@ footer {
 <!-- ── Hero — Poster layout ──────────────────────────────────────────────── -->
 <section id="hero">
   <div class="hero-poster">
-    <!-- Simulated atmospheric photo ground -->
-    <div style="position:absolute;inset:0;background:linear-gradient(155deg,#3E6460 0%,#2A3A36 45%,#1A2A26 100%);"></div>
+    <!-- Atmospheric wellness photograph (cool / serene) -->
+    <div class="hero-photo-ground" role="img" aria-label="Calm wellness atmosphere photograph"></div>
     <!-- Warm glow overlay -->
-    <div class="hero-poster" style="position:absolute;inset:0;min-height:unset;border-radius:0;background:linear-gradient(135deg,rgba(200,184,162,0.18) 0%,rgba(74,122,114,0.28) 40%,rgba(30,46,42,0.0) 100%);"></div>
+    <div class="hero-glow"></div>
 
     <!-- Decorative cursive line-art overlay -->
     <svg class="hero-deco" viewBox="0 0 1100 620" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
@@ -1069,9 +1086,9 @@ footer {
   <hr class="ds-divider">
   <div class="ds-section">
     <div class="ds-section-label">Typography</div>
-    <div class="type-display">Cormorant Garamond</div>
-    <div class="type-meta" style="margin-bottom:12px;">Display · editorial-serif substitute · semibold/bold · sentence case</div>
-    <div class="type-body">DM Sans — body, nav, UI text</div>
+    <div class="type-display">Bodoni Moda</div>
+    <div class="type-meta" style="margin-bottom:12px;">Display · luminous didone · medium/semibold · sentence case · distinct from Pilates Cormorant</div>
+    <div class="type-body">Figtree — body, nav, UI text</div>
     <div class="type-meta" style="margin-bottom:12px;">Body · humanist sans · light/regular</div>
     <div style="margin-top:12px; padding:10px; background:#0E2022; border-radius:6px;">
       <div class="type-meta" style="margin-bottom:4px;">Emphasis device</div>
@@ -1121,7 +1138,7 @@ footer {
       </div>
       <div class="novel-item">
         <div class="novel-item-name">Oversized Accent Numeral Row</div>
-        <div class="novel-item-spec">Four stat units on white: oversized teal numeral at ~72–84px in Cormorant Garamond, small dark descriptor label below. No containers, no borders — numbers float on white ground. Preceded by a split two-line heading.</div>
+        <div class="novel-item-spec">Four stat units on white: oversized teal numeral at ~72–84px in Bodoni Moda, small dark descriptor label below. No containers, no borders — numbers float on white ground. Preceded by a split two-line heading.</div>
       </div>
       <div class="novel-item">
         <div class="novel-item-name">Split Heading with Decorative Toggle Motif</div>
@@ -1134,7 +1151,7 @@ footer {
   <div class="ds-section">
     <div class="ds-section-label">Fidelity checks (10)</div>
     <div class="check-list">
-      <div class="check-item">Hero is full-bleed atmospheric poster with md corner radius and thin cursive SVG line-art overlay — removing line-art loses defining character.</div>
+      <div class="check-item">Hero is full-bleed atmospheric photographic poster with md corner radius and thin cursive SVG line-art overlay — not a flat teal gradient stand-in. Removing line-art loses defining character.</div>
       <div class="check-item">Split two-line headings: line 1 in headingDark serif, line 2 in muted teal accent — this color-shift emphasis is the primary typographic identity marker.</div>
       <div class="check-item">Service/treatment cards use portrait orientation with semi-transparent teal overlay — not plain colored cards or icon tiles.</div>
       <div class="check-item">Nav CTA and hero CTA use pill-radius with a bullet dot suffix (e.g. "BOOK A SESSION •") — the dot suffix is a recurring brand punctuation device.</div>
@@ -1169,5 +1186,34 @@ if (window.innerWidth > 768) {
   document.getElementById('panel-btn').classList.remove('active');
 }
 </script>
+
+<script>
+/* Catalog embed mode: hide chrome so thumbnails/preview show the design */
+(function () {
+  const params = new URLSearchParams(location.search);
+  if (params.get('embed') !== '1' && params.get('catalog') !== '1') return;
+  document.documentElement.classList.add('catalog-embed');
+  const apply = () => {
+    document.body.classList.add('panel-closed', 'catalog-embed');
+    document.body.classList.remove('panel-open');
+    document.querySelector('.meta-bar')?.remove();
+    document.querySelector('.ds-panel')?.remove();
+    const wrap = document.getElementById('content-wrap');
+    if (wrap) {
+      wrap.style.paddingRight = '0';
+      wrap.style.marginRight = '0';
+      wrap.style.maxWidth = '1120px';
+    }
+    const pageCard = document.querySelector('.page-card');
+    if (pageCard) pageCard.style.marginRight = '0';
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
 </body>
 </html>

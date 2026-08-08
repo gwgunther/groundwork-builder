@@ -1558,5 +1558,34 @@ if (window.innerWidth > 768) {
   document.getElementById('panel-btn').classList.remove('active');
 }
 </script>
+
+<script>
+/* Catalog embed mode: hide chrome so thumbnails/preview show the design */
+(function () {
+  const params = new URLSearchParams(location.search);
+  if (params.get('embed') !== '1' && params.get('catalog') !== '1') return;
+  document.documentElement.classList.add('catalog-embed');
+  const apply = () => {
+    document.body.classList.add('panel-closed', 'catalog-embed');
+    document.body.classList.remove('panel-open');
+    document.querySelector('.meta-bar')?.remove();
+    document.querySelector('.ds-panel')?.remove();
+    const wrap = document.getElementById('content-wrap');
+    if (wrap) {
+      wrap.style.paddingRight = '0';
+      wrap.style.marginRight = '0';
+      wrap.style.maxWidth = '1120px';
+    }
+    const pageCard = document.querySelector('.page-card');
+    if (pageCard) pageCard.style.marginRight = '0';
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
 </body>
 </html>

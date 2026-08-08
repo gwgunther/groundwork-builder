@@ -13,9 +13,9 @@ html { scroll-behavior: smooth; }
 
 /* ── Design tokens ──────────────────────────────────────────────────────── */
 :root {
-  --canvas:          #4A5C4E;
+  --page:            #F7F8F6;
   --card:            #FFFFFF;
-  --subtle-surface:  #F5F6F4;
+  --subtle-surface:  #F0F2F0;
   --btn-primary:     #3A5244;
   --heading:         #1A1F1A;
   --body-text:       #555E55;
@@ -28,14 +28,14 @@ html { scroll-behavior: smooth; }
 
   --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
-  --radius-card: 20px;
+  --radius-card: 16px;
   --radius-lg:   12px;
   --radius-btn:  10px;
   --radius-pill: 999px;
 }
 
 body {
-  background: var(--canvas);
+  background: var(--page);
   color: var(--body-text);
   font-family: var(--font-body);
   font-size: 16px;
@@ -97,15 +97,16 @@ body {
 body.show-annotations .novel-label { display: block; }
 body.show-annotations .novel-flag { outline: 1px dashed rgba(80,160,100,0.3); }
 
-/* ── Page wrapper: white card on green canvas ──────────────────────────── */
+/* ── Page wrapper: full-bleed white (Pilates Lab owns the sage-frame motif) ─ */
 .page-card {
   background: var(--card);
-  border-radius: var(--radius-card);
-  margin: 16px;
+  border-radius: 0;
+  margin: 0;
   overflow: hidden;
+  border-top: 3px solid var(--accent-green);
 }
 /* When DS panel is open, shrink page card */
-body.panel-open .page-card { margin-right: 412px; }
+body.panel-open .page-card { margin-right: 396px; }
 
 /* ── Shared ─────────────────────────────────────────────────────────────── */
 .section-inner { max-width: 1080px; margin: 0 auto; }
@@ -835,6 +836,48 @@ footer {
 .novel-item { background: rgba(80,160,100,0.08); border: 1px solid rgba(80,160,100,0.18); border-radius: 6px; padding: 9px 10px; }
 .novel-item-name { font-size: 11px; color: #8ad4a0; font-weight: 600; margin-bottom: 3px; }
 .novel-item-spec { font-size: 10.5px; color: #3a6048; line-height: 1.4; }
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+  .package-panel { grid-template-columns: 1fr; }
+  .package-image { min-height: 220px; aspect-ratio: 16/9; }
+  .doctor-grid { grid-template-columns: 1fr; gap: 36px; }
+  .featured-grid { grid-template-columns: 1fr; gap: 36px; }
+  .faq-grid { grid-template-columns: 1fr; gap: 36px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+  .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+  .alacarte-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  section, nav, footer,
+  #hero, #services-packages, #services-alacarte, #doctor-intro,
+  #reviews, #review-featured, #faq, #contact, #cta {
+    padding-left: 22px; padding-right: 22px;
+  }
+  .meta-bar { padding-left: 14px; padding-right: 14px; }
+  .meta-bar > span:not(.meta-name), .meta-bar .meta-sep { display: none; }
+  body.panel-open .page-card { margin-right: 0; }
+  .hero-sub { max-width: none; }
+  .package-detail { padding: 28px 22px; }
+}
+@media (max-width: 540px) {
+  .reviews-grid { grid-template-columns: 1fr; }
+  .alacarte-grid { grid-template-columns: 1fr; }
+  .hero-h1 { font-size: clamp(28px, 8vw, 40px); }
+  .cta-btns { flex-direction: column; align-items: center; }
+}
+@media (max-width: 480px) {
+  nav { padding-left: 16px; padding-right: 16px; gap: 10px; }
+  .nav-links { display: none; }
+  .nav-logo { font-size: 13px; white-space: nowrap; }
+  nav .btn { white-space: nowrap; font-size: 12px; padding: 9px 14px; }
+  .tab-nav { gap: 6px; }
+  .tab-pill { padding: 8px 14px; font-size: 12px; }
+}
+@media (max-width: 400px) {
+  .ds-panel { width: 100vw; }
+}
 </style>
 </head>
 <body class="panel-open">
@@ -1402,7 +1445,7 @@ footer {
   <div class="ds-section">
     <div class="ds-section-label">Color palette</div>
     <div class="palette-grid">
-      <div class="swatch-row"><div class="swatch" style="background:#4A5C4E"></div><div class="swatch-info"><div class="swatch-role">Outer canvas (sage green)</div><div class="swatch-hex">#4A5C4E</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#F7F8F6"></div><div class="swatch-info"><div class="swatch-role">Page background</div><div class="swatch-hex">#F7F8F6</div></div></div>
       <div class="swatch-row"><div class="swatch" style="background:#FFFFFF; border-color:#2e5038"></div><div class="swatch-info"><div class="swatch-role">Card surface</div><div class="swatch-hex">#FFFFFF</div></div></div>
       <div class="swatch-row"><div class="swatch" style="background:#F5F6F4"></div><div class="swatch-info"><div class="swatch-role">Subtle surface</div><div class="swatch-hex">#F5F6F4</div></div></div>
       <div class="swatch-row"><div class="swatch" style="background:#3A5244"></div><div class="swatch-info"><div class="swatch-role">Primary button / accent</div><div class="swatch-hex">#3A5244</div></div></div>
@@ -1454,7 +1497,7 @@ footer {
       <div style="background:#172018; border-radius:6px; padding:8px 10px;">
         <div style="font-size:10px; color:#2e5038">Canvas color</div>
         <div style="font-size:13px; color:#8ab898; font-weight:600">Sage green</div>
-        <div style="font-size:10px; color:#2a4032">#4A5C4E — page frame</div>
+        <div style="font-size:10px; color:#2a4032">#3A5244 — accent / CTA (not page frame)</div>
       </div>
       <div style="background:#172018; border-radius:6px; padding:8px 10px;">
         <div style="font-size:10px; color:#2e5038">Motion</div>
@@ -1494,7 +1537,7 @@ footer {
       <div class="check-item">Hero must be a left-right split (large headline + CTA left, single image card right). Do not center the hero headline.</div>
       <div class="check-item">Headline emphasis: key phrase uses forest-green (#3A5244), setup words use dark charcoal (#1A1F1A). Same sans family, similar weight. No italic or uppercase.</div>
       <div class="check-item">Buttons are rounded-rectangle (lg ~10px radius), NOT full pill/capsule. Key distinction from pill-button systems.</div>
-      <div class="check-item">Outer canvas is sage-green (#4A5C4E) — must appear as the page frame cards float against. Not white.</div>
+      <div class="check-item">Page sits on cool mist (#F7F8F6) with a thin sage accent rule — not a sage outer canvas frame (Pilates Lab owns that motif).</div>
       <div class="check-item">Service packages use horizontal pill-tabs (not vertical list or carousel) to switch between care tiers.</div>
       <div class="check-item">FAQ uses the split layout: image left (~45%), accordion right (~55%). Not a full-width accordion stack.</div>
       <div class="check-item">Contact section must use intent-segmented action cards (3 cards: schedule, call, find us) alongside a map — no contact form.</div>
@@ -1551,5 +1594,34 @@ function switchTab(clickedBtn, targetId) {
 document.getElementById('ds-panel').classList.add('open');
 document.body.classList.add('panel-open');
 </script>
+
+<script>
+/* Catalog embed mode: hide chrome so thumbnails/preview show the design */
+(function () {
+  const params = new URLSearchParams(location.search);
+  if (params.get('embed') !== '1' && params.get('catalog') !== '1') return;
+  document.documentElement.classList.add('catalog-embed');
+  const apply = () => {
+    document.body.classList.add('panel-closed', 'catalog-embed');
+    document.body.classList.remove('panel-open');
+    document.querySelector('.meta-bar')?.remove();
+    document.querySelector('.ds-panel')?.remove();
+    const wrap = document.getElementById('content-wrap');
+    if (wrap) {
+      wrap.style.paddingRight = '0';
+      wrap.style.marginRight = '0';
+      wrap.style.maxWidth = '1120px';
+    }
+    const pageCard = document.querySelector('.page-card');
+    if (pageCard) pageCard.style.marginRight = '0';
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
 </body>
 </html>

@@ -19,6 +19,7 @@
   --accent-light: #EBF0EC;
   --pass: #2e6b4f;
   --pass-bg: #EBF3EE;
+  --preview-w: 420px;
 }
 body {
   background: var(--bg);
@@ -27,19 +28,20 @@ body {
   font-size: 14px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
 }
 
 /* Header */
 header {
   background: var(--card);
   border-bottom: 1px solid var(--border);
-  padding: 20px 32px;
+  padding: 16px 28px;
   position: sticky;
   top: 0;
   z-index: 50;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
   flex-wrap: wrap;
 }
 .header-title { font-size: 13px; font-weight: 600; white-space: nowrap; }
@@ -62,14 +64,35 @@ header {
   border-color: var(--ink);
 }
 
-/* Grid */
+.results-bar {
+  padding: 10px 28px;
+  font-size: 12px;
+  color: var(--ink-3);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid transparent;
+}
+.results-bar .hint { color: var(--ink-3); opacity: .85; }
+
+/* Shell: list + preview */
+.shell {
+  display: grid;
+  grid-template-columns: 1fr var(--preview-w);
+  min-height: calc(100vh - 110px);
+  align-items: stretch;
+}
+.shell.preview-closed {
+  grid-template-columns: 1fr;
+}
+.shell.preview-closed .preview-pane { display: none; }
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 16px;
-  padding: 24px 32px;
-  max-width: 1400px;
-  margin: 0 auto;
+  padding: 20px 28px 40px;
+  align-content: start;
 }
 
 /* Card */
@@ -80,26 +103,67 @@ header {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: box-shadow .15s, transform .15s;
+  transition: box-shadow .15s, transform .15s, border-color .15s;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  width: 100%;
 }
 .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.08); transform: translateY(-1px); }
+.card.selected {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 1px var(--ink), 0 4px 16px rgba(0,0,0,.08);
+}
 .card.hidden { display: none; }
-
-/* Card preview band — uses the template's primary/accent color */
-.card-band {
-  height: 6px;
-  flex-shrink: 0;
+.card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
-/* Card body */
-.card-body { padding: 16px 18px 0; flex: 1; }
+/* Live thumbnail */
+.thumb {
+  position: relative;
+  height: 168px;
+  background: #E8E6E1;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.thumb-scaler {
+  position: absolute;
+  top: 0; left: 0;
+  width: 1280px;
+  height: 900px;
+  transform-origin: top left;
+  pointer-events: none;
+}
+.thumb-scaler iframe {
+  width: 1280px;
+  height: 900px;
+  border: 0;
+  background: #fff;
+}
+.thumb-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 70%, rgba(255,255,255,.55) 100%);
+  pointer-events: none;
+}
+.thumb-band {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  z-index: 2;
+}
 
-/* Rank + score row */
+.card-body { padding: 14px 16px 0; flex: 1; }
+
 .card-meta-top {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 .rank {
   font-size: 11px;
@@ -120,29 +184,24 @@ header {
   color: var(--ink-3);
 }
 
-/* Name */
 .card-name {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
   color: var(--ink);
-  margin-bottom: 4px;
+  margin-bottom: 3px;
   line-height: 1.3;
 }
-
-/* Archetype */
 .archetype {
   font-size: 11px;
   color: var(--ink-3);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   letter-spacing: .02em;
 }
-
-/* Mood chips */
 .moods {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 .mood-chip {
   font-size: 10.5px;
@@ -152,43 +211,39 @@ header {
   color: var(--ink-2);
   white-space: nowrap;
 }
-
-/* Adjectives */
 .adjectives {
   font-size: 11.5px;
   color: var(--ink-2);
   margin-bottom: 10px;
   font-style: italic;
 }
-
-/* Best for */
 .best-for {
   font-size: 12px;
   color: var(--ink-2);
   line-height: 1.5;
   border-top: 1px solid var(--border);
-  padding-top: 12px;
+  padding-top: 10px;
   margin-bottom: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-/* Card footer */
 .card-footer {
-  padding: 14px 18px;
+  padding: 12px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
 }
-.novel-count {
-  font-size: 11px;
-  color: var(--ink-3);
-}
+.novel-count { font-size: 11px; color: var(--ink-3); }
 .view-link {
   font-size: 12px;
   font-weight: 500;
   color: var(--accent);
   text-decoration: none;
-  padding: 6px 14px;
+  padding: 6px 12px;
   border: 1px solid var(--accent-light);
   border-radius: 6px;
   background: var(--accent-light);
@@ -197,13 +252,104 @@ header {
 }
 .view-link:hover { background: #d4e4d8; border-color: #b8d0be; }
 
-/* Count bar */
-.results-bar {
-  padding: 10px 32px;
-  font-size: 12px;
-  color: var(--ink-3);
-  max-width: 1400px;
-  margin: 0 auto;
+/* Preview pane */
+.preview-pane {
+  position: sticky;
+  top: 57px;
+  height: calc(100vh - 57px);
+  background: #1A1A18;
+  border-left: 1px solid #2a2a28;
+  display: flex;
+  flex-direction: column;
+  z-index: 40;
+}
+.preview-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-bottom: 1px solid #2a2a28;
+  flex-shrink: 0;
+  background: #141412;
+}
+.preview-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #f2f1ee;
+  min-width: 0;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.preview-meta {
+  font-size: 11px;
+  color: #8a8884;
+  margin-top: 2px;
+}
+.preview-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.preview-btn {
+  font-size: 11px;
+  font-family: inherit;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #3a3a36;
+  background: #222220;
+  color: #d8d6d0;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.preview-btn:hover { background: #2e2e2a; color: #fff; }
+.preview-btn.ghost { background: transparent; color: #9a9896; }
+.preview-frame-wrap {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  background: #0e0e0c;
+  overflow: auto;
+}
+.preview-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  text-align: center;
+  color: #7a7874;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.preview-empty strong { color: #b8b6b0; font-weight: 500; }
+.preview-scaler {
+  width: 1280px;
+  transform-origin: top left;
+}
+.preview-scaler iframe {
+  width: 1280px;
+  height: 4200px;
+  border: 0;
+  background: #fff;
+  display: block;
+}
+
+@media (max-width: 1100px) {
+  :root { --preview-w: 360px; }
+}
+@media (max-width: 900px) {
+  .shell { grid-template-columns: 1fr; }
+  .preview-pane {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: min(100vw, 420px);
+    height: 100vh;
+    z-index: 80;
+    box-shadow: -8px 0 32px rgba(0,0,0,.25);
+  }
+  .shell.preview-closed .preview-pane,
+  .preview-pane.is-empty { display: none; }
 }
 </style>
 </head>
@@ -215,286 +361,331 @@ header {
     <div class="header-sub">Top 10 ranked · Spring St. Dentistry fixture · Same content, different design systems</div>
   </div>
   <div class="filters">
-    <button class="filter-btn active" onclick="filter('all',this)">All (10)</button>
-    <button class="filter-btn" onclick="filter('warm-editorial',this)">warm-editorial</button>
-    <button class="filter-btn" onclick="filter('editorial-asymmetric',this)">editorial-asymmetric</button>
-    <button class="filter-btn" onclick="filter('minimal',this)">minimal</button>
-    <button class="filter-btn" onclick="filter('modern-premium',this)">modern-premium</button>
-    <button class="filter-btn" onclick="filter('soft-gentle',this)">soft-gentle</button>
-    <button class="filter-btn" onclick="filter('pass',this)">Eval'd PASS</button>
+    <button class="filter-btn active" data-filter="all" type="button">All (10)</button>
+    <button class="filter-btn" data-filter="warm-editorial" type="button">warm-editorial</button>
+    <button class="filter-btn" data-filter="editorial-asymmetric" type="button">editorial-asymmetric</button>
+    <button class="filter-btn" data-filter="minimal" type="button">minimal</button>
+    <button class="filter-btn" data-filter="modern-premium" type="button">modern-premium</button>
+    <button class="filter-btn" data-filter="soft-gentle" type="button">soft-gentle</button>
+    <button class="filter-btn" data-filter="pass" type="button">Eval'd PASS</button>
   </div>
 </header>
 
-<div class="results-bar" id="results-bar">10 templates</div>
+<div class="results-bar">
+  <span id="results-bar">10 templates</span>
+  <span class="hint">Click a card to preview full height →</span>
+</div>
 
-<div class="grid" id="grid">
+<div class="shell" id="shell">
+  <div class="grid" id="grid"></div>
 
-  <!-- #1 klinik -->
-  <div class="card"
-    data-archetype="warm-editorial"
-    data-moods="modern-premium soft-gentle"
-    data-eval="pass">
-    <div class="card-band" style="background: linear-gradient(90deg, #7A2A10, #F5EDE6)"></div>
-    <div class="card-body">
-      <div class="card-meta-top">
-        <span class="rank">#1</span>
-        <span class="score-badge">PASS · 36/40 · iter 1</span>
+  <aside class="preview-pane is-empty" id="preview-pane" aria-label="Template preview">
+    <div class="preview-header">
+      <div style="min-width:0;flex:1">
+        <div class="preview-title" id="preview-title">No template selected</div>
+        <div class="preview-meta" id="preview-meta">Select a card to browse the full page without leaving the catalog</div>
       </div>
-      <div class="card-name">Klinik — Warm Editorial Calm</div>
-      <div class="archetype">warm-editorial</div>
-      <div class="moods">
-        <span class="mood-chip">modern-premium</span>
-        <span class="mood-chip">soft-gentle</span>
+      <div class="preview-actions">
+        <a class="preview-btn" id="preview-open" href="#" target="_blank" rel="noopener">Open ↗</a>
+        <button class="preview-btn ghost" id="preview-close" type="button">Close</button>
       </div>
-      <div class="adjectives">understated, refined, warm, trustworthy, unhurried, natural</div>
-      <p class="best-for">Boutique dental or cosmetic dentistry practices positioning around natural-looking results, personalised care, and a calm premium experience — particularly cosmetic, implant, or smile-design focused practices.</p>
     </div>
-    <div class="card-footer">
-      <span class="novel-count">3 novel components</span>
-      <a href="runs/klinik/showcase.html" class="view-link" target="_blank">View showcase →</a>
-    </div>
-  </div>
-
-  <!-- #2 luvia -->
-  <div class="card"
-    data-archetype="warm-editorial"
-    data-moods="modern-premium warm-neighborhood"
-    data-eval="new">
-    <div class="card-band" style="background: linear-gradient(90deg, #C84A28, #F5EEE3)"></div>
-    <div class="card-body">
-      <div class="card-meta-top">
-        <span class="rank">#2</span>
-        <span class="score-badge new">Not eval'd</span>
+    <div class="preview-frame-wrap" id="preview-frame-wrap">
+      <div class="preview-empty" id="preview-empty">
+        <div>
+          <strong>Sidebar preview</strong><br>
+          Pick a template to scroll the full-height page here.<br>
+          Thumbnails above fold show how systems differ at a glance.
+        </div>
       </div>
-      <div class="card-name">Luvia — Warm Data-Wellness Editorial</div>
-      <div class="archetype">warm-editorial</div>
-      <div class="moods">
-        <span class="mood-chip">modern-premium</span>
-        <span class="mood-chip">warm-neighborhood</span>
+      <div class="preview-scaler" id="preview-scaler" hidden>
+        <iframe id="preview-iframe" title="Template full preview" loading="lazy"></iframe>
       </div>
-      <div class="adjectives">grounded, evidence-forward, warm, calm-confident, premium, human</div>
-      <p class="best-for">Premium dental practices that lead with measurable outcomes and clinical credibility — implant, cosmetic, and smile-design offices wanting a data-backed, trust-forward presence that feels warm rather than cold.</p>
     </div>
-    <div class="card-footer">
-      <span class="novel-count">3 novel components</span>
-      <a href="runs/luvia/showcase.html" class="view-link" target="_blank">View showcase →</a>
-    </div>
-  </div>
-
-  <!-- #3 pilates-lab -->
-  <div class="card"
-    data-archetype="minimal-brutalist"
-    data-moods="soft-gentle modern-premium"
-    data-eval="new">
-    <div class="card-band" style="background: linear-gradient(90deg, #D9DFD3, #F7F5F0)"></div>
-    <div class="card-body">
-      <div class="card-meta-top">
-        <span class="rank">#3</span>
-        <span class="score-badge new">Not eval'd</span>
-      </div>
-      <div class="card-name">Pilates Lab — Sage Minimal Editorial</div>
-      <div class="archetype">minimal-brutalist</div>
-      <div class="moods">
-        <span class="mood-chip">soft-gentle</span>
-        <span class="mood-chip">modern-premium</span>
-      </div>
-      <div class="adjectives">grounded, calm, organic, precise, unpretentious, considered</div>
-      <p class="best-for">General dentistry or boutique practices wanting approachability without clinical sterility — neighborhood family practices or preventive-focused offices repositioning around a softer, more personal care story.</p>
-    </div>
-    <div class="card-footer">
-      <span class="novel-count">3 novel components</span>
-      <a href="runs/pilates-lab/showcase.html" class="view-link" target="_blank">View showcase →</a>
-    </div>
-  </div>
-
-  <!-- #4 calmio -->
-  <div class="card"
-    data-archetype="minimal"
-    data-moods="soft-gentle"
-    data-eval="new">
-    <div class="card-band" style="background: linear-gradient(90deg, #1C1614, #F7F3EE)"></div>
-    <div class="card-body">
-      <div class="card-meta-top">
-        <span class="rank">#4</span>
-        <span class="score-badge new">Not eval'd</span>
-      </div>
-      <div class="card-name">Calmio — Near-Black Minimal Calm</div>
-      <div class="archetype">minimal-calm</div>
-      <div class="moods">
-        <span class="mood-chip">soft-gentle</span>
-      </div>
-      <div class="adjectives">serene, grounded, minimal, unhurried, earthy, approachable</div>
-      <p class="best-for">General-care or low-anxiety-focused dental practices wanting a calm, boutique neighborhood feel — particularly serving anxious patients, families, or adult cosmetic patients who respond to a spa-adjacent, low-pressure environment.</p>
-    </div>
-    <div class="card-footer">
-      <span class="novel-count">4 novel components</span>
-      <a href="runs/calmio/showcase.html" class="view-link" target="_blank">View showcase →</a>
-    </div>
-  </div>
-
-  <!-- #5 dentora -->
-  <div class="card"
-    data-archetype="minimal"
-    data-moods="modern-premium clean-clinical"
-    data-eval="new">
-    <div class="card-band" style="background: linear-gradient(90deg, #5ECFB1, #F5F0E8)"></div>
-    <div class="card-body">
-      <div class="card-meta-top">
-        <span class="rank">#5</span>
-        <span class="score-badge new">Not eval'd</span>
-      </div>
-      <div class="card-name">Dentora — Clean Grotesque Confident</div>
-      <div class="archetype">clean-confident</div>
-      <div class="moods">
-        <span class="mood-chip">modern-premium</span>
-        <span class="mood-chip">clean-clinical</span>
-      </div>
-      <div class="adjectives">bold, confident, modern, approachable, clean, assured</div>
-      <p class="best-for">Modern multi-doctor practices or group clinics projecting clinical excellence and a contemporary patient experience — particularly practices offering a full service spectrum that want to feel authoritative without being cold.</p>
-    </div>
-    <div class="card-footer">
-      <span class="novel-count">4 novel components</span>
-      <a href="runs/dentora/showcase.html" class="view-link" target="_blank">View showcase →</a>
-    </div>
-  </div>
-
-  <!-- #6 groomify -->
-  <div class="card"
-    data-archetype="warm-editorial"
-    data-moods="warm-neighborhood soft-gentle"
-    data-eval="new">
-    <div class="card-band" style="background: linear-gradient(90deg, #4A5C4E, #F2F3EE)"></div>
-    <div class="card-body">
-      <div class="card-meta-top">
-        <span class="rank">#6</span>
-        <span class="score-badge new">Not eval'd</span>
-      </div>
-      <div class="card-name">Groomify — Soft Nature Split</div>
-      <div class="archetype">warm-editorial</div>
-      <div class="moods">
-        <span class="mood-chip">warm-neighborhood</span>
-        <span class="mood-chip">soft-gentle</span>
-      </div>
-      <div class="adjectives">approachable, caring, clean, friendly, trustworthy, natural</div>
-      <p class="best-for">General and family dental practices wanting a warm, modern, neighborhood-friendly feel — particularly practices emphasising comfort and personal care, first-time patients, families, and anxious patients.</p>
-    </div>
-    <div class="card-footer">
-      <span class="novel-count">4 novel components</span>
-      <a href="runs/groomify/showcase.html" class="view-link" target="_blank">View showcase →</a>
-    </div>
-  </div>
-
-  <!-- #7 dermato -->
-  <div class="card"
-    data-archetype="warm-editorial"
-    data-moods="warm-neighborhood modern-premium soft-gentle"
-    data-eval="pass">
-    <div class="card-band" style="background: linear-gradient(90deg, #C8A96E, #F5EFE6)"></div>
-    <div class="card-body">
-      <div class="card-meta-top">
-        <span class="rank">#7</span>
-        <span class="score-badge">PASS · iter 3</span>
-      </div>
-      <div class="card-name">Dermato — Warm Editorial Dermatology</div>
-      <div class="archetype">warm-editorial</div>
-      <div class="moods">
-        <span class="mood-chip">warm-neighborhood</span>
-        <span class="mood-chip">modern-premium</span>
-        <span class="mood-chip">soft-gentle</span>
-      </div>
-      <div class="adjectives">warm, trustworthy, refined, spa-clinical, airy, editorial</div>
-      <p class="best-for">Dental or aesthetic practices wanting to feel medically credible yet emotionally warm — ideal for cosmetic dentistry, smile design studios, or boutique family practices positioning above commodity care.</p>
-    </div>
-    <div class="card-footer">
-      <span class="novel-count">2 novel components</span>
-      <a href="runs/dermato/showcase.html" class="view-link" target="_blank">View showcase →</a>
-    </div>
-  </div>
-
-  <!-- #8 sun-moon -->
-  <div class="card"
-    data-archetype="warm-editorial"
-    data-moods="warm-neighborhood soft-gentle"
-    data-eval="new">
-    <div class="card-band" style="background: linear-gradient(90deg, #2C2218, #F5F0E8)"></div>
-    <div class="card-body">
-      <div class="card-meta-top">
-        <span class="rank">#8</span>
-        <span class="score-badge new">Not eval'd</span>
-      </div>
-      <div class="card-name">Sun &amp; Moon — Grounded Organic Split</div>
-      <div class="archetype">grounded-organic</div>
-      <div class="moods">
-        <span class="mood-chip">warm-neighborhood</span>
-        <span class="mood-chip">soft-gentle</span>
-      </div>
-      <div class="adjectives">grounded, approachable, organic, unhurried, confident, warm</div>
-      <p class="best-for">General dentistry or cosmetic dental practices projecting genuine warmth and community rootedness — ideal for neighborhood family practices or wellness-adjacent dental brands emphasising comfort and trust.</p>
-    </div>
-    <div class="card-footer">
-      <span class="novel-count">4 novel components</span>
-      <a href="runs/sun-moon/showcase.html" class="view-link" target="_blank">View showcase →</a>
-    </div>
-  </div>
-
-  <!-- #9 clearpath -->
-  <div class="card"
-    data-archetype="editorial-asymmetric"
-    data-moods="soft-gentle modern-premium"
-    data-eval="pass">
-    <div class="card-band" style="background: linear-gradient(90deg, #5A9189, #F4F4F2)"></div>
-    <div class="card-body">
-      <div class="card-meta-top">
-        <span class="rank">#9</span>
-        <span class="score-badge">PASS · iter 1</span>
-      </div>
-      <div class="card-name">Clear Path</div>
-      <div class="archetype">editorial-asymmetric</div>
-      <div class="moods">
-        <span class="mood-chip">soft-gentle</span>
-        <span class="mood-chip">modern-premium</span>
-      </div>
-      <div class="adjectives">unhurried, luminous, considered, serene, aspirational, refined</div>
-      <p class="best-for">Boutique specialty practices wanting approachable and premium — orthodontics, cosmetic dentistry, or holistic family practices where trust and calm are the primary emotional registers.</p>
-    </div>
-    <div class="card-footer">
-      <span class="novel-count">4 novel components</span>
-      <a href="runs/clearpath/showcase.html" class="view-link" target="_blank">View showcase →</a>
-    </div>
-  </div>
-
-  <!-- #10 wellbe -->
-  <div class="card"
-    data-archetype="minimal"
-    data-moods="modern-premium warm-neighborhood"
-    data-eval="new">
-    <div class="card-band" style="background: linear-gradient(90deg, #E8D800, #F2EDDB)"></div>
-    <div class="card-body">
-      <div class="card-meta-top">
-        <span class="rank">#10</span>
-        <span class="score-badge new">Not eval'd</span>
-      </div>
-      <div class="card-name">Wellbe — Bold Wellness Editorial</div>
-      <div class="archetype">bold-wellness-editorial</div>
-      <div class="moods">
-        <span class="mood-chip">modern-premium</span>
-        <span class="mood-chip">warm-neighborhood</span>
-      </div>
-      <div class="adjectives">bold, grounded, earthy, confident, alive, direct</div>
-      <p class="best-for">Dental practices positioning around holistic patient wellbeing and a "your health comes first" philosophy — general dentistry, preventive care, and whole-health dental practices wanting to feel more like a wellness brand than a clinical office.</p>
-    </div>
-    <div class="card-footer">
-      <span class="novel-count">4 novel components</span>
-      <a href="runs/wellbe/showcase.html" class="view-link" target="_blank">View showcase →</a>
-    </div>
-  </div>
-
-</div><!-- /grid -->
+  </aside>
+</div>
 
 <script>
-function filter(key, btn) {
+const TEMPLATES = [
+  {
+    id: 'klinik',
+    rank: 1,
+    name: 'Klinik — Warm Editorial Calm',
+    archetype: 'warm-editorial',
+    moods: ['modern-premium', 'soft-gentle'],
+    eval: 'pass',
+    score: 'PASS · 36/40 · iter 1',
+    adjectives: 'understated, refined, warm, trustworthy, unhurried, natural',
+    bestFor: 'Boutique dental or cosmetic dentistry practices positioning around natural-looking results, personalised care, and a calm premium experience — particularly cosmetic, implant, or smile-design focused practices.',
+    novel: 3,
+    href: 'runs/klinik/showcase.html?embed=1',
+    openHref: 'runs/klinik/showcase.html',
+    band: 'linear-gradient(90deg, #7A2A10, #F5EDE6)',
+  },
+  {
+    id: 'luvia',
+    rank: 2,
+    name: 'Luvia — Warm Data-Wellness Editorial',
+    archetype: 'warm-editorial',
+    moods: ['modern-premium', 'warm-neighborhood'],
+    eval: 'new',
+    score: 'Not eval\'d',
+    adjectives: 'grounded, evidence-forward, warm, calm-confident, premium, human',
+    bestFor: 'Premium dental practices that lead with measurable outcomes and clinical credibility — implant, cosmetic, and smile-design offices wanting a data-backed, trust-forward presence that feels warm rather than cold.',
+    novel: 3,
+    href: 'runs/luvia/showcase.html?embed=1',
+    openHref: 'runs/luvia/showcase.html',
+    band: 'linear-gradient(90deg, #6B2D5B, #ECEAE6)',
+  },
+  {
+    id: 'pilates-lab',
+    rank: 3,
+    name: 'Pilates Lab — Sage Minimal Editorial',
+    archetype: 'minimal-brutalist',
+    moods: ['soft-gentle', 'modern-premium'],
+    eval: 'new',
+    score: 'Not eval\'d',
+    adjectives: 'grounded, calm, organic, precise, unpretentious, considered',
+    bestFor: 'General dentistry or boutique practices wanting approachability without clinical sterility — neighborhood family practices or preventive-focused offices repositioning around a softer, more personal care story.',
+    novel: 3,
+    href: 'runs/pilates-lab/showcase.html?embed=1',
+    openHref: 'runs/pilates-lab/showcase.html',
+    band: 'linear-gradient(90deg, #D9DFD3, #F7F5F0)',
+  },
+  {
+    id: 'calmio',
+    rank: 4,
+    name: 'Calmio — Near-Black Minimal Calm',
+    archetype: 'minimal-calm',
+    moods: ['soft-gentle'],
+    eval: 'new',
+    score: 'Not eval\'d',
+    adjectives: 'serene, grounded, minimal, unhurried, earthy, approachable',
+    bestFor: 'General-care or low-anxiety-focused dental practices wanting a calm, boutique neighborhood feel — particularly serving anxious patients, families, or adult cosmetic patients who respond to a spa-adjacent, low-pressure environment.',
+    novel: 4,
+    href: 'runs/calmio/showcase.html?embed=1',
+    openHref: 'runs/calmio/showcase.html',
+    band: 'linear-gradient(90deg, #1C1614, #F7F3EE)',
+  },
+  {
+    id: 'dentora',
+    rank: 5,
+    name: 'Dentora — Clean Grotesque Confident',
+    archetype: 'clean-confident',
+    moods: ['modern-premium', 'clean-clinical'],
+    eval: 'new',
+    score: 'Not eval\'d',
+    adjectives: 'bold, confident, modern, approachable, clean, assured',
+    bestFor: 'Modern multi-doctor practices or group clinics projecting clinical excellence and a contemporary patient experience — particularly practices offering a full service spectrum that want to feel authoritative without being cold.',
+    novel: 4,
+    href: 'runs/dentora/showcase.html?embed=1',
+    openHref: 'runs/dentora/showcase.html',
+    band: 'linear-gradient(90deg, #5ECFB1, #F5F0E8)',
+  },
+  {
+    id: 'groomify',
+    rank: 6,
+    name: 'Groomify — Soft Nature Split',
+    archetype: 'warm-editorial',
+    moods: ['warm-neighborhood', 'soft-gentle'],
+    eval: 'new',
+    score: 'Not eval\'d',
+    adjectives: 'approachable, caring, clean, friendly, trustworthy, natural',
+    bestFor: 'General and family dental practices wanting a warm, modern, neighborhood-friendly feel — particularly practices emphasising comfort and personal care, first-time patients, families, and anxious patients.',
+    novel: 4,
+    href: 'runs/groomify/showcase.html?embed=1',
+    openHref: 'runs/groomify/showcase.html',
+    band: 'linear-gradient(90deg, #3A5244, #F7F8F6)',
+  },
+  {
+    id: 'dermato',
+    rank: 7,
+    name: 'Dermato — Warm Editorial Dermatology',
+    archetype: 'warm-editorial',
+    moods: ['warm-neighborhood', 'modern-premium', 'soft-gentle'],
+    eval: 'pass',
+    score: 'PASS · iter 3',
+    adjectives: 'warm, trustworthy, refined, spa-clinical, airy, editorial',
+    bestFor: 'Dental or aesthetic practices wanting to feel medically credible yet emotionally warm — ideal for cosmetic dentistry, smile design studios, or boutique family practices positioning above commodity care.',
+    novel: 2,
+    href: 'runs/dermato/showcase.html?embed=1',
+    openHref: 'runs/dermato/showcase.html',
+    band: 'linear-gradient(90deg, #C8A96E, #E8D9C5)',
+  },
+  {
+    id: 'sun-moon',
+    rank: 8,
+    name: 'Sun & Moon — Grounded Organic Split',
+    archetype: 'grounded-organic',
+    moods: ['warm-neighborhood', 'soft-gentle'],
+    eval: 'new',
+    score: 'Not eval\'d',
+    adjectives: 'grounded, approachable, organic, unhurried, confident, warm',
+    bestFor: 'General dentistry or cosmetic dental practices projecting genuine warmth and community rootedness — ideal for neighborhood family practices or wellness-adjacent dental brands emphasising comfort and trust.',
+    novel: 4,
+    href: 'runs/sun-moon/showcase.html?embed=1',
+    openHref: 'runs/sun-moon/showcase.html',
+    band: 'linear-gradient(90deg, #2C2218, #EDE8DF)',
+  },
+  {
+    id: 'clearpath',
+    rank: 9,
+    name: 'Clear Path',
+    archetype: 'editorial-asymmetric',
+    moods: ['soft-gentle', 'modern-premium'],
+    eval: 'pass',
+    score: 'PASS · iter 1',
+    adjectives: 'unhurried, luminous, considered, serene, aspirational, refined',
+    bestFor: 'Boutique specialty practices wanting approachable and premium — orthodontics, cosmetic dentistry, or holistic family practices where trust and calm are the primary emotional registers.',
+    novel: 4,
+    href: 'runs/clearpath/showcase.html?embed=1',
+    openHref: 'runs/clearpath/showcase.html',
+    band: 'linear-gradient(90deg, #5A9189, #F4F4F2)',
+  },
+  {
+    id: 'wellbe',
+    rank: 10,
+    name: 'Wellbe — Bold Wellness Editorial',
+    archetype: 'bold-wellness-editorial',
+    moods: ['modern-premium', 'warm-neighborhood'],
+    eval: 'new',
+    score: 'Not eval\'d',
+    adjectives: 'bold, grounded, earthy, confident, alive, direct',
+    bestFor: 'Dental practices positioning around holistic patient wellbeing and a "your health comes first" philosophy — general dentistry, preventive care, and whole-health dental practices wanting to feel more like a wellness brand than a clinical office.',
+    novel: 4,
+    href: 'runs/wellbe/showcase.html?embed=1',
+    openHref: 'runs/wellbe/showcase.html',
+    band: 'linear-gradient(90deg, #E8D800, #F2EDDB)',
+  },
+];
+
+const grid = document.getElementById('grid');
+const shell = document.getElementById('shell');
+const previewPane = document.getElementById('preview-pane');
+const previewTitle = document.getElementById('preview-title');
+const previewMeta = document.getElementById('preview-meta');
+const previewOpen = document.getElementById('preview-open');
+const previewClose = document.getElementById('preview-close');
+const previewEmpty = document.getElementById('preview-empty');
+const previewScaler = document.getElementById('preview-scaler');
+const previewIframe = document.getElementById('preview-iframe');
+const previewFrameWrap = document.getElementById('preview-frame-wrap');
+
+let selectedId = null;
+let currentFilter = 'all';
+
+function scaleThumbs() {
+  document.querySelectorAll('.thumb').forEach(thumb => {
+    const scaler = thumb.querySelector('.thumb-scaler');
+    if (!scaler) return;
+    const w = thumb.clientWidth;
+    const scale = w / 1280;
+    scaler.style.transform = `scale(${scale})`;
+  });
+}
+
+function scalePreview() {
+  if (previewScaler.hidden) return;
+  const w = previewFrameWrap.clientWidth;
+  const scale = Math.max(0.2, w / 1280);
+  previewScaler.style.transform = `scale(${scale})`;
+  previewScaler.style.height = `${4200 * scale}px`;
+}
+
+function renderCards() {
+  grid.innerHTML = TEMPLATES.map(t => {
+    const moods = t.moods.map(m => `<span class="mood-chip">${m}</span>`).join('');
+    const scoreClass = t.eval === 'pass' ? 'score-badge' : 'score-badge new';
+    return `
+      <button type="button" class="card"
+        data-id="${t.id}"
+        data-archetype="${t.archetype}"
+        data-moods="${t.moods.join(' ')}"
+        data-eval="${t.eval}"
+        aria-pressed="false">
+        <div class="thumb">
+          <div class="thumb-band" style="background:${t.band}"></div>
+          <div class="thumb-scaler">
+            <iframe src="${t.href}" title="${t.name} thumbnail" loading="lazy" tabindex="-1"></iframe>
+          </div>
+          <div class="thumb-fade"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta-top">
+            <span class="rank">#${t.rank}</span>
+            <span class="${scoreClass}">${t.score}</span>
+          </div>
+          <div class="card-name">${t.name}</div>
+          <div class="archetype">${t.archetype}</div>
+          <div class="moods">${moods}</div>
+          <div class="adjectives">${t.adjectives}</div>
+          <p class="best-for">${t.bestFor}</p>
+        </div>
+        <div class="card-footer">
+          <span class="novel-count">${t.novel} novel components</span>
+          <a href="${t.openHref || t.href.replace('?embed=1','')}" class="view-link" target="_blank" rel="noopener" data-open>View showcase →</a>
+        </div>
+      </button>`;
+  }).join('');
+
+  grid.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('[data-open]')) return;
+      selectTemplate(card.dataset.id);
+    });
+  });
+
+  requestAnimationFrame(() => {
+    scaleThumbs();
+    applyFilter(currentFilter, document.querySelector(`.filter-btn[data-filter="${currentFilter}"]`));
+  });
+}
+
+function selectTemplate(id) {
+  const t = TEMPLATES.find(x => x.id === id);
+  if (!t) return;
+  selectedId = id;
+
+  grid.querySelectorAll('.card').forEach(card => {
+    const on = card.dataset.id === id;
+    card.classList.toggle('selected', on);
+    card.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+
+  previewPane.classList.remove('is-empty');
+  shell.classList.remove('preview-closed');
+  previewEmpty.hidden = true;
+  previewScaler.hidden = false;
+  previewTitle.textContent = t.name;
+  previewMeta.textContent = `${t.archetype} · ${t.adjectives.split(', ').slice(0, 3).join(' · ')}`;
+  previewOpen.href = t.openHref || t.href.replace('?embed=1','');
+  previewIframe.src = t.href;
+  previewFrameWrap.scrollTop = 0;
+  requestAnimationFrame(scalePreview);
+}
+
+function closePreview() {
+  selectedId = null;
+  grid.querySelectorAll('.card').forEach(card => {
+    card.classList.remove('selected');
+    card.setAttribute('aria-pressed', 'false');
+  });
+  previewPane.classList.add('is-empty');
+  previewEmpty.hidden = false;
+  previewScaler.hidden = true;
+  previewIframe.src = 'about:blank';
+  previewTitle.textContent = 'No template selected';
+  previewMeta.textContent = 'Select a card to browse the full page without leaving the catalog';
+  previewOpen.href = '#';
+  if (window.matchMedia('(max-width: 900px)').matches) {
+    shell.classList.add('preview-closed');
+  }
+}
+
+function applyFilter(key, btn) {
+  currentFilter = key;
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
 
   const cards = document.querySelectorAll('.card');
   let count = 0;
@@ -516,6 +707,24 @@ function filter(key, btn) {
   document.getElementById('results-bar').textContent =
     count === 10 ? '10 templates' : `${count} of 10 templates`;
 }
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => applyFilter(btn.dataset.filter, btn));
+});
+previewClose.addEventListener('click', closePreview);
+
+window.addEventListener('resize', () => {
+  scaleThumbs();
+  scalePreview();
+});
+
+// Lazy-scale thumbs after iframes paint
+window.addEventListener('load', () => {
+  scaleThumbs();
+  setTimeout(scaleThumbs, 400);
+});
+
+renderCards();
 </script>
 </body>
 </html>

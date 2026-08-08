@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sun & Moon — Design System Showcase · Spring St. Dentistry</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=Karla:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ── Reset ────────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -13,17 +13,17 @@ html { scroll-behavior: smooth; }
 
 /* ── Design tokens ────────────────────────────────────────────────────────── */
 :root {
-  /* Sun palette — light canvas surfaces */
-  --canvas:          #F5F0E8;
+  /* Sun palette — stone greige (not Dentora/Klinik cream twin #F5F0E8) */
+  --canvas:          #EDE8DF;
   --card:            #FFFFFF;
-  --tinted-card:     #F0E8DC;
-  --divider:         #E5DDD0;
-  --chip-border:     #D8CFC4;
-  --chip-text:       #8A7A6A;
+  --tinted-card:     #E6E0D6;
+  --divider:         #DDD6CB;
+  --chip-border:     #D0C8BC;
+  --chip-text:       #7A6E62;
 
   /* Moon palette — dark band */
   --dark-band:       #3D2A1A;
-  --dark-band-head:  #F5F0E8;
+  --dark-band-head:  #EDE8DF;
   --dark-band-body:  #C8B8A4;
   --dark-band-input: rgba(255,255,255,0.12);
 
@@ -39,7 +39,7 @@ html { scroll-behavior: smooth; }
 
   /* Fonts */
   --font-display:    'Fraunces', Georgia, serif;
-  --font-body:       'DM Sans', -apple-system, sans-serif;
+  --font-body:       'Karla', -apple-system, sans-serif;
 
   /* Radii */
   --radius-pill:     999px;
@@ -917,7 +917,7 @@ footer {
   line-height: 1.2;
   margin-bottom: 6px;
 }
-.type-body-sm { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #907060; line-height: 1.5; margin-bottom: 4px; }
+.type-body-sm { font-family: 'Karla', sans-serif; font-size: 13px; color: #907060; line-height: 1.5; margin-bottom: 4px; }
 .type-meta { font-size: 10px; color: #5A3A20; }
 
 /* Tokens grid */
@@ -953,12 +953,12 @@ footer {
   text-align: center;
 }
 .duality-sun {
-  background: #F5F0E8;
+  background: #EDE8DF;
   color: #2C2218;
 }
 .duality-moon {
   background: #3D2A1A;
-  color: #F5F0E8;
+  color: #EDE8DF;
 }
 
 /* ── Responsive ── */
@@ -1037,15 +1037,15 @@ footer {
   <div class="nav-logo">
     <div class="nav-logo-icon">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-        <circle cx="7" cy="7" r="3" stroke="#F5F0E8" stroke-width="1.5"/>
-        <line x1="7" y1="1" x2="7" y2="0" stroke="#F5F0E8" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="7" y1="14" x2="7" y2="13" stroke="#F5F0E8" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="1" y1="7" x2="0" y2="7" stroke="#F5F0E8" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="14" y1="7" x2="13" y2="7" stroke="#F5F0E8" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="2.93" y1="2.93" x2="2.22" y2="2.22" stroke="#F5F0E8" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="11.07" y1="11.07" x2="11.78" y2="11.78" stroke="#F5F0E8" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="11.07" y1="2.93" x2="11.78" y2="2.22" stroke="#F5F0E8" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="2.93" y1="11.07" x2="2.22" y2="11.78" stroke="#F5F0E8" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="7" cy="7" r="3" stroke="#EDE8DF" stroke-width="1.5"/>
+        <line x1="7" y1="1" x2="7" y2="0" stroke="#EDE8DF" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="7" y1="14" x2="7" y2="13" stroke="#EDE8DF" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="1" y1="7" x2="0" y2="7" stroke="#EDE8DF" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="14" y1="7" x2="13" y2="7" stroke="#EDE8DF" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="2.93" y1="2.93" x2="2.22" y2="2.22" stroke="#EDE8DF" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="11.07" y1="11.07" x2="11.78" y2="11.78" stroke="#EDE8DF" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="11.07" y1="2.93" x2="11.78" y2="2.22" stroke="#EDE8DF" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="2.93" y1="11.07" x2="2.22" y2="11.78" stroke="#EDE8DF" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
     </div>
     <div class="nav-logo-text">Spring St.<br>Dentistry</div>
@@ -1093,6 +1093,29 @@ footer {
     </div>
   </div>
 </section>
+
+<!-- ── Dark CTA / Newsletter band — Novel (Moon) — early for glance identity -->
+<!-- ── Dark CTA / Newsletter band — Novel (Moon) ───────────────────────────── -->
+<section id="cta-band" class="novel-flag">
+  <div class="novel-label">Novel — Early Moon Band CTA + Email Capture</div>
+  <div class="cta-band-inner">
+    <div class="cta-band-text">
+      <h2>Be part of the Long Beach<br><span class="italic-em" style="font-style:italic;">community.</span></h2>
+      <p>Practice updates, appointment reminders, and seasonal care tips — straight to your inbox.</p>
+      <div class="email-capture">
+        <input type="email" class="email-input" placeholder="your@email.com">
+        <button class="btn-pill btn-white" style="white-space:nowrap; flex-shrink:0;">Subscribe</button>
+      </div>
+      <div style="margin-top:8px;">
+        <a href="#" class="btn-pill btn-outline-light" style="font-size:13px; padding:9px 20px;">Schedule Your Visit</a>
+      </div>
+    </div>
+    <div class="cta-band-image">
+      <div class="cta-band-image-fill"></div>
+    </div>
+  </div>
+</section>
+
 
 <!-- ── Service image-overlay cards — Novel ─────────────────────────────────── -->
 <section id="services" class="novel-flag">
@@ -1419,27 +1442,6 @@ footer {
   </div>
 </section>
 
-<!-- ── Dark CTA / Newsletter band — Novel (Moon) ───────────────────────────── -->
-<section id="cta-band" class="novel-flag">
-  <div class="novel-label">Novel — Dark Band CTA + Email Capture (Moon)</div>
-  <div class="cta-band-inner">
-    <div class="cta-band-text">
-      <h2>Be part of the Long Beach<br><span class="italic-em" style="font-style:italic;">community.</span></h2>
-      <p>Practice updates, appointment reminders, and seasonal care tips — straight to your inbox.</p>
-      <div class="email-capture">
-        <input type="email" class="email-input" placeholder="your@email.com">
-        <button class="btn-pill btn-white" style="white-space:nowrap; flex-shrink:0;">Subscribe</button>
-      </div>
-      <div style="margin-top:8px;">
-        <a href="#" class="btn-pill btn-outline-light" style="font-size:13px; padding:9px 20px;">Schedule Your Visit</a>
-      </div>
-    </div>
-    <div class="cta-band-image">
-      <div class="cta-band-image-fill"></div>
-    </div>
-  </div>
-</section>
-
 <!-- ── Footer ─────────────────────────────────────────────────────────────── -->
 <footer>
   <div class="footer-inner">
@@ -1447,11 +1449,11 @@ footer {
       <div class="footer-logo-row">
         <div class="footer-logo-icon">
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-            <circle cx="5" cy="5" r="2" stroke="#F5F0E8" stroke-width="1"/>
-            <line x1="5" y1="0.5" x2="5" y2="0" stroke="#F5F0E8" stroke-width="1"/>
-            <line x1="5" y1="10" x2="5" y2="9.5" stroke="#F5F0E8" stroke-width="1"/>
-            <line x1="0" y1="5" x2="0.5" y2="5" stroke="#F5F0E8" stroke-width="1"/>
-            <line x1="9.5" y1="5" x2="10" y2="5" stroke="#F5F0E8" stroke-width="1"/>
+            <circle cx="5" cy="5" r="2" stroke="#EDE8DF" stroke-width="1"/>
+            <line x1="5" y1="0.5" x2="5" y2="0" stroke="#EDE8DF" stroke-width="1"/>
+            <line x1="5" y1="10" x2="5" y2="9.5" stroke="#EDE8DF" stroke-width="1"/>
+            <line x1="0" y1="5" x2="0.5" y2="5" stroke="#EDE8DF" stroke-width="1"/>
+            <line x1="9.5" y1="5" x2="10" y2="5" stroke="#EDE8DF" stroke-width="1"/>
           </svg>
         </div>
         <div class="footer-brand-name">Spring St.<br>Dentistry</div>
@@ -1522,17 +1524,17 @@ footer {
   <div class="ds-section">
     <div class="ds-section-label">Sun / Moon duality</div>
     <div class="duality-row">
-      <div class="duality-sun">☀ Sun — canvas #F5F0E8</div>
+      <div class="duality-sun">☀ Sun — canvas #EDE8DF</div>
       <div class="duality-moon">☽ Moon — band #3D2A1A</div>
     </div>
-    <div style="font-size:10.5px; color:#5A3A20; line-height:1.5; padding-bottom:4px;">The dark espresso outer chrome and dark CTA band are the literal 'moon' inversion of the warm cream 'sun' canvas. One dark section per page max.</div>
+    <div style="font-size:10.5px; color:#5A3A20; line-height:1.5; padding-bottom:4px;">The dark espresso outer chrome and early Moon CTA band are the literal inversion of the stone-greige Sun canvas. One dark section per page max — placed right after the hero.</div>
   </div>
 
   <hr class="ds-divider">
   <div class="ds-section">
     <div class="ds-section-label">Color palette</div>
     <div class="palette-grid">
-      <div class="swatch-row"><div class="swatch" style="background:#F5F0E8"></div><div class="swatch-info"><div class="swatch-role">Canvas (Sun)</div><div class="swatch-hex">#F5F0E8</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#EDE8DF"></div><div class="swatch-info"><div class="swatch-role">Canvas (Sun)</div><div class="swatch-hex">#EDE8DF</div></div></div>
       <div class="swatch-row"><div class="swatch" style="background:#FFFFFF; border-color:#3a2a18;"></div><div class="swatch-info"><div class="swatch-role">Card surface</div><div class="swatch-hex">#FFFFFF</div></div></div>
       <div class="swatch-row"><div class="swatch" style="background:#F0E8DC"></div><div class="swatch-info"><div class="swatch-role">Tinted card</div><div class="swatch-hex">#F0E8DC</div></div></div>
       <div class="swatch-row"><div class="swatch" style="background:#3D2A1A"></div><div class="swatch-info"><div class="swatch-role">Dark band (Moon)</div><div class="swatch-hex">#3D2A1A</div></div></div>
@@ -1551,7 +1553,7 @@ footer {
     <div class="type-display-sm">Fraunces — upright</div>
     <div class="type-display-italic">Fraunces — italic em</div>
     <div class="type-meta" style="margin-bottom:12px">Display · organic serif · regular weight · italic/upright mix</div>
-    <div class="type-body-sm">DM Sans — body, nav, UI text</div>
+    <div class="type-body-sm">Karla — body, nav, UI text</div>
     <div class="type-meta" style="margin-bottom:12px">Body · geometric sans · regular/medium</div>
     <div style="margin-top:12px; padding:10px; background:#2A1C0C; border-radius:6px;">
       <div class="type-meta" style="margin-bottom:4px">Signature emphasis device</div>
@@ -1626,7 +1628,7 @@ footer {
       <div class="check-item">Hero must be a split layout — text left, tall rounded image card right. Not centered. Not a poster/background-image hero.</div>
       <div class="check-item">Hero headline mixes upright and italic serif in the same line. This italic/upright combination is the signature typographic device — preserve it.</div>
       <div class="check-item">Primary button and outer chrome share the same dark espresso color (#2C2218). This visual unity is intentional — do not diverge them.</div>
-      <div class="check-item">Exactly one dark-band section exists on the page (the CTA/newsletter). All other sections use cream canvas or white card. Do not add more dark backgrounds.</div>
+      <div class="check-item">Exactly one dark-band (Moon) section exists — placed immediately after the hero so the Sun/Moon duality reads in the first scroll. All other sections use stone-greige canvas or white card. Do not add more dark backgrounds.</div>
       <div class="check-item">Dark band CTA section contains an inline email capture — not just a standalone button. Email input + Subscribe pill is the action element.</div>
       <div class="check-item">All image cards (hero, service, teacher portraits) use large rounded corners (~20–24px). No sharp or small-radius corners on image containers.</div>
       <div class="check-item">Service/class cards use image-fill with bottom-anchored text overlay gradient — not image-top-with-text-below layout.</div>
@@ -1669,5 +1671,34 @@ if (window.innerWidth > 768) {
   document.getElementById('panel-btn').classList.remove('active');
 }
 </script>
+
+<script>
+/* Catalog embed mode: hide chrome so thumbnails/preview show the design */
+(function () {
+  const params = new URLSearchParams(location.search);
+  if (params.get('embed') !== '1' && params.get('catalog') !== '1') return;
+  document.documentElement.classList.add('catalog-embed');
+  const apply = () => {
+    document.body.classList.add('panel-closed', 'catalog-embed');
+    document.body.classList.remove('panel-open');
+    document.querySelector('.meta-bar')?.remove();
+    document.querySelector('.ds-panel')?.remove();
+    const wrap = document.getElementById('content-wrap');
+    if (wrap) {
+      wrap.style.paddingRight = '0';
+      wrap.style.marginRight = '0';
+      wrap.style.maxWidth = '1120px';
+    }
+    const pageCard = document.querySelector('.page-card');
+    if (pageCard) pageCard.style.marginRight = '0';
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
 </body>
 </html>

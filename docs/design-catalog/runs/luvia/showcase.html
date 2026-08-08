@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Luvia — Design System Showcase · Spring St. Dentistry</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ── Reset ─────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -13,23 +13,23 @@ html { scroll-behavior: smooth; }
 
 /* ── Design tokens ─────────────────────────────────────────────────────── */
 :root {
-  --canvas:          #F5EEE3;
+  --canvas:          #ECEAE6;
   --panel:           #FFFFFF;
-  --card-surface:    #F5F0EA;
-  --accent:          #C84A28;
-  --accent-hover:    #A83B1E;
-  --heading:         #1C1512;
-  --body-text:       #4A3D35;
-  --muted:           #9E9088;
-  --btn-sec-fill:    #F5F0EA;
-  --btn-sec-text:    #4A3D35;
-  --btn-sec-border:  #E0D8CF;
-  --divider:         #E8E0D6;
-  --chip-border:     #D8D0C8;
-  --chip-text:       #9E9088;
+  --card-surface:    #F3F1ED;
+  --accent:          #6B2D5B;
+  --accent-hover:    #542247;
+  --heading:         #1A1518;
+  --body-text:       #4A4348;
+  --muted:           #8E868C;
+  --btn-sec-fill:    #F3F1ED;
+  --btn-sec-text:    #4A4348;
+  --btn-sec-border:  #DDD8D4;
+  --divider:         #E2DED9;
+  --chip-border:     #D4CFCA;
+  --chip-text:       #8E868C;
 
-  --font-display: 'Instrument Serif', 'Playfair Display', Georgia, serif;
-  --font-body:    'DM Sans', -apple-system, sans-serif;
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body:    'Source Sans 3', -apple-system, sans-serif;
 }
 
 body {
@@ -43,8 +43,8 @@ body {
 
 /* ── Showcase meta bar ──────────────────────────────────────────────────── */
 .meta-bar {
-  background: #18120e;
-  color: #c8a070;
+  background: #141018;
+  color: #c4a0b8;
   font-family: var(--font-body);
   font-size: 11px;
   letter-spacing: 0.4px;
@@ -57,13 +57,13 @@ body {
   z-index: 200;
   flex-wrap: wrap;
 }
-.meta-bar .meta-name { font-weight: 600; color: #e8c898; }
-.meta-bar .meta-sep  { color: #3a2810; }
+.meta-bar .meta-name { font-weight: 600; color: #e8c8dc; }
+.meta-bar .meta-sep  { color: #3a2834; }
 .meta-bar-right { margin-left: auto; display: flex; gap: 8px; }
 .meta-btn {
-  background: rgba(200,160,80,0.12);
-  border: 1px solid rgba(200,160,80,0.22);
-  color: #c8a070;
+  background: rgba(180,120,160,0.12);
+  border: 1px solid rgba(180,120,160,0.22);
+  color: #c4a0b8;
   border-radius: 4px;
   padding: 4px 12px;
   font-size: 11px;
@@ -71,8 +71,8 @@ body {
   font-family: var(--font-body);
   transition: background 0.15s;
 }
-.meta-btn:hover { background: rgba(200,160,80,0.22); }
-.meta-btn.active { background: rgba(200,160,80,0.28); color: #e8c898; }
+.meta-btn:hover { background: rgba(180,120,160,0.22); }
+.meta-btn.active { background: rgba(180,120,160,0.28); color: #e8c8dc; }
 
 /* ── Novel section callout ─────────────────────────────────────────────── */
 .novel-flag { position: relative; }
@@ -80,9 +80,9 @@ body {
   display: none;
   position: absolute;
   top: 12px; right: 12px;
-  background: rgba(200,74,40,0.10);
-  border: 1px solid rgba(200,74,40,0.28);
-  color: #C84A28;
+  background: rgba(107,45,91,0.10);
+  border: 1px solid rgba(107,45,91,0.28);
+  color: #6B2D5B;
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.5px;
@@ -92,7 +92,7 @@ body {
   z-index: 10;
 }
 body.show-annotations .novel-label { display: block; }
-body.show-annotations .novel-flag  { outline: 1px dashed rgba(200,74,40,0.2); }
+body.show-annotations .novel-flag  { outline: 1px dashed rgba(107,45,91,0.2); }
 
 /* ── Shared utilities ───────────────────────────────────────────────────── */
 .btn-pill {
@@ -244,7 +244,7 @@ body.show-annotations .novel-flag  { outline: 1px dashed rgba(200,74,40,0.2); }
 }
 .hero-text .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
 
-/* Abstract fluid art */
+/* Geometric data-wellness art */
 .hero-art {
   position: absolute;
   right: 0; top: 0; bottom: 0;
@@ -648,7 +648,7 @@ body.show-annotations .novel-flag  { outline: 1px dashed rgba(200,74,40,0.2); }
 
 /* Type specimens */
 .type-display { font-family: 'Instrument Serif', 'Playfair Display', Georgia, serif; font-size: 24px; color: #c8a070; line-height: 1.15; margin-bottom: 4px; }
-.type-body    { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #9a7858; line-height: 1.5; margin-bottom: 4px; }
+.type-body    { font-family: 'Source Sans 3', sans-serif; font-size: 13px; color: #9a7858; line-height: 1.5; margin-bottom: 4px; }
 .type-meta    { font-size: 10px; color: #5a4030; margin-bottom: 12px; }
 
 /* Token grid */
@@ -716,44 +716,50 @@ body.show-annotations .novel-flag  { outline: 1px dashed rgba(200,74,40,0.2); }
         </div>
       </div>
 
-      <!-- Abstract fluid gradient art -->
+      <!-- Geometric data-wellness art (harder geometry vs soft fluid rings) -->
       <div class="hero-art">
         <svg viewBox="0 0 600 460" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <radialGradient id="rg1" cx="55%" cy="45%" r="55%">
-              <stop offset="0%" stop-color="#C84A28" stop-opacity="0.55"/>
-              <stop offset="60%" stop-color="#E8A880" stop-opacity="0.30"/>
-              <stop offset="100%" stop-color="#F5EEE3" stop-opacity="0"/>
-            </radialGradient>
-            <radialGradient id="rg2" cx="70%" cy="60%" r="45%">
-              <stop offset="0%" stop-color="#D4784A" stop-opacity="0.40"/>
-              <stop offset="100%" stop-color="#F5EEE3" stop-opacity="0"/>
-            </radialGradient>
-            <radialGradient id="rg3" cx="40%" cy="30%" r="40%">
-              <stop offset="0%" stop-color="#E8C8A0" stop-opacity="0.45"/>
-              <stop offset="100%" stop-color="#F5EEE3" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
-          <rect width="600" height="460" fill="#FBF7F2"/>
-          <!-- Outer ring -->
-          <ellipse cx="380" cy="220" rx="260" ry="240" fill="none" stroke="#C84A28" stroke-width="56" stroke-opacity="0.13"/>
-          <!-- Mid ring -->
-          <ellipse cx="380" cy="220" rx="185" ry="172" fill="none" stroke="#C84A28" stroke-width="44" stroke-opacity="0.18"/>
-          <!-- Inner ring -->
-          <ellipse cx="380" cy="220" rx="110" ry="104" fill="none" stroke="#D45E38" stroke-width="38" stroke-opacity="0.22"/>
-          <!-- Core blob -->
-          <ellipse cx="380" cy="220" rx="58" ry="56" fill="#C84A28" fill-opacity="0.28"/>
-          <!-- Glow overlays -->
-          <rect width="600" height="460" fill="url(#rg1)"/>
-          <rect width="600" height="460" fill="url(#rg2)"/>
-          <rect width="600" height="460" fill="url(#rg3)"/>
-          <!-- Fade left edge to white -->
-          <defs>
-            <linearGradient id="fade-left" x1="0%" y1="0%" x2="40%" y2="0%">
+            <linearGradient id="bg-wash" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#F7F5F2"/>
+              <stop offset="100%" stop-color="#E8E4DF"/>
+            </linearGradient>
+            <linearGradient id="bar-accent" x1="0%" y1="100%" x2="0%" y2="0%">
+              <stop offset="0%" stop-color="#6B2D5B" stop-opacity="0.15"/>
+              <stop offset="100%" stop-color="#6B2D5B" stop-opacity="0.85"/>
+            </linearGradient>
+            <linearGradient id="fade-left" x1="0%" y1="0%" x2="38%" y2="0%">
               <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"/>
               <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
             </linearGradient>
           </defs>
+          <rect width="600" height="460" fill="url(#bg-wash)"/>
+          <!-- Grid -->
+          <g stroke="#6B2D5B" stroke-opacity="0.08" stroke-width="1">
+            <path d="M80 60 H560 M80 120 H560 M80 180 H560 M80 240 H560 M80 300 H560 M80 360 H560"/>
+            <path d="M140 40 V400 M220 40 V400 M300 40 V400 M380 40 V400 M460 40 V400 M540 40 V400"/>
+          </g>
+          <!-- Metric bars -->
+          <g fill="url(#bar-accent)">
+            <rect x="160" y="280" width="36" height="100" rx="2"/>
+            <rect x="220" y="210" width="36" height="170" rx="2"/>
+            <rect x="280" y="160" width="36" height="220" rx="2"/>
+            <rect x="340" y="120" width="36" height="260" rx="2"/>
+            <rect x="400" y="190" width="36" height="190" rx="2"/>
+            <rect x="460" y="140" width="36" height="240" rx="2"/>
+          </g>
+          <!-- Arc dial -->
+          <circle cx="470" cy="110" r="54" fill="none" stroke="#6B2D5B" stroke-opacity="0.12" stroke-width="10"/>
+          <path d="M426 130 A54 54 0 1 1 510 90" fill="none" stroke="#6B2D5B" stroke-width="10" stroke-linecap="round" stroke-opacity="0.75"/>
+          <circle cx="470" cy="110" r="6" fill="#6B2D5B"/>
+          <!-- Axis ticks -->
+          <g fill="#6B2D5B" fill-opacity="0.35">
+            <rect x="140" y="378" width="360" height="2"/>
+            <rect x="140" y="374" width="2" height="10"/>
+            <rect x="260" y="374" width="2" height="10"/>
+            <rect x="380" y="374" width="2" height="10"/>
+            <rect x="500" y="374" width="2" height="10"/>
+          </g>
           <rect width="600" height="460" fill="url(#fade-left)"/>
         </svg>
       </div>
@@ -1099,10 +1105,10 @@ body.show-annotations .novel-flag  { outline: 1px dashed rgba(200,74,40,0.2); }
   <div class="ds-section">
     <div class="ds-section-label">Color palette</div>
     <div class="palette-grid">
-      <div class="swatch-row"><div class="swatch" style="background:#F5EEE3"></div><div class="swatch-info"><div class="swatch-role">Canvas</div><div class="swatch-hex">#F5EEE3</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#ECEAE6"></div><div class="swatch-info"><div class="swatch-role">Canvas</div><div class="swatch-hex">#ECEAE6</div></div></div>
       <div class="swatch-row"><div class="swatch" style="background:#FFFFFF; border-color:#3a2810"></div><div class="swatch-info"><div class="swatch-role">Content panel</div><div class="swatch-hex">#FFFFFF</div></div></div>
       <div class="swatch-row"><div class="swatch" style="background:#F5F0EA"></div><div class="swatch-info"><div class="swatch-role">Card surface</div><div class="swatch-hex">#F5F0EA</div></div></div>
-      <div class="swatch-row"><div class="swatch" style="background:#C84A28"></div><div class="swatch-info"><div class="swatch-role">Accent / Primary button</div><div class="swatch-hex">#C84A28</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#6B2D5B"></div><div class="swatch-info"><div class="swatch-role">Accent / Primary button</div><div class="swatch-hex">#6B2D5B</div></div></div>
       <div class="swatch-row"><div class="swatch" style="background:#A83B1E"></div><div class="swatch-info"><div class="swatch-role">Accent hover</div><div class="swatch-hex">#A83B1E</div></div></div>
       <div class="swatch-row"><div class="swatch" style="background:#1C1512"></div><div class="swatch-info"><div class="swatch-role">Heading text</div><div class="swatch-hex">#1C1512</div></div></div>
       <div class="swatch-row"><div class="swatch" style="background:#4A3D35"></div><div class="swatch-info"><div class="swatch-role">Body text</div><div class="swatch-hex">#4A3D35</div></div></div>
@@ -1117,7 +1123,7 @@ body.show-annotations .novel-flag  { outline: 1px dashed rgba(200,74,40,0.2); }
     <div class="ds-section-label">Typography</div>
     <div class="type-display">Instrument Serif</div>
     <div class="type-meta">Display · editorial-serif · bold · sentence case</div>
-    <div class="type-body">DM Sans — body, nav, UI, stat labels</div>
+    <div class="type-body">Source Sans 3 — body, nav, UI, stat labels</div>
     <div class="type-meta">Body · geometric sans · regular/medium</div>
     <div style="font-family:'Instrument Serif',Georgia,serif; font-size:32px; color:#c8a070; line-height:1; margin: 10px 0 4px;">500+</div>
     <div class="type-meta">Numeral style — oversized serif numeral in metric cards</div>
@@ -1170,11 +1176,11 @@ body.show-annotations .novel-flag  { outline: 1px dashed rgba(200,74,40,0.2); }
     <div class="novel-list">
       <div class="novel-item">
         <div class="novel-item-name">Bento Impact Grid + Accent Anchor Card</div>
-        <div class="novel-item-spec">Asymmetric 2-col bento: tall terra-cotta accent card with service pillars + patient quote left; 2×2 grid of oversized metric-numeral cards right. Split section header (H2 left, descriptor right).</div>
+        <div class="novel-item-spec">Asymmetric 2-col bento: tall plum accent card with service pillars + patient quote left; 2×2 grid of oversized metric-numeral cards right. Split section header (H2 left, descriptor right).</div>
       </div>
       <div class="novel-item">
         <div class="novel-item-name">Abstract Fluid Gradient Hero + Stat Badges</div>
-        <div class="novel-item-spec">Hero right half is SVG/CSS concentric-ring fluid art in terra-cotta + cream. Below the copy block: icon + bold stat + muted descriptor badge row for at-a-glance social proof.</div>
+        <div class="novel-item-spec">Hero right half is geometric data-wellness art (metric bars + dial) in plum on cool stone. Below the copy block: icon + bold stat + muted descriptor badge row for at-a-glance social proof.</div>
       </div>
       <div class="novel-item">
         <div class="novel-item-name">Portrait Cards with Stat Overlay</div>
@@ -1187,14 +1193,14 @@ body.show-annotations .novel-flag  { outline: 1px dashed rgba(200,74,40,0.2); }
   <div class="ds-section">
     <div class="ds-section-label">Fidelity checks (12)</div>
     <div class="check-list">
-      <div class="check-item">Hero headline is left-aligned with bold editorial serif. Right half is abstract warm fluid art — not a photograph.</div>
+      <div class="check-item">Hero headline is left-aligned with bold editorial serif. Right half is geometric data-wellness art — not a photograph.</div>
       <div class="check-item">Nav is embedded inside the same rounded white panel as hero content — not a separate sticky full-width bar.</div>
-      <div class="check-item">Primary CTA uses saturated terra-cotta (#C84A28) with white text — vivid and bold, never muted or earthy.</div>
-      <div class="check-item">Bento grid includes one full-height terra-cotta card as the dominant visual anchor — not a supporting card.</div>
+      <div class="check-item">Primary CTA uses saturated plum (#6B2D5B) with white text — vivid and bold, never muted terracotta-sibling to Klinik.</div>
+      <div class="check-item">Bento grid includes one full-height plum card as the dominant visual anchor — not a supporting card.</div>
       <div class="check-item">Metric cards use oversized numerals (72–96px) — the numeral IS the content; descriptor is secondary small text.</div>
       <div class="check-item">Portrait photo cards have stat overlay bar baked into the card image base — not separate text below the card.</div>
       <div class="check-item">All section headers use split-row layout: eyebrow + H2 left, muted descriptor right. Never centered stacked header.</div>
-      <div class="check-item">Eyebrow chips are muted pale tone with hairline border — never terra-cotta or accent-colored.</div>
+      <div class="check-item">Eyebrow chips are muted pale tone with hairline border — never plum or accent-colored.</div>
       <div class="check-item">Depth achieved via surface tiers (linen → white → cream) and corner radius. Zero drop shadows.</div>
       <div class="check-item">Display headlines in key sections end with a terminal period ('Scale your smile.') — deliberate typographic signature.</div>
       <div class="check-item">Photography uses warm natural skin tones with neutral/desaturated backgrounds — no cool-tinted clinical stock.</div>
@@ -1222,5 +1228,34 @@ function toggleFaq(btn) {
 // Open panel by default
 document.getElementById('ds-panel').classList.add('open');
 </script>
+
+<script>
+/* Catalog embed mode: hide chrome so thumbnails/preview show the design */
+(function () {
+  const params = new URLSearchParams(location.search);
+  if (params.get('embed') !== '1' && params.get('catalog') !== '1') return;
+  document.documentElement.classList.add('catalog-embed');
+  const apply = () => {
+    document.body.classList.add('panel-closed', 'catalog-embed');
+    document.body.classList.remove('panel-open');
+    document.querySelector('.meta-bar')?.remove();
+    document.querySelector('.ds-panel')?.remove();
+    const wrap = document.getElementById('content-wrap');
+    if (wrap) {
+      wrap.style.paddingRight = '0';
+      wrap.style.marginRight = '0';
+      wrap.style.maxWidth = '1120px';
+    }
+    const pageCard = document.querySelector('.page-card');
+    if (pageCard) pageCard.style.marginRight = '0';
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
 </body>
 </html>

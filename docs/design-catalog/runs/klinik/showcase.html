@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Klinik — Design System Showcase · Spring St. Dentistry</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 <style>
 /* ── Reset ─────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -29,7 +29,7 @@ html { scroll-behavior: smooth; }
   --meta-label:    #8B3A1A;
 
   --font-display: 'Playfair Display', Georgia, serif;
-  --font-body:    'DM Sans', -apple-system, sans-serif;
+  --font-body:    'Outfit', -apple-system, sans-serif;
   --font-script:  'Dancing Script', cursive;
 }
 
@@ -586,7 +586,7 @@ footer {
 
 /* Type specimen */
 .type-display { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; color: #c8a870; line-height: 1.2; margin-bottom: 6px; }
-.type-body    { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #a08060; line-height: 1.5; margin-bottom: 4px; }
+.type-body    { font-family: 'Outfit', sans-serif; font-size: 13px; color: #a08060; line-height: 1.5; margin-bottom: 4px; }
 .type-sig     { font-family: 'Dancing Script', cursive; font-size: 22px; color: #c8a870; }
 .type-meta    { font-size: 10px; color: #6a5030; }
 
@@ -608,6 +608,43 @@ footer {
 .novel-item { background: rgba(232,168,96,0.08); border: 1px solid rgba(232,168,96,0.15); border-radius: 6px; padding: 9px 10px; }
 .novel-item-name { font-size: 11px; color: #e8a860; font-weight: 600; margin-bottom: 3px; }
 .novel-item-spec { font-size: 10.5px; color: #7a6040; line-height: 1.4; }
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .services-layout { flex-direction: column; gap: 36px; }
+  .services-float { width: 100%; max-width: 360px; }
+  .about-grid { grid-template-columns: 1fr; gap: 36px; }
+  .quote-card { grid-template-columns: 1fr; gap: 28px; padding: 40px 36px; }
+  #hero .hero-card { padding: 48px 36px 40px; }
+  .stats-card { padding: 40px 32px 36px; }
+}
+@media (max-width: 768px) {
+  section, nav, footer, #hero, #services, #novel-stats, #about, #doctor-quote, #faq, #cta { padding-left: 22px; padding-right: 22px; }
+  .meta-bar { padding-left: 14px; padding-right: 14px; }
+  .meta-bar > span:not(.meta-name), .meta-bar .meta-sep { display: none; }
+  .filmstrip { flex-wrap: wrap; }
+  .filmstrip-card { flex: 1 1 calc(50% - 8px); }
+  .service-row { flex-wrap: wrap; }
+  .stats-strip { flex-wrap: wrap; }
+  .stats-col { border-right: none; padding: 12px 0; flex: 1 1 40%; }
+  .stats-col + .stats-col { border-top: 1px solid var(--divider); }
+}
+@media (max-width: 540px) {
+  .filmstrip-card { flex: 1 1 100%; }
+  #hero .hero-card { padding: 36px 22px 32px; }
+  .quote-card { padding: 32px 22px; }
+  .stats-col { flex: 1 1 100%; }
+  #cta .cta-btns { flex-direction: column; align-items: center; }
+}
+@media (max-width: 480px) {
+  nav { padding-left: 16px; padding-right: 16px; gap: 10px; }
+  .nav-links { display: none; }
+  .nav-logo { font-size: 13px; white-space: nowrap; }
+  nav .btn-pill { white-space: nowrap; font-size: 12px !important; padding: 8px 14px !important; }
+}
+@media (max-width: 400px) {
+  .ds-panel { width: 100vw; }
+}
 </style>
 </head>
 <body>
@@ -984,7 +1021,7 @@ footer {
     <div class="ds-section-label">Typography</div>
     <div class="type-display">Playfair Display</div>
     <div class="type-meta" style="margin-bottom:12px">Display · editorial-serif · bold/semibold · sentence case</div>
-    <div class="type-body">DM Sans — body, nav, UI text</div>
+    <div class="type-body">Outfit — body, nav, UI text</div>
     <div class="type-meta" style="margin-bottom:12px">Body · humanist sans · regular/medium</div>
     <div class="type-sig">Anthony Hoang</div>
     <div class="type-meta">Dancing Script · signature accent only</div>
@@ -1078,5 +1115,34 @@ function toggleFaq(btn) {
 // Open panel by default
 document.getElementById('ds-panel').classList.add('open');
 </script>
+
+<script>
+/* Catalog embed mode: hide chrome so thumbnails/preview show the design */
+(function () {
+  const params = new URLSearchParams(location.search);
+  if (params.get('embed') !== '1' && params.get('catalog') !== '1') return;
+  document.documentElement.classList.add('catalog-embed');
+  const apply = () => {
+    document.body.classList.add('panel-closed', 'catalog-embed');
+    document.body.classList.remove('panel-open');
+    document.querySelector('.meta-bar')?.remove();
+    document.querySelector('.ds-panel')?.remove();
+    const wrap = document.getElementById('content-wrap');
+    if (wrap) {
+      wrap.style.paddingRight = '0';
+      wrap.style.marginRight = '0';
+      wrap.style.maxWidth = '1120px';
+    }
+    const pageCard = document.querySelector('.page-card');
+    if (pageCard) pageCard.style.marginRight = '0';
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
 </body>
 </html>

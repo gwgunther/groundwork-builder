@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dermato — Design System Showcase · Spring St. Dentistry</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ── Reset ─────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -13,7 +13,7 @@ html { scroll-behavior: smooth; }
 
 /* ── Design tokens ─────────────────────────────────────────────────────── */
 :root {
-  --page-bg:       #F5EFE6;
+  --page-bg:       #F3EDE4;
   --card-warm:     #C8A87A;
   --card-light:    #E8D9C5;
   --heading:       #3B2A1A;
@@ -25,7 +25,7 @@ html { scroll-behavior: smooth; }
   --border:        #D9CFC4;
   --accent-mid:    #D4A574;
 
-  --font-display: 'Playfair Display', Georgia, serif;
+  --font-display: 'Newsreader', Georgia, serif;
   --font-body:    'Inter', -apple-system, sans-serif;
 
   --radius-lg:  16px;
@@ -202,24 +202,24 @@ nav {
   letter-spacing: 0.25em;
 }
 
-/* ── Hero poster ────────────────────────────────────────────────────────── */
+/* ── Hero poster — edge-to-edge (not inset card on cream like Klinik) ───── */
 #hero {
-  background: var(--page-bg);
-  padding: 32px 40px 64px;
+  background: var(--btn-primary);
+  padding: 0;
 }
 .hero-poster {
   position: relative;
-  max-width: 1080px;
-  margin: 0 auto;
-  border-radius: var(--radius-lg);
+  max-width: none;
+  margin: 0;
+  border-radius: 0;
   overflow: hidden;
-  min-height: 580px;
+  min-height: min(72vh, 640px);
   background: var(--btn-primary);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 80px 56px 120px;
+  padding: 88px 56px 140px;
 }
 .hero-overlay {
   position: absolute;
@@ -235,16 +235,20 @@ nav {
 .hero-photo-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #3B2A1A 0%, #5A3C25 40%, #3B2A1A 100%);
+  background:
+    #3B2A1A
+    url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1800&q=80')
+    center 35% / cover no-repeat;
   z-index: 0;
+  filter: saturate(0.9) brightness(0.55);
 }
-/* Warm texture dots for photo stand-in */
+/* Warm texture wash over photo */
 .hero-photo-bg::after {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle at 30% 40%, rgba(200,168,122,0.12) 0%, transparent 55%),
-    radial-gradient(circle at 70% 70%, rgba(200,169,110,0.08) 0%, transparent 50%);
+  background-image: radial-gradient(circle at 30% 40%, rgba(200,168,122,0.18) 0%, transparent 55%),
+    radial-gradient(circle at 70% 70%, rgba(200,169,110,0.12) 0%, transparent 50%);
 }
 .hero-content {
   position: relative;
@@ -263,11 +267,12 @@ nav {
 }
 .hero-headline {
   font-family: var(--font-display);
-  font-size: clamp(38px, 5.5vw, 64px);
-  font-weight: 500;
+  font-size: clamp(36px, 5.2vw, 58px);
+  font-weight: 400;
   color: var(--white);
-  line-height: 1.12;
+  line-height: 1.15;
   margin-bottom: 20px;
+  letter-spacing: -0.01em;
 }
 .hero-sub {
   font-size: 15px;
@@ -317,8 +322,48 @@ nav {
   width: 4px; height: 4px;
   border-radius: 50%;
   background: var(--accent-gold);
+}
+
+/* Gold structure band — tan treatment cards visible in first viewport */
+.gold-band {
+  background: linear-gradient(180deg, #E8D9C5 0%, var(--page-bg) 100%);
+  border-top: 3px solid var(--accent-gold);
+  padding: 28px 40px 36px;
+}
+.gold-band-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.gold-chip {
+  background: var(--card-warm);
+  color: #2C1A0E;
+  border-radius: 12px;
+  padding: 18px 16px;
+  min-height: 88px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 4px;
+}
+.gold-chip:nth-child(2) { background: var(--card-light); }
+.gold-chip:nth-child(3) { background: var(--accent-gold); }
+.gold-chip:nth-child(4) { background: #D4B896; }
+.gold-chip-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   opacity: 0.7;
-  flex-shrink: 0;
+}
+.gold-chip-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #2C1A0E;
 }
 
 /* ── About ──────────────────────────────────────────────────────────────── */
@@ -832,7 +877,7 @@ footer {
 .swatch-hex  { font-size: 10px; color: #5A3A18; font-variant-numeric: tabular-nums; }
 
 /* Type specimen */
-.type-display { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; color: #C8A870; line-height: 1.2; margin-bottom: 6px; }
+.type-display { font-family: 'Newsreader', Georgia, serif; font-size: 22px; color: #C8A870; line-height: 1.2; margin-bottom: 6px; }
 .type-body    { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 300; color: #9A7850; line-height: 1.5; margin-bottom: 4px; }
 .type-meta    { font-size: 10px; color: #5A3A18; }
 
@@ -884,8 +929,10 @@ footer {
   /* Meta bar stays compact: hide secondary descriptors. */
   .meta-bar > span:not(.meta-name), .meta-bar .meta-sep { display: none; }
 
-  /* Hero poster: tighten padding so centered text breathes. */
-  .hero-poster { min-height: 0; padding: 64px 24px 96px; }
+  /* Hero poster: full-bleed — keep edge-to-edge on mobile */
+  .hero-poster { min-height: 0; padding: 64px 24px 110px; }
+  .gold-band { padding-left: 22px; padding-right: 22px; }
+  .gold-band-inner { grid-template-columns: 1fr 1fr; }
 
   /* Bento collapses fully to one column. */
   .bento-grid { grid-template-columns: 1fr; }
@@ -896,6 +943,7 @@ footer {
 @media (max-width: 540px) {
   .testimonials-grid { grid-template-columns: 1fr; }
   .hero-headline { font-size: clamp(30px, 9vw, 64px); }
+  .gold-band-inner { grid-template-columns: 1fr; }
 }
 
 /* Small phones: compact the three-zone nav so the centered wordmark
@@ -945,9 +993,9 @@ footer {
 
 <!-- ── Hero poster — Novel ───────────────────────────────────────────────── -->
 <section id="hero" class="novel-flag">
-  <div class="novel-label">Novel — Full-width Poster Hero with Service Arc</div>
+  <div class="novel-label">Novel — Edge-to-edge Poster Hero with Service Arc + Gold Band</div>
   <div class="hero-poster">
-    <div class="hero-photo-bg"></div>
+    <div class="hero-photo-bg" role="img" aria-label="Warm spa-clinical atmosphere photograph"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <div class="hero-eyebrow">✦ &nbsp; Your smile. Our neighborhood.</div>
@@ -970,6 +1018,28 @@ footer {
     </div>
   </div>
 </section>
+
+<!-- Gold structure band — spa-clinical tan cards (above-fold differentiator) -->
+<div class="gold-band">
+  <div class="gold-band-inner">
+    <div class="gold-chip">
+      <div class="gold-chip-label">Cosmetic</div>
+      <div class="gold-chip-title">Smile Design</div>
+    </div>
+    <div class="gold-chip">
+      <div class="gold-chip-label">Restorative</div>
+      <div class="gold-chip-title">Implants</div>
+    </div>
+    <div class="gold-chip">
+      <div class="gold-chip-label">Align</div>
+      <div class="gold-chip-title">Clear Aligners</div>
+    </div>
+    <div class="gold-chip">
+      <div class="gold-chip-label">Care</div>
+      <div class="gold-chip-title">Family Dentistry</div>
+    </div>
+  </div>
+</div>
 
 <!-- ── About ─────────────────────────────────────────────────────────────── -->
 <section id="about">
@@ -1307,7 +1377,7 @@ footer {
   <div class="ds-section">
     <div class="ds-section-label">Color palette</div>
     <div class="palette-grid">
-      <div class="swatch-row"><div class="swatch" style="background:#F5EFE6"></div><div class="swatch-info"><div class="swatch-role">Page background</div><div class="swatch-hex">#F5EFE6 — warm cream</div></div></div>
+      <div class="swatch-row"><div class="swatch" style="background:#F3EDE4"></div><div class="swatch-info"><div class="swatch-role">Page background</div><div class="swatch-hex">#F3EDE4 — linen cream</div></div></div>
       <div class="swatch-row"><div class="swatch" style="background:#C8A87A"></div><div class="swatch-info"><div class="swatch-role">Card warm</div><div class="swatch-hex">#C8A87A — warm tan</div></div></div>
       <div class="swatch-row"><div class="swatch" style="background:#E8D9C5"></div><div class="swatch-info"><div class="swatch-role">Card light</div><div class="swatch-hex">#E8D9C5 — soft linen</div></div></div>
       <div class="swatch-row"><div class="swatch" style="background:#3B2A1A"></div><div class="swatch-info"><div class="swatch-role">Heading text</div><div class="swatch-hex">#3B2A1A</div></div></div>
@@ -1331,8 +1401,8 @@ footer {
   <hr class="ds-divider">
   <div class="ds-section">
     <div class="ds-section-label">Typography</div>
-    <div class="type-display">Playfair Display</div>
-    <div class="type-meta" style="margin-bottom:12px">Display serif · sentence case · wt 400–500 headings · 700 stats only</div>
+    <div class="type-display">Newsreader</div>
+    <div class="type-meta" style="margin-bottom:12px">Display serif · sentence case · wt 400 headings · 600–700 stats only · distinct from Klinik Playfair</div>
     <div class="type-body">Inter — body, nav, labels, forms</div>
     <div class="type-meta" style="margin-bottom:12px">Humanist sans · weight 300–400 · never bold in body</div>
     <div style="margin-top:10px; padding:10px; background:#1E1208; border-radius:6px;">
@@ -1383,8 +1453,8 @@ footer {
     <div class="ds-section-label">Novel components (2)</div>
     <div class="novel-list">
       <div class="novel-item">
-        <div class="novel-item-name">Radial Services Diagram Overlay</div>
-        <div class="novel-item-spec">Hero poster with service arc rendered as bullet list at photo base — warm tan arc lines, accent gold dots, warm overlay gradient. Maps to: Whitening, Veneers, Implants, Clear Aligners, Cleanings, Crowns, Bonding, Emergency Care. Requires new SVG/canvas arc component in production.</div>
+        <div class="novel-item-name">Edge-to-edge Poster + Gold Treatment Band</div>
+        <div class="novel-item-spec">Edge-to-edge dark poster (no inset cream frame) with service arc at photo base, then a gold structural band of tan treatment chips — spa-clinical gold used as layout structure, not only eyebrow dots.</div>
       </div>
       <div class="novel-item">
         <div class="novel-item-name">Bento Social Proof Grid</div>
@@ -1398,15 +1468,15 @@ footer {
     <div class="ds-section-label">Fidelity checks (10)</div>
     <div class="check-list">
       <div class="check-item">Eyebrow labels appear above every major section heading — bullet dot in accent gold #C8A96E, uppercase tracked sans — never omitted or replaced with badge chip.</div>
-      <div class="check-item">Hero is a full-width poster in a large-radius rounded rectangle (lg 16px) — not full-bleed to browser edge. Dark warm-brown photo base with warm overlay gradient.</div>
+      <div class="check-item">Hero is edge-to-edge full-bleed poster (no inset rounded card on cream — that silhouette belongs to Klinik). Follow immediately with the gold/tan treatment chip band so gold reads as structure above the fold.</div>
       <div class="check-item">Primary CTA uses pill radius with deep warm-brown fill (#2C1A0E) and white text. No rectangular or md-radius buttons anywhere.</div>
       <div class="check-item">Page background is warm cream #F5EFE6 — not pure white, not cool gray. Cream ground is the page foundation.</div>
       <div class="check-item">Three-tier card surface system: cream ground → warm tan (#C8A87A / #E8D9C5) secondary → white (#FFFFFF) for reviews and forms.</div>
       <div class="check-item">All card containers use lg corner radius (16px) — no sharp or sm-radius cards in the content grid.</div>
       <div class="check-item">Doctor portrait section includes role label overlay pill (Founder &amp; Lead Dentist) at the bottom of the photo.</div>
-      <div class="check-item">Stat numerals (52+ reviews, 5★) rendered in large bold Playfair Display serif — not Inter/sans.</div>
+      <div class="check-item">Stat numerals (52+ reviews, 5★) rendered in large bold Newsreader serif — not Inter/sans.</div>
       <div class="check-item">Headings carry no italic mixing or color-shift emphasis — scale contrast and eyebrow labels are the sole hierarchy devices.</div>
-      <div class="check-item">Photography direction (warm placeholder gradients): warm golden-hour tones, skin-tone-adjacent. No cool-toned or blue-cast clinical images.</div>
+      <div class="check-item">Photography direction: warm spa-clinical photographs with golden-hour grading (not cool blue clinical). Hero uses real photographic imagery with a warm wash overlay — not a flat brown gradient stand-in.</div>
     </div>
   </div>
 
@@ -1436,5 +1506,34 @@ if (window.innerWidth > 768) {
   document.getElementById('panel-btn').classList.remove('active');
 }
 </script>
+
+<script>
+/* Catalog embed mode: hide chrome so thumbnails/preview show the design */
+(function () {
+  const params = new URLSearchParams(location.search);
+  if (params.get('embed') !== '1' && params.get('catalog') !== '1') return;
+  document.documentElement.classList.add('catalog-embed');
+  const apply = () => {
+    document.body.classList.add('panel-closed', 'catalog-embed');
+    document.body.classList.remove('panel-open');
+    document.querySelector('.meta-bar')?.remove();
+    document.querySelector('.ds-panel')?.remove();
+    const wrap = document.getElementById('content-wrap');
+    if (wrap) {
+      wrap.style.paddingRight = '0';
+      wrap.style.marginRight = '0';
+      wrap.style.maxWidth = '1120px';
+    }
+    const pageCard = document.querySelector('.page-card');
+    if (pageCard) pageCard.style.marginRight = '0';
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
 </body>
 </html>
