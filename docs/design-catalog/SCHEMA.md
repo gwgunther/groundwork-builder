@@ -79,7 +79,16 @@ Top-level blocks: `source`, `selection`, `tokens`, `layout`, `fidelity`, `audit`
 ## 2. `selection` — how the builder matches an entry to a practice
 
 `archetype` (nearest existing label, back-compat) · `moods[]` (dentalMood enum, the primary match
-signal) · `adjectives[]` · `bestFor` · `verticalBias[]`.
+signal) · `adjectives[]` · `bestFor` · `verticalBias[]` · `appetite` (optional soft content-fit
+matrix — ints 1–3 for `photography`, `statistics`, `socialProof`, `team`, `copy`).
+
+**Appetite** answers “what does this layout want to be fed?” It does **not** hard-fail a build.
+`--reference auto` profiles the scrape into the same 1–3 matrix (`contentAppetiteFromScrape`) and
+soft-scores catalog `selection.appetite`. Scoring is asymmetric (over-appetite costs more than
+under-appetite), weights template ★★★ dims 2×, and filters signature starvation (template ★★★ vs
+scrape ★) when a fed alternative exists. New catalog runs must tag `selection.appetite` to enter
+the auto pool. The builder still degrades (omit/collapse slots) when the scrape is thin. Never
+invent stats or fake photos to satisfy a ★★★ appetite.
 
 ## 3. `tokens` — Layer 1, drops onto `brand-tokens.js`
 

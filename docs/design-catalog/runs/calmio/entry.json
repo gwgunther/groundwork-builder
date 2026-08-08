@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.2",
   "id": "calmio",
-  "name": "Calmio — Near-Black Minimal Calm",
+  "name": "Calmio \u2014 Near-Black Minimal Calm",
   "tag": "reference",
   "source": {
     "ingestedVia": "claude-design",
@@ -21,23 +21,30 @@
       "earthy",
       "approachable"
     ],
-    "bestFor": "General-care or low-anxiety-focused dental practices that want to position around comfort, calm, and a boutique neighborhood feel — particularly practices serving anxious patients, families, or adult orthodontics/cosmetic patients who respond to a spa-adjacent, low-pressure environment.",
+    "bestFor": "General-care or low-anxiety-focused dental practices that want to position around comfort, calm, and a boutique neighborhood feel \u2014 particularly practices serving anxious patients, families, or adult orthodontics/cosmetic patients who respond to a spa-adjacent, low-pressure environment.",
     "verticalBias": [
       "general-dentistry",
       "low-anxiety-dentistry",
       "clear-aligners",
       "cosmetic-dentistry"
-    ]
+    ],
+    "appetite": {
+      "photography": 3,
+      "statistics": 1,
+      "socialProof": 2,
+      "team": 2,
+      "copy": 1
+    }
   },
   "tokens": {
     "color": {
       "strategy": {
         "theme": "light",
-        "background": "near-white warm cream canvas (#F7F3EE) — a single soft parchment tone as the page ground. White card panels lift off the canvas with a hairline shadow so faint it reads as zero-elevation flat. No multi-tier warm surface nesting; a single cream-to-white contrast is sufficient.",
+        "background": "near-white warm cream canvas (#F7F3EE) \u2014 a single soft parchment tone as the page ground. White card panels lift off the canvas with a hairline shadow so faint it reads as zero-elevation flat. No multi-tier warm surface nesting; a single cream-to-white contrast is sufficient.",
         "contrast": "low-medium",
         "saturation": "desaturated-neutral",
         "accentUsage": "functional-only",
-        "surfaceStrategy": "One canvas tone (warm parchment cream) underlies everything. White cards sit on top with almost imperceptible drop shadows. The primary CTA and all interactive filled elements use a single near-black espresso tone (#1C1614) — no colored accent whatsoever. Eyebrow chips and icon badges use a warm fill drawn from the canvas tone, slightly deepened. The hero section alone uses a warm sandy photo as the full-bleed surface; all other sections are cream or white. Depth is communicated by canvas-to-white contrast only, without shadows or colored accent fills."
+        "surfaceStrategy": "One canvas tone (warm parchment cream) underlies everything. White cards sit on top with almost imperceptible drop shadows. The primary CTA and all interactive filled elements use a single near-black espresso tone (#1C1614) \u2014 no colored accent whatsoever. Eyebrow chips and icon badges use a warm fill drawn from the canvas tone, slightly deepened. The hero section alone uses a warm sandy photo as the full-bleed surface; all other sections are cream or white. Depth is communicated by canvas-to-white contrast only, without shadows or colored accent fills."
       },
       "reference": {
         "canvas": "#F7F3EE",
@@ -60,14 +67,14 @@
     },
     "type": {
       "classification": "soft-geometric-sans",
-      "substitutionCriteria": "Display/heading face must be a geometric or humanist sans with generous letter-spacing and a slightly rounded feel — not a serif. Weight should be regular or medium (400–500) for display headings, never heavy bold, which would break the calm register. Body face can be the same family at lighter weight, or a complementary low-contrast humanist sans. Both faces must render cleanly in near-black (#1C1614) on cream grounds.",
-      "pairing": "Single geometric/humanist sans family across all text roles — display headings, body, nav, and UI text — differentiated by size and weight only, not by face switching. No serif or script faces present.",
+      "substitutionCriteria": "Display/heading face must be a geometric or humanist sans with generous letter-spacing and a slightly rounded feel \u2014 not a serif. Weight should be regular or medium (400\u2013500) for display headings, never heavy bold, which would break the calm register. Body face can be the same family at lighter weight, or a complementary low-contrast humanist sans. Both faces must render cleanly in near-black (#1C1614) on cream grounds.",
+      "pairing": "Single geometric/humanist sans family across all text roles \u2014 display headings, body, nav, and UI text \u2014 differentiated by size and weight only, not by face switching. No serif or script faces present.",
       "heading": {
         "weight": "regular/medium",
         "casing": "sentence case",
         "eyebrow": "moderate",
-        "eyebrowTreatment": "Small pill-fill chip with a warm cream/parchment background and no visible border, in sentence case, placed directly above section H1s. Used on benefits, instructors, and class-detail pages. The chip may also carry brief metadata (e.g. 'Sat · 10 AM') rather than just a category label.",
-        "emphasisDevice": "scale contrast only — large heading at 40–56px versus small body at 14–15px. No color shift on hover states visible; no italic mixing. Headlines carry meaning purely through scale and weight against the quiet background."
+        "eyebrowTreatment": "Small pill-fill chip with a warm cream/parchment background and no visible border, in sentence case, placed directly above section H1s. Used on benefits, instructors, and class-detail pages. The chip may also carry brief metadata (e.g. 'Sat \u00b7 10 AM') rather than just a category label.",
+        "emphasisDevice": "scale contrast only \u2014 large heading at 40\u201356px versus small body at 14\u201315px. No color shift on hover states visible; no italic mixing. Headlines carry meaning purely through scale and weight against the quiet background."
       },
       "body": {
         "weight": "regular",
@@ -78,18 +85,18 @@
       "headingScale": "lg",
       "contrast": "low",
       "reference": {
-        "displayFace": "Geometric or humanist sans — e.g. DM Sans, Plus Jakarta Sans, Outfit, or similar round-edged sans",
+        "displayFace": "Geometric or humanist sans \u2014 e.g. DM Sans, Plus Jakarta Sans, Outfit, or similar round-edged sans",
         "bodyFace": "Same family as display, at regular weight, or a companion humanist sans",
-        "signatureAccent": "None — no script or serif accent face present in this template"
+        "signatureAccent": "None \u2014 no script or serif accent face present in this template"
       }
     },
     "shape": {
       "cornerRadius": "large-rounded",
-      "notes": "Cards and image containers use a generous lg radius (~16px). Buttons use an xl–pill radius (fully rounded). Eyebrow chips use full pill radius. Icon badge circles are fully circular. The hero wrapper uses an xl card radius (~20px). No sharp-cornered elements visible anywhere."
+      "notes": "Cards and image containers use a generous lg radius (~16px). Buttons use an xl\u2013pill radius (fully rounded). Eyebrow chips use full pill radius. Icon badge circles are fully circular. The hero wrapper uses an xl card radius (~20px). No sharp-cornered elements visible anywhere."
     },
     "elevation": {
       "system": "near-flat",
-      "notes": "Cards use an extremely faint drop shadow (rgba 0,0,0,0.05 spread ~12px) — functionally flat but with a whisper of lift. Nav appears to sit on the cream canvas without a visible separator on light pages. No layered elevation scale — all cards read at a single near-zero level."
+      "notes": "Cards use an extremely faint drop shadow (rgba 0,0,0,0.05 spread ~12px) \u2014 functionally flat but with a whisper of lift. Nav appears to sit on the cream canvas without a visible separator on light pages. No layered elevation scale \u2014 all cards read at a single near-zero level."
     },
     "border": {
       "treatment": "none-visible",
@@ -97,11 +104,11 @@
     },
     "button": {
       "treatment": "filled",
-      "character": "Single filled button style: near-black espresso fill (#1C1614) with white text and full pill radius. Used as both the primary nav CTA ('Book a Class') and the in-page primary CTA ('Join This Class', 'View instructors'). No secondary outlined or soft-fill button style is visible in screenshots — only one button type used throughout. Generous horizontal padding. No icon usage on buttons."
+      "character": "Single filled button style: near-black espresso fill (#1C1614) with white text and full pill radius. Used as both the primary nav CTA ('Book a Class') and the in-page primary CTA ('Join This Class', 'View instructors'). No secondary outlined or soft-fill button style is visible in screenshots \u2014 only one button type used throughout. Generous horizontal padding. No icon usage on buttons."
     },
     "label": {
       "style": "soft-fill-pill",
-      "character": "Small pill-fill chip using a warm parchment/cream background (slightly deeper than canvas, no visible border) with dark near-black text in sentence case. Used as section eyebrow labels ('Benefits', 'Instructors') and as metadata tags with a dot separator ('Sat · 10 AM'). The metadata-chip variant is a novel use — it functions as an event or appointment label above a class/service heading."
+      "character": "Small pill-fill chip using a warm parchment/cream background (slightly deeper than canvas, no visible border) with dark near-black text in sentence case. Used as section eyebrow labels ('Benefits', 'Instructors') and as metadata tags with a dot separator ('Sat \u00b7 10 AM'). The metadata-chip variant is a novel use \u2014 it functions as an event or appointment label above a class/service heading."
     },
     "density": "airy",
     "motion": "subtle"
@@ -109,12 +116,12 @@
   "layout": {
     "sections": [
       "nav",
-      "hero — full-bleed warm-photo card with centered headline, sub, and single pill CTA",
-      "benefits — centered eyebrow + H2 above a 3-column bento grid with a central photo cell flanked by icon-badge feature cards",
-      "class-detail — centered eyebrow chip (metadata variant), large H1, sub, and single CTA above a wide warm photo",
-      "team — centered eyebrow + H2 + single CTA above a 3-column portrait card grid with name/role and social icon",
-      "faq — accordion stack on cream",
-      "cta — centered minimal call-to-action",
+      "hero \u2014 full-bleed warm-photo card with centered headline, sub, and single pill CTA",
+      "benefits \u2014 centered eyebrow + H2 above a 3-column bento grid with a central photo cell flanked by icon-badge feature cards",
+      "class-detail \u2014 centered eyebrow chip (metadata variant), large H1, sub, and single CTA above a wide warm photo",
+      "team \u2014 centered eyebrow + H2 + single CTA above a 3-column portrait card grid with name/role and social icon",
+      "faq \u2014 accordion stack on cream",
+      "cta \u2014 centered minimal call-to-action",
       "footer"
     ],
     "variants": {
@@ -129,26 +136,26 @@
       "galleryVariant": "wide-single-image"
     },
     "composition": {
-      "hero": "A large rounded card (xl radius, ~20px) containing a full-bleed warm sandy photo. The nav is rendered on top of this card's surface at the photo's top edge. Centered in the lower-left quadrant of the photo: a large white sans-serif headline (2–3 lines, sentence case, regular/medium weight) with a short white sub-line below, then a single white-fill pill CTA button. The photo's subject — a warmly-lit person with natural expression — occupies the right half of the frame. The card floats on the outer page canvas with a soft drop shadow.",
-      "nav": "Sits at the top of the hero card (on the warm photo). Wordmark 'Calmio' with a small asterisk/snowflake glyph prefix at top-left. A centered set of 4 navigation links in light-weight sans, semi-transparent white against the photo. A white-fill pill CTA 'Book a Class' at far right with dark text. On inner pages (cream background), the nav reads with dark text on the cream canvas — effectively adapts to surface color. No separate nav background or border visible.",
-      "footer": "Inferred as minimal: cream or white background consistent with canvas, wordmark, sparse nav links, and copyright. No multi-column layout. Light tone throughout — no dark-background footer.",
+      "hero": "A large rounded card (xl radius, ~20px) containing a full-bleed warm sandy photo. The nav is rendered on top of this card's surface at the photo's top edge. Centered in the lower-left quadrant of the photo: a large white sans-serif headline (2\u20133 lines, sentence case, regular/medium weight) with a short white sub-line below, then a single white-fill pill CTA button. The photo's subject \u2014 a warmly-lit person with natural expression \u2014 occupies the right half of the frame. The card floats on the outer page canvas with a soft drop shadow.",
+      "nav": "Sits at the top of the hero card (on the warm photo). Wordmark 'Calmio' with a small asterisk/snowflake glyph prefix at top-left. A centered set of 4 navigation links in light-weight sans, semi-transparent white against the photo. A white-fill pill CTA 'Book a Class' at far right with dark text. On inner pages (cream background), the nav reads with dark text on the cream canvas \u2014 effectively adapts to surface color. No separate nav background or border visible.",
+      "footer": "Inferred as minimal: cream or white background consistent with canvas, wordmark, sparse nav links, and copyright. No multi-column layout. Light tone throughout \u2014 no dark-background footer.",
       "services": "Not a traditional services list. Benefits/features presented as a bento-style 3-column grid at equal height. The center cell is a tall warm-graded portrait photo (xl radius). The four flanking cells (2 left, 2 right) are white cards with: a small circular icon badge (warm-fill circle + line icon), a feature heading in medium sans, and a 2-line description in light sans. No prices, no metadata chips, no row-list format.",
-      "serviceDetail": "Class or service detail page: top section has a centered eyebrow chip with metadata ('Sat · 10 AM'), a large near-black sans H1, a 2-line sub in medium grey, and a single dark pill CTA centered below. Below the text block: a wide single-image panel (xl radius, warm-graded portrait photo showing the class subject) fills most of the page width.",
-      "about": "Team/instructors section: centered layout with an eyebrow chip ('Instructors'), large sans H2 ('Meet our yoga instructors'), a 1-line sub, and a single dark pill CTA ('View instructors') stacked center. Below: 3-column grid of portrait cards — each card has a tall warm-toned photo (xl radius top, white bg below), the person's name in medium sans, their specialty/role in light grey sans, and a small circular Instagram icon badge aligned right. Cards have white backgrounds with the near-flat shadow.",
-      "doctorIntro": "Not present as a distinct component in this template — the team grid serves this purpose. No doctor pull-quote card or signature motif visible.",
-      "faq": "Inferred accordion stack on cream canvas. Consistent with the template's single-sans, minimal aesthetic — question text in medium sans, '+' expand icon, answers in regular sans. No category grouping."
+      "serviceDetail": "Class or service detail page: top section has a centered eyebrow chip with metadata ('Sat \u00b7 10 AM'), a large near-black sans H1, a 2-line sub in medium grey, and a single dark pill CTA centered below. Below the text block: a wide single-image panel (xl radius, warm-graded portrait photo showing the class subject) fills most of the page width.",
+      "about": "Team/instructors section: centered layout with an eyebrow chip ('Instructors'), large sans H2 ('Meet our yoga instructors'), a 1-line sub, and a single dark pill CTA ('View instructors') stacked center. Below: 3-column grid of portrait cards \u2014 each card has a tall warm-toned photo (xl radius top, white bg below), the person's name in medium sans, their specialty/role in light grey sans, and a small circular Instagram icon badge aligned right. Cards have white backgrounds with the near-flat shadow.",
+      "doctorIntro": "Not present as a distinct component in this template \u2014 the team grid serves this purpose. No doctor pull-quote card or signature motif visible.",
+      "faq": "Inferred accordion stack on cream canvas. Consistent with the template's single-sans, minimal aesthetic \u2014 question text in medium sans, '+' expand icon, answers in regular sans. No category grouping."
     },
     "novel": [
       {
         "section": "hero",
         "name": "Full-Bleed Photo Hero Card with Nav Overlay",
-        "spec": "A single large-radius card (~20px) containing a full-bleed warm-toned portrait photo. The nav renders directly on top of the photo at the card's top edge — no separate nav bar. Logo + links in white/semi-transparent against the photo, white pill CTA at right. Hero text (white H1 + sub + white pill CTA) floats in the lower-left quadrant of the image, not centered. The card sits on the canvas with a soft drop shadow. On scroll, inner pages show the nav in dark-on-cream mode without a card wrapper.",
+        "spec": "A single large-radius card (~20px) containing a full-bleed warm-toned portrait photo. The nav renders directly on top of the photo at the card's top edge \u2014 no separate nav bar. Logo + links in white/semi-transparent against the photo, white pill CTA at right. Hero text (white H1 + sub + white pill CTA) floats in the lower-left quadrant of the image, not centered. The card sits on the canvas with a soft drop shadow. On scroll, inner pages show the nav in dark-on-cream mode without a card wrapper.",
         "requiresNewComponent": true
       },
       {
         "section": "benefits",
         "name": "Bento Feature Grid with Central Photo Cell",
-        "spec": "A 3-column bento grid where the center column is occupied by a single tall portrait photo (xl radius, warm grading, full cell height). The left and right columns each contain two stacked white feature cards. Each feature card has: (1) a small circular icon badge in the top-left (warm-fill circle, ~32px diameter, containing a stroke line-icon), (2) a feature heading in medium sans below the icon, (3) a 2-line description in light sans. All five cells (1 photo + 4 cards) share equal column width and the same xl corner radius. No prices, chips, or metadata — purely benefit/feature communication. This replaces a traditional alternating-rows or icon-list services layout.",
+        "spec": "A 3-column bento grid where the center column is occupied by a single tall portrait photo (xl radius, warm grading, full cell height). The left and right columns each contain two stacked white feature cards. Each feature card has: (1) a small circular icon badge in the top-left (warm-fill circle, ~32px diameter, containing a stroke line-icon), (2) a feature heading in medium sans below the icon, (3) a 2-line description in light sans. All five cells (1 photo + 4 cards) share equal column width and the same xl corner radius. No prices, chips, or metadata \u2014 purely benefit/feature communication. This replaces a traditional alternating-rows or icon-list services layout.",
         "requiresNewComponent": true
       },
       {
@@ -160,28 +167,28 @@
       {
         "section": "class-detail",
         "name": "Metadata Eyebrow Chip with Schedule Info",
-        "spec": "A pill-fill chip used not as a category label but as an event metadata tag: format is 'Day · Time' (e.g. 'Sat · 10 AM'), placed above the service/class H1 in the same eyebrow position. This chip variant communicates appointment or schedule context rather than taxonomy. When adapted to dental, it becomes a scheduling signal: 'New patients welcome' or 'Next available: Mon' — a trust-building micro-signal above the service headline. The chip uses the same warm-fill pill style as category chips but carries structured metadata content.",
+        "spec": "A pill-fill chip used not as a category label but as an event metadata tag: format is 'Day \u00b7 Time' (e.g. 'Sat \u00b7 10 AM'), placed above the service/class H1 in the same eyebrow position. This chip variant communicates appointment or schedule context rather than taxonomy. When adapted to dental, it becomes a scheduling signal: 'New patients welcome' or 'Next available: Mon' \u2014 a trust-building micro-signal above the service headline. The chip uses the same warm-fill pill style as category chips but carries structured metadata content.",
         "requiresNewComponent": false
       }
     ]
   },
   "imagery": {
     "crop": "Medium-close crops showing the subject's face and upper body with environmental warmth retained. Images displayed in xl-radius containers, predominantly portrait orientation. The hero uses a wide portrait crop (landscape container). Team cards use portrait crops within tall card frames.",
-    "grading": "Warm, slightly desaturated, lifted blacks with a sandy/golden cast. All images carry a consistent cream-to-tan warmth — skin tones are golden and natural, backgrounds shift toward warm beige or taupe. No cool tones anywhere. The overall effect reads as 'bathed in soft natural light' rather than clinical or studio-lit.",
-    "framing": "Subjects are typically centered or slightly offset with soft, diffused backgrounds — warm walls, natural light from the side. Eyes are often partially closed or cast in a serene, neutral expression. The mood communicates calm, safety, and ease rather than energy or movement. Environmental context is minimal — clean, uncluttered surroundings.",
-    "subjectTreatment": "All subjects are individuals photographed alone against soft warm neutrals. Expression is serene, inward, and at rest — not smiling performatively. Hair and styling are natural and unpolished. For dental translation: patients and doctors should be photographed in the same calm, serene register — not 'big smile' stock imagery. Close-crops of the doctor in a calm, listening pose rather than action shots.",
+    "grading": "Warm, slightly desaturated, lifted blacks with a sandy/golden cast. All images carry a consistent cream-to-tan warmth \u2014 skin tones are golden and natural, backgrounds shift toward warm beige or taupe. No cool tones anywhere. The overall effect reads as 'bathed in soft natural light' rather than clinical or studio-lit.",
+    "framing": "Subjects are typically centered or slightly offset with soft, diffused backgrounds \u2014 warm walls, natural light from the side. Eyes are often partially closed or cast in a serene, neutral expression. The mood communicates calm, safety, and ease rather than energy or movement. Environmental context is minimal \u2014 clean, uncluttered surroundings.",
+    "subjectTreatment": "All subjects are individuals photographed alone against soft warm neutrals. Expression is serene, inward, and at rest \u2014 not smiling performatively. Hair and styling are natural and unpolished. For dental translation: patients and doctors should be photographed in the same calm, serene register \u2014 not 'big smile' stock imagery. Close-crops of the doctor in a calm, listening pose rather than action shots.",
     "imageTextRatio": "image-heavy"
   },
   "voice": {
     "formality": "conversational",
-    "rhythm": "Very short headlines (3–6 words). Sub-lines are a single sentence, often 10–14 words maximum. Body paragraphs are 1–2 sentences. The cadence is intentionally sparse — whitespace does the emotional work, not words. There is no urgency, no qualifier stacking, no elaboration beyond the essential.",
+    "rhythm": "Very short headlines (3\u20136 words). Sub-lines are a single sentence, often 10\u201314 words maximum. Body paragraphs are 1\u20132 sentences. The cadence is intentionally sparse \u2014 whitespace does the emotional work, not words. There is no urgency, no qualifier stacking, no elaboration beyond the essential.",
     "favors": [
-      "brevity over elaboration — single-sentence descriptions that trust the reader to fill in the rest",
+      "brevity over elaboration \u2014 single-sentence descriptions that trust the reader to fill in the rest",
       "noun-forward headlines with light verbs ('Calm environment', 'Steady progress')",
       "second-person address when present ('your practice', 'your schedule')",
-      "clarity and directness — no hedging or over-qualification",
+      "clarity and directness \u2014 no hedging or over-qualification",
       "outcome language that names the feeling, not the process ('clarity', 'steady progress', 'calm')",
-      "minimal punctuation — no exclamation marks, no ellipses, no bold inline"
+      "minimal punctuation \u2014 no exclamation marks, no ellipses, no bold inline"
     ],
     "avoids": [
       "long-form explanatory copy anywhere above the fold",
@@ -199,11 +206,11 @@
     "gaps": [
       {
         "type": "variant",
-        "detail": "Full-bleed photo hero card with nav overlay has no standard variant — closest is split or poster hero but the nav-on-image approach and lower-left text placement are distinct. Requires novel component."
+        "detail": "Full-bleed photo hero card with nav overlay has no standard variant \u2014 closest is split or poster hero but the nav-on-image approach and lower-left text placement are distinct. Requires novel component."
       },
       {
         "type": "variant",
-        "detail": "Bento feature grid with central photo cell has no matching variant — alternating-rows or icon-grid are the closest but the 3-column bento with a photo center cell is structurally different. Requires novel component."
+        "detail": "Bento feature grid with central photo cell has no matching variant \u2014 alternating-rows or icon-grid are the closest but the 3-column bento with a photo center cell is structurally different. Requires novel component."
       },
       {
         "type": "variant",
@@ -211,11 +218,11 @@
       },
       {
         "type": "token",
-        "detail": "The template uses zero colored accent — all interactive elements are near-black (#1C1614). Builders defaulting to a colored primary CTA will break the minimal-calm character entirely. The token system must enforce no accent color."
+        "detail": "The template uses zero colored accent \u2014 all interactive elements are near-black (#1C1614). Builders defaulting to a colored primary CTA will break the minimal-calm character entirely. The token system must enforce no accent color."
       },
       {
         "type": "token",
-        "detail": "Testimonials/reviews section not visible in screenshots — this section may not exist in the template or may be handled by a pricing/schedule section not captured. The reviews layout variant is listed as none-visible."
+        "detail": "Testimonials/reviews section not visible in screenshots \u2014 this section may not exist in the template or may be handled by a pricing/schedule section not captured. The reviews layout variant is listed as none-visible."
       }
     ]
   },
@@ -226,18 +233,18 @@
       "photo-card"
     ],
     "fidelityChecks": [
-      "Hero must be a single large-radius card with a full-bleed warm photo — do not use a split-image or text-only hero. The nav overlays the photo at the card's top edge.",
-      "All buttons — nav CTA and in-page — use a single near-black espresso fill (#1C1614) with white text and full pill radius. There is no secondary button style or outlined variant in this template.",
-      "Do not introduce any colored accent (terracotta, blue, green, etc.) — the only CTA fill color is near-black. Any color shift on hover should be opacity-only, not a hue change.",
-      "Eyebrow chips use a warm soft-fill pill (no visible border) — not an outlined chip. Background is approximately #EDE9E2, text is near-black.",
-      "Eyebrow chips may carry metadata content (e.g. 'Mon · 9 AM', 'New patients welcome') not just category labels — this is the template's schedule-signal chip variant.",
-      "Feature/benefits section must use the bento grid pattern with a central photo cell — do not default to a flat icon list or alternating-row layout.",
-      "Icon badges on feature cards are small filled circles (warm cream fill, ~32px) with stroke line-icons — not square icon blocks or colored icon fills.",
+      "Hero must be a single large-radius card with a full-bleed warm photo \u2014 do not use a split-image or text-only hero. The nav overlays the photo at the card's top edge.",
+      "All buttons \u2014 nav CTA and in-page \u2014 use a single near-black espresso fill (#1C1614) with white text and full pill radius. There is no secondary button style or outlined variant in this template.",
+      "Do not introduce any colored accent (terracotta, blue, green, etc.) \u2014 the only CTA fill color is near-black. Any color shift on hover should be opacity-only, not a hue change.",
+      "Eyebrow chips use a warm soft-fill pill (no visible border) \u2014 not an outlined chip. Background is approximately #EDE9E2, text is near-black.",
+      "Eyebrow chips may carry metadata content (e.g. 'Mon \u00b7 9 AM', 'New patients welcome') not just category labels \u2014 this is the template's schedule-signal chip variant.",
+      "Feature/benefits section must use the bento grid pattern with a central photo cell \u2014 do not default to a flat icon list or alternating-row layout.",
+      "Icon badges on feature cards are small filled circles (warm cream fill, ~32px) with stroke line-icons \u2014 not square icon blocks or colored icon fills.",
       "Team/doctor cards use a tall portrait photo (full-bleed within card top, xl radius) with name, role, and a circular social/contact badge on the card footer row.",
-      "Photography must carry a warm sandy/golden grading — serene, slightly desaturated, natural light. Subjects have calm neutral expressions, not broad performance smiles.",
-      "Typography uses a single sans family across all roles — no serif or script face. Heading weight is regular or medium (400–500), never bold. Hierarchy is achieved through size contrast only.",
-      "Page canvas is warm parchment cream (#F7F3EE), not pure white. Cards lift off the canvas in white with a near-invisible shadow — do not increase shadow elevation.",
-      "Body copy is extremely spare — 1–2 sentences per block maximum. Headline copy is 3–6 words. The whitespace communicates the calm, not the words."
+      "Photography must carry a warm sandy/golden grading \u2014 serene, slightly desaturated, natural light. Subjects have calm neutral expressions, not broad performance smiles.",
+      "Typography uses a single sans family across all roles \u2014 no serif or script face. Heading weight is regular or medium (400\u2013500), never bold. Hierarchy is achieved through size contrast only.",
+      "Page canvas is warm parchment cream (#F7F3EE), not pure white. Cards lift off the canvas in white with a near-invisible shadow \u2014 do not increase shadow elevation.",
+      "Body copy is extremely spare \u2014 1\u20132 sentences per block maximum. Headline copy is 3\u20136 words. The whitespace communicates the calm, not the words."
     ]
   }
 }

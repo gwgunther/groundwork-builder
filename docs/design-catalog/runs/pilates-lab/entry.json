@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.2",
   "id": "pilates-lab",
-  "name": "Pilates Lab — Sage Minimal Editorial",
+  "name": "Pilates Lab \u2014 Sage Minimal Editorial",
   "tag": "reference",
   "source": {
     "ingestedVia": "claude-design",
@@ -21,23 +21,30 @@
       "unpretentious",
       "considered"
     ],
-    "bestFor": "General dentistry or boutique dental practices that want to signal approachability and warmth without the clinical sterility of a blue-and-white palette — particularly suited to neighborhood family practices, preventive-focused offices, or practices repositioning around a softer, more personal care story. The sage-on-cream palette translates naturally to dental by evoking cleanliness through organic color rather than cold white.",
+    "bestFor": "General dentistry or boutique dental practices that want to signal approachability and warmth without the clinical sterility of a blue-and-white palette \u2014 particularly suited to neighborhood family practices, preventive-focused offices, or practices repositioning around a softer, more personal care story. The sage-on-cream palette translates naturally to dental by evoking cleanliness through organic color rather than cold white.",
     "verticalBias": [
       "general-family-dentistry",
       "preventive-care",
       "cosmetic-dentistry",
       "orthodontics"
-    ]
+    ],
+    "appetite": {
+      "photography": 2,
+      "statistics": 1,
+      "socialProof": 1,
+      "team": 2,
+      "copy": 2
+    }
   },
   "tokens": {
     "color": {
       "strategy": {
         "theme": "light",
-        "background": "Muted sage/celadon green outer canvas hosting a warm cream/off-white content container — a distinctly two-tier surface system where the natural sage canvas reads as organic and grounded, while the inner off-white card reads clean and approachable. This is not a warm ivory system like klinik — the outer surface is visibly chromatic (green-tinted), making it the design's single most distinctive signature.",
+        "background": "Muted sage/celadon green outer canvas hosting a warm cream/off-white content container \u2014 a distinctly two-tier surface system where the natural sage canvas reads as organic and grounded, while the inner off-white card reads clean and approachable. This is not a warm ivory system like klinik \u2014 the outer surface is visibly chromatic (green-tinted), making it the design's single most distinctive signature.",
         "contrast": "medium-low",
         "saturation": "muted",
-        "accentUsage": "none — the design avoids accent colors entirely; all interactive and emphasis weight is carried by near-black charcoal on light grounds",
-        "surfaceStrategy": "Three-tier surface system: sage green outer canvas (#D9DFD3) → warm cream card container (#F7F5F0) → pure white card panels (#FFFFFF). Near-black charcoal (#1C1C1A) is used for all primary text, buttons, and bold UI without any hue shift — the color story is entirely in the grounds, not the text or accents. Icon surfaces use a pale sage (#EEF0EB) — one tone lighter than canvas — to echo the outer palette. No shadows; depth is achieved exclusively through surface-color layering."
+        "accentUsage": "none \u2014 the design avoids accent colors entirely; all interactive and emphasis weight is carried by near-black charcoal on light grounds",
+        "surfaceStrategy": "Three-tier surface system: sage green outer canvas (#D9DFD3) \u2192 warm cream card container (#F7F5F0) \u2192 pure white card panels (#FFFFFF). Near-black charcoal (#1C1C1A) is used for all primary text, buttons, and bold UI without any hue shift \u2014 the color story is entirely in the grounds, not the text or accents. Icon surfaces use a pale sage (#EEF0EB) \u2014 one tone lighter than canvas \u2014 to echo the outer palette. No shadows; depth is achieved exclusively through surface-color layering."
       },
       "reference": {
         "canvas": "#D9DFD3",
@@ -55,14 +62,14 @@
     },
     "type": {
       "classification": "editorial-serif",
-      "substitutionCriteria": "Display face must be a high-contrast, slightly condensed editorial serif — key signature is a slight italic or diagonal energy in the letterforms, not an upright roman. The face used appears to be a high-contrast serif in the Didot/Bodoni family with tall ascenders and strong thick-thin contrast. Must support regular weight at large sizes (48px+). Body face must be a low-contrast geometric or transitional sans in a narrow/regular width — not wide. Both faces must render clearly in near-black (#1C1C1A) on warm cream backgrounds.",
+      "substitutionCriteria": "Display face must be a high-contrast, slightly condensed editorial serif \u2014 key signature is a slight italic or diagonal energy in the letterforms, not an upright roman. The face used appears to be a high-contrast serif in the Didot/Bodoni family with tall ascenders and strong thick-thin contrast. Must support regular weight at large sizes (48px+). Body face must be a low-contrast geometric or transitional sans in a narrow/regular width \u2014 not wide. Both faces must render clearly in near-black (#1C1C1A) on warm cream backgrounds.",
       "pairing": "High-contrast editorial serif for display headlines (H1) paired with a compact geometric sans for eyebrows, body, nav, labels, and UI text",
       "heading": {
         "weight": "regular",
         "casing": "sentence case",
         "eyebrow": "consistent",
-        "eyebrowTreatment": "Uppercase tracking label in small geometric sans — 9–10px, generous letter-spacing, warm gray (#888880) — placed directly above section H1s. Used consistently across all major sections (hero, about, classes/services, why-choose-us, gallery, location). This is an uppercase tracked overline, not a pill chip.",
-        "emphasisDevice": "Scale contrast only — very large serif H1 (clamp 42–68px) against small compact sans body creates a strong editorial hierarchy. No color shift, no weight shift, no italic mix in headlines. The large serif headline is the sole emphasis device."
+        "eyebrowTreatment": "Uppercase tracking label in small geometric sans \u2014 9\u201310px, generous letter-spacing, warm gray (#888880) \u2014 placed directly above section H1s. Used consistently across all major sections (hero, about, classes/services, why-choose-us, gallery, location). This is an uppercase tracked overline, not a pill chip.",
+        "emphasisDevice": "Scale contrast only \u2014 very large serif H1 (clamp 42\u201368px) against small compact sans body creates a strong editorial hierarchy. No color shift, no weight shift, no italic mix in headlines. The large serif headline is the sole emphasis device."
       },
       "body": {
         "weight": "regular",
@@ -73,18 +80,18 @@
       "headingScale": "xl",
       "contrast": "high",
       "reference": {
-        "displayFace": "High-contrast editorial serif — Canela, Freight Display, or similar Didot-adjacent face with strong thick-thin modulation",
-        "bodyFace": "Compact geometric sans — DM Sans, Neue Haas Grotesk Condensed, or similar low-contrast narrow sans",
-        "signatureAccent": "None — no script or cursive used; the typography is strictly serif/sans only"
+        "displayFace": "High-contrast editorial serif \u2014 Canela, Freight Display, or similar Didot-adjacent face with strong thick-thin modulation",
+        "bodyFace": "Compact geometric sans \u2014 DM Sans, Neue Haas Grotesk Condensed, or similar low-contrast narrow sans",
+        "signatureAccent": "None \u2014 no script or cursive used; the typography is strictly serif/sans only"
       }
     },
     "shape": {
       "cornerRadius": "lg",
-      "detail": "Card containers and image frames use a notably large corner radius (~16–20px) — larger than md, smaller than pill. This rounded card shape is a primary visual signature and applies to all image containers, service cards, and the main content container. Buttons use a large but not full-pill radius (~10–12px) — distinctly rounded rectangle rather than pill."
+      "detail": "Card containers and image frames use a notably large corner radius (~16\u201320px) \u2014 larger than md, smaller than pill. This rounded card shape is a primary visual signature and applies to all image containers, service cards, and the main content container. Buttons use a large but not full-pill radius (~10\u201312px) \u2014 distinctly rounded rectangle rather than pill."
     },
     "elevation": {
       "system": "flat",
-      "detail": "Absolutely flat — no drop shadows, no box shadows, no glow effects anywhere. Depth is achieved through the three-tier surface color system: sage canvas → cream container → white card. The only visual separation between layers is surface color contrast."
+      "detail": "Absolutely flat \u2014 no drop shadows, no box shadows, no glow effects anywhere. Depth is achieved through the three-tier surface color system: sage canvas \u2192 cream container \u2192 white card. The only visual separation between layers is surface color contrast."
     },
     "border": {
       "treatment": "none",
@@ -92,11 +99,11 @@
     },
     "button": {
       "treatment": "filled",
-      "character": "Near-black filled rounded-rectangle button (not fully pill) with white text as the primary CTA — generous horizontal padding, ~11–12px corner radius. No secondary filled button visible; the nav uses an outline/ghost button variant ('Contact Us') with a near-black border and near-black text on the cream nav background. Buttons are compact in height — not oversize. No icon usage on buttons."
+      "character": "Near-black filled rounded-rectangle button (not fully pill) with white text as the primary CTA \u2014 generous horizontal padding, ~11\u201312px corner radius. No secondary filled button visible; the nav uses an outline/ghost button variant ('Contact Us') with a near-black border and near-black text on the cream nav background. Buttons are compact in height \u2014 not oversize. No icon usage on buttons."
     },
     "label": {
       "style": "overline",
-      "character": "Uppercase tracked sans-serif overline label, 9–10px, generous letter-spacing (~0.1–0.15em), warm gray (#888880) color. Placed directly above section H1 headlines. Not a pill chip or badge — a plain tracked uppercase text label with no container, border, or background. Used consistently as section identifiers across all major content sections."
+      "character": "Uppercase tracked sans-serif overline label, 9\u201310px, generous letter-spacing (~0.1\u20130.15em), warm gray (#888880) color. Placed directly above section H1 headlines. Not a pill chip or badge \u2014 a plain tracked uppercase text label with no container, border, or background. Used consistently as section identifiers across all major content sections."
     },
     "density": "airy",
     "motion": "subtle"
@@ -104,13 +111,13 @@
   "layout": {
     "sections": [
       "nav",
-      "hero — centered headline on cream container with sage canvas visible, three rounded image cards below",
-      "founder-story — split layout: portrait photo left, pull-quote + bio + name/role right",
-      "services — classes/services list with image thumbnails and compact card-per-row layout",
-      "why-choose-us — overline + large serif H1 + icon-card grid (2-column)",
-      "gallery — asymmetric photo mosaic grid",
-      "location — centered overline + large serif H1 + address/map context",
-      "cta — centered booking call-to-action",
+      "hero \u2014 centered headline on cream container with sage canvas visible, three rounded image cards below",
+      "founder-story \u2014 split layout: portrait photo left, pull-quote + bio + name/role right",
+      "services \u2014 classes/services list with image thumbnails and compact card-per-row layout",
+      "why-choose-us \u2014 overline + large serif H1 + icon-card grid (2-column)",
+      "gallery \u2014 asymmetric photo mosaic grid",
+      "location \u2014 centered overline + large serif H1 + address/map context",
+      "cta \u2014 centered booking call-to-action",
       "footer"
     ],
     "variants": {
@@ -125,12 +132,12 @@
       "galleryVariant": "asymmetric-mosaic"
     },
     "composition": {
-      "hero": "Full cream container card sitting on the sage canvas — the sage background is visible as a wide border around the entire page. Hero section is centered: small uppercase tracked overline ('BASED IN LOS ANGELES') above a very large serif headline (2–3 lines, sentence case, ~54–68px). One-line compact sans descriptor beneath. Single primary near-black CTA button centered below. Below the text: three large-radius image cards arranged in a horizontal row, each showing a cropped lifestyle/movement photograph. The composition is clean, spacious, and editorial — the headline dominates, the images support without competing.",
-      "nav": "Cream/off-white nav bar. Wordmark logo with geometric icon motif at left. Horizontal nav links centered (About, Classes, Pricing, Location) in compact regular-weight sans. 'Contact Us' ghost/outline button at right with near-black border. No filled CTA in nav — the outline button reads as secondary. Always opaque; no scroll behavior. Padding is generous on both sides.",
-      "founderStory": "Two-column split layout inside the cream container. Left column: portrait photograph of the founder in a rounded-lg container occupying roughly 40% of the width. Right column: small uppercase overline ('FROM THE FOUNDER'), very large italic serif pull-quote spanning 2 lines, followed by 3–4 short paragraph body copy blocks in compact sans, then the founder's name in medium weight sans and their role in regular weight. No button in this section — it is a pure narrative block. The image sits flush with the top of the text column.",
-      "services": "Classes/services section uses compact card-per-row layout. Each service is a white (#FFFFFF) card panel with large corner radius, containing: a rounded-lg thumbnail image at left, service name in medium serif or bold sans, one-line description in regular compact sans, and a right-aligned description or detail. Cards are stacked vertically with consistent gap. Section opens with a small uppercase overline above no explicit H1 — the card list is the primary visual. Layout is clean and information-dense without being cluttered.",
-      "whyChooseUs": "Two-column icon-card grid section. Opens with uppercase overline ('WHY CHOOSE US') right-aligned, then a very large serif H1 ('What makes our studio special') that spans across the full width in italic serif — the headline is the visual centerpiece. Below: four icon-card cells in a 2-column grid. Each card: small icon in a pale sage rounded square, bold sans service label, 2-line description in regular sans. Cards have white surface, large corner radius, generous internal padding. Flat, no shadows.",
-      "gallery": "Asymmetric photo mosaic — approximately 4 photographs arranged in an irregular grid with varying aspect ratios and sizes. Two taller portrait-orientation images flank two landscape-orientation images. All images have large corner radius consistent with the template's shape token. The mosaic is introduced by an uppercase overline ('OUR SPACE') and a large serif headline. No captions. This is a purely visual section.",
+      "hero": "Full cream container card sitting on the sage canvas \u2014 the sage background is visible as a wide border around the entire page. Hero section is centered: small uppercase tracked overline ('BASED IN LOS ANGELES') above a very large serif headline (2\u20133 lines, sentence case, ~54\u201368px). One-line compact sans descriptor beneath. Single primary near-black CTA button centered below. Below the text: three large-radius image cards arranged in a horizontal row, each showing a cropped lifestyle/movement photograph. The composition is clean, spacious, and editorial \u2014 the headline dominates, the images support without competing.",
+      "nav": "Cream/off-white nav bar. Wordmark logo with geometric icon motif at left. Horizontal nav links centered (About, Classes, Pricing, Location) in compact regular-weight sans. 'Contact Us' ghost/outline button at right with near-black border. No filled CTA in nav \u2014 the outline button reads as secondary. Always opaque; no scroll behavior. Padding is generous on both sides.",
+      "founderStory": "Two-column split layout inside the cream container. Left column: portrait photograph of the founder in a rounded-lg container occupying roughly 40% of the width. Right column: small uppercase overline ('FROM THE FOUNDER'), very large italic serif pull-quote spanning 2 lines, followed by 3\u20134 short paragraph body copy blocks in compact sans, then the founder's name in medium weight sans and their role in regular weight. No button in this section \u2014 it is a pure narrative block. The image sits flush with the top of the text column.",
+      "services": "Classes/services section uses compact card-per-row layout. Each service is a white (#FFFFFF) card panel with large corner radius, containing: a rounded-lg thumbnail image at left, service name in medium serif or bold sans, one-line description in regular compact sans, and a right-aligned description or detail. Cards are stacked vertically with consistent gap. Section opens with a small uppercase overline above no explicit H1 \u2014 the card list is the primary visual. Layout is clean and information-dense without being cluttered.",
+      "whyChooseUs": "Two-column icon-card grid section. Opens with uppercase overline ('WHY CHOOSE US') right-aligned, then a very large serif H1 ('What makes our studio special') that spans across the full width in italic serif \u2014 the headline is the visual centerpiece. Below: four icon-card cells in a 2-column grid. Each card: small icon in a pale sage rounded square, bold sans service label, 2-line description in regular sans. Cards have white surface, large corner radius, generous internal padding. Flat, no shadows.",
+      "gallery": "Asymmetric photo mosaic \u2014 approximately 4 photographs arranged in an irregular grid with varying aspect ratios and sizes. Two taller portrait-orientation images flank two landscape-orientation images. All images have large corner radius consistent with the template's shape token. The mosaic is introduced by an uppercase overline ('OUR SPACE') and a large serif headline. No captions. This is a purely visual section.",
       "location": "Centered layout with uppercase overline ('LOCATION') and very large serif headline referencing the practice's neighborhood or city ('In the city center' or similar). Address and practical details in compact sans below. Possibly accompanied by a map or location illustration. Single CTA button centered below. Minimal, clean, no surrounding decoration.",
       "cta": "Centered booking block on cream or sage background. Large serif headline centered (2 lines). Short supporting sentence in compact sans. Single primary near-black button centered. No secondary CTA. Section relies entirely on whitespace and headline impact.",
       "footer": "Minimal light footer consistent with the cream container. Practice name/logo at left or centered, sparse nav links, copyright line. No multi-column heavy layout. Hairline top border separating from the section above."
@@ -139,37 +146,37 @@
       {
         "section": "hero",
         "name": "Sage Canvas + Cream Container Page Frame",
-        "spec": "The page outer background is a muted sage/celadon green (#D9DFD3) that persists as a visible border/canvas around the entire main content container. The content container itself is a warm cream (#F7F5F0) with large corner radius (~20–24px) that creates a 'card within a canvas' effect — as if the entire website is a single large rounded card sitting on a colored desk. The sage canvas color is applied to the html/body background, never to content areas. This creates immediate visual distinctiveness and a calming 'studio boutique' feeling on first load. For dental translation: the sage reads as organic cleanliness, like a well-designed wellness space.",
+        "spec": "The page outer background is a muted sage/celadon green (#D9DFD3) that persists as a visible border/canvas around the entire main content container. The content container itself is a warm cream (#F7F5F0) with large corner radius (~20\u201324px) that creates a 'card within a canvas' effect \u2014 as if the entire website is a single large rounded card sitting on a colored desk. The sage canvas color is applied to the html/body background, never to content areas. This creates immediate visual distinctiveness and a calming 'studio boutique' feeling on first load. For dental translation: the sage reads as organic cleanliness, like a well-designed wellness space.",
         "requiresNewComponent": true
       },
       {
         "section": "whyChooseUs",
         "name": "Asymmetric Overline + Giant Serif H1 + Icon Card Grid",
-        "spec": "A section layout where the uppercase overline is positioned at the top-right of the section (right-aligned), while the large italic serif H1 spans the full width below it — creating a deliberate asymmetry between a small right-anchored label and a very wide headline. Below the headline, four icon-card cells in a 2-column grid: each cell has a pale sage (#EEF0EB) rounded-square icon container (48x48px, ~10px radius) at top-left, a bold sans label heading, and 2-line regular sans description. Cards are white (#FFFFFF) with large radius, generous padding, and no border. For dental adaptation: icon themes become 'small groups' → 'same-day appointments', 'calm atmosphere' → 'comfortable care', 'certified staff' → 'board-certified doctor', 'personal approach' → 'personalized treatment plans'.",
+        "spec": "A section layout where the uppercase overline is positioned at the top-right of the section (right-aligned), while the large italic serif H1 spans the full width below it \u2014 creating a deliberate asymmetry between a small right-anchored label and a very wide headline. Below the headline, four icon-card cells in a 2-column grid: each cell has a pale sage (#EEF0EB) rounded-square icon container (48x48px, ~10px radius) at top-left, a bold sans label heading, and 2-line regular sans description. Cards are white (#FFFFFF) with large radius, generous padding, and no border. For dental adaptation: icon themes become 'small groups' \u2192 'same-day appointments', 'calm atmosphere' \u2192 'comfortable care', 'certified staff' \u2192 'board-certified doctor', 'personal approach' \u2192 'personalized treatment plans'.",
         "requiresNewComponent": true
       },
       {
         "section": "founderStory",
         "name": "Founder Split with Giant Pull-Quote",
-        "spec": "A two-column split section where the left column holds a portrait photograph (large corner radius, ~40% column width) and the right column holds: a small uppercase overline label, a very large italic serif pull-quote (2 lines, ~28–32px) that functions as a mission statement, followed by 3 short body paragraphs, then the founder's full name in medium weight sans and title in regular weight. No button. The pull-quote acts as a headline rather than a testimonial — it is the first thing the reader encounters in the right column. For dental translation: replace the fitness philosophy quote with the doctor's patient-care philosophy ('Every patient deserves to leave feeling genuinely cared for — not just treated.').",
+        "spec": "A two-column split section where the left column holds a portrait photograph (large corner radius, ~40% column width) and the right column holds: a small uppercase overline label, a very large italic serif pull-quote (2 lines, ~28\u201332px) that functions as a mission statement, followed by 3 short body paragraphs, then the founder's full name in medium weight sans and title in regular weight. No button. The pull-quote acts as a headline rather than a testimonial \u2014 it is the first thing the reader encounters in the right column. For dental translation: replace the fitness philosophy quote with the doctor's patient-care philosophy ('Every patient deserves to leave feeling genuinely cared for \u2014 not just treated.').",
         "requiresNewComponent": true
       }
     ]
   },
   "imagery": {
     "crop": "Medium crops that show the subject clearly within a generous amount of environmental context. Hero images show a detail of the body/movement with negative space. Service thumbnail images are closely cropped to the activity. Portrait images show face, neck, and upper body with room to breathe. All images in rounded-lg containers consistent with the shape system.",
-    "grading": "Cool-neutral to warm-neutral — not warm-tinted like klinik. The images have a slightly muted, slightly lifted quality that feels natural and organic rather than warmly processed. Skin tones are natural and unenhanced. Backgrounds tend toward neutral cream, white, or light gray. The overall effect is clean without being clinical — photography that could appear in a wellness or lifestyle magazine.",
-    "framing": "Subjects are typically centered or slightly left-of-center. Environmental detail is retained but kept minimal — plain studio backgrounds, soft window light, uncluttered space. The framing prioritizes calm and spaciousness over visual drama. Close crops show form and care; medium shots show context.",
-    "subjectTreatment": "Lifestyle and movement photography that emphasizes form, care, and calm rather than exertion. For dental translation: patients photographed at ease, smiling naturally, not in obviously clinical positions. Dental workspace shown with warm neutral materials — not a traditional clinical white. Dr. Hoang photographed in a natural, consultative pose rather than in scrubs-and-tools stock imagery.",
+    "grading": "Cool-neutral to warm-neutral \u2014 not warm-tinted like klinik. The images have a slightly muted, slightly lifted quality that feels natural and organic rather than warmly processed. Skin tones are natural and unenhanced. Backgrounds tend toward neutral cream, white, or light gray. The overall effect is clean without being clinical \u2014 photography that could appear in a wellness or lifestyle magazine.",
+    "framing": "Subjects are typically centered or slightly left-of-center. Environmental detail is retained but kept minimal \u2014 plain studio backgrounds, soft window light, uncluttered space. The framing prioritizes calm and spaciousness over visual drama. Close crops show form and care; medium shots show context.",
+    "subjectTreatment": "Lifestyle and movement photography that emphasizes form, care, and calm rather than exertion. For dental translation: patients photographed at ease, smiling naturally, not in obviously clinical positions. Dental workspace shown with warm neutral materials \u2014 not a traditional clinical white. Dr. Hoang photographed in a natural, consultative pose rather than in scrubs-and-tools stock imagery.",
     "imageTextRatio": "image-heavy"
   },
   "voice": {
     "formality": "approachable",
-    "rhythm": "Short declarative sentences with a slightly introspective, personal quality. Headlines are incomplete thoughts that invite completion ('Movement should feel good — not just look good.'). Body copy uses first-person plural we-statements sparingly and prefers second-person you-language. Paragraphs are 2–4 sentences. A measured, unhurried pace — the copy never tries to close or convert; it trusts the design to do that work.",
+    "rhythm": "Short declarative sentences with a slightly introspective, personal quality. Headlines are incomplete thoughts that invite completion ('Movement should feel good \u2014 not just look good.'). Body copy uses first-person plural we-statements sparingly and prefers second-person you-language. Paragraphs are 2\u20134 sentences. A measured, unhurried pace \u2014 the copy never tries to close or convert; it trusts the design to do that work.",
     "favors": [
       "personal, candid first-person language in founder/doctor sections",
       "outcome-language that references how the patient will feel, not just what the treatment does",
-      "quiet confidence — statements that don't oversell ('just honest, mindful movement')",
+      "quiet confidence \u2014 statements that don't oversell ('just honest, mindful movement')",
       "second-person address in services and hero sections",
       "plain-spoken verbs and concrete nouns over abstract marketing language",
       "neighborhood and community references that ground the practice in a place"
@@ -190,23 +197,23 @@
     "gaps": [
       {
         "type": "variant",
-        "detail": "Sage canvas + cream container page frame has no matching variant — the builder's layout system does not support an outer canvas color distinct from the content container. This requires a full-page background-color treatment on the html/body element with the content container as a separate max-width rounded card. Novel component required."
+        "detail": "Sage canvas + cream container page frame has no matching variant \u2014 the builder's layout system does not support an outer canvas color distinct from the content container. This requires a full-page background-color treatment on the html/body element with the content container as a separate max-width rounded card. Novel component required."
       },
       {
         "type": "variant",
-        "detail": "Asymmetric right-anchored overline + full-width italic serif H1 has no matching heading variant — the builder's section headers assume either centered or left-aligned overline+H1 stacks. The deliberate right-anchor on the overline label requires custom positioning. Novel component required."
+        "detail": "Asymmetric right-anchored overline + full-width italic serif H1 has no matching heading variant \u2014 the builder's section headers assume either centered or left-aligned overline+H1 stacks. The deliberate right-anchor on the overline label requires custom positioning. Novel component required."
       },
       {
         "type": "variant",
-        "detail": "The services layout is a compact card-per-row with embedded thumbnail images rather than the flat hairline-divided list of klinik or a standard grid — no matching variant exists for this hybrid between a list and a card grid. Closest approximation is card-heavy but with row (not grid) orientation."
+        "detail": "The services layout is a compact card-per-row with embedded thumbnail images rather than the flat hairline-divided list of klinik or a standard grid \u2014 no matching variant exists for this hybrid between a list and a card grid. Closest approximation is card-heavy but with row (not grid) orientation."
       },
       {
         "type": "token",
-        "detail": "The button shape token is large-radius rounded-rectangle (~10–12px), not pill and not md. The builder's button token choices of 'pill' or 'md' do not precisely match. Using 'md' will be closest but will slightly under-round relative to the source."
+        "detail": "The button shape token is large-radius rounded-rectangle (~10\u201312px), not pill and not md. The builder's button token choices of 'pill' or 'md' do not precisely match. Using 'md' will be closest but will slightly under-round relative to the source."
       },
       {
         "type": "token",
-        "detail": "Footer not fully visible — inferred as minimal-light from the overall surface system. If footer screenshots were available, additional gaps may emerge."
+        "detail": "Footer not fully visible \u2014 inferred as minimal-light from the overall surface system. If footer screenshots were available, additional gaps may emerge."
       }
     ]
   },
@@ -217,18 +224,18 @@
       "flat-surface-depth"
     ],
     "fidelityChecks": [
-      "The outer page background (html/body) must be sage green (#D9DFD3) — never white, never off-white, never dark. The cream container (#F7F5F0) is the content wrapper, not the page background.",
-      "The main content container must have a large corner radius (~20–24px) that is visible against the sage canvas — this is the template's single most distinctive visual signature.",
+      "The outer page background (html/body) must be sage green (#D9DFD3) \u2014 never white, never off-white, never dark. The cream container (#F7F5F0) is the content wrapper, not the page background.",
+      "The main content container must have a large corner radius (~20\u201324px) that is visible against the sage canvas \u2014 this is the template's single most distinctive visual signature.",
       "Section labels (overlines) must be uppercase tracked sans-serif text labels, NOT pill chips or badge components. No border, no background, no padding container.",
-      "Primary CTA buttons must use a near-black fill (#1C1C1A) with white text and a large (not pill) corner radius (~10–12px). Do not use the pill radius system from klinik.",
-      "Typography emphasis is scale-based only — very large serif H1 versus small compact sans body. No color shift, no hover accent, no weight variation within a headline.",
-      "All image containers must use the large corner radius (~16–20px) consistently — this applies to hero filmstrip images, service thumbnails, founder portrait, gallery mosaic, and icon surfaces.",
-      "Depth must be achieved through the three-tier surface system (sage → cream → white) with absolutely no box shadows or drop shadows anywhere.",
-      "Icon cells in the why-choose-us (or equivalent) section must use a pale sage (#EEF0EB) rounded-square container — not a circle, not a white background, not the accent color.",
-      "The founder/doctor quote section must present the doctor's quote as a large pull-quote headline (not a testimonial card), followed by bio paragraphs and name/title — no cursive signature and no pill CTA in this block.",
-      "Photography grading must be cool-neutral to warm-neutral — not the warm ivory/linen grading of klinik. Images should feel clean, natural-light wellness photography rather than warmly processed.",
+      "Primary CTA buttons must use a near-black fill (#1C1C1A) with white text and a large (not pill) corner radius (~10\u201312px). Do not use the pill radius system from klinik.",
+      "Typography emphasis is scale-based only \u2014 very large serif H1 versus small compact sans body. No color shift, no hover accent, no weight variation within a headline.",
+      "All image containers must use the large corner radius (~16\u201320px) consistently \u2014 this applies to hero filmstrip images, service thumbnails, founder portrait, gallery mosaic, and icon surfaces.",
+      "Depth must be achieved through the three-tier surface system (sage \u2192 cream \u2192 white) with absolutely no box shadows or drop shadows anywhere.",
+      "Icon cells in the why-choose-us (or equivalent) section must use a pale sage (#EEF0EB) rounded-square container \u2014 not a circle, not a white background, not the accent color.",
+      "The founder/doctor quote section must present the doctor's quote as a large pull-quote headline (not a testimonial card), followed by bio paragraphs and name/title \u2014 no cursive signature and no pill CTA in this block.",
+      "Photography grading must be cool-neutral to warm-neutral \u2014 not the warm ivory/linen grading of klinik. Images should feel clean, natural-light wellness photography rather than warmly processed.",
       "Nav must remain opaque cream (#F7F5F0) at all scroll positions. No dark nav, no transparent overlay, no color change on scroll.",
-      "Body copy paragraphs are 2–4 sentences with generous line-height and airy vertical spacing between blocks. Never dense continuous prose."
+      "Body copy paragraphs are 2\u20134 sentences with generous line-height and airy vertical spacing between blocks. Never dense continuous prose."
     ]
   }
 }

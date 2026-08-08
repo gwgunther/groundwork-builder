@@ -40,7 +40,20 @@
         },
         "adjectives": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
         "bestFor": { "type": "string" },
-        "verticalBias": { "type": "array", "items": { "type": "string" } }
+        "verticalBias": { "type": "array", "items": { "type": "string" } },
+        "appetite": {
+          "type": "object",
+          "description": "How much of each content signal this template wants (1=light, 2=helpful, 3=signature). Soft match for --reference auto; builder still degrades when scrape is thin.",
+          "additionalProperties": false,
+          "required": ["photography", "statistics", "socialProof", "team", "copy"],
+          "properties": {
+            "photography": { "type": "integer", "minimum": 1, "maximum": 3 },
+            "statistics": { "type": "integer", "minimum": 1, "maximum": 3 },
+            "socialProof": { "type": "integer", "minimum": 1, "maximum": 3 },
+            "team": { "type": "integer", "minimum": 1, "maximum": 3 },
+            "copy": { "type": "integer", "minimum": 1, "maximum": 3 }
+          }
+        }
       }
     },
 

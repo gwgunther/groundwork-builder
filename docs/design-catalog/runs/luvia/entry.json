@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.2",
   "id": "luvia",
-  "name": "Luvia — Warm Data-Wellness Editorial",
+  "name": "Luvia \u2014 Warm Data-Wellness Editorial",
   "tag": "reference",
   "source": {
     "ingestedVia": "claude-design",
@@ -21,24 +21,31 @@
       "premium",
       "human"
     ],
-    "bestFor": "Premium dental practices that lead with measurable outcomes and clinical credibility — implant, cosmetic, and smile-design focused offices wanting a data-backed, trust-forward presence that feels warm rather than cold or clinical. Ideal for practices serving health-conscious patients who value visible proof of results.",
+    "bestFor": "Premium dental practices that lead with measurable outcomes and clinical credibility \u2014 implant, cosmetic, and smile-design focused offices wanting a data-backed, trust-forward presence that feels warm rather than cold or clinical. Ideal for practices serving health-conscious patients who value visible proof of results.",
     "verticalBias": [
       "dental-implants",
       "cosmetic-dentistry",
       "smile-design",
       "orthodontics",
       "periodontics"
-    ]
+    ],
+    "appetite": {
+      "photography": 2,
+      "statistics": 3,
+      "socialProof": 2,
+      "team": 2,
+      "copy": 2
+    }
   },
   "tokens": {
     "color": {
       "strategy": {
         "theme": "light",
-        "background": "warm linen-cream outer page canvas hosts a rounded large white card that contains nearly all page content — creating a soft 'frame within a frame' effect. The accent terra-cotta orange is used saturatedly for primary CTAs and the signature stat/feature card, setting a bold warm anchor against neutral surfaces.",
+        "background": "warm linen-cream outer page canvas hosts a rounded large white card that contains nearly all page content \u2014 creating a soft 'frame within a frame' effect. The accent terra-cotta orange is used saturatedly for primary CTAs and the signature stat/feature card, setting a bold warm anchor against neutral surfaces.",
         "contrast": "medium",
         "saturation": "accent-dominant",
         "accentUsage": "bold-anchor",
-        "surfaceStrategy": "Two-tier light system: warm linen canvas (#F5EEE3) behind a primary rounded white content panel (#FFFFFF). Within the panel, secondary stat/metric cards use a warm off-white (#F5F0EA) for separation without shadows. The terra-cotta accent (#C84A28) appears exclusively as: the primary CTA button fill, the primary feature/stat card background, icon containers, and star ratings. All depth is achieved through surface-color differentiation and mild rounding — no drop shadows."
+        "surfaceStrategy": "Two-tier light system: warm linen canvas (#F5EEE3) behind a primary rounded white content panel (#FFFFFF). Within the panel, secondary stat/metric cards use a warm off-white (#F5F0EA) for separation without shadows. The terra-cotta accent (#C84A28) appears exclusively as: the primary CTA button fill, the primary feature/stat card background, icon containers, and star ratings. All depth is achieved through surface-color differentiation and mild rounding \u2014 no drop shadows."
       },
       "reference": {
         "canvas": "#F5EEE3",
@@ -62,14 +69,14 @@
     },
     "type": {
       "classification": "editorial-serif",
-      "substitutionCriteria": "Display face must be a bold slab or high-contrast bracketed serif with strong visual weight at large sizes — approachable yet authoritative. Headlines at 48–64px in sentence case with tight leading. Body face must be a geometric or humanist sans-serif in light/regular/medium weights. Both faces must render cleanly in near-black (#1C1512) on warm white surfaces.",
+      "substitutionCriteria": "Display face must be a bold slab or high-contrast bracketed serif with strong visual weight at large sizes \u2014 approachable yet authoritative. Headlines at 48\u201364px in sentence case with tight leading. Body face must be a geometric or humanist sans-serif in light/regular/medium weights. Both faces must render cleanly in near-black (#1C1512) on warm white surfaces.",
       "pairing": "Bold editorial serif (slab or bracketed) for all display headings paired with a geometric sans-serif for body copy, nav, UI labels, and stat numerals",
       "heading": {
         "weight": "bold",
         "casing": "sentence case",
         "eyebrow": "sparing",
-        "eyebrowTreatment": "Small pill-outline chip in sentence case placed above section H1 — used sparingly on features, success stories, and about sections. Rendered as a pale rounded badge with hairline border and muted text, never in accent color.",
-        "emphasisDevice": "Period as sentence-terminal in display headlines (e.g. 'Scale your wellness.') — a typographic confidence device that implies declarative authority. Stat numerals in the accent-card context switch to white for full contrast."
+        "eyebrowTreatment": "Small pill-outline chip in sentence case placed above section H1 \u2014 used sparingly on features, success stories, and about sections. Rendered as a pale rounded badge with hairline border and muted text, never in accent color.",
+        "emphasisDevice": "Period as sentence-terminal in display headlines (e.g. 'Scale your wellness.') \u2014 a typographic confidence device that implies declarative authority. Stat numerals in the accent-card context switch to white for full contrast."
       },
       "body": {
         "weight": "regular",
@@ -81,26 +88,26 @@
       "contrast": "high-on-accent",
       "reference": {
         "displayFace": "Instrument Serif, Playfair Display, or similar bold editorial serif with slab or bracketed serifs",
-        "bodyFace": "Inter, DM Sans, or similar geometric/humanist sans-serif — used for all UI text, nav, and body copy",
-        "numeralFace": "Body face at oversized scale (72–96px) for stat numerals in the accent-card context; white on terra-cotta"
+        "bodyFace": "Inter, DM Sans, or similar geometric/humanist sans-serif \u2014 used for all UI text, nav, and body copy",
+        "numeralFace": "Body face at oversized scale (72\u201396px) for stat numerals in the accent-card context; white on terra-cotta"
       }
     },
     "shape": {
-      "cornerRadius": "large-rounded — content panel uses ~20px radius; inner cards use 12–16px; buttons and eyebrow chips use full pill (999px)"
+      "cornerRadius": "large-rounded \u2014 content panel uses ~20px radius; inner cards use 12\u201316px; buttons and eyebrow chips use full pill (999px)"
     },
     "elevation": {
-      "system": "flat — depth achieved through surface-color tiers and corner radius, never via drop shadows or box-shadow values"
+      "system": "flat \u2014 depth achieved through surface-color tiers and corner radius, never via drop shadows or box-shadow values"
     },
     "border": {
-      "treatment": "hairline — 1px solid in warm neutral tone (#E8E0D6) used only on secondary button outlines and card separators; no borders on primary surfaces"
+      "treatment": "hairline \u2014 1px solid in warm neutral tone (#E8E0D6) used only on secondary button outlines and card separators; no borders on primary surfaces"
     },
     "button": {
       "treatment": "filled",
-      "character": "Pill-radius primary button with saturated terra-cotta fill (#C84A28) and white text at 13–14px medium weight. Secondary button uses warm off-white fill (#F5F0EA) with no border and near-black text, or an outlined variant with hairline border. Buttons are generously padded horizontally. No icon usage on CTA buttons."
+      "character": "Pill-radius primary button with saturated terra-cotta fill (#C84A28) and white text at 13\u201314px medium weight. Secondary button uses warm off-white fill (#F5F0EA) with no border and near-black text, or an outlined variant with hairline border. Buttons are generously padded horizontally. No icon usage on CTA buttons."
     },
     "label": {
       "style": "badge",
-      "character": "Small pill-outline chip with hairline border in muted warm neutral, sentence-case text at 11–12px, used sparingly above section H1s as category eyebrows (e.g. 'Our Impact', 'Features', 'Success Stories'). Never used in the accent color — always muted/neutral tone."
+      "character": "Small pill-outline chip with hairline border in muted warm neutral, sentence-case text at 11\u201312px, used sparingly above section H1s as category eyebrows (e.g. 'Our Impact', 'Features', 'Success Stories'). Never used in the accent color \u2014 always muted/neutral tone."
     },
     "density": "airy",
     "motion": "subtle"
@@ -108,11 +115,11 @@
   "layout": {
     "sections": [
       "nav",
-      "hero — left-aligned large serif headline, subhead, dual CTAs, abstract fluid gradient illustration right; stat-badge row at bottom",
-      "impact — split-header with eyebrow/H2 left and descriptor right; asymmetric bento grid: large accent-colored feature card left, 2×2 metric cards right",
-      "features — centered eyebrow/H1/subhead header; 2×2 feature card grid flanking a center portrait photograph",
-      "success-stories — split-header; horizontal 3-column portrait cards with stat overlays at bottom",
-      "cta — full-width (implied below the fold)",
+      "hero \u2014 left-aligned large serif headline, subhead, dual CTAs, abstract fluid gradient illustration right; stat-badge row at bottom",
+      "impact \u2014 split-header with eyebrow/H2 left and descriptor right; asymmetric bento grid: large accent-colored feature card left, 2\u00d72 metric cards right",
+      "features \u2014 centered eyebrow/H1/subhead header; 2\u00d72 feature card grid flanking a center portrait photograph",
+      "success-stories \u2014 split-header; horizontal 3-column portrait cards with stat overlays at bottom",
+      "cta \u2014 full-width (implied below the fold)",
       "footer"
     ],
     "variants": {
@@ -127,11 +134,11 @@
       "galleryVariant": "portrait-cards-row"
     },
     "composition": {
-      "hero": "Full-page warm linen canvas with a large rounded white content panel. Left half: wordmark in bold serif, nav links centered, pill CTA top-right. Hero text block sits left-aligned at ~40% width: large editorial serif headline (2 lines, sentence case, ~56px), short sans subhead (2 lines), two pill CTAs side-by-side (primary terra-cotta + secondary outline). Right 60%: large abstract fluid gradient illustration using warm terra-cotta and cream tones — not a photograph, purely decorative shape-based art. Below the hero text block, a row of three stat badges (icon + bold number label + muted descriptor) spanning the lower hero width.",
-      "nav": "White rounded card panel floating above the canvas (same panel that houses the hero content), not a separate nav bar. Practice wordmark/logo in bold serif top-left. Three or four centered nav links in regular-weight geometric sans, sentence case, medium brown tone. Pill CTA top-right with terra-cotta fill. The nav is part of the hero panel frame — contained, not full-viewport-width. Always opaque.",
-      "services": "Asymmetric bento grid section. Split header row: left side has eyebrow chip + bold serif H2 ('Scale your wellness.' → dental translation: 'Scale your smile.'); right side has a two-line descriptor in small muted sans, right-aligned. Below: bento grid with four cells — one tall accent-colored card (terra-cotta background) on the left occupying full column height, containing feature list (icon + label per item) and a patient testimonial quote with star rating at the bottom; right side 2×2 grid of cream-surface metric cards each containing one very large numeric stat (e.g. '160+', '12k+', '98%', '24/7') at ~72px, below the number a short one-line descriptor in small sans.",
+      "hero": "Full-page warm linen canvas with a large rounded white content panel. Left half: wordmark in bold serif, nav links centered, pill CTA top-right. Hero text block sits left-aligned at ~40% width: large editorial serif headline (2 lines, sentence case, ~56px), short sans subhead (2 lines), two pill CTAs side-by-side (primary terra-cotta + secondary outline). Right 60%: large abstract fluid gradient illustration using warm terra-cotta and cream tones \u2014 not a photograph, purely decorative shape-based art. Below the hero text block, a row of three stat badges (icon + bold number label + muted descriptor) spanning the lower hero width.",
+      "nav": "White rounded card panel floating above the canvas (same panel that houses the hero content), not a separate nav bar. Practice wordmark/logo in bold serif top-left. Three or four centered nav links in regular-weight geometric sans, sentence case, medium brown tone. Pill CTA top-right with terra-cotta fill. The nav is part of the hero panel frame \u2014 contained, not full-viewport-width. Always opaque.",
+      "services": "Asymmetric bento grid section. Split header row: left side has eyebrow chip + bold serif H2 ('Scale your wellness.' \u2192 dental translation: 'Scale your smile.'); right side has a two-line descriptor in small muted sans, right-aligned. Below: bento grid with four cells \u2014 one tall accent-colored card (terra-cotta background) on the left occupying full column height, containing feature list (icon + label per item) and a patient testimonial quote with star rating at the bottom; right side 2\u00d72 grid of cream-surface metric cards each containing one very large numeric stat (e.g. '160+', '12k+', '98%', '24/7') at ~72px, below the number a short one-line descriptor in small sans.",
       "serviceDetail": "Not directly visible. Inferred from the services bento: individual service pages likely use a white panel with eyebrow chip, H1, descriptor, and a horizontal stats strip consistent with the metric card pattern.",
-      "about": "Magazine-split section. Split header row: eyebrow chip + bold serif H2 left; two-line descriptor right (muted sans, right-aligned). Below: horizontal three-column row of portrait photograph cards — each card has full-bleed portrait imagery with a stat overlay bar at the bottom (white text: large bold stat + small descriptor label). Cards have ~12px radius and are evenly spaced. This pattern doubles as the testimonials / success-stories section.",
+      "about": "Magazine-split section. Split header row: eyebrow chip + bold serif H2 left; two-line descriptor right (muted sans, right-aligned). Below: horizontal three-column row of portrait photograph cards \u2014 each card has full-bleed portrait imagery with a stat overlay bar at the bottom (white text: large bold stat + small descriptor label). Cards have ~12px radius and are evenly spaced. This pattern doubles as the testimonials / success-stories section.",
       "doctorIntro": "Integrated into the about/success-stories section as one of the portrait cards. Not a separate dedicated doctor-quote card. Doctor is represented as one of the portrait subjects with a stat overlay at the card base.",
       "faq": "Accordion-expandable list on a warm surface background. Question text in medium sans with a '+' icon on the right. Answers collapsed by default. Flat stack, no category grouping.",
       "footer": "Minimal light footer consistent with the overall warm neutral palette. Practice name, sparse nav links, copyright. No dark background. Hairline top border."
@@ -140,29 +147,29 @@
       {
         "section": "services",
         "name": "Bento Impact Grid with Accent Anchor Card",
-        "spec": "Asymmetric bento-style grid section for dental services or practice outcomes. Split-header row: bold serif H2 sentence-terminated with a period (left), short muted-sans descriptor (right). Grid below: one tall accent-colored card (terra-cotta #C84A28, full column height, ~40% width) on the left — contains a vertical list of service pillars (small icon + bold label per row), and at the bottom a 5-star patient quote block with bold patient name and role in white. Right side: 2×2 grid of cream-surface (#F5F0EA) rounded cards, each card showing one oversized metric numeral (72–96px, near-black) and a one-line descriptor below (14px muted sans). Dental adaptation maps health pillars to 'Clear Aligners / Cosmetic Care / Restorations / Preventive' and metrics to outcome stats (e.g. '98% Patient Satisfaction', '500+ Smiles Transformed').",
+        "spec": "Asymmetric bento-style grid section for dental services or practice outcomes. Split-header row: bold serif H2 sentence-terminated with a period (left), short muted-sans descriptor (right). Grid below: one tall accent-colored card (terra-cotta #C84A28, full column height, ~40% width) on the left \u2014 contains a vertical list of service pillars (small icon + bold label per row), and at the bottom a 5-star patient quote block with bold patient name and role in white. Right side: 2\u00d72 grid of cream-surface (#F5F0EA) rounded cards, each card showing one oversized metric numeral (72\u201396px, near-black) and a one-line descriptor below (14px muted sans). Dental adaptation maps health pillars to 'Clear Aligners / Cosmetic Care / Restorations / Preventive' and metrics to outcome stats (e.g. '98% Patient Satisfaction', '500+ Smiles Transformed').",
         "requiresNewComponent": true
       },
       {
         "section": "hero",
         "name": "Abstract Fluid Gradient Hero Illustration",
-        "spec": "The right half of the hero section is occupied by a large, abstract fluid shape — concentric organic rings or swirling gradients using terra-cotta (#C84A28) blended into warm cream/peach tones, fading toward the canvas background. This is vector or CSS-gradient art, not a photograph. It serves as the visual anchor of the hero. Below the hero headline/CTA block, a horizontal row of three 'stat badges' (small icon + bold stat number + muted one-line descriptor, each separated by space) provides social proof at a glance. Dental translation: badges read e.g. '+500 Patients · Long Beach families served', '+10 Years · Trusted neighborhood dentist', '5★ Rating · Proven results.'",
+        "spec": "The right half of the hero section is occupied by a large, abstract fluid shape \u2014 concentric organic rings or swirling gradients using terra-cotta (#C84A28) blended into warm cream/peach tones, fading toward the canvas background. This is vector or CSS-gradient art, not a photograph. It serves as the visual anchor of the hero. Below the hero headline/CTA block, a horizontal row of three 'stat badges' (small icon + bold stat number + muted one-line descriptor, each separated by space) provides social proof at a glance. Dental translation: badges read e.g. '+500 Patients \u00b7 Long Beach families served', '+10 Years \u00b7 Trusted neighborhood dentist', '5\u2605 Rating \u00b7 Proven results.'",
         "requiresNewComponent": true
       },
       {
         "section": "about",
         "name": "Portrait Cards with Stat Overlay",
-        "spec": "Horizontal three-column row of full-bleed portrait photograph cards (aspect ratio ~3:4) with ~12px corner radius. Each card overlays a stat block at the bottom of the image: white semi-transparent bar or direct overlay containing a large bold stat number (e.g. '14%', '98%', '12k+') and a short descriptor label below it (e.g. 'Increase in Deep Sleep' → dental: 'Reduction in Chairside Anxiety', 'Patient Retention Rate'). Cards sit on the warm canvas surface with no border. Used for both the doctor team display and patient success stories. The section has a split header (eyebrow chip + serif H2 left, muted descriptor right).",
+        "spec": "Horizontal three-column row of full-bleed portrait photograph cards (aspect ratio ~3:4) with ~12px corner radius. Each card overlays a stat block at the bottom of the image: white semi-transparent bar or direct overlay containing a large bold stat number (e.g. '14%', '98%', '12k+') and a short descriptor label below it (e.g. 'Increase in Deep Sleep' \u2192 dental: 'Reduction in Chairside Anxiety', 'Patient Retention Rate'). Cards sit on the warm canvas surface with no border. Used for both the doctor team display and patient success stories. The section has a split header (eyebrow chip + serif H2 left, muted descriptor right).",
         "requiresNewComponent": true
       }
     ]
   },
   "imagery": {
-    "crop": "Portrait orientation preferred for subject photographs (aspect ~3:4). Subjects fill most of the frame with minimal environmental context — studio or neutral background preferred. Face and upper torso are the focal crop. No extreme close-ups; full face visible.",
+    "crop": "Portrait orientation preferred for subject photographs (aspect ~3:4). Subjects fill most of the frame with minimal environmental context \u2014 studio or neutral background preferred. Face and upper torso are the focal crop. No extreme close-ups; full face visible.",
     "grading": "Warm, natural skin tones with a slight golden-ivory cast harmonising with the linen canvas palette. Backgrounds are desaturated to near-neutral or soft blue-gray. Some images have a subtle warm film grain quality. No cool high-contrast commercial grading. Highlights remain creamy, not blown white.",
     "framing": "Subjects look slightly off-camera or directly at viewer in calm, confident poses. Studio or clean indoor environment. No cluttered backgrounds. Portrait cards use full-bleed cropping to the card container with slight downward position to center the face.",
-    "subjectTreatment": "Patients and staff photographed with natural, approachable expressions — not overly posed or clinical. One person per card. Diverse subjects across gender and age. Calm and self-assured, not anxious or performatively happy. Hero illustration uses abstract warm fluid art as a visual metaphor for wellness/transformation rather than clinical photography.",
-    "imageTextRatio": "image-heavy — photography occupies majority of the success-stories/portrait-cards section; hero relies on abstract illustration rather than photography"
+    "subjectTreatment": "Patients and staff photographed with natural, approachable expressions \u2014 not overly posed or clinical. One person per card. Diverse subjects across gender and age. Calm and self-assured, not anxious or performatively happy. Hero illustration uses abstract warm fluid art as a visual metaphor for wellness/transformation rather than clinical photography.",
+    "imageTextRatio": "image-heavy \u2014 photography occupies majority of the success-stories/portrait-cards section; hero relies on abstract illustration rather than photography"
   },
   "voice": {
     "formality": "confident-professional",
@@ -173,14 +180,14 @@
       "second-person address ('your smile', 'your care', 'your goals')",
       "precision language that signals clinical expertise without jargon",
       "short testimonial fragments as proof points embedded in stat cards",
-      "active verbs over passive — 'restore', 'transform', 'protect', 'improve'"
+      "active verbs over passive \u2014 'restore', 'transform', 'protect', 'improve'"
     ],
     "avoids": [
       "fear-based or problem-amplifying language",
       "clinical procedure jargon in patient-facing headlines",
       "hard-sell urgency or artificial scarcity",
       "superlatives without backing ('the best', 'amazing', 'incredible')",
-      "long multi-sentence headlines — brevity is the authority signal"
+      "long multi-sentence headlines \u2014 brevity is the authority signal"
     ]
   },
   "fidelity": {
@@ -190,23 +197,23 @@
     "gaps": [
       {
         "type": "variant",
-        "detail": "Bento impact grid with accent anchor card has no matching variant in the services pool — closest is card-grid but the true design is an asymmetric bento with a tall accent card plus 2×2 metric-numeral cards. Requires novel component."
+        "detail": "Bento impact grid with accent anchor card has no matching variant in the services pool \u2014 closest is card-grid but the true design is an asymmetric bento with a tall accent card plus 2\u00d72 metric-numeral cards. Requires novel component."
       },
       {
         "type": "variant",
-        "detail": "Abstract fluid gradient hero illustration has no matching variant — hero illustration is CSS/SVG art, not a photograph or image placeholder. Requires novel component."
+        "detail": "Abstract fluid gradient hero illustration has no matching variant \u2014 hero illustration is CSS/SVG art, not a photograph or image placeholder. Requires novel component."
       },
       {
         "type": "variant",
-        "detail": "Portrait cards with stat overlay have no matching variant in the testimonials pool — closest is photo-cards but the true design bakes a stat numeral + label bar directly into the card image as an overlay. Requires novel component."
+        "detail": "Portrait cards with stat overlay have no matching variant in the testimonials pool \u2014 closest is photo-cards but the true design bakes a stat numeral + label bar directly into the card image as an overlay. Requires novel component."
       },
       {
         "type": "layout",
-        "detail": "Nav is a contained rounded card panel rather than a full-width nav bar — the nav and hero share a single white rounded panel that sits atop the canvas. This embedded nav pattern has no match in the nav-variant pool."
+        "detail": "Nav is a contained rounded card panel rather than a full-width nav bar \u2014 the nav and hero share a single white rounded panel that sits atop the canvas. This embedded nav pattern has no match in the nav-variant pool."
       },
       {
         "type": "token",
-        "detail": "Footer not visible in screenshots — inferred as minimal light consistent with the warm palette. May need explicit light-footer variant if builder defaults to dark footer."
+        "detail": "Footer not visible in screenshots \u2014 inferred as minimal light consistent with the warm palette. May need explicit light-footer variant if builder defaults to dark footer."
       }
     ]
   },
@@ -218,18 +225,18 @@
       "split-section-header"
     ],
     "fidelityChecks": [
-      "Hero headline must be left-aligned with a large bold editorial serif — do not center the hero text block. Right half is reserved for abstract warm fluid gradient art, not a photograph.",
-      "The nav must be contained within the same rounded white panel as the hero content — it is not a separate full-width sticky nav bar at page top.",
-      "Primary button must use the saturated terra-cotta fill (#C84A28) with white text and full pill radius. This color appears bold and vivid — not a muted or earthy tone.",
-      "The bento-grid services section must include one full-height accent-colored card (terra-cotta background) on the left with white text — this is the dominant visual anchor of the section, not a secondary element.",
-      "Metric cards in the bento grid use very large numerals (72–96px) — not medium or small stats. The numeral IS the card's content; the descriptor is secondary.",
-      "Portrait photograph cards in the success-stories section must have a stat overlay bar at the card base — large white bold stat + small descriptor. The photo occupies the full card; the overlay is not a separate element below the card.",
-      "All section headers use a split-row layout: eyebrow chip + H2 on the left, short muted descriptor paragraph on the right — not a centered stacked header.",
-      "Eyebrow chips are muted pale tone with hairline border — never terra-cotta or accent-colored.",
-      "Depth is achieved through surface-color differentiation (linen canvas → white panel → cream card) and rounded corners — no drop shadows or elevation effects.",
-      "Display headlines in key sections use a terminal period as a confidence device ('Scale your smile.' not 'Scale your smile') — this is a typographic signature of the design system.",
-      "Photography must carry warm natural skin tones with desaturated or neutral backgrounds — no cool-tinted clinical stock photography.",
-      "Body copy paragraphs are short (2 sentences maximum in feature cards). Metric cards contain only a numeral and a single descriptor line — no extra copy."
+      "Hero headline must be left-aligned with a large bold editorial serif \u2014 do not center the hero text block. Right half is reserved for abstract warm fluid gradient art, not a photograph.",
+      "The nav must be contained within the same rounded white panel as the hero content \u2014 it is not a separate full-width sticky nav bar at page top.",
+      "Primary button must use the saturated terra-cotta fill (#C84A28) with white text and full pill radius. This color appears bold and vivid \u2014 not a muted or earthy tone.",
+      "The bento-grid services section must include one full-height accent-colored card (terra-cotta background) on the left with white text \u2014 this is the dominant visual anchor of the section, not a secondary element.",
+      "Metric cards in the bento grid use very large numerals (72\u201396px) \u2014 not medium or small stats. The numeral IS the card's content; the descriptor is secondary.",
+      "Portrait photograph cards in the success-stories section must have a stat overlay bar at the card base \u2014 large white bold stat + small descriptor. The photo occupies the full card; the overlay is not a separate element below the card.",
+      "All section headers use a split-row layout: eyebrow chip + H2 on the left, short muted descriptor paragraph on the right \u2014 not a centered stacked header.",
+      "Eyebrow chips are muted pale tone with hairline border \u2014 never terra-cotta or accent-colored.",
+      "Depth is achieved through surface-color differentiation (linen canvas \u2192 white panel \u2192 cream card) and rounded corners \u2014 no drop shadows or elevation effects.",
+      "Display headlines in key sections use a terminal period as a confidence device ('Scale your smile.' not 'Scale your smile') \u2014 this is a typographic signature of the design system.",
+      "Photography must carry warm natural skin tones with desaturated or neutral backgrounds \u2014 no cool-tinted clinical stock photography.",
+      "Body copy paragraphs are short (2 sentences maximum in feature cards). Metric cards contain only a numeral and a single descriptor line \u2014 no extra copy."
     ]
   }
 }

@@ -213,9 +213,10 @@ Options:
   --skip-audit       Skip AI site audit
   --skip-build       Skip build validation
   --reference <id>   Design-catalog entry id (examples/<id>.json or runs/<id>/entry.json),
-                     a path, or "auto" (pick curated light run). Env fallback:
-                     GROUNDWORK_DEFAULT_REFERENCE. Owns variant map + atoms + type bucket
-                     + audit gates; practice keeps its colors and content.
+                     a path, or "auto" (pick curated light run by content appetite
+                     after scrape). Env fallback: GROUNDWORK_DEFAULT_REFERENCE.
+                     Owns variant map + atoms + type bucket + audit gates; practice
+                     keeps its colors and content.
   --dry-run          Scrape + merge only, print JSON
   --verbose          Detailed output
   --help             Show this help message
@@ -234,22 +235,23 @@ Examples:
 async function main() {
   const opts = parseArgs();
 
-  // --reference: load + validate the catalog entry up front — fail fast
-  // (schema problems or unrenderable themes) before any API spend.
+  // --reference: explicit ids load + validate up front (fail fast before API spend).
+  // `--reference auto` waits until after scrape/merge so appetite can soft-match.
   let referenceEntry = null;
+  let pendingAutoReference = false;
   // Catalog default: explicit --reference, else GROUNDWORK_DEFAULT_REFERENCE,
   // else none (archetype director). Use --reference auto to pick a curated run.
   if (!opts.reference && process.env.GROUNDWORK_DEFAULT_REFERENCE) {
     opts.reference = process.env.GROUNDWORK_DEFAULT_REFERENCE;
   }
   if (opts.reference) {
-    let refId = opts.reference;
-    if (refId === 'auto') {
-      refId = await selectAutoReference({ seed: opts.url || opts.slug || opts.airtableSlug || 'dental' });
-      console.log(`[reference] auto → ${refId}`);
+    if (opts.reference === 'auto') {
+      pendingAutoReference = true;
+      console.log('[reference] auto — pick deferred until after scrape/merge (content appetite)');
+    } else {
+      referenceEntry = await loadReferenceEntry(opts.reference);
+      console.log(`[reference] ${referenceEntry.id} — variants locked, audit gates active (${(referenceEntry.audit?.fidelityChecks || []).length} fidelity checks, ${(referenceEntry.audit?.sanctionedPatterns || []).length} sanctioned patterns)`);
     }
-    referenceEntry = await loadReferenceEntry(refId);
-    console.log(`[reference] ${referenceEntry.id} — variants locked, audit gates active (${(referenceEntry.audit?.fidelityChecks || []).length} fidelity checks, ${(referenceEntry.audit?.sanctionedPatterns || []).length} sanctioned patterns)`);
   }
   const startTime = Date.now();
 
@@ -499,6 +501,16 @@ async function main() {
   stats.phone = merged.practice.phone || '[unknown]';
   stats.servicesCount = merged.services.offered?.length || 0;
   stats.confidenceFlags = merged.meta?.confidenceFlags || [];
+
+  // --reference auto: score catalog appetites against scrape richness, then lock entry
+  if (pendingAutoReference) {
+    const refId = await selectAutoReference({
+      scraped: merged,
+      seed: opts.url || slug || opts.slug || opts.airtableSlug || 'dental',
+    });
+    referenceEntry = await loadReferenceEntry(refId);
+    console.log(`[reference] auto → ${referenceEntry.id} — variants locked, audit gates active (${(referenceEntry.audit?.fidelityChecks || []).length} fidelity checks, ${(referenceEntry.audit?.sanctionedPatterns || []).length} sanctioned patterns)`);
+  }
 
   console.log(`  Practice: ${stats.practiceName}`);
   console.log(`  Doctor:   ${stats.doctorName}`);

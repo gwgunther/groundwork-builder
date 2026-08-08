@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.2",
   "id": "dentora",
-  "name": "Dentora — Clean Grotesque Confident",
+  "name": "Dentora \u2014 Clean Grotesque Confident",
   "tag": "reference",
   "source": {
     "ingestedVia": "claude-design",
@@ -21,23 +21,30 @@
       "clean",
       "assured"
     ],
-    "bestFor": "Modern multi-doctor dental practices or group clinics positioning around clinical excellence and a contemporary patient experience — particularly suited to practices offering a full service spectrum (cosmetic, restorative, orthodontics) that want to project authority without feeling cold.",
+    "bestFor": "Modern multi-doctor dental practices or group clinics positioning around clinical excellence and a contemporary patient experience \u2014 particularly suited to practices offering a full service spectrum (cosmetic, restorative, orthodontics) that want to project authority without feeling cold.",
     "verticalBias": [
       "general-dentistry",
       "cosmetic-dentistry",
       "dental-implants",
       "multi-specialty-clinic"
-    ]
+    ],
+    "appetite": {
+      "photography": 3,
+      "statistics": 1,
+      "socialProof": 1,
+      "team": 2,
+      "copy": 1
+    }
   },
   "tokens": {
     "color": {
       "strategy": {
         "theme": "light",
-        "background": "warm off-white cream canvas — not pure white, a warm antique-white that softens the otherwise clinical sans-serif typography and reads distinctly against the white card surface used in the nav and content panels",
+        "background": "warm off-white cream canvas \u2014 not pure white, a warm antique-white that softens the otherwise clinical sans-serif typography and reads distinctly against the white card surface used in the nav and content panels",
         "contrast": "high",
         "saturation": "low-except-accent",
         "accentUsage": "targeted",
-        "surfaceStrategy": "Two primary surfaces: warm cream canvas (#F5F0E8) for the page background, and white (#FFFFFF) for the nav bar and contained content panels. A third deep surface — rich purple (#5B2D8E) — appears on exactly one section (featured treatments) as a dramatic contrast reversal, inverting the entire color system for that block. The teal/mint accent (#5ECFB1) is deployed as a pure graphic device: hand-drawn curved underlines beneath key headline words, a doodle smiley face motif, and the outline on the single CTA button. It never fills backgrounds or appears in body text. Depth is achieved through high typographic scale contrast and the single purple reversal, not through layered surface colors or shadows."
+        "surfaceStrategy": "Two primary surfaces: warm cream canvas (#F5F0E8) for the page background, and white (#FFFFFF) for the nav bar and contained content panels. A third deep surface \u2014 rich purple (#5B2D8E) \u2014 appears on exactly one section (featured treatments) as a dramatic contrast reversal, inverting the entire color system for that block. The teal/mint accent (#5ECFB1) is deployed as a pure graphic device: hand-drawn curved underlines beneath key headline words, a doodle smiley face motif, and the outline on the single CTA button. It never fills backgrounds or appears in body text. Depth is achieved through high typographic scale contrast and the single purple reversal, not through layered surface colors or shadows."
       },
       "reference": {
         "canvas": "#F5F0E8",
@@ -60,14 +67,14 @@
     },
     "type": {
       "classification": "grotesque-sans",
-      "substitutionCriteria": "Display face must be an extremely heavy geometric/grotesque sans-serif (black or 900 weight) with high x-height, tight letter-spacing at large sizes, and rounded terminals — capable of rendering at 80–120px with visual authority. Must support black/900, bold/700, and regular/400 weights. The same typeface family is used for all type roles — no serif or secondary face. At display scale the font must feel monumental; at body scale it must feel neutral and clean.",
-      "pairing": "Single-family grotesque sans throughout — the same face serves display headings, body copy, nav, eyebrows, and metadata. Differentiation comes exclusively from weight (black vs regular), size, and letter-spacing.",
+      "substitutionCriteria": "Display face must be an extremely heavy geometric/grotesque sans-serif (black or 900 weight) with high x-height, tight letter-spacing at large sizes, and rounded terminals \u2014 capable of rendering at 80\u2013120px with visual authority. Must support black/900, bold/700, and regular/400 weights. The same typeface family is used for all type roles \u2014 no serif or secondary face. At display scale the font must feel monumental; at body scale it must feel neutral and clean.",
+      "pairing": "Single-family grotesque sans throughout \u2014 the same face serves display headings, body copy, nav, eyebrows, and metadata. Differentiation comes exclusively from weight (black vs regular), size, and letter-spacing.",
       "heading": {
         "weight": "black/900",
         "casing": "sentence case",
         "eyebrow": "consistent",
-        "eyebrowTreatment": "Small all-caps text with wide tracking (~0.1em), regular weight, placed above the section headline — not a pill or chip, just uppercase tracking text in a muted tone. Used on nearly every section.",
-        "emphasisDevice": "Hand-drawn teal curved underline beneath a key phrase in the headline — a single-use decorative SVG or pseudo-element stroke, not color shift within the text itself. Used once per headline as a visual exclamation mark, not on every instance."
+        "eyebrowTreatment": "Small all-caps text with wide tracking (~0.1em), regular weight, placed above the section headline \u2014 not a pill or chip, just uppercase tracking text in a muted tone. Used on nearly every section.",
+        "emphasisDevice": "Hand-drawn teal curved underline beneath a key phrase in the headline \u2014 a single-use decorative SVG or pseudo-element stroke, not color shift within the text itself. Used once per headline as a visual exclamation mark, not on every instance."
       },
       "body": {
         "weight": "regular",
@@ -78,9 +85,9 @@
       "headingScale": "xxl",
       "contrast": "very-high",
       "reference": {
-        "displayFace": "Sora, Space Grotesk, or similar heavy geometric sans with black weight (900) — the template likely uses a custom or premium grotesque; Sora Black or Nunito Black are viable Google Fonts substitutes",
-        "bodyFace": "Same family as display, regular weight — OR a neutral geometric sans like DM Sans or Inter if substituting",
-        "accentMotif": "Teal hand-drawn curved underline and smiley-face doodle — decorative SVG path, not a typeface"
+        "displayFace": "Sora, Space Grotesk, or similar heavy geometric sans with black weight (900) \u2014 the template likely uses a custom or premium grotesque; Sora Black or Nunito Black are viable Google Fonts substitutes",
+        "bodyFace": "Same family as display, regular weight \u2014 OR a neutral geometric sans like DM Sans or Inter if substituting",
+        "accentMotif": "Teal hand-drawn curved underline and smiley-face doodle \u2014 decorative SVG path, not a typeface"
       }
     },
     "shape": {
@@ -94,25 +101,25 @@
     },
     "button": {
       "treatment": "outline",
-      "character": "Single pill-radius CTA button rendered as an outline only — black border, black text, transparent fill, generous horizontal padding. On the inverted purple section the button would reverse to white outline. No filled primary button in the default system; the outline treatment is the only button style visible. All-caps text with moderate letter-spacing inside the button."
+      "character": "Single pill-radius CTA button rendered as an outline only \u2014 black border, black text, transparent fill, generous horizontal padding. On the inverted purple section the button would reverse to white outline. No filled primary button in the default system; the outline treatment is the only button style visible. All-caps text with moderate letter-spacing inside the button."
     },
     "label": {
       "style": "uppercase-tracking",
-      "character": "Small all-caps text label with wide letter-spacing (~0.08–0.12em), used as section eyebrows and metadata labels above body copy. No pill, no chip, no border — just uppercase tracking text in a muted charcoal tone. On the inverted purple section the label would use the teal accent color."
+      "character": "Small all-caps text label with wide letter-spacing (~0.08\u20130.12em), used as section eyebrows and metadata labels above body copy. No pill, no chip, no border \u2014 just uppercase tracking text in a muted charcoal tone. On the inverted purple section the label would use the teal accent color."
     },
     "density": "open",
     "motion": "subtle"
   },
   "layout": {
     "sections": [
-      "nav — three-zone with logo left, hamburger-menu center, phone number right",
-      "hero — centered headline with scattered floating patient photo collage",
-      "about — full-width centered text block with oversized headline and hand-drawn accent underline, then full-bleed clinic image below",
-      "services — large-type section heading with service category cards or list",
-      "service-detail — large sans H1 with sub-description, full-bleed photo, then featured-treatments block in deep purple",
-      "team — grid of doctor portrait cards with name and role below each",
-      "case-studies — centered section with scattered floating photo collage and smiley doodle motif",
-      "faq — accordion-style question list",
+      "nav \u2014 three-zone with logo left, hamburger-menu center, phone number right",
+      "hero \u2014 centered headline with scattered floating patient photo collage",
+      "about \u2014 full-width centered text block with oversized headline and hand-drawn accent underline, then full-bleed clinic image below",
+      "services \u2014 large-type section heading with service category cards or list",
+      "service-detail \u2014 large sans H1 with sub-description, full-bleed photo, then featured-treatments block in deep purple",
+      "team \u2014 grid of doctor portrait cards with name and role below each",
+      "case-studies \u2014 centered section with scattered floating photo collage and smiley doodle motif",
+      "faq \u2014 accordion-style question list",
       "footer"
     ],
     "variants": {
@@ -127,52 +134,52 @@
       "galleryVariant": "scattered-float"
     },
     "composition": {
-      "hero": "Warm cream canvas fills the full viewport. A small all-caps tracking eyebrow ('YOUR EVERYTHING GO TO CLINIC IN NEW YORK') sits above the headline in a centered two-line layout. The headline is enormous — black weight grotesque sans at roughly 80–100px, sentence case, two lines, occupying most of the vertical above-fold space. Body copy in regular weight sits below at a much smaller size. A single outline-pill CTA ('BOOK AN APPOINTMENT') centers below the body copy. The defining visual novelty: patient portrait photographs float at varied positions around the centered text block — two smaller square photos frame the left and right sides of the headline, a larger portrait image appears centered below the CTA, partially cropped. The teal smiley doodle floats to the upper right of the headline as a personality marker. No background image behind the text.",
-      "nav": "White bar, full width. Logo ('Dentora' wordmark with small grid icon) positioned far left. 'MENU' with a hamburger icon centered horizontally — this is the entire navigation trigger, no inline link list. Phone number with phone icon positioned far right. Very clean three-zone layout with generous padding. Hairline bottom border separates from page content. Always opaque white.",
-      "about": "Warm cream section. Small all-caps eyebrow ('ABOUT THE CLINIC') centered above a centered body paragraph in regular weight at moderate size. Below that: an enormous black-weight headline ('A modern approach to exceptional dental care.') stretching full width, centered, with the teal hand-drawn curved underline beneath the final phrase ('dental care.'). Below the headline: a full-bleed clinic interior photograph that extends edge to edge within the container. The scale inversion — small text above, giant headline below — is a deliberate typographic surprise.",
-      "serviceDetail": "Large sans H1 heading in black weight at the top of the page, sentence case, followed by a one-to-two line descriptor in small regular-weight sans. A full-bleed portrait or close-up photograph of a patient fills the width below. Then a section label, bold centered statement headline, and three-column body copy. Below that: a deep purple (#5B2D8E) full-width section with a section label, large white headline ('Featured Treatments'), and a card grid of treatment categories — each card has a treatment name and short description on the purple background.",
-      "footer": "Minimal light-surface footer inferred from the overall all-light palette and clean aesthetic. Practice name, sparse nav links, contact details, and copyright. No dark background — consistent with the white/cream surface system.",
-      "team": "Section opens with an all-caps eyebrow label ('OUR TEAM') left-aligned, a count/number far right. Below: a left-aligned bold sans headline ('Meet the Experts Behind Your Smile') with a short descriptor paragraph to the right. Below that: a horizontal grid of four doctor portrait photos — square crop with slight rounding, cool neutral background (gray-blue) behind each doctor. Name in bold below each photo, role/specialty in regular below that. Clean, clinical, structured grid.",
-      "caseStudies": "Centered layout on cream canvas. Teal smiley-face doodle floats in the upper-left corner of the section. Large black-weight headline in two lines ('Real Stories. Real Confidence.') with a hand-drawn teal oval/lasso shape encircling the final line. Centered body paragraph below. Patient smile photographs scattered at three positions — left, center, right — at varied sizes, creating an asymmetric collage feel mirroring the hero layout.",
+      "hero": "Warm cream canvas fills the full viewport. A small all-caps tracking eyebrow ('YOUR EVERYTHING GO TO CLINIC IN NEW YORK') sits above the headline in a centered two-line layout. The headline is enormous \u2014 black weight grotesque sans at roughly 80\u2013100px, sentence case, two lines, occupying most of the vertical above-fold space. Body copy in regular weight sits below at a much smaller size. A single outline-pill CTA ('BOOK AN APPOINTMENT') centers below the body copy. The defining visual novelty: patient portrait photographs float at varied positions around the centered text block \u2014 two smaller square photos frame the left and right sides of the headline, a larger portrait image appears centered below the CTA, partially cropped. The teal smiley doodle floats to the upper right of the headline as a personality marker. No background image behind the text.",
+      "nav": "White bar, full width. Logo ('Dentora' wordmark with small grid icon) positioned far left. 'MENU' with a hamburger icon centered horizontally \u2014 this is the entire navigation trigger, no inline link list. Phone number with phone icon positioned far right. Very clean three-zone layout with generous padding. Hairline bottom border separates from page content. Always opaque white.",
+      "about": "Warm cream section. Small all-caps eyebrow ('ABOUT THE CLINIC') centered above a centered body paragraph in regular weight at moderate size. Below that: an enormous black-weight headline ('A modern approach to exceptional dental care.') stretching full width, centered, with the teal hand-drawn curved underline beneath the final phrase ('dental care.'). Below the headline: a full-bleed clinic interior photograph that extends edge to edge within the container. The scale inversion \u2014 small text above, giant headline below \u2014 is a deliberate typographic surprise.",
+      "serviceDetail": "Large sans H1 heading in black weight at the top of the page, sentence case, followed by a one-to-two line descriptor in small regular-weight sans. A full-bleed portrait or close-up photograph of a patient fills the width below. Then a section label, bold centered statement headline, and three-column body copy. Below that: a deep purple (#5B2D8E) full-width section with a section label, large white headline ('Featured Treatments'), and a card grid of treatment categories \u2014 each card has a treatment name and short description on the purple background.",
+      "footer": "Minimal light-surface footer inferred from the overall all-light palette and clean aesthetic. Practice name, sparse nav links, contact details, and copyright. No dark background \u2014 consistent with the white/cream surface system.",
+      "team": "Section opens with an all-caps eyebrow label ('OUR TEAM') left-aligned, a count/number far right. Below: a left-aligned bold sans headline ('Meet the Experts Behind Your Smile') with a short descriptor paragraph to the right. Below that: a horizontal grid of four doctor portrait photos \u2014 square crop with slight rounding, cool neutral background (gray-blue) behind each doctor. Name in bold below each photo, role/specialty in regular below that. Clean, clinical, structured grid.",
+      "caseStudies": "Centered layout on cream canvas. Teal smiley-face doodle floats in the upper-left corner of the section. Large black-weight headline in two lines ('Real Stories. Real Confidence.') with a hand-drawn teal oval/lasso shape encircling the final line. Centered body paragraph below. Patient smile photographs scattered at three positions \u2014 left, center, right \u2014 at varied sizes, creating an asymmetric collage feel mirroring the hero layout.",
       "faq": "Accordion list of expandable questions. Question text in medium-weight sans, expand indicator on the right. Clean flat stack on the cream or white surface with hairline dividers."
     },
     "novel": [
       {
         "section": "hero",
         "name": "Centered Text with Scattered Floating Photo Collage",
-        "spec": "A centered headline-and-CTA block on the cream canvas, surrounded by patient portrait photographs that float at specific positions outside the centered text column — typically two smaller square/portrait photos flanking the left and right of the headline, and one larger image centered below the CTA. Photos are independently positioned with slight size variation, not in a row or grid. The overall composition reads as the headline emerging from a loose cluster of patient faces. The teal smiley doodle sits as a non-photo floating graphic element in the upper-right quadrant of the headline. Requires absolute-positioned child elements or a CSS grid with named placement areas rather than a linear flex filmstrip.",
+        "spec": "A centered headline-and-CTA block on the cream canvas, surrounded by patient portrait photographs that float at specific positions outside the centered text column \u2014 typically two smaller square/portrait photos flanking the left and right of the headline, and one larger image centered below the CTA. Photos are independently positioned with slight size variation, not in a row or grid. The overall composition reads as the headline emerging from a loose cluster of patient faces. The teal smiley doodle sits as a non-photo floating graphic element in the upper-right quadrant of the headline. Requires absolute-positioned child elements or a CSS grid with named placement areas rather than a linear flex filmstrip.",
         "requiresNewComponent": true
       },
       {
         "section": "about",
         "name": "Scale-Inversion Heading with Hand-Drawn Accent Underline",
-        "spec": "A typographic composition device where the visual hierarchy is inverted from convention: a small, centered, regular-weight text block (eyebrow + body copy) appears at the top, followed by a dramatically oversized black-weight headline that spans nearly the full container width below it. The key phrase in the headline (typically the final 2–3 words) receives a hand-drawn curved underline — a teal/mint SVG path or pseudo-element that mimics a pen stroke, not a CSS text-decoration. The underline is thicker (~3–4px), gently curved, and slightly longer than the underlined text. Used once per section, never on body copy. This component pair (inverted scale block + SVG doodle underline) is a recurring signature across hero, about, and case-studies sections.",
+        "spec": "A typographic composition device where the visual hierarchy is inverted from convention: a small, centered, regular-weight text block (eyebrow + body copy) appears at the top, followed by a dramatically oversized black-weight headline that spans nearly the full container width below it. The key phrase in the headline (typically the final 2\u20133 words) receives a hand-drawn curved underline \u2014 a teal/mint SVG path or pseudo-element that mimics a pen stroke, not a CSS text-decoration. The underline is thicker (~3\u20134px), gently curved, and slightly longer than the underlined text. Used once per section, never on body copy. This component pair (inverted scale block + SVG doodle underline) is a recurring signature across hero, about, and case-studies sections.",
         "requiresNewComponent": true
       },
       {
         "section": "nav",
         "name": "Three-Zone Hamburger Nav with Phone Right",
-        "spec": "A full-width opaque white nav bar with three distinct zones: (1) logo wordmark in the far-left zone, (2) a hamburger-style 'MENU' trigger centered horizontally in the middle zone — this replaces all inline navigation links, which are hidden behind the menu overlay, (3) a phone number with a phone icon in the far-right zone as an always-visible conversion shortcut. No inline page links are visible in the default collapsed state. The three-zone layout is achieved with flexbox justify-content: space-between or a three-column grid. This nav pattern trades navigability for visual cleanliness and permanent phone number prominence.",
+        "spec": "A full-width opaque white nav bar with three distinct zones: (1) logo wordmark in the far-left zone, (2) a hamburger-style 'MENU' trigger centered horizontally in the middle zone \u2014 this replaces all inline navigation links, which are hidden behind the menu overlay, (3) a phone number with a phone icon in the far-right zone as an always-visible conversion shortcut. No inline page links are visible in the default collapsed state. The three-zone layout is achieved with flexbox justify-content: space-between or a three-column grid. This nav pattern trades navigability for visual cleanliness and permanent phone number prominence.",
         "requiresNewComponent": false
       },
       {
         "section": "serviceDetail",
         "name": "Inverted Purple Featured Treatments Block",
-        "spec": "A full-width section with deep purple background (#5B2D8E) used as a dramatic surface reversal within an otherwise all-light color system. Contains a section label in the teal accent color (uppercase tracking), a large white-text headline ('Featured Treatments'), and a card grid of treatment categories — each card sits on the purple background with white or light-purple text. This is the only dark/inverted surface in the template and functions as a visual climax within the service detail page. The teal label on purple is the only instance where teal appears as text rather than as a doodle/stroke graphic.",
+        "spec": "A full-width section with deep purple background (#5B2D8E) used as a dramatic surface reversal within an otherwise all-light color system. Contains a section label in the teal accent color (uppercase tracking), a large white-text headline ('Featured Treatments'), and a card grid of treatment categories \u2014 each card sits on the purple background with white or light-purple text. This is the only dark/inverted surface in the template and functions as a visual climax within the service detail page. The teal label on purple is the only instance where teal appears as text rather than as a doodle/stroke graphic.",
         "requiresNewComponent": true
       }
     ]
   },
   "imagery": {
-    "crop": "Mixed crops — close-up smile/teeth shots (extreme macro showing lips and teeth only), mid-crop patient portraits showing face and shoulders, and environmental shots of clinic equipment. The extreme close-up smile crop is distinctive and repeated as a hero image on service pages. Square or near-square crops for team portraits against neutral cool-gray backgrounds.",
-    "grading": "Cool-neutral to slightly warm. Patient photos have a vivid, slightly saturated quality — no deliberate warm cast or desaturation. The large service-page hero image (patient smiling in treatment chair) has a distinct teal-blue background visible behind the patient, which echoes the accent color intentionally. Team photos use a cool neutral gray background (#D0D5DC range). No consistent warm grading — the template reads more clinical and modern than warm.",
+    "crop": "Mixed crops \u2014 close-up smile/teeth shots (extreme macro showing lips and teeth only), mid-crop patient portraits showing face and shoulders, and environmental shots of clinic equipment. The extreme close-up smile crop is distinctive and repeated as a hero image on service pages. Square or near-square crops for team portraits against neutral cool-gray backgrounds.",
+    "grading": "Cool-neutral to slightly warm. Patient photos have a vivid, slightly saturated quality \u2014 no deliberate warm cast or desaturation. The large service-page hero image (patient smiling in treatment chair) has a distinct teal-blue background visible behind the patient, which echoes the accent color intentionally. Team photos use a cool neutral gray background (#D0D5DC range). No consistent warm grading \u2014 the template reads more clinical and modern than warm.",
     "framing": "Patient portrait photos: subjects centered with visible face and upper body, direct or three-quarter camera angle, expressive smiling. Extreme close-ups of smiles: filled frame with teeth/lips as abstract graphic element. Clinic equipment: architectural angle showing dental chair and room details.",
-    "subjectTreatment": "Patients shown with bright, expressive smiles — the smile itself is the subject, not the care interaction. Diversity of patients is visible and intentional. Doctors photographed in formal clinic attire (white coat, arms crossed or at sides), neutral cool-gray background, professional but not stiff. One photo per grid slot, uniform crop per grid context.",
+    "subjectTreatment": "Patients shown with bright, expressive smiles \u2014 the smile itself is the subject, not the care interaction. Diversity of patients is visible and intentional. Doctors photographed in formal clinic attire (white coat, arms crossed or at sides), neutral cool-gray background, professional but not stiff. One photo per grid slot, uniform crop per grid context.",
     "imageTextRatio": "image-heavy"
   },
   "voice": {
     "formality": "confident-approachable",
-    "rhythm": "Short punchy sentences for headlines ('Your smile says it all.'). Body copy is measured and factual — 2–3 sentences, full-width centered alignment on about sections creates a considered, unhurried cadence. Headlines are declarative statements, not questions or imperatives. Periods end headlines (including one-liners), which adds grammatical finality.",
+    "rhythm": "Short punchy sentences for headlines ('Your smile says it all.'). Body copy is measured and factual \u2014 2\u20133 sentences, full-width centered alignment on about sections creates a considered, unhurried cadence. Headlines are declarative statements, not questions or imperatives. Periods end headlines (including one-liners), which adds grammatical finality.",
     "favors": [
       "bold declarative statements that assert quality ('A modern approach to exceptional dental care.')",
       "patient-confidence language ('confident at every stage', 'Real Stories. Real Confidence.')",
@@ -182,7 +189,7 @@
       "plain-spoken confidence without clinical jargon"
     ],
     "avoids": [
-      "warm/cozy neighborhood language — this is a premium modern clinic, not a family practice",
+      "warm/cozy neighborhood language \u2014 this is a premium modern clinic, not a family practice",
       "urgency or scarcity language",
       "superlatives and filler adjectives",
       "first-person plural boasting",
@@ -196,23 +203,23 @@
     "gaps": [
       {
         "type": "variant",
-        "detail": "Scattered floating photo collage in hero has no matching variant in standard section pools — closest is 'centered' hero but the true design requires absolutely-positioned photo elements orbiting the text block. Requires novel component."
+        "detail": "Scattered floating photo collage in hero has no matching variant in standard section pools \u2014 closest is 'centered' hero but the true design requires absolutely-positioned photo elements orbiting the text block. Requires novel component."
       },
       {
         "type": "variant",
-        "detail": "Scale-inversion heading with SVG hand-drawn accent underline has no matching heading treatment — the underline is a decorative SVG stroke, not a CSS text-decoration, and requires a custom component or explicit SVG injection per headline usage."
+        "detail": "Scale-inversion heading with SVG hand-drawn accent underline has no matching heading treatment \u2014 the underline is a decorative SVG stroke, not a CSS text-decoration, and requires a custom component or explicit SVG injection per headline usage."
       },
       {
         "type": "variant",
-        "detail": "Three-zone hamburger nav (logo / MENU / phone) has no direct match in nav variant pool — closest is 'split-logo' but the absence of inline nav links and the centered hamburger trigger is architecturally different. Does not require a new component but requires a nav variant spec."
+        "detail": "Three-zone hamburger nav (logo / MENU / phone) has no direct match in nav variant pool \u2014 closest is 'split-logo' but the absence of inline nav links and the centered hamburger trigger is architecturally different. Does not require a new component but requires a nav variant spec."
       },
       {
         "type": "variant",
-        "detail": "Inverted purple featured-treatments block has no matching section variant — it is a full surface-reversal section unique to this template. Requires novel component."
+        "detail": "Inverted purple featured-treatments block has no matching section variant \u2014 it is a full surface-reversal section unique to this template. Requires novel component."
       },
       {
         "type": "token",
-        "detail": "The teal/mint accent (#5ECFB1) functions as a doodle/illustration color rather than as a UI interaction color — it is applied to SVG path elements (underlines, smiley face, oval enclosure) and not to buttons, hover states, or text links. Builder token systems that map accent to interaction states will misapply this color if not configured to restrict it to decorative graphic use only."
+        "detail": "The teal/mint accent (#5ECFB1) functions as a doodle/illustration color rather than as a UI interaction color \u2014 it is applied to SVG path elements (underlines, smiley face, oval enclosure) and not to buttons, hover states, or text links. Builder token systems that map accent to interaction states will misapply this color if not configured to restrict it to decorative graphic use only."
       }
     ]
   },
@@ -223,17 +230,17 @@
       "accent-as-doodle"
     ],
     "fidelityChecks": [
-      "Hero headline must be black-weight grotesque sans at supersized scale (80px+) — do not render in a serif face or at normal editorial scale.",
-      "The teal accent (#5ECFB1) must only appear as a decorative SVG/graphic element (underline strokes, doodle shapes) — never as a button fill, background tint, or text color except on the inverted purple section's labels.",
-      "CTA buttons must use the outline treatment only (transparent fill, black border, black text, pill radius) — do not default to a filled primary button color.",
+      "Hero headline must be black-weight grotesque sans at supersized scale (80px+) \u2014 do not render in a serif face or at normal editorial scale.",
+      "The teal accent (#5ECFB1) must only appear as a decorative SVG/graphic element (underline strokes, doodle shapes) \u2014 never as a button fill, background tint, or text color except on the inverted purple section's labels.",
+      "CTA buttons must use the outline treatment only (transparent fill, black border, black text, pill radius) \u2014 do not default to a filled primary button color.",
       "The nav must use the three-zone hamburger pattern: logo left, MENU trigger center, phone number right. No inline nav links visible in the default state.",
       "The about/headline section must use the scale-inversion pattern: small centered text block above, oversized black headline below spanning full width. Do not place the large headline first.",
-      "The hand-drawn curved accent underline must appear beneath a key phrase in the headline using a teal stroke SVG path — not CSS text-decoration:underline or a color shift.",
-      "The featured treatments section (or an equivalent climax section) must use the deep purple (#5B2D8E) inverted surface — this is the only dark/inverted section in the template.",
+      "The hand-drawn curved accent underline must appear beneath a key phrase in the headline using a teal stroke SVG path \u2014 not CSS text-decoration:underline or a color shift.",
+      "The featured treatments section (or an equivalent climax section) must use the deep purple (#5B2D8E) inverted surface \u2014 this is the only dark/inverted section in the template.",
       "Team portraits must use a cool neutral background (not warm/tinted) with square or near-square crops and consistent framing across all team cards.",
-      "Patient photos may use vivid, slightly saturated grading — no deliberate warm ivory cast. A teal-blue background on patient photos is consistent with the source template.",
+      "Patient photos may use vivid, slightly saturated grading \u2014 no deliberate warm ivory cast. A teal-blue background on patient photos is consistent with the source template.",
       "The smiley-face and lasso/oval doodle motifs must be rendered as SVG line-art in the teal accent color, not as emoji or raster images.",
-      "Body copy paragraphs should be short (2–3 sentences), centered on the about/hero sections and left-aligned on detail/team sections.",
+      "Body copy paragraphs should be short (2\u20133 sentences), centered on the about/hero sections and left-aligned on detail/team sections.",
       "All heading text uses sentence case. The eyebrow labels use all-caps with wide letter-spacing. No mixed-case or title-case headline treatment."
     ]
   }

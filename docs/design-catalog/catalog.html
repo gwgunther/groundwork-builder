@@ -75,6 +75,23 @@ header {
 }
 .results-bar .hint { color: var(--ink-3); opacity: .85; }
 
+.appetite-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  margin: 10px 0 4px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.appetite-item {
+  font-size: 10.5px;
+  color: var(--ink-2);
+  letter-spacing: .01em;
+}
+.appetite-item b { font-weight: 600; color: var(--ink); margin-right: 3px; }
+.appetite-stars { letter-spacing: -0.5px; color: #B8860B; }
+
+
 /* Shell: list + preview */
 .shell {
   display: grid;
@@ -421,6 +438,7 @@ const TEMPLATES = [
     href: 'runs/klinik/showcase.html?embed=1',
     openHref: 'runs/klinik/showcase.html',
     band: 'linear-gradient(90deg, #7A2A10, #F5EDE6)',
+    appetite: {"photography": 2, "statistics": 2, "socialProof": 2, "team": 1, "copy": 2},
   },
   {
     id: 'luvia',
@@ -436,6 +454,7 @@ const TEMPLATES = [
     href: 'runs/luvia/showcase.html?embed=1',
     openHref: 'runs/luvia/showcase.html',
     band: 'linear-gradient(90deg, #6B2D5B, #ECEAE6)',
+    appetite: {"photography": 2, "statistics": 3, "socialProof": 2, "team": 2, "copy": 2},
   },
   {
     id: 'pilates-lab',
@@ -451,6 +470,7 @@ const TEMPLATES = [
     href: 'runs/pilates-lab/showcase.html?embed=1',
     openHref: 'runs/pilates-lab/showcase.html',
     band: 'linear-gradient(90deg, #D9DFD3, #F7F5F0)',
+    appetite: {"photography": 2, "statistics": 1, "socialProof": 1, "team": 2, "copy": 2},
   },
   {
     id: 'calmio',
@@ -466,6 +486,7 @@ const TEMPLATES = [
     href: 'runs/calmio/showcase.html?embed=1',
     openHref: 'runs/calmio/showcase.html',
     band: 'linear-gradient(90deg, #1C1614, #F7F3EE)',
+    appetite: {"photography": 3, "statistics": 1, "socialProof": 2, "team": 2, "copy": 1},
   },
   {
     id: 'dentora',
@@ -481,6 +502,7 @@ const TEMPLATES = [
     href: 'runs/dentora/showcase.html?embed=1',
     openHref: 'runs/dentora/showcase.html',
     band: 'linear-gradient(90deg, #5ECFB1, #F5F0E8)',
+    appetite: {"photography": 3, "statistics": 1, "socialProof": 1, "team": 2, "copy": 1},
   },
   {
     id: 'groomify',
@@ -496,6 +518,7 @@ const TEMPLATES = [
     href: 'runs/groomify/showcase.html?embed=1',
     openHref: 'runs/groomify/showcase.html',
     band: 'linear-gradient(90deg, #3A5244, #F7F8F6)',
+    appetite: {"photography": 2, "statistics": 1, "socialProof": 2, "team": 2, "copy": 2},
   },
   {
     id: 'dermato',
@@ -511,6 +534,7 @@ const TEMPLATES = [
     href: 'runs/dermato/showcase.html?embed=1',
     openHref: 'runs/dermato/showcase.html',
     band: 'linear-gradient(90deg, #C8A96E, #E8D9C5)',
+    appetite: {"photography": 2, "statistics": 2, "socialProof": 3, "team": 1, "copy": 2},
   },
   {
     id: 'sun-moon',
@@ -526,6 +550,7 @@ const TEMPLATES = [
     href: 'runs/sun-moon/showcase.html?embed=1',
     openHref: 'runs/sun-moon/showcase.html',
     band: 'linear-gradient(90deg, #2C2218, #EDE8DF)',
+    appetite: {"photography": 3, "statistics": 1, "socialProof": 3, "team": 2, "copy": 2},
   },
   {
     id: 'clearpath',
@@ -541,6 +566,7 @@ const TEMPLATES = [
     href: 'runs/clearpath/showcase.html?embed=1',
     openHref: 'runs/clearpath/showcase.html',
     band: 'linear-gradient(90deg, #5A9189, #F4F4F2)',
+    appetite: {"photography": 2, "statistics": 2, "socialProof": 2, "team": 2, "copy": 3},
   },
   {
     id: 'wellbe',
@@ -556,6 +582,7 @@ const TEMPLATES = [
     href: 'runs/wellbe/showcase.html?embed=1',
     openHref: 'runs/wellbe/showcase.html',
     band: 'linear-gradient(90deg, #E8D800, #F2EDDB)',
+    appetite: {"photography": 3, "statistics": 1, "socialProof": 2, "team": 1, "copy": 1},
   },
 ];
 
@@ -619,6 +646,11 @@ function renderCards() {
           <div class="archetype">${t.archetype}</div>
           <div class="moods">${moods}</div>
           <div class="adjectives">${t.adjectives}</div>
+          ${t.appetite ? `<div class="appetite-row">${['photography','statistics','socialProof','team','copy'].map(k => {
+            const n = t.appetite[k] || 1;
+            const label = { photography:'Photo', statistics:'Stats', socialProof:'Proof', team:'Team', copy:'Copy' }[k];
+            return `<span class="appetite-item"><b>${label}</b><span class="appetite-stars">${'★'.repeat(n)}${'☆'.repeat(3-n)}</span></span>`;
+          }).join('')}</div>` : ''}
           <p class="best-for">${t.bestFor}</p>
         </div>
         <div class="card-footer">

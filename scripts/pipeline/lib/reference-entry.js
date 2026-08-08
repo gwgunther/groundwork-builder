@@ -10,9 +10,13 @@
  *
  * Three hooks, called from build-site.js when --reference is passed:
  *   loadReferenceEntry(idOrPath)            → validated entry
+ *   selectAutoReference({ scraped, … })     → catalog id (appetite soft-match when scraped)
  *   applyReferenceToBrandDna(brandDna, entry, seedKey) → mutated brandDna
  *   applyReferenceToDirector(dna, entry)    → mutated director dna (designTokens)
  * plus entry.audit → runDesignerAgent({ referenceAudit }) (already wired there).
+ *
+ * `--reference auto` is deferred in build-site until after scrape/merge so
+ * contentAppetiteFromScrape can steer the pick. Explicit ids still fail-fast.
  *
  * v1 scope notes:
  *   - color.strategy is applied only as far as the light theme allows — dark
@@ -21,16 +25,22 @@
  *     follow-up; content keeps the practice's own register meanwhile).
  */
 import { readFile } from 'node:fs/promises';
-import { existsSync } from 'node:fs';
+import { existsSync, readdirSync } from 'node:fs';
 import { join, dirname, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PAIRINGS } from './brand/font-pairings.js';
+import { clampVariantMap } from './scrape-probe.js';
 
 const __dir = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dir, '..', '..', '..');
 const CATALOG_EXAMPLES = join(ROOT, 'docs', 'design-catalog', 'examples');
 
 const CATALOG_RUNS = join(ROOT, 'docs', 'design-catalog', 'runs');
+
+/** Dimensions shared by catalog `selection.appetite` and scrape profiling. */
+export const APPETITE_DIMS = ['photography', 'statistics', 'socialProof', 'team', 'copy'];
+
+const NEUTRAL_APPETITE = Object.fromEntries(APPETITE_DIMS.map((d) => [d, 2]));
 
 /**
  * Resolve catalog id/path → absolute JSON path.
@@ -60,38 +70,211 @@ function hash(str) {
   return h;
 }
 
+function clampStar(n) {
+  const v = Number(n);
+  if (!Number.isFinite(v)) return 2;
+  return Math.max(1, Math.min(3, Math.round(v)));
+}
+
+function normalizeAppetite(raw) {
+  if (!raw || typeof raw !== 'object') return { ...NEUTRAL_APPETITE };
+  const out = {};
+  for (const d of APPETITE_DIMS) out[d] = clampStar(raw[d] ?? 2);
+  return out;
+}
+
+/** Content-bearing image roles — logos/badges/unused don't feed photo layouts. */
+const PHOTO_ROLES = new Set([
+  'hero', 'team', 'headshot', 'headshots', 'office', 'gallery',
+  'beforeAfter', 'treatment', 'treatments',
+]);
+
+function countUsablePhotos(images) {
+  if (!images) return 0;
+  if (Array.isArray(images.items) && images.items.length) {
+    return images.items.filter((i) => PHOTO_ROLES.has(String(i?.role || ''))).length;
+  }
+  let n = 0;
+  for (const k of ['hero', 'team', 'headshots', 'office', 'gallery', 'beforeAfter', 'treatments']) {
+    if (Array.isArray(images[k])) n += images[k].length;
+  }
+  return n;
+}
+
+function reviewQuotes(data) {
+  const bags = [
+    data?.content?.testimonials,
+    data?.content?.reviews,
+    data?.reviews?.reviews,
+    data?.reviews?.items,
+  ];
+  let n = 0;
+  for (const bag of bags) {
+    if (Array.isArray(bag)) n = Math.max(n, bag.filter((r) => r && (r.quote || r.text || r.body)).length);
+  }
+  return n;
+}
+
+function doctorCount(data) {
+  if (Array.isArray(data?.doctors) && data.doctors.length) return data.doctors.length;
+  const primary = data?.doctor?.name ? 1 : 0;
+  const extra = Array.isArray(data?.additionalDoctors) ? data.additionalDoctors.length : 0;
+  return primary + extra;
+}
+
+function teamPhotoCount(images) {
+  if (!images) return 0;
+  if (Array.isArray(images.items) && images.items.length) {
+    return images.items.filter((i) => ['team', 'headshot', 'headshots'].includes(String(i?.role || ''))).length;
+  }
+  return (images.team?.length || 0) + (images.headshots?.length || 0);
+}
+
+/**
+ * Map silver/merged practice data → the same 1–3 appetite matrix as catalog entries.
+ * Soft steer for `--reference auto` — never invents content.
+ *
+ * Signal hygiene:
+ *   - photography: content roles only (not logos/badges)
+ *   - statistics: numeric practice claims (years, patients) — NOT ratings
+ *   - socialProof: quotes + rating/review-count
+ *   - copy: scraped about/FAQs/service blurbs — not generatedFAQs
+ *
+ * @param {object|null|undefined} scraped  PracticeData-shaped (merged or silver)
+ * @returns {{ photography:number, statistics:number, socialProof:number, team:number, copy:number }}
+ */
+export function contentAppetiteFromScrape(scraped) {
+  if (!scraped || typeof scraped !== 'object') return { ...NEUTRAL_APPETITE };
+
+  const photos = countUsablePhotos(scraped.images);
+  const photography = photos <= 2 ? 1 : photos <= 8 ? 2 : 3;
+
+  const stats = scraped.content?.stats || scraped.stats || {};
+  // Ratings belong to socialProof — don't double-count into statistics.
+  const statHits = [stats.yearsExperience, stats.happyPatients]
+    .filter((v) => v != null && v !== '' && Number(v) !== 0).length;
+  const statistics = statHits === 0 ? 1 : statHits === 1 ? 2 : 3;
+
+  const quotes = reviewQuotes(scraped);
+  const reviewCount = Number(
+    scraped.reviews?.reviewCount
+    || scraped.content?.aggregateRating?.count
+    || stats.fiveStarReviews
+    || 0,
+  ) || 0;
+  const hasRating = !!(
+    scraped.reviews?.rating
+    || scraped.content?.aggregateRating?.value
+    || stats.googleRating
+  );
+  let socialProof = 1;
+  if (quotes >= 4 || reviewCount >= 20) socialProof = 3;
+  else if (quotes >= 1 || reviewCount > 0 || hasRating) socialProof = 2;
+
+  const docs = doctorCount(scraped);
+  const teamPhotos = teamPhotoCount(scraped.images);
+  const staff = Array.isArray(scraped.staff) ? scraped.staff.length : 0;
+  let team = 1;
+  if (docs >= 3 || teamPhotos >= 3 || (docs >= 2 && teamPhotos >= 1) || staff >= 3) team = 3;
+  else if (docs >= 2 || teamPhotos >= 1 || staff >= 1) team = 2;
+
+  const aboutLen = String(scraped.content?.aboutText || scraped.content?.philosophy || '').length;
+  // Prefer scraped FAQs only — generatedFAQs appear later and would inflate copy mid-build.
+  const faqs = scraped.content?.faqs?.length || 0;
+  const services = scraped.services?.offered?.length || 0;
+  const serviceCopy = (scraped.services?.offered || []).filter((s) => String(s?.description || s?.desc || '').length > 40).length;
+  let copy = 1;
+  if (aboutLen >= 800 || faqs >= 6 || (services >= 6 && serviceCopy >= 4)) copy = 3;
+  else if (aboutLen >= 200 || faqs >= 2 || services >= 4) copy = 2;
+
+  return { photography, statistics, socialProof, team, copy };
+}
+
+/**
+ * Soft fit of scrape appetite → template appetite.
+ *
+ * Asymmetric on purpose: over-appetite (template wants more than scrape has)
+ * hurts honesty more than under-appetite (scrape is richer than the layout needs).
+ * Signature dims (template ★★★) are weighted 2× so the template's defining
+ * slots dominate near-ties.
+ *
+ * Returns fit on a variable scale (roughly 5–30 with weights); callers compare
+ * relatively. `starved` = any template★★★ vs scrape★.
+ */
+export function scoreAppetiteFit(scrapeAppetite, templateAppetite) {
+  const scrape = normalizeAppetite(scrapeAppetite);
+  const template = normalizeAppetite(templateAppetite);
+  let fit = 0;
+  let starved = false;
+  for (const d of APPETITE_DIMS) {
+    const t = template[d];
+    const s = scrape[d];
+    const over = Math.max(0, t - s);   // template hungrier than scrape
+    const under = Math.max(0, s - t);  // scrape richer than template needs
+    // Over costs 2×; under costs 1×. Exact match → 3.
+    const dimScore = Math.max(0, 3 - over * 2 - under);
+    const weight = t === 3 ? 2 : 1;
+    fit += dimScore * weight;
+    if (t === 3 && s === 1) starved = true;
+  }
+  return { fit, starved, scrape, template };
+}
+
+function formatAppetite(ap) {
+  const labels = { photography: 'photo', statistics: 'stats', socialProof: 'proof', team: 'team', copy: 'copy' };
+  const a = normalizeAppetite(ap);
+  return APPETITE_DIMS.map((d) => `${labels[d]}★${a[d]}`).join(' ');
+}
+
 /**
  * Pick a catalog reference for `--reference auto`.
- * Prefer curated health-template runs (light theme only); stable order so
- * builds are reproducible unless GROUNDWORK_DEFAULT_REFERENCE overrides.
+ * When `scraped` (or precomputed `appetite`) is provided, prefer entries whose
+ * `selection.appetite` soft-matches the scrape profile. Mood is a light tiebreak.
+ * Without scrape data, falls back to mood-ordered deterministic hash (legacy).
  *
- * @param {{ mood?: string, seed?: string }} [opts]
+ * @param {{ mood?: string, seed?: string, scraped?: object, appetite?: object, log?: boolean }} [opts]
  * @returns {Promise<string>} catalog id
  */
 export async function selectAutoReference(opts = {}) {
   const envDefault = process.env.GROUNDWORK_DEFAULT_REFERENCE;
   if (envDefault && envDefault !== 'auto') return envDefault;
 
-  // Curated light dental/health templates in runs/ (skip dark / experimental)
-  const PREFERRED = [
+  // Discover light runs with an appetite matrix. Prefer curated order as a
+  // soft priority when fits tie; unknown new runs append alphabetically.
+  const CURATED_ORDER = [
     'dentora', 'calmio', 'clearpath', 'wellbe', 'dermato',
     'pilates-lab', 'sun-moon', 'luvia', 'klinik', 'groomify',
   ];
   const available = [];
-  for (const id of PREFERRED) {
-    const path = join(CATALOG_RUNS, id, 'entry.json');
-    if (!existsSync(path)) continue;
-    try {
-      const entry = JSON.parse(await readFile(path, 'utf8'));
-      if (entry.tokens?.color?.strategy?.theme === 'dark') continue;
-      available.push(id);
-    } catch { /* skip corrupt */ }
+  if (existsSync(CATALOG_RUNS)) {
+    const dirs = readdirSync(CATALOG_RUNS, { withFileTypes: true })
+      .filter((d) => d.isDirectory() && !d.name.startsWith('aesop') && !d.name.startsWith('.'))
+      .map((d) => d.name);
+    const ordered = [
+      ...CURATED_ORDER.filter((id) => dirs.includes(id)),
+      ...dirs.filter((id) => !CURATED_ORDER.includes(id)).sort(),
+    ];
+    for (const id of ordered) {
+      const path = join(CATALOG_RUNS, id, 'entry.json');
+      if (!existsSync(path)) continue;
+      try {
+        const entry = JSON.parse(await readFile(path, 'utf8'));
+        if (entry.tokens?.color?.strategy?.theme === 'dark') continue;
+        // Require tagged appetite — untagged entries would collapse to neutral ★★
+        // and steal balanced-mid scrapes as the catalog grows.
+        if (!entry.selection?.appetite) continue;
+        available.push({
+          id,
+          appetite: normalizeAppetite(entry.selection.appetite),
+          moods: entry.selection?.moods || [],
+        });
+      } catch { /* skip corrupt */ }
+    }
   }
   if (!available.length) {
-    throw new Error('[reference] auto: no light catalog runs found under docs/design-catalog/runs/');
+    throw new Error('[reference] auto: no light catalog runs with selection.appetite under docs/design-catalog/runs/');
   }
 
-  // Mood nudge — soft preference, still deterministic via seed
   const mood = String(opts.mood || '').toLowerCase();
   const moodPrefer = {
     warm: ['calmio', 'wellbe', 'sun-moon'],
@@ -100,13 +283,46 @@ export async function selectAutoReference(opts = {}) {
     editorial: ['pilates-lab', 'calmio', 'dentora'],
     refined: ['dermato', 'pilates-lab', 'clearpath'],
   };
-  const prefer = moodPrefer[mood] || [];
-  const ordered = [
-    ...prefer.filter((id) => available.includes(id)),
-    ...available.filter((id) => !prefer.includes(id)),
-  ];
+  const prefer = new Set(moodPrefer[mood] || []);
   const seed = opts.seed || mood || 'dental';
-  return ordered[hash(seed) % ordered.length];
+  const scrapeAppetite = opts.appetite
+    ? normalizeAppetite(opts.appetite)
+    : (opts.scraped ? contentAppetiteFromScrape(opts.scraped) : null);
+
+  let pool = available;
+  if (scrapeAppetite) {
+    const scored = available.map((c) => {
+      const { fit, starved } = scoreAppetiteFit(scrapeAppetite, c.appetite);
+      const moodBoost = prefer.has(c.id) ? 2 : 0;
+      return { ...c, fit, starved, moodBoost, total: fit + moodBoost };
+    });
+    const fed = scored.filter((c) => !c.starved);
+    pool = (fed.length ? fed : scored).slice().sort((a, b) => {
+      if (b.total !== a.total) return b.total - a.total;
+      if (prefer.has(a.id) !== prefer.has(b.id)) return prefer.has(a.id) ? -1 : 1;
+      return (hash(`${seed}:${a.id}`) % 997) - (hash(`${seed}:${b.id}`) % 997);
+    });
+
+    const pick = pool[0];
+    if (opts.log !== false) {
+      const stars = formatAppetite(scrapeAppetite);
+      const runner = pool[1];
+      const margin = runner ? ` margin +${pick.total - runner.total} vs ${runner.id}` : '';
+      console.log(
+        `[reference] auto scrape appetite: ${stars} → ${pick.id}` +
+        ` (fit ${pick.fit}${pick.moodBoost ? ` +mood ${pick.moodBoost}` : ''}${margin}` +
+        `${pick.starved ? ', starved dims allowed' : ''})`,
+      );
+    }
+    return pick.id;
+  }
+
+  // No scrape profile — legacy mood order + deterministic seed pick
+  const ordered = [
+    ...available.filter((c) => prefer.has(c.id)),
+    ...available.filter((c) => !prefer.has(c.id)),
+  ];
+  return ordered[hash(seed) % ordered.length].id;
 }
 
 /**
@@ -170,14 +386,20 @@ export function applyReferenceToBrandDna(brandDna, entry, seedKey = '') {
  * sectionOrder / creativeDirection remain the director's (content-plan owned).
  */
 export function applyReferenceToDirector(dna, entry) {
-  const v = entry.layout.variants;
+  const { variants: v, remapped } = clampVariantMap(entry.layout.variants || {});
+  if (remapped.length) {
+    console.warn(
+      `[reference] ${entry.id}: remapped ${remapped.length} non-renderable variant(s): ` +
+      remapped.map((r) => `${r.key} ${r.from || '(missing)'}→${r.to}`).join(', '),
+    );
+  }
   const t = entry.tokens || {};
   const RADIUS_MAP = { sharp: 'sharp', sm: 'sharp', md: 'moderate', lg: 'rounded', pill: 'full' };
   const DENSITY = { airy: { sectionSpacing: 'airy', contentDensity: 'default' }, balanced: { sectionSpacing: 'default', contentDensity: 'default' }, dense: { sectionSpacing: 'compact', contentDensity: 'tight' } };
 
   dna.designTokens = {
     ...(dna.designTokens || {}),
-    // Layout — the entry's hand-curated bundle
+    // Layout — the entry's hand-curated bundle (clamped to on-disk variants)
     heroLayout: v.heroLayout, servicesLayout: v.servicesLayout, aboutLayout: v.aboutLayout,
     testimonialsLayout: v.testimonialsLayout, ctaLayout: v.ctaLayout, faqLayout: v.faqLayout,
     navVariant: v.navVariant, footerVariant: v.footerVariant, galleryVariant: v.galleryVariant,
@@ -189,7 +411,15 @@ export function applyReferenceToDirector(dna, entry) {
   };
   dna.archetype = `reference:${entry.id}`;
   dna.referenceComposition = entry.layout.composition || {};
+  dna._referenceVariantRemap = remapped;
   return dna;
 }
 
-export default { loadReferenceEntry, selectAutoReference, applyReferenceToBrandDna, applyReferenceToDirector };
+export default {
+  loadReferenceEntry,
+  selectAutoReference,
+  contentAppetiteFromScrape,
+  scoreAppetiteFit,
+  applyReferenceToBrandDna,
+  applyReferenceToDirector,
+};
